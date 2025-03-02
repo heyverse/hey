@@ -4,7 +4,7 @@ pragma solidity ^0.8.26;
 import {INamespaceRule} from "lens-contracts/contracts/core/interfaces/INamespaceRule.sol";
 import {KeyValue} from "lens-contracts/contracts/core/types/Types.sol";
 
-contract ProGroupRule is INamespaceRule {
+contract ProNamespaceRule is INamespaceRule {
     string private constant REQUIRED_USERNAME = "yoginth";
 
     function configure(bytes32, KeyValue[] calldata) external override {}

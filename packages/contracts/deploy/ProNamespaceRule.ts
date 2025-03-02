@@ -6,7 +6,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   try {
     const wallet = new Wallet(process.env.PRIVATE_KEY as string);
     const deployer = new Deployer(hre, wallet as any);
-    const artifact = await deployer.loadArtifact("ProGroupRule");
+    const artifact = await deployer.loadArtifact("ProNamespaceRule");
     const contract = await deployer.deploy(artifact);
     console.log(
       `${artifact.contractName} was deployed to ${await contract.getAddress()}`
