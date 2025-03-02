@@ -49,24 +49,58 @@ interface INamespaceRule {
 }
 
 contract ProNamespaceRule is INamespaceRule {
-    string private constant REQUIRED_USERNAME = "yoginth";
+    event HeyUsernameCreated(string username);
 
     function configure(bytes32, KeyValue[] calldata) external override {}
 
     function processCreation(
         bytes32,
-        address,
+        address originalMsgSender,
         address,
         string calldata username,
         KeyValue[] calldata,
-        KeyValue[] calldata
-    ) external pure override {
-        require(
-            keccak256(abi.encodePacked(username)) ==
-                keccak256(abi.encodePacked(REQUIRED_USERNAME))
+        KeyValue[] calldata ruleParams
+    ) external override {
+        // Extract payment details from `ruleParams`
+        PaymentConfiguration memory paymentConfig = _extractPaymentConfig(
+            ruleParams
         );
 
-        revert("Not implemented");
+        // Process payment
+        _processPayment(paymentConfig, paymentConfig, originalMsgSender);
+
+        // Emit username creation event
+        emit HeyUsernameCreated(username);
+    }
+
+    function _extractPaymentConfig(
+        KeyValue[] calldata ruleParams
+    ) internal pure returns (PaymentConfiguration memory) {
+        address token;
+        uint256 amount;
+        address recipient;
+
+        for (uint256 i = 0; i < ruleParams.length; i++) {
+            if (ruleParams[i].key == bytes32("token")) {
+                token = abi.decode(ruleParams[i].value, (address));
+            } else if (ruleParams[i].key == bytes32("amount")) {
+                amount = abi.decode(ruleParams[i].value, (uint256));
+            } else if (ruleParams[i].key == bytes32("recipient")) {
+                recipient = abi.decode(ruleParams[i].value, (address));
+            }
+        }
+
+        require(
+            token != address(0) && amount > 0 && recipient != address(0),
+            "Invalid payment config"
+        );
+
+        return
+            PaymentConfiguration({
+                token: token,
+                amount: amount,
+                recipient: recipient
+            });
     }
 
     function processRemoval(
