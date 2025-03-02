@@ -1,6 +1,6 @@
 {
   "name": "@hey/contracts",
-  "version": "0.0.0",
+  "version": "1.0.2",
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
