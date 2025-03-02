@@ -1,8 +1,52 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.28;
 
-import {INamespaceRule} from "lens-contracts/contracts/core/interfaces/INamespaceRule.sol";
-import {KeyValue} from "lens-contracts/contracts/core/types/Types.sol";
+struct KeyValue {
+    bytes32 key;
+    bytes value;
+}
+
+interface INamespaceRule {
+    function configure(
+        bytes32 configSalt,
+        KeyValue[] calldata ruleParams
+    ) external;
+
+    function processCreation(
+        bytes32 configSalt,
+        address originalMsgSender,
+        address account,
+        string calldata username,
+        KeyValue[] calldata primitiveParams,
+        KeyValue[] calldata ruleParams
+    ) external;
+
+    function processRemoval(
+        bytes32 configSalt,
+        address originalMsgSender,
+        string calldata username,
+        KeyValue[] calldata primitiveParams,
+        KeyValue[] calldata ruleParams
+    ) external;
+
+    function processAssigning(
+        bytes32 configSalt,
+        address originalMsgSender,
+        address account,
+        string calldata username,
+        KeyValue[] calldata primitiveParams,
+        KeyValue[] calldata ruleParams
+    ) external;
+
+    function processUnassigning(
+        bytes32 configSalt,
+        address originalMsgSender,
+        address account,
+        string calldata username,
+        KeyValue[] calldata primitiveParams,
+        KeyValue[] calldata ruleParams
+    ) external;
+}
 
 contract ProNamespaceRule is INamespaceRule {
     string private constant REQUIRED_USERNAME = "yoginth";

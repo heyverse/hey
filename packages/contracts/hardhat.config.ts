@@ -4,7 +4,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import type { HardhatUserConfig } from "hardhat/config";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.26",
+  solidity: "0.8.28",
   zksolc: {
     version: "latest",
     settings: { optimizer: { enabled: true, mode: "1" } }
