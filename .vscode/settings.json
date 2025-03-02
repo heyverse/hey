@@ -13,6 +13,10 @@
   "[markdown]": {
     "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
   },
+  "[solidity]": {
+    "editor.defaultFormatter": "NomicFoundation.hardhat-solidity",
+    "editor.tabSize": 1
+  },
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
     "source.organizeImports": "explicit"
@@ -25,5 +29,7 @@
   "git.enableSmartCommit": true,
   "editor.fontSize": 11,
   "editor.lineHeight": 2.3,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
   "editor.fontFamily": "Monolisa, Menlo, Monaco, 'Courier New', monospace"
 }

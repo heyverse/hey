@@ -4,11 +4,14 @@ import "@nomicfoundation/hardhat-toolbox";
 import type { HardhatUserConfig } from "hardhat/config";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.28",
-  zksolc: { version: "latest", settings: {} },
-  defaultNetwork: "lensSepoliaTestnet",
+  solidity: "0.8.26",
+  zksolc: {
+    version: "latest",
+    settings: { optimizer: { enabled: true, mode: "1" } }
+  },
+  defaultNetwork: "lensTestnet",
   networks: {
-    lensSepoliaTestnet: {
+    lensTestnet: {
       accounts: [process.env.PRIVATE_KEY as string],
       url: "https://rpc.testnet.lens.dev",
       chainId: 37111,
