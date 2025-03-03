@@ -14,7 +14,8 @@ const config: CodegenConfig = {
         "typescript-operations",
         "typescript-react-apollo",
         "fragment-matcher"
-      ]
+      ],
+      config: { withMutationFn: false }
     }
   },
   hooks: {
