@@ -1,5 +1,5 @@
 import { InMemoryCache } from '@apollo/client';
-import result from '../../generated';
+import result from '../../possible-types';
 import createAccountsFieldPolicy from './createAccountsFieldPolicy';
 import createBasicFieldPolicy from './createBasicFieldPolicy';
 import createPostReactionsFieldPolicy from './createPostReactionsFieldPolicy';

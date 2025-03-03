@@ -8,12 +8,14 @@ const config: CodegenConfig = {
   },
   documents: "./documents/**/*.graphql",
   generates: {
+    "possible-types.ts": {
+      plugins: ["fragment-matcher"]
+    },
     "generated.ts": {
       plugins: [
         "typescript",
         "typescript-operations",
-        "typescript-react-apollo",
-        "fragment-matcher"
+        "typescript-react-apollo"
       ],
       config: { withMutationFn: false }
     }
