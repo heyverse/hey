@@ -6,6 +6,7 @@ import type { NextPage } from "next";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import AccountManager from "./AccountManager";
+import Signless from "./Signless";
 
 const ManagerSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
@@ -21,6 +22,7 @@ const ManagerSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
+        <Signless />
         <AccountManager />
       </GridItemEight>
     </GridLayout>
