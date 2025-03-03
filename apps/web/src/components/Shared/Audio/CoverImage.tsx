@@ -1,5 +1,5 @@
 import errorToast from "@helpers/errorToast";
-import { uploadFileToStorageNode } from "@helpers/uploadToStorageNode";
+import { uploadFileToIPFS } from "@helpers/uploadToIPFS";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { ATTACHMENT } from "@hey/data/constants";
 import imageKit from "@hey/helpers/imageKit";
@@ -36,7 +36,7 @@ const CoverImage: FC<CoverImageProps> = ({
       try {
         setIsSubmitting(true);
         const file = event.target.files[0];
-        const attachment = await uploadFileToStorageNode(file);
+        const attachment = await uploadFileToIPFS(file);
         setCover(
           URL.createObjectURL(file),
           attachment.uri,

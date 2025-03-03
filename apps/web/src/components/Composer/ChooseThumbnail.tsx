@@ -1,5 +1,5 @@
 import ThumbnailsShimmer from "@components/Shared/Shimmer/ThumbnailsShimmer";
-import { uploadFileToStorageNode } from "@helpers/uploadToStorageNode";
+import { uploadFileToIPFS } from "@helpers/uploadToIPFS";
 import { CheckCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { generateVideoThumbnails } from "@hey/helpers/generateVideoThumbnails";
 import getFileFromDataURL from "@hey/helpers/getFileFromDataURL";
@@ -28,7 +28,7 @@ const ChooseThumbnail: FC = () => {
 
   const uploadThumbnailToStorageNode = async (fileToUpload: File) => {
     setVideoThumbnail({ ...videoThumbnail, uploading: true });
-    const result = await uploadFileToStorageNode(fileToUpload);
+    const result = await uploadFileToIPFS(fileToUpload);
     if (!result.uri) {
       toast.error("Failed to upload thumbnail");
     }
