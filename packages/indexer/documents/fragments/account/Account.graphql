@@ -1,7 +1,6 @@
 fragment Account on Account {
   owner
   address
-  createdAt
   rules {
     anyOf {
       ...AccountFollowRule

@@ -3,7 +3,6 @@ import Verified from "@components/Shared/Account/Icons/Verified";
 import Markup from "@components/Shared/Markup";
 import Slug from "@components/Shared/Slug";
 import {
-  ClockIcon,
   Cog6ToothIcon,
   MapPinIcon,
   ShieldCheckIcon
@@ -11,7 +10,6 @@ import {
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { FeatureFlag } from "@hey/data/feature-flags";
-import formatDate from "@hey/helpers/datetime/formatDate";
 import getAccount from "@hey/helpers/getAccount";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -204,9 +202,6 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
               </Link>
             </MetaDetails>
           ) : null}
-          <MetaDetails icon={<ClockIcon className="size-4" />}>
-            Joined {formatDate(account.createdAt)}
-          </MetaDetails>
         </div>
       </div>
       <InternalTools account={account} />
