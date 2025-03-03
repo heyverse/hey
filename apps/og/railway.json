@@ -14,7 +14,6 @@
         "numReplicas": 1
       }
     },
-    "numReplicas": 1,
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
     "limitOverride": {
