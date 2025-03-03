@@ -27,7 +27,7 @@
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
-  "editor.fontSize": 11,
+  "editor.fontSize": 12,
   "editor.lineHeight": 2.3,
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
