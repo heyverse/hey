@@ -7,7 +7,7 @@ import {
   FaceFrownIcon,
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
@@ -19,7 +19,6 @@ import {
 } from "@hey/indexer";
 import { Button, Form, Input, useZodForm } from "@hey/ui";
 import { account as accountMetadata } from "@lens-protocol/metadata";
-import Script from "next/script";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -90,7 +89,9 @@ const ChooseUsername: FC = () => {
       await handleWrongNetwork();
 
       const challenge = await loadChallenge({
-        variables: { request: { onboardingUser: { wallet: address } } }
+        variables: {
+          request: { onboardingUser: { app: HEY_APP, wallet: address } }
+        }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -145,11 +146,6 @@ const ChooseUsername: FC = () => {
 
   return (
     <div className="space-y-5">
-      <Script
-        id="lemon-js"
-        src="https://assets.lemonsqueezy.com/lemon.js"
-        strategy="afterInteractive"
-      />
       <SignupMessage />
       <Form
         className="space-y-5 pt-3"
