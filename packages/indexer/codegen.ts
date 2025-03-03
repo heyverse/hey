@@ -21,7 +21,8 @@ const config: CodegenConfig = {
         withMutationFn: false,
         disableDescriptions: true,
         useTypeImports: true,
-        withResultType: false
+        withResultType: false,
+        withMutationOptionsType: false
       }
     }
   },
