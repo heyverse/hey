@@ -2,7 +2,6 @@ import SwitchNetwork from "@components/Shared/SwitchNetwork";
 import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { KeyIcon } from "@heroicons/react/24/outline";
-import { XCircleIcon } from "@heroicons/react/24/solid";
 import { HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
@@ -11,7 +10,7 @@ import {
   useAuthenticateMutation,
   useChallengeMutation
 } from "@hey/indexer";
-import { Button, Card } from "@hey/ui";
+import { Button, Card, ErrorMessage } from "@hey/ui";
 import { useRouter } from "next/router";
 import type { Dispatch, FC, SetStateAction } from "react";
 import { useState } from "react";
@@ -93,7 +92,9 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
       }
 
       return toast.error(Errors.SomethingWentWrong);
-    } catch {}
+    } catch {
+      setIsSubmitting(false);
+    }
   };
 
   const allProfiles = data?.accountsAvailable.items || [];
@@ -112,6 +113,13 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
   return activeConnector?.id ? (
     <div className="space-y-3">
       <div className="space-y-2.5">
+        {errorChallenge || errorAuthenticate ? (
+          <ErrorMessage
+            className="text-red-500"
+            title={Errors.SomethingWentWrong}
+            error={errorChallenge || errorAuthenticate}
+          />
+        ) : null}
         {chain === CHAIN.id ? (
           loading ? (
             <Card className="w-full dark:divide-gray-700" forceRounded>
@@ -165,12 +173,6 @@ const Login: FC<LoginProps> = ({ setHasAccounts }) => {
           <div>Change wallet</div>
         </button>
       </div>
-      {errorChallenge || errorAuthenticate ? (
-        <div className="flex items-center space-x-1 font-bold text-red-500">
-          <XCircleIcon className="size-5" />
-          <div>{Errors.SomethingWentWrong}</div>
-        </div>
-      ) : null}
     </div>
   ) : (
     <WalletSelector />
