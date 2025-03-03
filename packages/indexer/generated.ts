@@ -559,10 +559,6 @@ export type AmountInput = {
   value: Scalars['BigDecimal']['input'];
 };
 
-export type AnyJsonRequest = {
-  uri: Scalars['URI']['input'];
-};
-
 export type AnyKeyValue = AddressKeyValue | ArrayKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
 
 export type AnyKeyValueInput = {
@@ -4481,7 +4477,6 @@ export type Query = {
   accountsBlocked: PaginatedAccountsBlockedResult;
   accountsBulk: Array<Account>;
   adminsFor: PaginatedAdminsResult;
-  anyJson: Scalars['JSON']['output'];
   app?: Maybe<App>;
   appFeeds: PaginatedAppFeedsResult;
   appGroups: PaginatedGroupsResult;
@@ -4593,11 +4588,6 @@ export type QueryAccountsBulkArgs = {
 
 export type QueryAdminsForArgs = {
   request: AdminsForRequest;
-};
-
-
-export type QueryAnyJsonArgs = {
-  request: AnyJsonRequest;
 };
 
 
