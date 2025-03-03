@@ -1,5 +1,6 @@
 import { ATTACHMENT } from "@hey/data/constants";
 import imageKit from "@hey/helpers/imageKit";
+import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { MetadataAsset } from "@hey/types/misc";
 import { Image, LightBox } from "@hey/ui";
@@ -62,9 +63,9 @@ const Attachments: FC<AttachmentsProps> = ({ asset, attachments }) => {
       loading="lazy"
       onClick={() => setExpandedImage(uri)}
       onError={({ currentTarget }) => {
-        currentTarget.src = uri;
+        currentTarget.src = sanitizeDStorageUrl(uri);
       }}
-      src={imageKit(uri, ATTACHMENT)}
+      src={imageKit(sanitizeDStorageUrl(uri), ATTACHMENT)}
       width={1000}
     />
   );

@@ -4,6 +4,8 @@ declare namespace NodeJS {
     DATABASE_URL: string;
     PRIVATE_KEY: string;
     SECRET: string;
-    TRACKER_URL: string;
+    EVENT_TRACKER_URL: string;
+    AWS_ACCESS_KEY_ID: string;
+    AWS_SECRET_ACCESS_KEY: string;
   }
 }

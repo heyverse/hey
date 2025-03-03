@@ -3,12 +3,12 @@ import axios from "axios";
 
 const trackEvent = async (event: string, metadata?: Record<string, any>) => {
   try {
-    if (!process.env.TRACKER_URL) {
+    if (!process.env.EVENT_TRACKER_URL) {
       return null;
     }
 
     const { data } = await axios.post(
-      process.env.TRACKER_URL,
+      process.env.EVENT_TRACKER_URL,
       {
         type: "event",
         hostname: "hey.xyz",
