@@ -19,7 +19,7 @@
     "apollo-utilities": "^1.3.4",
     "axios": "^1.8.1",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "express": "^5.0.0",
     "express-file-routing": "^3.0.3",
     "express-rate-limit": "^7.5.0",
