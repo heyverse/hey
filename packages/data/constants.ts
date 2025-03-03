@@ -34,13 +34,19 @@ export const STATIC_ASSETS_URL = "https://static.hey.xyz";
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL =
   "https://ik.imagekit.io/lens/media-snapshot";
-export const STORAGE_NODE_URL = "https://api.grove.storage";
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
 export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const BLOCK_EXPLORER_URL = IS_MAINNET
   ? "https://block-explorer.lens.dev"
   : "https://block-explorer.testnet.lens.dev";
+
+// Storage
+export const STORAGE_NODE_URL = "https://api.grove.storage";
+export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
+export const EVER_API = "https://endpoint.4everland.co";
+export const EVER_REGION = "4EVERLAND";
+export const EVER_BUCKET = "hey-media";
 
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
