@@ -17,7 +17,7 @@ const config: CodegenConfig = {
         "typescript-operations",
         "typescript-react-apollo"
       ],
-      config: { withMutationFn: false }
+      config: { withMutationFn: false, disableDescriptions: true }
     }
   },
   hooks: {

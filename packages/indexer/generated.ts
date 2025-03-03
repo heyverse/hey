@@ -53,25 +53,12 @@ export type Account = {
   __typename?: 'Account';
   actions: Array<AccountAction>;
   address: Scalars['EvmAddress']['output'];
-  /**
-   * The account created at. Note if they are using a standard EOA this will be genesis block
-   * timestamp
-   */
   createdAt: Scalars['DateTime']['output'];
-  /** The metadata of the account. */
   metadata?: Maybe<AccountMetadata>;
-  /** The operations for the account. */
   operations?: Maybe<LoggedInAccountOperations>;
-  /**
-   * The owner of the account - note if the Account is not a lens account this will return the
-   * address of the account itself.
-   */
   owner: Scalars['EvmAddress']['output'];
-  /** Get the rules for the account. */
   rules: AccountFollowRules;
-  /** The score of the account. */
   score: Scalars['Int']['output'];
-  /** The username linked to the account. */
   username?: Maybe<Username>;
 };
 
@@ -129,33 +116,22 @@ export type AccountExecutedActions = {
 
 export type AccountFeedsStats = {
   __typename?: 'AccountFeedsStats';
-  /** The total number of collects. */
   collects: Scalars['Int']['output'];
-  /** The total number of comments. */
   comments: Scalars['Int']['output'];
-  /** The total number of posts. */
   posts: Scalars['Int']['output'];
-  /** The total number of quotes. */
   quotes: Scalars['Int']['output'];
-  /** The total number of times the account has reacted. */
   reacted: Scalars['Int']['output'];
-  /** The total number of reactions. */
   reactions: Scalars['Int']['output'];
-  /** The total number of reposts. */
   reposts: Scalars['Int']['output'];
-  /** The total number of tips received. */
   tips: Scalars['Int']['output'];
 };
 
 export type AccountFeedsStatsFilter = {
-  /** The feeds to filter by. */
   feeds?: InputMaybe<Array<FeedOneOf>>;
 };
 
 export type AccountFeedsStatsRequest = {
-  /** The account to get stats for. */
   account: Scalars['EvmAddress']['input'];
-  /** An optional filter to apply to the result. */
   filter?: InputMaybe<AccountFeedsStatsFilter>;
 };
 
@@ -240,43 +216,31 @@ export type AccountFollowedNotificationAttributes = {
 
 export type AccountGraphsFollowStats = {
   __typename?: 'AccountGraphsFollowStats';
-  /** The total number of followers. */
   followers: Scalars['Int']['output'];
-  /** The total number of following. */
   following: Scalars['Int']['output'];
 };
 
 export type AccountGraphsStatsFilter = {
-  /** The graphs to filter by. */
   graphs?: InputMaybe<Array<GraphOneOf>>;
 };
 
 export type AccountGraphsStatsRequest = {
-  /** The account to get stats for. */
   account: Scalars['EvmAddress']['input'];
-  /** An optional filter to apply to the result. */
   filter?: InputMaybe<AccountGraphsStatsFilter>;
 };
 
 export type AccountManaged = {
   __typename?: 'AccountManaged';
-  /** The account you are managing. */
   account: Account;
-  /** The date the account management was added. */
   addedAt: Scalars['DateTime']['output'];
-  /** The permissions you have on the account. */
   permissions: AccountManagerPermissions;
 };
 
 export type AccountManager = {
   __typename?: 'AccountManager';
-  /** The date the account manager was added. */
   addedAt: Scalars['DateTime']['output'];
-  /** Whether the account manager is a Lens manager. */
   isLensManager: Scalars['Boolean']['output'];
-  /** The address of the account manager. */
   manager: Scalars['EvmAddress']['output'];
-  /** The permissions the account manager has. */
   permissions: AccountManagerPermissions;
 };
 
@@ -286,40 +250,23 @@ export type AccountManagerAddedNotificationAttributes = {
 };
 
 export type AccountManagerChallengeRequest = {
-  /** The address of the Lens Account. */
   account: Scalars['EvmAddress']['input'];
-  /**
-   * The App you intend to authenticate with.
-   *
-   * It MUST be a valid App address.
-   * Note: On the testnet, it will default to the playground app.
-   * This is to make it easier if you forget to set it. This may change in the future.
-   */
   app?: Scalars['EvmAddress']['input'];
-  /** The address of the Account Manager. */
   manager: Scalars['EvmAddress']['input'];
 };
 
 export type AccountManagerPermissions = {
   __typename?: 'AccountManagerPermissions';
-  /** Whether the account can execute transactions. */
   canExecuteTransactions: Scalars['Boolean']['output'];
-  /** Whether the account can set the metadata URI. */
   canSetMetadataUri: Scalars['Boolean']['output'];
-  /** Whether the account can transfer native tokens. */
   canTransferNative: Scalars['Boolean']['output'];
-  /** Whether the account can transfer tokens. */
   canTransferTokens: Scalars['Boolean']['output'];
 };
 
 export type AccountManagerPermissionsInput = {
-  /** Whether the account can execute transactions. */
   canExecuteTransactions: Scalars['Boolean']['input'];
-  /** Whether the account can set the metadata URI. */
   canSetMetadataUri: Scalars['Boolean']['input'];
-  /** Whether the account can transfer native tokens. */
   canTransferNative: Scalars['Boolean']['input'];
-  /** Whether the account can transfer tokens. */
   canTransferTokens: Scalars['Boolean']['input'];
 };
 
@@ -334,22 +281,14 @@ export type AccountManagerUpdatedNotificationAttributes = {
 };
 
 export type AccountManagersRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type AccountMention = {
   __typename?: 'AccountMention';
-  /** The account that was mentioned. */
   account: Scalars['EvmAddress']['output'];
-  /** The namespace that was used in a mention. */
   namespace: Scalars['EvmAddress']['output'];
-  /**
-   * The replacement information.
-   * Use to replace mentions in the post content.
-   */
   replace: MentionReplace;
 };
 
@@ -363,47 +302,23 @@ export type AccountMentionedNotificationAttributes = {
 
 export type AccountMetadata = {
   __typename?: 'AccountMetadata';
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
-  /** The Account bio as markdown. */
   bio?: Maybe<Scalars['String']['output']>;
-  /** The Account cover picture. */
   coverPicture?: Maybe<Scalars['URI']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
   id: Scalars['String']['output'];
-  /** The Account display name. */
   name?: Maybe<Scalars['String']['output']>;
-  /** The Account picture. */
   picture?: Maybe<Scalars['URI']['output']>;
 };
 
 export type AccountOwned = {
   __typename?: 'AccountOwned';
-  /** The account you own. */
   account: Account;
-  /** The date the account was created. */
   addedAt: Scalars['DateTime']['output'];
 };
 
 export type AccountOwnerChallengeRequest = {
-  /** The address of the Lens Account. */
   account: Scalars['EvmAddress']['input'];
-  /**
-   * The App you intend to authenticate with.
-   *
-   * It MUST be a valid App address.
-   * Note: On the testnet, it will default to the playground app.
-   * This is to make it easier if you forget to set it. This may change in the future.
-   */
   app?: Scalars['EvmAddress']['input'];
-  /** The address of the Account Owner. */
   owner: Scalars['EvmAddress']['input'];
 };
 
@@ -430,13 +345,9 @@ export type AccountReportedNotificationAttributes = {
 };
 
 export type AccountRequest = {
-  /** The account address. */
   address?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The legacy profile ID. */
   legacyProfileId?: InputMaybe<Scalars['LegacyProfileId']['input']>;
-  /** The transaction hash you created the account with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
-  /** The username. */
   username?: InputMaybe<UsernameInput>;
 };
 
@@ -447,20 +358,14 @@ export type AccountRulesConfigInput = {
 
 export type AccountStats = {
   __typename?: 'AccountStats';
-  /** The stats for the feeds. */
   feedStats: AccountFeedsStats;
-  /** The stats for the graphs. */
   graphFollowStats: AccountGraphsFollowStats;
 };
 
 export type AccountStatsRequest = {
-  /** The account to get stats for. */
   account?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The feeds to get stats for. */
   forFeeds?: Array<Scalars['EvmAddress']['input']>;
-  /** The graphs to get stats for. */
   forGraphs?: Array<Scalars['EvmAddress']['input']>;
-  /** The username. */
   username?: InputMaybe<UsernameInput>;
 };
 
@@ -492,13 +397,7 @@ export type AccountUsernameCreatedNotificationAttributes = {
 };
 
 export type AccountUsernameOneOf = {
-  /**
-   * This will get the last linked username if it exists
-   * note that it may not marry up to the app where a post
-   * was created if used in that context
-   */
   autoResolve?: InputMaybe<Scalars['AlwaysTrue']['input']>;
-  /** The namespace to get account assigned username */
   namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
@@ -508,36 +407,25 @@ export type AccountUsernameUnassignedNotificationAttributes = {
 };
 
 export type AccountsAvailableRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The visibility of hidden accounts. */
   hiddenFilter?: ManagedAccountsVisibility;
-  /** Whether to include owned accounts. Defaults to true. */
   includeOwned?: Scalars['Boolean']['input'];
-  /** The account to get managed by. */
   managedBy: Scalars['EvmAddress']['input'];
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type AccountsBlockedRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type AccountsBulkRequest = {
-  /** The addresses to get. */
   addresses?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The legacy profile IDs to get. */
   legacyProfileIds?: InputMaybe<Array<Scalars['LegacyProfileId']['input']>>;
-  /** The usernames to get. */
   usernames?: InputMaybe<Array<UsernameInput>>;
 };
 
 export type AccountsFilter = {
-  /** The optional filter to narrow accounts by search query. */
   searchBy?: InputMaybe<UsernameSearchInput>;
 };
 
@@ -548,108 +436,68 @@ export enum AccountsOrderBy {
 }
 
 export type AccountsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The optional accounts filter */
   filter?: InputMaybe<AccountsFilter>;
-  /** The order by. */
   orderBy?: AccountsOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type ActionMetadata = {
   __typename?: 'ActionMetadata';
-  /** List of authors email addresses. */
   authors: Array<Scalars['String']['output']>;
-  /**
-   * An optional list of `ContractKeyValuePairDescriptor` that describes the `params` argument
-   * of the `configure` function.
-   */
   configureParams: Array<KeyValuePair>;
-  /** Markdown formatted description of the Action. */
   description: Scalars['String']['output'];
-  /**
-   * A list of `ContractKeyValuePairDescriptor` that describes the `params` argument of the
-   * `execute` function.
-   */
   executeParams: Array<KeyValuePair>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
   id: Scalars['String']['output'];
-  /** A short name for the Action. */
   name: Scalars['String']['output'];
-  /**
-   * An optional list of `ContractKeyValuePairDescriptor` that describes the `params` argument
-   * of the `setDisabledParams` function.
-   */
   setDisabledParams: Array<KeyValuePair>;
-  /** The link to the Action source code. Typically a GitHub repository. */
   source: Scalars['URI']['output'];
-  /** The human-friendly title for the Action. */
   title: Scalars['String']['output'];
 };
 
 export type AddAccountManagerRequest = {
-  /** The address to add as a manager. */
   address: Scalars['EvmAddress']['input'];
-  /** The permissions to give the account manager. */
   permissions: AccountManagerPermissionsInput;
 };
 
 export type AddAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddAdminsRequest = {
-  /** The graph/app/sponsor/feed/username/group address which manages these admins */
   address: Scalars['EvmAddress']['input'];
-  /** The addresses to add as admins */
   admins: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type AddAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddAppAuthorizationEndpointRequest = {
-  /** The app. */
   app: Scalars['EvmAddress']['input'];
-  /** The app authorization endpoint. */
   endpoint: Scalars['URL']['input'];
 };
 
 export type AddAppFeedsRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app feeds (max 10 per request) */
   feeds: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type AddAppFeedsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddAppGroupsRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app groups (max 10 per request) */
   groups: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type AddAppGroupsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddAppSignersRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app signers (max 10 per request) */
   signers: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type AddAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddGroupMembersRequest = {
-  /** The accounts you want to add to the group. */
   accounts: Array<Scalars['EvmAddress']['input']>;
-  /** The group you want to add member to. */
   group: Scalars['EvmAddress']['input'];
-  /** The processing params for the add member rules. */
   rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
 };
 
@@ -666,9 +514,7 @@ export type AddReactionFailure = {
 };
 
 export type AddReactionRequest = {
-  /** The post to react to. */
   post: Scalars['PostId']['input'];
-  /** The reaction to add. */
   reaction: PostReactionType;
 };
 
@@ -692,7 +538,6 @@ export type Admin = {
 };
 
 export type AdminsForFilterRequest = {
-  /** The optional filter to narrow admins query */
   searchBy?: InputMaybe<UsernameSearchInput>;
 };
 
@@ -702,25 +547,15 @@ export enum AdminsForOrderBy {
 }
 
 export type AdminsForRequest = {
-  /** The graph/app/sponsor/feed/username/group address */
   address: Scalars['EvmAddress']['input'];
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<AdminsForFilterRequest>;
-  /** The order by. */
   orderBy?: AdminsForOrderBy;
   pageSize?: PageSize;
 };
 
 export type AmountInput = {
-  /**
-   * The token address. To represent the native token, use the
-   * 0x000000000000000000000000000000000000800a.
-   */
   currency: Scalars['EvmAddress']['input'];
-  /**
-   * Token value in its main unit (e.g., 1.5 DAI), not in the smallest fraction (e.g.,
-   * wei).
-   */
   value: Scalars['BigDecimal']['input'];
 };
 
@@ -734,7 +569,6 @@ export type AnyKeyValueInput = {
   raw?: InputMaybe<RawKeyValueInput>;
 };
 
-/** AnyMedia */
 export type AnyMedia = MediaAudio | MediaImage | MediaVideo;
 
 export type AnyPost = Post | Repost;
@@ -760,42 +594,27 @@ export type AppFeed = {
 };
 
 export type AppFeedsRequest = {
-  /** The app address */
   app: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type AppGroupsRequest = {
-  /** The app address */
   app: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type AppMetadata = {
   __typename?: 'AppMetadata';
-  /** An optional short and detailed description of the app, explaining its features and purpose. */
   description?: Maybe<Scalars['String']['output']>;
-  /** The Developer of the app. */
   developer: Scalars['String']['output'];
-  /** The Logo icon for the app. */
   logo?: Maybe<Scalars['URI']['output']>;
-  /** The name of the app. */
   name: Scalars['String']['output'];
-  /** The platforms supported by the app. */
   platforms: Array<AppPlatform>;
-  /** The privacy policy for the app. */
   privacyPolicy?: Maybe<Scalars['URI']['output']>;
-  /** The tagline of the app. */
   tagline?: Maybe<Scalars['String']['output']>;
-  /** The terms of service for the app. */
   termsOfService?: Maybe<Scalars['URI']['output']>;
-  /** The url of the app. */
   url: Scalars['URI']['output'];
 };
 
@@ -806,14 +625,11 @@ export enum AppPlatform {
 }
 
 export type AppRequest = {
-  /** The app */
   app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the app with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
 export type AppServerApiKeyRequest = {
-  /** The app address. */
   app: Scalars['EvmAddress']['input'];
 };
 
@@ -824,10 +640,6 @@ export type AppSigner = {
 };
 
 export type AppSignersFilterRequest = {
-  /**
-   * The optional filter to narrow signers.
-   * Uses fuzzy search on signer address
-   */
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -837,14 +649,10 @@ export enum AppSignersOrderBy {
 }
 
 export type AppSignersRequest = {
-  /** The app address */
   app: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<AppSignersFilterRequest>;
-  /** The order by. */
   orderBy?: AppSignersOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -856,7 +664,6 @@ export type AppUser = {
 };
 
 export type AppUsersFilterRequest = {
-  /** The optional filter to narrow app users query */
   searchBy?: InputMaybe<UsernameSearchInput>;
 };
 
@@ -867,23 +674,16 @@ export enum AppUsersOrderBy {
 }
 
 export type AppUsersRequest = {
-  /** The App to get users for. */
   app: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<AppUsersFilterRequest>;
-  /** The order by. */
   orderBy?: AppUsersOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type ApproveGroupMembershipRequest = {
-  /** The accounts you want to approve membership for. */
   accounts: Array<Scalars['EvmAddress']['input']>;
-  /** The group you want to add member to. */
   group: Scalars['EvmAddress']['input'];
-  /** The processing params for the add member rules. */
   rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
 };
 
@@ -895,16 +695,9 @@ export type ApproveGroupMembershipRequestsResponse = {
 export type ApproveGroupMembershipResult = ApproveGroupMembershipRequestsResponse | GroupOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AppsFilter = {
-  /** The optional filter to get apps linked to feed */
   linkedToFeed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The optional filter to get apps linked to graph */
   linkedToGraph?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The optional filter to get apps managed by address */
   managedBy?: InputMaybe<ManagedBy>;
-  /**
-   * The optional filter to narrow apps by search query.
-   * Uses fuzzy search on app name
-   */
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -915,13 +708,9 @@ export enum AppsOrderBy {
 }
 
 export type AppsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The optional apps filter */
   filter?: InputMaybe<AppsFilter>;
-  /** The order by. */
   orderBy?: AppsOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -941,24 +730,14 @@ export type ArrayKeyValue = {
 
 export type ArticleMetadata = {
   __typename?: 'ArticleMetadata';
-  /** Any attachment you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The optional article title. */
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -968,11 +747,8 @@ export type AssignUsernameResponse = {
 };
 
 export type AssignUsernameToAccountRequest = {
-  /** The processing params for the namespace assign rules. */
   assignRulesProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
-  /** The processing params for the namespace unassign rules from account */
   unassignAccountRulesProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
-  /** The processing params for the namespace unassign rules from namespace */
   unassignUsernameRulesProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
   username: UsernameInput;
 };
@@ -981,25 +757,15 @@ export type AssignUsernameToAccountResult = AssignUsernameResponse | NamespaceOp
 
 export type AudioMetadata = {
   __typename?: 'AudioMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   audio: MediaAudio;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The optional audio title. */
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1018,7 +784,6 @@ export type AuthenticatedSession = {
 };
 
 export type AuthenticatedSessionsRequest = {
-  /** You can optionally filter the authentications by the app that created them. */
   app?: InputMaybe<Scalars['EvmAddress']['input']>;
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   pageSize?: PageSize;
@@ -1034,10 +799,8 @@ export type AuthenticationResult = AuthenticationTokens | ExpiredChallengeError 
 
 export type AuthenticationTokens = {
   __typename?: 'AuthenticationTokens';
-  /** The Access Token to use as a Bearer token in authenticated Lens API requests. */
   accessToken: Scalars['AccessToken']['output'];
   idToken: Scalars['IdToken']['output'];
-  /** The Refresh Token to use to obtain a new tokens triplet without re-authenticating. */
   refreshToken: Scalars['RefreshToken']['output'];
 };
 
@@ -1046,9 +809,7 @@ export type BanAccountGroupRuleConfig = {
 };
 
 export type BanGroupAccountsRequest = {
-  /** The accounts you want to ban on the group. */
   accounts: Array<Scalars['EvmAddress']['input']>;
-  /** The group you want to ban member on. */
   group: Scalars['EvmAddress']['input'];
 };
 
@@ -1066,7 +827,6 @@ export type BigDecimalKeyValue = {
 };
 
 export type BlockRequest = {
-  /** The account to block. */
   account: Scalars['EvmAddress']['input'];
 };
 
@@ -1089,7 +849,6 @@ export type BooleanValue = {
 };
 
 export type BuilderChallengeRequest = {
-  /** The builder's address. Most typically the EOA of their wallet. */
   address: Scalars['EvmAddress']['input'];
 };
 
@@ -1104,7 +863,6 @@ export type CanUnfollowRequest = {
 };
 
 export type CancelGroupMembershipRequestRequest = {
-  /** The group you want cancel your membership request for */
   group: Scalars['EvmAddress']['input'];
 };
 
@@ -1115,47 +873,25 @@ export type CancelGroupMembershipRequestResponse = {
 
 export type CancelGroupMembershipRequestResult = CancelGroupMembershipRequestResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
-/**
- * The request to generate a new authentication challenge.
- *
- * The optional fields are used to specify the role you are authenticating as.
- * You can only specify one role at a time.
- */
 export type ChallengeRequest = {
-  /** Use this to authenticate as an Account Manager. */
   accountManager?: InputMaybe<AccountManagerChallengeRequest>;
-  /** Use this to authenticate as an Account Owner. */
   accountOwner?: InputMaybe<AccountOwnerChallengeRequest>;
-  /** Use this to authenticate as a Builder. */
   builder?: InputMaybe<BuilderChallengeRequest>;
-  /** Use this to authenticate as an Onboarding User. */
   onboardingUser?: InputMaybe<OnboardingUserChallengeRequest>;
 };
 
 export type CheckingInMetadata = {
   __typename?: 'CheckingInMetadata';
-  /** The optional address of the location. */
   address?: Maybe<PhysicalAddress>;
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** Where you're checking in from (free form text). */
   location: Scalars['String']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** The optional geographic position of the location. */
   position?: Maybe<Scalars['GeoUri']['output']>;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
@@ -1166,7 +902,6 @@ export type CommentNotification = {
 };
 
 export type ConfigureAccountActionRequest = {
-  /** The action type and configuration. */
   action: AccountActionConfigInput;
 };
 
@@ -1178,9 +913,7 @@ export type ConfigureAccountActionResponse = {
 export type ConfigureAccountActionResult = ConfigureAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ConfigurePostActionRequest = {
-  /** The post action configuration parameters. */
   params: PostActionConfigInput;
-  /** The post to configure the action for. */
   post: Scalars['PostId']['input'];
 };
 
@@ -1203,50 +936,28 @@ export type CreateAccountResponse = {
 };
 
 export type CreateAccountWithUsernameRequest = {
-  /** Any account managers you wish to add to the account */
   accountManager?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The processing params for the namespace assign rules. */
   assignNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
-  /** The processing params for the namespace create rules. */
   createNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
-  /** Enable signless on creation adding the lens API key to the account manager */
   enableSignless?: Scalars['Boolean']['input'];
-  /** The account metadata uri */
   metadataUri: Scalars['URI']['input'];
-  /** The processing params for the namespace account unassign rules. */
   unassignAccountNamespaceRuleProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
-  /** The username you wish to mint with the account */
   username: UsernameInput;
 };
 
 export type CreateAccountWithUsernameResult = CreateAccountResponse | NamespaceOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UsernameTaken;
 
 export type CreateAppRequest = {
-  /** List of admins who can manage this app */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The app default feed */
   defaultFeed: FeedChoiceOneOf;
-  /** The app feeds defaults to use the global feed */
   feeds?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The app default graph */
   graph: GraphChoiceOneOf;
-  /** The app groups leave empty if none */
   groups?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The app metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /** The app username namespace */
   namespace: UsernameNamespaceChoiceOneOf;
-  /** The app signers leave empty if none */
   signers?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The app sponsorship leave empty if none */
   sponsorship?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The app treasury leave empty if none */
   treasury?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /**
-   * Whether the App Verification workflow is enabled.
-   * This gives control to approve or reject transactions involving
-   * social interactions (e.g., post, follow, comment, etc.) using the app.
-   */
   verification?: Scalars['Boolean']['input'];
 };
 
@@ -1258,11 +969,8 @@ export type CreateAppResponse = {
 export type CreateAppResult = CreateAppResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateFeedRequest = {
-  /** List of admins who can manage this feed */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The feed metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /** Rules for the feed */
   rules?: InputMaybe<FeedRulesConfigInput>;
 };
 
@@ -1274,76 +982,51 @@ export type CreateFeedResponse = {
 export type CreateFeedResult = CreateFeedResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateFollowRequest = {
-  /** The account to follow. */
   account: Scalars['EvmAddress']['input'];
-  /** The data required by any follow rules associated with the account being followed. */
   followRuleProcessingParams?: InputMaybe<Array<AccountFollowRulesProcessingParams>>;
-  /** The graph to follow the account on. If not provided, the global graph is used. */
   graph?: Scalars['EvmAddress']['input'];
-  /** The data required by the graph rules associated with the specified graph. */
   graphRulesProcessingParams?: InputMaybe<Array<GraphRulesProcessingParams>>;
 };
 
 export type CreateFrameEip712TypedData = {
   __typename?: 'CreateFrameEIP712TypedData';
-  /** The domain */
   domain: Eip712TypedDataDomain;
-  /** The types */
   types: CreateFrameEip712TypedDataTypes;
-  /** The value */
   value: CreateFrameEip712TypedDataValue;
 };
 
 export type CreateFrameEip712TypedDataInput = {
-  /** The typed data domain */
   domain: Eip712TypedDataDomainInput;
-  /** The typed data types */
   types: CreateFrameEip712TypedDataTypesInput;
-  /** The typed data value */
   value: FrameEip712Request;
 };
 
 export type CreateFrameEip712TypedDataTypes = {
   __typename?: 'CreateFrameEIP712TypedDataTypes';
-  /** The frame data */
   frameData: Array<Eip712TypedDataField>;
 };
 
 export type CreateFrameEip712TypedDataTypesInput = {
-  /** The frame data */
   frameData: Array<Eip712TypedDataFieldInput>;
 };
 
 export type CreateFrameEip712TypedDataValue = {
   __typename?: 'CreateFrameEIP712TypedDataValue';
-  /** The account address */
   account: Scalars['EvmAddress']['output'];
-  /** The app the frame is being executed from */
   app: Scalars['EvmAddress']['output'];
-  /** The button index */
   buttonIndex: Scalars['Int']['output'];
-  /** The deadline the typed data expires */
   deadline: Scalars['Int']['output'];
-  /** The input text */
   inputText: Scalars['String']['output'];
-  /** The post id */
   postId: Scalars['PostId']['output'];
-  /** The frame spec version */
   specVersion: Scalars['String']['output'];
-  /** The state */
   state: Scalars['String']['output'];
-  /** The transaction id */
   transactionId: Scalars['String']['output'];
-  /** The url */
   url: Scalars['URI']['output'];
 };
 
 export type CreateGraphRequest = {
-  /** List of admins who can manage this graph */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The graph metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /** Rules for the graph */
   rules?: InputMaybe<GraphRulesConfigInput>;
 };
 
@@ -1355,13 +1038,9 @@ export type CreateGraphResponse = {
 export type CreateGraphResult = CreateGraphResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateGroupRequest = {
-  /** List of admins who can manage this group */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The group feed configuration */
   feed?: InputMaybe<GroupFeedParams>;
-  /** The group metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /** Rules for the group */
   rules?: InputMaybe<GroupRulesConfigInput>;
 };
 
@@ -1378,63 +1057,33 @@ export type CreateNamespaceResponse = {
 };
 
 export type CreatePostRequest = {
-  /** The actions to attach to the post. */
   actions?: InputMaybe<Array<PostActionConfigInput>>;
-  /** The post to comment on, if any. */
   commentOn?: InputMaybe<ReferencingPostInput>;
-  /** The URI of the post metadata. */
   contentUri: Scalars['URI']['input'];
-  /** The feed to post to. If not provided, the global feed is used. */
   feed?: Scalars['EvmAddress']['input'];
-  /** The processing params for the feed rules. */
   feedRulesProcessingParams?: InputMaybe<Array<FeedRulesProcessingParams>>;
-  /** The post to quote, if any. */
   quoteOf?: InputMaybe<ReferencingPostInput>;
-  /** Rules for the post */
   rules?: InputMaybe<PostRulesConfigInput>;
 };
 
 export type CreateRepostRequest = {
-  /** The processing params for the feed rules. */
   feedRulesProcessingParams?: InputMaybe<Array<FeedRulesProcessingParams>>;
-  /** The post to reference. */
   post: Scalars['PostId']['input'];
-  /** The processing params for the post rules. */
   postRulesProcessingParams?: InputMaybe<Array<PostRulesProcessingParams>>;
 };
 
 export type CreateSnsSubscriptionRequest = {
-  /** The app to optionally assign this subscription to. */
   app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /**
-   * The topics to subscribe to. You can subscribe to multiple topics at once. This cannot be
-   * changed once the subscription is created.
-   */
   topics: Array<SnsTopicInput>;
-  /**
-   * The webhook URL to send notifications to. It must be an HTTP or HTTPS URL that is
-   * accessible by the Lens API and is owned by you as it will be used to confirm the
-   * subscription.
-   */
   webhook: Scalars['String']['input'];
 };
 
 export type CreateSponsorshipRequest = {
-  /** List of admins who can manage this sponsorship. */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /**
-   * Indicates whether the Lens API is authorized as the sponsorship signer
-   * to sponsor end-user social operations (e.g., posts, comments, follows)
-   * performed through the Lens API for apps associated with this sponsorship.
-   */
   allowLensAccess: Scalars['Boolean']['input'];
-  /** The list of addresses excluded from the sponsorship rate limits. */
   exclusionList?: InputMaybe<Array<SponsorshipRateLimitsExempt>>;
-  /** The sponsorship metadata URI */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /** The sponsorship usage allowances with the corresponding limits. */
   rateLimit?: InputMaybe<SponsorshipRateLimitsInput>;
-  /** List of sponsorship signers. */
   signers?: InputMaybe<Array<SponsorshipSignerInput>>;
 };
 
@@ -1446,42 +1095,25 @@ export type CreateSponsorshipResponse = {
 export type CreateSponsorshipResult = CreateSponsorshipResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateUnfollowRequest = {
-  /** The account to unfollow. */
   account: Scalars['EvmAddress']['input'];
-  /**
-   * The graph where the account is followed and should be unfollowed.
-   * If not provided, the global graph is used.
-   */
   graph?: Scalars['EvmAddress']['input'];
-  /** The processing params for the graph rules. */
   graphRulesProcessingParams?: InputMaybe<Array<GraphRulesProcessingParams>>;
 };
 
 export type CreateUsernameNamespaceRequest = {
-  /** List of admins who can manage this feed */
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The feed metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /**
-   * The namespace for example for lens this would be lens, and it means that the usernames will
-   * be like lens/username
-   */
   namespace: Scalars['String']['input'];
   rules?: InputMaybe<NamespaceRulesConfigInput>;
-  /** The symbol for the namespace as usernames minted under the namespace are NFTs */
   symbol: Scalars['String']['input'];
 };
 
 export type CreateUsernameNamespaceResult = CreateNamespaceResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateUsernameRequest = {
-  /** The processing params for the namespace assign rules from account */
   assignAccountNamespaceRulesProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
-  /** If you want to auto assign the username to the account default is true */
   autoAssign?: Scalars['Boolean']['input'];
-  /** The processing params for the namespace create rules. */
   createUsernameRulesProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
-  /** The processing params for the namespace unassign rules from namespace */
   unassignUsernameNamespaceRulesProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
   username: UsernameInput;
 };
@@ -1506,9 +1138,7 @@ export type DebugPostMetadataResult = {
 };
 
 export type DeletePostRequest = {
-  /** The processing params for the feed rules. */
   feedRulesProcessingParams?: InputMaybe<Array<FeedRulesProcessingParams>>;
-  /** The post to delete. */
   post: Scalars['PostId']['input'];
 };
 
@@ -1547,7 +1177,6 @@ export type DisablePostActionParams = {
 
 export type DisablePostActionRequest = {
   action: DisablePostActionParams;
-  /** The target post. */
   post: Scalars['PostId']['input'];
 };
 
@@ -1564,143 +1193,84 @@ export type DismissRecommendedAccountsRequest = {
 
 export type EditPostRequest = {
   contentUri: Scalars['URI']['input'];
-  /** The processing params for the feed rules. */
   feedRulesProcessingParams?: InputMaybe<Array<FeedRulesProcessingParams>>;
-  /** The processing params for the parent post (if post edited is a comment or quote) */
   parentPostRulesProcessingParams?: InputMaybe<Array<PostRulesProcessingParams>>;
   post: Scalars['PostId']['input'];
 };
 
-/** Contains EIP-712 transaction metadata. */
 export type Eip712Meta = {
   __typename?: 'Eip712Meta';
-  /** Custom signature used for cases where the signer's account is not an EOA. */
   customSignature?: Maybe<Scalars['BlockchainData']['output']>;
-  /**
-   * An array of bytes containing the bytecode of the contract being deployed and any related
-   * contracts it can deploy.
-   */
   factoryDeps: Array<Scalars['BlockchainData']['output']>;
-  /** The maximum amount of gas the user is willing to pay for a single byte of pubdata. */
   gasPerPubdata: Scalars['BigInt']['output'];
-  /** Parameters for configuring the custom paymaster for the transaction. */
   paymasterParams?: Maybe<PaymasterParams>;
 };
 
 export type Eip712TransactionRequest = {
   __typename?: 'Eip712TransactionRequest';
-  /** The chain ID for the network this transaction is valid on. */
   chainId: Scalars['Int']['output'];
-  /** The custom data for EIP-712 transaction metadata. */
   customData: Eip712Meta;
-  /** The transaction data. */
   data: Scalars['BlockchainData']['output'];
-  /** The sender of the transaction. */
   from: Scalars['EvmAddress']['output'];
-  /** The maximum amount of gas to allow this transaction to consume. */
   gasLimit: Scalars['Int']['output'];
-  /**
-   * The maximum total fee to pay per gas. The actual
-   * value used is protocol enforced to be the block's base fee.
-   */
   maxFeePerGas: Scalars['BigInt']['output'];
-  /** The maximum priority fee to pay per gas. */
   maxPriorityFeePerGas: Scalars['BigInt']['output'];
-  /** The nonce of the transaction, used to prevent replay attacks. */
   nonce: Scalars['Int']['output'];
-  /** The target of the transaction. */
   to: Scalars['EvmAddress']['output'];
-  /** The transaction type: 113 for EIP-712 transactions. */
   type: Scalars['Int']['output'];
-  /** The transaction value (in wei). */
   value: Scalars['BigInt']['output'];
 };
 
 export type Eip712TypedDataDomain = {
   __typename?: 'Eip712TypedDataDomain';
-  /** The chain id */
   chainId: Scalars['Int']['output'];
-  /** The name of the domain */
   name: Scalars['String']['output'];
-  /** The verifying contract */
   verifyingContract: Scalars['EvmAddress']['output'];
-  /** The version of the domain */
   version: Scalars['String']['output'];
 };
 
 export type Eip712TypedDataDomainInput = {
-  /** The chain id */
   chainId: Scalars['Int']['input'];
-  /** The name of the domain */
   name: Scalars['String']['input'];
-  /** The verifying contract */
   verifyingContract: Scalars['EvmAddress']['input'];
-  /** The version of the domain */
   version: Scalars['String']['input'];
 };
 
 export type Eip712TypedDataField = {
   __typename?: 'Eip712TypedDataField';
-  /** The name of the field */
   name: Scalars['String']['output'];
-  /** The type of the field */
   type: Scalars['String']['output'];
 };
 
 export type Eip712TypedDataFieldInput = {
-  /** The name of the field */
   name: Scalars['String']['input'];
-  /** The type of the field */
   type: Scalars['String']['input'];
 };
 
 export type Eip1559TransactionRequest = {
   __typename?: 'Eip1559TransactionRequest';
-  /** The chain ID for the network this transaction is valid on. */
   chainId: Scalars['Int']['output'];
-  /** The transaction data. */
   data: Scalars['BlockchainData']['output'];
-  /** The sender of the transaction. */
   from: Scalars['EvmAddress']['output'];
-  /** The maximum amount of gas to allow this transaction to consume. */
   gasLimit: Scalars['Int']['output'];
-  /**
-   * The maximum total fee to pay per gas. The actual
-   * value used is protocol enforced to be the block's base fee.
-   */
   maxFeePerGas: Scalars['BigInt']['output'];
-  /** The maximum priority fee to pay per gas. */
   maxPriorityFeePerGas: Scalars['BigInt']['output'];
-  /** The nonce of the transaction, used to prevent replay attacks. */
   nonce: Scalars['Int']['output'];
-  /** The target of the transaction. */
   to: Scalars['EvmAddress']['output'];
-  /** The transaction type: 2 for EIP-1559 transactions. */
   type: Scalars['Int']['output'];
-  /** The transaction value (in wei). */
   value: Scalars['BigInt']['output'];
 };
 
 export type EmbedMetadata = {
   __typename?: 'EmbedMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  /** The embed URL. */
   embed: Scalars['URI']['output'];
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
@@ -1722,7 +1292,6 @@ export type EnablePostActionParams = {
 
 export type EnablePostActionRequest = {
   action: EnablePostActionParams;
-  /** The target post. */
   post: Scalars['PostId']['input'];
 };
 
@@ -1773,46 +1342,26 @@ export type Erc20 = {
 export type Erc20Amount = {
   __typename?: 'Erc20Amount';
   asset: Erc20;
-  /**
-   * Token value in its main unit (e.g., 1.5 DAI), not in the smallest fraction (e.g.,
-   * wei).
-   */
   value: Scalars['BigDecimal']['output'];
 };
 
 export type EventMetadata = {
   __typename?: 'EventMetadata';
-  /** The address of the event. */
   address?: Maybe<PhysicalAddress>;
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  /** The event end time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
   endsAt: Scalars['DateTime']['output'];
   id: Scalars['MetadataId']['output'];
-  /** The links you want to include with it. */
   links: Array<Scalars['URI']['output']>;
   locale: Scalars['Locale']['output'];
-  /** The location of the event. */
   location: EventMetadataLensLocation;
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** The geographic position of the event. */
   position?: Maybe<Scalars['GeoUri']['output']>;
   schedulingAdjustments?: Maybe<EventMetadataLensSchedulingAdjustments>;
-  /** The event start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
   startsAt: Scalars['DateTime']['output'];
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The title of the event. */
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1824,11 +1373,6 @@ export type EventMetadataLensLocation = {
 
 export type EventMetadataLensSchedulingAdjustments = {
   __typename?: 'EventMetadataLensSchedulingAdjustments';
-  /**
-   * Indicates a reference timezone for the event start and end times. If physical event, you
-   * could use the timezone of the event location. If virtual event, the timezone of the event
-   * organizer.
-   */
   timezoneId: EventMetadataLensSchedulingAdjustmentsTimezoneId;
   timezoneOffset: Scalars['Float']['output'];
 };
@@ -2265,9 +1809,7 @@ export enum EventMetadataLensSchedulingAdjustmentsTimezoneId {
 }
 
 export type ExecuteAccountActionRequest = {
-  /** The target account to execute the action on. */
   account: Scalars['EvmAddress']['input'];
-  /** The action params. */
   action: AccountActionExecuteInput;
 };
 
@@ -2279,9 +1821,7 @@ export type ExecuteAccountActionResponse = {
 export type ExecuteAccountActionResult = ExecuteAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ExecutePostActionRequest = {
-  /** The action params. */
   action: PostActionExecuteInput;
-  /** The target post to execute the action on. */
   post: Scalars['PostId']['input'];
 };
 
@@ -2296,17 +1836,11 @@ export type ExecutedUnknownActionRequest = {
   address: Scalars['EvmAddress']['input'];
 };
 
-/** The challenge has expired or was not found. */
 export type ExpiredChallengeError = {
   __typename?: 'ExpiredChallengeError';
   reason: Scalars['String']['output'];
 };
 
-/**
- * The transaction has failed to be mined or indexed.
- *
- * The reason for the failure is provided.
- */
 export type FailedTransactionStatus = {
   __typename?: 'FailedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
@@ -2332,16 +1866,9 @@ export type FeedChoiceOneOf = {
 
 export type FeedMetadata = {
   __typename?: 'FeedMetadata';
-  /** Optional markdown formatted description of the Feed. */
   description?: Maybe<Scalars['String']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
   id: Scalars['String']['output'];
-  /** The name of the Feed. */
   name: Scalars['String']['output'];
-  /** The human-friendly title for the Feed. */
   title: Scalars['String']['output'];
 };
 
@@ -2370,9 +1897,7 @@ export type FeedOperationValidationUnknown = {
 };
 
 export type FeedRequest = {
-  /** The feed */
   feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the feed with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
@@ -2445,12 +1970,7 @@ export type FeedUnsatisfiedRules = {
 };
 
 export type FeedsFilter = {
-  /** The optional filter to get feeds managed by address */
   managedBy?: InputMaybe<ManagedBy>;
-  /**
-   * The optional filter to narrow feeds by search query.
-   * Uses fuzzy search on feed name
-   */
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2461,20 +1981,12 @@ export enum FeedsOrderBy {
 }
 
 export type FeedsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<FeedsFilter>;
-  /** The order by. */
   orderBy?: FeedsOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
-/**
- * The transaction has been mined and indexed correctly.
- *
- * If the transaction involves any metadata, the metadata has been snapshotted and indexed.
- */
 export type FinishedTransactionStatus = {
   __typename?: 'FinishedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
@@ -2488,11 +2000,8 @@ export type FollowNotification = {
 };
 
 export type FollowPair = {
-  /** The account being followed. */
   account: Scalars['EvmAddress']['input'];
-  /** The follower. */
   follower: Scalars['EvmAddress']['input'];
-  /** The graph you are checking defaults to global graph. */
   graph?: Scalars['EvmAddress']['input'];
 };
 
@@ -2517,11 +2026,8 @@ export type FollowStatusResult = {
 
 export type Follower = {
   __typename?: 'Follower';
-  /** The timestamp when the follower was followed */
   followedOn: Scalars['DateTime']['output'];
-  /** The account which is following */
   follower: Account;
-  /** The graph the follower is following on */
   graph: Scalars['EvmAddress']['output'];
 };
 
@@ -2537,10 +2043,6 @@ export type FollowerOnInput = {
 };
 
 export type FollowersFilter = {
-  /**
-   * The graphs to filter by.
-   * The result will come back if they follow on ANY of the supplied graphs
-   */
   graphs?: InputMaybe<Array<GraphOneOf>>;
 };
 
@@ -2558,23 +2060,14 @@ export enum FollowersOrderBy {
 }
 
 export type FollowersRequest = {
-  /** The account to get followers for. */
   account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the result. */
   filter?: InputMaybe<FollowersFilter>;
-  /** The order by. */
   orderBy?: FollowersOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type FollowersYouKnowFilter = {
-  /**
-   * The graphs to get followers you know for
-   * The result will come back if they follow on ANY of the supplied graphs
-   */
   graphs?: InputMaybe<Array<GraphOneOf>>;
 };
 
@@ -2584,35 +2077,22 @@ export enum FollowersYouKnowOrderBy {
 }
 
 export type FollowersYouKnowRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the result. */
   filter?: InputMaybe<FollowersYouKnowFilter>;
-  /** The account you are looking from. */
   observer: Scalars['EvmAddress']['input'];
-  /** The order by. */
   orderBy?: FollowersYouKnowOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
-  /** The account to check followers you know. */
   target: Scalars['EvmAddress']['input'];
 };
 
 export type Following = {
   __typename?: 'Following';
-  /** The timestamp when the following happened */
   followedOn: Scalars['DateTime']['output'];
-  /** The account which is following */
   following: Account;
-  /** The graph the account is following on */
   graph: Scalars['EvmAddress']['output'];
 };
 
 export type FollowingFilter = {
-  /**
-   * The graphs to filter by.
-   * The result will come back if they are following on ANY of the supplied graphs
-   */
   graphs?: InputMaybe<Array<GraphOneOf>>;
 };
 
@@ -2623,15 +2103,10 @@ export enum FollowingOrderBy {
 }
 
 export type FollowingRequest = {
-  /** The account to get following for. */
   account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the result. */
   filter?: InputMaybe<FollowingFilter>;
-  /** The order by. */
   orderBy?: FollowingOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -2647,80 +2122,49 @@ export type ForbiddenError = {
 };
 
 export type FrameEip712Request = {
-  /** The account address */
   account: Scalars['EvmAddress']['input'];
-  /** The app the frame is being executed from */
   app: Scalars['EvmAddress']['input'];
-  /** The button index */
   buttonIndex: Scalars['Int']['input'];
-  /** The deadline the typed data expires */
   deadline: Scalars['Int']['input'];
-  /** The input text */
   inputText: Scalars['String']['input'];
-  /** The post id */
   post: Scalars['PostId']['input'];
-  /** The frame spec version */
   specVersion: Scalars['String']['input'];
-  /** The state */
   state: Scalars['String']['input'];
-  /** The transaction id */
   transactionId: Scalars['String']['input'];
-  /** The url */
   url: Scalars['URI']['input'];
 };
 
 export type FrameLensManagerSignatureResult = {
   __typename?: 'FrameLensManagerSignatureResult';
-  /** The signature */
   signature: Scalars['Signature']['output'];
-  /** The signed typed data */
   signedTypedData: CreateFrameEip712TypedData;
 };
 
 export type FrameVerifySignature = {
-  /** The identity token */
   identityToken: Scalars['IdToken']['input'];
-  /** The signature */
   signature: Scalars['Signature']['input'];
-  /** The signed typed data */
   signedTypedData: CreateFrameEip712TypedDataInput;
 };
 
 export enum FrameVerifySignatureResult {
-  /** The deadline has expired */
   DeadlineExpired = 'DEADLINE_EXPIRED',
-  /** The identity token is not a valid identity token */
   IdentityCannotUseAccount = 'IDENTITY_CANNOT_USE_ACCOUNT',
-  /** The identity token is not a valid identity token used with an account authentication */
   IdentityTokenNotValid = 'IDENTITY_TOKEN_NOT_VALID',
-  /** The identity token is not authorized to use the frame */
   IdentityUnauthorized = 'IDENTITY_UNAUTHORIZED',
-  /** The post does not exist */
   PostDoesntExist = 'POST_DOESNT_EXIST',
-  /** The signature is not valid */
   SignatureNotValid = 'SIGNATURE_NOT_VALID',
-  /** The signer address cannot use the account */
   SignerAddressCannotUseAccount = 'SIGNER_ADDRESS_CANNOT_USE_ACCOUNT',
-  /** The typed data account is not matching the identity token account */
   TypedDataAccountNotMatchingIdentityToken = 'TYPED_DATA_ACCOUNT_NOT_MATCHING_IDENTITY_TOKEN',
-  /** The typed data domain is not in the correct format */
   TypedDataDomainIncorrect = 'TYPED_DATA_DOMAIN_INCORRECT',
-  /** The typed data types is not in the correct format */
   TypedDataTypesIncorrectFields = 'TYPED_DATA_TYPES_INCORRECT_FIELDS',
-  /** The frame was verified */
   Verified = 'VERIFIED'
 }
 
 export type GenerateNewAppServerApiKeyRequest = {
-  /** The app to generate the new server side api key for */
   app: Scalars['EvmAddress']['input'];
 };
 
 export type GetSnsSubscriptionsRequest = {
-  /**
-   * The app to get subscriptions for. If not provided, all subscriptions owned by the logged in
-   * account will be returned.
-   */
   app?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
@@ -2741,16 +2185,9 @@ export type GraphChoiceOneOf = {
 
 export type GraphMetadata = {
   __typename?: 'GraphMetadata';
-  /** Optional markdown formatted description of the graph. */
   description?: Maybe<Scalars['String']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
   id: Scalars['String']['output'];
-  /** The name of the graph. */
   name: Scalars['String']['output'];
-  /** The human-friendly title for the graph. */
   title: Scalars['String']['output'];
 };
 
@@ -2761,9 +2198,7 @@ export type GraphOneOf = {
 };
 
 export type GraphRequest = {
-  /** The graph */
   graph?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the graph with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
@@ -2811,12 +2246,7 @@ export type GraphRulesProcessingParams = {
 };
 
 export type GraphsFilter = {
-  /** The optional filter to get graphs managed by address */
   managedBy?: InputMaybe<ManagedBy>;
-  /**
-   * The optional filter to narrow graphs by search query.
-   * Uses fuzzy search on graph name
-   */
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2827,10 +2257,8 @@ export enum GraphsOrderBy {
 }
 
 export type GraphsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<GraphsFilter>;
-  /** The order by. */
   orderBy?: GraphsOrderBy;
   pageSize?: PageSize;
 };
@@ -2838,10 +2266,8 @@ export type GraphsRequest = {
 export type Group = {
   __typename?: 'Group';
   address: Scalars['EvmAddress']['output'];
-  /** Returns true if the group has banning rule enabled */
   banningEnabled: Scalars['Boolean']['output'];
   feed?: Maybe<Scalars['EvmAddress']['output']>;
-  /** Returns true if the group has membership approval rule enabled */
   membershipApprovalEnabled: Scalars['Boolean']['output'];
   metadata?: Maybe<GroupMetadata>;
   operations?: Maybe<LoggedInGroupOperations>;
@@ -2860,7 +2286,6 @@ export type GroupBannedAccount = {
 };
 
 export type GroupBannedAccountsFilter = {
-  /** The optional filter to narrow banned accounts by search query. */
   searchBy?: InputMaybe<UsernameSearchInput>;
 };
 
@@ -2872,24 +2297,15 @@ export enum GroupBannedAccountsOrderBy {
 }
 
 export type GroupBannedAccountsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<GroupBannedAccountsFilter>;
-  /** The group */
   group: Scalars['EvmAddress']['input'];
-  /** The order by. */
   orderBy?: GroupBannedAccountsOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type GroupFeedParams = {
-  /** The feed metadata uri */
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
-  /**
-   * Rules for the feed
-   * Note: Group feed has GroupGated rule set by default
-   */
   rules?: InputMaybe<FeedRulesConfigInput>;
 };
 
@@ -2909,7 +2325,6 @@ export type GroupMember = {
 };
 
 export type GroupMembersFilter = {
-  /** The optional filter to narrow members by search query. */
   searchBy?: InputMaybe<UsernameSearchInput>;
 };
 
@@ -2921,14 +2336,10 @@ export enum GroupMembersOrderBy {
 }
 
 export type GroupMembersRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<GroupMembersFilter>;
-  /** The group */
   group: Scalars['EvmAddress']['input'];
-  /** The order by. */
   orderBy?: GroupMembersOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -2941,7 +2352,6 @@ export type GroupMembershipRequest = {
 };
 
 export type GroupMembershipRequestsFilter = {
-  /** The optional filter to narrow members by search query. */
   searchBy?: InputMaybe<UsernameSearchInput>;
 };
 
@@ -2953,42 +2363,25 @@ export enum GroupMembershipRequestsOrderBy {
 }
 
 export type GroupMembershipRequestsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<GroupMembershipRequestsFilter>;
-  /** The group */
   group: Scalars['EvmAddress']['input'];
-  /** The order by. */
   orderBy?: GroupMembershipRequestsOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type GroupMention = {
   __typename?: 'GroupMention';
-  /** The group that was mentioned */
   group: Scalars['EvmAddress']['output'];
-  /**
-   * The replacement information.
-   * Use to replace mentions in the post content.
-   */
   replace: MentionReplace;
 };
 
 export type GroupMetadata = {
   __typename?: 'GroupMetadata';
-  /** The Group cover picture. */
   coverPicture?: Maybe<Scalars['URI']['output']>;
-  /** Optional markdown formatted description of the Community. */
   description?: Maybe<Scalars['String']['output']>;
-  /** Optional uri of the Community's icon. */
   icon?: Maybe<Scalars['URI']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
   id: Scalars['String']['output'];
-  /** The name of the Community. */
   name: Scalars['String']['output'];
 };
 
@@ -3011,9 +2404,7 @@ export type GroupOperationValidationUnknown = {
 };
 
 export type GroupRequest = {
-  /** The group */
   group?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the group with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
@@ -3073,7 +2464,6 @@ export type GroupRulesProcessingParams = {
 };
 
 export type GroupStatsRequest = {
-  /** The group address to check its total members. */
   group: Scalars['EvmAddress']['input'];
 };
 
@@ -3097,14 +2487,8 @@ export type GroupUnsatisfiedRules = {
 };
 
 export type GroupsFilter = {
-  /** The optional filter to get groups managed by address */
   managedBy?: InputMaybe<ManagedBy>;
-  /** The optional filter to get groups where account is a member */
   member?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /**
-   * The optional filter to narrow groups by search query.
-   * Uses fuzzy search on group name
-   */
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -3115,12 +2499,9 @@ export enum GroupsOrderBy {
 }
 
 export type GroupsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<GroupsFilter>;
-  /** The order by. */
   orderBy?: GroupsOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -3129,7 +2510,6 @@ export type HasReactedRequest = {
 };
 
 export type HideManagedAccountRequest = {
-  /** The account to hide. */
   account: Scalars['EvmAddress']['input'];
 };
 
@@ -3139,25 +2519,15 @@ export type HideReplyRequest = {
 
 export type ImageMetadata = {
   __typename?: 'ImageMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   image: MediaImage;
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The optional image title. */
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -3188,9 +2558,7 @@ export type IsFollowingMeRequest = {
 };
 
 export type JoinGroupRequest = {
-  /** The group you want to join */
   group: Scalars['EvmAddress']['input'];
-  /** The processing params for the join rules. */
   rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
 };
 
@@ -3203,25 +2571,18 @@ export type JoinGroupResult = GroupOperationValidationFailed | JoinGroupResponse
 
 export type KeyValuePair = {
   __typename?: 'KeyValuePair';
-  /** A unique 32 bytes long hexadecimal string key. */
   key: Scalars['FixedBytes32']['output'];
-  /** The human-readable name of the parameter. */
   name: Scalars['String']['output'];
-  /** The human-readable ABI description of the parameter. */
   type: Scalars['String']['output'];
 };
 
 export type LastLoggedInAccountRequest = {
-  /** The address to get the last logged in account for. */
   address: Scalars['EvmAddress']['input'];
-  /** The app to get the last logged in account for. */
   app?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
 export type LeaveGroupRequest = {
-  /** The group you want to leave */
   group: Scalars['EvmAddress']['input'];
-  /** The processing params for the leave rules. */
   rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
 };
 
@@ -3239,100 +2600,46 @@ export type LengthAmountPair = {
 
 export type LinkMetadata = {
   __typename?: 'LinkMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** The sharing link url. */
   sharingLink: Scalars['URI']['output'];
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
 export type LivestreamMetadata = {
   __typename?: 'LivestreamMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
-  /**
-   * The data cannot be changed so you can put in an API endpoint to know if it is still live or
-   * not for clients to be able to check.
-   */
   checkLiveApi?: Maybe<Scalars['URI']['output']>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
-  /** The optional stream end time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`) */
   endsAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['MetadataId']['output'];
-  /**
-   * Some livestream platforms have the live url as a separate url. If not your case make sure
-   * `liveUrl` and `playbackUrl` are the same.
-   */
   liveUrl: Scalars['URI']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /**
-   * Some livestream platforms have the playback url as a separate url. If not your case make
-   * sure `liveUrl` and `playbackUrl` are the same.
-   */
   playbackUrl: Scalars['URI']['output'];
-  /** The stream start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
   startsAt: Scalars['DateTime']['output'];
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The livestream title. */
   title?: Maybe<Scalars['String']['output']>;
 };
 
 export type LoggedInAccountOperations = {
   __typename?: 'LoggedInAccountOperations';
   canBlock: Scalars['Boolean']['output'];
-  /**
-   * Check if the authenticated account can follow the target account.
-   *
-   * If a graph is not specified it defaults to using the Global Graph
-   */
   canFollow: AccountFollowOperationValidationOutcome;
   canUnblock: Scalars['Boolean']['output'];
-  /**
-   * Check if the authenticated account can unfollow the target account.
-   *
-   * If a graph is not specified it defaults to using the Global Graph
-   */
   canUnfollow: AccountFollowOperationValidationOutcome;
   hasBlockedMe: Scalars['Boolean']['output'];
   hasReported: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   isBlockedByMe: Scalars['Boolean']['output'];
-  /**
-   * Check if the target account is followed by the authenticated account.
-   *
-   * If a graph is not specified it defaults to using the Global Graph
-   */
   isFollowedByMe: Scalars['Boolean']['output'];
-  /**
-   * Check if the authenticated account is following the target account.
-   *
-   * If a graph is not specified it defaults to using the Global Graph
-   */
   isFollowingMe: Scalars['Boolean']['output'];
   isMutedByMe: Scalars['Boolean']['output'];
 };
@@ -3456,54 +2763,17 @@ export enum ManagedAccountsVisibility {
 }
 
 export type ManagedBy = {
-  /** The address that is either the owner or an admin of the primitive. */
   address: Scalars['EvmAddress']['input'];
-  /** Whether to include the owned primitives or just the ones the address is an admin of. */
   includeOwners?: Scalars['Boolean']['input'];
 };
 
-/**
- * MarketplaceMetadataAttribute
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "type": "object",
- * "properties": {
- * "display_type": {
- * "type": "string",
- * "enum": [
- * "number",
- * "string",
- * "date"
- * ]
- * },
- * "trait_type": {
- * "description": "The name of the trait.",
- * "$ref": "#/$defs/NonEmptyString"
- * },
- * "value": {
- * "type": [
- * "string",
- * "number"
- * ]
- * }
- * },
- * "additionalProperties": true
- * }
- * ```
- * </details>
- */
 export type MarketplaceMetadataAttribute = {
   __typename?: 'MarketplaceMetadataAttribute';
   displayType?: Maybe<MarketplaceMetadataAttributeDisplayType>;
-  /** The name of the trait. */
   traitType?: Maybe<Scalars['String']['output']>;
   value?: Maybe<Scalars['MarketplaceMetadataAttributeValue']['output']>;
 };
 
-/** MarketplaceMetadataAttributeDisplayType */
 export enum MarketplaceMetadataAttributeDisplayType {
   Date = 'DATE',
   Number = 'NUMBER',
@@ -3512,44 +2782,26 @@ export enum MarketplaceMetadataAttributeDisplayType {
 
 export type MeResult = {
   __typename?: 'MeResult';
-  /** The app the account is logged in to. */
   appLoggedIn: Scalars['EvmAddress']['output'];
-  /** Whether the account is signless. */
   isSignless: Scalars['Boolean']['output'];
-  /** Whether the account is sponsored. */
   isSponsored: Scalars['Boolean']['output'];
-  /** The sponsorship allowance for the account. */
   limit: SponsorshipAllowance;
-  /** The logged in account. */
   loggedInAs: AccountAvailable;
 };
 
-/** MediaAudio */
 export type MediaAudio = {
   __typename?: 'MediaAudio';
-  /** The name of the artist. */
   artist?: Maybe<Scalars['String']['output']>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard.
-   */
   attributes: Array<MetadataAttribute>;
   cover?: Maybe<Scalars['URI']['output']>;
-  /** The credits for the audio. */
   credits?: Maybe<Scalars['String']['output']>;
-  /** How long the the audio is in seconds. */
   duration?: Maybe<Scalars['Int']['output']>;
-  /** The genre of the audio */
   genre?: Maybe<Scalars['String']['output']>;
   item: Scalars['URI']['output'];
-  /** The type of audio. */
   kind?: Maybe<MediaAudioKind>;
-  /** The license for the audio. */
   license?: Maybe<MetadataLicenseType>;
   lyrics?: Maybe<Scalars['URI']['output']>;
-  /** The record label for the audio. */
   recordLabel?: Maybe<Scalars['String']['output']>;
-  /** The mime type of the audio file. */
   type: MediaAudioType;
 };
 
@@ -3562,7 +2814,6 @@ export enum MediaAudioKind {
   VoiceNote = 'VOICE_NOTE'
 }
 
-/** The mime type of the audio file. */
 export enum MediaAudioType {
   AudioAac = 'AUDIO_AAC',
   AudioFlac = 'AUDIO_FLAC',
@@ -3574,99 +2825,15 @@ export enum MediaAudioType {
   AudioWebm = 'AUDIO_WEBM'
 }
 
-/**
- * MediaImage
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "type": "object",
- * "required": [
- * "item",
- * "type"
- * ],
- * "properties": {
- * "altTag": {
- * "description": "The alt tag for accessibility",
- * "$ref": "#/$defs/EncryptableString"
- * },
- * "attributes": {
- * "description": "A bag of attributes that can be used to store any kind of metadata that is not currently supported by the standard.",
- * "type": "array",
- * "items": {
- * "$ref": "#/$defs/MetadataAttribute"
- * },
- * "minItems": 1
- * },
- * "item": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "license": {
- * "description": "The license for the image",
- * "$ref": "#/$defs/MetadataLicenseType"
- * },
- * "type": {
- * "description": "The mime type of the image",
- * "type": "string",
- * "enum": [
- * "image/bmp",
- * "image/gif",
- * "image/heic",
- * "image/jpeg",
- * "image/png",
- * "image/svg+xml",
- * "image/tiff",
- * "image/webp",
- * "image/x-ms-bmp"
- * ]
- * }
- * },
- * "additionalProperties": false
- * }
- * ```
- * </details>
- */
 export type MediaImage = {
   __typename?: 'MediaImage';
-  /** The alt tag for accessibility */
   altTag?: Maybe<Scalars['String']['output']>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard.
-   */
   attributes: Array<MetadataAttribute>;
   item: Scalars['URI']['output'];
-  /** The license for the image */
   license?: Maybe<MetadataLicenseType>;
-  /** The mime type of the image */
   type: MediaImageType;
 };
 
-/**
- * The mime type of the image
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "description": "The mime type of the image",
- * "type": "string",
- * "enum": [
- * "image/bmp",
- * "image/gif",
- * "image/heic",
- * "image/jpeg",
- * "image/png",
- * "image/svg+xml",
- * "image/tiff",
- * "image/webp",
- * "image/x-ms-bmp"
- * ]
- * }
- * ```
- * </details>
- */
 export enum MediaImageType {
   Bmp = 'BMP',
   Gif = 'GIF',
@@ -3683,112 +2850,17 @@ export type MediaSnapshotNotificationAttributes = {
   source?: InputMaybe<EntityId>;
 };
 
-/**
- * MediaVideo
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "type": "object",
- * "required": [
- * "item",
- * "type"
- * ],
- * "properties": {
- * "altTag": {
- * "description": "The alt tag for accessibility",
- * "$ref": "#/$defs/EncryptableString"
- * },
- * "attributes": {
- * "description": "A bag of attributes that can be used to store any kind of metadata that is not currently supported by the standard.",
- * "type": "array",
- * "items": {
- * "$ref": "#/$defs/MetadataAttribute"
- * },
- * "minItems": 1
- * },
- * "cover": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "duration": {
- * "description": "How long the the video is in seconds",
- * "type": "integer",
- * "exclusiveMinimum": 0.0
- * },
- * "item": {
- * "$ref": "#/$defs/EncryptableUri"
- * },
- * "license": {
- * "description": "The license for the video",
- * "$ref": "#/$defs/MetadataLicenseType"
- * },
- * "type": {
- * "description": "The mime type of the video",
- * "type": "string",
- * "enum": [
- * "model/gltf+json",
- * "model/gltf-binary",
- * "video/x-m4v",
- * "video/mov",
- * "video/mp4",
- * "video/mpeg",
- * "video/ogg",
- * "video/ogv",
- * "video/quicktime",
- * "video/webm"
- * ]
- * }
- * },
- * "additionalProperties": false
- * }
- * ```
- * </details>
- */
 export type MediaVideo = {
   __typename?: 'MediaVideo';
-  /** The alt tag for accessibility */
   altTag?: Maybe<Scalars['String']['output']>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard.
-   */
   attributes: Array<MetadataAttribute>;
   cover?: Maybe<Scalars['URI']['output']>;
-  /** How long the the video is in seconds */
   duration?: Maybe<Scalars['Int']['output']>;
   item: Scalars['URI']['output'];
-  /** The license for the video */
   license?: Maybe<MetadataLicenseType>;
-  /** The mime type of the video */
   type: MediaVideoType;
 };
 
-/**
- * The mime type of the video
- *
- * <details><summary>JSON schema</summary>
- *
- * ```json
- * {
- * "description": "The mime type of the video",
- * "type": "string",
- * "enum": [
- * "model/gltf+json",
- * "model/gltf-binary",
- * "video/x-m4v",
- * "video/mov",
- * "video/mp4",
- * "video/mpeg",
- * "video/ogg",
- * "video/ogv",
- * "video/quicktime",
- * "video/webm"
- * ]
- * }
- * ```
- * </details>
- */
 export enum MediaVideoType {
   ModelGltfBinary = 'MODEL_GLTF_BINARY',
   ModelGltfJson = 'MODEL_GLTF_JSON',
@@ -3878,35 +2950,21 @@ export type MetadataSnapshotNotificationAttributes = {
 
 export type MintMetadata = {
   __typename?: 'MintMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** The mint item it can be a URL of the known provider like opensea https://opensea.io/assets/ethereum/0xfaa2471e93bd1cee3b0ab381c242ada8e1d1a759/299 or https://zora.co/collect/0x9d90669665607f08005cae4a7098143f554c59ef/39626. The Lens API has an allow list of providers and if the domain does not match it will mark it as failed metadata */
   mintLink: Scalars['URI']['output'];
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
 export type MlaccountRecommendationsRequest = {
-  /** The account to get recommendations for. */
   account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
   pageSize?: PageSize;
-  /** Shuffle the recommendations. */
   shuffle?: Scalars['Boolean']['input'];
 };
 
@@ -3915,637 +2973,124 @@ export type MlexplorePostsFilter = {
 };
 
 export type MlexplorePostsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<MlexplorePostsFilter>;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type MlpostsForYouRequest = {
-  /** The account to get for you for. */
   account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
   pageSize?: PageSize;
-  /** Shuffle the for you posts. */
   shuffle?: Scalars['Boolean']['input'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  /**
-   * Add an account manager to the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
   addAccountManager: AddAccountManagerResult;
-  /**
-   * Add admins to a graph/app/sponsor/feed/username/group.
-   *
-   * You MUST be authenticated as Builder to use this mutation.
-   */
   addAdmins: AddAdminsResult;
-  /**
-   * Add an app authorization endpoint.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   addAppAuthorizationEndpoint: Scalars['Void']['output'];
-  /**
-   * Add feeds to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   addAppFeeds: AddAppFeedsResult;
-  /**
-   * Add groups to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   addAppGroups: AddAppGroupsResult;
-  /**
-   * Add signers to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   addAppSigners: AddAppSignersResult;
-  /**
-   * Add group members
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   addGroupMembers: AddGroupMembersResult;
-  /**
-   * Add a post not interested.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   addPostNotInterested: Scalars['Void']['output'];
-  /**
-   * React to a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   addReaction: AddReactionResult;
-  /**
-   * Approve group members
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   approveGroupMembershipRequests: ApproveGroupMembershipResult;
-  /**
-   * Assign a username to an account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   assignUsernameToAccount: AssignUsernameToAccountResult;
-  /** Authenticate the user with the signed authentication challenge. */
   authenticate: AuthenticationResult;
-  /**
-   * Ban accounts to join a group
-   * Banned account MUST not be a member of the group.
-   * Use `removeGroupMember` mutation with `ban` flag to remove and ban existing members
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   banGroupAccounts: BanGroupAccountsResult;
-  /**
-   * Block an account with the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   block: BlockResult;
-  /**
-   * Bookmark a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   bookmarkPost: Scalars['Void']['output'];
-  /**
-   * Cancel group membership request
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   cancelGroupMembershipRequest: CancelGroupMembershipRequestResult;
-  /**
-   * Generates a new authentication challenge for the specified address and app.
-   *
-   * Users must sign the challenge to authenticate.
-   *
-   * The issued challenge can be for authentication credentials for different roles:
-   * - AccountOwner: The `address` is a Lens Account, and the `signed_by` is the Account Owner.
-   * - AccountManager: The `address` is a Lens Account, and the `signed_by` is an Account Manager
-   * for it.
-   * - OnboardingUser: The `address` is an EOA that needs to create their Lens Account.
-   * - Builder: The `address` is the EOA of a Builder that needs to use configuration and
-   * management features.
-   *
-   * The HTTP Origin header MUST be present and match the app's domain.
-   */
   challenge: AuthenticationChallenge;
-  /**
-   * Configure the given account action for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   configureAccountAction: ConfigureAccountActionResult;
-  /**
-   * Configure the given post action for the given post.
-   *
-   * You MUST be authenticated as the owner or manager of the account that authored this Post to
-   * use this mutation.
-   */
   configurePostAction: ConfigurePostActionResult;
-  /**
-   * Create an account with a given username.
-   *
-   * You MUST be authenticated as Onboarding User to use this mutation.
-   */
   createAccountWithUsername: CreateAccountWithUsernameResult;
-  /**
-   * Create a new app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   createApp: CreateAppResult;
-  /**
-   * Create a new feed
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   createFeed: CreateFeedResult;
-  /**
-   * Create a new graph
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   createGraph: CreateGraphResult;
-  /**
-   * Create a new group
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   createGroup: CreateGroupResult;
   createSnsSubscriptions: Array<SnsSubscription>;
-  /**
-   * Create a new sponsorship.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   createSponsorship: CreateSponsorshipResult;
-  /**
-   * Create a username.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   createUsername: CreateUsernameResult;
-  /**
-   * Create a new username namespace aka deploying a new username contract
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   createUsernameNamespace: CreateUsernameNamespaceResult;
-  /**
-   * Delete a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   deletePost: DeletePostResult;
   deleteSnsSubscription: Scalars['Void']['output'];
-  /**
-   * Set the given account action for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   disableAccountAction: DisableAccountActionResult;
-  /**
-   * Disable the given post action for the given post.
-   *
-   * You MUST be authenticated as the Owner or Manager of the account that made this post to use
-   * this mutation.
-   */
   disablePostAction: DisablePostActionResult;
-  /**
-   * Edit a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   editPost: PostResult;
-  /**
-   * Set the given account action for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   enableAccountAction: EnableAccountActionResult;
-  /**
-   * Enable the given post action for the authenticated post.
-   *
-   * You MUST be authenticated as the owner or manager of the account that authored this Post to
-   * use this mutation.
-   */
   enablePostAction: EnablePostActionResult;
-  /**
-   * Enables Signless experience for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
   enableSignless: EnableSignlessResult;
-  /**
-   * Execute the given account action for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   executeAccountAction: ExecuteAccountActionResult;
-  /**
-   * Execute the given post action.
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   executePostAction: ExecutePostActionResult;
-  /**
-   * Follow an Account on the global Graph or a specific Graph.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   follow: FollowResult;
-  /**
-   * Generate a new app server side api key
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   generateNewAppServerApiKey: Scalars['ServerAPIKey']['output'];
-  /**
-   * Hides an account from the manager list of managed accounts.
-   *
-   * You MUST be authenticated as Account Manager to use this mutation.
-   */
   hideManagedAccount: Scalars['Void']['output'];
   hideReply: Scalars['Void']['output'];
-  /**
-   * Join a group
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   joinGroup: JoinGroupResult;
-  /**
-   * Leave a group
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   leaveGroup: LeaveGroupResult;
-  /**
-   * Issue new authentication tokens from a valid Lens API v2 refresh token.
-   *
-   * Use this to seamlessly transition your users from Lens API v2 to Lens API v3 without
-   * requiring them to re-authenticate.
-   *
-   * The HTTP Origin header MUST be present and match the app's domain.
-   */
   legacyRolloverRefresh: RefreshResult;
   mlDismissRecommendedAccounts: Scalars['Void']['output'];
-  /**
-   * Mute an account for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   mute: Scalars['Void']['output'];
-  /**
-   * Pause a sponsorship.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   pauseSponsorship: PausingResult;
-  /**
-   * Create a new post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   post: PostResult;
-  /**
-   * Recommend an account from the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   recommendAccount: Scalars['Void']['output'];
-  /** Refreshes the authentication tokens. */
   refresh: RefreshResult;
-  /** Refreshes the metadata for the provided entity. */
   refreshMetadata: RefreshMetadataResult;
-  /**
-   * Reject group membership requests
-   *
-   * You MUST be a group owner or admin to use this mutation
-   */
   rejectGroupMembershipRequests: RejectGroupMembershipResult;
-  /**
-   * Remove an account manager to the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
   removeAccountManager: RemoveAccountManagerResult;
-  /**
-   * Remove admins from a graph/app/sponsor/feed/username/group.
-   *
-   * You MUST be authenticated as Builder to use this mutation.
-   */
   removeAdmins: RemoveAdminsResult;
-  /**
-   * Remove an app authorization endpoint.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   removeAppAuthorizationEndpoint: Scalars['Void']['output'];
-  /**
-   * Remove feeds to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   removeAppFeeds: RemoveAppFeedsResult;
-  /**
-   * Remove groups to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   removeAppGroups: RemoveAppGroupsResult;
-  /**
-   * Remove signers to an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   removeAppSigners: RemoveAppSignersResult;
-  /**
-   * Remove group members
-   *
-   * You MUST be a group owner or admin to use this mutation
-   */
   removeGroupMembers: RemoveGroupMembersResult;
-  /**
-   * Remove Signless experience for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
   removeSignless: RemoveSignlessResult;
-  /**
-   * Report an account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   reportAccount: Scalars['Void']['output'];
-  /**
-   * Report a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   reportPost: Scalars['Void']['output'];
-  /**
-   * Repost a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   repost: PostResult;
-  /**
-   * Request to join a group
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   requestGroupMembership: RequestGroupMembershipResult;
-  /**
-   * Revoke an authentication.
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   revokeAuthentication: Scalars['Void']['output'];
-  /**
-   * Set the metadata for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   setAccountMetadata: SetAccountMetadataResult;
-  /**
-   * Set graph for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   setAppGraph: SetAppGraphResult;
-  /**
-   * Set metadata for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   setAppMetadata: SetAppMetadataResult;
-  /**
-   * Set sponsorship for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   setAppSponsorship: SetAppSponsorshipResult;
-  /**
-   * Set treasury for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   setAppTreasury: SetAppTreasuryResult;
-  /**
-   * Set username namespace for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   setAppUsernameNamespace: SetAppUsernameNamespaceResult;
-  /**
-   * Set if the app verification is enabled
-   * App needs to have authorization endpoint enabled
-   * App needs to return `verification_endpoint` from the authorization endpoint
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   setAppVerification: SetAppVerificationResult;
-  /**
-   * Set default feed for an app
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   setDefaultAppFeed: SetDefaultAppFeedResult;
-  /**
-   * Set metadata for a feed
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   setFeedMetadata: SetFeedMetadataResult;
-  /**
-   * Set metadata for a graph
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   setGraphMetadata: SetGraphMetadataResult;
-  /**
-   * Set metadata for a group
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   setGroupMetadata: SetGroupMetadataResult;
-  /**
-   * Set metadata for a namespace
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   setNamespaceMetadata: SetNamespaceMetadataResult;
-  /**
-   * Set metadata for a sponsorship
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   setSponsorshipMetadata: SetSponsorshipMetadataResult;
-  /**
-   * sign a frame action with the lens account manager
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   signFrameAction: FrameLensManagerSignatureResult;
-  /** You MUST be authenticated as Account Owner or Account Manager to use this mutation. */
   switchAccount: SwitchAccountResult;
-  /**
-   * Transfer primitive ownership for the graph/app/sponsor/feed/username/group.
-   *
-   * You MUST be authenticated as Builder to use this mutation.
-   */
   transferPrimitiveOwnership: TransferPrimitiveOwnershipResult;
-  /**
-   * Unassign a username from the logged-in user's Account.
-   *
-   * Defaults to the Lens namespace if no request is provided.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   unassignUsernameFromAccount: UnassignUsernameToAccountResult;
-  /**
-   * Unban accounts
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   unbanGroupAccounts: UnbanGroupAccountsResult;
-  /**
-   * Unblock an account with the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   unblock: UnblockResult;
-  /**
-   * Undo bookmark.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   undoBookmarkPost: Scalars['Void']['output'];
-  /**
-   * Undo a post not interested.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   undoPostNotInterested: Scalars['Void']['output'];
-  /**
-   * Undo reaction to a post.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   undoReaction: UndoReactionResult;
-  /**
-   * Undo recommended account from the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   undoRecommendedAccount: Scalars['Void']['output'];
-  /**
-   * Unfollow an Account on the global Graph or a specific Graph.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   unfollow: UnfollowResult;
-  /**
-   * Undo the hiding of an account from the manager list of managed accounts.
-   *
-   * You MUST be authenticated as Account Manager to use this mutation.
-   */
   unhideManagedAccount: Scalars['Void']['output'];
   unhideReply: Scalars['Void']['output'];
-  /**
-   * Unmute an account for the authenticated account.
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   unmute: Scalars['Void']['output'];
-  /**
-   * Unpause a sponsorship.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   unpauseSponsorship: PausingResult;
-  /**
-   * Update account follow rules
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   updateAccountFollowRules: UpdateAccountFollowRulesResult;
-  /**
-   * Update the Account Manager Permissions for a given Account Manager.
-   *
-   * You MUST be authenticated as Account Owner to use this mutation.
-   */
   updateAccountManager: UpdateAccountManagerResult;
-  /**
-   * Update feed rules
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   updateFeedRules: UpdateFeedRulesResult;
-  /**
-   * Update graph rules
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   updateGraphRules: UpdateGraphRulesResult;
-  /**
-   * Update group rules
-   *
-   * You MUST be authenticated as Account Owner or Account Manager or Builder to use this
-   * mutation.
-   */
   updateGroupRules: UpdateGroupRulesResult;
-  /**
-   * Update namespace rules
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   updateNamespaceRules: UpdateNamespaceRulesResult;
-  /**
-   * Update post rules
-   *
-   * You MUST be authenticated as Account Owner or Account Manager to use this mutation.
-   */
   updatePostRules: UpdatePostRulesResult;
-  /**
-   * Update reserved usernames
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   updateReservedUsernames: UpdateReservedUsernamesResult;
-  /**
-   * Update a sponsorship exclusion list from the rate limits.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   updateSponsorshipExclusionList: UpdateSponsorshipExclusionListResult;
-  /**
-   * Update a sponsorship rate limits.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   updateSponsorshipLimits: UpdateSponsorshipLimitsResult;
-  /**
-   * Update a sponsorship signers list.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   updateSponsorshipSigners: UpdateSponsorshipSignersResult;
 };
 
@@ -5065,7 +3610,6 @@ export type MutationUpdateSponsorshipSignersArgs = {
 };
 
 export type MuteRequest = {
-  /** The account to mute. */
   account: Scalars['EvmAddress']['input'];
 };
 
@@ -5088,18 +3632,13 @@ export type NamespaceOperationValidationUnknown = {
 };
 
 export type NamespaceRequest = {
-  /** The namespace */
   namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the namespace with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
 export type NamespaceReservedUsernamesRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The namespace to get reserved usernames for */
   namespace: Scalars['EvmAddress']['input'];
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -5175,12 +3714,7 @@ export type NamespaceUnsatisfiedRules = {
 };
 
 export type NamespacesFilter = {
-  /** The optional filter to get namespaces managed by address */
   managedBy?: InputMaybe<ManagedBy>;
-  /**
-   * The optional filter to narrow namespaces by search query.
-   * Uses fuzzy search on namespace name
-   */
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -5191,12 +3725,9 @@ export enum NamespacesOrderBy {
 }
 
 export type NamespacesRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<NamespacesFilter>;
-  /** The order by. */
   orderBy?: NamespacesOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -5214,38 +3745,17 @@ export type NetworkAddress = {
 
 export type NftMetadata = {
   __typename?: 'NftMetadata';
-  /**
-   * A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4,
-   * M4V, OGV, and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA.
-   * Animation_url also supports HTML pages, allowing you to build rich experiences and
-   * interactive NFTs using JavaScript canvas, WebGL, and more. Scripts and relative paths
-   * within the HTML page are now supported. However, access to browser extensions is not
-   * supported.
-   */
   animationUrl?: Maybe<Scalars['URI']['output']>;
-  /**
-   * These are the attributes for the item, which will show up on the OpenSea and others NFT
-   * trading websites on the item.
-   */
   attributes: Array<MarketplaceMetadataAttribute>;
-  /** A human-readable description of the item. It could be plain text or markdown. */
   description?: Maybe<Scalars['String']['output']>;
-  /**
-   * This is the URL that will appear below the asset's image on OpenSea and others etc. and
-   * will allow users to leave OpenSea and view the item on the site.
-   */
   externalUrl?: Maybe<Scalars['URI']['output']>;
-  /** NFT will store any image here. */
   image?: Maybe<Scalars['URI']['output']>;
-  /** Name of the NFT item. */
   name?: Maybe<Scalars['String']['output']>;
 };
 
-/** The existence of the transaction is not yet indexed. Keep trying. */
 export type NotIndexedYetStatus = {
   __typename?: 'NotIndexedYetStatus';
   reason: Scalars['String']['output'];
-  /** True if the transaction has been mined. */
   txHasMined: Scalars['Boolean']['output'];
 };
 
@@ -5271,17 +3781,11 @@ export type NotificationAccountRepost = {
 };
 
 export type NotificationFilter = {
-  /** The apps to filter by. */
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The feeds to filter by. */
   feeds?: InputMaybe<Array<FeedOneOf>>;
-  /** The graphs to filter by. */
   graphs?: InputMaybe<Array<GraphOneOf>>;
-  /** Include notification from accounts with low score */
   includeLowScore?: Scalars['Boolean']['input'];
-  /** The notification types to filter by. */
   notificationTypes?: InputMaybe<Array<NotificationType>>;
-  /** Aggregate notifications by time */
   timeBasedAggregation?: Scalars['Boolean']['input'];
 };
 
@@ -5292,9 +3796,7 @@ export enum NotificationOrderBy {
 
 export type NotificationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to narrow down the notifications result. */
   filter?: InputMaybe<NotificationFilter>;
-  /** An optional order to sort the notifications result. */
   orderBy?: NotificationOrderBy;
 };
 
@@ -5308,15 +3810,7 @@ export enum NotificationType {
 }
 
 export type OnboardingUserChallengeRequest = {
-  /**
-   * The App you intend to authenticate with.
-   *
-   * It MUST be a valid App address.
-   * Note: On the testnet, it will default to the playground app.
-   * This is to make it easier if you forget to set it. This may change in the future.
-   */
   app?: Scalars['EvmAddress']['input'];
-  /** The address of the EOA that needs to create their Lens Account. */
   wallet: Scalars['EvmAddress']['input'];
 };
 
@@ -5333,17 +3827,13 @@ export type PaginatedAccountExecutedActionsResult = {
 
 export type PaginatedAccountManagersResult = {
   __typename?: 'PaginatedAccountManagersResult';
-  /** The account managers. */
   items: Array<AccountManager>;
-  /** The pagination information for the given request. */
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAccountsAvailableResult = {
   __typename?: 'PaginatedAccountsAvailableResult';
-  /** The accounts available to use for the given address */
   items: Array<AccountAvailable>;
-  /** The pagination information for the given request. */
   pageInfo: PaginatedResultInfo;
 };
 
@@ -5379,14 +3869,12 @@ export type PaginatedAnyPostsResult = {
 
 export type PaginatedAppFeedsResult = {
   __typename?: 'PaginatedAppFeedsResult';
-  /** The feeds */
   items: Array<AppFeed>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAppSignersResult = {
   __typename?: 'PaginatedAppSignersResult';
-  /** The signers */
   items: Array<AppSigner>;
   pageInfo: PaginatedResultInfo;
 };
@@ -5441,7 +3929,6 @@ export type PaginatedGroupMembershipRequestsResult = {
 
 export type PaginatedGroupsResult = {
   __typename?: 'PaginatedGroupsResult';
-  /** The groups */
   items: Array<Group>;
   pageInfo: PaginatedResultInfo;
 };
@@ -5502,9 +3989,7 @@ export type PaginatedPostsResult = {
 
 export type PaginatedResultInfo = {
   __typename?: 'PaginatedResultInfo';
-  /** The cursor to the next page of results, if any. */
   next?: Maybe<Scalars['Cursor']['output']>;
-  /** The cursor to the previous page of results, if any. */
   prev?: Maybe<Scalars['Cursor']['output']>;
 };
 
@@ -5521,7 +4006,6 @@ export type PaginatedUsernamesResult = {
 };
 
 export type PausingRequest = {
-  /** The sponsorship to update */
   sponsorship: Scalars['EvmAddress']['input'];
 };
 
@@ -5529,44 +4013,23 @@ export type PausingResult = SelfFundedTransactionRequest | SponsoredTransactionR
 
 export type PaymasterParams = {
   __typename?: 'PaymasterParams';
-  /** The address of the paymaster. */
   paymaster: Scalars['EvmAddress']['output'];
-  /** The bytestream input for the paymaster. */
   paymasterInput: Scalars['BlockchainData']['output'];
 };
 
-/**
- * The existence of the transaction is known, but its status is not yet known.
- *
- * The transaction could be:
- * - waiting to be included in a block
- * - waiting for a block to be mined
- * - waiting to be indexed by the Lens Indexer
- * - waiting for any associated metadata to be snapshotted and indexed
- */
 export type PendingTransactionStatus = {
   __typename?: 'PendingTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
   summary: Array<SubOperationStatus>;
 };
 
-/** PhysicalAddress */
 export type PhysicalAddress = {
   __typename?: 'PhysicalAddress';
-  /** The country name component. */
   country: Scalars['String']['output'];
-  /** The full mailing address formatted for display. */
   formatted?: Maybe<Scalars['String']['output']>;
-  /** The city or locality. */
   locality: Scalars['String']['output'];
-  /** The zip or postal code. */
   postalCode?: Maybe<Scalars['String']['output']>;
-  /** The state or region. */
   region?: Maybe<Scalars['String']['output']>;
-  /**
-   * The street address including house number, street name, P.O. Box, apartment or unit number
-   * and extended multi-line address information.
-   */
   streetAddress?: Maybe<Scalars['String']['output']>;
 };
 
@@ -5641,7 +4104,6 @@ export type PostActionsParams = {
 };
 
 export type PostBookmarksFilter = {
-  /** The feeds to filter by. */
   feeds?: InputMaybe<Array<FeedOneOf>>;
   metadata?: InputMaybe<PostMetadataFilter>;
 };
@@ -5689,7 +4151,6 @@ export type PostEditedNotificationAttributes = {
 export type PostEditsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   pageSize?: PageSize;
-  /** The post ID. */
   post: Scalars['PostId']['input'];
 };
 
@@ -5729,11 +4190,8 @@ export type PostMetadataContentWarningFilter = {
 };
 
 export type PostMetadataFilter = {
-  /** The content warning to filter by. */
   contentWarning?: InputMaybe<PostMetadataContentWarningFilter>;
-  /** The main focus of the post. */
   mainContentFocus?: InputMaybe<Array<MainContentFocus>>;
-  /** The tags to filter by. */
   tags?: InputMaybe<PostMetadataTagsFilter>;
 };
 
@@ -5809,18 +4267,14 @@ export enum PostReactionType {
 }
 
 export type PostReactionsFilter = {
-  /** The types of reactions to filter by. */
   anyOf?: InputMaybe<Array<PostReactionType>>;
 };
 
 export type PostReactionsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to narrow down the result. */
   filter?: InputMaybe<PostReactionsFilter>;
-  /** The order in which to return the results. */
   orderBy?: InputMaybe<PostReactionOrderBy>;
   pageSize?: PageSize;
-  /** The ID of the post to get reactions for. */
   post: Scalars['PostId']['input'];
 };
 
@@ -5831,15 +4285,10 @@ export enum PostReferenceType {
 }
 
 export type PostReferencesRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The page size. */
   pageSize?: PageSize;
-  /** The types of references to get. */
   referenceTypes: Array<PostReferenceType>;
-  /** The post to get references for. */
   referencedPost: Scalars['PostId']['input'];
-  /** The visibility filter to apply by default it will honour the visibility of the post. */
   visibilityFilter?: PostVisibilityFilter;
 };
 
@@ -5871,13 +4320,9 @@ export type PostReportedNotificationAttributes = {
   reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
-/** You must provide either a txHash or a postId or a legacyId, you can not apply more than one. */
 export type PostRequest = {
-  /** The legacy publication ID. */
   legacyId?: InputMaybe<Scalars['LegacyPublicationId']['input']>;
-  /** The post ID. */
   post?: InputMaybe<Scalars['PostId']['input']>;
-  /** The transaction hash you sent the post with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
@@ -5937,19 +4382,12 @@ export type PostRulesProcessingParams = {
 
 export type PostStats = {
   __typename?: 'PostStats';
-  /** The total number of bookmarks. */
   bookmarks: Scalars['Int']['output'];
-  /** The total number of collects. */
   collects: Scalars['Int']['output'];
-  /** The total number of comments. */
   comments: Scalars['Int']['output'];
-  /** The total number of quotes. */
   quotes: Scalars['Int']['output'];
-  /** Get the number of reactions for the post. */
   reactions: Scalars['Int']['output'];
-  /** The total number of reposts. */
   reposts: Scalars['Int']['output'];
-  /** The total number of tips received. */
   tips: Scalars['Int']['output'];
 };
 
@@ -5965,7 +4403,6 @@ export type PostTag = {
 };
 
 export type PostTagsFilter = {
-  /** The feeds to filter by. */
   feeds?: InputMaybe<Array<FeedOneOf>>;
 };
 
@@ -5976,7 +4413,6 @@ export enum PostTagsOrderBy {
 
 export type PostTagsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the tags. */
   filter?: InputMaybe<PostTagsFilter>;
   orderBy?: PostTagsOrderBy;
   pageSize?: PageSize;
@@ -6010,22 +4446,17 @@ export type PostUnsatisfiedRules = {
 };
 
 export enum PostVisibilityFilter {
-  /** All posts even if they have been hidden */
   All = 'ALL',
-  /** Only the posts that are hidden */
   Hidden = 'HIDDEN',
-  /** Only the posts that are visible */
   Visible = 'VISIBLE'
 }
 
 export type PostsFilter = {
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   authors?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The feeds to filter by. */
   feeds?: InputMaybe<Array<FeedOneOf>>;
   metadata?: InputMaybe<PostMetadataFilter>;
   postTypes?: InputMaybe<Array<PostType>>;
-  /** The optional query text to search for in the post content or metadata tags. */
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -6040,76 +4471,30 @@ export type PrimitiveData = AddressKeyValue | BigDecimalKeyValue | BooleanKeyVal
 export type Query = {
   __typename?: 'Query';
   _service: _Service;
-  /** Get an account by address, username, or legacy profile ID. */
   account?: Maybe<Account>;
-  /** Get the account stats for the feeds. */
   accountFeedsStats: AccountFeedsStats;
-  /** Get the account stats for the graphs. */
   accountGraphsStats: AccountGraphsFollowStats;
-  /**
-   * Account manager for the authenticated account.
-   *
-   * You MUST be authenticated to use this query.
-   */
   accountManagers: PaginatedAccountManagersResult;
-  /** Get the stats for an account. */
   accountStats: AccountStats;
-  /** Get accounts. */
   accounts: PaginatedAccountsResult;
-  /** Get the accounts which are available to use for the given address */
   accountsAvailable: PaginatedAccountsAvailableResult;
-  /**
-   * Accounts blocked for the authenticated account.
-   *
-   * You MUST be authenticated to use this query.
-   */
   accountsBlocked: PaginatedAccountsBlockedResult;
-  /** Get accounts by address, username, or legacy profile ID. */
   accountsBulk: Array<Account>;
-  /** Get admins for a graph/app/sponsor/feed/username/group address */
   adminsFor: PaginatedAdminsResult;
   anyJson: Scalars['JSON']['output'];
-  /** Get an app */
   app?: Maybe<App>;
-  /** Get the feeds for an app */
   appFeeds: PaginatedAppFeedsResult;
-  /** Get the groups for an app */
   appGroups: PaginatedGroupsResult;
-  /**
-   * Get the server side API key for the app you must be the owner of the app to see it.
-   *
-   * You MUST be authenticated as a builder to use this mutation.
-   */
   appServerApiKey?: Maybe<Scalars['String']['output']>;
-  /** Get the signers for an app */
   appSigners: PaginatedAppSignersResult;
-  /** Get accounts for an app. */
   appUsers: PaginatedAppUsersResult;
-  /** Get the apps. */
   apps: AppsResult;
-  /**
-   * List all active authenticated sessions for the current account.
-   *
-   * You MUST be authenticated to use this query.
-   */
   authenticatedSessions: PaginatedActiveAuthenticationsResult;
-  /**
-   * Checks if the given username can be created by the account
-   *
-   * You MUST be authenticated to use this mutation.
-   */
   canCreateUsername: CanCreateUsernameResult;
-  /** Create a frame typed data */
   createFrameTypedData: CreateFrameEip712TypedData;
-  /**
-   * Get the current authenticated session for the current account.
-   *
-   * You MUST be authenticated to use this query.
-   */
   currentSession: AuthenticatedSession;
   debugMetadata: DebugPostMetadataResult;
   feed?: Maybe<Feed>;
-  /** Get the feeds. */
   feeds: PaginatedFeedsResult;
   followStatus: Array<FollowStatusResult>;
   followers: PaginatedFollowersResult;
@@ -6117,83 +4502,46 @@ export type Query = {
   following: PaginatedFollowingResult;
   getSnsSubscriptions: Array<SnsSubscription>;
   graph?: Maybe<Graph>;
-  /** Get the graphs. */
   graphs: PaginatedGraphsResult;
   group?: Maybe<Group>;
-  /** Get the banned accounts of a group */
   groupBannedAccounts: PaginatedGroupBannedAccountsResult;
-  /** Get the members of the group */
   groupMembers: PaginatedGroupMembersResult;
-  /** Get the group membership requests */
   groupMembershipRequests: PaginatedGroupMembershipRequestsResult;
-  /** Get the number of members in a Group */
   groupStats: GroupStatsResponse;
-  /** Get the groups. */
   groups: PaginatedGroupsResult;
   health: Scalars['Boolean']['output'];
-  /** Get the last logged in account for the given address and app if specified. */
   lastLoggedInAccount?: Maybe<Account>;
   maintenance: Scalars['Boolean']['output'];
-  /**
-   * Account information for the authenticated account.
-   *
-   * You MUST be authenticated to use this query.
-   */
   me: MeResult;
   mlAccountRecommendations: PaginatedAccountsResult;
   mlPostsExplore?: Maybe<PaginatedPostsResult>;
   mlPostsForYou: PaginatedPostsForYouResult;
   namespace?: Maybe<UsernameNamespace>;
-  /** Get the banned accounts of a group */
   namespaceReservedUsernames: PaginatedNamespaceReservedUsernamesResult;
-  /** Get the namespaces. */
   namespaces: NamespacesResult;
-  /**
-   * Get account notifications.
-   *
-   * You MUST be authenticated to use this query.
-   */
   notifications: PaginatedNotificationResult;
   post?: Maybe<AnyPost>;
-  /** Lists all available Post Action contracts. */
   postActionContracts: PaginatedPostActionContracts;
   postBookmarks: PaginatedAnyPostsResult;
   postEdits: PaginatedPostEditsResult;
   postReactionStatus: Array<PostReactionStatus>;
-  /** Get the reactions added to a post. */
   postReactions: PaginatedPostReactionsResult;
   postReferences: PaginatedAnyPostsResult;
   postTags: PaginatedPostTagsResult;
   posts: PaginatedAnyPostsResult;
-  /** Get the status of a refresh metadata job. */
   refreshMetadataStatus: RefreshMetadataStatusResult;
-  /** Get a Sponsorship */
   sponsorship?: Maybe<Sponsorship>;
-  /** Get paginated Sponsorship limits Exclusion list. */
   sponsorshipLimitsExclusions: SponsorshipLimitsExclusionsResult;
-  /** Get paginated Sponsorship Signers. */
   sponsorshipSigners: SponsorshipSignersResult;
-  /** Get paginated Sponsorships. */
   sponsorships: SponsorshipsResult;
-  /**
-   * Get account timeline.
-   *
-   * You MUST be authenticated to use this query.
-   */
   timeline: PaginatedTimelineResult;
-  /** Get most engaged posts for the given account timeline. */
   timelineHighlights: PaginatedPostsResult;
-  /** Get the status of a transaction by its hash. */
   transactionStatus: TransactionStatusResult;
   username?: Maybe<Username>;
-  /** Get the usernames for the account/owner. */
   usernames: PaginatedUsernamesResult;
   verifyFrameSignature: FrameVerifySignatureResult;
-  /** Get who acted on a post. */
   whoExecutedActionOnAccount: PaginatedAccountExecutedActionsResult;
-  /** Get who acted on a post. */
   whoExecutedActionOnPost: PaginatedPostExecutedActionsResult;
-  /** Get accounts who referenced a post */
   whoReferencedPost: PaginatedAccountsResult;
 };
 
@@ -6564,31 +4912,20 @@ export type ReactionNotification = {
 export type RecipientPercent = {
   __typename?: 'RecipientPercent';
   address: Scalars['EvmAddress']['output'];
-  /**
-   * Percentage of the fee that will be sent to the recipient must be a whole number between 0
-   * and 100.
-   */
   percent: Scalars['Int']['output'];
 };
 
 export type RecipientPercentInput = {
   address: Scalars['EvmAddress']['input'];
-  /**
-   * Percentage of the fee that will be sent to the recipient must be a whole number between 0
-   * and 100.
-   */
   percent: Scalars['Int']['input'];
 };
 
 export type RecommendAccount = {
-  /** The account to recommend. */
   account: Scalars['EvmAddress']['input'];
 };
 
 export type ReferencingPostInput = {
-  /** The post to reference. */
   post: Scalars['PostId']['input'];
-  /** The processing params for the post rules. */
   postRulesProcessingParams?: InputMaybe<Array<PostRulesProcessingParams>>;
 };
 
@@ -6603,24 +4940,18 @@ export type RefreshMetadataRequest = {
 
 export type RefreshMetadataResult = {
   __typename?: 'RefreshMetadataResult';
-  /** The id of the refresh metadata job. You can use this id to check the status of the job. */
   id: Scalars['UUID']['output'];
 };
 
 export type RefreshMetadataStatusRequest = {
-  /** The refresh metadata status ID from the refreshMetadata mutation. */
   id: Scalars['UUID']['input'];
 };
 
 export type RefreshMetadataStatusResult = {
   __typename?: 'RefreshMetadataStatusResult';
-  /** The id of the refresh metadata job. You can use this id to check the status of the job. */
   id: Scalars['UUID']['output'];
-  /** An optional reason in case the status is failed. */
   reason?: Maybe<Scalars['String']['output']>;
-  /** The status of the refresh metadata job. */
   status: IndexingStatus;
-  /** The timestamp when the refresh metadata job was updated. */
   updatedAt: Scalars['DateTime']['output'];
 };
 
@@ -6631,9 +4962,7 @@ export type RefreshRequest = {
 export type RefreshResult = AuthenticationTokens | ForbiddenError;
 
 export type RejectGroupMembershipRequest = {
-  /** The accounts you want to reject membership request for. */
   accounts: Array<Scalars['EvmAddress']['input']>;
-  /** The group you want to reject membership request for. */
   group: Scalars['EvmAddress']['input'];
 };
 
@@ -6645,61 +4974,47 @@ export type RejectGroupMembershipRequestsResponse = {
 export type RejectGroupMembershipResult = RejectGroupMembershipRequestsResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAccountManagerRequest = {
-  /** The address to remove as a manager. */
   manager: Scalars['EvmAddress']['input'];
 };
 
 export type RemoveAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAdminsRequest = {
-  /** The graph/app/sponsor/feed/username/group address which manages these admins */
   address: Scalars['EvmAddress']['input'];
-  /** The addresses to remove as admins */
   admins: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type RemoveAdminsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAppAuthorizationEndpointRequest = {
-  /** The app. */
   app: Scalars['EvmAddress']['input'];
 };
 
 export type RemoveAppFeedsRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app feeds (max 10 per request) */
   feeds: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type RemoveAppFeedsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAppGroupsRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app groups (max 10 per request) */
   groups: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type RemoveAppGroupsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveAppSignersRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app signers (max 10 per request) */
   signers: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type RemoveAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type RemoveGroupMembersRequest = {
-  /** The accounts you want to remove from the group. */
   accounts: Array<Scalars['EvmAddress']['input']>;
-  /** Ban the account from the joining the group. */
   ban?: Scalars['Boolean']['input'];
-  /** The group you want to join */
   group: Scalars['EvmAddress']['input'];
-  /** The processing params for the join rules. */
   rulesProcessingParams?: InputMaybe<Array<GroupRulesProcessingParams>>;
 };
 
@@ -6713,13 +5028,9 @@ export type RemoveGroupMembersResult = GroupOperationValidationFailed | RemoveGr
 export type RemoveSignlessResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ReportAccountRequest = {
-  /** The account to report. */
   account: Scalars['EvmAddress']['input'];
-  /** An optional comment to add to the report. */
   additionalComment?: InputMaybe<Scalars['String']['input']>;
-  /** The reason for the report. */
   reason: AccountReportReason;
-  /** An optional list of posts to reference in the report. */
   referencePosts?: InputMaybe<Array<Scalars['PostId']['input']>>;
 };
 
@@ -6748,7 +5059,6 @@ export type RepostNotification = {
 };
 
 export type RequestGroupMembershipRequest = {
-  /** The group you want to add member to. */
   group: Scalars['EvmAddress']['input'];
 };
 
@@ -6764,9 +5074,7 @@ export type RevokeAuthenticationRequest = {
 };
 
 export type RolloverRefreshRequest = {
-  /** The app that new tokens will be issued for. */
   app: Scalars['EvmAddress']['input'];
-  /** A valid Lens API v2 refresh token for a Profile session. */
   refreshToken: Scalars['LegacyRefreshToken']['input'];
 };
 
@@ -6777,18 +5085,12 @@ export enum SelfFundedFallbackReason {
 
 export type SelfFundedTransactionRequest = {
   __typename?: 'SelfFundedTransactionRequest';
-  /**
-   * The raw transaction request object.
-   *
-   * Use this object if your library does not have a parser for the encoded transaction data.
-   */
   raw: Eip1559TransactionRequest;
   reason: Scalars['String']['output'];
   selfFundedReason?: Maybe<SelfFundedFallbackReason>;
 };
 
 export type SetAccountMetadataRequest = {
-  /** The metadata URI to set. */
   metadataUri: Scalars['URI']['input'];
 };
 
@@ -6800,108 +5102,84 @@ export type SetAccountMetadataResponse = {
 export type SetAccountMetadataResult = SelfFundedTransactionRequest | SetAccountMetadataResponse | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppGraphRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app graph to set */
   graph: GraphChoiceOneOf;
 };
 
 export type SetAppGraphResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppMetadataRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app metadata to set */
   metadataUri: Scalars['String']['input'];
 };
 
 export type SetAppMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppSponsorshipRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app sponsorship to set */
   sponsorship: Scalars['EvmAddress']['input'];
 };
 
 export type SetAppSponsorshipResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppTreasuryRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app treasury to set */
   treasury: Scalars['EvmAddress']['input'];
 };
 
 export type SetAppTreasuryResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppUsernameNamespaceRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app username namespace to set */
   usernameNamespace: UsernameNamespaceChoiceOneOf;
 };
 
 export type SetAppUsernameNamespaceResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetAppVerificationRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The new verification state */
   enabled: Scalars['Boolean']['input'];
 };
 
 export type SetAppVerificationResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetDefaultAppFeedRequest = {
-  /** The app to update */
   app: Scalars['EvmAddress']['input'];
-  /** The app default feed to set */
   feed: FeedChoiceOneOf;
 };
 
 export type SetDefaultAppFeedResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetFeedMetadataRequest = {
-  /** The feed to update */
   feed: Scalars['EvmAddress']['input'];
-  /** The feed metadata to set */
   metadataUri: Scalars['String']['input'];
 };
 
 export type SetFeedMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetGraphMetadataRequest = {
-  /** The graph to update */
   graph: Scalars['EvmAddress']['input'];
-  /** The graph metadata to set */
   metadataUri: Scalars['String']['input'];
 };
 
 export type SetGraphMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetGroupMetadataRequest = {
-  /** The group to update */
   group: Scalars['EvmAddress']['input'];
-  /** The group metadata to set */
   metadataUri: Scalars['String']['input'];
 };
 
 export type SetGroupMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetNamespaceMetadataRequest = {
-  /** The namespace metadata to set */
   metadataUri: Scalars['String']['input'];
-  /** The namespace to update */
   namespace: Scalars['EvmAddress']['input'];
 };
 
 export type SetNamespaceMetadataResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type SetSponsorshipMetadataRequest = {
-  /** The sponsorship metadata to set */
   metadataUri: Scalars['URI']['input'];
-  /** The sponsorship to update */
   sponsorship: Scalars['EvmAddress']['input'];
 };
 
@@ -7065,28 +5343,16 @@ export type SnsTopicInput = {
 
 export type SpaceMetadata = {
   __typename?: 'SpaceMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
-  /** The space join link. */
   link: Scalars['URI']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** The space start time (ISO 8601 `YYYY-MM-DDTHH:mm:ss.sssZ`). */
   startsAt: Scalars['DateTime']['output'];
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The space title. */
   title: Scalars['String']['output'];
 };
 
@@ -7098,11 +5364,6 @@ export enum SponsoredFallbackReason {
 
 export type SponsoredTransactionRequest = {
   __typename?: 'SponsoredTransactionRequest';
-  /**
-   * The raw transaction request object.
-   *
-   * Use this object if your library does not have a parser for the encoded transaction data.
-   */
   raw: Eip712TransactionRequest;
   reason: Scalars['String']['output'];
   sponsoredReason?: Maybe<SponsoredFallbackReason>;
@@ -7111,17 +5372,7 @@ export type SponsoredTransactionRequest = {
 export type Sponsorship = {
   __typename?: 'Sponsorship';
   address: Scalars['EvmAddress']['output'];
-  /**
-   * Indicates whether the Lens API is authorized as the sponsorship signer
-   * to sponsor end-user social operations (e.g., posts, comments, follows)
-   * performed through the Lens API for apps associated with this sponsorship.
-   */
   allowsLensAccess: Scalars['Boolean']['output'];
-  /**
-   * The native token balance of the sponsorship contract.
-   *
-   * This value is cached for up to 2 minutes for each sponsorship contract.
-   */
   balance?: Maybe<Scalars['BigDecimal']['output']>;
   createdAt: Scalars['DateTime']['output'];
   isPaused: Scalars['Boolean']['output'];
@@ -7132,18 +5383,13 @@ export type Sponsorship = {
 
 export type SponsorshipAllowance = {
   __typename?: 'SponsorshipAllowance';
-  /** The total sponsorship allowance. */
   allowance: Scalars['Int']['output'];
-  /** The number of remaining sponsorship allowance. */
   allowanceLeft: Scalars['Int']['output'];
-  /** The number of sponsorship allowance used. */
   allowanceUsed: Scalars['Int']['output'];
-  /** The sponsorship window type. */
   window: SponsorshipRateLimitWindow;
 };
 
 export type SponsorshipLimitExclusionsFilter = {
-  /** The sponsorship address. */
   sponsorship: Scalars['EvmAddress']['input'];
 };
 
@@ -7154,13 +5400,9 @@ export enum SponsorshipLimitExclusionsOrderBy {
 }
 
 export type SponsorshipLimitExclusionsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The filter options. */
   filter: SponsorshipLimitExclusionsFilter;
-  /** The order by criteria. */
   orderBy?: SponsorshipLimitExclusionsOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -7186,14 +5428,8 @@ export type SponsorshipLimitsExempt = {
 
 export type SponsorshipMetadata = {
   __typename?: 'SponsorshipMetadata';
-  /** An optional description of the Username collection. */
   description?: Maybe<Scalars['String']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
   id: Scalars['String']['output'];
-  /** The name of the Sponsorship. */
   name: Scalars['String']['output'];
 };
 
@@ -7204,9 +5440,7 @@ export type SponsorshipRateLimit = {
 };
 
 export type SponsorshipRateLimitInput = {
-  /** The limit value. */
   limit: Scalars['Int']['input'];
-  /** The limit time window. */
   window: SponsorshipRateLimitWindow;
 };
 
@@ -7218,23 +5452,17 @@ export enum SponsorshipRateLimitWindow {
 }
 
 export type SponsorshipRateLimitsExempt = {
-  /** The exempt address. */
   address: Scalars['EvmAddress']['input'];
-  /** The human-readable label for the exempt address. */
   label: Scalars['String']['input'];
 };
 
 export type SponsorshipRateLimitsInput = {
-  /** The global rate limit. */
   global?: InputMaybe<SponsorshipRateLimitInput>;
-  /** The user rate limit. */
   user?: InputMaybe<SponsorshipRateLimitInput>;
 };
 
 export type SponsorshipRequest = {
-  /** The Sponsorship address. */
   address?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The transaction hash you created the Sponsorship with. */
   txHash?: InputMaybe<Scalars['TxHash']['input']>;
 };
 
@@ -7247,14 +5475,11 @@ export type SponsorshipSigner = {
 };
 
 export type SponsorshipSignerInput = {
-  /** The signer address */
   address: Scalars['EvmAddress']['input'];
-  /** The human-readable label for the signer */
   label: Scalars['String']['input'];
 };
 
 export type SponsorshipSignersFilter = {
-  /** The sponsorship address. */
   sponsorship: Scalars['EvmAddress']['input'];
 };
 
@@ -7265,13 +5490,9 @@ export enum SponsorshipSignersOrderBy {
 }
 
 export type SponsorshipSignersRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The filter options. */
   filter: SponsorshipSignersFilter;
-  /** The order by criteria. */
   orderBy?: SponsorshipSignersOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -7282,7 +5503,6 @@ export type SponsorshipSignersResult = {
 };
 
 export type SponsorshipsFilter = {
-  /** The filter to get Sponsorships managed by address */
   managedBy: ManagedBy;
 };
 
@@ -7293,13 +5513,9 @@ export enum SponsorshipsOrderBy {
 }
 
 export type SponsorshipsRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The filter options. */
   filter: SponsorshipsFilter;
-  /** The order by criteria. */
   orderBy?: SponsorshipsOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -7315,22 +5531,13 @@ export type StatsReactionRequest = {
 
 export type StoryMetadata = {
   __typename?: 'StoryMetadata';
-  /** The story asset. */
   asset: AnyMedia;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
@@ -7354,34 +5561,21 @@ export type SwitchAccountResult = AuthenticationTokens | ForbiddenError;
 
 export type TextOnlyMetadata = {
   __typename?: 'TextOnlyMetadata';
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
 export type ThreeDAsset = {
   __typename?: 'ThreeDAsset';
-  /** The 3D format of the asset. */
   format: ThreeDAssetFormat;
-  /** The license regulating the use of the 3D asset. */
   license?: Maybe<MetadataLicenseType>;
-  /** The URL of the recommended web based 3D player to use to view the 3D asset. */
   playerUrl: Scalars['URI']['output'];
-  /** The URI of the 3D asset zip file. */
   uri: Scalars['URI']['output'];
-  /** Path in extracted zip. Relative. 3D start point, MUST be 3D file type. */
   zipPath?: Maybe<Scalars['String']['output']>;
 };
 
@@ -7394,24 +5588,14 @@ export enum ThreeDAssetFormat {
 
 export type ThreeDMetadata = {
   __typename?: 'ThreeDMetadata';
-  /** The 3D items for the post */
   assets: Array<ThreeDAsset>;
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
 };
 
@@ -7423,29 +5607,21 @@ export enum TimelineEventItemType {
 }
 
 export type TimelineFilter = {
-  /** The apps to filter by. */
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The post event types to filter by. */
   eventType?: InputMaybe<Array<TimelineEventItemType>>;
-  /** The feeds to filter by. */
   feeds?: InputMaybe<Array<FeedOneOf>>;
-  /** The optional metadata filter. */
   metadata?: InputMaybe<PostMetadataFilter>;
 };
 
 export type TimelineHighlightsFilter = {
-  /** The apps to filter by. */
   apps?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
-  /** The feeds to filter by. */
   feeds?: InputMaybe<Array<FeedOneOf>>;
   metadata?: InputMaybe<PostMetadataFilter>;
 };
 
 export type TimelineHighlightsRequest = {
-  /** The account to get timeline highlights for. */
   account: Scalars['EvmAddress']['input'];
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the timeline. */
   filter?: InputMaybe<TimelineHighlightsFilter>;
   pageSize?: PageSize;
 };
@@ -7459,11 +5635,8 @@ export type TimelineItem = {
 };
 
 export type TimelineRequest = {
-  /** The account to get timeline for. */
   account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** An optional filter to apply to the timeline. */
   filter?: InputMaybe<TimelineFilter>;
 };
 
@@ -7483,18 +5656,9 @@ export type TippingPostActionContract = {
 };
 
 export type TokenAmountInput = {
-  /**
-   * The token address. To represent the native token, use the
-   * 0x000000000000000000000000000000000000800a.
-   */
   currency: Scalars['EvmAddress']['input'];
   standard: TokenStandard;
-  /** Optional, only for ERC-1155 tokens. */
   typeId?: InputMaybe<Scalars['BigInt']['input']>;
-  /**
-   * Token value in its main unit (e.g., 1.5 DAI), not in the smallest fraction (e.g.,
-   * wei).
-   */
   value: Scalars['BigDecimal']['input'];
 };
 
@@ -7526,28 +5690,16 @@ export enum TokenStandard {
 
 export type TransactionMetadata = {
   __typename?: 'TransactionMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
-  /** The Chain Id. */
   chainId: Scalars['ChainId']['output'];
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The transaction hash. */
   txHash: Scalars['String']['output'];
-  /** The type of transaction. */
   type: TransactionType;
 };
 
@@ -7714,9 +5866,7 @@ export type TransactionWillFail = {
 };
 
 export type TransferPrimitiveOwnershipRequest = {
-  /** The graph/app/sponsor/feed/username/group address to change ownership for */
   address: Scalars['EvmAddress']['input'];
-  /** The address of the new owner */
   newOwner: Scalars['EvmAddress']['input'];
 };
 
@@ -7724,7 +5874,6 @@ export type TransferPrimitiveOwnershipResult = SelfFundedTransactionRequest | Sp
 
 export type UnassignUsernameFromAccountRequest = {
   namespace?: Scalars['EvmAddress']['input'];
-  /** The processing params for the unassign rules. */
   rulesProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
 };
 
@@ -7736,9 +5885,7 @@ export type UnassignUsernameResponse = {
 export type UnassignUsernameToAccountResult = NamespaceOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnassignUsernameResponse;
 
 export type UnbanGroupAccountsRequest = {
-  /** The accounts you want to unban on the group. */
   accounts: Array<Scalars['EvmAddress']['input']>;
-  /** The group you want to unban member on. */
   group: Scalars['EvmAddress']['input'];
 };
 
@@ -7750,7 +5897,6 @@ export type UnbanGroupAccountsResponse = {
 export type UnbanGroupAccountsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnbanGroupAccountsResponse;
 
 export type UnblockRequest = {
-  /** The account to unblock. */
   account: Scalars['EvmAddress']['input'];
 };
 
@@ -7762,9 +5908,7 @@ export type UndoReactionFailure = {
 };
 
 export type UndoReactionRequest = {
-  /** The post to react to. */
   post: Scalars['PostId']['input'];
-  /** The reaction to add. */
   reaction: PostReactionType;
 };
 
@@ -7776,7 +5920,6 @@ export type UndoReactionResponse = {
 export type UndoReactionResult = UndoReactionFailure | UndoReactionResponse;
 
 export type UndoRecommendedAccount = {
-  /** The account to remove as a recommendation. */
   account: Scalars['EvmAddress']['input'];
 };
 
@@ -7788,7 +5931,6 @@ export type UnfollowResponse = {
 export type UnfollowResult = AccountFollowOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UnfollowResponse;
 
 export type UnhideManagedAccountRequest = {
-  /** The account to unhide. */
   account: Scalars['EvmAddress']['input'];
 };
 
@@ -7797,9 +5939,7 @@ export type UnhideReplyRequest = {
 };
 
 export type UnknownAccountRuleConfig = {
-  /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
-  /** Optional rule configuration parameters */
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
@@ -7811,48 +5951,36 @@ export type UnknownAction = {
 };
 
 export type UnknownActionConfigInput = {
-  /** The unknown action's contract address */
   address: Scalars['EvmAddress']['input'];
-  /** Optional action configuration params */
   params?: Array<AnyKeyValueInput>;
 };
 
 export type UnknownActionExecuteInput = {
-  /** The unknown action's contract address */
   address: Scalars['EvmAddress']['input'];
-  /** Optional action execution params */
   params: Array<RawKeyValueInput>;
 };
 
 export type UnknownFeedRuleConfig = {
-  /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<FeedRuleExecuteOn>;
-  /** Optional rule configuration parameters */
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownGraphRuleConfig = {
-  /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<GraphRuleExecuteOn>;
-  /** Optional rule configuration parameters */
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownGroupRuleConfig = {
-  /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<GroupRuleExecuteOn>;
-  /** Optional rule configuration parameters */
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownNamespaceRuleConfig = {
-  /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<NamespaceRuleExecuteOn>;
-  /** Optional rule configuration parameters */
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
@@ -7863,26 +5991,19 @@ export type UnknownPostActionContract = {
 };
 
 export type UnknownPostRuleConfig = {
-  /** The rule contract address. */
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<PostRuleExecuteOn>;
-  /** Optional rule configuration parameters */
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownRuleProcessingParams = {
-  /** The rule id */
   id: Scalars['RuleId']['input'];
-  /** The rule processing params */
   params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UpdateAccountFollowRulesRequest = {
-  /** The graph to update account follow rules for. */
   graph?: Scalars['EvmAddress']['input'];
-  /** The rules to add */
   toAdd?: AccountRulesConfigInput;
-  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
@@ -7894,66 +6015,48 @@ export type UpdateAccountFollowRulesResponse = {
 export type UpdateAccountFollowRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UpdateAccountFollowRulesResponse;
 
 export type UpdateAccountManagerRequest = {
-  /** The address to update as a manager. */
   manager: Scalars['EvmAddress']['input'];
-  /** The permissions to update for the account manager. */
   permissions: AccountManagerPermissionsInput;
 };
 
 export type UpdateAccountManagerResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateFeedRulesRequest = {
-  /** The feed to update rules for */
   feed: Scalars['EvmAddress']['input'];
-  /** The rules to add */
   toAdd?: FeedRulesConfigInput;
-  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
 export type UpdateFeedRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateGraphRulesRequest = {
-  /** The graph to update rules for */
   graph: Scalars['EvmAddress']['input'];
-  /** The rules to add */
   toAdd?: GraphRulesConfigInput;
-  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
 export type UpdateGraphRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateGroupRulesRequest = {
-  /** The group to update rules for */
   group: Scalars['EvmAddress']['input'];
-  /** The rules to add */
   toAdd?: GroupRulesConfigInput;
-  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
 export type UpdateGroupRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateNamespaceRulesRequest = {
-  /** The namespace to update rules for */
   namespace: Scalars['EvmAddress']['input'];
-  /** The rules to add */
   toAdd?: NamespaceRulesConfigInput;
-  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
 export type UpdateNamespaceRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdatePostRulesRequest = {
-  /** The processing params for the feed rules. */
   feedRulesProcessingParams?: Array<FeedRulesProcessingParams>;
-  /** The post to update rules for. */
   post: Scalars['PostId']['input'];
-  /** The rules to add */
   toAdd?: PostRulesConfigInput;
-  /** The rules to remove */
   toRemove?: Array<Scalars['RuleId']['input']>;
 };
 
@@ -7965,49 +6068,32 @@ export type UpdatePostRulesResponse = {
 export type UpdatePostRulesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail | UpdatePostRulesResponse;
 
 export type UpdateReservedUsernamesRequest = {
-  /** The namespace to update reserved usernames for */
   namespace: Scalars['EvmAddress']['input'];
   toRelease?: Array<Scalars['String']['input']>;
-  /** Usernames to reserve */
   toReserve?: Array<Scalars['String']['input']>;
 };
 
 export type UpdateReservedUsernamesResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateSponsorshipExclusionListRequest = {
-  /** The sponsorship to update */
   sponsorship: Scalars['EvmAddress']['input'];
-  /** The new entries to add. */
   toAdd?: Array<SponsorshipRateLimitsExempt>;
-  /** The entries to remove. */
   toRemove?: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type UpdateSponsorshipExclusionListResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateSponsorshipLimitsRequest = {
-  /** The new rate limits */
   rateLimits?: InputMaybe<SponsorshipRateLimitsInput>;
-  /** The sponsorship to update */
   sponsorship: Scalars['EvmAddress']['input'];
 };
 
 export type UpdateSponsorshipLimitsResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UpdateSponsorshipSignersRequest = {
-  /**
-   * Indicates whether the Lens API is authorized as the sponsorship signer
-   * to sponsor end-user social operations (e.g., posts, comments, follows)
-   * performed through the Lens API for apps associated with this sponsorship.
-   *
-   * If not provided, it won't affect the current configuration.
-   */
   allowLensAccess?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The sponsorship to update */
   sponsorship: Scalars['EvmAddress']['input'];
-  /** The new entries to add. */
   toAdd?: InputMaybe<Array<SponsorshipSignerInput>>;
-  /** The entries to remove. */
   toRemove?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
@@ -8015,27 +6101,18 @@ export type UpdateSponsorshipSignersResult = SelfFundedTransactionRequest | Spon
 
 export type Username = {
   __typename?: 'Username';
-  /** A unique identifier for the username entry. */
   id: Scalars['ID']['output'];
-  /** The address that the username is linked to, if any. */
   linkedTo?: Maybe<Scalars['EvmAddress']['output']>;
-  /** The local name of the username (e.g., bob). */
   localName: Scalars['String']['output'];
-  /** The address of the namespace that the username is linked to. */
   namespace: Scalars['EvmAddress']['output'];
   operations?: Maybe<LoggedInUsernameOperations>;
-  /** The address that owns the username entry. */
   ownedBy: Scalars['EvmAddress']['output'];
-  /** The timestamp when the username was created. */
   timestamp: Scalars['DateTime']['output'];
-  /** The username value (e.g., lens/bob). */
   value: Scalars['UsernameValue']['output'];
 };
 
 export type UsernameInput = {
-  /** The local name, should not include the namespace */
   localName: Scalars['String']['input'];
-  /** The namespace. Defaults to lens namespace */
   namespace?: Scalars['EvmAddress']['input'];
 };
 
@@ -8046,11 +6123,9 @@ export type UsernameLengthNamespaceRuleConfig = {
 
 export type UsernameNamespace = {
   __typename?: 'UsernameNamespace';
-  /** The address of the namespace. */
   address: Scalars['EvmAddress']['output'];
   createdAt: Scalars['DateTime']['output'];
   metadata?: Maybe<UsernameNamespaceMetadata>;
-  /** The namespace for example `lens` */
   namespace: Scalars['String']['output'];
   operations?: Maybe<LoggedInUsernameNamespaceOperations>;
   owner: Scalars['EvmAddress']['output'];
@@ -8066,12 +6141,7 @@ export type UsernameNamespaceChoiceOneOf = {
 
 export type UsernameNamespaceMetadata = {
   __typename?: 'UsernameNamespaceMetadata';
-  /** An optional description of the Username collection. */
   description?: Maybe<Scalars['String']['output']>;
-  /**
-   * A unique identifier that in storages like IPFS ensures the uniqueness of the metadata URI.
-   * Use a UUID if unsure.
-   */
   id: Scalars['String']['output'];
 };
 
@@ -8086,11 +6156,8 @@ export type UsernamePricePerLengthNamespaceRuleConfig = {
   recipient: Scalars['EvmAddress']['input'];
 };
 
-/** You must provide either an id or a username, not both. */
 export type UsernameRequest = {
-  /** The username ID. */
   id?: InputMaybe<Scalars['ID']['input']>;
-  /** The username namespace and local name. */
   username?: InputMaybe<UsernameInput>;
 };
 
@@ -8106,12 +6173,7 @@ export type UsernameReservedNamespaceRuleConfig = {
 };
 
 export type UsernameSearchInput = {
-  /**
-   * The local name to search for
-   * Uses fuzzy search on username name
-   */
   localNameQuery: Scalars['String']['input'];
-  /** The namespaces to search for local name in. Defaults to global namespace */
   namespaces?: Array<Scalars['EvmAddress']['input']>;
 };
 
@@ -8122,16 +6184,9 @@ export type UsernameTaken = {
 };
 
 export type UsernamesFilter = {
-  /** The optional filter to get usernames linked to an address */
   linkedTo?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /**
-   * The optional filter to narrow usernames
-   * Uses fuzzy search by local name
-   */
   localNameQuery?: InputMaybe<Scalars['String']['input']>;
-  /** The optional filter to get usernames for a namespace */
   namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
-  /** The optional filter to get usernames owned by address */
   owner?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
@@ -8141,35 +6196,22 @@ export enum UsernamesOrderBy {
 }
 
 export type UsernamesRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   filter?: InputMaybe<UsernamesFilter>;
-  /** The order by. */
   orderBy?: UsernamesOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
 export type VideoMetadata = {
   __typename?: 'VideoMetadata';
-  /** The other attachments you want to include with it. */
   attachments: Array<AnyMedia>;
-  /**
-   * A bag of attributes that can be used to store any kind of metadata that is not currently
-   * supported by the standard. Over time, common attributes will be added to the standard and
-   * their usage as arbitrary attributes will be discouraged.
-   */
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
-  /** Specify a content warning. */
   contentWarning?: Maybe<ContentWarning>;
   id: Scalars['MetadataId']['output'];
   locale: Scalars['Locale']['output'];
-  /** The main focus of the post. */
   mainContentFocus: MainContentFocus;
-  /** An arbitrary list of tags. */
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
-  /** The optional video title. */
   title?: Maybe<Scalars['String']['output']>;
   video: MediaVideo;
 };
@@ -8185,15 +6227,10 @@ export enum WhoExecutedActionOnAccountOrderBy {
 }
 
 export type WhoExecutedActionOnAccountRequest = {
-  /** The account on which action were executed. */
   account: Scalars['EvmAddress']['input'];
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The optional actions filter */
   filter?: InputMaybe<WhoExecutedActionOnAccountFilter>;
-  /** The order by. */
   orderBy?: WhoExecutedActionOnAccountOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
 };
 
@@ -8208,15 +6245,10 @@ export enum WhoExecutedActionOnPostOrderBy {
 }
 
 export type WhoExecutedActionOnPostRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
-  /** The optional actions filter */
   filter?: InputMaybe<WhoExecutedActionOnPostFilter>;
-  /** The order by. */
   orderBy?: WhoExecutedActionOnPostOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
-  /** The post on which actions were executed. */
   post: Scalars['PostId']['input'];
 };
 
@@ -8227,18 +6259,13 @@ export enum WhoReferencedPostOrderBy {
 }
 
 export type WhoReferencedPostRequest = {
-  /** The cursor. */
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   orderBy?: WhoReferencedPostOrderBy;
-  /** The page size. */
   pageSize?: PageSize;
-  /** The post id to get who referenced. */
   post: Scalars['PostId']['input'];
-  /** The types of references to get. */
   referenceTypes: Array<PostReferenceType>;
 };
 
-/** The signature was not signed by the expected signer. */
 export type WrongSignerError = {
   __typename?: 'WrongSignerError';
   reason: Scalars['String']['output'];
