@@ -12,9 +12,6 @@ query Me {
         }
       }
     }
-    isSignless
-    isSponsored
-    appLoggedIn
     limit {
       allowanceLeft
       allowanceUsed

@@ -57,11 +57,7 @@ const SuperFollow: FC = () => {
 
     if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
       const accountData = await getCurrentAccountDetails();
-      setCurrentAccount({
-        currentAccount: accountData?.data?.me.loggedInAs
-          .account as AccountFragment,
-        isSignlessEnabled: accountData?.data?.me.isSignless || false
-      });
+      setCurrentAccount(accountData?.data?.me.loggedInAs.account);
       reload();
     } else {
       setTimeout(() => pollTransactionStatus(hash), 1000);

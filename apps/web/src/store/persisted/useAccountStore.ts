@@ -6,23 +6,15 @@ import { persist } from "zustand/middleware";
 
 interface State {
   currentAccount?: AccountFragment;
-  isSignlessEnabled: boolean;
-  setCurrentAccount: ({
-    currentAccount,
-    isSignlessEnabled
-  }: {
-    currentAccount?: AccountFragment;
-    isSignlessEnabled: boolean;
-  }) => void;
+  setCurrentAccount: (currentAccount?: AccountFragment) => void;
 }
 
 const store = create(
   persist<State>(
     (set) => ({
       currentAccount: undefined,
-      isSignlessEnabled: false,
-      setCurrentAccount: ({ currentAccount, isSignlessEnabled }) =>
-        set(() => ({ currentAccount, isSignlessEnabled }))
+      setCurrentAccount: (currentAccount?: AccountFragment) =>
+        set(() => ({ currentAccount }))
     }),
     { name: Localstorage.AccountStore }
   )

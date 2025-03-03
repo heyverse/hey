@@ -42,12 +42,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   const { loading } = useMeQuery({
-    onCompleted: ({ me }) => {
-      setCurrentAccount({
-        currentAccount: me.loggedInAs.account,
-        isSignlessEnabled: me.isSignless
-      });
-    },
+    onCompleted: ({ me }) => setCurrentAccount(me.loggedInAs.account),
     onError: () => logout(true),
     skip: !sessionAccountAddress
   });

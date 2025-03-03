@@ -61,10 +61,7 @@ const AccountSettingsForm: FC = () => {
 
   const onCompleted = () => {
     getCurrentAccountDetails().then(({ data }) => {
-      setCurrentAccount({
-        currentAccount: data?.me.loggedInAs.account,
-        isSignlessEnabled: data?.me.isSignless || false
-      });
+      setCurrentAccount(data?.me.loggedInAs.account);
     });
     setIsSubmitting(false);
     trackEvent(Events.Account.UpdateSettings, { type: "set_metadata" });
