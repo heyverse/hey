@@ -3,6 +3,5 @@ fragment AccountMention on AccountMention {
   namespace
   replace {
     from
-    to
   }
 }

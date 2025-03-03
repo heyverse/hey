@@ -1,7 +1,3 @@
 fragment GroupMention on GroupMention {
-  group
-  replace {
-    from
-    to
-  }
+  __typename
 }

@@ -1,4 +1,8 @@
-import type { Maybe, MetadataLicenseType, PostMention } from "@hey/indexer";
+import type {
+  Maybe,
+  MetadataLicenseType,
+  PostMentionFragment
+} from "@hey/indexer";
 
 export interface StorageNodeResponse {
   mimeType: string;
@@ -39,7 +43,7 @@ export interface OptimisticPublication {
 }
 
 export interface MarkupLinkProps {
-  mentions?: PostMention[];
+  mentions?: PostMentionFragment[];
   title?: string;
 }
 

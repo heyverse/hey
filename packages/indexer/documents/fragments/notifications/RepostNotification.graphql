@@ -7,6 +7,5 @@ fragment RepostNotification on RepostNotification {
     account {
       ...Account
     }
-    repostedAt
   }
 }
