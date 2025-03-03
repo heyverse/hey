@@ -22,7 +22,8 @@ const config: CodegenConfig = {
         disableDescriptions: true,
         useTypeImports: true,
         withResultType: false,
-        withMutationOptionsType: false
+        withMutationOptionsType: false,
+        addDocBlocks: false
       }
     }
   },
