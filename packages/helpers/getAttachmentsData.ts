@@ -1,4 +1,5 @@
 import type { AnyMediaFragment, Maybe } from "@hey/indexer";
+import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 const getAttachmentsData = (attachments?: Maybe<AnyMediaFragment[]>): any => {
   if (!attachments) {
@@ -10,20 +11,20 @@ const getAttachmentsData = (attachments?: Maybe<AnyMediaFragment[]>): any => {
       case "MediaImage":
         return {
           type: "Image",
-          uri: attachment.item
+          uri: sanitizeDStorageUrl(attachment.item)
         };
       case "MediaVideo":
         return {
-          coverUri: attachment.cover,
+          coverUri: sanitizeDStorageUrl(attachment.cover),
           type: "Video",
-          uri: attachment.item
+          uri: sanitizeDStorageUrl(attachment.item)
         };
       case "MediaAudio":
         return {
           artist: attachment.artist,
-          coverUri: attachment.cover,
+          coverUri: sanitizeDStorageUrl(attachment.cover),
           type: "Audio",
-          uri: attachment.item
+          uri: sanitizeDStorageUrl(attachment.item)
         };
       default:
         return [];

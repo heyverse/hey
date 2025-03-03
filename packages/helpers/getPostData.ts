@@ -2,6 +2,7 @@ import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import type { PostMetadataFragment } from "@hey/indexer";
 import type { MetadataAsset } from "@hey/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
+import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 const getPostData = (
   metadata: PostMetadataFragment
@@ -36,7 +37,7 @@ const getPostData = (
       return {
         asset: {
           type: "Image",
-          uri: metadata.image.item
+          uri: sanitizeDStorageUrl(metadata.image.item)
         },
         attachments: getAttachmentsData(metadata.attachments),
         content
@@ -47,10 +48,11 @@ const getPostData = (
       return {
         asset: {
           artist: metadata.audio.artist || audioAttachments?.artist,
-          cover:
+          cover: sanitizeDStorageUrl(
             metadata.audio.cover ||
-            audioAttachments?.coverUri ||
-            PLACEHOLDER_IMAGE,
+              audioAttachments?.coverUri ||
+              PLACEHOLDER_IMAGE
+          ),
           license: metadata.audio.license,
           title: metadata.title || "Untitled",
           type: "Audio",
@@ -64,10 +66,12 @@ const getPostData = (
 
       return {
         asset: {
-          cover: metadata.video.cover || videoAttachments?.coverUri,
+          cover: sanitizeDStorageUrl(
+            metadata.video.cover || videoAttachments?.coverUri
+          ),
           license: metadata.video.license,
           type: "Video",
-          uri: metadata.video.item || videoAttachments?.uri
+          uri: sanitizeDStorageUrl(metadata.video.item || videoAttachments?.uri)
         },
         content
       };
