@@ -20,7 +20,8 @@ const config: CodegenConfig = {
       config: {
         withMutationFn: false,
         disableDescriptions: true,
-        useTypeImports: true
+        useTypeImports: true,
+        withResultType: false
       }
     }
   },
