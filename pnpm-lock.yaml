@@ -33,8 +33,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/indexer
       '@lens-protocol/metadata':
-        specifier: ^1.2.0
-        version: 1.2.0(zod@3.24.2)
+        specifier: next
+        version: 2.0.0-next.6(typescript@5.8.2)(zod@3.24.2)
       apollo-utilities:
         specifier: ^1.3.4
         version: 1.3.4(graphql@16.10.0)
@@ -268,8 +268,8 @@ importers:
         specifier: canary
         version: 0.0.0-canary-20241203140504(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.23.6(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zksync-ethers@6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)))
       '@lens-protocol/metadata':
-        specifier: ^1.2.0
-        version: 1.2.0(zod@3.24.2)
+        specifier: next
+        version: 2.0.0-next.6(typescript@5.8.2)(zod@3.24.2)
       '@livepeer/react':
         specifier: ^4.2.10
         version: 4.2.10(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(immer@10.1.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -635,8 +635,8 @@ importers:
         specifier: workspace:*
         version: link:../indexer
       '@lens-protocol/metadata':
-        specifier: ^1.2.0
-        version: 1.2.0(zod@3.24.2)
+        specifier: next
+        version: 2.0.0-next.6(typescript@5.8.2)(zod@3.24.2)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -2118,9 +2118,9 @@ packages:
       zksync-ethers:
         optional: true
 
-  '@lens-protocol/metadata@1.2.0':
-    resolution: {integrity: sha512-fUB8+GvYiVt1uMqYJi/iN/aw/lzE+oEfpTjraTI87MqWPgYubbx0vFySjJs7uAdI7oftczvlwhthmMUl5DDuGA==}
-    engines: {node: '>=18 <21'}
+  '@lens-protocol/metadata@2.0.0-next.6':
+    resolution: {integrity: sha512-om7HYTdhpeWJLeQy+NNCOexYe1gPSnBPc5bR6EhLLs1YNhQmvWgQG/j92/283sQlMopo7Rsqk9KggUgdtEbHvg==}
+    engines: {node: '>=20'}
     peerDependencies:
       zod: ^3.22.3
     peerDependenciesMeta:
@@ -11260,12 +11260,15 @@ snapshots:
       viem: 2.23.6(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
       zksync-ethers: 6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))
 
-  '@lens-protocol/metadata@1.2.0(zod@3.24.2)':
+  '@lens-protocol/metadata@2.0.0-next.6(typescript@5.8.2)(zod@3.24.2)':
     dependencies:
+      abitype: 1.0.8(typescript@5.8.2)(zod@3.24.2)
       json-stable-stringify: 1.2.1
       uuid: 9.0.1
     optionalDependencies:
       zod: 3.24.2
+    transitivePeerDependencies:
+      - typescript
 
   '@lit-labs/ssr-dom-shim@1.3.0': {}
 
