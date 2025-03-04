@@ -3,8 +3,8 @@ import fs from "node:fs";
 import easyinvoice, { type InvoiceData } from "easyinvoice";
 
 // Only Update these values
-const forYogi = true;
-const month = "12";
+const forYogi = false;
+const month = "2";
 const year = "2025";
 
 const amountPerAccount = 190;
