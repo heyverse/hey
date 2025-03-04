@@ -23,7 +23,6 @@ export interface OG {
   favicon: null | string;
   html: null | string;
   image: null | string;
-  lastIndexedAt?: string;
   site: null | string;
   title: null | string;
   url: string;

@@ -24,7 +24,6 @@ const getMetadata = async (url: string): Promise<null | OG> => {
       favicon: getFavicon(url),
       html: generateIframe(getEmbedUrl(document), url),
       image: image,
-      lastIndexedAt: new Date().toISOString(),
       site: getSite(document),
       title: getTitle(document),
       url
