@@ -1,5 +1,5 @@
 import { Errors } from "@hey/data/errors";
-import { immutable } from "@lens-chain/storage-client/import";
+import { immutable } from "@lens-chain/storage-client";
 import { CHAIN } from "src/constants";
 import { storageClient } from "./storageClient";
 
