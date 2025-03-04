@@ -10,12 +10,6 @@
     "healthcheckPath": "/",
     "healthcheckTimeout": 1000,
     "multiRegionConfig": {
-      "us-west2": {
-        "numReplicas": 1
-      },
-      "europe-west4-drams3a": {
-        "numReplicas": 1
-      },
       "asia-southeast1-eqsg3a": {
         "numReplicas": 1
       }
