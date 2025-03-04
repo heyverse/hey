@@ -4067,7 +4067,7 @@ export type PostAccountPair = {
   post: Scalars['PostId']['input'];
 };
 
-export type PostAction = SimpleCollectAction | TippingPostAction | UnknownAction;
+export type PostAction = SimpleCollectAction | UnknownAction;
 
 export type PostActionConfigInput = {
   simpleCollect?: InputMaybe<SimpleCollectActionConfigInput>;
@@ -5635,11 +5635,6 @@ export type TippingAccountAction = {
   address: Scalars['EvmAddress']['output'];
 };
 
-export type TippingPostAction = {
-  __typename?: 'TippingPostAction';
-  address: Scalars['EvmAddress']['output'];
-};
-
 export type TippingPostActionContract = {
   __typename?: 'TippingPostActionContract';
   address: Scalars['EvmAddress']['output'];
@@ -6492,14 +6487,12 @@ type PostAction_SimpleCollectAction_Fragment = (
   & SimpleCollectActionFragment
 );
 
-type PostAction_TippingPostAction_Fragment = { __typename?: 'TippingPostAction' };
-
 type PostAction_UnknownAction_Fragment = (
   { __typename?: 'UnknownAction' }
   & UnknownActionFragment
 );
 
-export type PostActionFragment = PostAction_SimpleCollectAction_Fragment | PostAction_TippingPostAction_Fragment | PostAction_UnknownAction_Fragment;
+export type PostActionFragment = PostAction_SimpleCollectAction_Fragment | PostAction_UnknownAction_Fragment;
 
 export type PostFeedInfoFragment = { __typename?: 'PostFeedInfo', group?: (
     { __typename?: 'PostGroupInfo' }
@@ -6659,7 +6652,7 @@ export type ReferencedPostFragment = { __typename?: 'Post', id: any, isDeleted: 
   ), operations?: (
     { __typename?: 'LoggedInPostOperations' }
     & LoggedInPostOperationsFragment
-  ) | null, actions: Array<{ __typename: 'SimpleCollectAction' } | { __typename: 'TippingPostAction' } | { __typename: 'UnknownAction' }>, mentions: Array<(
+  ) | null, actions: Array<{ __typename: 'SimpleCollectAction' } | { __typename: 'UnknownAction' }>, mentions: Array<(
     { __typename?: 'AccountMention' }
     & PostMention_AccountMention_Fragment
   ) | (
@@ -7773,17 +7766,11 @@ export type CollectActionQuery = { __typename?: 'Query', post?: { __typename?: '
       { __typename?: 'SimpleCollectAction' }
       & PostAction_SimpleCollectAction_Fragment
     ) | (
-      { __typename?: 'TippingPostAction' }
-      & PostAction_TippingPostAction_Fragment
-    ) | (
       { __typename?: 'UnknownAction' }
       & PostAction_UnknownAction_Fragment
     )> } | { __typename?: 'Repost', repostOf: { __typename?: 'Post', actions: Array<(
         { __typename?: 'SimpleCollectAction' }
         & PostAction_SimpleCollectAction_Fragment
-      ) | (
-        { __typename?: 'TippingPostAction' }
-        & PostAction_TippingPostAction_Fragment
       ) | (
         { __typename?: 'UnknownAction' }
         & PostAction_UnknownAction_Fragment

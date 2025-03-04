@@ -267,7 +267,7 @@ const result: PossibleTypesResultData = {
       "SponsoredTransactionRequest",
       "TransactionWillFail"
     ],
-    PostAction: ["SimpleCollectAction", "TippingPostAction", "UnknownAction"],
+    PostAction: ["SimpleCollectAction", "UnknownAction"],
     PostActionContract: [
       "SimpleCollectActionContract",
       "TippingPostActionContract",
