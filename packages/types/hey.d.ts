@@ -28,8 +28,6 @@ export type Preferences = {
   permissions: string[];
 };
 
-export type InternalAccount = Preferences;
-
 export type AccountDetails = {
   isSuspended: boolean;
 };

@@ -1,5 +1,5 @@
 import { HEY_API_URL } from "@hey/data/constants";
-import type { InternalAccount } from "@hey/types/hey";
+import type { Preferences } from "@hey/types/hey";
 import axios from "axios";
 
 export const GET_INTERNAL_ACCOUNT_QUERY_KEY = "getInternalAccount";
@@ -13,7 +13,7 @@ export const GET_INTERNAL_ACCOUNT_QUERY_KEY = "getInternalAccount";
 const getInternalAccount = async (
   address: string,
   headers: any
-): Promise<InternalAccount> => {
+): Promise<Preferences> => {
   try {
     const { data } = await axios.get(`${HEY_API_URL}/internal/account/get`, {
       headers,

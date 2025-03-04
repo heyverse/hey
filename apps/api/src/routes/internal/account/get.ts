@@ -1,6 +1,6 @@
 import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
-import type { InternalAccount } from "@hey/types/hey";
+import type { Preferences } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCreatorToolsAccess";
@@ -26,7 +26,7 @@ export const get = [
         })
       ]);
 
-      const response: InternalAccount = {
+      const response: Preferences = {
         appIcon: preference?.appIcon || 0,
         includeLowScore: Boolean(preference?.includeLowScore),
         permissions: permissions.map(({ permission }) => permission.key)
