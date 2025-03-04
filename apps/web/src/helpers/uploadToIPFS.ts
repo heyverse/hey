@@ -6,10 +6,14 @@ import {
   EVER_REGION,
   HEY_API_URL
 } from "@hey/data/constants";
+import { immutable } from "@lens-chain/storage-client";
 import axios from "axios";
+import { CHAIN } from "src/constants";
 import { v4 as uuid } from "uuid";
+import { storageClient } from "./storageClient";
 
 const FALLBACK_TYPE = "image/jpeg";
+const FILE_SIZE_LIMIT_MB = 10 * 1024 * 1024; // 10MB in bytes
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
@@ -53,6 +57,19 @@ const uploadToIPFS = async (
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
         const file = data[i];
+
+        // If the file is less than 10MB, upload it to the Grove
+        if (file.size <= FILE_SIZE_LIMIT_MB) {
+          const storageNodeResponse = await storageClient.uploadFile(file, {
+            acl: immutable(CHAIN.id)
+          });
+
+          return {
+            mimeType: file.type || FALLBACK_TYPE,
+            uri: storageNodeResponse.uri
+          };
+        }
+
         const params = {
           Body: file,
           Bucket: EVER_BUCKET,
