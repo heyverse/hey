@@ -13,7 +13,7 @@ import { v4 as uuid } from "uuid";
 import { storageClient } from "./storageClient";
 
 const FALLBACK_TYPE = "image/jpeg";
-const FILE_SIZE_LIMIT_MB = 10 * 1024 * 1024; // 10MB in bytes
+const FILE_SIZE_LIMIT_MB = 5 * 1024 * 1024; // 5MB in bytes
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
