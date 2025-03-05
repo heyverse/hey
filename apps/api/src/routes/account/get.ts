@@ -17,9 +17,10 @@ export const get = [
       return noBody(res);
     }
 
+    const CACHE_KEY = `account:${address}`;
+
     try {
-      const cacheKey = `account:${address}`;
-      const cachedData = await getRedis(cacheKey);
+      const cachedData = await getRedis(CACHE_KEY);
 
       if (cachedData) {
         logger.info(`(cached) Account details fetched for ${address}`);
@@ -41,7 +42,7 @@ export const get = [
         isSuspended: accountPermission?.permissionId === PermissionId.Suspended
       };
 
-      await setRedis(cacheKey, response);
+      await setRedis(CACHE_KEY, response);
       logger.info(`Account details fetched for ${address}`);
 
       return res.status(200).json({ result: response, success: true });

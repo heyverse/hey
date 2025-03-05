@@ -22,8 +22,8 @@ export const get = [
         return noBody(res);
       }
 
-      const cacheKey = `preference:${accountAddress}`;
-      const cachedData = await getRedis(cacheKey);
+      const CACHE_KEY = `preference:${accountAddress}`;
+      const cachedData = await getRedis(CACHE_KEY);
 
       if (cachedData) {
         logger.info(
@@ -48,7 +48,7 @@ export const get = [
         permissions: permissions.map(({ permission }) => permission.key)
       };
 
-      await setRedis(cacheKey, response);
+      await setRedis(CACHE_KEY, response);
       logger.info(`Account preferences fetched for ${accountAddress}`);
 
       return res.status(200).json({ result: response, success: true });

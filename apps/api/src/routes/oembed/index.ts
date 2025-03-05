@@ -17,9 +17,10 @@ export const get = [
       return noBody(res);
     }
 
+    const CACHE_KEY = `oembed:${sha256(url as string).slice(0, 10)}`;
+
     try {
-      const cacheKey = `oembed:${sha256(url as string).slice(0, 10)}`;
-      const cachedData = await getRedis(cacheKey);
+      const cachedData = await getRedis(CACHE_KEY);
 
       if (cachedData) {
         logger.info(`(cached) Oembed generated for ${url}`);

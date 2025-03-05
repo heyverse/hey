@@ -7,12 +7,13 @@ import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_30_MINS } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 
+const CACHE_KEY = "verified";
+
 export const get = [
   rateLimiter({ requests: 250, within: 1 }),
   async (_: Request, res: Response) => {
     try {
-      const cacheKey = "verified";
-      const cachedData = await getRedis(cacheKey);
+      const cachedData = await getRedis(CACHE_KEY);
 
       if (cachedData) {
         logger.info("(cached) Verified accounts fetched");
@@ -30,7 +31,7 @@ export const get = [
       const result = accountPermission.map(
         ({ accountAddress }) => accountAddress
       );
-      await setRedis(cacheKey, result);
+      await setRedis(CACHE_KEY, result);
       logger.info("Verified accounts fetched");
 
       return res
