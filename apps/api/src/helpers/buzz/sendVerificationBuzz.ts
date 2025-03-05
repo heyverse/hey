@@ -25,8 +25,10 @@ const sendVerificationBuzz = async ({
 
     return sendBuzz({
       message: `🔀 Operation ➜ ${operation}`,
-      thumbnail: getAvatar(accountData),
-      footer: `By ${usernameWithPrefix}`,
+      footer: {
+        text: `By ${usernameWithPrefix}`,
+        icon_url: getAvatar(accountData)
+      },
       topic: process.env.DISCORD_EVENT_WEBHOOK_TOPIC
     });
   } catch {

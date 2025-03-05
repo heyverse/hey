@@ -14,7 +14,7 @@ export const post = async (req: Request, res: Response) => {
     return res.json({
       success: await sendBuzz({
         message: `New ${type.charAt(0).toUpperCase() + type.slice(1)} NFT minted 🎉`,
-        footer: body.id,
+        footer: { text: body.id },
         topic: `${id}/${topic}`
       })
     });

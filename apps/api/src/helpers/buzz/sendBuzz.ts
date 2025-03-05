@@ -2,13 +2,11 @@ import { APP_NAME } from "@hey/data/constants";
 
 const sendBuzz = async ({
   message,
-  thumbnail,
   footer,
   topic
 }: {
   message: string;
-  thumbnail?: string;
-  footer?: string;
+  footer?: { text: string; icon_url?: string };
   topic: string;
 }): Promise<boolean> => {
   try {
@@ -21,8 +19,7 @@ const sendBuzz = async ({
         embeds: [
           {
             title: message,
-            thumbnail: { url: thumbnail },
-            footer: { text: footer },
+            footer,
             timestamp: new Date().toISOString()
           }
         ]
