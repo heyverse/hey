@@ -46,7 +46,7 @@ export const STORAGE_NODE_URL = "https://api.grove.storage";
 export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
 export const EVER_API = "https://endpoint.4everland.co";
 export const EVER_REGION = "4EVERLAND";
-export const EVER_BUCKET = "hey-media";
+export const EVER_BUCKET = "heyverse";
 
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";

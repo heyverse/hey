@@ -16,7 +16,7 @@
 # use_https = True
 # signature_v2 = False
 
-BUCKET_NAME="hey-media"
+BUCKET_NAME="heyverse"
 folders=$(s3cmd ls s3://$BUCKET_NAME | awk '/DIR/ {print $NF}')
 
 total_files_deleted=0
