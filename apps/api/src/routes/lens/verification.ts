@@ -86,7 +86,7 @@ export const post = async (req: Request, res: Response) => {
     trackEvent("verification", { operation });
 
     sendDiscordMessage({
-      message: `🔀 Request fulfilled for operation: ${operation}`,
+      message: `🔀 Operation ➜ ${operation}`,
       footer: account,
       topic: process.env.DISCORD_EVENT_WEBHOOK_TOPIC
     });
