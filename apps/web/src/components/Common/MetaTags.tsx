@@ -1,4 +1,9 @@
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from "@hey/data/constants";
+import {
+  APP_NAME,
+  APP_URL,
+  DEFAULT_OG,
+  DESCRIPTION
+} from "@hey/data/constants";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import type { FC } from "react";
@@ -15,7 +20,7 @@ const MetaTags: FC<MetaTagsProps> = ({
   title = APP_NAME
 }) => {
   const { asPath } = useRouter();
-  const url = `https://hey.xyz${asPath}`;
+  const url = `${APP_URL}${asPath}`;
 
   return (
     <Head>

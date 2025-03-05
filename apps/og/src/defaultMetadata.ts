@@ -1,11 +1,16 @@
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from "@hey/data/constants";
+import {
+  APP_NAME,
+  APP_URL,
+  DEFAULT_OG,
+  DESCRIPTION
+} from "@hey/data/constants";
 import type { Metadata } from "next";
 
 const defaultMetadata: Metadata = {
-  alternates: { canonical: "https://hey.xyz" },
+  alternates: { canonical: APP_URL },
   applicationName: APP_NAME,
   description: DESCRIPTION,
-  metadataBase: new URL("https://hey.xyz"),
+  metadataBase: new URL(APP_URL),
   openGraph: {
     images: [DEFAULT_OG],
     siteName: "Hey",

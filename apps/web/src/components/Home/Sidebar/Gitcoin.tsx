@@ -1,6 +1,6 @@
 import CountdownTimer from "@components/Shared/CountdownTimer";
 import { rubikMonoOneFont } from "@helpers/fonts";
-import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { APP_NAME, APP_URL, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Button, Card } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -24,7 +24,7 @@ const Gitcoin: FC = () => {
         <div>
           <Link
             className="font-bold underline"
-            href="https://hey.xyz/gitcoin"
+            href={`${APP_URL}/gitcoin`}
             target="_blank"
           >
             <Button size="lg">Contribute now</Button>

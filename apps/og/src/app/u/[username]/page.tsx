@@ -1,4 +1,4 @@
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, APP_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import logger from "@hey/helpers/logger";
@@ -31,17 +31,17 @@ export const generateMetadata = async ({
   const description = (account?.metadata?.bio || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://hey.xyz${link}` },
+    alternates: { canonical: `${APP_URL}${link}` },
     applicationName: APP_NAME,
     creator: name,
     description: description,
-    metadataBase: new URL(`https://hey.xyz${link}`),
+    metadataBase: new URL(`${APP_URL}${link}`),
     openGraph: {
       description: description,
       images: [getAvatar(account)],
       siteName: "Hey",
       type: "profile",
-      url: `https://hey.xyz${link}`
+      url: `${APP_URL}${link}`
     },
     other: {
       "lens:username": username,

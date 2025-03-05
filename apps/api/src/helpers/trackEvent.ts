@@ -1,3 +1,4 @@
+import { APP_URL, APP_VERSION } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import axios from "axios";
 
@@ -12,7 +13,7 @@ const trackEvent = async (event: string, metadata?: Record<string, any>) => {
       {
         type: "event",
         hostname: "hey.xyz",
-        ua: "HeyServer/0.1 (+https://hey.xyz)",
+        ua: `HeyServer/${APP_VERSION} (+${APP_URL})`,
         event,
         metadata
       },

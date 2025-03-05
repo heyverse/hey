@@ -24,6 +24,7 @@ export const COLLECT_FEES_WALLET = "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
 
 // Application
 export const APP_NAME = "Hey";
+export const APP_URL = "https://hey.xyz";
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 export const BRAND_COLOR = "#FB3A5D";

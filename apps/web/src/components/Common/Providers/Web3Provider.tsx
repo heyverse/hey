@@ -1,6 +1,7 @@
 import { heyFont } from "@helpers/fonts";
 import {
   APP_NAME,
+  APP_URL,
   BRAND_COLOR,
   DESCRIPTION,
   STATIC_IMAGES_URL,
@@ -10,7 +11,7 @@ import { LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import { chains } from "@lens-network/sdk/viem";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { FC, ReactNode } from "react";
-import { http, WagmiProvider, createConfig, fallback } from "wagmi";
+import { createConfig, fallback, http, WagmiProvider } from "wagmi";
 
 const config = createConfig(
   getDefaultConfig({
@@ -26,7 +27,7 @@ const config = createConfig(
     walletConnectProjectId: WALLETCONNECT_PROJECT_ID,
     appName: APP_NAME,
     appDescription: DESCRIPTION,
-    appUrl: "https://hey.xyz",
+    appUrl: APP_URL,
     appIcon: `${STATIC_IMAGES_URL}/app-icon/0.png`
   })
 );

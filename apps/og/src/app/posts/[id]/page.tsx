@@ -1,5 +1,5 @@
 import getPostOGImages from "@helpers/getPostOGImages";
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, APP_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
@@ -37,18 +37,18 @@ export const generateMetadata = async ({
   const description = (filteredContent || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://hey.xyz/posts/${post.id}` },
+    alternates: { canonical: `${APP_URL}/posts/${post.id}` },
     applicationName: APP_NAME,
-    authors: { name, url: `https://hey.xyz${link}` },
+    authors: { name, url: `${APP_URL}${link}` },
     creator: name,
     description: description,
-    metadataBase: new URL(`https://hey.xyz/posts/${post.id}`),
+    metadataBase: new URL(`${APP_URL}/posts/${post.id}`),
     openGraph: {
       description: description,
       images: getPostOGImages(metadata) as any,
       siteName: "Hey",
       type: "article",
-      url: `https://hey.xyz/posts/${post.id}`
+      url: `${APP_URL}/posts/${post.id}`
     },
     other: {
       "count:collects": post.stats.collects,
@@ -76,7 +76,7 @@ const Page = async ({ params }: Props) => {
     return <h1>{id}</h1>;
   }
 
-  const postUrl = `https://hey.xyz/posts/${metadata.other?.["lens:id"]}`;
+  const postUrl = `${APP_URL}/posts/${metadata.other?.["lens:id"]}`;
 
   logger.info(`[OG] Fetched post /posts/${metadata.other?.["lens:id"]}`);
 

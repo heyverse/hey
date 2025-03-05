@@ -6,7 +6,7 @@ import EmojiPicker from "@components/Shared/EmojiPicker";
 import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import uploadMetadata from "@helpers/uploadMetadata";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { APP_URL, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import collectActionParams from "@hey/helpers/collectActionParams";
@@ -216,7 +216,7 @@ const NewPublication: FC<NewPublicationProps> = ({ className, post, feed }) => {
         marketplace: {
           animation_url: getAnimationUrl(),
           description: processedPostContent,
-          external_url: `https://hey.xyz${getAccount(currentAccount).link}`,
+          external_url: `${APP_URL}${getAccount(currentAccount).link}`,
           name: title
         }
       };

@@ -1,4 +1,4 @@
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, APP_URL } from "@hey/data/constants";
 import { Modal } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
@@ -12,7 +12,7 @@ const links = [
   { href: "/privacy", label: "Privacy" },
   { href: "/guidelines", label: "Guidelines" },
   {
-    href: "https://hey.xyz/discord",
+    href: `${APP_URL}/discord`,
     label: "Discord"
   },
   {
