@@ -1,6 +1,6 @@
 import { APP_NAME } from "@hey/data/constants";
 
-const sendDiscordMessage = async ({
+const sendBuzz = async ({
   message,
   footer,
   topic
@@ -32,4 +32,4 @@ const sendDiscordMessage = async ({
   }
 };
 
-export default sendDiscordMessage;
+export default sendBuzz;

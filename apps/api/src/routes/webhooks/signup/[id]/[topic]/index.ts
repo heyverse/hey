@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
-import sendDiscordMessage from "src/helpers/sendDiscordMessage";
+import sendBuzz from "src/helpers/sendBuzz";
 
 export const post = async (req: Request, res: Response) => {
   try {
@@ -12,7 +12,7 @@ export const post = async (req: Request, res: Response) => {
     }
 
     return res.json({
-      success: await sendDiscordMessage({
+      success: await sendBuzz({
         message: "New user signed up to Hey 🎉",
         footer: body.id,
         topic: `${id}/${topic}`

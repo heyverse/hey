@@ -6,7 +6,7 @@ import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { noBody } from "src/helpers/responses";
-import sendDiscordMessage from "src/helpers/sendDiscordMessage";
+import sendBuzz from "src/helpers/sendBuzz";
 import trackEvent from "src/helpers/trackEvent";
 import { type Address, checksumAddress } from "viem";
 
@@ -85,7 +85,7 @@ export const post = async (req: Request, res: Response) => {
 
     trackEvent("verification", { operation });
 
-    sendDiscordMessage({
+    sendBuzz({
       message: `🔀 Operation ➜ ${operation}`,
       footer: account,
       topic: process.env.DISCORD_EVENT_WEBHOOK_TOPIC
