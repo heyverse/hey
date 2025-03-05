@@ -12,7 +12,7 @@ const sendVerificationBuzz = async ({
   try {
     const { data } = await apolloClient().query({
       query: AccountDocument,
-      variables: { request: { account } }
+      variables: { request: { address: account } }
     });
 
     const accountData = data?.account as AccountFragment;
