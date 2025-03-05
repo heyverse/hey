@@ -86,7 +86,7 @@ export const post = async (req: Request, res: Response) => {
     trackEvent("verification", { operation });
 
     sendDiscordMessage({
-      message: `Request fulfilled for operation: ${operation}`,
+      message: `🔀 Request fulfilled for operation: ${operation}`,
       footer: account,
       topic:
         "1346811982996701244/cC_e9_Bbi6m_B7QkXxBYWnknEcsy5Ldufqjlq6cmufdVCSrn4QWfC85rslLIyxmRk-pL"
