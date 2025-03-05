@@ -7,7 +7,7 @@ import {
   FaceFrownIcon,
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
-import { APP_NAME } from "@hey/data/constants";
+import { APP_NAME, HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
@@ -90,8 +90,7 @@ const ChooseUsername: FC = () => {
 
       const challenge = await loadChallenge({
         variables: {
-          // TODO: Add app when Lens team fix this issue
-          request: { onboardingUser: { wallet: address } }
+          request: { onboardingUser: { app: HEY_APP, wallet: address } }
         }
       });
 
