@@ -13,7 +13,7 @@ export const post = async (req: Request, res: Response) => {
 
     return res.json({
       success: await sendBuzz({
-        message: "New user signed up to Hey 🎉",
+        title: "New user signed up to Hey 🎉",
         footer: { text: body.id },
         topic: `${id}/${topic}`
       })

@@ -1,11 +1,11 @@
 import { APP_NAME } from "@hey/data/constants";
 
 const sendBuzz = async ({
-  message,
+  title,
   footer,
   topic
 }: {
-  message: string;
+  title: string;
   footer?: { text: string; icon_url?: string };
   topic: string;
 }): Promise<boolean> => {
@@ -18,7 +18,7 @@ const sendBuzz = async ({
         avatar_url: "https://github.com/heyverse.png",
         embeds: [
           {
-            title: message,
+            title,
             footer,
             timestamp: new Date().toISOString()
           }

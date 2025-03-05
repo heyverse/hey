@@ -24,7 +24,7 @@ const sendVerificationBuzz = async ({
     const { usernameWithPrefix } = getAccount(accountData);
 
     return sendBuzz({
-      message: `🔀 Operation ➜ ${operation}`,
+      title: `🔀 Operation ➜ ${operation}`,
       footer: {
         text: `By ${usernameWithPrefix}`,
         icon_url: getAvatar(accountData)
