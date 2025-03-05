@@ -5,17 +5,6 @@ const defaultMetadata: Metadata = {
   alternates: { canonical: "https://hey.xyz" },
   applicationName: APP_NAME,
   description: DESCRIPTION,
-  keywords: [
-    "hey",
-    "hey.xyz",
-    "social media",
-    "lenster",
-    "zksync",
-    "lens",
-    "lens protocol",
-    "decentralized",
-    "web3"
-  ],
   metadataBase: new URL("https://hey.xyz"),
   openGraph: {
     images: [DEFAULT_OG],
