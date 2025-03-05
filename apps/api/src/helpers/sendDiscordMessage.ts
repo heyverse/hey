@@ -11,7 +11,11 @@ const sendDiscordMessage = async (message: string, topic: string) => {
     })
   });
 
-  return await response.json();
+  if (!response.ok) {
+    return false;
+  }
+
+  return true;
 };
 
 export default sendDiscordMessage;
