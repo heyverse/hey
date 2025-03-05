@@ -3,10 +3,10 @@ import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
 import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
+import sendVerificationBuzz from "src/helpers/buzz/sendVerificationBuzz";
 import catchedError from "src/helpers/catchedError";
 import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { noBody } from "src/helpers/responses";
-import sendBuzz from "src/helpers/sendBuzz";
 import trackEvent from "src/helpers/trackEvent";
 import { type Address, checksumAddress } from "viem";
 
@@ -83,13 +83,8 @@ export const post = async (req: Request, res: Response) => {
       });
     }
 
+    sendVerificationBuzz({ account, operation });
     trackEvent("verification", { operation });
-
-    sendBuzz({
-      message: `🔀 Operation ➜ ${operation}`,
-      footer: account,
-      topic: process.env.DISCORD_EVENT_WEBHOOK_TOPIC
-    });
 
     return res.status(200).json({ allowed: true, signature });
   } catch (error) {

@@ -2,9 +2,15 @@ import { APP_NAME } from "@hey/data/constants";
 
 const sendBuzz = async ({
   message,
+  thumbnail,
   footer,
   topic
-}: { message: string; footer?: string; topic: string }) => {
+}: {
+  message: string;
+  thumbnail?: string;
+  footer?: string;
+  topic: string;
+}): Promise<boolean> => {
   try {
     const response = await fetch(`https://discord.com/api/webhooks/${topic}`, {
       method: "POST",
@@ -15,6 +21,7 @@ const sendBuzz = async ({
         embeds: [
           {
             title: message,
+            thumbnail: { url: thumbnail },
             footer: { text: footer },
             timestamp: new Date().toISOString()
           }
