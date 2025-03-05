@@ -6,6 +6,7 @@ import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { noBody } from "src/helpers/responses";
+import sendDiscordMessage from "src/helpers/sendDiscordMessage";
 import trackEvent from "src/helpers/trackEvent";
 import { type Address, checksumAddress } from "viem";
 
@@ -83,6 +84,13 @@ export const post = async (req: Request, res: Response) => {
     }
 
     trackEvent("verification", { operation });
+
+    sendDiscordMessage({
+      message: `Request fulfilled for operation: ${operation}`,
+      footer: account,
+      topic:
+        "1346811982996701244/cC_e9_Bbi6m_B7QkXxBYWnknEcsy5Ldufqjlq6cmufdVCSrn4QWfC85rslLIyxmRk-pL"
+    });
 
     return res.status(200).json({ allowed: true, signature });
   } catch (error) {
