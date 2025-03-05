@@ -3,8 +3,7 @@ import { APP_NAME } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import logger from "@hey/helpers/logger";
-import { isRepost } from "@hey/helpers/postHelpers";
-import { type AnyPostFragment, PostDocument } from "@hey/indexer";
+import { PostDocument, type PostFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Metadata } from "next";
 import defaultMetadata from "src/defaultMetadata";
@@ -27,39 +26,38 @@ export const generateMetadata = async ({
     return defaultMetadata;
   }
 
-  const post = data.post as AnyPostFragment;
-  const targetPost = isRepost(post) ? post.repostOf : post;
-  const { author, metadata } = targetPost;
+  const post = data.post as PostFragment;
+  const { author, metadata } = post;
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAsset = getPostData(metadata)?.asset;
   const assetIsAudio = filteredAsset?.type === "Audio";
 
   const { name, link, usernameWithPrefix } = getAccount(author);
-  const title = `${targetPost.__typename} by ${usernameWithPrefix} • ${APP_NAME}`;
+  const title = `${post.__typename} by ${usernameWithPrefix} • ${APP_NAME}`;
   const description = (filteredContent || title).slice(0, 155);
 
   return {
-    alternates: { canonical: `https://hey.xyz/posts/${targetPost.id}` },
+    alternates: { canonical: `https://hey.xyz/posts/${post.id}` },
     applicationName: APP_NAME,
     authors: { name, url: `https://hey.xyz${link}` },
     creator: name,
     description: description,
-    metadataBase: new URL(`https://hey.xyz/posts/${targetPost.id}`),
+    metadataBase: new URL(`https://hey.xyz/posts/${post.id}`),
     openGraph: {
       description: description,
       images: getPostOGImages(metadata) as any,
       siteName: "Hey",
       type: "article",
-      url: `https://hey.xyz/posts/${targetPost.id}`
+      url: `https://hey.xyz/posts/${post.id}`
     },
     other: {
-      "count:collects": targetPost.stats.collects,
-      "count:tips": targetPost.stats.tips,
-      "count:comments": targetPost.stats.comments,
-      "count:likes": targetPost.stats.reactions,
-      "count:reposts": targetPost.stats.reposts,
-      "count:quotes": targetPost.stats.quotes,
-      "lens:id": targetPost.id
+      "count:collects": post.stats.collects,
+      "count:tips": post.stats.tips,
+      "count:comments": post.stats.comments,
+      "count:likes": post.stats.reactions,
+      "count:reposts": post.stats.reposts,
+      "count:quotes": post.stats.quotes,
+      "lens:id": post.id
     },
     publisher: name,
     title: title,
