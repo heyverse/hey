@@ -13,16 +13,22 @@ const useContentChange = (editor: Editor<EditorExtension>) => {
   const { setPostContent } = usePostStore();
   const [largeDocument, setLargeDocument] = useState(false);
 
-  const setContent = useCallback(() => {
-    const markdown = getMarkdownContent(editor);
-    setLargeDocument(markdown.length > DEBOUNCE_CHARS_THRESHOLD);
-    setPostContent(markdown);
-  }, [editor, setPostContent]);
+  const updatePostContent = useCallback(
+    (markdown: string) => {
+      setLargeDocument(markdown.length > DEBOUNCE_CHARS_THRESHOLD);
+      setPostContent(markdown);
+    },
+    [setPostContent]
+  );
 
-  // If the document is large, markdown serialization can be slow. We can use a
-  // debounce to only serialize the document if the user is not typing.
+  const serializeContent = useCallback(() => {
+    const markdown = getMarkdownContent(editor);
+    updatePostContent(markdown);
+  }, [editor, updatePostContent]);
+
+  // Determine debounce delay based on document size
   const delay = largeDocument ? DEBOUNCE_DELAY : 0;
-  const debouncedSetContent = useDebouncedCallback(setContent, delay);
+  const debouncedSetContent = useDebouncedCallback(serializeContent, delay);
 
   useDocChange(debouncedSetContent, { editor });
 };
