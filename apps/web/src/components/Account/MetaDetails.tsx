@@ -1,12 +1,11 @@
-import type { ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 
-const MetaDetails = ({
-  children,
-  icon
-}: {
+interface MetaDetailsProps {
   children: ReactNode;
   icon: ReactNode;
-}) => (
+}
+
+const MetaDetails: FC<MetaDetailsProps> = ({ children, icon }) => (
   <div className="flex items-center gap-2">
     {icon}
     <div className="truncate text-md">{children}</div>
