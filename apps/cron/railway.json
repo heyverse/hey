@@ -9,8 +9,11 @@
     "runtime": "V2",
     "startCommand": "pnpm --filter @hey/cron start",
     "healthcheckTimeout": 1000,
-    "region": "europe-west4-drams3a",
-    "numReplicas": 1,
+    "multiRegionConfig": {
+      "europe-west4-drams3a": {
+        "numReplicas": 1
+      }
+    },
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
     "limitOverride": {
