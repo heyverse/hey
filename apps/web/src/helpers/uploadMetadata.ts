@@ -3,13 +3,6 @@ import { immutable } from "@lens-chain/storage-client";
 import { CHAIN } from "src/constants";
 import { storageClient } from "./storageClient";
 
-/**
- * Retrieves the given data to lens storage node.
- *
- * @param {any} data - The data to upload.
- * @returns {Promise<string>} - The storage node uri (lens://id).
- * @throws {Error} - An error if the upload fails.
- */
 const uploadMetadata = async (data: any): Promise<string> => {
   try {
     const { uri } = await storageClient.uploadAsJson(data, {

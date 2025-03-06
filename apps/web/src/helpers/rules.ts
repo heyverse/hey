@@ -6,12 +6,6 @@ import type {
 } from "@hey/indexer";
 import getAnyKeyValue from "./getAnyKeyValue";
 
-/**
- * Retrieves whether a group has membership approval.
- *
- * @param {GroupRuleFragment[]} rules - The rules to check.
- * @returns {boolean} - True if the group has membership approval, false otherwise.
- */
 const extractMembershipApproval = (rules: GroupRuleFragment[]): boolean => {
   for (const rule of rules) {
     if (rule.type === "MEMBERSHIP_APPROVAL") {
@@ -22,12 +16,6 @@ const extractMembershipApproval = (rules: GroupRuleFragment[]): boolean => {
   return false;
 };
 
-/**
- * Retrieves the membership approval details.
- *
- * @param {GroupRules | AccountFollowRules} rules - The rules to check.
- * @returns {boolean} - True if the group has membership approval, false otherwise.
- */
 export const getMembershipApprovalDetails = (rules: GroupRules): boolean =>
   extractMembershipApproval(rules.required) ||
   extractMembershipApproval(rules.anyOf);
@@ -38,12 +26,6 @@ interface AssetDetails {
   amount: number | null;
 }
 
-/**
- * Retrieves the asset details.
- *
- * @param {GroupRules | AccountFollowRules} rules - The rules to check.
- * @returns {AssetDetails} - The asset details.
- */
 const extractPaymentDetails = (
   rules: GroupRuleFragment[] | AccountFollowRuleFragment[]
 ): AssetDetails => {
@@ -62,12 +44,6 @@ const extractPaymentDetails = (
   return { assetContract: null, assetSymbol: null, amount: null };
 };
 
-/**
- * Retrieves the simple payment details.
- *
- * @param {GroupRules | AccountFollowRules} rules - The rules to check.
- * @returns {AssetDetails} - The asset details.
- */
 export const getSimplePaymentDetails = (
   rules: GroupRules | AccountFollowRules
 ): AssetDetails =>
