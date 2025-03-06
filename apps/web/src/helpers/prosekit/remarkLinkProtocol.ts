@@ -27,8 +27,5 @@ const remarkLinkProtocolTransformer = (root: Root): Root => {
   return root;
 };
 
-/**
- * A remark plugin that ensures that the link protocol is included in the link.
- */
 export const remarkLinkProtocol: Plugin<[], Root> = () =>
   remarkLinkProtocolTransformer;

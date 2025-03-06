@@ -6,9 +6,6 @@ import toast from "react-hot-toast";
 import useUploadAttachments from "src/hooks/useUploadAttachments";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 
-/**
- * Define a ProseKit extension for handling drop and paste events.
- */
 const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
   const handleFiles = (event: Event, files: FileList | null | undefined) => {
     if (files?.length) {

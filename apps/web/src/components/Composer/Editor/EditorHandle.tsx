@@ -30,16 +30,10 @@ const Provider: FC<EditorProps> = ({ children }) => {
   );
 };
 
-/**
- * A hook for accessing the text editor handle.
- */
 export const useEditorContext = (): EditorHandle | null => {
   return useContext(HandleContext);
 };
 
-/**
- * A hook to register the text editor handle.
- */
 export const useEditorHandle = (editor: Editor<EditorExtension>) => {
   const setHandle = useContext(SetHandleContext);
 
@@ -61,9 +55,6 @@ export const useEditorHandle = (editor: Editor<EditorExtension>) => {
   }, [setHandle, editor]);
 };
 
-/**
- * A higher-order component for providing the text editor handle.
- */
 export const withEditorContext = <Props extends object>(
   Component: FC<Props>
 ): FC<Props> => {

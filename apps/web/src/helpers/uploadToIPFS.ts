@@ -15,11 +15,6 @@ import { storageClient } from "./storageClient";
 const FALLBACK_TYPE = "image/jpeg";
 const FILE_SIZE_LIMIT_MB = 5 * 1024 * 1024; // 5MB in bytes
 
-/**
- * Retrieves an S3 client with temporary credentials obtained from the STS service.
- *
- * @returns {Promise<S3>} - The S3 client instance.
- */
 const getS3Client = async (): Promise<S3> => {
   const { data } = await axios.get(`${HEY_API_URL}/sts/token`);
   const client = new S3({

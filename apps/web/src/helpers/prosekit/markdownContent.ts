@@ -4,9 +4,6 @@ import type { Editor } from "prosekit/core";
 import { htmlFromNode, nodeFromHTML } from "prosekit/core";
 import { ListDOMSerializer } from "prosekit/extensions/list";
 
-/**
- * Get the editor content in markdown format.
- */
 export const getMarkdownContent = (editor: Editor<EditorExtension>): string => {
   if (!editor.mounted) {
     return "";
@@ -17,9 +14,6 @@ export const getMarkdownContent = (editor: Editor<EditorExtension>): string => {
   return markdownFromHTML(html);
 };
 
-/**
- * Set the editor content in markdown format.
- */
 export const setMarkdownContent = (
   editor: Editor<EditorExtension>,
   markdown: string

@@ -4,13 +4,6 @@ import axios from "axios";
 
 export const GET_INTERNAL_ACCOUNT_QUERY_KEY = "getInternalAccount";
 
-/**
- * Retrieves the internal account details for a given address.
- *
- * @param {string} address - The account address.
- * @param {any} headers - The authentication headers.
- * @returns {Promise<Preferences>} A promise that resolves to the internal account details.
- */
 const getInternalAccount = async (
   address: string,
   headers: any

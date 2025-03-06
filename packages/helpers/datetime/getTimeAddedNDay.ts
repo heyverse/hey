@@ -5,12 +5,6 @@ import utc from "dayjs/plugin/utc";
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
-/**
- * Retrieves the time resulting from adding a specified number of days to the current date and time, in UTC format.
- *
- * @param {number} day - The number of days to add.
- * @returns {string} The resulting date and time in UTC format.
- */
 const getTimeAddedNDay = (day: number) => {
   return dayjs().add(day, "day").utc().format();
 };

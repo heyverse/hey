@@ -4,12 +4,6 @@ import axios from "axios";
 
 export const GET_ACCOUNT_DETAILS_QUERY_KEY = "getAccountDetails";
 
-/**
- * Retrieves the account details for a given address.
- *
- * @param {string} address - The account address.
- * @returns {Promise<null | AccountDetails>} The account details or null if not found.
- */
 const getAccountDetails = async (
   address: string
 ): Promise<null | AccountDetails> => {
