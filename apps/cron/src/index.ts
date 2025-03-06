@@ -21,6 +21,8 @@ const startCronJobs = () => {
     await dbVacuum();
     return;
   });
+
+  // TODO: Add sponsorship balance notification to Discord and also add refill cron job
 };
 
 // Initialize cron jobs

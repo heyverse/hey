@@ -7,7 +7,6 @@
   "deploy": {
     "runtime": "V2",
     "startCommand": "pnpm --filter @hey/cron start",
-    "healthcheckPath": "/",
     "healthcheckTimeout": 1000,
     "multiRegionConfig": {
       "europe-west4-drams3a": {
