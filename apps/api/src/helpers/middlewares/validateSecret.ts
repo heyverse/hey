@@ -3,10 +3,16 @@ import type { NextFunction, Request, Response } from "express";
 import catchedError from "../catchedError";
 
 /**
- * Middleware to validate secret
- * @param req Incoming request
- * @param res Response
- * @param next Next function
+ * Validate the incoming request contains the correct secret.
+ *
+ * @function validateSecret
+ * @param {Request} req - The incoming request.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next middleware in the stack.
+ * @returns {void} Calls the next middleware if the secret is valid, otherwise
+ *   responds with an error.
+ * @throws {Error} If there is an issue processing the request, throws an
+ *   error with the appropriate HTTP status code.
  */
 const validateSecret = (req: Request, res: Response, next: NextFunction) => {
   const { secret } = req.query;
