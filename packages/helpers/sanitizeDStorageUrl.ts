@@ -1,11 +1,5 @@
 import { IPFS_GATEWAY, STORAGE_NODE_URL } from "@hey/data/constants";
 
-/**
- * Retrieves the decentralized storage link for a given hash.
- *
- * @param {string} hash - The storage node hash.
- * @returns {string} The decentralized storage link.
- */
 const sanitizeDStorageUrl = (hash?: string): string => {
   if (!hash) {
     return "";

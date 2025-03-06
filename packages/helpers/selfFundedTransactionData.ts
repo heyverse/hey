@@ -1,11 +1,5 @@
 import type { Eip1559TransactionRequest } from "@hey/indexer";
 
-/**
- * Retrieves the transaction data for a self-funded transaction.
- *
- * @param {Eip1559TransactionRequest} raw - The raw transaction data.
- * @returns {Object} The transaction data for a self-funded transaction.
- */
 const selfFundedTransactionData = (raw: Eip1559TransactionRequest) => {
   return {
     data: raw.data,

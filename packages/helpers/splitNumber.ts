@@ -1,10 +1,3 @@
-/**
- * Retrieves an array of numbers by splitting a number into multiple parts.
- *
- * @param {number} num - The number to split.
- * @param {number} parts - The number of parts to split the number into.
- * @returns {number[]} An array of numbers.
- */
 const splitNumber = (num = 1, parts = 1): number[] => {
   const n = Math.floor(num / parts);
   const numbers: number[] = [];

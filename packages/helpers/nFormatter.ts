@@ -1,12 +1,5 @@
 import humanize from "./humanize";
 
-/**
- * Retrieves the formatted number with SI unit prefixes.
- *
- * @param {number} num - The number to format.
- * @param {number} digits - The number of digits to show after the decimal point. Default is 1.
- * @returns {string} The formatted number as a string with the appropriate prefix.
- */
 const nFormatter = (num: number, digits = 1): string => {
   const lookup = [
     { symbol: "", value: 1 },
