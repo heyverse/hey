@@ -1,5 +1,4 @@
-import { getRedis } from "@hey/db/redisClient";
-import logger from "@hey/helpers/logger";
+import { getRedis, setRedis } from "@hey/db/redisClient";
 import sha256 from "@hey/helpers/sha256";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -17,17 +16,16 @@ export const get = [
       return noBody(res);
     }
 
-    const CACHE_KEY = `oembed:${sha256(url as string).slice(0, 10)}`;
+    const cacheKey = `oembed:${sha256(url as string).slice(0, 10)}`;
 
     try {
-      const cachedData = await getRedis(CACHE_KEY);
+      const cachedResult = await getRedis(cacheKey);
 
-      if (cachedData) {
-        logger.info(`(cached) Oembed generated for ${url}`);
+      if (cachedResult) {
         return res
           .status(200)
           .setHeader("Cache-Control", CACHE_AGE_1_DAY)
-          .json({ oembed: JSON.parse(cachedData), success: true });
+          .json({ oembed: JSON.parse(cachedResult), success: true });
       }
 
       const oembed = await getMetadata(url as string);
@@ -36,7 +34,7 @@ export const get = [
         return res.status(200).json({ oembed: null, success: false });
       }
 
-      logger.info(`Oembed generated for ${url}`);
+      await setRedis(cacheKey, oembed);
 
       return res
         .status(200)

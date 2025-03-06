@@ -1,5 +1,4 @@
 import prisma from "@hey/db/prisma/db/client";
-import logger from "@hey/helpers/logger";
 import type { Preferences } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -31,8 +30,6 @@ export const get = [
         includeLowScore: Boolean(preference?.includeLowScore),
         permissions: permissions.map(({ permission }) => permission.key)
       };
-
-      logger.info(`Internal account fetched for ${accountAddress}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {

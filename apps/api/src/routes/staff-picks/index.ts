@@ -7,7 +7,7 @@ import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_30_MINS } from "src/helpers/constants";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
 
-const CACHE_KEY = "staff-picks";
+const cacheKey = "staff-picks";
 
 const getRandomPicks = (data: any[]) => {
   const random = data.sort(() => Math.random() - Math.random());
@@ -18,7 +18,7 @@ export const get = [
   rateLimiter({ requests: 100, within: 1 }),
   async (_: Request, res: Response) => {
     try {
-      const cachedData = await getRedis(CACHE_KEY);
+      const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
         logger.info("(cached) Staff picks fetched");
@@ -36,7 +36,7 @@ export const get = [
         where: { enabled: true, permissionId: PermissionId.StaffPick }
       });
 
-      await setRedis(CACHE_KEY, accountPermission, generateMediumExpiry());
+      await setRedis(cacheKey, accountPermission, generateMediumExpiry());
       logger.info("Staff picks fetched");
 
       return res

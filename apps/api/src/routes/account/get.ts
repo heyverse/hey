@@ -1,7 +1,6 @@
 import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
-import logger from "@hey/helpers/logger";
 import type { AccountDetails } from "@hey/types/hey";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -11,41 +10,39 @@ import { noBody } from "src/helpers/responses";
 export const get = [
   rateLimiter({ requests: 250, within: 1 }),
   async (req: Request, res: Response) => {
-    const { address } = req.query;
+    const address = req.query.address as string;
 
     if (!address) {
       return noBody(res);
     }
 
-    const CACHE_KEY = `account:${address}`;
+    const cacheKey = `account:${address}`;
 
     try {
-      const cachedData = await getRedis(CACHE_KEY);
+      const cachedAccount = await getRedis(cacheKey);
 
-      if (cachedData) {
-        logger.info(`(cached) Account details fetched for ${address}`);
+      if (cachedAccount) {
         return res
           .status(200)
-          .json({ result: JSON.parse(cachedData), success: true });
+          .json({ result: JSON.parse(cachedAccount), success: true });
       }
 
       const [accountPermission] = await prisma.$transaction([
         prisma.accountPermission.findFirst({
           where: {
             permissionId: PermissionId.Suspended,
-            accountAddress: address as string
+            accountAddress: address
           }
         })
       ]);
 
-      const response: AccountDetails = {
+      const account: AccountDetails = {
         isSuspended: accountPermission?.permissionId === PermissionId.Suspended
       };
 
-      await setRedis(CACHE_KEY, response);
-      logger.info(`Account details fetched for ${address}`);
+      await setRedis(cacheKey, account);
 
-      return res.status(200).json({ result: response, success: true });
+      return res.status(200).json({ result: account, success: true });
     } catch (error) {
       return catchedError(res, error);
     }

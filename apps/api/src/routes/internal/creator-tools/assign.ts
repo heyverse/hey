@@ -1,5 +1,4 @@
 import prisma from "@hey/db/prisma/db/client";
-import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateHasCreatorToolsAccess from "src/helpers/middlewares/validateHasCreatorToolsAccess";
@@ -46,7 +45,6 @@ export const post = [
         });
 
         await postUpdateTasks(accountAddress, id);
-        logger.info(`Enabled permissions for ${accountAddress}`);
 
         return res.status(200).json({ enabled, success: true });
       }
@@ -56,7 +54,6 @@ export const post = [
       });
 
       await postUpdateTasks(accountAddress, id);
-      logger.info(`Disabled permissions for ${accountAddress}`);
 
       return res.status(200).json({ enabled, success: true });
     } catch (error) {

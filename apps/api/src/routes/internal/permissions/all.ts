@@ -1,5 +1,4 @@
 import prisma from "@hey/db/prisma/db/client";
-import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import validateIsStaff from "src/helpers/middlewares/validateIsStaff";
@@ -14,8 +13,6 @@ export const get = [
         include: { _count: { select: { accounts: true } } },
         orderBy: { accounts: { _count: "desc" } }
       });
-
-      logger.info("All permissions fetched");
 
       return res.status(200).json({ result: permissions, success: true });
     } catch (error) {
