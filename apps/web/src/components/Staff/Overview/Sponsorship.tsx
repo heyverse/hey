@@ -1,3 +1,4 @@
+import Fund from "@components/Shared/Fund/FundAccount/Fund";
 import Loader from "@components/Shared/Loader";
 import { BLOCK_EXPLORER_URL, HEY_SPONSOR } from "@hey/data/constants";
 import { Card, CardHeader, ErrorMessage, NumberedStat } from "@hey/ui";
@@ -35,6 +36,7 @@ const Sponsorship: FC = () => {
               name="Sponsorship Balance"
               suffix="GHO"
             />
+            <Fund recipient={HEY_SPONSOR} useNativeToken />
           </div>
         )}
       </div>

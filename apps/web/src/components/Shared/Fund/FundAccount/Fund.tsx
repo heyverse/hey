@@ -11,7 +11,12 @@ import {
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
 import { type Address, formatUnits, parseEther } from "viem";
-import { useAccount, useBalance, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  useBalance,
+  useSendTransaction,
+  useWriteContract
+} from "wagmi";
 
 const ABI = [
   {
@@ -29,23 +34,31 @@ const ABI = [
 interface FundProps {
   recipient: Address;
   isHeyTip?: boolean;
+  useNativeToken?: boolean;
   onSuccess?: () => void;
 }
 
-const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
+const Fund: FC<FundProps> = ({
+  recipient,
+  isHeyTip,
+  useNativeToken,
+  onSuccess
+}) => {
   const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const { address } = useAccount();
+  const symbol = useNativeToken ? "GHO" : "wGHO";
 
   const { data, isLoading } = useBalance({
     address,
-    token: DEFAULT_COLLECT_TOKEN,
+    token: useNativeToken ? undefined : DEFAULT_COLLECT_TOKEN,
     query: { refetchInterval: 2000 }
   });
 
-  const { writeContractAsync, isPending } = useWriteContract();
+  const { writeContractAsync, isPending: isWriting } = useWriteContract();
+  const { sendTransactionAsync, isPending: isSending } = useSendTransaction();
 
   const walletBalance = data
     ? Number.parseFloat(formatUnits(data.value, 18)).toFixed(2)
@@ -63,13 +76,22 @@ const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
 
   const handleFund = async () => {
     try {
-      await writeContractAsync({
-        abi: ABI,
-        functionName: "transfer",
-        address: DEFAULT_COLLECT_TOKEN,
-        args: [recipient, parseEther(amount.toString())]
-      });
+      if (useNativeToken) {
+        await sendTransactionAsync({
+          to: recipient,
+          value: parseEther(amount.toString())
+        });
+      } else {
+        await writeContractAsync({
+          abi: ABI,
+          functionName: "transfer",
+          address: DEFAULT_COLLECT_TOKEN,
+          args: [recipient, parseEther(amount.toString())]
+        });
+      }
 
+      setAmount(2);
+      setOther(false);
       onSuccess?.();
 
       return toast.success(
@@ -88,7 +110,7 @@ const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
           <span className="shimmer h-2.5 w-20 rounded-full" />
         ) : (
           <span className="ld-text-gray-500 text-sm">
-            Balance: {walletBalance} wGHO
+            Balance: {walletBalance} {symbol}
           </span>
         )}
       </div>
@@ -100,21 +122,21 @@ const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
             onClick={() => handleSetAmount(2)}
             outline={amount !== 2}
           >
-            2 wGHO
+            2 {symbol}
           </Button>
           <Button
             className="w-full"
             onClick={() => handleSetAmount(5)}
             outline={amount !== 5}
           >
-            5 wGHO
+            5 {symbol}
           </Button>
           <Button
             className="w-full"
             onClick={() => handleSetAmount(10)}
             outline={amount !== 10}
           >
-            10 wGHO
+            10 {symbol}
           </Button>
           <Button
             className="w-full"
@@ -133,7 +155,7 @@ const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
               className="no-spinner"
               max={1000}
               onChange={onOtherAmount}
-              prefix="wGHO"
+              prefix={symbol}
               placeholder="300"
               ref={inputRef}
               type="number"
@@ -141,7 +163,7 @@ const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
             />
           </div>
         ) : null}
-        {isLoading || isPending ? (
+        {isLoading || isWriting || isSending ? (
           <Button
             className="flex w-full justify-center"
             disabled
@@ -154,7 +176,7 @@ const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
         ) : (
           <Button disabled={!amount} className="w-full" onClick={handleFund}>
             <b>
-              {isHeyTip ? "Tip" : "Purchase"} {amount} wGHO
+              {isHeyTip ? "Tip" : "Purchase"} {amount} {symbol}
             </b>
           </Button>
         )}
