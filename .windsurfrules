@@ -88,3 +88,8 @@ Follow these rules when you write code:
 - Use verbs for boolean variables. Example: `isLoading`, `hasError`, `canDelete`, etc.
 - Use complete words instead of abbreviations and correct spelling.
 - Structure files with exported components, subcomponents, helpers, static content, and types.
+
+### References
+
+- [Lens Protocol Docs](https://dev-preview.lens.xyz/docs/protocol/resources/contracts)
+- [Grove Storage Docs](https://docs.grovedb.dev/)

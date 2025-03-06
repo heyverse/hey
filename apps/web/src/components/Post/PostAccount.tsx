@@ -26,7 +26,7 @@ const PostAccount: FC<PostAccountProps> = ({
 }) => {
   const { pathname } = useRouter();
 
-  const WrappedLink = ({ children }: { children: ReactNode }) => (
+  const CustomLink = ({ children }: { children: ReactNode }) => (
     <Link
       className="outline-none hover:underline focus:underline"
       href={getAccount(account).link}
@@ -44,15 +44,15 @@ const PostAccount: FC<PostAccountProps> = ({
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap items-center gap-x-1">
-        <WrappedLink>
+        <CustomLink>
           <span className="font-semibold">{getAccount(account).name}</span>
-        </WrappedLink>
-        <WrappedLink>
+        </CustomLink>
+        <CustomLink>
           <Slug
             className="text-sm"
             slug={getAccount(account).usernameWithPrefix}
           />
-        </WrappedLink>
+        </CustomLink>
         <Verified address={account.address} iconClassName="size-4" />
         {timestamp ? (
           <span className="ld-text-gray-500">
