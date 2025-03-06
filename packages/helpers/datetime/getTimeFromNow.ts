@@ -4,10 +4,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 /**
- * Formats a date as a string representing the time from now.
+ * Retrieves the formatted date string as a string representing the time from now.
  *
- * @param date The date to format.
- * @returns A string representing the time from now.
+ * @param {Date} date - The date to format.
+ * @returns {string} A string representing the time from now.
  */
 const getTimeFromNow = (date: Date) => {
   return dayjs(date).fromNow();

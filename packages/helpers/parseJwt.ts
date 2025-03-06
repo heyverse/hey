@@ -10,8 +10,8 @@ const decoded = (str: string): string =>
 /**
  * Retrieves an object with the expiry time in seconds from a JSON Web Token.
  *
- * @param token The JSON Web Token to parse.
- * @returns An object with the expiry time in seconds.
+ * @param {string} token - The JSON Web Token to parse.
+ * @returns {Object} An object with the expiry time in seconds.
  */
 const parseJwt = (
   token: string

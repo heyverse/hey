@@ -1,7 +1,7 @@
 /**
  * Retrieves the string converted from snake_case to Title Case.
  *
- * @param {string} input The string to convert.
+ * @param {string} input - The string to convert.
  * @returns {string} The converted string.
  */
 const convertToTitleCase = (input: string): string => {

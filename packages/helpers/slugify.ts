@@ -1,8 +1,8 @@
 /**
  * Retrieves the slugified string by removing invalid characters and replacing spaces with hyphens.
  *
- * @param text The string to slugify.
- * @returns The slugified string.
+ * @param {string} text - The string to slugify.
+ * @returns {string} The slugified string.
  */
 const slugify = (text: string): string =>
   text

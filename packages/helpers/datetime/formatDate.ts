@@ -4,9 +4,11 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 /**
- * Formats a date as a string in the format used by the application.
- * @param date The date to format.
- * @returns A string in the application date format.
+ * Retrieves the formatted date string in the format used by the application.
+ *
+ * @param {Date | string} date - The date to format.
+ * @param {string} [format="MMMM D, YYYY"] - The format to use for the date.
+ * @returns {string} The formatted date string.
  */
 const formatDate = (date: Date | string, format = "MMMM D, YYYY") => {
   return dayjs(new Date(date)).format(format);

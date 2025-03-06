@@ -5,9 +5,10 @@ import axios from "axios";
 export const GET_PREFERENCES_QUERY_KEY = "getPreferences";
 
 /**
- * Get account preferences
- * @param headers auth headers
- * @returns account preferences
+ * Retrieves the account preferences.
+ *
+ * @param {any} headers - The authentication headers.
+ * @returns {Promise<Preferences>} A promise that resolves to the account preferences.
  */
 const getPreferences = async (headers: any): Promise<Preferences> => {
   try {

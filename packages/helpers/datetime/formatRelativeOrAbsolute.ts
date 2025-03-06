@@ -4,10 +4,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 
 /**
- * Formats a date as a relative string or a traditional date format based on the time elapsed.
+ * Retrieves the formatted date string as a relative string or a traditional date format based on the time elapsed.
  *
- * @param date The date to format.
- * @returns A formatted string representing the time elapsed or a traditional date.
+ * @param {Date | string} date - The date to format.
+ * @returns {string} The formatted date string representing the time elapsed or a traditional date.
  */
 const formatRelativeOrAbsolute = (date: Date | string) => {
   const now = dayjs();

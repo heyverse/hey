@@ -5,9 +5,10 @@ import axios from "axios";
 export const GET_ALL_PERMISSIONS_QUERY_KEY = "getAllPermissions";
 
 /**
- * Get all permissions
- * @param headers auth headers
- * @returns all permissions
+ * Retrieves all permissions.
+ *
+ * @param {any} headers - The authentication headers.
+ * @returns {Promise<Permission[]>} A promise that resolves to an array of permissions.
  */
 const getAllPermissions = async (headers: any): Promise<Permission[]> => {
   const { data } = await axios.get(`${HEY_API_URL}/internal/permissions/all`, {
