@@ -1,9 +1,3 @@
-/**
- * Retrieves the toast options based on the theme.
- *
- * @param {string} theme - The theme to use.
- * @returns {Object} - The toast options.
- */
 const getToastOptions = (theme?: string) => ({
   error: {
     className: "border border-red-500",

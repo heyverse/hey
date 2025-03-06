@@ -4,12 +4,6 @@ import { toast } from "react-hot-toast";
 const FORBIDDEN_ERROR =
   "Forbidden - Failed to generate source stamp: App rejected verification request:";
 
-/**
- * Retrieves an error toast.
- *
- * @param {any} error - The error to display.
- * @returns {void}
- */
 const errorToast = (error: any) => {
   if (error?.message.includes("viem")) {
     return;

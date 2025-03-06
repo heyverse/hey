@@ -10,12 +10,6 @@ import getImage from "./meta/getImage";
 import getSite from "./meta/getSite";
 import getTitle from "./meta/getTitle";
 
-/**
- * Get metadata from a URL.
- *
- * @param {string} url - The URL to get metadata from.
- * @returns {Promise<null | OG>} The metadata, or null if not found.
- */
 const getMetadata = async (url: string): Promise<null | OG> => {
   try {
     const { data } = await axios.get(url, {

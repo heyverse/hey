@@ -1,9 +1,3 @@
-/**
- * Get the image from the document.
- *
- * @param {Document} document - The document to get the image from.
- * @returns {null | string} The image, or null if not found.
- */
 const getImage = (document: Document): null | string => {
   const og =
     document.querySelector('meta[name="og:image"]') ||

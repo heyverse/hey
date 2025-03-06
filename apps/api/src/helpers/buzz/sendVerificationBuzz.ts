@@ -5,15 +5,6 @@ import apolloClient from "@hey/indexer/apollo/client";
 import type { Address } from "viem";
 import sendBuzz from "./sendBuzz";
 
-/**
- * Sends a verification buzz to a Discord webhook for a specific account operation.
- *
- * @param {object} params - The parameters for sending the verification buzz.
- * @param {Address} params.account - The account address associated with the operation.
- * @param {string} params.operation - The operation being verified.
- *
- * @returns {Promise<boolean>} - A promise that resolves to `true` if the buzz was sent successfully, otherwise `false`.
- */
 const sendVerificationBuzz = async ({
   account,
   operation

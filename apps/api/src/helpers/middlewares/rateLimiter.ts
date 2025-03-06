@@ -8,17 +8,6 @@ import catchedError from "../catchedError";
 
 const hashedIp = (req: Request): string => sha256(getIp(req)).slice(0, 25);
 
-/**
- * Creates an Express rate limiter for a given window and max requests.
- *
- * It uses the request path and IP address as the key for the rate limiter.
- *
- * If Redis is not available, it will not rate limit.
- *
- * @param {number} window - Time window in minutes
- * @param {number} max - Maximum number of requests allowed within the window
- * @returns {import("express-rate-limit").RateLimit} - The rate limiter
- */
 const createRateLimiter = (window: number, max: number) => {
   return rateLimit({
     handler: (req, res) =>

@@ -7,17 +7,6 @@ import type { NextFunction, Request, Response } from "express";
 import catchedError from "../catchedError";
 import { HEY_USER_AGENT } from "../constants";
 
-/**
- * Validate the incoming request is from a valid staff account.
- *
- * @function validateIsStaff
- * @param {Request} req - The incoming request.
- * @param {Response} res - The response object.
- * @param {NextFunction} next - The next middleware in the stack.
- * @returns {Promise<void>} Resolves if the request is valid, rejects otherwise.
- * @throws {Error} If the request is not valid, throws an error with the
- *   appropriate HTTP status code.
- */
 const validateIsStaff = async (
   req: Request,
   res: Response,

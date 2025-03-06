@@ -10,17 +10,6 @@ const JWKS = createRemoteJWKSet(new URL(jwksUri), {
   cacheMaxAge: 60 * 60 * 12
 });
 
-/**
- * Validate the incoming request is from a valid Lens account.
- *
- * @function validateLensAccount
- * @param {Request} req - The incoming request.
- * @param {Response} res - The response object.
- * @param {NextFunction} next - The next middleware in the stack.
- * @returns {Promise<void>} Resolves if the request is valid, rejects otherwise.
- * @throws {Error} If the request is not valid, throws an error with the
- *   appropriate HTTP status code.
- */
 const validateLensAccount = async (
   req: Request,
   res: Response,

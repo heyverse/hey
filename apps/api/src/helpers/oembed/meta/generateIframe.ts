@@ -23,13 +23,6 @@ const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
 const sunoRegex =
   /^https?:\/\/suno\.com\/song\/[\dA-Fa-f-]+(\?si=[\dA-Za-z]+)?$/;
 
-/**
- * Generate an iframe HTML for a given URL.
- *
- * @param {string | null} embedUrl - The URL to embed.
- * @param {string} url - The original URL.
- * @returns {string | null} The generated iframe HTML, or null if no valid URL was provided.
- */
 const generateIframe = (
   embedUrl: null | string,
   url: string

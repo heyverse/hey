@@ -1,11 +1,5 @@
 import { type Maybe, MetadataLicenseType } from "@hey/indexer";
 
-/**
- * Retrieves the license for an asset.
- *
- * @param {Maybe<MetadataLicenseType> | undefined} licenseId - The license ID.
- * @returns {({ helper: string; label: string } | null)} - The license details, or null if not found.
- */
 const getAssetLicense = (
   licenseId: Maybe<MetadataLicenseType> | undefined
 ): {
