@@ -1,7 +1,9 @@
+import Slug from "@components/Shared/Slug";
 import errorToast from "@helpers/errorToast";
 import { Errors } from "@hey/data/errors";
+import getAccount from "@hey/helpers/getAccount";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
-import { Button } from "@hey/ui";
+import { Button, Card, CardHeader } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -59,9 +61,24 @@ const UnlinkHandle: FC = () => {
   };
 
   return (
-    <Button disabled={unlinking} onClick={handleUnlink} outline>
-      Un-link handle
-    </Button>
+    <Card>
+      <CardHeader
+        body="Unlinking your current handle will remove it from your profile,
+        preventing others from easily identifying and connecting with you based on
+        your unique online identity."
+        title={
+          <span>
+            Unlink <Slug slug={getAccount(currentAccount).usernameWithPrefix} />{" "}
+            from your profile
+          </span>
+        }
+      />
+      <div className="m-5">
+        <Button disabled={unlinking} onClick={handleUnlink} outline>
+          Un-link now
+        </Button>
+      </div>
+    </Card>
   );
 };
 

@@ -6,10 +6,9 @@ import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import {
   useAssignUsernameToAccountMutation,
-  useUnassignUsernameFromAccountMutation,
   useUsernamesQuery
 } from "@hey/indexer";
-import { Button, EmptyState } from "@hey/ui";
+import { Button, Card, CardHeader, EmptyState } from "@hey/ui";
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -34,7 +33,9 @@ const LinkHandle: FC = () => {
   };
 
   const { data, loading } = useUsernamesQuery({
-    variables: { request: { filter: { owner: currentAccount?.address } } }
+    variables: {
+      request: { filter: { owner: currentAccount?.address } }
+    }
   });
 
   const [assignUsernameToAccount] = useAssignUsernameToAccountMutation({
@@ -74,39 +75,6 @@ const LinkHandle: FC = () => {
     });
   };
 
-  const [unassignUsernameFromAccount] = useUnassignUsernameFromAccountMutation({
-    onCompleted: async ({ unassignUsernameFromAccount }) => {
-      if (
-        unassignUsernameFromAccount.__typename === "UnassignUsernameResponse"
-      ) {
-        return onCompleted();
-      }
-
-      return await handleTransactionLifecycle({
-        transactionData: unassignUsernameFromAccount,
-        onCompleted,
-        onError
-      });
-    },
-    onError
-  });
-
-  const handleUnlink = async () => {
-    if (!currentAccount) {
-      return;
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
-    setLinkingUsername(null);
-
-    return await unassignUsernameFromAccount({
-      variables: { request: { namespace: currentAccount.username?.namespace } }
-    });
-  };
-
   if (loading) {
     return <Loader className="py-10" />;
   }
@@ -124,42 +92,42 @@ const LinkHandle: FC = () => {
   }
 
   return (
-    <div className="m-5 space-y-6">
-      {usernames?.map((username) => (
-        <div
-          className="flex flex-wrap items-center justify-between gap-3"
-          key={username.value}
-        >
-          <div className="flex items-center space-x-2">
-            <Slug className="font-bold" slug={username.value} />
-            {username.linkedTo ? (
-              <div className="flex items-center space-x-2">
-                <span>·</span>
-                <div>Linked to</div>
-                <LazySmallSingleAccount address={username.linkedTo} />
-              </div>
-            ) : null}
+    <Card>
+      <CardHeader
+        body="Linking your handle to your account showcases it publicly,
+            allowing others to easily identify and connect with you based on
+            your unique online identity."
+        title="Link a handle"
+      />
+      <div className="m-5 space-y-6">
+        {usernames?.map((username) => (
+          <div
+            className="flex flex-wrap items-center justify-between gap-3"
+            key={username.value}
+          >
+            <div className="flex items-center space-x-2">
+              <Slug className="font-bold" slug={username.value} />
+              {username.linkedTo ? (
+                <div className="flex items-center space-x-2">
+                  <span>·</span>
+                  <div>Linked to</div>
+                  <LazySmallSingleAccount address={username.linkedTo} />
+                </div>
+              ) : null}
+            </div>
+            {username.linkedTo ? null : (
+              <Button
+                disabled={linkingUsername === username.localName}
+                onClick={() => handleLink(username.localName)}
+                outline
+              >
+                Link
+              </Button>
+            )}
           </div>
-          {username.linkedTo ? (
-            <Button
-              disabled={linkingUsername === username.localName}
-              onClick={() => handleUnlink()}
-              outline
-            >
-              Unlink
-            </Button>
-          ) : (
-            <Button
-              disabled={linkingUsername === username.localName}
-              onClick={() => handleLink(username.localName)}
-              outline
-            >
-              Link
-            </Button>
-          )}
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </Card>
   );
 };
 

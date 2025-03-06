@@ -1,17 +1,12 @@
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { APP_NAME } from "@hey/data/constants";
-import {
-  Card,
-  CardHeader,
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@hey/ui";
+import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import type { NextPage } from "next";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import LinkHandle from "./LinkHandle";
+import UnlinkHandle from "./UnlinkHandle";
 
 const HandlesSettings: NextPage = () => {
   const { currentAccount } = useAccountStore();
@@ -26,16 +21,9 @@ const HandlesSettings: NextPage = () => {
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
-      <GridItemEight>
-        <Card>
-          <CardHeader
-            body="Linking your handle to your account showcases it publicly,
-            allowing others to easily identify and connect with you based on
-            your unique online identity."
-            title="Link a handle"
-          />
-          <LinkHandle />
-        </Card>
+      <GridItemEight className="space-y-5">
+        <UnlinkHandle />
+        <LinkHandle />
       </GridItemEight>
     </GridLayout>
   );
