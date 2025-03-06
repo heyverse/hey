@@ -1,12 +1,6 @@
 import { Regex } from "@hey/data/regex";
 import type { AccountMentionFragment, PostMentionFragment } from "@hey/indexer";
 
-/**
- * Retrieves the mentions from a given text.
- *
- * @param {string} text - The text to retrieve mentions from.
- * @returns {Array} An array of mentions, or an empty array if no mentions are found.
- */
 const getMentions = (text: string): [] | PostMentionFragment[] => {
   if (!text) {
     return [];

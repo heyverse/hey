@@ -6,12 +6,6 @@ interface TypedData {
   value: Record<string, any>;
 }
 
-/**
- * Retrieves the signature from a given typed data object.
- *
- * @param {TypedData} typedData - The typed data object.
- * @returns {Object} An object containing the domain, message, primary type, and types.
- */
 const getSignature = (
   typedData: TypedData
 ): {
