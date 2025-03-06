@@ -10,26 +10,31 @@ import getImage from "./meta/getImage";
 import getSite from "./meta/getSite";
 import getTitle from "./meta/getTitle";
 
+const fetchData = async (url: string) => {
+  const { data } = await axios.get(url, {
+    headers: { "User-Agent": HEY_USER_AGENT }
+  });
+  return data;
+};
+
+const extractMetadata = (document: Document, url: string): OG => {
+  const image = getImage(document) as string;
+  return {
+    description: getDescription(document),
+    favicon: getFavicon(url),
+    html: generateIframe(getEmbedUrl(document), url),
+    image: image,
+    site: getSite(document),
+    title: getTitle(document),
+    url
+  };
+};
+
 const getMetadata = async (url: string): Promise<null | OG> => {
   try {
-    const { data } = await axios.get(url, {
-      headers: { "User-Agent": HEY_USER_AGENT }
-    });
-
+    const data = await fetchData(url);
     const { document } = parseHTML(data);
-    const image = getImage(document) as string;
-
-    const metadata: OG = {
-      description: getDescription(document),
-      favicon: getFavicon(url),
-      html: generateIframe(getEmbedUrl(document), url),
-      image: image,
-      site: getSite(document),
-      title: getTitle(document),
-      url
-    };
-
-    return metadata;
+    return extractMetadata(document, url);
   } catch {
     return null;
   }
