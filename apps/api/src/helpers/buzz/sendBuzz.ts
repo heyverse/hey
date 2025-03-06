@@ -1,5 +1,17 @@
 import { APP_NAME } from "@hey/data/constants";
 
+/**
+ * Sends a message to a Discord webhook.
+ *
+ * @param {object} options - An object with the following properties:
+ *   - {string} title - The title of the message.
+ *   - {object} [footer] - An object with the following properties:
+ *     - {string} text - The text of the footer.
+ *     - {string} [icon_url] - The URL of the icon to use for the footer.
+ *   - {string} topic - The topic of the message (the ID of the webhook).
+ *
+ * @returns {Promise<boolean>} Whether the message was sent successfully.
+ */
 const sendBuzz = async ({
   title,
   footer,
