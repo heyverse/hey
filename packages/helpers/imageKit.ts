@@ -3,9 +3,9 @@ import { LENS_MEDIA_SNAPSHOT_URL } from "@hey/data/constants";
 /**
  * Retrieves the URL of an image to use ImageKit.
  *
- * @param url The original URL of the image.
- * @param name The transformation name (optional).
- * @returns A transformed URL.
+ * @param {string} url - The original URL of the image.
+ * @param {string} name - The transformation name (optional).
+ * @returns {string} A transformed URL.
  */
 const imageKit = (url: string, name?: string): string => {
   if (!url) {

@@ -13,8 +13,8 @@ const allowedTypes = [
 /**
  * Retrieves whether a post metadata type is allowed.
  *
- * @param type The post metadata type to check.
- * @returns A boolean indicating whether the post metadata type is allowed.
+ * @param {string} type - The post metadata type to check.
+ * @returns {boolean} A boolean indicating whether the post metadata type is allowed.
  */
 const isPostMetadataTypeAllowed = (type?: string): boolean => {
   if (!type) {

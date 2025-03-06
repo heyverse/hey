@@ -7,8 +7,8 @@ import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 /**
  * Retrieves the post data from a post metadata fragment.
  *
- * @param metadata The post metadata fragment.
- * @returns An object containing the post data, or null if the post metadata is not a valid post metadata fragment.
+ * @param {PostMetadataFragment} metadata - The post metadata fragment.
+ * @returns {Object} An object containing the post data, or null if the post metadata is not a valid post metadata fragment.
  */
 const getPostData = (
   metadata: PostMetadataFragment

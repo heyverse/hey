@@ -4,9 +4,9 @@ import { isAddress } from "viem";
  * Retrieves the formatted address string, returning a lowercase string with the first
  * and last slice characters visible and the rest replaced with an ellipsis.
  *
- * @param address The address string to format.
- * @param slice The number of characters at the start and end of the string
- * @returns A formatted string.
+ * @param {string | null} address - The address string to format.
+ * @param {number} [sliceSize=4] - The number of characters at the start and end of the string
+ * @returns {string} A formatted string.
  */
 const formatAddress = (address: string | null, sliceSize = 4): string => {
   if (!address) {

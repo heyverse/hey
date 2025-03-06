@@ -5,8 +5,8 @@ import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
  * Processes an array of media attachments and returns an array of objects
  * with sanitized URLs and additional metadata based on the media type.
  *
- * @param attachments - An optional array of media fragments, which can be images, videos, or audio.
- * @returns An array of objects containing the type and sanitized URI of each media,
+ * @param {Maybe<AnyMediaFragment[]>} attachments - An optional array of media fragments, which can be images, videos, or audio.
+ * @returns {any} An array of objects containing the type and sanitized URI of each media,
  *          and additional properties like coverUri and artist for certain media types.
  */
 const getAttachmentsData = (attachments?: Maybe<AnyMediaFragment[]>): any => {

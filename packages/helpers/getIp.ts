@@ -1,8 +1,8 @@
 /**
  * Retrieves the IP address from a request object.
  *
- * @param req The request object.
- * @returns The IP address as a string.
+ * @param {any} req - The request object.
+ * @returns {string} The IP address as a string.
  */
 const getIp = (req: any): string => {
   const ips = (

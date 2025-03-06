@@ -9,8 +9,8 @@ interface TypedData {
 /**
  * Retrieves the signature from a given typed data object.
  *
- * @param typedData The typed data object.
- * @returns An object containing the domain, message, primary type, and types.
+ * @param {TypedData} typedData - The typed data object.
+ * @returns {Object} An object containing the domain, message, primary type, and types.
  */
 const getSignature = (
   typedData: TypedData

@@ -4,8 +4,8 @@ import type { CollectActionType } from "@hey/types/hey";
 /**
  * Retrieves the configuration input for a collect action.
  *
- * @param collectAction - The collect action containing the necessary parameters.
- * @returns The configuration input for the collect action or null if invalid.
+ * @param {CollectActionType} collectAction - The collect action containing the necessary parameters.
+ * @returns {PostActionConfigInput | null} The configuration input for the collect action or null if invalid.
  */
 const collectActionParams = (
   collectAction: CollectActionType

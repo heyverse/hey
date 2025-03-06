@@ -1,9 +1,9 @@
 /**
  * Retrieves a file from a data URL.
  *
- * @param dataUrl The data URL to retrieve the file from.
- * @param fileName The name of the file to be retrieved.
- * @param callback A callback function to be executed after the file is retrieved.
+ * @param {string} dataUrl - The data URL to retrieve the file from.
+ * @param {string} fileName - The name of the file to be retrieved.
+ * @param {Function} callback - A callback function to be executed after the file is retrieved.
  */
 const getFileFromDataURL = (
   dataUrl: string,
