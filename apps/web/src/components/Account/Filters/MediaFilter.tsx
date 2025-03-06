@@ -9,10 +9,10 @@ import { useAccountFeedStore } from "src/store/non-persisted/useAccountFeedStore
 const MediaFilter = () => {
   const { mediaFeedFilters, setMediaFeedFilters } = useAccountFeedStore();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setMediaFeedFilters({
-      ...mediaFeedFilters,
-      [e.target.name]: e.target.checked
+      mediaFeedFilters: { ...mediaFeedFilters,
+      [event.target.name]: event.target.checked
     });
   };
 

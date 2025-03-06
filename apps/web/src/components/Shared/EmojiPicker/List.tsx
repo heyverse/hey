@@ -27,8 +27,8 @@ const List: FC<ListProps> = ({ setEmoji }) => {
     queryKey: [GET_EMOJIS_QUERY_KEY]
   });
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
   };
 
   let filteredEmojis = data;

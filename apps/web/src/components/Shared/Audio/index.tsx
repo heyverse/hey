@@ -52,10 +52,10 @@ const Audio: FC<AudioProps> = ({
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAudioPost({
       ...audioPost,
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     });
   };
 

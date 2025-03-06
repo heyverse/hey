@@ -19,8 +19,8 @@ const LoginButton: FC<LoginButtonProps> = ({
 }) => {
   const { setShowAuthModal } = useAuthModalStore();
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
     return setShowAuthModal(true);
   };
 

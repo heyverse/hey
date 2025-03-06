@@ -40,9 +40,11 @@ class ImageCropper extends Component<CropperProps, State> {
     zoomSpeed: 1
   };
 
-  static getMousePoint = (e: GestureEvent | MouseEvent | React.MouseEvent) => ({
-    x: Number(e.clientX),
-    y: Number(e.clientY)
+  static getMousePoint = (
+    event: GestureEvent | MouseEvent | React.MouseEvent
+  ) => ({
+    x: Number(event.clientX),
+    y: Number(event.clientY)
   });
   static getTouchPoint = (touch: React.Touch | Touch) => ({
     x: Number(touch.clientX),
@@ -229,20 +231,20 @@ class ImageCropper extends Component<CropperProps, State> {
     this.cleanEvents();
   };
 
-  onGestureMove = (e: GestureEvent) => {
-    e.preventDefault();
+  onGestureMove = (event: GestureEvent) => {
+    event.preventDefault();
     if (this.isTouching) {
       // avoid conflict between gesture and touch events
       return;
     }
 
-    const point = ImageCropper.getMousePoint(e);
-    const newZoom = this.gestureZoomStart - 1 + e.scale;
+    const point = ImageCropper.getMousePoint(event);
+    const newZoom = this.gestureZoomStart - 1 + event.scale;
     this.setNewZoom(newZoom, point, { shouldUpdatePosition: true });
   };
 
-  onGestureStart = (e: GestureEvent) => {
-    e.preventDefault();
+  onGestureStart = (event: GestureEvent) => {
+    event.preventDefault();
     this.currentDoc.addEventListener(
       "gesturechange",
       this.onGestureMove as EventListener
@@ -264,43 +266,44 @@ class ImageCropper extends Component<CropperProps, State> {
     }
   };
 
-  onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
+  onMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.preventDefault();
     this.currentDoc.addEventListener("mousemove", this.onMouseMove);
     this.currentDoc.addEventListener("mouseup", this.onDragStopped);
-    this.onDragStart(ImageCropper.getMousePoint(e));
+    this.onDragStart(ImageCropper.getMousePoint(event));
   };
 
-  onMouseMove = (e: MouseEvent) => this.onDrag(ImageCropper.getMousePoint(e));
+  onMouseMove = (event: MouseEvent) =>
+    this.onDrag(ImageCropper.getMousePoint(event));
 
-  onTouchMove = (e: TouchEvent) => {
+  onTouchMove = (event: TouchEvent) => {
     // Prevent whole page from scrolling on iOS.
-    e.preventDefault();
-    if (e.touches.length === 2) {
-      this.onPinchMove(e);
-    } else if (e.touches.length === 1) {
-      this.onDrag(ImageCropper.getTouchPoint(e.touches[0]));
+    event.preventDefault();
+    if (event.touches.length === 2) {
+      this.onPinchMove(event);
+    } else if (event.touches.length === 1) {
+      this.onDrag(ImageCropper.getTouchPoint(event.touches[0]));
     }
   };
 
-  onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+  onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     this.isTouching = true;
     this.currentDoc.addEventListener("touchmove", this.onTouchMove, {
       passive: false
     }); // iOS 11 now defaults to passive: true
     this.currentDoc.addEventListener("touchend", this.onDragStopped);
 
-    if (e.touches.length === 2) {
-      this.onPinchStart(e);
-    } else if (e.touches.length === 1) {
-      this.onDragStart(ImageCropper.getTouchPoint(e.touches[0]));
+    if (event.touches.length === 2) {
+      this.onPinchStart(event);
+    } else if (event.touches.length === 1) {
+      this.onDragStart(ImageCropper.getTouchPoint(event.touches[0]));
     }
   };
 
-  onWheel = (e: WheelEvent) => {
-    e.preventDefault();
-    const point = ImageCropper.getMousePoint(e);
-    const { spinY } = normalizeWheel(e);
+  onWheel = (event: WheelEvent) => {
+    event.preventDefault();
+    const point = ImageCropper.getMousePoint(event);
+    const { spinY } = normalizeWheel(event);
     const newZoom = this.props.zoom * this.props.zoomSpeed ** -spinY;
     this.setNewZoom(newZoom, point, { shouldUpdatePosition: true });
 
@@ -318,7 +321,7 @@ class ImageCropper extends Component<CropperProps, State> {
   };
 
   // prevent Safari on iOS >= 10 to zoom the page
-  preventZoomSafari = (e: Event) => e.preventDefault();
+  preventZoomSafari = (event: Event) => event.preventDefault();
 
   rafDragTimeout: null | number = null;
 
@@ -439,9 +442,9 @@ class ImageCropper extends Component<CropperProps, State> {
     this.clearScrollEvent();
   }
 
-  onPinchMove(e: TouchEvent) {
-    const pointA = ImageCropper.getTouchPoint(e.touches[0]);
-    const pointB = ImageCropper.getTouchPoint(e.touches[1]);
+  onPinchMove(event: TouchEvent) {
+    const pointA = ImageCropper.getTouchPoint(event.touches[0]);
+    const pointB = ImageCropper.getTouchPoint(event.touches[1]);
     const center = getMidpoint(pointA, pointB);
     this.onDrag(center);
 
@@ -456,9 +459,9 @@ class ImageCropper extends Component<CropperProps, State> {
     });
   }
 
-  onPinchStart(e: React.TouchEvent<HTMLDivElement>) {
-    const pointA = ImageCropper.getTouchPoint(e.touches[0]);
-    const pointB = ImageCropper.getTouchPoint(e.touches[1]);
+  onPinchStart(event: React.TouchEvent<HTMLDivElement>) {
+    const pointA = ImageCropper.getTouchPoint(event.touches[0]);
+    const pointB = ImageCropper.getTouchPoint(event.touches[1]);
     this.lastPinchDistance = getDistanceBetweenPoints(pointA, pointB);
     this.onDragStart(getMidpoint(pointA, pointB));
   }

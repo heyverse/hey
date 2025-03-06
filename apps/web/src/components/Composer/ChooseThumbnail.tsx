@@ -101,12 +101,12 @@ const ChooseThumbnail: FC = () => {
     };
   }, [file]);
 
-  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
+  const handleUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.length) {
       try {
         setImageUploading(true);
         setSelectedThumbnailIndex(-1);
-        const file = e.target.files[0];
+        const file = event.target.files[0];
         const result = await uploadThumbnailToStorageNode(file);
         const preview = window.URL?.createObjectURL(file);
         setThumbnails([

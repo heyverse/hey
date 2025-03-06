@@ -17,13 +17,13 @@ export const Image = forwardRef(function Image(
   const [imageLoadFailed, setImageLoadFailed] = useState(false);
 
   const handleError = useCallback(
-    (e: SyntheticEvent<HTMLImageElement, Event>) => {
+    (event: SyntheticEvent<HTMLImageElement, Event>) => {
       if (imageLoadFailed) {
         return;
       }
       setImageLoadFailed(true);
       if (onError) {
-        onError(e);
+        onError(event);
       }
     },
     [imageLoadFailed, setImageLoadFailed, onError]
