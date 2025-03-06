@@ -29,7 +29,11 @@ const Suspend: FC<SuspendProps> = ({ address }) => {
       await Promise.all([
         axios.post(
           `${HEY_API_URL}/internal/permissions/assign`,
-          { enabled: true, id: PermissionId.Suspended, address },
+          {
+            enabled: true,
+            id: PermissionId.Suspended,
+            accountAddress: address
+          },
           { headers: getAuthApiHeaders() }
         )
       ]);
