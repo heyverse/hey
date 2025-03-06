@@ -20,7 +20,12 @@ const TipHey: FC<TipHeyProps> = ({ onSuccess }) => {
           Support the growth and development of {APP_NAME} by giving a tip.
         </div>
       </div>
-      <Fund isHeyTip onSuccess={onSuccess} recipient={HEY_TREASURY} />
+      <Fund
+        recipient={HEY_TREASURY}
+        onSuccess={onSuccess}
+        isHeyTip
+        useNativeToken
+      />
     </div>
   );
 };
