@@ -1,20 +1,12 @@
+import getMetaContent from "./getMetaContent";
+
 const getDescription = (document: Document): null | string => {
-  const og =
-    document.querySelector('meta[name="og:description"]') ||
-    document.querySelector('meta[property="og:description"]');
-  const twitter =
-    document.querySelector('meta[name="twitter:description"]') ||
-    document.querySelector('meta[property="twitter:description"]');
+  const description =
+    getMetaContent(document, "og:description") ||
+    getMetaContent(document, "twitter:description") ||
+    null;
 
-  if (og) {
-    return og.getAttribute("content");
-  }
-
-  if (twitter) {
-    return twitter.getAttribute("content");
-  }
-
-  return null;
+  return description;
 };
 
 export default getDescription;

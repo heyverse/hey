@@ -1,22 +1,13 @@
+import getMetaContent from "./getMetaContent";
+
 const getImage = (document: Document): null | string => {
-  const og =
-    document.querySelector('meta[name="og:image"]') ||
-    document.querySelector('meta[property="og:image"]');
-  const twitter =
-    document.querySelector('meta[name="twitter:image"]') ||
-    document.querySelector('meta[name="twitter:image:src"]') ||
-    document.querySelector('meta[property="twitter:image"]') ||
-    document.querySelector('meta[property="twitter:image:src"]');
+  const image =
+    getMetaContent(document, "og:image") ||
+    getMetaContent(document, "twitter:image") ||
+    getMetaContent(document, "twitter:image:src") ||
+    null;
 
-  if (og) {
-    return og.getAttribute("content");
-  }
-
-  if (twitter) {
-    return twitter.getAttribute("content");
-  }
-
-  return null;
+  return image;
 };
 
 export default getImage;

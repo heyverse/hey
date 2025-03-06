@@ -1,20 +1,12 @@
+import getMetaContent from "./getMetaContent";
+
 const getSite = (document: Document): null | string => {
-  const og =
-    document.querySelector('meta[name="og:site_name"]') ||
-    document.querySelector('meta[property="og:site_name"]');
-  const twitter =
-    document.querySelector('meta[name="twitter:site"]') ||
-    document.querySelector('meta[property="twitter:site"]');
+  const site =
+    getMetaContent(document, "og:site_name") ||
+    getMetaContent(document, "twitter:site") ||
+    null;
 
-  if (og) {
-    return og.getAttribute("content");
-  }
-
-  if (twitter) {
-    return twitter.getAttribute("content");
-  }
-
-  return null;
+  return site;
 };
 
 export default getSite;
