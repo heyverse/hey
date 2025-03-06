@@ -3,7 +3,7 @@ import LoginButton from "@components/Shared/LoginButton";
 import NoBalanceError from "@components/Shared/NoBalanceError";
 import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
-import { COLLECT_FEES_WALLET } from "@hey/data/constants";
+import { HEY_TREASURY } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { Events } from "@hey/data/events";
 import getCollectActionData from "@hey/helpers/getCollectActionData";
@@ -136,7 +136,7 @@ const CollectActionButton: FC<CollectActionButtonProps> = ({
           action: {
             simpleCollect: {
               selected: true,
-              referrals: [{ address: COLLECT_FEES_WALLET, percent: 5 }]
+              referrals: [{ address: HEY_TREASURY, percent: 5 }]
             }
           }
         }

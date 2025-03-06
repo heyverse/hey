@@ -12,6 +12,7 @@ export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const HEY_APP = getEnvConfig().appAddress;
 export const HEY_SPONSOR = getEnvConfig().sponsorAddress;
+export const HEY_TREASURY = "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
 export const HEY_API_PRODUCTION_URL = "https://hey-api.up.railway.app";
 export const HEY_API_URL = IS_PRODUCTION
   ? HEY_API_PRODUCTION_URL
@@ -20,7 +21,6 @@ export const HEY_API_URL = IS_PRODUCTION
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
-export const COLLECT_FEES_WALLET = "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
 
 // Application
 export const APP_NAME = "Hey";

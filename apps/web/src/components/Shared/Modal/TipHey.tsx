@@ -1,4 +1,4 @@
-import { APP_NAME, COLLECT_FEES_WALLET } from "@hey/data/constants";
+import { APP_NAME, HEY_TREASURY } from "@hey/data/constants";
 import { H4 } from "@hey/ui";
 import type { FC } from "react";
 import Fund from "../Fund/FundAccount/Fund";
@@ -20,7 +20,7 @@ const TipHey: FC<TipHeyProps> = ({ onSuccess }) => {
           Support the growth and development of {APP_NAME} by giving a tip.
         </div>
       </div>
-      <Fund isHeyTip onSuccess={onSuccess} recipient={COLLECT_FEES_WALLET} />
+      <Fund isHeyTip onSuccess={onSuccess} recipient={HEY_TREASURY} />
     </div>
   );
 };
