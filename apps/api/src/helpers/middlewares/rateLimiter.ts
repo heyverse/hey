@@ -6,19 +6,18 @@ import rateLimit from "express-rate-limit";
 import RedisStore from "rate-limit-redis";
 import catchedError from "../catchedError";
 
+const ERROR_MESSAGE = (path: string, ip: string) =>
+  `Too many requests - ${path} - ${ip}`;
+
 const hashedIp = (req: Request): string => sha256(getIp(req)).slice(0, 25);
 
 const createRateLimiter = (window: number, max: number) => {
   return rateLimit({
     handler: (req, res) =>
-      catchedError(
-        res,
-        new Error(`Too many requests - ${req.path} - ${getIp(req)}`),
-        429
-      ),
+      catchedError(res, new Error(ERROR_MESSAGE(req.path, getIp(req))), 429),
     keyGenerator: (req) => `${sha256(req.path).slice(0, 25)}:${hashedIp(req)}`,
     legacyHeaders: false,
-    max, // Maximum number of requests allowed within the window
+    max,
     skip: () => !redisClient?.isReady,
     standardHeaders: true,
     store: redisClient
@@ -28,7 +27,7 @@ const createRateLimiter = (window: number, max: number) => {
             redisClient?.sendCommand(args) as any
         })
       : undefined,
-    windowMs: window * 60 * 1000 // Time window in milliseconds
+    windowMs: window * 60 * 1000
   });
 };
 
