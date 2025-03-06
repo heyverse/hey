@@ -35,6 +35,19 @@ const FollowersYouKnowOverview: FC<FollowersYouKnowOverviewProps> = ({
   const accounts =
     (data?.followersYouKnow?.items.slice(0, 4) as Follower[]) || [];
 
+  const renderAccountNames = () => {
+    const names = accounts.map((account) => getAccount(account.follower).name);
+    const count = names.length - 3;
+
+    if (names.length === 0) return null;
+    if (names.length === 1) return names[0];
+    if (names.length === 2) return `${names[0]} and ${names[1]}`;
+    if (names.length === 3)
+      return `${names[0]}, ${names[1]}${count === 0 ? " and " : ", "}${names[2]}${count ? ` and ${count} other${count === 1 ? "" : "s"}` : ""}`;
+
+    return `${names[0]}, ${names[1]}, ${names[2]} and others`;
+  };
+
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <button
       className={cn(
@@ -67,56 +80,7 @@ const FollowersYouKnowOverview: FC<FollowersYouKnowOverviewProps> = ({
     return null;
   }
 
-  const accountOne = accounts[0]?.follower;
-  const accountTwo = accounts[1]?.follower;
-  const accountThree = accounts[2]?.follower;
-
-  if (accounts?.length === 1) {
-    return (
-      <Wrapper>
-        <span>{getAccount(accountOne).name}</span>
-      </Wrapper>
-    );
-  }
-
-  if (accounts?.length === 2) {
-    return (
-      <Wrapper>
-        <span>{getAccount(accountOne).name} and </span>
-        <span>{getAccount(accountTwo).name}</span>
-      </Wrapper>
-    );
-  }
-
-  if (accounts?.length === 3) {
-    const calculatedCount = accounts.length - 3;
-    const isZero = calculatedCount === 0;
-
-    return (
-      <Wrapper>
-        <span>{getAccount(accountOne).name}, </span>
-        <span>
-          {getAccount(accountTwo).name}
-          {isZero ? " and " : ", "}
-        </span>
-        <span>{getAccount(accountThree).name} </span>
-        {isZero ? null : (
-          <span>
-            and {calculatedCount} {calculatedCount === 1 ? "other" : "others"}
-          </span>
-        )}
-      </Wrapper>
-    );
-  }
-
-  return (
-    <Wrapper>
-      <span>{getAccount(accountOne).name}, </span>
-      <span>{getAccount(accountTwo).name}, </span>
-      <span>{getAccount(accountThree).name} </span>
-      <span>and others</span>
-    </Wrapper>
-  );
+  return <Wrapper>{renderAccountNames()}</Wrapper>;
 };
 
 export default FollowersYouKnowOverview;
