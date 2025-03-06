@@ -22,6 +22,12 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 
 let refreshPromise: Promise<string> | null = null;
 
+/**
+ * Retrieves a new access token by refreshing the authentication tokens.
+ *
+ * @param {string} refreshToken - The refresh token to use for authentication.
+ * @returns {Promise<string>} A promise that resolves to the new access token.
+ */
 const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
   try {
     const response = await axios.post(
@@ -55,6 +61,12 @@ const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
   }
 };
 
+/**
+ * Retrieves a new access token by refreshing the authentication tokens.
+ *
+ * @param {string} refreshToken - The refresh token to use for authentication.
+ * @returns {Promise<string>} A promise that resolves to the new access token.
+ */
 const refreshTokens = (refreshToken: string): Promise<string> => {
   if (!refreshPromise) {
     refreshPromise = executeTokenRefresh(refreshToken);

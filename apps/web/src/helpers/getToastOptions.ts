@@ -1,7 +1,8 @@
 /**
- * Returns the toast options based on the theme
- * @param theme Theme
- * @returns Toast options
+ * Retrieves the toast options based on the theme.
+ *
+ * @param {string} theme - The theme to use.
+ * @returns {Object} - The toast options.
  */
 const getToastOptions = (theme?: string) => ({
   error: {

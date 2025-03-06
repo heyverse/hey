@@ -1,7 +1,7 @@
 /**
- * Get user's locale for metadata
+ * Retrieves the user's locale for metadata.
  *
- * @returns the user's locale or 'en-US' as default
+ * @returns {string} - The user's locale or 'en-US' as default.
  */
 const getUserLocale = () => {
   const locale = navigator?.languages?.length

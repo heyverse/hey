@@ -2,8 +2,9 @@ import parseJwt from "@hey/helpers/parseJwt";
 import { hydrateAuthTokens } from "src/store/persisted/useAuthStore";
 
 /**
- * Get current session
- * @returns {Object} Current session
+ * Retrieves the current session.
+ *
+ * @returns {Object} - The current session.
  */
 const getCurrentSession = (): {
   authenticationId: string;

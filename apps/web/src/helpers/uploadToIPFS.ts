@@ -16,9 +16,9 @@ const FALLBACK_TYPE = "image/jpeg";
 const FILE_SIZE_LIMIT_MB = 5 * 1024 * 1024; // 5MB in bytes
 
 /**
- * Returns an S3 client with temporary credentials obtained from the STS service.
+ * Retrieves an S3 client with temporary credentials obtained from the STS service.
  *
- * @returns S3 client instance.
+ * @returns {Promise<S3>} - The S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
   const { data } = await axios.get(`${HEY_API_URL}/sts/token`);
@@ -39,9 +39,9 @@ const getS3Client = async (): Promise<S3> => {
 /**
  * Uploads a set of files to the IPFS network via S3 and returns an array of MediaSet objects.
  *
- * @param data Files to upload to IPFS.
- * @param onProgress Callback to be called when the upload progress changes.
- * @returns Array of MediaSet objects.
+ * @param {File[]} data - Files to upload to IPFS.
+ * @param {((percentage: number) => void) | undefined} onProgress - Callback to be called when the upload progress changes.
+ * @returns {Promise<{ mimeType: string; uri: string }[]>} - Array of MediaSet objects.
  */
 const uploadToIPFS = async (
   data: any,

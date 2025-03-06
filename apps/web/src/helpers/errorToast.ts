@@ -5,9 +5,10 @@ const FORBIDDEN_ERROR =
   "Forbidden - Failed to generate source stamp: App rejected verification request:";
 
 /**
- * Error toast
- * @param error Error
- * @returns void
+ * Retrieves an error toast.
+ *
+ * @param {any} error - The error to display.
+ * @returns {void}
  */
 const errorToast = (error: any) => {
   if (error?.message.includes("viem")) {

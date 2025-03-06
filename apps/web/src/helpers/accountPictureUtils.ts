@@ -2,9 +2,10 @@ import imageCompression from "browser-image-compression";
 import { uploadFileToIPFS } from "./uploadToIPFS";
 
 /**
- * Read a file as a base64 string
- * @param file File
- * @returns Base64 string
+ * Retrieves a file as a base64 string.
+ *
+ * @param {Blob} file - The file to read.
+ * @returns {Promise<string>} A promise that resolves to the base64 string representation of the file.
  */
 export const readFile = (file: Blob): Promise<string> => {
   return new Promise((resolve) => {
