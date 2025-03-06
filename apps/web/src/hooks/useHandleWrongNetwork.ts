@@ -5,16 +5,22 @@ const useHandleWrongNetwork = () => {
   const activeConnection = useConnections();
   const { switchChainAsync } = useSwitchChain();
 
+  const isConnected = () => activeConnection[0] !== undefined;
+  const isWrongNetwork = () => activeConnection[0]?.chainId !== CHAIN.id;
+
   const handleWrongNetwork = async () => {
-    if (!activeConnection[0]) {
+    if (!isConnected()) {
+      console.warn("No active connection found.");
       return;
     }
 
-    if (activeConnection[0]?.chainId !== CHAIN.id) {
-      return await switchChainAsync({ chainId: CHAIN.id });
+    if (isWrongNetwork()) {
+      try {
+        await switchChainAsync({ chainId: CHAIN.id });
+      } catch (error) {
+        console.error("Failed to switch chains:", error);
+      }
     }
-
-    return;
   };
 
   return handleWrongNetwork;
