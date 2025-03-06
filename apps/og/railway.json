@@ -2,7 +2,8 @@
   "$schema": "https://railway.com/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "pnpm --filter @hey/og build"
+    "buildCommand": "pnpm --filter @hey/og build",
+    "watchPatterns": ["apps/og/**", "packages/**/*"]
   },
   "deploy": {
     "runtime": "V2",
