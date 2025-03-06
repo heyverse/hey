@@ -41,11 +41,13 @@ const ViewProfile: NextPage = () => {
     AccountFeedType.Collects.toLowerCase()
   ];
 
-  const feedType = type
-    ? lowerCaseAccountFeedType.includes(type as string)
-      ? type.toString().toUpperCase()
-      : AccountFeedType.Feed
-    : AccountFeedType.Feed;
+  const getFeedType = (type: string | undefined) => {
+    return type && lowerCaseAccountFeedType.includes(type.toLowerCase())
+      ? type.toUpperCase()
+      : AccountFeedType.Feed;
+  };
+
+  const feedType = getFeedType(Array.isArray(type) ? type[0] : type);
 
   const { data, error, loading } = useAccountQuery({
     skip: address ? !address : !username,
@@ -81,14 +83,30 @@ const ViewProfile: NextPage = () => {
   const isSuspended = isStaff ? false : accountDetails?.isSuspended;
   const isDeleted = isAccountDeleted(account);
 
+  const renderAccountDetails = () => {
+    if (isDeleted) return <DeletedDetails account={account} />;
+    if (isSuspended) return <SuspendedDetails account={account} />;
+    return (
+      <Details
+        isSuspended={accountDetails?.isSuspended || false}
+        account={account}
+      />
+    );
+  };
+
+  const renderEmptyState = () => (
+    <EmptyState
+      icon={<NoSymbolIcon className="size-8" />}
+      message={isDeleted ? "Account Deleted" : "Account Suspended"}
+    />
+  );
+
   return (
     <>
       <MetaTags
         creator={getAccount(account).name}
         description={account.metadata?.bio || ""}
-        title={`${getAccount(account).name} (${
-          getAccount(account).usernameWithPrefix
-        }) • ${APP_NAME}`}
+        title={`${getAccount(account).name} (${getAccount(account).usernameWithPrefix}) • ${APP_NAME}`}
       />
       <Cover
         cover={
@@ -99,46 +117,25 @@ const ViewProfile: NextPage = () => {
         }
       />
       <GridLayout>
-        <GridItemFour>
-          {isDeleted ? (
-            <DeletedDetails account={account} />
-          ) : isSuspended ? (
-            <SuspendedDetails account={account} />
-          ) : (
-            <Details
-              isSuspended={accountDetails?.isSuspended || false}
-              account={account}
-            />
-          )}
-        </GridItemFour>
+        <GridItemFour>{renderAccountDetails()}</GridItemFour>
         <GridItemEight className="space-y-5">
-          {isDeleted ? (
-            <EmptyState
-              icon={<NoSymbolIcon className="size-8" />}
-              message="Account Deleted"
-            />
-          ) : isSuspended ? (
-            <EmptyState
-              icon={<NoSymbolIcon className="size-8" />}
-              message="Account Suspended"
-            />
+          {isDeleted || isSuspended ? (
+            renderEmptyState()
           ) : (
             <>
               <FeedType feedType={feedType as AccountFeedType} />
-              {currentAccount?.address === account?.address ? (
-                <NewPost />
-              ) : null}
-              {feedType === AccountFeedType.Feed ||
-              feedType === AccountFeedType.Replies ||
-              feedType === AccountFeedType.Media ||
-              feedType === AccountFeedType.Collects ? (
+              {currentAccount?.address === account?.address && <NewPost />}
+              {(feedType === AccountFeedType.Feed ||
+                feedType === AccountFeedType.Replies ||
+                feedType === AccountFeedType.Media ||
+                feedType === AccountFeedType.Collects) && (
                 <AccountFeed
                   handle={getAccount(account).usernameWithPrefix}
                   accountDetailsLoading={accountDetailsLoading}
                   address={account.address}
                   type={feedType}
                 />
-              ) : null}
+              )}
             </>
           )}
         </GridItemEight>
