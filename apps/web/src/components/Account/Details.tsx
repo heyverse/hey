@@ -29,19 +29,7 @@ import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import InternalTools from "./InternalTools";
 import AccountMenu from "./Menu";
-
-const MetaDetails = ({
-  children,
-  icon
-}: {
-  children: ReactNode;
-  icon: ReactNode;
-}) => (
-  <div className="flex items-center gap-2">
-    {icon}
-    <div className="truncate text-md">{children}</div>
-  </div>
-);
+import MetaDetails from "./MetaDetails";
 
 interface DetailsProps {
   isSuspended: boolean;
@@ -54,6 +42,32 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
   const isStaff = useFlag(FeatureFlag.Staff);
   const { resolvedTheme } = useTheme();
+
+  const renderAccountAttribute = (
+    attribute: "location" | "website" | "x",
+    icon: ReactNode
+  ) => {
+    const value = getAccountAttribute(attribute, account?.metadata?.attributes);
+    if (!value) return null;
+
+    return (
+      <MetaDetails icon={icon}>
+        <Link
+          href={
+            attribute === "website"
+              ? `https://${value.replace(/https?:\/\//, "")}`
+              : urlcat("https://x.com/:username", {
+                  username: value.replace("https://x.com/", "")
+                })
+          }
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          {value.replace(/https?:\/\//, "")}
+        </Link>
+      </MetaDetails>
+    );
+  };
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
@@ -121,7 +135,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
-          {isStaff ? (
+          {isStaff && (
             <MetaDetails
               icon={<ShieldCheckIcon className="size-4 text-yellow-600" />}
             >
@@ -132,76 +146,33 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
                 Open in Staff Tools
               </Link>
             </MetaDetails>
-          ) : null}
-          {getAccountAttribute("location", account?.metadata?.attributes) ? (
-            <MetaDetails icon={<MapPinIcon className="size-4" />}>
-              {getAccountAttribute("location", account?.metadata?.attributes)}
-            </MetaDetails>
-          ) : null}
-          {getAccountAttribute("website", account?.metadata?.attributes) ? (
-            <MetaDetails
-              icon={
-                <img
-                  alt="Website"
-                  className="size-4 rounded-full"
-                  height={16}
-                  src={getFavicon(
-                    getAccountAttribute(
-                      "website",
-                      account?.metadata?.attributes
-                    )
-                  )}
-                  width={16}
-                />
-              }
-            >
-              <Link
-                href={`https://${getAccountAttribute(
-                  "website",
-                  account?.metadata?.attributes
-                )
-                  ?.replace("https://", "")
-                  .replace("http://", "")}`}
-                rel="noreferrer noopener me"
-                target="_blank"
-              >
-                {getAccountAttribute("website", account?.metadata?.attributes)
-                  ?.replace("https://", "")
-                  .replace("http://", "")}
-              </Link>
-            </MetaDetails>
-          ) : null}
-          {getAccountAttribute("x", account?.metadata?.attributes) ? (
-            <MetaDetails
-              icon={
-                <img
-                  alt="X Logo"
-                  className="size-4"
-                  height={16}
-                  src={`${STATIC_IMAGES_URL}/brands/${
-                    resolvedTheme === "dark" ? "x-dark.png" : "x-light.png"
-                  }`}
-                  width={16}
-                />
-              }
-            >
-              <Link
-                href={urlcat("https://x.com/:username", {
-                  username: getAccountAttribute(
-                    "x",
-                    account?.metadata?.attributes
-                  )?.replace("https://x.com/", "")
-                })}
-                rel="noreferrer noopener"
-                target="_blank"
-              >
-                {getAccountAttribute(
-                  "x",
-                  account?.metadata?.attributes
-                )?.replace("https://x.com/", "")}
-              </Link>
-            </MetaDetails>
-          ) : null}
+          )}
+          {renderAccountAttribute(
+            "location",
+            <MapPinIcon className="size-4" />
+          )}
+          {renderAccountAttribute(
+            "website",
+            <img
+              alt="Website"
+              className="size-4 rounded-full"
+              height={16}
+              src={getFavicon(
+                getAccountAttribute("website", account?.metadata?.attributes)
+              )}
+              width={16}
+            />
+          )}
+          {renderAccountAttribute(
+            "x",
+            <img
+              alt="X Logo"
+              className="size-4"
+              height={16}
+              src={`${STATIC_IMAGES_URL}/brands/${resolvedTheme === "dark" ? "x-dark.png" : "x-light.png"}`}
+              width={16}
+            />
+          )}
         </div>
       </div>
       <InternalTools account={account} />
