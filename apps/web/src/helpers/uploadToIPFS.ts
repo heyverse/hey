@@ -32,21 +32,19 @@ const getS3Client = async (): Promise<S3> => {
 };
 
 const uploadToIPFS = async (
-  data: any,
+  data: FileList | File[],
   onProgress?: (percentage: number) => void
 ): Promise<{ mimeType: string; uri: string }[]> => {
   try {
-    const files = Array.from(data);
-    const client = await getS3Client();
-    const currentDate = new Date()
-      .toLocaleDateString("en-GB")
-      .replace(/\//g, "-");
+    const files = Array.from(data) as File[];
+    const s3Files = files.filter(
+      (file: File) => file.size > FILE_SIZE_LIMIT_MB
+    );
+    const client = s3Files.length > 0 ? await getS3Client() : null;
 
     const attachments = await Promise.all(
-      files.map(async (_: any, i: number) => {
-        const file = data[i];
-
-        // If the file is less than 10MB, upload it to the Grove
+      files.map(async (file: File) => {
+        // If the file is less than FILE_SIZE_LIMIT_MB, upload it to the Grove
         if (file.size <= FILE_SIZE_LIMIT_MB) {
           const storageNodeResponse = await storageClient.uploadFile(file, {
             acl: immutable(CHAIN.id)
@@ -58,25 +56,34 @@ const uploadToIPFS = async (
           };
         }
 
-        const params = {
-          Body: file,
-          Bucket: EVER_BUCKET,
-          ContentType: file.type,
-          Key: `${currentDate}/${uuid()}`
-        };
-        const task = new Upload({ client, params });
-        task.on("httpUploadProgress", (e) => {
-          const loaded = e.loaded || 0;
-          const total = e.total || 0;
-          const progress = (loaded / total) * 100;
-          onProgress?.(Math.round(progress));
-        });
-        await task.done();
-        const result = await client.headObject(params);
-        const metadata = result.Metadata;
-        const cid = metadata?.["ipfs-hash"];
+        // For files larger than FILE_SIZE_LIMIT_MB, use the S3 client
+        if (client) {
+          const currentDate = new Date()
+            .toLocaleDateString("en-GB")
+            .replace(/\//g, "-");
 
-        return { mimeType: file.type || FALLBACK_TYPE, uri: `ipfs://${cid}` };
+          const params = {
+            Body: file,
+            Bucket: EVER_BUCKET,
+            ContentType: file.type,
+            Key: `${currentDate}/${uuid()}`
+          };
+          const task = new Upload({ client, params });
+          task.on("httpUploadProgress", (e) => {
+            const loaded = e.loaded || 0;
+            const total = e.total || 0;
+            const progress = (loaded / total) * 100;
+            onProgress?.(Math.round(progress));
+          });
+          await task.done();
+          const result = await client.headObject(params);
+          const metadata = result.Metadata;
+          const cid = metadata?.["ipfs-hash"];
+
+          return { mimeType: file.type || FALLBACK_TYPE, uri: `ipfs://${cid}` };
+        }
+
+        return { mimeType: file.type || FALLBACK_TYPE, uri: "" };
       })
     );
 
