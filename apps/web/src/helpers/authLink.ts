@@ -22,7 +22,12 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 
 let refreshPromise: Promise<string> | null = null;
 
-const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
+const MAX_RETRIES = 5;
+
+const executeTokenRefresh = async (
+  refreshToken: string,
+  attempt = 0
+): Promise<string> => {
   try {
     const response = await axios.post(
       LENS_API_URL,
@@ -37,8 +42,13 @@ const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
     const {
       accessToken,
       refreshToken: newRefreshToken,
-      idToken
+      idToken,
+      __typename
     } = response?.data?.data?.refresh ?? {};
+
+    if (__typename !== "AuthenticationTokens" && attempt < MAX_RETRIES) {
+      return executeTokenRefresh(refreshToken, attempt + 1);
+    }
 
     if (!accessToken || !newRefreshToken) {
       signOut();
@@ -59,6 +69,7 @@ const refreshTokens = (refreshToken: string): Promise<string> => {
   if (!refreshPromise) {
     refreshPromise = executeTokenRefresh(refreshToken);
   }
+
   return refreshPromise;
 };
 
