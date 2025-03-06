@@ -28,6 +28,24 @@ const usePostMetadata = () => {
   const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
   const { attributes } = usePostAttributesStore();
 
+  const createLocalBaseMetadata = (baseMetadata: any) => ({
+    appId: APP_NAME,
+    attributes:
+      (attributes || []).length > 0 || baseMetadata.attributes?.length > 0
+        ? [...(baseMetadata.attributes || []), ...(attributes || [])]
+        : undefined,
+    id: uuid(),
+    locale: getUserLocale()
+  });
+
+  const processAttachments = () =>
+    attachments
+      .map((attachment) => ({
+        item: attachment.uri,
+        type: attachment.mimeType
+      }))
+      .slice(1);
+
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePostMetadataProps) => {
       const hasAttachments = attachments.length > 0;
@@ -36,86 +54,78 @@ const usePostMetadata = () => {
       const isVideo = attachments[0]?.type === "Video";
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
 
-      const localBaseMetadata = {
-        appId: APP_NAME,
-        attributes:
-          (attributes || [])?.length > 0 || baseMetadata.attributes?.length > 0
-            ? [...(baseMetadata.attributes || []), ...(attributes || [])]
-            : undefined,
-        id: uuid(),
-        locale: getUserLocale()
-      };
+      const localBaseMetadata = createLocalBaseMetadata(baseMetadata);
+      const attachmentsToBeUploaded = processAttachments();
 
-      // Slice the first attachment because we upload the asset
-      const attachmentsToBeUploaded = attachments
-        .map((attachment) => ({
-          item: attachment.uri,
-          type: attachment.mimeType
-        }))
-        .slice(1);
-
-      switch (true) {
-        case isLiveStream:
-          return liveStream({
-            ...baseMetadata,
-            ...localBaseMetadata,
-            liveUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
-            playbackUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
-            startsAt: new Date().toISOString()
-          });
-        case !hasAttachments:
-          return textOnly({
-            ...baseMetadata,
-            ...localBaseMetadata
-          });
-        case isImage:
-          return image({
-            ...baseMetadata,
-            ...localBaseMetadata,
-            ...(attachmentsToBeUploaded.length > 0 && {
-              attachments: attachmentsToBeUploaded
-            }),
-            image: {
-              ...(license && { license }),
-              item: attachments[0]?.uri,
-              type: attachments[0]?.mimeType
-            }
-          });
-        case isAudio:
-          return audio({
-            ...baseMetadata,
-            ...localBaseMetadata,
-            ...(attachmentsToBeUploaded.length > 0 && {
-              attachments: attachmentsToBeUploaded
-            }),
-            audio: {
-              ...(audioPost.artist && {
-                artist: audioPost.artist
-              }),
-              cover: audioPost.cover,
-              item: attachments[0]?.uri,
-              type: attachments[0]?.mimeType,
-              ...(license && { license })
-            }
-          });
-        case isVideo:
-          return video({
-            ...baseMetadata,
-            ...localBaseMetadata,
-            ...(attachmentsToBeUploaded.length > 0 && {
-              attachments: attachmentsToBeUploaded
-            }),
-            video: {
-              cover: videoThumbnail.url,
-              duration: Number.parseInt(videoDurationInSeconds),
-              item: attachments[0]?.uri,
-              type: attachments[0]?.mimeType,
-              ...(license && { license })
-            }
-          });
-        default:
-          return null;
+      if (isLiveStream) {
+        return liveStream({
+          ...baseMetadata,
+          ...localBaseMetadata,
+          liveUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
+          playbackUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
+          startsAt: new Date().toISOString()
+        });
       }
+
+      if (!hasAttachments) {
+        return textOnly({
+          ...baseMetadata,
+          ...localBaseMetadata
+        });
+      }
+
+      if (isImage) {
+        return image({
+          ...baseMetadata,
+          ...localBaseMetadata,
+          ...(attachmentsToBeUploaded.length > 0 && {
+            attachments: attachmentsToBeUploaded
+          }),
+          image: {
+            ...(license && { license }),
+            item: attachments[0]?.uri,
+            type: attachments[0]?.mimeType
+          }
+        });
+      }
+
+      if (isAudio) {
+        return audio({
+          ...baseMetadata,
+          ...localBaseMetadata,
+          ...(attachmentsToBeUploaded.length > 0 && {
+            attachments: attachmentsToBeUploaded
+          }),
+          audio: {
+            ...(audioPost.artist && {
+              artist: audioPost.artist
+            }),
+            cover: audioPost.cover,
+            item: attachments[0]?.uri,
+            type: attachments[0]?.mimeType,
+            ...(license && { license })
+          }
+        });
+      }
+
+      if (isVideo) {
+        return video({
+          ...baseMetadata,
+          ...localBaseMetadata,
+          ...(attachmentsToBeUploaded.length > 0 && {
+            attachments: attachmentsToBeUploaded
+          }),
+          video: {
+            cover: videoThumbnail.url,
+            duration: Number.parseInt(videoDurationInSeconds),
+            item: attachments[0]?.uri,
+            type: attachments[0]?.mimeType,
+            ...(license && { license })
+          }
+        });
+      }
+
+      return null;
     },
     [
       attributes,
