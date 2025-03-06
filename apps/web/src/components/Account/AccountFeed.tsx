@@ -43,28 +43,52 @@ const AccountFeed: FC<AccountFeedProps> = ({
   }, [address, handle]);
 
   const getMediaFilters = () => {
-    const filters: MainContentFocus[] = [];
-    if (mediaFeedFilters.images) {
-      filters.push(MainContentFocus.Image);
-    }
-    if (mediaFeedFilters.video) {
-      filters.push(MainContentFocus.Video);
-    }
-    if (mediaFeedFilters.audio) {
-      filters.push(MainContentFocus.Audio);
-    }
-    return filters;
+    return Object.entries(mediaFeedFilters)
+      .filter(([_, value]) => value)
+      .map(([key]) => {
+        switch (key) {
+          case "images":
+            return MainContentFocus.Image;
+          case "video":
+            return MainContentFocus.Video;
+          case "audio":
+            return MainContentFocus.Audio;
+          default:
+            return null;
+        }
+      })
+      .filter(Boolean) as MainContentFocus[];
   };
 
-  const postTypes: PostType[] =
-    type === AccountFeedType.Feed
-      ? [PostType.Root, PostType.Repost, PostType.Quote]
-      : type === AccountFeedType.Replies
-        ? [PostType.Comment]
-        : type === AccountFeedType.Media
-          ? [PostType.Root, PostType.Comment, PostType.Quote]
-          : [PostType.Root, PostType.Comment, PostType.Repost, PostType.Quote];
+  const getPostTypes = () => {
+    switch (type) {
+      case AccountFeedType.Feed:
+        return [PostType.Root, PostType.Repost, PostType.Quote];
+      case AccountFeedType.Replies:
+        return [PostType.Comment];
+      case AccountFeedType.Media:
+        return [PostType.Root, PostType.Comment, PostType.Quote];
+      default:
+        return [
+          PostType.Root,
+          PostType.Comment,
+          PostType.Repost,
+          PostType.Quote
+        ];
+    }
+  };
 
+  const getEmptyMessage = () => {
+    const messages = {
+      [AccountFeedType.Feed]: "has nothing in their feed yet!",
+      [AccountFeedType.Media]: "has no media yet!",
+      [AccountFeedType.Replies]: "hasn't replied yet!",
+      [AccountFeedType.Collects]: "hasn't collected anything yet!"
+    };
+    return messages[type] || "";
+  };
+
+  const postTypes = getPostTypes();
   const metadata =
     type === AccountFeedType.Media
       ? { mainContentFocus: getMediaFilters() }
@@ -105,24 +129,13 @@ const AccountFeed: FC<AccountFeedProps> = ({
   }
 
   if (posts?.length === 0) {
-    const emptyMessage =
-      type === AccountFeedType.Feed
-        ? "has nothing in their feed yet!"
-        : type === AccountFeedType.Media
-          ? "has no media yet!"
-          : type === AccountFeedType.Replies
-            ? "hasn't replied yet!"
-            : type === AccountFeedType.Collects
-              ? "hasn't collected anything yet!"
-              : "";
-
     return (
       <EmptyState
         icon={<ChatBubbleBottomCenterIcon className="size-8" />}
         message={
           <div>
             <b className="mr-1">{handle}</b>
-            <span>{emptyMessage}</span>
+            <span>{getEmptyMessage()}</span>
           </div>
         }
       />
