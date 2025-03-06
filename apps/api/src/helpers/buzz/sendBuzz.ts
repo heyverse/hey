@@ -1,34 +1,23 @@
-import { APP_NAME } from "@hey/data/constants";
+import { DiscordNotification } from "@penseapp/discord-notification";
 
-const sendBuzz = async ({
+const sendBuzz = ({
   title,
   footer,
   topic
-}: {
-  title: string;
-  footer?: { text: string; icon_url?: string };
-  topic: string;
-}): Promise<boolean> => {
+}: { title: string; footer: string; topic: string }): boolean => {
   try {
-    const response = await fetch(`https://discord.com/api/webhooks/${topic}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: `${APP_NAME} Bot`,
-        avatar_url: "https://github.com/heyverse.png",
-        embeds: [
-          {
-            title,
-            footer,
-            timestamp: new Date().toISOString()
-          }
-        ]
-      })
-    });
+    const discordNotification = new DiscordNotification(
+      "Hey Bot",
+      `https://discord.com/api/webhooks/${topic}`
+    );
 
-    if (!response.ok) {
-      return false;
-    }
+    discordNotification
+      .sucessfulMessage()
+      .addUsername("Hey Bot")
+      .addAvatarURl("https://github.com/heyverse.png")
+      .addTitle(title)
+      .addFooter(footer)
+      .sendMessage();
 
     return true;
   } catch {

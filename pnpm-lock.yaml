@@ -34,7 +34,10 @@ importers:
         version: link:../../packages/indexer
       '@lens-protocol/metadata':
         specifier: next
-        version: 2.0.0-next.6(typescript@5.8.2)(zod@3.24.2)
+        version: 2.0.0-next.7(typescript@5.8.2)(zod@3.24.2)
+      '@penseapp/discord-notification':
+        specifier: ^2.0.9
+        version: 2.0.9
       apollo-utilities:
         specifier: ^1.3.4
         version: 1.3.4(graphql@16.10.0)
@@ -247,7 +250,7 @@ importers:
         version: 0.0.0-canary-20241203140504(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.23.6(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zksync-ethers@6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)))
       '@lens-protocol/metadata':
         specifier: next
-        version: 2.0.0-next.6(typescript@5.8.2)(zod@3.24.2)
+        version: 2.0.0-next.7(typescript@5.8.2)(zod@3.24.2)
       '@livepeer/react':
         specifier: ^4.2.10
         version: 4.2.10(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(immer@10.1.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -614,7 +617,7 @@ importers:
         version: link:../indexer
       '@lens-protocol/metadata':
         specifier: next
-        version: 2.0.0-next.6(typescript@5.8.2)(zod@3.24.2)
+        version: 2.0.0-next.7(typescript@5.8.2)(zod@3.24.2)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -2100,8 +2103,8 @@ packages:
       zksync-ethers:
         optional: true
 
-  '@lens-protocol/metadata@2.0.0-next.6':
-    resolution: {integrity: sha512-om7HYTdhpeWJLeQy+NNCOexYe1gPSnBPc5bR6EhLLs1YNhQmvWgQG/j92/283sQlMopo7Rsqk9KggUgdtEbHvg==}
+  '@lens-protocol/metadata@2.0.0-next.7':
+    resolution: {integrity: sha512-N3d/ISxJUV82Zlo+aJmcsfDu3oCerSmmyPpHKecthy2lcl9xADgG5oxFOdKaerRcEVz16u+AbC4/txGo6rXwyA==}
     engines: {node: '>=20'}
     peerDependencies:
       zod: ^3.22.3
@@ -2581,6 +2584,9 @@ packages:
 
   '@paulmillr/qr@0.2.1':
     resolution: {integrity: sha512-IHnV6A+zxU7XwmKFinmYjUcwlyK9+xkG3/s9KcQhI9BjQKycrJ1JRO+FbNYPwZiPKW3je/DR0k7w8/gLa5eaxQ==}
+
+  '@penseapp/discord-notification@2.0.9':
+    resolution: {integrity: sha512-934JQdf6Pt4rjom0t2C4PhO8z77mhhwfaJDDGo5NH+o9+zreyplhMia2gkHvWV0WNS0n07kEaAJ0WvFd68JvoQ==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -4185,6 +4191,9 @@ packages:
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
+
+  axios@0.25.0:
+    resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
 
   axios@1.8.1:
     resolution: {integrity: sha512-NN+fvwH/kV01dYUQ3PTOZns4LWtWhOFCAhQ/pHb88WQ1hNe5V/dvFwc4VJcDL11LT9xSX0QtsR8sWUuyOuOq7g==}
@@ -11126,7 +11135,7 @@ snapshots:
       viem: 2.23.6(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
       zksync-ethers: 6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))
 
-  '@lens-protocol/metadata@2.0.0-next.6(typescript@5.8.2)(zod@3.24.2)':
+  '@lens-protocol/metadata@2.0.0-next.7(typescript@5.8.2)(zod@3.24.2)':
     dependencies:
       abitype: 1.0.8(typescript@5.8.2)(zod@3.24.2)
       json-stable-stringify: 1.2.1
@@ -11925,6 +11934,12 @@ snapshots:
       - supports-color
 
   '@paulmillr/qr@0.2.1': {}
+
+  '@penseapp/discord-notification@2.0.9':
+    dependencies:
+      axios: 0.25.0
+    transitivePeerDependencies:
+      - debug
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -14218,6 +14233,12 @@ snapshots:
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.1.0
+
+  axios@0.25.0:
+    dependencies:
+      follow-redirects: 1.15.9(debug@4.4.0)
+    transitivePeerDependencies:
+      - debug
 
   axios@1.8.1(debug@4.4.0):
     dependencies:

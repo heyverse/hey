@@ -14,7 +14,7 @@ export const post = async (req: Request, res: Response) => {
     return res.json({
       success: await sendBuzz({
         title: "New user signed up to Hey 🎉",
-        footer: { text: body.id },
+        footer: body.id,
         topic: `${id}/${topic}`
       })
     });

@@ -1,5 +1,4 @@
 import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
 import { AccountDocument, type AccountFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Address } from "viem";
@@ -25,10 +24,7 @@ const sendVerificationBuzz = async ({
 
     return sendBuzz({
       title: `🔀 Operation ➜ ${operation}`,
-      footer: {
-        text: `By ${usernameWithPrefix}`,
-        icon_url: getAvatar(accountData)
-      },
+      footer: `By ${usernameWithPrefix}`,
       topic: process.env.DISCORD_EVENT_WEBHOOK_TOPIC
     });
   } catch {
