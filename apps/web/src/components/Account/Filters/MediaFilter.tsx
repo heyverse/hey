@@ -11,7 +11,7 @@ const MediaFilter = () => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setMediaFeedFilters({
-      mediaFeedFilters: { ...mediaFeedFilters,
+      ...mediaFeedFilters,
       [event.target.name]: event.target.checked
     });
   };
