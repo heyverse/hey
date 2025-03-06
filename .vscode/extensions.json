@@ -10,6 +10,8 @@
     "Prisma.prisma",
     "christian-kohler.npm-intellisense",
     "bradlc.vscode-tailwindcss",
-    "aaron-bond.better-comments"
+    "aaron-bond.better-comments",
+    "yzhang.markdown-all-in-one",
+    "ban.spellright"
   ]
 }
