@@ -67,7 +67,6 @@ export const post = [
       });
 
       const result = await response.json();
-      logger.info(`Created stream live stream by ${payload.act.sub}`);
 
       return res.status(200).json({ result, success: true });
     } catch (error) {

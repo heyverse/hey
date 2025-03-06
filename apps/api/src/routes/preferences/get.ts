@@ -1,6 +1,5 @@
 import prisma from "@hey/db/prisma/db/client";
 import { getRedis, setRedis } from "@hey/db/redisClient";
-import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Preferences } from "@hey/types/hey";
 import type { Request, Response } from "express";
@@ -26,9 +25,6 @@ export const get = [
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
-        logger.info(
-          `(cached) Account preferences fetched for ${accountAddress}`
-        );
         return res
           .status(200)
           .json({ result: JSON.parse(cachedData), success: true });
@@ -49,7 +45,6 @@ export const get = [
       };
 
       await setRedis(cacheKey, response);
-      logger.info(`Account preferences fetched for ${accountAddress}`);
 
       return res.status(200).json({ result: response, success: true });
     } catch (error) {

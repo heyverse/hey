@@ -1,7 +1,6 @@
 import { APP_NAME, HEY_APP } from "@hey/data/constants";
 import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
-import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import sendVerificationBuzz from "src/helpers/buzz/sendVerificationBuzz";
 import catchedError from "src/helpers/catchedError";
@@ -51,8 +50,6 @@ export const post = async (req: Request, res: Response) => {
   }
 
   try {
-    logger.info(`Verification request received for ${operation}`);
-
     const [signature, accountPermission] = await Promise.all([
       heyWalletClient.signTypedData({
         primaryType: "SourceStamp",
@@ -73,8 +70,6 @@ export const post = async (req: Request, res: Response) => {
         }
       })
     ]);
-
-    logger.info(`Verification request fulfilled for operation: ${operation}`);
 
     if (accountPermission?.enabled) {
       return res.status(200).json({
