@@ -1,11 +1,13 @@
-import { UNLEASH_API_TOKEN, UNLEASH_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import parseJwt from "@hey/helpers/parseJwt";
-import axios from "axios";
 import type { NextFunction, Request, Response } from "express";
 import catchedError from "../catchedError";
-import { HEY_USER_AGENT } from "../constants";
+import getFeatureFlags from "./getFeatureFlags";
+
+const handleUnauthorized = (res: Response) => {
+  return catchedError(res, new Error(Errors.Unauthorized), 401);
+};
 
 const validateIsStaff = async (
   req: Request,
@@ -14,25 +16,12 @@ const validateIsStaff = async (
 ) => {
   const idToken = req.headers["x-id-token"] as string;
   if (!idToken) {
-    return catchedError(res, new Error(Errors.Unauthorized), 401);
+    return handleUnauthorized(res);
   }
 
   try {
     const payload = parseJwt(idToken);
-
-    const { data } = await axios.get(UNLEASH_API_URL, {
-      headers: {
-        Authorization: UNLEASH_API_TOKEN,
-        "User-Agent": HEY_USER_AGENT
-      },
-      params: {
-        appName: "production",
-        environment: "production",
-        userId: payload.act.sub
-      }
-    });
-
-    const flags = data.toggles;
+    const flags = await getFeatureFlags(payload.act.sub);
     const staffToggle = flags.find(
       (toggle: any) => toggle.name === FeatureFlag.Staff
     );
@@ -41,7 +30,7 @@ const validateIsStaff = async (
       return next();
     }
 
-    return catchedError(res, new Error(Errors.Unauthorized), 401);
+    return handleUnauthorized(res);
   } catch {
     return catchedError(res, new Error(Errors.SomethingWentWrong));
   }

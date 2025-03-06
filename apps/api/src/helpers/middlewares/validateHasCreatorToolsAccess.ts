@@ -1,27 +1,9 @@
-import { UNLEASH_API_TOKEN, UNLEASH_API_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { FeatureFlag } from "@hey/data/feature-flags";
 import parseJwt from "@hey/helpers/parseJwt";
-import axios from "axios";
 import type { NextFunction, Request, Response } from "express";
 import catchedError from "../catchedError";
-import { HEY_USER_AGENT } from "../constants";
-
-const fetchFeatureFlags = async (userId: string) => {
-  const { data } = await axios.get(UNLEASH_API_URL, {
-    headers: {
-      Authorization: UNLEASH_API_TOKEN,
-      "User-Agent": HEY_USER_AGENT
-    },
-    params: {
-      appName: "production",
-      environment: "production",
-      userId
-    }
-  });
-
-  return data.toggles;
-};
+import getFeatureFlags from "./getFeatureFlags";
 
 const isCreatorToolsEnabled = (flags: any[]) => {
   const staffToggle = flags.find(
@@ -42,7 +24,7 @@ const validateHasCreatorToolsAccess = async (
 
   try {
     const payload = parseJwt(idToken);
-    const flags = await fetchFeatureFlags(payload.act.sub);
+    const flags = await getFeatureFlags(payload.act.sub);
 
     if (isCreatorToolsEnabled(flags)) {
       return next();
