@@ -1,3 +1,9 @@
+/**
+ * Get the embed URL from the document.
+ *
+ * @param {Document} document - The document to get the embed URL from.
+ * @returns {null | string} The embed URL, or null if not found.
+ */
 const getEmbedUrl = (document: Document): null | string => {
   const og =
     document.querySelector('meta[name="og:video:url"]') ||

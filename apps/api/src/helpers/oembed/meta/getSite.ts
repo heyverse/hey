@@ -1,3 +1,9 @@
+/**
+ * Get the site name from the document.
+ *
+ * @param {Document} document - The document to get the site name from.
+ * @returns {null | string} The site name, or null if not found.
+ */
 const getSite = (document: Document): null | string => {
   const og =
     document.querySelector('meta[name="og:site_name"]') ||
