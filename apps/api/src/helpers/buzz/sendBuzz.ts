@@ -1,15 +1,21 @@
 import { DiscordNotification } from "@penseapp/discord-notification";
 
-const sendBuzz = ({
-  title,
-  footer,
-  topic
-}: { title: string; footer: string; topic: string }): boolean => {
+interface SendBuzzParams {
+  title: string;
+  footer: string;
+  topic: string;
+}
+
+const createDiscordNotification = (topic: string): DiscordNotification => {
+  return new DiscordNotification(
+    "Hey Bot",
+    `https://discord.com/api/webhooks/${topic}`
+  );
+};
+
+const sendBuzz = ({ title, footer, topic }: SendBuzzParams): boolean => {
   try {
-    const discordNotification = new DiscordNotification(
-      "Hey Bot",
-      `https://discord.com/api/webhooks/${topic}`
-    );
+    const discordNotification = createDiscordNotification(topic);
 
     discordNotification
       .sucessfulMessage()
