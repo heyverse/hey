@@ -25,10 +25,6 @@ class Logger {
   info(message: string) {
     this.logger.info(message);
   }
-
-  warn(message: string, error?: Error | unknown) {
-    this.logger.warn(message, error);
-  }
 }
 
 const logger = new Logger();

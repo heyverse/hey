@@ -7,9 +7,9 @@ const heartbeat = async () => {
       { method: "HEAD" }
     );
 
-    logger.info("[Cron] heartbeat - Heartbeat sent to Status API");
+    logger.info("heartbeat - Heartbeat sent to Status API");
   } catch (error) {
-    logger.error("[Cron] heartbeat - Error sending heartbeat", error);
+    logger.error("heartbeat - Error sending heartbeat", error);
   }
 };
 

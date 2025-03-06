@@ -1,6 +1,5 @@
 import prisma from "@hey/db/prisma/db/client";
 import { delRedis } from "@hey/db/redisClient";
-import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
@@ -51,7 +50,6 @@ export const post = [
       });
 
       await delRedis(`preference:${payload.act.sub}`);
-      logger.info(`Updated preferences for ${payload.act.sub}`);
 
       return res.status(200).json({ result: preference, success: true });
     } catch (error) {

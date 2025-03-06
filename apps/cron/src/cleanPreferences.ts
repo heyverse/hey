@@ -7,9 +7,9 @@ const cleanPreferences = async () => {
       where: { appIcon: 0, includeLowScore: false }
     });
 
-    logger.info("[Cron] cleanPreferences - Cleaned up Preference");
+    logger.info("cleanPreferences - Cleaned up Preference");
   } catch (error) {
-    logger.error("[Cron] cleanPreferences - Error cleaning preferences", error);
+    logger.error("cleanPreferences - Error cleaning preferences", error);
   }
 };
 

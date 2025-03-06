@@ -1,7 +1,6 @@
 import { APP_NAME, APP_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import logger from "@hey/helpers/logger";
 import { AccountDocument } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Metadata } from "next";
@@ -60,8 +59,6 @@ const Page = async ({ params }: Props) => {
   if (!metadata) {
     return <h1>{username}</h1>;
   }
-
-  logger.info(`[OG] Fetched account /u/${username}`);
 
   return (
     <>

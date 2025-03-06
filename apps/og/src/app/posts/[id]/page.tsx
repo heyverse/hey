@@ -2,7 +2,6 @@ import getPostOGImages from "@helpers/getPostOGImages";
 import { APP_NAME, APP_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
-import logger from "@hey/helpers/logger";
 import { PostDocument, type PostFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Metadata } from "next";
@@ -77,8 +76,6 @@ const Page = async ({ params }: Props) => {
   }
 
   const postUrl = `${APP_URL}/posts/${metadata.other?.["lens:id"]}`;
-
-  logger.info(`[OG] Fetched post /posts/${metadata.other?.["lens:id"]}`);
 
   return (
     <>

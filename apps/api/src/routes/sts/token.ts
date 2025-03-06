@@ -1,6 +1,5 @@
 import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
 import { EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
-import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { rateLimiter } from "src/helpers/middlewares/rateLimiter";
@@ -42,7 +41,6 @@ export const get = [
         RoleSessionName: undefined
       });
       const { Credentials: credentials } = await stsClient.send(command);
-      logger.info("STS token generated");
 
       return res.status(200).json({
         accessKeyId: credentials?.AccessKeyId,

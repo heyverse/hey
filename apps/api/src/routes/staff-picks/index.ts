@@ -1,7 +1,6 @@
 import { PermissionId } from "@hey/data/permissions";
 import prisma from "@hey/db/prisma/db/client";
 import { generateMediumExpiry, getRedis, setRedis } from "@hey/db/redisClient";
-import logger from "@hey/helpers/logger";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";
 import { CACHE_AGE_30_MINS } from "src/helpers/constants";
@@ -21,7 +20,6 @@ export const get = [
       const cachedData = await getRedis(cacheKey);
 
       if (cachedData) {
-        logger.info("(cached) Staff picks fetched");
         return res
           .status(200)
           .setHeader("Cache-Control", CACHE_AGE_30_MINS)
@@ -37,7 +35,6 @@ export const get = [
       });
 
       await setRedis(cacheKey, accountPermission, generateMediumExpiry());
-      logger.info("Staff picks fetched");
 
       return res
         .status(200)

@@ -8,7 +8,7 @@ const startJobs = async () => {
 
   while (true) {
     try {
-      console.log("Jobs are running...");
+      logger.info("Jobs are running...");
     } catch (error) {
       logger.error("Error during jobs:", error);
     }

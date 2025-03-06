@@ -4,9 +4,9 @@ import logger from "@hey/helpers/logger";
 const dbVacuum = async () => {
   try {
     await prisma.$queryRaw`VACUUM FULL`;
-    logger.info("[Cron] dbVacuum - Vacuumed database");
+    logger.info("dbVacuum - Vacuumed database");
   } catch (error) {
-    logger.error("[Cron] dbVacuum - Error vacuuming database", error);
+    logger.error("dbVacuum - Error vacuuming database", error);
   }
 };
 
