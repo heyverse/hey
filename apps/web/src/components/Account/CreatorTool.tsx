@@ -11,7 +11,7 @@ import { Toggle } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface CreatorToolProps {
@@ -38,28 +38,31 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
     }
   }, [preferences]);
 
-  const updatePermissions = async (permission: { id: string; key: string }) => {
-    const { id, key } = permission;
-    const enabled = !permissions.includes(key);
+  const togglePermission = useCallback(
+    async (permission: { id: string; key: string }) => {
+      const { id, key } = permission;
+      const enabled = !permissions.includes(key);
 
-    try {
-      setUpdating(true);
-      await axios.post(
-        `${HEY_API_URL}/internal/creator-tools/assign`,
-        { enabled, id, accountAddress: account.address },
-        { headers: getAuthApiHeaders() }
-      );
+      try {
+        setUpdating(true);
+        await axios.post(
+          `${HEY_API_URL}/internal/creator-tools/assign`,
+          { enabled, id, accountAddress: account.address },
+          { headers: getAuthApiHeaders() }
+        );
 
-      toast.success("Permission updated");
-      setPermissions((prev) =>
-        enabled ? [...prev, key] : prev.filter((f) => f !== key)
-      );
-    } catch (error) {
-      errorToast(error);
-    } finally {
-      setUpdating(false);
-    }
-  };
+        toast.success("Permission updated");
+        setPermissions((prev) =>
+          enabled ? [...prev, key] : prev.filter((f) => f !== key)
+        );
+      } catch (error) {
+        errorToast(error);
+      } finally {
+        setUpdating(false);
+      }
+    },
+    [permissions, account.address]
+  );
 
   return (
     <div className="space-y-2.5">
@@ -70,7 +73,7 @@ const CreatorTool: FC<CreatorToolProps> = ({ account }) => {
             <Toggle
               disabled={updating || isLoading}
               on={permissions.includes(permission.key)}
-              setOn={() => updatePermissions(permission)}
+              setOn={() => togglePermission(permission)}
             />
           </ToggleWrapper>
         ))}
