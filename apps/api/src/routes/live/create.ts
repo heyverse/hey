@@ -1,5 +1,4 @@
 import { LIVEPEER_KEY } from "@hey/data/constants";
-import logger from "@hey/helpers/logger";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { Request, Response } from "express";
 import catchedError from "src/helpers/catchedError";

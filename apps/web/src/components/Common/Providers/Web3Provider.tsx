@@ -7,7 +7,7 @@ import {
   STATIC_IMAGES_URL,
   WALLETCONNECT_PROJECT_ID
 } from "@hey/data/constants";
-import { LENS_TESTNET_RPCS } from "@hey/data/rpcs";
+import { LENS_MAINNET_RPCS, LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import { chains } from "@lens-network/sdk/viem";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { FC, ReactNode } from "react";
@@ -17,11 +17,12 @@ const config = createConfig(
   getDefaultConfig({
     chains: [chains.testnet, chains.testnet],
     transports: {
+      // TODO: Make this support mainnet also
       [chains.testnet.id]: fallback(
-        LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: true }))
+        LENS_MAINNET_RPCS.map((rpc) => http(rpc, { batch: { batchSize: 10 } }))
       ),
       [chains.testnet.id]: fallback(
-        LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: true }))
+        LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: { batchSize: 10 } }))
       )
     },
     walletConnectProjectId: WALLETCONNECT_PROJECT_ID,
