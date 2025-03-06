@@ -1,8 +1,8 @@
 import getAccount from "@hey/helpers/getAccount";
+import sendBuzz from "@hey/helpers/sendBuzz";
 import { AccountDocument, type AccountFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Address } from "viem";
-import sendBuzz from "./sendBuzz";
 
 const fetchAccountData = async (
   account: Address

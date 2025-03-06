@@ -1,5 +1,5 @@
+import sendBuzz from "@hey/helpers/sendBuzz";
 import type { Request, Response } from "express";
-import sendBuzz from "src/helpers/buzz/sendBuzz";
 import catchedError from "src/helpers/catchedError";
 
 export const post = async (req: Request, res: Response) => {

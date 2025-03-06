@@ -1,5 +1,6 @@
 import logger from "@hey/helpers/logger";
 import cron from "node-cron";
+import checkAndRefillPaymaster from "./checkAndRefillPaymaster";
 import cleanPreferences from "./cleanPreferences";
 import dbVacuum from "./dbVacuum";
 import heartbeat from "./heartbeat";
@@ -22,7 +23,10 @@ const startCronJobs = () => {
     return;
   });
 
-  // TODO: Add sponsorship balance notification to Discord and also add refill cron job
+  cron.schedule("*/30 * * * * *", async () => {
+    await checkAndRefillPaymaster();
+    return;
+  });
 };
 
 // Initialize cron jobs

@@ -7,23 +7,19 @@ import {
   STATIC_IMAGES_URL,
   WALLETCONNECT_PROJECT_ID
 } from "@hey/data/constants";
-import { LENS_MAINNET_RPCS, LENS_TESTNET_RPCS } from "@hey/data/rpcs";
+import getRpc from "@hey/helpers/getRpc";
 import { chains } from "@lens-network/sdk/viem";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { FC, ReactNode } from "react";
-import { createConfig, fallback, http, WagmiProvider } from "wagmi";
+import { WagmiProvider, createConfig } from "wagmi";
 
 const config = createConfig(
   getDefaultConfig({
     chains: [chains.testnet, chains.testnet],
     transports: {
       // TODO: Make this support mainnet also
-      [chains.testnet.id]: fallback(
-        LENS_MAINNET_RPCS.map((rpc) => http(rpc, { batch: { batchSize: 10 } }))
-      ),
-      [chains.testnet.id]: fallback(
-        LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: { batchSize: 10 } }))
-      )
+      [chains.testnet.id]: getRpc({ mainnet: false }),
+      [chains.testnet.id]: getRpc({ mainnet: true })
     },
     walletConnectProjectId: WALLETCONNECT_PROJECT_ID,
     appName: APP_NAME,
