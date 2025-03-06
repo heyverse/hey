@@ -6,32 +6,31 @@ import toast from "react-hot-toast";
 import useUploadAttachments from "src/hooks/useUploadAttachments";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
 
-const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
-  const handleFiles = (event: Event, files: FileList | null | undefined) => {
-    if (files?.length) {
-      event.preventDefault();
-      onPaste(files);
-      return true;
-    }
-    return false;
-  };
+const handleFiles = (
+  event: Event,
+  files: FileList | null | undefined,
+  onPaste: (files: FileList) => void
+): boolean => {
+  if (files?.length) {
+    event.preventDefault();
+    onPaste(files);
+    return true;
+  }
+  return false;
+};
 
-  const dropExtension = defineDOMEventHandler(
-    "drop",
-    (_view, event): boolean => {
-      return handleFiles(event, event?.dataTransfer?.files);
-    }
+const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
+  const dropExtension = defineDOMEventHandler("drop", (_view, event): boolean =>
+    handleFiles(event, event?.dataTransfer?.files, onPaste)
   );
 
   const pasteExtension = defineDOMEventHandler(
     "paste",
     (_view, event): boolean => {
-      // If the clipboard data contains text, we don't want to handle the image paste event.
       if (event?.clipboardData?.getData("Text")) {
-        return false;
+        return false; // Ignore text pastes
       }
-
-      return handleFiles(event, event?.clipboardData?.files);
+      return handleFiles(event, event?.clipboardData?.files, onPaste);
     }
   );
 
@@ -44,10 +43,8 @@ export const usePaste = (editor: Editor<EditorExtension>) => {
 
   const handlePaste = useCallback(
     async (pastedFiles: FileList) => {
-      if (
-        attachments.length === 4 ||
-        attachments.length + pastedFiles.length > 4
-      ) {
+      const totalAttachments = attachments.length + pastedFiles.length;
+      if (attachments.length === 4 || totalAttachments > 4) {
         return toast.error("Please choose either 1 video or up to 4 photos.");
       }
 
@@ -65,11 +62,7 @@ export const usePaste = (editor: Editor<EditorExtension>) => {
   }, [handlePaste]);
 
   const extension = useMemo(() => {
-    return definePasteDropExtension(
-      // Use React ref to avoid the value of extension changing on re-render, as
-      // removing and re-adding the extension could be expensive.
-      (files) => handlePasteRef.current(files)
-    );
+    return definePasteDropExtension((files) => handlePasteRef.current(files));
   }, []);
 
   useExtension(extension, { editor });
