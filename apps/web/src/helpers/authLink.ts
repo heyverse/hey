@@ -56,6 +56,7 @@ const executeTokenRefresh = async (
     }
 
     signIn({ accessToken, idToken, refreshToken: newRefreshToken });
+
     return accessToken;
   } catch (error) {
     signOut();
@@ -89,6 +90,7 @@ const authLink = new ApolloLink((operation, forward) => {
     operation.setContext({
       headers: { "X-Access-Token": accessToken }
     });
+
     return forward(operation);
   }
 
