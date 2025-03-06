@@ -7,10 +7,10 @@ interface TypedData {
 }
 
 /**
- * Splits the given typed data into three parts, omitting the "__typename" property from each part.
+ * Retrieves the signature from a given typed data object.
  *
- * @param typedData The typed data to split.
- * @returns An object containing the three parts of the typed data.
+ * @param typedData The typed data object.
+ * @returns An object containing the domain, message, primary type, and types.
  */
 const getSignature = (
   typedData: TypedData

@@ -1,3 +1,10 @@
+/**
+ * Retrieves a thumbnail from a video file at a specified time.
+ *
+ * @param file The video file from which the thumbnail is generated.
+ * @param currentTime The time in seconds at which the thumbnail is generated.
+ * @returns A promise that resolves to a base64 encoded string representing the thumbnail.
+ */
 const canvasImageFromVideo = (
   file: File,
   currentTime: number
@@ -23,6 +30,13 @@ const canvasImageFromVideo = (
   });
 };
 
+/**
+ * Retrieves an array of video thumbnails from a given video file.
+ *
+ * @param file The video file from which thumbnails are generated.
+ * @param count The number of thumbnails to generate.
+ * @returns A promise that resolves to an array of base64 encoded strings representing the thumbnails.
+ */
 export const generateVideoThumbnails = (
   file: File,
   count: number

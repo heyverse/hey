@@ -22,12 +22,12 @@ export const get = [
       }
 
       const cacheKey = `preference:${accountAddress}`;
-      const cachedData = await getRedis(cacheKey);
+      const cachedResult = await getRedis(cacheKey);
 
-      if (cachedData) {
+      if (cachedResult) {
         return res
           .status(200)
-          .json({ result: JSON.parse(cachedData), success: true });
+          .json({ result: JSON.parse(cachedResult), success: true });
       }
 
       const [preference, permissions] = await prisma.$transaction([

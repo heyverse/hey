@@ -1,7 +1,7 @@
 import { LENS_MEDIA_SNAPSHOT_URL } from "@hey/data/constants";
 
 /**
- * Transforms the URL of an image to use ImageKit.
+ * Retrieves the URL of an image to use ImageKit.
  *
  * @param url The original URL of the image.
  * @param name The transformation name (optional).

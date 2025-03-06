@@ -1,5 +1,6 @@
 /**
- * Slugifies a string by removing invalid characters and replacing spaces with hyphens.
+ * Retrieves the slugified string by removing invalid characters and replacing spaces with hyphens.
+ *
  * @param text The string to slugify.
  * @returns The slugified string.
  */

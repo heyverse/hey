@@ -3,6 +3,12 @@ import type {
   SimpleCollectActionFragment
 } from "@hey/indexer";
 
+/**
+ * Retrieves the collect action data from a collect action fragment.
+ *
+ * @param collectAction The collect action fragment.
+ * @returns An object containing the collect action data, or null if the collect action is not a simple collect action.
+ */
 const getCollectActionData = (
   collectAction: SimpleCollectActionFragment
 ): {

@@ -1,8 +1,8 @@
 /**
- * Stops the propagation of a SyntheticEvent.
+ * Stop event propagation.
  *
- * @param event The SyntheticEvent to stop propagation for.
- * @returns void.
+ * @param {object} event The event object from an event listener.
+ * @returns {undefined}
  */
 const stopEventPropagation = (event: any) => event.stopPropagation();
 

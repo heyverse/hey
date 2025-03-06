@@ -3,11 +3,11 @@ import imageKit from "./imageKit";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 /**
- * Returns the avatar image URL for a given account or group.
+ * Retrieves the avatar URL for a given entity, applying a specified image transformation.
  *
- * @param entity The account or group object.
- * @param namedTransform The named transform to use.
- * @returns The avatar image URL.
+ * @param entity The entity from which to extract the avatar.
+ * @param namedTransform The transformation name to apply to the avatar URL.
+ * @returns The transformed avatar URL or a default avatar if the entity is not provided.
  */
 const getAvatar = (entity: any, namedTransform = AVATAR): string => {
   if (!entity) {

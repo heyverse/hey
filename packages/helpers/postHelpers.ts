@@ -11,6 +11,12 @@ type PickByTypename<
   ? T
   : never;
 
+/**
+ * Retrieves whether a post is a repost.
+ *
+ * @param post The post to check.
+ * @returns A boolean indicating whether the post is a repost.
+ */
 export function isRepost<T extends AnyPostFragment>(
   post: null | T
 ): post is PickByTypename<T, "Repost"> {

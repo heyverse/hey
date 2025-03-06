@@ -17,14 +17,14 @@ export const get = [
   rateLimiter({ requests: 100, within: 1 }),
   async (_: Request, res: Response) => {
     try {
-      const cachedData = await getRedis(cacheKey);
+      const cachedResult = await getRedis(cacheKey);
 
-      if (cachedData) {
+      if (cachedResult) {
         return res
           .status(200)
           .setHeader("Cache-Control", CACHE_AGE_30_MINS)
           .json({
-            result: getRandomPicks(JSON.parse(cachedData)),
+            result: getRandomPicks(JSON.parse(cachedResult)),
             success: true
           });
       }

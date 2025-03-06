@@ -1,13 +1,14 @@
 import { isAddress } from "viem";
 
 /**
- * Format the given EVM address by displaying only the first and last few characters.
+ * Retrieves the formatted address string, returning a lowercase string with the first
+ * and last slice characters visible and the rest replaced with an ellipsis.
  *
- * @param address Complete EVM address
- * @param slice Number of characters to display from the start and end of the address
- * @returns Formatted EVM address
+ * @param address The address string to format.
+ * @param slice The number of characters at the start and end of the string
+ * @returns A formatted string.
  */
-const formatAddress = (address: null | string, slice = 4): string => {
+const formatAddress = (address: string | null, sliceSize = 4): string => {
   if (!address) {
     return "";
   }
@@ -15,9 +16,9 @@ const formatAddress = (address: null | string, slice = 4): string => {
   const formattedAddress = address.toLowerCase();
 
   if (isAddress(formattedAddress)) {
-    return `${formattedAddress.slice(0, slice + 2)}…${formattedAddress.slice(
-      formattedAddress.length - slice
-    )}`;
+    const start = formattedAddress.slice(0, sliceSize);
+    const end = formattedAddress.slice(formattedAddress.length - sliceSize);
+    return `${start}…${end}`;
   }
 
   return formattedAddress;

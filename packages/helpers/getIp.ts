@@ -1,3 +1,9 @@
+/**
+ * Retrieves the IP address from a request object.
+ *
+ * @param req The request object.
+ * @returns The IP address as a string.
+ */
 const getIp = (req: any): string => {
   const ips = (
     req.headers["cf-connecting-ip"] ||

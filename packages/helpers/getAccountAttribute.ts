@@ -3,10 +3,10 @@ import type { Maybe, MetadataAttributeFragment } from "@hey/indexer";
 type Key = "location" | "website" | "x";
 
 /**
- * Returns the attribute value for a given key from an array of attributes.
+ * Retrieves the attribute value for a given trait type from an array of post attributes.
  *
- * @param attributes The array of attributes to search through.
- * @param key The key to search for.
+ * @param key The key of the attribute to find.
+ * @param attributes The array of post attributes to search through.
  * @returns The attribute value.
  */
 const getAccountAttribute = (

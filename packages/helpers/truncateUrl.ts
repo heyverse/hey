@@ -1,9 +1,9 @@
 /**
- * Strip a url, truncate it to a given max length and add ellipsis if truncated.
+ * Retrieves the truncated URL by removing the protocol and adding an ellipsis if truncated.
  *
- * @param url url to truncate
- * @param maxLength number of characters to truncate to
- * @returns truncated url
+ * @param url The URL to truncate.
+ * @param maxLength The maximum number of characters to truncate to.
+ * @returns The truncated URL.
  */
 const truncateUrl = (url: string, maxLength: number): string => {
   const strippedUrl = url

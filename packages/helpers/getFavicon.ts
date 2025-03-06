@@ -1,9 +1,10 @@
 import urlcat from "urlcat";
 
 /**
- * Get favicon from google
- * @param url The url to get the favicon from.
- * @returns The favicon url or null if the URL is invalid.
+ * Retrieves the favicon URL for a given URL.
+ *
+ * @param url The URL to retrieve the favicon for.
+ * @returns The favicon URL or a default favicon URL if the URL is invalid.
  */
 const getFavicon = (url: string) => {
   try {

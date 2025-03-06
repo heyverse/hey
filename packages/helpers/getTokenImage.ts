@@ -1,7 +1,7 @@
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 
 /**
- * Returns the URL for the token image with the specified symbol.
+ * Retrieves the token image URL for a given token symbol.
  *
  * @param symbol The token symbol.
  * @returns The token image URL.

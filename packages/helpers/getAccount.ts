@@ -4,6 +4,12 @@ import formatAddress from "./formatAddress";
 import isAccountDeleted from "./isAccountDeleted";
 import sanitizeDisplayName from "./sanitizeDisplayName";
 
+/**
+ * Retrieves account details including name, link, username, and username with prefix.
+ *
+ * @param account The account containing account information.
+ * @returns An object containing the account's name, link, username, and username with prefix.
+ */
 const getAccount = (
   account?: AccountFragment
 ): {

@@ -1,5 +1,5 @@
 /**
- * Trims a string and removes excess newlines.
+ * Retrieves the trimmed string with excess newlines removed.
  *
  * @param value The string to trim.
  * @returns The trimmed string.

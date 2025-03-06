@@ -1,5 +1,6 @@
 /**
- * Generates a random number between the specified range.
+ * Retrieves a random number between the specified range.
+ *
  * @param min The minimum value (inclusive).
  * @param max The maximum value (exclusive).
  * @returns A random number between the specified range.

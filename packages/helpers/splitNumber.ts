@@ -1,5 +1,5 @@
 /**
- * Splits a number into multiple parts.
+ * Retrieves an array of numbers by splitting a number into multiple parts.
  *
  * @param num The number to split.
  * @param parts The number of parts to split the number into.

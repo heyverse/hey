@@ -1,5 +1,11 @@
 import type { Eip712TransactionRequest } from "@hey/indexer";
 
+/**
+ * Retrieves the transaction data for a sponsored transaction.
+ *
+ * @param raw The raw transaction data.
+ * @returns The transaction data for a sponsored transaction.
+ */
 const sponsoredTransactionData = (raw: Eip712TransactionRequest) => {
   return {
     data: raw.data,

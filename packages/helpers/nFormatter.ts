@@ -1,7 +1,7 @@
 import humanize from "./humanize";
 
 /**
- * Formats a number by abbreviating it using SI unit prefixes.
+ * Retrieves the formatted number with SI unit prefixes.
  *
  * @param num The number to format.
  * @param digits The number of digits to show after the decimal point. Default is 1.
