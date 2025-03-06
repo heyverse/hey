@@ -9,7 +9,6 @@ import getAccount from "@hey/helpers/getAccount";
 import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
-  type AnyPostFragment,
   PageSize,
   PostReferenceType,
   PostVisibilityFilter,
@@ -29,7 +28,6 @@ import { createTrackedSelector } from "react-tracked";
 import Custom404 from "src/pages/404";
 import Custom500 from "src/pages/500";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
-import { useOptimisticNavigation } from "src/store/non-persisted/useOptimisticNavigation";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import { create } from "zustand";
 import FullPost from "./FullPost";
@@ -58,13 +56,11 @@ const ViewPost: NextPage = () => {
 
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
-  const { preLoadedPosts } = useOptimisticNavigation();
 
   const showQuotes = pathname === "/posts/[id]/quotes";
-  const preLoadedPost = preLoadedPosts.find((p) => p.id === id);
 
   const { data, error, loading } = usePostQuery({
-    skip: !id || preLoadedPost?.id,
+    skip: !id,
     variables: { request: { post: id } }
   });
 
@@ -86,7 +82,7 @@ const ViewPost: NextPage = () => {
     return <PublicationPageShimmer publicationList={showQuotes} />;
   }
 
-  if (!preLoadedPost && !data?.post) {
+  if (!data?.post) {
     return <Custom404 />;
   }
 
@@ -94,7 +90,7 @@ const ViewPost: NextPage = () => {
     return <Custom500 />;
   }
 
-  const post = preLoadedPost || (data?.post as AnyPostFragment);
+  const post = data?.post;
   const targetPost = isRepost(post) ? post.repostOf : post;
   const canComment =
     targetPost.operations?.canComment.__typename ===
