@@ -4,26 +4,39 @@ import apolloClient from "@hey/indexer/apollo/client";
 import type { Address } from "viem";
 import sendBuzz from "./sendBuzz";
 
+const fetchAccountData = async (
+  account: Address
+): Promise<AccountFragment | null> => {
+  const { data } = await apolloClient().query({
+    query: AccountDocument,
+    variables: { request: { address: account } }
+  });
+
+  return (data?.account as AccountFragment) || null;
+};
+
+const createBuzzTitle = (
+  operation: string,
+  usernameWithPrefix: string
+): string => {
+  return `🔀 Operation ➜ ${operation} | By ${usernameWithPrefix}`;
+};
+
 const sendVerificationBuzz = async ({
   account,
   operation
 }: { account: Address; operation: string }): Promise<boolean> => {
   try {
-    const { data } = await apolloClient().query({
-      query: AccountDocument,
-      variables: { request: { address: account } }
-    });
-
-    const accountData = data?.account as AccountFragment;
-
+    const accountData = await fetchAccountData(account);
     if (!accountData) {
       return false;
     }
 
     const { usernameWithPrefix } = getAccount(accountData);
+    const title = createBuzzTitle(operation, usernameWithPrefix);
 
     return sendBuzz({
-      title: `🔀 Operation ➜ ${operation}`,
+      title,
       footer: `By ${usernameWithPrefix}`,
       topic: process.env.DISCORD_EVENT_WEBHOOK_TOPIC
     });
