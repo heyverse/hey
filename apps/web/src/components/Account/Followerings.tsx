@@ -30,6 +30,25 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
 
   const stats = data.accountStats.graphFollowStats;
 
+  type ModalContentProps = {
+    handle: string;
+    address: string;
+  };
+
+  const renderModal = (
+    show: boolean,
+    setShow: (value: boolean) => void,
+    title: string,
+    Content: FC<ModalContentProps>
+  ) => (
+    <Modal onClose={() => setShow(false)} show={show} title={title} size="md">
+      <Content
+        handle={getAccount(account).username}
+        address={String(account.address)}
+      />
+    </Modal>
+  );
+
   return (
     <div className="flex gap-8">
       <button
@@ -50,28 +69,18 @@ const Followerings: FC<FolloweringsProps> = ({ account }) => {
           {plur("Follower", stats?.followers)}
         </div>
       </button>
-      <Modal
-        onClose={() => setShowFollowingModal(false)}
-        show={showFollowingModal}
-        title="Following"
-        size="md"
-      >
-        <Following
-          handle={getAccount(account).username}
-          address={account.address}
-        />
-      </Modal>
-      <Modal
-        onClose={() => setShowFollowersModal(false)}
-        show={showFollowersModal}
-        title="Followers"
-        size="md"
-      >
-        <Followers
-          handle={getAccount(account).username}
-          address={account.address}
-        />
-      </Modal>
+      {renderModal(
+        showFollowingModal,
+        setShowFollowingModal,
+        "Following",
+        Following
+      )}
+      {renderModal(
+        showFollowersModal,
+        setShowFollowersModal,
+        "Followers",
+        Followers
+      )}
     </div>
   );
 };
