@@ -41,7 +41,7 @@ const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
 
   const { data, isLoading } = useBalance({
     address,
-    token: DEFAULT_COLLECT_TOKEN as Address,
+    token: DEFAULT_COLLECT_TOKEN,
     query: { refetchInterval: 2000 }
   });
 
@@ -66,7 +66,7 @@ const Fund: FC<FundProps> = ({ recipient, isHeyTip, onSuccess }) => {
       await writeContractAsync({
         abi: ABI,
         functionName: "transfer",
-        address: DEFAULT_COLLECT_TOKEN as Address,
+        address: DEFAULT_COLLECT_TOKEN,
         args: [recipient, parseEther(amount.toString())]
       });
 

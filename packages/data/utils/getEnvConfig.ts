@@ -3,23 +3,23 @@ import { MainnetContracts, TestnetContracts } from "../contracts";
 import LensEndpoint from "../lens-endpoints";
 
 const getEnvConfig = (): {
-  defaultCollectToken: string;
   lensApiEndpoint: string;
-  appAddress: string;
-  sponsorAddress: string;
+  defaultCollectToken: `0x${string}`;
+  appAddress: `0x${string}`;
+  sponsorAddress: `0x${string}`;
 } => {
   switch (LENS_NETWORK) {
     case "testnet":
       return {
-        defaultCollectToken: TestnetContracts.DefaultToken,
         lensApiEndpoint: LensEndpoint.Testnet,
+        defaultCollectToken: TestnetContracts.DefaultToken,
         appAddress: TestnetContracts.App,
         sponsorAddress: TestnetContracts.Sponsor
       };
     default:
       return {
-        defaultCollectToken: MainnetContracts.DefaultToken,
         lensApiEndpoint: LensEndpoint.Mainnet,
+        defaultCollectToken: MainnetContracts.DefaultToken,
         appAddress: MainnetContracts.App,
         sponsorAddress: MainnetContracts.Sponsor
       };

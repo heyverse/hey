@@ -452,7 +452,6 @@ export type ActionMetadata = {
   name: Scalars['String']['output'];
   setDisabledParams: Array<KeyValuePair>;
   source: Scalars['URI']['output'];
-  title: Scalars['String']['output'];
 };
 
 export type AddAccountManagerRequest = {
@@ -1865,7 +1864,6 @@ export type FeedMetadata = {
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
-  title: Scalars['String']['output'];
 };
 
 export type FeedOneOf = {
@@ -2184,7 +2182,6 @@ export type GraphMetadata = {
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
-  title: Scalars['String']['output'];
 };
 
 export type GraphOneOf = {
@@ -7896,13 +7893,6 @@ export type WhoReferencedPostQuery = { __typename?: 'Query', whoReferencedPost: 
       & PaginatedResultInfoFragment
     ) } };
 
-export type SponsorshipQueryVariables = Exact<{
-  request: SponsorshipRequest;
-}>;
-
-
-export type SponsorshipQuery = { __typename?: 'Query', sponsorship?: { __typename?: 'Sponsorship', address: any, balance?: any | null, limits?: { __typename?: 'SponsorshipLimits', global?: { __typename?: 'SponsorshipRateLimit', limit: number, window: SponsorshipRateLimitWindow } | null, user?: { __typename?: 'SponsorshipRateLimit', limit: number, window: SponsorshipRateLimitWindow } | null } | null } | null };
-
 export const PaginatedResultInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginatedResultInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PaginatedResultInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"prev"}},{"kind":"Field","name":{"kind":"Name","value":"next"}}]}}]} as unknown as DocumentNode;
 export const GroupMetadataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GroupMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GroupMetadata"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"icon"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}}]}}]} as unknown as DocumentNode;
 export const PostGroupInfoFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostGroupInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PostGroupInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"GroupMetadata"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"GroupMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GroupMetadata"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"icon"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}}]}}]} as unknown as DocumentNode;
@@ -8802,19 +8792,3 @@ export function useWhoReferencedPostSuspenseQuery(baseOptions?: Apollo.SkipToken
 export type WhoReferencedPostQueryHookResult = ReturnType<typeof useWhoReferencedPostQuery>;
 export type WhoReferencedPostLazyQueryHookResult = ReturnType<typeof useWhoReferencedPostLazyQuery>;
 export type WhoReferencedPostSuspenseQueryHookResult = ReturnType<typeof useWhoReferencedPostSuspenseQuery>;
-export const SponsorshipDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Sponsorship"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SponsorshipRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sponsorship"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"limits"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"global"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"window"}}]}},{"kind":"Field","name":{"kind":"Name","value":"user"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"window"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
-export function useSponsorshipQuery(baseOptions: Apollo.QueryHookOptions<SponsorshipQuery, SponsorshipQueryVariables> & ({ variables: SponsorshipQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SponsorshipQuery, SponsorshipQueryVariables>(SponsorshipDocument, options);
-      }
-export function useSponsorshipLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SponsorshipQuery, SponsorshipQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SponsorshipQuery, SponsorshipQueryVariables>(SponsorshipDocument, options);
-        }
-export function useSponsorshipSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SponsorshipQuery, SponsorshipQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<SponsorshipQuery, SponsorshipQueryVariables>(SponsorshipDocument, options);
-        }
-export type SponsorshipQueryHookResult = ReturnType<typeof useSponsorshipQuery>;
-export type SponsorshipLazyQueryHookResult = ReturnType<typeof useSponsorshipLazyQuery>;
-export type SponsorshipSuspenseQueryHookResult = ReturnType<typeof useSponsorshipSuspenseQuery>;

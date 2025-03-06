@@ -7,7 +7,7 @@ import catchedError from "src/helpers/catchedError";
 import { heyWalletClient } from "src/helpers/heyWalletClient";
 import { noBody } from "src/helpers/responses";
 import trackEvent from "src/helpers/trackEvent";
-import { type Address, checksumAddress } from "viem";
+import { checksumAddress } from "viem";
 
 const TYPES = {
   SourceStamp: [
@@ -23,7 +23,7 @@ const DOMAIN = {
   name: "Lens Source",
   version: "1",
   chainId: 37111,
-  verifyingContract: checksumAddress(HEY_APP as Address)
+  verifyingContract: checksumAddress(HEY_APP)
 };
 
 export const post = async (req: Request, res: Response) => {
@@ -56,7 +56,7 @@ export const post = async (req: Request, res: Response) => {
         types: TYPES,
         domain: DOMAIN,
         message: {
-          source: checksumAddress(HEY_APP as Address),
+          source: checksumAddress(HEY_APP),
           originalMsgSender: checksumAddress(account),
           validator: checksumAddress(validator),
           nonce,

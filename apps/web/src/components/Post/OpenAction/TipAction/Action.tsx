@@ -20,7 +20,6 @@ import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInp
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import type { Address } from "viem";
 import { formatUnits } from "viem";
 import { useBalance } from "wagmi";
 
@@ -46,7 +45,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address: currentAccount?.address,
     query: { refetchInterval: 2000 },
-    token: DEFAULT_COLLECT_TOKEN as Address
+    token: DEFAULT_COLLECT_TOKEN
   });
 
   const updateCache = () => {
@@ -123,7 +122,7 @@ const Action: FC<ActionProps> = ({ closePopover, post }) => {
           post: post.id,
           action: {
             tipping: {
-              currency: DEFAULT_COLLECT_TOKEN as Address,
+              currency: DEFAULT_COLLECT_TOKEN,
               value: cryptoRate.toString()
             }
           }

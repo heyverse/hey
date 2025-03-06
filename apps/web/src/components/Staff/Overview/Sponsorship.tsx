@@ -1,21 +1,22 @@
 import Loader from "@components/Shared/Loader";
 import { BLOCK_EXPLORER_URL, HEY_SPONSOR } from "@hey/data/constants";
-import { useSponsorshipQuery } from "@hey/indexer";
 import { Card, CardHeader, ErrorMessage, NumberedStat } from "@hey/ui";
 import Link from "next/link";
 import type { FC } from "react";
+import { formatEther } from "viem";
+import { useBalance } from "wagmi";
 
 const Sponsorship: FC = () => {
-  const { data, loading, error } = useSponsorshipQuery({
-    variables: { request: { address: HEY_SPONSOR } },
-    pollInterval: 5000
+  const { data, isLoading, error } = useBalance({
+    address: HEY_SPONSOR,
+    query: { refetchInterval: 2000 }
   });
 
   return (
     <Card>
       <CardHeader title="Sponsorship" />
       <div className="m-5">
-        {loading ? (
+        {isLoading ? (
           <Loader className="my-10" message="Loading sponsorship..." />
         ) : error ? (
           <ErrorMessage error={error} title="Failed to load sponsorship" />
@@ -23,23 +24,17 @@ const Sponsorship: FC = () => {
           <div className="space-y-5">
             <div className="linkify font-bold">
               <Link
-                href={`${BLOCK_EXPLORER_URL}/address/${data?.sponsorship?.address}`}
+                href={`${BLOCK_EXPLORER_URL}/address/${HEY_SPONSOR}`}
                 target="_blank"
               >
                 Open Sponsorship Contract in Explorer
               </Link>
             </div>
             <NumberedStat
-              count={data?.sponsorship?.balance}
+              count={formatEther(data?.value || BigInt(0))}
               name="Balance"
               suffix="GHO"
             />
-            {data?.sponsorship?.limits?.user && (
-              <NumberedStat
-                name="User limit"
-                suffix={`${data?.sponsorship?.limits?.user.limit} / ${data?.sponsorship?.limits?.user.window}`}
-              />
-            )}
           </div>
         )}
       </div>

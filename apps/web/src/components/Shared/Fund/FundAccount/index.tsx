@@ -2,7 +2,7 @@ import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Image } from "@hey/ui";
 import type { FC } from "react";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
-import { type Address, formatUnits } from "viem";
+import { formatUnits } from "viem";
 import { useBalance } from "wagmi";
 import Loader from "../../Loader";
 import Fund from "./Fund";
@@ -12,7 +12,7 @@ const FundAccount: FC = () => {
 
   const { data, isLoading } = useBalance({
     address: currentAccount?.address,
-    token: DEFAULT_COLLECT_TOKEN as Address,
+    token: DEFAULT_COLLECT_TOKEN,
     query: { refetchInterval: 2000 }
   });
 
