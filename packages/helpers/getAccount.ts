@@ -36,24 +36,26 @@ const getAccount = (
     };
   }
 
-  const value = account.username?.value;
-  const localName = account.username?.localName;
-  const address = account.address;
+  const { username, address } = account;
 
-  const prefix = account.username ? "@" : "#";
-  const username =
-    (value?.includes(LENS_NAMESPACE) ? localName : value) ||
+  const usernameValue = username?.value;
+  const localName = username?.localName;
+
+  const usernamePrefix = username ? "@" : "#";
+  const usernameValueOrAddress =
+    (usernameValue?.includes(LENS_NAMESPACE) ? localName : usernameValue) ||
     formatAddress(address);
+
   const link =
-    account.username && value.includes(LENS_NAMESPACE)
+    username && usernameValue.includes(LENS_NAMESPACE)
       ? `/u/${localName}`
       : `/account/${address}`;
 
   return {
-    name: sanitizeDisplayName(account.metadata?.name) || username,
-    link: link,
-    username,
-    usernameWithPrefix: `${prefix}${username}`
+    name: sanitizeDisplayName(account.metadata?.name) || usernameValueOrAddress,
+    link,
+    username: usernameValueOrAddress,
+    usernameWithPrefix: `${usernamePrefix}${usernameValueOrAddress}`
   };
 };
 
