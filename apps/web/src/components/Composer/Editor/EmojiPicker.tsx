@@ -10,7 +10,7 @@ import {
 } from "prosekit/react/autocomplete";
 import type { FC } from "react";
 import { useState } from "react";
-import useEmojiQuery from "src/hooks/prosekit/useEmojiQuery";
+import useEmojis from "src/hooks/prosekit/useEmojis";
 
 interface EmojiItemProps {
   emoji: Emoji;
@@ -36,7 +36,7 @@ const EmojiItem: FC<EmojiItemProps> = ({ emoji, onSelect }) => {
 const EmojiPicker: FC = () => {
   const editor = useEditor<EditorExtension>();
   const [query, setQuery] = useState("");
-  const emojis = useEmojiQuery(query);
+  const { emojis } = useEmojis({ query });
 
   const handleInsert = (emoji: Emoji) => {
     editor.commands.insertText({ text: emoji.emoji });

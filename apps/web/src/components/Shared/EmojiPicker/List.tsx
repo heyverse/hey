@@ -1,15 +1,12 @@
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { STATIC_ASSETS_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { Emoji } from "@hey/types/misc";
 import { ErrorMessage, Input } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import type { ChangeEvent, FC } from "react";
 import { useEffect, useRef, useState } from "react";
-import { GET_EMOJIS_QUERY_KEY } from "src/hooks/prosekit/useEmojiQuery";
+import useEmojis from "src/hooks/prosekit/useEmojis";
 import Loader from "../Loader";
 
 interface ListProps {
@@ -19,24 +16,21 @@ interface ListProps {
 const List: FC<ListProps> = ({ setEmoji }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState("");
-  const { data, error, isLoading } = useQuery({
-    queryFn: async () => {
-      const { data } = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
-      return data;
-    },
-    queryKey: [GET_EMOJIS_QUERY_KEY]
+  const { emojis, error, isLoading } = useEmojis({
+    query: searchText,
+    minQueryLength: 2,
+    limit: 100 // Show more emojis in the picker
   });
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
   };
 
-  let filteredEmojis = data;
-  if (searchText.length > 2) {
-    filteredEmojis = data.filter((emoji: any) => {
-      return emoji.description.toLowerCase().includes(searchText.toLowerCase());
-    });
-  }
+  const handleClearSearch = (e: React.MouseEvent) => {
+    e.preventDefault();
+    stopEventPropagation(e);
+    setSearchText("");
+  };
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -72,14 +66,10 @@ const List: FC<ListProps> = ({ setEmoji }) => {
                 "cursor-pointer",
                 searchText ? "visible" : "invisible"
               )}
-              onClick={(e) => {
-                e.preventDefault();
-                stopEventPropagation(e);
-                setSearchText("");
-              }}
+              onClick={handleClearSearch}
             />
           }
-          onChange={onChange}
+          onChange={handleChange}
           onClick={(e) => {
             e.preventDefault();
             stopEventPropagation(e);
@@ -91,7 +81,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
         />
       </div>
       <div className="grid max-h-[10rem] grid-cols-8 overflow-y-auto p-2 pt-2">
-        {filteredEmojis.map((emoji: Emoji) => (
+        {emojis.map((emoji: Emoji) => (
           <button
             className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
             key={emoji.emoji}
