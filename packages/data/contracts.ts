@@ -7,5 +7,5 @@ export enum MainnetContracts {
 export enum TestnetContracts {
   DefaultToken = "0xeee5a340Cdc9c179Db25dea45AcfD5FE8d4d3eB8",
   App = "0x48655F062E48b31eb4b7B1e3Ec377d5770f6f78d",
-  Sponsor = "0xE3D309790f96662E3815bC7e8084F42A1bb12dfA"
+  Sponsor = "0xbAf5bb0CD3742BA57C425E827E6c6E2f66Ed8FdB"
 }
