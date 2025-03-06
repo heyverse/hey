@@ -7,7 +7,7 @@
   "deploy": {
     "runtime": "V2",
     "startCommand": "pnpm --filter @hey/og start",
-    "healthcheckPath": "/",
+    "healthcheckPath": "/u/yoginth",
     "healthcheckTimeout": 1000,
     "multiRegionConfig": {
       "europe-west4-drams3a": {
