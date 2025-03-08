@@ -8,7 +8,6 @@
   "deploy": {
     "runtime": "V2",
     "startCommand": "pnpm --filter @hey/cron start",
-    "healthcheckTimeout": 1000,
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
     "limitOverride": {

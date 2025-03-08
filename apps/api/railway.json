@@ -9,7 +9,7 @@
     "runtime": "V2",
     "startCommand": "pnpm --filter @hey/api start",
     "healthcheckPath": "/",
-    "healthcheckTimeout": 1000,
+    "healthcheckTimeout": 60,
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
     "limitOverride": {

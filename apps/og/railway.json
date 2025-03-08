@@ -9,7 +9,7 @@
     "runtime": "V2",
     "startCommand": "pnpm --filter @hey/og start",
     "healthcheckPath": "/u/yoginth",
-    "healthcheckTimeout": 1000,
+    "healthcheckTimeout": 60,
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
     "limitOverride": {
