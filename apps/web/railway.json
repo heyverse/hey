@@ -10,11 +10,6 @@
     "startCommand": "pnpm --filter @hey/web start",
     "healthcheckPath": "/",
     "healthcheckTimeout": 1000,
-    "multiRegionConfig": {
-      "asia-southeast1-eqsg3a": {
-        "numReplicas": 1
-      }
-    },
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
     "limitOverride": {

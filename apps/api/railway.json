@@ -10,11 +10,6 @@
     "startCommand": "pnpm --filter @hey/api start",
     "healthcheckPath": "/",
     "healthcheckTimeout": 1000,
-    "multiRegionConfig": {
-      "europe-west4-drams3a": {
-        "numReplicas": 1
-      }
-    },
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
     "limitOverride": {
