@@ -574,6 +574,7 @@ export type App = {
   createdAt: Scalars['DateTime']['output'];
   defaultFeedAddress?: Maybe<Scalars['EvmAddress']['output']>;
   graphAddress?: Maybe<Scalars['EvmAddress']['output']>;
+  hasAuthorizationEndpoint: Scalars['Boolean']['output'];
   metadata?: Maybe<AppMetadata>;
   namespaceAddress?: Maybe<Scalars['EvmAddress']['output']>;
   owner: Scalars['EvmAddress']['output'];
