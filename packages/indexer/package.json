@@ -9,9 +9,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.13.1",
+    "@apollo/client": "^3.13.3",
     "@hey/data": "workspace:*",
-    "axios": "^1.8.1",
+    "axios": "^1.8.2",
     "graphql": "^16.10.0"
   },
   "devDependencies": {
