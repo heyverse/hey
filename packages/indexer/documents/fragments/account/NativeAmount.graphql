@@ -1,0 +1,8 @@
+fragment NativeAmount on NativeAmount {
+  asset {
+    name
+    decimals
+    symbol
+  }
+  value
+}
