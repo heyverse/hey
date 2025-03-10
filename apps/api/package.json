@@ -34,7 +34,7 @@
     "ua-parser-js": "2.0.2",
     "urlcat": "^3.1.0",
     "uuid": "^11.1.0",
-    "viem": "^2.23.7",
+    "viem": "^2.23.9",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -44,7 +44,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/express-session": "^1.18.0",
-    "@types/node": "^22.13.9",
+    "@types/node": "^22.13.10",
     "@types/request-ip": "^0.0.41",
     "@types/ua-parser-js": "^0.7.39",
     "@types/uuid": "^10.0.0",
