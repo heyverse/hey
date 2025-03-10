@@ -85,6 +85,11 @@ export type AccountActionFilter = {
 
 export type AccountAvailable = AccountManaged | AccountOwned;
 
+export type AccountBalancesRequest = {
+  includeNative?: Scalars['Boolean']['input'];
+  tokens?: Array<Scalars['EvmAddress']['input']>;
+};
+
 export type AccountBlocked = {
   __typename?: 'AccountBlocked';
   account: Account;
@@ -557,6 +562,8 @@ export type AmountInput = {
   currency: Scalars['EvmAddress']['input'];
   value: Scalars['BigDecimal']['input'];
 };
+
+export type AnyAccountBalance = Erc20Amount | Erc20BalanceError | NativeAmount | NativeBalanceError;
 
 export type AnyKeyValue = AddressKeyValue | ArrayKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
 
@@ -1339,6 +1346,12 @@ export type Erc20Amount = {
   __typename?: 'Erc20Amount';
   asset: Erc20;
   value: Scalars['BigDecimal']['output'];
+};
+
+export type Erc20BalanceError = {
+  __typename?: 'Erc20BalanceError';
+  reason: Scalars['String']['output'];
+  token: Scalars['EvmAddress']['output'];
 };
 
 export type EventMetadata = {
@@ -3731,6 +3744,24 @@ export type NamespacesResult = {
   pageInfo: PaginatedResultInfo;
 };
 
+export type NativeAmount = {
+  __typename?: 'NativeAmount';
+  asset: NativeToken;
+  value: Scalars['BigDecimal']['output'];
+};
+
+export type NativeBalanceError = {
+  __typename?: 'NativeBalanceError';
+  reason: Scalars['String']['output'];
+};
+
+export type NativeToken = {
+  __typename?: 'NativeToken';
+  decimals: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  symbol: Scalars['String']['output'];
+};
+
 export type NetworkAddress = {
   __typename?: 'NetworkAddress';
   address: Scalars['EvmAddress']['output'];
@@ -4466,6 +4497,7 @@ export type Query = {
   __typename?: 'Query';
   _service: _Service;
   account?: Maybe<Account>;
+  accountBalances: Array<AnyAccountBalance>;
   accountFeedsStats: AccountFeedsStats;
   accountGraphsStats: AccountGraphsFollowStats;
   accountManagers: PaginatedAccountManagersResult;
@@ -4541,6 +4573,11 @@ export type Query = {
 
 export type QueryAccountArgs = {
   request: AccountRequest;
+};
+
+
+export type QueryAccountBalancesArgs = {
+  request: AccountBalancesRequest;
 };
 
 
@@ -5361,7 +5398,7 @@ export type Sponsorship = {
   __typename?: 'Sponsorship';
   address: Scalars['EvmAddress']['output'];
   allowsLensAccess: Scalars['Boolean']['output'];
-  balance?: Maybe<Scalars['BigDecimal']['output']>;
+  balance: Scalars['BigDecimal']['output'];
   createdAt: Scalars['DateTime']['output'];
   isPaused: Scalars['Boolean']['output'];
   limits?: Maybe<SponsorshipLimits>;

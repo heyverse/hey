@@ -46,6 +46,12 @@ const result: PossibleTypesResultData = {
       "TransactionWillFail"
     ],
     AddReactionResult: ["AddReactionFailure", "AddReactionResponse"],
+    AnyAccountBalance: [
+      "Erc20Amount",
+      "Erc20BalanceError",
+      "NativeAmount",
+      "NativeBalanceError"
+    ],
     AnyKeyValue: [
       "AddressKeyValue",
       "ArrayKeyValue",
