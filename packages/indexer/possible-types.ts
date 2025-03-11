@@ -5,7 +5,7 @@ export interface PossibleTypesResultData {
 }
 const result: PossibleTypesResultData = {
   possibleTypes: {
-    AccountAction: ["TippingAccountAction", "UnknownAction"],
+    AccountAction: ["TippingAccountAction", "UnknownAccountAction"],
     AccountAvailable: ["AccountManaged", "AccountOwned"],
     AccountFollowOperationValidationOutcome: [
       "AccountFollowOperationValidationFailed",
@@ -273,7 +273,7 @@ const result: PossibleTypesResultData = {
       "SponsoredTransactionRequest",
       "TransactionWillFail"
     ],
-    PostAction: ["SimpleCollectAction", "UnknownAction"],
+    PostAction: ["SimpleCollectAction", "UnknownPostAction"],
     PostActionContract: [
       "SimpleCollectActionContract",
       "TippingPostActionContract",

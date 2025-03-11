@@ -67,7 +67,7 @@ export type AccountUsernameArgs = {
   request?: AccountUsernameOneOf;
 };
 
-export type AccountAction = TippingAccountAction | UnknownAction;
+export type AccountAction = TippingAccountAction | UnknownAccountAction;
 
 export type AccountActionConfigInput = {
   unknown?: InputMaybe<UnknownActionConfigInput>;
@@ -313,6 +313,16 @@ export type AccountMetadata = {
   id: Scalars['String']['output'];
   name?: Maybe<Scalars['String']['output']>;
   picture?: Maybe<Scalars['URI']['output']>;
+};
+
+
+export type AccountMetadataCoverPictureArgs = {
+  request?: MediaImageRequest;
+};
+
+
+export type AccountMetadataPictureArgs = {
+  request?: MediaImageRequest;
 };
 
 export type AccountOwned = {
@@ -619,6 +629,11 @@ export type AppMetadata = {
   tagline?: Maybe<Scalars['String']['output']>;
   termsOfService?: Maybe<Scalars['URI']['output']>;
   url: Scalars['URI']['output'];
+};
+
+
+export type AppMetadataLogoArgs = {
+  request?: MediaImageRequest;
 };
 
 export enum AppPlatform {
@@ -1354,6 +1369,12 @@ export type Erc20BalanceError = {
   token: Scalars['EvmAddress']['output'];
 };
 
+export type EventLocation = {
+  __typename?: 'EventLocation';
+  physical?: Maybe<Scalars['String']['output']>;
+  virtual?: Maybe<Scalars['URI']['output']>;
+};
+
 export type EventMetadata = {
   __typename?: 'EventMetadata';
   address?: Maybe<PhysicalAddress>;
@@ -1365,457 +1386,20 @@ export type EventMetadata = {
   id: Scalars['MetadataId']['output'];
   links: Array<Scalars['URI']['output']>;
   locale: Scalars['Locale']['output'];
-  location: EventMetadataLensLocation;
+  location: EventLocation;
   mainContentFocus: MainContentFocus;
   position?: Maybe<Scalars['GeoUri']['output']>;
-  schedulingAdjustments?: Maybe<EventMetadataLensSchedulingAdjustments>;
+  schedulingAdjustments?: Maybe<EventSchedulingAdjustments>;
   startsAt: Scalars['DateTime']['output'];
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
-export type EventMetadataLensLocation = {
-  __typename?: 'EventMetadataLensLocation';
-  physical?: Maybe<Scalars['String']['output']>;
-  virtual?: Maybe<Scalars['URI']['output']>;
-};
-
-export type EventMetadataLensSchedulingAdjustments = {
-  __typename?: 'EventMetadataLensSchedulingAdjustments';
-  timezoneId: EventMetadataLensSchedulingAdjustmentsTimezoneId;
+export type EventSchedulingAdjustments = {
+  __typename?: 'EventSchedulingAdjustments';
+  timezoneId: TimezoneId;
   timezoneOffset: Scalars['Float']['output'];
 };
-
-export enum EventMetadataLensSchedulingAdjustmentsTimezoneId {
-  AfricaAbidjan = 'AFRICA_ABIDJAN',
-  AfricaAccra = 'AFRICA_ACCRA',
-  AfricaAddisAbaba = 'AFRICA_ADDIS_ABABA',
-  AfricaAlgiers = 'AFRICA_ALGIERS',
-  AfricaAsmera = 'AFRICA_ASMERA',
-  AfricaBamako = 'AFRICA_BAMAKO',
-  AfricaBangui = 'AFRICA_BANGUI',
-  AfricaBanjul = 'AFRICA_BANJUL',
-  AfricaBissau = 'AFRICA_BISSAU',
-  AfricaBlantyre = 'AFRICA_BLANTYRE',
-  AfricaBrazzaville = 'AFRICA_BRAZZAVILLE',
-  AfricaBujumbura = 'AFRICA_BUJUMBURA',
-  AfricaCairo = 'AFRICA_CAIRO',
-  AfricaCasablanca = 'AFRICA_CASABLANCA',
-  AfricaCeuta = 'AFRICA_CEUTA',
-  AfricaConakry = 'AFRICA_CONAKRY',
-  AfricaDakar = 'AFRICA_DAKAR',
-  AfricaDarEsSalaam = 'AFRICA_DAR_ES_SALAAM',
-  AfricaDjibouti = 'AFRICA_DJIBOUTI',
-  AfricaDouala = 'AFRICA_DOUALA',
-  AfricaElAaiun = 'AFRICA_EL_AAIUN',
-  AfricaFreetown = 'AFRICA_FREETOWN',
-  AfricaGaborone = 'AFRICA_GABORONE',
-  AfricaHarare = 'AFRICA_HARARE',
-  AfricaJohannesburg = 'AFRICA_JOHANNESBURG',
-  AfricaJuba = 'AFRICA_JUBA',
-  AfricaKampala = 'AFRICA_KAMPALA',
-  AfricaKhartoum = 'AFRICA_KHARTOUM',
-  AfricaKigali = 'AFRICA_KIGALI',
-  AfricaKinshasa = 'AFRICA_KINSHASA',
-  AfricaLagos = 'AFRICA_LAGOS',
-  AfricaLibreville = 'AFRICA_LIBREVILLE',
-  AfricaLome = 'AFRICA_LOME',
-  AfricaLuanda = 'AFRICA_LUANDA',
-  AfricaLubumbashi = 'AFRICA_LUBUMBASHI',
-  AfricaLusaka = 'AFRICA_LUSAKA',
-  AfricaMalabo = 'AFRICA_MALABO',
-  AfricaMaputo = 'AFRICA_MAPUTO',
-  AfricaMaseru = 'AFRICA_MASERU',
-  AfricaMbabane = 'AFRICA_MBABANE',
-  AfricaMogadishu = 'AFRICA_MOGADISHU',
-  AfricaMonrovia = 'AFRICA_MONROVIA',
-  AfricaNairobi = 'AFRICA_NAIROBI',
-  AfricaNdjamena = 'AFRICA_NDJAMENA',
-  AfricaNiamey = 'AFRICA_NIAMEY',
-  AfricaNouakchott = 'AFRICA_NOUAKCHOTT',
-  AfricaOuagadougou = 'AFRICA_OUAGADOUGOU',
-  AfricaPortoNovo = 'AFRICA_PORTO_NOVO',
-  AfricaSaoTome = 'AFRICA_SAO_TOME',
-  AfricaTripoli = 'AFRICA_TRIPOLI',
-  AfricaTunis = 'AFRICA_TUNIS',
-  AfricaWindhoek = 'AFRICA_WINDHOEK',
-  AmericaAdak = 'AMERICA_ADAK',
-  AmericaAnchorage = 'AMERICA_ANCHORAGE',
-  AmericaAnguilla = 'AMERICA_ANGUILLA',
-  AmericaAntigua = 'AMERICA_ANTIGUA',
-  AmericaAraguaina = 'AMERICA_ARAGUAINA',
-  AmericaArgentinaLaRioja = 'AMERICA_ARGENTINA_LA_RIOJA',
-  AmericaArgentinaRioGallegos = 'AMERICA_ARGENTINA_RIO_GALLEGOS',
-  AmericaArgentinaSalta = 'AMERICA_ARGENTINA_SALTA',
-  AmericaArgentinaSanJuan = 'AMERICA_ARGENTINA_SAN_JUAN',
-  AmericaArgentinaSanLuis = 'AMERICA_ARGENTINA_SAN_LUIS',
-  AmericaArgentinaTucuman = 'AMERICA_ARGENTINA_TUCUMAN',
-  AmericaArgentinaUshuaia = 'AMERICA_ARGENTINA_USHUAIA',
-  AmericaAruba = 'AMERICA_ARUBA',
-  AmericaAsuncion = 'AMERICA_ASUNCION',
-  AmericaBahia = 'AMERICA_BAHIA',
-  AmericaBahiaBanderas = 'AMERICA_BAHIA_BANDERAS',
-  AmericaBarbados = 'AMERICA_BARBADOS',
-  AmericaBelem = 'AMERICA_BELEM',
-  AmericaBelize = 'AMERICA_BELIZE',
-  AmericaBlancSablon = 'AMERICA_BLANC_SABLON',
-  AmericaBoaVista = 'AMERICA_BOA_VISTA',
-  AmericaBogota = 'AMERICA_BOGOTA',
-  AmericaBoise = 'AMERICA_BOISE',
-  AmericaBuenosAires = 'AMERICA_BUENOS_AIRES',
-  AmericaCambridgeBay = 'AMERICA_CAMBRIDGE_BAY',
-  AmericaCampoGrande = 'AMERICA_CAMPO_GRANDE',
-  AmericaCancun = 'AMERICA_CANCUN',
-  AmericaCaracas = 'AMERICA_CARACAS',
-  AmericaCatamarca = 'AMERICA_CATAMARCA',
-  AmericaCayenne = 'AMERICA_CAYENNE',
-  AmericaCayman = 'AMERICA_CAYMAN',
-  AmericaChicago = 'AMERICA_CHICAGO',
-  AmericaChihuahua = 'AMERICA_CHIHUAHUA',
-  AmericaCiudadJuarez = 'AMERICA_CIUDAD_JUAREZ',
-  AmericaCoralHarbour = 'AMERICA_CORAL_HARBOUR',
-  AmericaCordoba = 'AMERICA_CORDOBA',
-  AmericaCostaRica = 'AMERICA_COSTA_RICA',
-  AmericaCreston = 'AMERICA_CRESTON',
-  AmericaCuiaba = 'AMERICA_CUIABA',
-  AmericaCuracao = 'AMERICA_CURACAO',
-  AmericaDanmarkshavn = 'AMERICA_DANMARKSHAVN',
-  AmericaDawson = 'AMERICA_DAWSON',
-  AmericaDawsonCreek = 'AMERICA_DAWSON_CREEK',
-  AmericaDenver = 'AMERICA_DENVER',
-  AmericaDetroit = 'AMERICA_DETROIT',
-  AmericaDominica = 'AMERICA_DOMINICA',
-  AmericaEdmonton = 'AMERICA_EDMONTON',
-  AmericaEirunepe = 'AMERICA_EIRUNEPE',
-  AmericaElSalvador = 'AMERICA_EL_SALVADOR',
-  AmericaFortaleza = 'AMERICA_FORTALEZA',
-  AmericaFortNelson = 'AMERICA_FORT_NELSON',
-  AmericaGlaceBay = 'AMERICA_GLACE_BAY',
-  AmericaGodthab = 'AMERICA_GODTHAB',
-  AmericaGooseBay = 'AMERICA_GOOSE_BAY',
-  AmericaGrandTurk = 'AMERICA_GRAND_TURK',
-  AmericaGrenada = 'AMERICA_GRENADA',
-  AmericaGuadeloupe = 'AMERICA_GUADELOUPE',
-  AmericaGuatemala = 'AMERICA_GUATEMALA',
-  AmericaGuayaquil = 'AMERICA_GUAYAQUIL',
-  AmericaGuyana = 'AMERICA_GUYANA',
-  AmericaHalifax = 'AMERICA_HALIFAX',
-  AmericaHavana = 'AMERICA_HAVANA',
-  AmericaHermosillo = 'AMERICA_HERMOSILLO',
-  AmericaIndianapolis = 'AMERICA_INDIANAPOLIS',
-  AmericaIndianaKnox = 'AMERICA_INDIANA_KNOX',
-  AmericaIndianaMarengo = 'AMERICA_INDIANA_MARENGO',
-  AmericaIndianaPetersburg = 'AMERICA_INDIANA_PETERSBURG',
-  AmericaIndianaTellCity = 'AMERICA_INDIANA_TELL_CITY',
-  AmericaIndianaVevay = 'AMERICA_INDIANA_VEVAY',
-  AmericaIndianaVincennes = 'AMERICA_INDIANA_VINCENNES',
-  AmericaIndianaWinamac = 'AMERICA_INDIANA_WINAMAC',
-  AmericaInuvik = 'AMERICA_INUVIK',
-  AmericaIqaluit = 'AMERICA_IQALUIT',
-  AmericaJamaica = 'AMERICA_JAMAICA',
-  AmericaJujuy = 'AMERICA_JUJUY',
-  AmericaJuneau = 'AMERICA_JUNEAU',
-  AmericaKentuckyMonticello = 'AMERICA_KENTUCKY_MONTICELLO',
-  AmericaKralendijk = 'AMERICA_KRALENDIJK',
-  AmericaLaPaz = 'AMERICA_LA_PAZ',
-  AmericaLima = 'AMERICA_LIMA',
-  AmericaLosAngeles = 'AMERICA_LOS_ANGELES',
-  AmericaLouisville = 'AMERICA_LOUISVILLE',
-  AmericaLowerPrinces = 'AMERICA_LOWER_PRINCES',
-  AmericaMaceio = 'AMERICA_MACEIO',
-  AmericaManagua = 'AMERICA_MANAGUA',
-  AmericaManaus = 'AMERICA_MANAUS',
-  AmericaMarigot = 'AMERICA_MARIGOT',
-  AmericaMartinique = 'AMERICA_MARTINIQUE',
-  AmericaMatamoros = 'AMERICA_MATAMOROS',
-  AmericaMazatlan = 'AMERICA_MAZATLAN',
-  AmericaMendoza = 'AMERICA_MENDOZA',
-  AmericaMenominee = 'AMERICA_MENOMINEE',
-  AmericaMerida = 'AMERICA_MERIDA',
-  AmericaMetlakatla = 'AMERICA_METLAKATLA',
-  AmericaMexicoCity = 'AMERICA_MEXICO_CITY',
-  AmericaMiquelon = 'AMERICA_MIQUELON',
-  AmericaMoncton = 'AMERICA_MONCTON',
-  AmericaMonterrey = 'AMERICA_MONTERREY',
-  AmericaMontevideo = 'AMERICA_MONTEVIDEO',
-  AmericaMontserrat = 'AMERICA_MONTSERRAT',
-  AmericaNassau = 'AMERICA_NASSAU',
-  AmericaNewYork = 'AMERICA_NEW_YORK',
-  AmericaNipigon = 'AMERICA_NIPIGON',
-  AmericaNome = 'AMERICA_NOME',
-  AmericaNoronha = 'AMERICA_NORONHA',
-  AmericaNorthDakotaBeulah = 'AMERICA_NORTH_DAKOTA_BEULAH',
-  AmericaNorthDakotaCenter = 'AMERICA_NORTH_DAKOTA_CENTER',
-  AmericaNorthDakotaNewSalem = 'AMERICA_NORTH_DAKOTA_NEW_SALEM',
-  AmericaOjinaga = 'AMERICA_OJINAGA',
-  AmericaPanama = 'AMERICA_PANAMA',
-  AmericaPangnirtung = 'AMERICA_PANGNIRTUNG',
-  AmericaParamaribo = 'AMERICA_PARAMARIBO',
-  AmericaPhoenix = 'AMERICA_PHOENIX',
-  AmericaPortoVelho = 'AMERICA_PORTO_VELHO',
-  AmericaPortAuPrince = 'AMERICA_PORT_AU_PRINCE',
-  AmericaPortOfSpain = 'AMERICA_PORT_OF_SPAIN',
-  AmericaPuertoRico = 'AMERICA_PUERTO_RICO',
-  AmericaPuntaArenas = 'AMERICA_PUNTA_ARENAS',
-  AmericaRainyRiver = 'AMERICA_RAINY_RIVER',
-  AmericaRankinInlet = 'AMERICA_RANKIN_INLET',
-  AmericaRecife = 'AMERICA_RECIFE',
-  AmericaRegina = 'AMERICA_REGINA',
-  AmericaResolute = 'AMERICA_RESOLUTE',
-  AmericaRioBranco = 'AMERICA_RIO_BRANCO',
-  AmericaSantarem = 'AMERICA_SANTAREM',
-  AmericaSantaIsabel = 'AMERICA_SANTA_ISABEL',
-  AmericaSantiago = 'AMERICA_SANTIAGO',
-  AmericaSantoDomingo = 'AMERICA_SANTO_DOMINGO',
-  AmericaSaoPaulo = 'AMERICA_SAO_PAULO',
-  AmericaScoresbysund = 'AMERICA_SCORESBYSUND',
-  AmericaSitka = 'AMERICA_SITKA',
-  AmericaStBarthelemy = 'AMERICA_ST_BARTHELEMY',
-  AmericaStJohns = 'AMERICA_ST_JOHNS',
-  AmericaStKitts = 'AMERICA_ST_KITTS',
-  AmericaStLucia = 'AMERICA_ST_LUCIA',
-  AmericaStThomas = 'AMERICA_ST_THOMAS',
-  AmericaStVincent = 'AMERICA_ST_VINCENT',
-  AmericaSwiftCurrent = 'AMERICA_SWIFT_CURRENT',
-  AmericaTegucigalpa = 'AMERICA_TEGUCIGALPA',
-  AmericaThule = 'AMERICA_THULE',
-  AmericaThunderBay = 'AMERICA_THUNDER_BAY',
-  AmericaTijuana = 'AMERICA_TIJUANA',
-  AmericaToronto = 'AMERICA_TORONTO',
-  AmericaTortola = 'AMERICA_TORTOLA',
-  AmericaVancouver = 'AMERICA_VANCOUVER',
-  AmericaWhitehorse = 'AMERICA_WHITEHORSE',
-  AmericaWinnipeg = 'AMERICA_WINNIPEG',
-  AmericaYakutat = 'AMERICA_YAKUTAT',
-  AmericaYellowknife = 'AMERICA_YELLOWKNIFE',
-  AntarcticaCasey = 'ANTARCTICA_CASEY',
-  AntarcticaDavis = 'ANTARCTICA_DAVIS',
-  AntarcticaDumontDUrville = 'ANTARCTICA_DUMONT_D_URVILLE',
-  AntarcticaMacquarie = 'ANTARCTICA_MACQUARIE',
-  AntarcticaMawson = 'ANTARCTICA_MAWSON',
-  AntarcticaMcMurdo = 'ANTARCTICA_MC_MURDO',
-  AntarcticaPalmer = 'ANTARCTICA_PALMER',
-  AntarcticaRothera = 'ANTARCTICA_ROTHERA',
-  AntarcticaSyowa = 'ANTARCTICA_SYOWA',
-  AntarcticaTroll = 'ANTARCTICA_TROLL',
-  AntarcticaVostok = 'ANTARCTICA_VOSTOK',
-  ArcticLongyearbyen = 'ARCTIC_LONGYEARBYEN',
-  AsiaAden = 'ASIA_ADEN',
-  AsiaAlmaty = 'ASIA_ALMATY',
-  AsiaAmman = 'ASIA_AMMAN',
-  AsiaAnadyr = 'ASIA_ANADYR',
-  AsiaAqtau = 'ASIA_AQTAU',
-  AsiaAqtobe = 'ASIA_AQTOBE',
-  AsiaAshgabat = 'ASIA_ASHGABAT',
-  AsiaAtyrau = 'ASIA_ATYRAU',
-  AsiaBaghdad = 'ASIA_BAGHDAD',
-  AsiaBahrain = 'ASIA_BAHRAIN',
-  AsiaBaku = 'ASIA_BAKU',
-  AsiaBangkok = 'ASIA_BANGKOK',
-  AsiaBarnaul = 'ASIA_BARNAUL',
-  AsiaBeirut = 'ASIA_BEIRUT',
-  AsiaBishkek = 'ASIA_BISHKEK',
-  AsiaBrunei = 'ASIA_BRUNEI',
-  AsiaCalcutta = 'ASIA_CALCUTTA',
-  AsiaChita = 'ASIA_CHITA',
-  AsiaChoibalsan = 'ASIA_CHOIBALSAN',
-  AsiaColombo = 'ASIA_COLOMBO',
-  AsiaDamascus = 'ASIA_DAMASCUS',
-  AsiaDhaka = 'ASIA_DHAKA',
-  AsiaDili = 'ASIA_DILI',
-  AsiaDubai = 'ASIA_DUBAI',
-  AsiaDushanbe = 'ASIA_DUSHANBE',
-  AsiaFamagusta = 'ASIA_FAMAGUSTA',
-  AsiaGaza = 'ASIA_GAZA',
-  AsiaHebron = 'ASIA_HEBRON',
-  AsiaHongKong = 'ASIA_HONG_KONG',
-  AsiaHovd = 'ASIA_HOVD',
-  AsiaIrkutsk = 'ASIA_IRKUTSK',
-  AsiaJakarta = 'ASIA_JAKARTA',
-  AsiaJayapura = 'ASIA_JAYAPURA',
-  AsiaJerusalem = 'ASIA_JERUSALEM',
-  AsiaKabul = 'ASIA_KABUL',
-  AsiaKamchatka = 'ASIA_KAMCHATKA',
-  AsiaKarachi = 'ASIA_KARACHI',
-  AsiaKatmandu = 'ASIA_KATMANDU',
-  AsiaKhandyga = 'ASIA_KHANDYGA',
-  AsiaKrasnoyarsk = 'ASIA_KRASNOYARSK',
-  AsiaKualaLumpur = 'ASIA_KUALA_LUMPUR',
-  AsiaKuching = 'ASIA_KUCHING',
-  AsiaKuwait = 'ASIA_KUWAIT',
-  AsiaMacau = 'ASIA_MACAU',
-  AsiaMagadan = 'ASIA_MAGADAN',
-  AsiaMakassar = 'ASIA_MAKASSAR',
-  AsiaManila = 'ASIA_MANILA',
-  AsiaMuscat = 'ASIA_MUSCAT',
-  AsiaNicosia = 'ASIA_NICOSIA',
-  AsiaNovokuznetsk = 'ASIA_NOVOKUZNETSK',
-  AsiaNovosibirsk = 'ASIA_NOVOSIBIRSK',
-  AsiaOmsk = 'ASIA_OMSK',
-  AsiaOral = 'ASIA_ORAL',
-  AsiaPhnomPenh = 'ASIA_PHNOM_PENH',
-  AsiaPontianak = 'ASIA_PONTIANAK',
-  AsiaPyongyang = 'ASIA_PYONGYANG',
-  AsiaQatar = 'ASIA_QATAR',
-  AsiaQostanay = 'ASIA_QOSTANAY',
-  AsiaQyzylorda = 'ASIA_QYZYLORDA',
-  AsiaRangoon = 'ASIA_RANGOON',
-  AsiaRiyadh = 'ASIA_RIYADH',
-  AsiaSaigon = 'ASIA_SAIGON',
-  AsiaSakhalin = 'ASIA_SAKHALIN',
-  AsiaSamarkand = 'ASIA_SAMARKAND',
-  AsiaSeoul = 'ASIA_SEOUL',
-  AsiaShanghai = 'ASIA_SHANGHAI',
-  AsiaSingapore = 'ASIA_SINGAPORE',
-  AsiaSrednekolymsk = 'ASIA_SREDNEKOLYMSK',
-  AsiaTaipei = 'ASIA_TAIPEI',
-  AsiaTashkent = 'ASIA_TASHKENT',
-  AsiaTbilisi = 'ASIA_TBILISI',
-  AsiaTehran = 'ASIA_TEHRAN',
-  AsiaThimphu = 'ASIA_THIMPHU',
-  AsiaTokyo = 'ASIA_TOKYO',
-  AsiaTomsk = 'ASIA_TOMSK',
-  AsiaUlaanbaatar = 'ASIA_ULAANBAATAR',
-  AsiaUrumqi = 'ASIA_URUMQI',
-  AsiaUstNera = 'ASIA_UST_NERA',
-  AsiaVientiane = 'ASIA_VIENTIANE',
-  AsiaVladivostok = 'ASIA_VLADIVOSTOK',
-  AsiaYakutsk = 'ASIA_YAKUTSK',
-  AsiaYekaterinburg = 'ASIA_YEKATERINBURG',
-  AsiaYerevan = 'ASIA_YEREVAN',
-  AtlanticAzores = 'ATLANTIC_AZORES',
-  AtlanticBermuda = 'ATLANTIC_BERMUDA',
-  AtlanticCanary = 'ATLANTIC_CANARY',
-  AtlanticCapeVerde = 'ATLANTIC_CAPE_VERDE',
-  AtlanticFaeroe = 'ATLANTIC_FAEROE',
-  AtlanticMadeira = 'ATLANTIC_MADEIRA',
-  AtlanticReykjavik = 'ATLANTIC_REYKJAVIK',
-  AtlanticSouthGeorgia = 'ATLANTIC_SOUTH_GEORGIA',
-  AtlanticStanley = 'ATLANTIC_STANLEY',
-  AtlanticStHelena = 'ATLANTIC_ST_HELENA',
-  AustraliaAdelaide = 'AUSTRALIA_ADELAIDE',
-  AustraliaBrisbane = 'AUSTRALIA_BRISBANE',
-  AustraliaBrokenHill = 'AUSTRALIA_BROKEN_HILL',
-  AustraliaCurrie = 'AUSTRALIA_CURRIE',
-  AustraliaDarwin = 'AUSTRALIA_DARWIN',
-  AustraliaEucla = 'AUSTRALIA_EUCLA',
-  AustraliaHobart = 'AUSTRALIA_HOBART',
-  AustraliaLindeman = 'AUSTRALIA_LINDEMAN',
-  AustraliaLordHowe = 'AUSTRALIA_LORD_HOWE',
-  AustraliaMelbourne = 'AUSTRALIA_MELBOURNE',
-  AustraliaPerth = 'AUSTRALIA_PERTH',
-  AustraliaSydney = 'AUSTRALIA_SYDNEY',
-  EuropeAmsterdam = 'EUROPE_AMSTERDAM',
-  EuropeAndorra = 'EUROPE_ANDORRA',
-  EuropeAstrakhan = 'EUROPE_ASTRAKHAN',
-  EuropeAthens = 'EUROPE_ATHENS',
-  EuropeBelgrade = 'EUROPE_BELGRADE',
-  EuropeBerlin = 'EUROPE_BERLIN',
-  EuropeBratislava = 'EUROPE_BRATISLAVA',
-  EuropeBrussels = 'EUROPE_BRUSSELS',
-  EuropeBucharest = 'EUROPE_BUCHAREST',
-  EuropeBudapest = 'EUROPE_BUDAPEST',
-  EuropeBusingen = 'EUROPE_BUSINGEN',
-  EuropeChisinau = 'EUROPE_CHISINAU',
-  EuropeCopenhagen = 'EUROPE_COPENHAGEN',
-  EuropeDublin = 'EUROPE_DUBLIN',
-  EuropeGibraltar = 'EUROPE_GIBRALTAR',
-  EuropeGuernsey = 'EUROPE_GUERNSEY',
-  EuropeHelsinki = 'EUROPE_HELSINKI',
-  EuropeIsleOfMan = 'EUROPE_ISLE_OF_MAN',
-  EuropeIstanbul = 'EUROPE_ISTANBUL',
-  EuropeJersey = 'EUROPE_JERSEY',
-  EuropeKaliningrad = 'EUROPE_KALININGRAD',
-  EuropeKiev = 'EUROPE_KIEV',
-  EuropeKirov = 'EUROPE_KIROV',
-  EuropeLisbon = 'EUROPE_LISBON',
-  EuropeLjubljana = 'EUROPE_LJUBLJANA',
-  EuropeLondon = 'EUROPE_LONDON',
-  EuropeLuxembourg = 'EUROPE_LUXEMBOURG',
-  EuropeMadrid = 'EUROPE_MADRID',
-  EuropeMalta = 'EUROPE_MALTA',
-  EuropeMariehamn = 'EUROPE_MARIEHAMN',
-  EuropeMinsk = 'EUROPE_MINSK',
-  EuropeMonaco = 'EUROPE_MONACO',
-  EuropeMoscow = 'EUROPE_MOSCOW',
-  EuropeOslo = 'EUROPE_OSLO',
-  EuropeParis = 'EUROPE_PARIS',
-  EuropePodgorica = 'EUROPE_PODGORICA',
-  EuropePrague = 'EUROPE_PRAGUE',
-  EuropeRiga = 'EUROPE_RIGA',
-  EuropeRome = 'EUROPE_ROME',
-  EuropeSamara = 'EUROPE_SAMARA',
-  EuropeSanMarino = 'EUROPE_SAN_MARINO',
-  EuropeSarajevo = 'EUROPE_SARAJEVO',
-  EuropeSaratov = 'EUROPE_SARATOV',
-  EuropeSimferopol = 'EUROPE_SIMFEROPOL',
-  EuropeSkopje = 'EUROPE_SKOPJE',
-  EuropeSofia = 'EUROPE_SOFIA',
-  EuropeStockholm = 'EUROPE_STOCKHOLM',
-  EuropeTallinn = 'EUROPE_TALLINN',
-  EuropeTirane = 'EUROPE_TIRANE',
-  EuropeUlyanovsk = 'EUROPE_ULYANOVSK',
-  EuropeUzhgorod = 'EUROPE_UZHGOROD',
-  EuropeVaduz = 'EUROPE_VADUZ',
-  EuropeVatican = 'EUROPE_VATICAN',
-  EuropeVienna = 'EUROPE_VIENNA',
-  EuropeVilnius = 'EUROPE_VILNIUS',
-  EuropeVolgograd = 'EUROPE_VOLGOGRAD',
-  EuropeWarsaw = 'EUROPE_WARSAW',
-  EuropeZagreb = 'EUROPE_ZAGREB',
-  EuropeZaporozhye = 'EUROPE_ZAPOROZHYE',
-  EuropeZurich = 'EUROPE_ZURICH',
-  IndianAntananarivo = 'INDIAN_ANTANANARIVO',
-  IndianChagos = 'INDIAN_CHAGOS',
-  IndianChristmas = 'INDIAN_CHRISTMAS',
-  IndianCocos = 'INDIAN_COCOS',
-  IndianComoro = 'INDIAN_COMORO',
-  IndianKerguelen = 'INDIAN_KERGUELEN',
-  IndianMahe = 'INDIAN_MAHE',
-  IndianMaldives = 'INDIAN_MALDIVES',
-  IndianMauritius = 'INDIAN_MAURITIUS',
-  IndianMayotte = 'INDIAN_MAYOTTE',
-  IndianReunion = 'INDIAN_REUNION',
-  PacificApia = 'PACIFIC_APIA',
-  PacificAuckland = 'PACIFIC_AUCKLAND',
-  PacificBougainville = 'PACIFIC_BOUGAINVILLE',
-  PacificChatham = 'PACIFIC_CHATHAM',
-  PacificEaster = 'PACIFIC_EASTER',
-  PacificEfate = 'PACIFIC_EFATE',
-  PacificEnderbury = 'PACIFIC_ENDERBURY',
-  PacificFakaofo = 'PACIFIC_FAKAOFO',
-  PacificFiji = 'PACIFIC_FIJI',
-  PacificFunafuti = 'PACIFIC_FUNAFUTI',
-  PacificGalapagos = 'PACIFIC_GALAPAGOS',
-  PacificGambier = 'PACIFIC_GAMBIER',
-  PacificGuadalcanal = 'PACIFIC_GUADALCANAL',
-  PacificGuam = 'PACIFIC_GUAM',
-  PacificHonolulu = 'PACIFIC_HONOLULU',
-  PacificJohnston = 'PACIFIC_JOHNSTON',
-  PacificKiritimati = 'PACIFIC_KIRITIMATI',
-  PacificKosrae = 'PACIFIC_KOSRAE',
-  PacificKwajalein = 'PACIFIC_KWAJALEIN',
-  PacificMajuro = 'PACIFIC_MAJURO',
-  PacificMarquesas = 'PACIFIC_MARQUESAS',
-  PacificMidway = 'PACIFIC_MIDWAY',
-  PacificNauru = 'PACIFIC_NAURU',
-  PacificNiue = 'PACIFIC_NIUE',
-  PacificNorfolk = 'PACIFIC_NORFOLK',
-  PacificNoumea = 'PACIFIC_NOUMEA',
-  PacificPagoPago = 'PACIFIC_PAGO_PAGO',
-  PacificPalau = 'PACIFIC_PALAU',
-  PacificPitcairn = 'PACIFIC_PITCAIRN',
-  PacificPonape = 'PACIFIC_PONAPE',
-  PacificPortMoresby = 'PACIFIC_PORT_MORESBY',
-  PacificRarotonga = 'PACIFIC_RAROTONGA',
-  PacificSaipan = 'PACIFIC_SAIPAN',
-  PacificTahiti = 'PACIFIC_TAHITI',
-  PacificTarawa = 'PACIFIC_TARAWA',
-  PacificTongatapu = 'PACIFIC_TONGATAPU',
-  PacificTruk = 'PACIFIC_TRUK',
-  PacificWake = 'PACIFIC_WAKE',
-  PacificWallis = 'PACIFIC_WALLIS'
-}
 
 export type ExecuteAccountActionRequest = {
   account: Scalars['EvmAddress']['input'];
@@ -1999,6 +1583,11 @@ export type FinishedTransactionStatus = {
   __typename?: 'FinishedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
   summary: Array<SubOperationStatus>;
+};
+
+export type FixedSizeTransform = {
+  height: Scalars['Int']['input'];
+  width: Scalars['Int']['input'];
 };
 
 export type FollowNotification = {
@@ -2392,6 +1981,16 @@ export type GroupMetadata = {
   name: Scalars['String']['output'];
 };
 
+
+export type GroupMetadataCoverPictureArgs = {
+  request?: MediaImageRequest;
+};
+
+
+export type GroupMetadataIconArgs = {
+  request?: MediaImageRequest;
+};
+
 export type GroupOperationValidationFailed = {
   __typename?: 'GroupOperationValidationFailed';
   reason: Scalars['String']['output'];
@@ -2516,6 +2115,10 @@ export type HasReactedRequest = {
   type?: InputMaybe<PostReactionType>;
 };
 
+export type HeightBasedTransform = {
+  height: Scalars['Int']['input'];
+};
+
 export type HideManagedAccountRequest = {
   account: Scalars['EvmAddress']['input'];
 };
@@ -2536,6 +2139,12 @@ export type ImageMetadata = {
   mainContentFocus: MainContentFocus;
   tags?: Maybe<Array<Scalars['Tag']['output']>>;
   title?: Maybe<Scalars['String']['output']>;
+};
+
+export type ImageTransform = {
+  fixedSize?: InputMaybe<FixedSizeTransform>;
+  heightBased?: InputMaybe<HeightBasedTransform>;
+  widthBased?: InputMaybe<WidthBasedTransform>;
 };
 
 export enum IndexingStatus {
@@ -2812,6 +2421,16 @@ export type MediaAudio = {
   type: MediaAudioType;
 };
 
+
+export type MediaAudioCoverArgs = {
+  request?: MediaImageRequest;
+};
+
+
+export type MediaAudioItemArgs = {
+  request?: MediaAudioRequest;
+};
+
 export enum MediaAudioKind {
   Audiobook = 'AUDIOBOOK',
   Music = 'MUSIC',
@@ -2820,6 +2439,10 @@ export enum MediaAudioKind {
   Sound = 'SOUND',
   VoiceNote = 'VOICE_NOTE'
 }
+
+export type MediaAudioRequest = {
+  useOriginal: Scalars['Boolean']['input'];
+};
 
 export enum MediaAudioType {
   AudioAac = 'AUDIO_AAC',
@@ -2836,9 +2459,21 @@ export type MediaImage = {
   __typename?: 'MediaImage';
   altTag?: Maybe<Scalars['String']['output']>;
   attributes: Array<MetadataAttribute>;
+  height?: Maybe<Scalars['Int']['output']>;
   item: Scalars['URI']['output'];
   license?: Maybe<MetadataLicenseType>;
   type: MediaImageType;
+  width?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type MediaImageItemArgs = {
+  request?: MediaImageRequest;
+};
+
+export type MediaImageRequest = {
+  preferTransform?: InputMaybe<ImageTransform>;
+  useOriginal?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export enum MediaImageType {
@@ -2866,6 +2501,20 @@ export type MediaVideo = {
   item: Scalars['URI']['output'];
   license?: Maybe<MetadataLicenseType>;
   type: MediaVideoType;
+};
+
+
+export type MediaVideoCoverArgs = {
+  request?: MediaImageRequest;
+};
+
+
+export type MediaVideoItemArgs = {
+  request?: MediaVideoRequest;
+};
+
+export type MediaVideoRequest = {
+  useOriginal: Scalars['Boolean']['input'];
 };
 
 export enum MediaVideoType {
@@ -4096,7 +3745,7 @@ export type PostAccountPair = {
   post: Scalars['PostId']['input'];
 };
 
-export type PostAction = SimpleCollectAction | UnknownAction;
+export type PostAction = SimpleCollectAction | UnknownPostAction;
 
 export type PostActionConfigInput = {
   simpleCollect?: InputMaybe<SimpleCollectActionConfigInput>;
@@ -5665,6 +5314,437 @@ export type TimelineRequest = {
   filter?: InputMaybe<TimelineFilter>;
 };
 
+export enum TimezoneId {
+  AfricaAbidjan = 'AFRICA_ABIDJAN',
+  AfricaAccra = 'AFRICA_ACCRA',
+  AfricaAddisAbaba = 'AFRICA_ADDIS_ABABA',
+  AfricaAlgiers = 'AFRICA_ALGIERS',
+  AfricaAsmera = 'AFRICA_ASMERA',
+  AfricaBamako = 'AFRICA_BAMAKO',
+  AfricaBangui = 'AFRICA_BANGUI',
+  AfricaBanjul = 'AFRICA_BANJUL',
+  AfricaBissau = 'AFRICA_BISSAU',
+  AfricaBlantyre = 'AFRICA_BLANTYRE',
+  AfricaBrazzaville = 'AFRICA_BRAZZAVILLE',
+  AfricaBujumbura = 'AFRICA_BUJUMBURA',
+  AfricaCairo = 'AFRICA_CAIRO',
+  AfricaCasablanca = 'AFRICA_CASABLANCA',
+  AfricaCeuta = 'AFRICA_CEUTA',
+  AfricaConakry = 'AFRICA_CONAKRY',
+  AfricaDakar = 'AFRICA_DAKAR',
+  AfricaDarEsSalaam = 'AFRICA_DAR_ES_SALAAM',
+  AfricaDjibouti = 'AFRICA_DJIBOUTI',
+  AfricaDouala = 'AFRICA_DOUALA',
+  AfricaElAaiun = 'AFRICA_EL_AAIUN',
+  AfricaFreetown = 'AFRICA_FREETOWN',
+  AfricaGaborone = 'AFRICA_GABORONE',
+  AfricaHarare = 'AFRICA_HARARE',
+  AfricaJohannesburg = 'AFRICA_JOHANNESBURG',
+  AfricaJuba = 'AFRICA_JUBA',
+  AfricaKampala = 'AFRICA_KAMPALA',
+  AfricaKhartoum = 'AFRICA_KHARTOUM',
+  AfricaKigali = 'AFRICA_KIGALI',
+  AfricaKinshasa = 'AFRICA_KINSHASA',
+  AfricaLagos = 'AFRICA_LAGOS',
+  AfricaLibreville = 'AFRICA_LIBREVILLE',
+  AfricaLome = 'AFRICA_LOME',
+  AfricaLuanda = 'AFRICA_LUANDA',
+  AfricaLubumbashi = 'AFRICA_LUBUMBASHI',
+  AfricaLusaka = 'AFRICA_LUSAKA',
+  AfricaMalabo = 'AFRICA_MALABO',
+  AfricaMaputo = 'AFRICA_MAPUTO',
+  AfricaMaseru = 'AFRICA_MASERU',
+  AfricaMbabane = 'AFRICA_MBABANE',
+  AfricaMogadishu = 'AFRICA_MOGADISHU',
+  AfricaMonrovia = 'AFRICA_MONROVIA',
+  AfricaNairobi = 'AFRICA_NAIROBI',
+  AfricaNdjamena = 'AFRICA_NDJAMENA',
+  AfricaNiamey = 'AFRICA_NIAMEY',
+  AfricaNouakchott = 'AFRICA_NOUAKCHOTT',
+  AfricaOuagadougou = 'AFRICA_OUAGADOUGOU',
+  AfricaPortoNovo = 'AFRICA_PORTO_NOVO',
+  AfricaSaoTome = 'AFRICA_SAO_TOME',
+  AfricaTripoli = 'AFRICA_TRIPOLI',
+  AfricaTunis = 'AFRICA_TUNIS',
+  AfricaWindhoek = 'AFRICA_WINDHOEK',
+  AmericaAdak = 'AMERICA_ADAK',
+  AmericaAnchorage = 'AMERICA_ANCHORAGE',
+  AmericaAnguilla = 'AMERICA_ANGUILLA',
+  AmericaAntigua = 'AMERICA_ANTIGUA',
+  AmericaAraguaina = 'AMERICA_ARAGUAINA',
+  AmericaArgentinaLaRioja = 'AMERICA_ARGENTINA_LA_RIOJA',
+  AmericaArgentinaRioGallegos = 'AMERICA_ARGENTINA_RIO_GALLEGOS',
+  AmericaArgentinaSalta = 'AMERICA_ARGENTINA_SALTA',
+  AmericaArgentinaSanJuan = 'AMERICA_ARGENTINA_SAN_JUAN',
+  AmericaArgentinaSanLuis = 'AMERICA_ARGENTINA_SAN_LUIS',
+  AmericaArgentinaTucuman = 'AMERICA_ARGENTINA_TUCUMAN',
+  AmericaArgentinaUshuaia = 'AMERICA_ARGENTINA_USHUAIA',
+  AmericaAruba = 'AMERICA_ARUBA',
+  AmericaAsuncion = 'AMERICA_ASUNCION',
+  AmericaBahia = 'AMERICA_BAHIA',
+  AmericaBahiaBanderas = 'AMERICA_BAHIA_BANDERAS',
+  AmericaBarbados = 'AMERICA_BARBADOS',
+  AmericaBelem = 'AMERICA_BELEM',
+  AmericaBelize = 'AMERICA_BELIZE',
+  AmericaBlancSablon = 'AMERICA_BLANC_SABLON',
+  AmericaBoaVista = 'AMERICA_BOA_VISTA',
+  AmericaBogota = 'AMERICA_BOGOTA',
+  AmericaBoise = 'AMERICA_BOISE',
+  AmericaBuenosAires = 'AMERICA_BUENOS_AIRES',
+  AmericaCambridgeBay = 'AMERICA_CAMBRIDGE_BAY',
+  AmericaCampoGrande = 'AMERICA_CAMPO_GRANDE',
+  AmericaCancun = 'AMERICA_CANCUN',
+  AmericaCaracas = 'AMERICA_CARACAS',
+  AmericaCatamarca = 'AMERICA_CATAMARCA',
+  AmericaCayenne = 'AMERICA_CAYENNE',
+  AmericaCayman = 'AMERICA_CAYMAN',
+  AmericaChicago = 'AMERICA_CHICAGO',
+  AmericaChihuahua = 'AMERICA_CHIHUAHUA',
+  AmericaCiudadJuarez = 'AMERICA_CIUDAD_JUAREZ',
+  AmericaCoralHarbour = 'AMERICA_CORAL_HARBOUR',
+  AmericaCordoba = 'AMERICA_CORDOBA',
+  AmericaCostaRica = 'AMERICA_COSTA_RICA',
+  AmericaCreston = 'AMERICA_CRESTON',
+  AmericaCuiaba = 'AMERICA_CUIABA',
+  AmericaCuracao = 'AMERICA_CURACAO',
+  AmericaDanmarkshavn = 'AMERICA_DANMARKSHAVN',
+  AmericaDawson = 'AMERICA_DAWSON',
+  AmericaDawsonCreek = 'AMERICA_DAWSON_CREEK',
+  AmericaDenver = 'AMERICA_DENVER',
+  AmericaDetroit = 'AMERICA_DETROIT',
+  AmericaDominica = 'AMERICA_DOMINICA',
+  AmericaEdmonton = 'AMERICA_EDMONTON',
+  AmericaEirunepe = 'AMERICA_EIRUNEPE',
+  AmericaElSalvador = 'AMERICA_EL_SALVADOR',
+  AmericaFortaleza = 'AMERICA_FORTALEZA',
+  AmericaFortNelson = 'AMERICA_FORT_NELSON',
+  AmericaGlaceBay = 'AMERICA_GLACE_BAY',
+  AmericaGodthab = 'AMERICA_GODTHAB',
+  AmericaGooseBay = 'AMERICA_GOOSE_BAY',
+  AmericaGrandTurk = 'AMERICA_GRAND_TURK',
+  AmericaGrenada = 'AMERICA_GRENADA',
+  AmericaGuadeloupe = 'AMERICA_GUADELOUPE',
+  AmericaGuatemala = 'AMERICA_GUATEMALA',
+  AmericaGuayaquil = 'AMERICA_GUAYAQUIL',
+  AmericaGuyana = 'AMERICA_GUYANA',
+  AmericaHalifax = 'AMERICA_HALIFAX',
+  AmericaHavana = 'AMERICA_HAVANA',
+  AmericaHermosillo = 'AMERICA_HERMOSILLO',
+  AmericaIndianapolis = 'AMERICA_INDIANAPOLIS',
+  AmericaIndianaKnox = 'AMERICA_INDIANA_KNOX',
+  AmericaIndianaMarengo = 'AMERICA_INDIANA_MARENGO',
+  AmericaIndianaPetersburg = 'AMERICA_INDIANA_PETERSBURG',
+  AmericaIndianaTellCity = 'AMERICA_INDIANA_TELL_CITY',
+  AmericaIndianaVevay = 'AMERICA_INDIANA_VEVAY',
+  AmericaIndianaVincennes = 'AMERICA_INDIANA_VINCENNES',
+  AmericaIndianaWinamac = 'AMERICA_INDIANA_WINAMAC',
+  AmericaInuvik = 'AMERICA_INUVIK',
+  AmericaIqaluit = 'AMERICA_IQALUIT',
+  AmericaJamaica = 'AMERICA_JAMAICA',
+  AmericaJujuy = 'AMERICA_JUJUY',
+  AmericaJuneau = 'AMERICA_JUNEAU',
+  AmericaKentuckyMonticello = 'AMERICA_KENTUCKY_MONTICELLO',
+  AmericaKralendijk = 'AMERICA_KRALENDIJK',
+  AmericaLaPaz = 'AMERICA_LA_PAZ',
+  AmericaLima = 'AMERICA_LIMA',
+  AmericaLosAngeles = 'AMERICA_LOS_ANGELES',
+  AmericaLouisville = 'AMERICA_LOUISVILLE',
+  AmericaLowerPrinces = 'AMERICA_LOWER_PRINCES',
+  AmericaMaceio = 'AMERICA_MACEIO',
+  AmericaManagua = 'AMERICA_MANAGUA',
+  AmericaManaus = 'AMERICA_MANAUS',
+  AmericaMarigot = 'AMERICA_MARIGOT',
+  AmericaMartinique = 'AMERICA_MARTINIQUE',
+  AmericaMatamoros = 'AMERICA_MATAMOROS',
+  AmericaMazatlan = 'AMERICA_MAZATLAN',
+  AmericaMendoza = 'AMERICA_MENDOZA',
+  AmericaMenominee = 'AMERICA_MENOMINEE',
+  AmericaMerida = 'AMERICA_MERIDA',
+  AmericaMetlakatla = 'AMERICA_METLAKATLA',
+  AmericaMexicoCity = 'AMERICA_MEXICO_CITY',
+  AmericaMiquelon = 'AMERICA_MIQUELON',
+  AmericaMoncton = 'AMERICA_MONCTON',
+  AmericaMonterrey = 'AMERICA_MONTERREY',
+  AmericaMontevideo = 'AMERICA_MONTEVIDEO',
+  AmericaMontserrat = 'AMERICA_MONTSERRAT',
+  AmericaNassau = 'AMERICA_NASSAU',
+  AmericaNewYork = 'AMERICA_NEW_YORK',
+  AmericaNipigon = 'AMERICA_NIPIGON',
+  AmericaNome = 'AMERICA_NOME',
+  AmericaNoronha = 'AMERICA_NORONHA',
+  AmericaNorthDakotaBeulah = 'AMERICA_NORTH_DAKOTA_BEULAH',
+  AmericaNorthDakotaCenter = 'AMERICA_NORTH_DAKOTA_CENTER',
+  AmericaNorthDakotaNewSalem = 'AMERICA_NORTH_DAKOTA_NEW_SALEM',
+  AmericaOjinaga = 'AMERICA_OJINAGA',
+  AmericaPanama = 'AMERICA_PANAMA',
+  AmericaPangnirtung = 'AMERICA_PANGNIRTUNG',
+  AmericaParamaribo = 'AMERICA_PARAMARIBO',
+  AmericaPhoenix = 'AMERICA_PHOENIX',
+  AmericaPortoVelho = 'AMERICA_PORTO_VELHO',
+  AmericaPortAuPrince = 'AMERICA_PORT_AU_PRINCE',
+  AmericaPortOfSpain = 'AMERICA_PORT_OF_SPAIN',
+  AmericaPuertoRico = 'AMERICA_PUERTO_RICO',
+  AmericaPuntaArenas = 'AMERICA_PUNTA_ARENAS',
+  AmericaRainyRiver = 'AMERICA_RAINY_RIVER',
+  AmericaRankinInlet = 'AMERICA_RANKIN_INLET',
+  AmericaRecife = 'AMERICA_RECIFE',
+  AmericaRegina = 'AMERICA_REGINA',
+  AmericaResolute = 'AMERICA_RESOLUTE',
+  AmericaRioBranco = 'AMERICA_RIO_BRANCO',
+  AmericaSantarem = 'AMERICA_SANTAREM',
+  AmericaSantaIsabel = 'AMERICA_SANTA_ISABEL',
+  AmericaSantiago = 'AMERICA_SANTIAGO',
+  AmericaSantoDomingo = 'AMERICA_SANTO_DOMINGO',
+  AmericaSaoPaulo = 'AMERICA_SAO_PAULO',
+  AmericaScoresbysund = 'AMERICA_SCORESBYSUND',
+  AmericaSitka = 'AMERICA_SITKA',
+  AmericaStBarthelemy = 'AMERICA_ST_BARTHELEMY',
+  AmericaStJohns = 'AMERICA_ST_JOHNS',
+  AmericaStKitts = 'AMERICA_ST_KITTS',
+  AmericaStLucia = 'AMERICA_ST_LUCIA',
+  AmericaStThomas = 'AMERICA_ST_THOMAS',
+  AmericaStVincent = 'AMERICA_ST_VINCENT',
+  AmericaSwiftCurrent = 'AMERICA_SWIFT_CURRENT',
+  AmericaTegucigalpa = 'AMERICA_TEGUCIGALPA',
+  AmericaThule = 'AMERICA_THULE',
+  AmericaThunderBay = 'AMERICA_THUNDER_BAY',
+  AmericaTijuana = 'AMERICA_TIJUANA',
+  AmericaToronto = 'AMERICA_TORONTO',
+  AmericaTortola = 'AMERICA_TORTOLA',
+  AmericaVancouver = 'AMERICA_VANCOUVER',
+  AmericaWhitehorse = 'AMERICA_WHITEHORSE',
+  AmericaWinnipeg = 'AMERICA_WINNIPEG',
+  AmericaYakutat = 'AMERICA_YAKUTAT',
+  AmericaYellowknife = 'AMERICA_YELLOWKNIFE',
+  AntarcticaCasey = 'ANTARCTICA_CASEY',
+  AntarcticaDavis = 'ANTARCTICA_DAVIS',
+  AntarcticaDumontDUrville = 'ANTARCTICA_DUMONT_D_URVILLE',
+  AntarcticaMacquarie = 'ANTARCTICA_MACQUARIE',
+  AntarcticaMawson = 'ANTARCTICA_MAWSON',
+  AntarcticaMcMurdo = 'ANTARCTICA_MC_MURDO',
+  AntarcticaPalmer = 'ANTARCTICA_PALMER',
+  AntarcticaRothera = 'ANTARCTICA_ROTHERA',
+  AntarcticaSyowa = 'ANTARCTICA_SYOWA',
+  AntarcticaTroll = 'ANTARCTICA_TROLL',
+  AntarcticaVostok = 'ANTARCTICA_VOSTOK',
+  ArcticLongyearbyen = 'ARCTIC_LONGYEARBYEN',
+  AsiaAden = 'ASIA_ADEN',
+  AsiaAlmaty = 'ASIA_ALMATY',
+  AsiaAmman = 'ASIA_AMMAN',
+  AsiaAnadyr = 'ASIA_ANADYR',
+  AsiaAqtau = 'ASIA_AQTAU',
+  AsiaAqtobe = 'ASIA_AQTOBE',
+  AsiaAshgabat = 'ASIA_ASHGABAT',
+  AsiaAtyrau = 'ASIA_ATYRAU',
+  AsiaBaghdad = 'ASIA_BAGHDAD',
+  AsiaBahrain = 'ASIA_BAHRAIN',
+  AsiaBaku = 'ASIA_BAKU',
+  AsiaBangkok = 'ASIA_BANGKOK',
+  AsiaBarnaul = 'ASIA_BARNAUL',
+  AsiaBeirut = 'ASIA_BEIRUT',
+  AsiaBishkek = 'ASIA_BISHKEK',
+  AsiaBrunei = 'ASIA_BRUNEI',
+  AsiaCalcutta = 'ASIA_CALCUTTA',
+  AsiaChita = 'ASIA_CHITA',
+  AsiaChoibalsan = 'ASIA_CHOIBALSAN',
+  AsiaColombo = 'ASIA_COLOMBO',
+  AsiaDamascus = 'ASIA_DAMASCUS',
+  AsiaDhaka = 'ASIA_DHAKA',
+  AsiaDili = 'ASIA_DILI',
+  AsiaDubai = 'ASIA_DUBAI',
+  AsiaDushanbe = 'ASIA_DUSHANBE',
+  AsiaFamagusta = 'ASIA_FAMAGUSTA',
+  AsiaGaza = 'ASIA_GAZA',
+  AsiaHebron = 'ASIA_HEBRON',
+  AsiaHongKong = 'ASIA_HONG_KONG',
+  AsiaHovd = 'ASIA_HOVD',
+  AsiaIrkutsk = 'ASIA_IRKUTSK',
+  AsiaJakarta = 'ASIA_JAKARTA',
+  AsiaJayapura = 'ASIA_JAYAPURA',
+  AsiaJerusalem = 'ASIA_JERUSALEM',
+  AsiaKabul = 'ASIA_KABUL',
+  AsiaKamchatka = 'ASIA_KAMCHATKA',
+  AsiaKarachi = 'ASIA_KARACHI',
+  AsiaKatmandu = 'ASIA_KATMANDU',
+  AsiaKhandyga = 'ASIA_KHANDYGA',
+  AsiaKrasnoyarsk = 'ASIA_KRASNOYARSK',
+  AsiaKualaLumpur = 'ASIA_KUALA_LUMPUR',
+  AsiaKuching = 'ASIA_KUCHING',
+  AsiaKuwait = 'ASIA_KUWAIT',
+  AsiaMacau = 'ASIA_MACAU',
+  AsiaMagadan = 'ASIA_MAGADAN',
+  AsiaMakassar = 'ASIA_MAKASSAR',
+  AsiaManila = 'ASIA_MANILA',
+  AsiaMuscat = 'ASIA_MUSCAT',
+  AsiaNicosia = 'ASIA_NICOSIA',
+  AsiaNovokuznetsk = 'ASIA_NOVOKUZNETSK',
+  AsiaNovosibirsk = 'ASIA_NOVOSIBIRSK',
+  AsiaOmsk = 'ASIA_OMSK',
+  AsiaOral = 'ASIA_ORAL',
+  AsiaPhnomPenh = 'ASIA_PHNOM_PENH',
+  AsiaPontianak = 'ASIA_PONTIANAK',
+  AsiaPyongyang = 'ASIA_PYONGYANG',
+  AsiaQatar = 'ASIA_QATAR',
+  AsiaQostanay = 'ASIA_QOSTANAY',
+  AsiaQyzylorda = 'ASIA_QYZYLORDA',
+  AsiaRangoon = 'ASIA_RANGOON',
+  AsiaRiyadh = 'ASIA_RIYADH',
+  AsiaSaigon = 'ASIA_SAIGON',
+  AsiaSakhalin = 'ASIA_SAKHALIN',
+  AsiaSamarkand = 'ASIA_SAMARKAND',
+  AsiaSeoul = 'ASIA_SEOUL',
+  AsiaShanghai = 'ASIA_SHANGHAI',
+  AsiaSingapore = 'ASIA_SINGAPORE',
+  AsiaSrednekolymsk = 'ASIA_SREDNEKOLYMSK',
+  AsiaTaipei = 'ASIA_TAIPEI',
+  AsiaTashkent = 'ASIA_TASHKENT',
+  AsiaTbilisi = 'ASIA_TBILISI',
+  AsiaTehran = 'ASIA_TEHRAN',
+  AsiaThimphu = 'ASIA_THIMPHU',
+  AsiaTokyo = 'ASIA_TOKYO',
+  AsiaTomsk = 'ASIA_TOMSK',
+  AsiaUlaanbaatar = 'ASIA_ULAANBAATAR',
+  AsiaUrumqi = 'ASIA_URUMQI',
+  AsiaUstNera = 'ASIA_UST_NERA',
+  AsiaVientiane = 'ASIA_VIENTIANE',
+  AsiaVladivostok = 'ASIA_VLADIVOSTOK',
+  AsiaYakutsk = 'ASIA_YAKUTSK',
+  AsiaYekaterinburg = 'ASIA_YEKATERINBURG',
+  AsiaYerevan = 'ASIA_YEREVAN',
+  AtlanticAzores = 'ATLANTIC_AZORES',
+  AtlanticBermuda = 'ATLANTIC_BERMUDA',
+  AtlanticCanary = 'ATLANTIC_CANARY',
+  AtlanticCapeVerde = 'ATLANTIC_CAPE_VERDE',
+  AtlanticFaeroe = 'ATLANTIC_FAEROE',
+  AtlanticMadeira = 'ATLANTIC_MADEIRA',
+  AtlanticReykjavik = 'ATLANTIC_REYKJAVIK',
+  AtlanticSouthGeorgia = 'ATLANTIC_SOUTH_GEORGIA',
+  AtlanticStanley = 'ATLANTIC_STANLEY',
+  AtlanticStHelena = 'ATLANTIC_ST_HELENA',
+  AustraliaAdelaide = 'AUSTRALIA_ADELAIDE',
+  AustraliaBrisbane = 'AUSTRALIA_BRISBANE',
+  AustraliaBrokenHill = 'AUSTRALIA_BROKEN_HILL',
+  AustraliaCurrie = 'AUSTRALIA_CURRIE',
+  AustraliaDarwin = 'AUSTRALIA_DARWIN',
+  AustraliaEucla = 'AUSTRALIA_EUCLA',
+  AustraliaHobart = 'AUSTRALIA_HOBART',
+  AustraliaLindeman = 'AUSTRALIA_LINDEMAN',
+  AustraliaLordHowe = 'AUSTRALIA_LORD_HOWE',
+  AustraliaMelbourne = 'AUSTRALIA_MELBOURNE',
+  AustraliaPerth = 'AUSTRALIA_PERTH',
+  AustraliaSydney = 'AUSTRALIA_SYDNEY',
+  EuropeAmsterdam = 'EUROPE_AMSTERDAM',
+  EuropeAndorra = 'EUROPE_ANDORRA',
+  EuropeAstrakhan = 'EUROPE_ASTRAKHAN',
+  EuropeAthens = 'EUROPE_ATHENS',
+  EuropeBelgrade = 'EUROPE_BELGRADE',
+  EuropeBerlin = 'EUROPE_BERLIN',
+  EuropeBratislava = 'EUROPE_BRATISLAVA',
+  EuropeBrussels = 'EUROPE_BRUSSELS',
+  EuropeBucharest = 'EUROPE_BUCHAREST',
+  EuropeBudapest = 'EUROPE_BUDAPEST',
+  EuropeBusingen = 'EUROPE_BUSINGEN',
+  EuropeChisinau = 'EUROPE_CHISINAU',
+  EuropeCopenhagen = 'EUROPE_COPENHAGEN',
+  EuropeDublin = 'EUROPE_DUBLIN',
+  EuropeGibraltar = 'EUROPE_GIBRALTAR',
+  EuropeGuernsey = 'EUROPE_GUERNSEY',
+  EuropeHelsinki = 'EUROPE_HELSINKI',
+  EuropeIsleOfMan = 'EUROPE_ISLE_OF_MAN',
+  EuropeIstanbul = 'EUROPE_ISTANBUL',
+  EuropeJersey = 'EUROPE_JERSEY',
+  EuropeKaliningrad = 'EUROPE_KALININGRAD',
+  EuropeKiev = 'EUROPE_KIEV',
+  EuropeKirov = 'EUROPE_KIROV',
+  EuropeLisbon = 'EUROPE_LISBON',
+  EuropeLjubljana = 'EUROPE_LJUBLJANA',
+  EuropeLondon = 'EUROPE_LONDON',
+  EuropeLuxembourg = 'EUROPE_LUXEMBOURG',
+  EuropeMadrid = 'EUROPE_MADRID',
+  EuropeMalta = 'EUROPE_MALTA',
+  EuropeMariehamn = 'EUROPE_MARIEHAMN',
+  EuropeMinsk = 'EUROPE_MINSK',
+  EuropeMonaco = 'EUROPE_MONACO',
+  EuropeMoscow = 'EUROPE_MOSCOW',
+  EuropeOslo = 'EUROPE_OSLO',
+  EuropeParis = 'EUROPE_PARIS',
+  EuropePodgorica = 'EUROPE_PODGORICA',
+  EuropePrague = 'EUROPE_PRAGUE',
+  EuropeRiga = 'EUROPE_RIGA',
+  EuropeRome = 'EUROPE_ROME',
+  EuropeSamara = 'EUROPE_SAMARA',
+  EuropeSanMarino = 'EUROPE_SAN_MARINO',
+  EuropeSarajevo = 'EUROPE_SARAJEVO',
+  EuropeSaratov = 'EUROPE_SARATOV',
+  EuropeSimferopol = 'EUROPE_SIMFEROPOL',
+  EuropeSkopje = 'EUROPE_SKOPJE',
+  EuropeSofia = 'EUROPE_SOFIA',
+  EuropeStockholm = 'EUROPE_STOCKHOLM',
+  EuropeTallinn = 'EUROPE_TALLINN',
+  EuropeTirane = 'EUROPE_TIRANE',
+  EuropeUlyanovsk = 'EUROPE_ULYANOVSK',
+  EuropeUzhgorod = 'EUROPE_UZHGOROD',
+  EuropeVaduz = 'EUROPE_VADUZ',
+  EuropeVatican = 'EUROPE_VATICAN',
+  EuropeVienna = 'EUROPE_VIENNA',
+  EuropeVilnius = 'EUROPE_VILNIUS',
+  EuropeVolgograd = 'EUROPE_VOLGOGRAD',
+  EuropeWarsaw = 'EUROPE_WARSAW',
+  EuropeZagreb = 'EUROPE_ZAGREB',
+  EuropeZaporozhye = 'EUROPE_ZAPOROZHYE',
+  EuropeZurich = 'EUROPE_ZURICH',
+  IndianAntananarivo = 'INDIAN_ANTANANARIVO',
+  IndianChagos = 'INDIAN_CHAGOS',
+  IndianChristmas = 'INDIAN_CHRISTMAS',
+  IndianCocos = 'INDIAN_COCOS',
+  IndianComoro = 'INDIAN_COMORO',
+  IndianKerguelen = 'INDIAN_KERGUELEN',
+  IndianMahe = 'INDIAN_MAHE',
+  IndianMaldives = 'INDIAN_MALDIVES',
+  IndianMauritius = 'INDIAN_MAURITIUS',
+  IndianMayotte = 'INDIAN_MAYOTTE',
+  IndianReunion = 'INDIAN_REUNION',
+  PacificApia = 'PACIFIC_APIA',
+  PacificAuckland = 'PACIFIC_AUCKLAND',
+  PacificBougainville = 'PACIFIC_BOUGAINVILLE',
+  PacificChatham = 'PACIFIC_CHATHAM',
+  PacificEaster = 'PACIFIC_EASTER',
+  PacificEfate = 'PACIFIC_EFATE',
+  PacificEnderbury = 'PACIFIC_ENDERBURY',
+  PacificFakaofo = 'PACIFIC_FAKAOFO',
+  PacificFiji = 'PACIFIC_FIJI',
+  PacificFunafuti = 'PACIFIC_FUNAFUTI',
+  PacificGalapagos = 'PACIFIC_GALAPAGOS',
+  PacificGambier = 'PACIFIC_GAMBIER',
+  PacificGuadalcanal = 'PACIFIC_GUADALCANAL',
+  PacificGuam = 'PACIFIC_GUAM',
+  PacificHonolulu = 'PACIFIC_HONOLULU',
+  PacificJohnston = 'PACIFIC_JOHNSTON',
+  PacificKiritimati = 'PACIFIC_KIRITIMATI',
+  PacificKosrae = 'PACIFIC_KOSRAE',
+  PacificKwajalein = 'PACIFIC_KWAJALEIN',
+  PacificMajuro = 'PACIFIC_MAJURO',
+  PacificMarquesas = 'PACIFIC_MARQUESAS',
+  PacificMidway = 'PACIFIC_MIDWAY',
+  PacificNauru = 'PACIFIC_NAURU',
+  PacificNiue = 'PACIFIC_NIUE',
+  PacificNorfolk = 'PACIFIC_NORFOLK',
+  PacificNoumea = 'PACIFIC_NOUMEA',
+  PacificPagoPago = 'PACIFIC_PAGO_PAGO',
+  PacificPalau = 'PACIFIC_PALAU',
+  PacificPitcairn = 'PACIFIC_PITCAIRN',
+  PacificPonape = 'PACIFIC_PONAPE',
+  PacificPortMoresby = 'PACIFIC_PORT_MORESBY',
+  PacificRarotonga = 'PACIFIC_RAROTONGA',
+  PacificSaipan = 'PACIFIC_SAIPAN',
+  PacificTahiti = 'PACIFIC_TAHITI',
+  PacificTarawa = 'PACIFIC_TARAWA',
+  PacificTongatapu = 'PACIFIC_TONGATAPU',
+  PacificTruk = 'PACIFIC_TRUK',
+  PacificWake = 'PACIFIC_WAKE',
+  PacificWallis = 'PACIFIC_WALLIS'
+}
+
 export type TippingAccountAction = {
   __typename?: 'TippingAccountAction';
   address: Scalars['EvmAddress']['output'];
@@ -5958,16 +6038,16 @@ export type UnhideReplyRequest = {
   post: Scalars['PostId']['input'];
 };
 
-export type UnknownAccountRuleConfig = {
-  address: Scalars['EvmAddress']['input'];
-  params?: InputMaybe<Array<AnyKeyValueInput>>;
-};
-
-export type UnknownAction = {
-  __typename?: 'UnknownAction';
+export type UnknownAccountAction = {
+  __typename?: 'UnknownAccountAction';
   address: Scalars['EvmAddress']['output'];
   config: Array<RawKeyValue>;
   metadata?: Maybe<ActionMetadata>;
+};
+
+export type UnknownAccountRuleConfig = {
+  address: Scalars['EvmAddress']['input'];
+  params?: InputMaybe<Array<AnyKeyValueInput>>;
 };
 
 export type UnknownActionConfigInput = {
@@ -5977,7 +6057,7 @@ export type UnknownActionConfigInput = {
 
 export type UnknownActionExecuteInput = {
   address: Scalars['EvmAddress']['input'];
-  params: Array<RawKeyValueInput>;
+  params?: Array<RawKeyValueInput>;
 };
 
 export type UnknownFeedRuleConfig = {
@@ -6002,6 +6082,13 @@ export type UnknownNamespaceRuleConfig = {
   address: Scalars['EvmAddress']['input'];
   executeOn: Array<NamespaceRuleExecuteOn>;
   params?: InputMaybe<Array<AnyKeyValueInput>>;
+};
+
+export type UnknownPostAction = {
+  __typename?: 'UnknownPostAction';
+  address: Scalars['EvmAddress']['output'];
+  config: Array<RawKeyValue>;
+  metadata?: Maybe<ActionMetadata>;
 };
 
 export type UnknownPostActionContract = {
@@ -6286,6 +6373,10 @@ export type WhoReferencedPostRequest = {
   referenceTypes: Array<PostReferenceType>;
 };
 
+export type WidthBasedTransform = {
+  width: Scalars['Int']['input'];
+};
+
 export type WrongSignerError = {
   __typename?: 'WrongSignerError';
   reason: Scalars['String']['output'];
@@ -6524,12 +6615,12 @@ type PostAction_SimpleCollectAction_Fragment = (
   & SimpleCollectActionFragment
 );
 
-type PostAction_UnknownAction_Fragment = (
-  { __typename?: 'UnknownAction' }
-  & UnknownActionFragment
+type PostAction_UnknownPostAction_Fragment = (
+  { __typename?: 'UnknownPostAction' }
+  & UnknownPostActionFragment
 );
 
-export type PostActionFragment = PostAction_SimpleCollectAction_Fragment | PostAction_UnknownAction_Fragment;
+export type PostActionFragment = PostAction_SimpleCollectAction_Fragment | PostAction_UnknownPostAction_Fragment;
 
 export type PostFeedInfoFragment = { __typename?: 'PostFeedInfo', group?: (
     { __typename?: 'PostGroupInfo' }
@@ -6689,7 +6780,7 @@ export type ReferencedPostFragment = { __typename?: 'Post', id: any, isDeleted: 
   ), operations?: (
     { __typename?: 'LoggedInPostOperations' }
     & LoggedInPostOperationsFragment
-  ) | null, actions: Array<{ __typename: 'SimpleCollectAction' } | { __typename: 'UnknownAction' }>, mentions: Array<(
+  ) | null, actions: Array<{ __typename: 'SimpleCollectAction' } | { __typename: 'UnknownPostAction' }>, mentions: Array<(
     { __typename?: 'AccountMention' }
     & PostMention_AccountMention_Fragment
   ) | (
@@ -6710,7 +6801,7 @@ export type SimpleCollectActionFragment = { __typename?: 'SimpleCollectAction', 
     & Erc20AmountFragment
   ) | null };
 
-export type UnknownActionFragment = { __typename: 'UnknownAction' };
+export type UnknownPostActionFragment = { __typename: 'UnknownPostAction' };
 
 export type ArticleMetadataFragment = { __typename?: 'ArticleMetadata', id: any, content: string, tags?: Array<any> | null, attributes: Array<(
     { __typename?: 'MetadataAttribute' }
@@ -7816,14 +7907,14 @@ export type CollectActionQuery = { __typename?: 'Query', post?: { __typename?: '
       { __typename?: 'SimpleCollectAction' }
       & PostAction_SimpleCollectAction_Fragment
     ) | (
-      { __typename?: 'UnknownAction' }
-      & PostAction_UnknownAction_Fragment
+      { __typename?: 'UnknownPostAction' }
+      & PostAction_UnknownPostAction_Fragment
     )> } | { __typename?: 'Repost', repostOf: { __typename?: 'Post', actions: Array<(
         { __typename?: 'SimpleCollectAction' }
         & PostAction_SimpleCollectAction_Fragment
       ) | (
-        { __typename?: 'UnknownAction' }
-        & PostAction_UnknownAction_Fragment
+        { __typename?: 'UnknownPostAction' }
+        & PostAction_UnknownPostAction_Fragment
       )> } } | null };
 
 export type FeedQueryVariables = Exact<{
@@ -8001,8 +8092,8 @@ export const AnyPostFragmentDoc = {"kind":"Document","definitions":[{"kind":"Fra
 export const Erc20FragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]} as unknown as DocumentNode;
 export const Erc20AmountFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]} as unknown as DocumentNode;
 export const SimpleCollectActionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SimpleCollectAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"referralShare"}},{"kind":"Field","name":{"kind":"Name","value":"collectLimit"}},{"kind":"Field","name":{"kind":"Name","value":"endsAt"}},{"kind":"Field","name":{"kind":"Name","value":"recipients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}}]}},{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
-export const UnknownActionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode;
-export const PostActionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SimpleCollectAction"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UnknownAction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SimpleCollectAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"referralShare"}},{"kind":"Field","name":{"kind":"Name","value":"collectLimit"}},{"kind":"Field","name":{"kind":"Name","value":"endsAt"}},{"kind":"Field","name":{"kind":"Name","value":"recipients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}}]}},{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode;
+export const UnknownPostActionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownPostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode;
+export const PostActionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SimpleCollectAction"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UnknownPostAction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SimpleCollectAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"referralShare"}},{"kind":"Field","name":{"kind":"Name","value":"collectLimit"}},{"kind":"Field","name":{"kind":"Name","value":"endsAt"}},{"kind":"Field","name":{"kind":"Name","value":"recipients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}}]}},{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownPostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode;
 export const SelfFundedTransactionRequestFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequest"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]} as unknown as DocumentNode;
 export const SponsoredTransactionRequestFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequest"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
 export const TransactionWillFailFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"TransactionWillFail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TransactionWillFail"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}}]}}]} as unknown as DocumentNode;
@@ -8702,7 +8793,7 @@ export function useMlPostsForYouSuspenseQuery(baseOptions?: Apollo.SkipToken | A
 export type MlPostsForYouQueryHookResult = ReturnType<typeof useMlPostsForYouQuery>;
 export type MlPostsForYouLazyQueryHookResult = ReturnType<typeof useMlPostsForYouLazyQuery>;
 export type MlPostsForYouSuspenseQueryHookResult = ReturnType<typeof useMlPostsForYouSuspenseQuery>;
-export const CollectActionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CollectAction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PostRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"actions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PostAction"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Repost"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"repostOf"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"actions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PostAction"}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SimpleCollectAction"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UnknownAction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SimpleCollectAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"referralShare"}},{"kind":"Field","name":{"kind":"Name","value":"collectLimit"}},{"kind":"Field","name":{"kind":"Name","value":"endsAt"}},{"kind":"Field","name":{"kind":"Name","value":"recipients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}}]}},{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode;
+export const CollectActionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CollectAction"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PostRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"actions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PostAction"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Repost"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"repostOf"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"actions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PostAction"}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"chainId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SimpleCollectAction"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UnknownPostAction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SimpleCollectAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"referralShare"}},{"kind":"Field","name":{"kind":"Name","value":"collectLimit"}},{"kind":"Field","name":{"kind":"Name","value":"endsAt"}},{"kind":"Field","name":{"kind":"Name","value":"recipients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}}]}},{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownPostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode;
 export function useCollectActionQuery(baseOptions: Apollo.QueryHookOptions<CollectActionQuery, CollectActionQueryVariables> & ({ variables: CollectActionQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CollectActionQuery, CollectActionQueryVariables>(CollectActionDocument, options);

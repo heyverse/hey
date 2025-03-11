@@ -2,7 +2,7 @@ fragment PostAction on PostAction {
   ... on SimpleCollectAction {
     ...SimpleCollectAction
   }
-  ... on UnknownAction {
-    ...UnknownAction
+  ... on UnknownPostAction {
+    ...UnknownPostAction
   }
 }
