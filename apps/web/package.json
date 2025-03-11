@@ -10,7 +10,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.13.3",
+    "@apollo/client": "^3.13.4",
     "@aws-sdk/client-s3": "^3.758.0",
     "@aws-sdk/lib-storage": "^3.758.0",
     "@headlessui/react": "2.2.0",
@@ -64,7 +64,7 @@
     "use-resize-observer": "^9.1.0",
     "uuid": "^11.1.0",
     "viem": "^2.23.9",
-    "wagmi": "^2.14.12",
+    "wagmi": "^2.14.13",
     "zod": "^3.24.2",
     "zustand": "5.0.3"
   },
