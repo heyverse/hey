@@ -1,6 +1,7 @@
 fragment ArticleMetadata on ArticleMetadata {
   id
   content
+  contentWarning
   tags
   attributes {
     ...MetadataAttribute

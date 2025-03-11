@@ -1,6 +1,7 @@
 fragment EmbedMetadata on EmbedMetadata {
   id
   content
+  contentWarning
   tags
   attributes {
     ...MetadataAttribute

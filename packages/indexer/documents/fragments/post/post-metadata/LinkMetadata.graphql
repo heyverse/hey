@@ -1,6 +1,7 @@
 fragment LinkMetadata on LinkMetadata {
   id
   content
+  contentWarning
   sharingLink
   tags
   attributes {

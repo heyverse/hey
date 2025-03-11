@@ -2,6 +2,7 @@ fragment AudioMetadata on AudioMetadata {
   id
   title
   content
+  contentWarning
   tags
   attributes {
     ...MetadataAttribute

@@ -1,6 +1,7 @@
 fragment CheckingInMetadata on CheckingInMetadata {
   id
   content
+  contentWarning
   tags
   location
   position

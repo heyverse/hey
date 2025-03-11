@@ -1,6 +1,7 @@
 fragment ImageMetadata on ImageMetadata {
   id
   content
+  contentWarning
   tags
   attributes {
     ...MetadataAttribute

@@ -1,6 +1,7 @@
 fragment MintMetadata on MintMetadata {
   id
   content
+  contentWarning
   tags
   attributes {
     ...MetadataAttribute

@@ -3,6 +3,7 @@ fragment LivestreamMetadata on LivestreamMetadata {
   playbackUrl
   liveUrl
   content
+  contentWarning
   tags
   attributes {
     ...MetadataAttribute
