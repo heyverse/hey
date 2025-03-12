@@ -19,7 +19,7 @@ const config = createConfig(
     transports: {
       // TODO: Make this support mainnet also
       [chains.testnet.id]: getRpc({ mainnet: false }),
-      [chains.testnet.id]: getRpc({ mainnet: true })
+      [chains.testnet.id]: getRpc({ mainnet: false })
     },
     walletConnectProjectId: WALLETCONNECT_PROJECT_ID,
     appName: APP_NAME,
