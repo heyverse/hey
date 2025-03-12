@@ -1,7 +1,13 @@
 import MetaTags from "@components/Common/MetaTags";
 import NotLoggedIn from "@components/Shared/NotLoggedIn";
 import { APP_NAME } from "@hey/data/constants";
-import { GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
+import {
+  Card,
+  CardHeader,
+  GridItemEight,
+  GridItemFour,
+  GridLayout
+} from "@hey/ui";
 import type { NextPage } from "next";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
@@ -21,7 +27,13 @@ const FundsSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Balances />
+        <Card>
+          <CardHeader
+            title="Manage account balances"
+            body="Withdraw or deposit funds from your account."
+          />
+          <Balances />
+        </Card>
       </GridItemEight>
     </GridLayout>
   );

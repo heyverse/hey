@@ -1,10 +1,11 @@
+import Loader from "@components/Shared/Loader";
 import trackEvent from "@helpers/analytics";
 import errorToast from "@helpers/errorToast";
 import { Events } from "@hey/data/events";
 import { tokens } from "@hey/data/tokens";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import { useAccountBalancesQuery, useWithdrawMutation } from "@hey/indexer";
-import { Button, Card, CardHeader, Image } from "@hey/ui";
+import { Button, ErrorMessage, Image } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import usePollTransactionStatus from "src/hooks/usePollTransactionStatus";
@@ -16,7 +17,7 @@ const Balances: FC = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
-  const { data, refetch } = useAccountBalancesQuery({
+  const { data, loading, error, refetch } = useAccountBalancesQuery({
     variables: {
       request: {
         includeNative: true,
@@ -94,26 +95,37 @@ const Balances: FC = () => {
     );
   };
 
+  if (loading) {
+    return <Loader className="my-10" />;
+  }
+
+  if (error) {
+    return (
+      <ErrorMessage
+        className="m-5"
+        error={error}
+        title="Failed to load balances"
+      />
+    );
+  }
+
   return (
-    <Card>
-      <CardHeader title="Manage account balances" />
-      <div className="m-5 space-y-7">
-        {data?.accountBalances.map((balance, index) => (
-          <div key={index}>
-            {balance.__typename === "NativeAmount" && (
-              <TokenBalance value={balance.value} symbol={"GRASS"} />
-            )}
-            {balance.__typename === "Erc20Amount" && (
-              <TokenBalance
-                value={balance.value}
-                symbol={balance.asset.symbol}
-                currency={balance.asset.contract.address}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-    </Card>
+    <div className="m-5 space-y-7">
+      {data?.accountBalances.map((balance, index) => (
+        <div key={index}>
+          {balance.__typename === "NativeAmount" && (
+            <TokenBalance value={balance.value} symbol={"GRASS"} />
+          )}
+          {balance.__typename === "Erc20Amount" && (
+            <TokenBalance
+              value={balance.value}
+              symbol={balance.asset.symbol}
+              currency={balance.asset.contract.address}
+            />
+          )}
+        </div>
+      ))}
+    </div>
   );
 };
 
