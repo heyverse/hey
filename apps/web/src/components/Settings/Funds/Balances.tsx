@@ -15,7 +15,7 @@ const Balances: FC = () => {
 
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const { data, refetch } = useAccountBalancesQuery({
+  const { data } = useAccountBalancesQuery({
     variables: {
       request: {
         includeNative: true,
@@ -27,9 +27,8 @@ const Balances: FC = () => {
 
   const onCompleted = () => {
     setIsSubmitting(false);
-    refetch();
     trackEvent(Events.Account.WithdrawFunds);
-    toast.success("Withdrawal successful");
+    toast.success("Withdrawal Initiated");
   };
 
   const onError = (error: any) => {
@@ -81,7 +80,7 @@ const Balances: FC = () => {
         <Button
           size="sm"
           outline
-          onClick={() => handleWithdraw(currency, "1")}
+          onClick={() => handleWithdraw(currency, "0.01")}
           disabled={isSubmitting}
         >
           Withdraw
