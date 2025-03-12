@@ -8,7 +8,11 @@ import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import trimify from "@hey/helpers/trimify";
-import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
+import {
+  useMeLazyQuery,
+  useSetAccountMetadataMutation,
+  useTransactionStatusLazyQuery
+} from "@hey/indexer";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import type {
   AccountOptions,
@@ -55,17 +59,32 @@ const AccountSettingsForm: FC = () => {
     currentAccount?.metadata?.coverPicture
   );
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const [getTransactionStatus] = useTransactionStatusLazyQuery({
+    fetchPolicy: "no-cache"
+  });
   const [getCurrentAccountDetails] = useMeLazyQuery({
     fetchPolicy: "no-cache"
   });
 
-  const onCompleted = () => {
-    getCurrentAccountDetails().then(({ data }) => {
-      setCurrentAccount(data?.me.loggedInAs.account);
+  const pollTransactionStatus = async (hash: string) => {
+    const { data } = await getTransactionStatus({
+      variables: { request: { txHash: hash } }
     });
-    setIsSubmitting(false);
-    trackEvent(Events.Account.UpdateSettings, { type: "set_metadata" });
-    toast.success("Account updated");
+
+    if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
+      getCurrentAccountDetails().then(({ data }) => {
+        setCurrentAccount(data?.me.loggedInAs.account);
+        setIsSubmitting(false);
+        trackEvent(Events.Account.UpdateSettings, { type: "set_metadata" });
+        toast.success("Account updated");
+      });
+    } else {
+      setTimeout(() => pollTransactionStatus(hash), 1000);
+    }
+  };
+
+  const onCompleted = (hash: string) => {
+    pollTransactionStatus(hash);
   };
 
   const onError = (error: any) => {
@@ -76,7 +95,7 @@ const AccountSettingsForm: FC = () => {
   const [setAccountMetadata] = useSetAccountMetadataMutation({
     onCompleted: async ({ setAccountMetadata }) => {
       if (setAccountMetadata.__typename === "SetAccountMetadataResponse") {
-        return onCompleted();
+        return onCompleted(setAccountMetadata.hash);
       }
 
       return await handleTransactionLifecycle({

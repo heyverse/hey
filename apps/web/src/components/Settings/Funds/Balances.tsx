@@ -3,7 +3,11 @@ import errorToast from "@helpers/errorToast";
 import { Events } from "@hey/data/events";
 import { tokens } from "@hey/data/tokens";
 import getTokenImage from "@hey/helpers/getTokenImage";
-import { useAccountBalancesQuery, useWithdrawMutation } from "@hey/indexer";
+import {
+  useAccountBalancesQuery,
+  useTransactionStatusLazyQuery,
+  useWithdrawMutation
+} from "@hey/indexer";
 import { Button, Card, CardHeader, Image } from "@hey/ui";
 import { type FC, useState } from "react";
 import toast from "react-hot-toast";
@@ -12,10 +16,12 @@ import type { Address } from "viem";
 
 const Balances: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const [getTransactionStatus] = useTransactionStatusLazyQuery({
+    fetchPolicy: "no-cache"
+  });
 
-  const { data } = useAccountBalancesQuery({
+  const { data, refetch } = useAccountBalancesQuery({
     variables: {
       request: {
         includeNative: true,
@@ -25,10 +31,24 @@ const Balances: FC = () => {
     pollInterval: 5000
   });
 
-  const onCompleted = () => {
+  const pollTransactionStatus = async (hash: string) => {
+    const { data } = await getTransactionStatus({
+      variables: { request: { txHash: hash } }
+    });
+
+    if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
+      refetch();
+      toast.success("Withdrawal Successful");
+    } else {
+      setTimeout(() => pollTransactionStatus(hash), 1000);
+    }
+  };
+
+  const onCompleted = (hash: string) => {
     setIsSubmitting(false);
     trackEvent(Events.Account.WithdrawFunds);
     toast.success("Withdrawal Initiated");
+    pollTransactionStatus(hash);
   };
 
   const onError = (error: any) => {
