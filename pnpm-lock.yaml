@@ -147,9 +147,9 @@ importers:
       '@hey/helpers':
         specifier: workspace:*
         version: link:../../packages/helpers
-      '@lens-network/sdk':
-        specifier: 0.0.0-canary-20241203140504
-        version: 0.0.0-canary-20241203140504(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zksync-ethers@6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)))
+      '@lens-chain/sdk':
+        specifier: canary
+        version: 0.0.0-canary-20250304124140(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zksync-ethers@6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)))
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
@@ -245,12 +245,12 @@ importers:
       '@hey/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@lens-chain/sdk':
+        specifier: canary
+        version: 0.0.0-canary-20250304124140(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zksync-ethers@6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)))
       '@lens-chain/storage-client':
         specifier: ^1.0.3
         version: 1.0.3
-      '@lens-network/sdk':
-        specifier: canary
-        version: 0.0.0-canary-20241203140504(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zksync-ethers@6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)))
       '@lens-protocol/metadata':
         specifier: next
         version: 2.0.0-next.7(typescript@5.8.2)(zod@3.24.2)
@@ -2091,11 +2091,8 @@ packages:
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
 
-  '@lens-chain/storage-client@1.0.3':
-    resolution: {integrity: sha512-ZyyTUITuj4lbTB2t118CSA8fSgpzRI4pwSJWNpnKX3crHJtwqBMsdwYcR4ZSnW+guwrqDdKDLcQMAhpTLU81Vg==}
-
-  '@lens-network/sdk@0.0.0-canary-20241203140504':
-    resolution: {integrity: sha512-w5mNEXQTP0pSkCq6b8sgM2/87dad1gFTP7hbaDxy4lXnM1fBrVA5OzxWRfCIJJY8/NGdw4RYhEzJoXf4IRR97w==}
+  '@lens-chain/sdk@0.0.0-canary-20250304124140':
+    resolution: {integrity: sha512-qVhqFSgW6hxXnOLzg93dhgmvNSlqGJqtg3ltQEhq/zvegpkgAKx1zNNeLZtXEy03ioOMaxJ7YQtVdtuZ2ksCRw==}
     engines: {node: '>=18', pnpm: '>=9.1.2'}
     peerDependencies:
       ethers: ^6.12.1
@@ -2108,6 +2105,9 @@ packages:
         optional: true
       zksync-ethers:
         optional: true
+
+  '@lens-chain/storage-client@1.0.3':
+    resolution: {integrity: sha512-ZyyTUITuj4lbTB2t118CSA8fSgpzRI4pwSJWNpnKX3crHJtwqBMsdwYcR4ZSnW+guwrqDdKDLcQMAhpTLU81Vg==}
 
   '@lens-protocol/metadata@2.0.0-next.7':
     resolution: {integrity: sha512-N3d/ISxJUV82Zlo+aJmcsfDu3oCerSmmyPpHKecthy2lcl9xADgG5oxFOdKaerRcEVz16u+AbC4/txGo6rXwyA==}
@@ -11118,13 +11118,13 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@lens-chain/storage-client@1.0.3': {}
-
-  '@lens-network/sdk@0.0.0-canary-20241203140504(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zksync-ethers@6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)))':
+  '@lens-chain/sdk@0.0.0-canary-20250304124140(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(zksync-ethers@6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)))':
     optionalDependencies:
       ethers: 6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       viem: 2.23.10(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
       zksync-ethers: 6.16.1(ethers@6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10))
+
+  '@lens-chain/storage-client@1.0.3': {}
 
   '@lens-protocol/metadata@2.0.0-next.7(typescript@5.8.2)(zod@3.24.2)':
     dependencies:

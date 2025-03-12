@@ -22,7 +22,7 @@
     "@hey/indexer": "workspace:*",
     "@hey/ui": "workspace:*",
     "@lens-chain/storage-client": "^1.0.3",
-    "@lens-network/sdk": "canary",
+    "@lens-chain/sdk": "canary",
     "@lens-protocol/metadata": "next",
     "@livepeer/react": "^4.2.10",
     "@next/bundle-analyzer": "^15.2.2",

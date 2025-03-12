@@ -8,7 +8,7 @@ import {
   WALLETCONNECT_PROJECT_ID
 } from "@hey/data/constants";
 import getRpc from "@hey/helpers/getRpc";
-import { chains } from "@lens-network/sdk/viem";
+import { chains } from "@lens-chain/sdk/viem";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import type { FC, ReactNode } from "react";
 import { WagmiProvider, createConfig } from "wagmi";
