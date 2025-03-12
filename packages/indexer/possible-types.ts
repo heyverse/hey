@@ -534,6 +534,12 @@ const result: PossibleTypesResultData = {
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
+    ],
+    WithdrawResult: [
+      "InsufficientFunds",
+      "SelfFundedTransactionRequest",
+      "SponsoredTransactionRequest",
+      "TransactionWillFail"
     ]
   }
 };

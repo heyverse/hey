@@ -2153,6 +2153,11 @@ export enum IndexingStatus {
   Pending = 'PENDING'
 }
 
+export type InsufficientFunds = {
+  __typename?: 'InsufficientFunds';
+  reason: Scalars['String']['output'];
+};
+
 export type IntKeyValue = {
   __typename?: 'IntKeyValue';
   int: Scalars['Int']['output'];
@@ -2748,6 +2753,7 @@ export type Mutation = {
   updateSponsorshipExclusionList: UpdateSponsorshipExclusionListResult;
   updateSponsorshipLimits: UpdateSponsorshipLimitsResult;
   updateSponsorshipSigners: UpdateSponsorshipSignersResult;
+  withdraw: WithdrawResult;
 };
 
 
@@ -3263,6 +3269,11 @@ export type MutationUpdateSponsorshipLimitsArgs = {
 
 export type MutationUpdateSponsorshipSignersArgs = {
   request: UpdateSponsorshipSignersRequest;
+};
+
+
+export type MutationWithdrawArgs = {
+  request: WithdrawRequest;
 };
 
 export type MuteRequest = {
@@ -6376,6 +6387,13 @@ export type WhoReferencedPostRequest = {
 export type WidthBasedTransform = {
   width: Scalars['Int']['input'];
 };
+
+export type WithdrawRequest = {
+  erc20?: InputMaybe<AmountInput>;
+  native?: InputMaybe<Scalars['BigDecimal']['input']>;
+};
+
+export type WithdrawResult = InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type WrongSignerError = {
   __typename?: 'WrongSignerError';
