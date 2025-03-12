@@ -8,11 +8,7 @@ import { Events } from "@hey/data/events";
 import { Regex } from "@hey/data/regex";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import trimify from "@hey/helpers/trimify";
-import {
-  useMeLazyQuery,
-  useSetAccountMetadataMutation,
-  useTransactionStatusLazyQuery
-} from "@hey/indexer";
+import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
 import { Button, Card, Form, Input, TextArea, useZodForm } from "@hey/ui";
 import type {
   AccountOptions,
@@ -25,6 +21,7 @@ import {
 import type { FC } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import usePollTransactionStatus from "src/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -59,32 +56,19 @@ const AccountSettingsForm: FC = () => {
     currentAccount?.metadata?.coverPicture
   );
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const [getTransactionStatus] = useTransactionStatusLazyQuery({
-    fetchPolicy: "no-cache"
-  });
+  const pollTransactionStatus = usePollTransactionStatus();
   const [getCurrentAccountDetails] = useMeLazyQuery({
     fetchPolicy: "no-cache"
   });
 
-  const pollTransactionStatus = async (hash: string) => {
-    const { data } = await getTransactionStatus({
-      variables: { request: { txHash: hash } }
-    });
-
-    if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
-      getCurrentAccountDetails().then(({ data }) => {
-        setCurrentAccount(data?.me.loggedInAs.account);
-        setIsSubmitting(false);
-        trackEvent(Events.Account.UpdateSettings, { type: "set_metadata" });
-        toast.success("Account updated");
-      });
-    } else {
-      setTimeout(() => pollTransactionStatus(hash), 1000);
-    }
-  };
-
   const onCompleted = (hash: string) => {
-    pollTransactionStatus(hash);
+    pollTransactionStatus(hash, async () => {
+      const accountData = await getCurrentAccountDetails();
+      setCurrentAccount(accountData?.data?.me.loggedInAs.account);
+      setIsSubmitting(false);
+      trackEvent(Events.Account.UpdateSettings, { type: "set_metadata" });
+      toast.success("Account updated");
+    });
   };
 
   const onError = (error: any) => {

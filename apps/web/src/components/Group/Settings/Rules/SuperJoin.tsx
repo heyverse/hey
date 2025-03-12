@@ -8,13 +8,13 @@ import {
   type GroupFragment,
   GroupRuleType,
   type GroupRules,
-  useTransactionStatusLazyQuery,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
 import { useRouter } from "next/router";
 import { type FC, type RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import usePollTransactionStatus from "src/hooks/usePollTransactionStatus";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
@@ -29,11 +29,9 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const pollTransactionStatus = usePollTransactionStatus();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
-  const [getTransactionStatus] = useTransactionStatusLazyQuery({
-    fetchPolicy: "no-cache"
-  });
 
   const simplePaymentRule = [
     ...group.rules.required,
@@ -47,21 +45,11 @@ const SuperJoin: FC<SuperJoinProps> = ({ group }) => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
-  const pollTransactionStatus = async (hash: string) => {
-    const { data } = await getTransactionStatus({
-      variables: { request: { txHash: hash } }
-    });
-
-    if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
-      reload();
-    } else {
-      setTimeout(() => pollTransactionStatus(hash), 1000);
-    }
-  };
-
   const onCompleted = (hash: string) => {
     trackEvent(Events.Group.UpdateSettings, { type: "simple_payment_rule" });
-    pollTransactionStatus(hash);
+    pollTransactionStatus(hash, () => {
+      reload();
+    });
   };
 
   const onError = (error: any) => {

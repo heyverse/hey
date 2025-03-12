@@ -9,13 +9,13 @@ import {
   type AccountFollowRules,
   type AccountFragment,
   useMeLazyQuery,
-  useTransactionStatusLazyQuery,
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
 import { Button, Card, CardHeader, Image, Input, Tooltip } from "@hey/ui";
 import { useRouter } from "next/router";
 import { type FC, type RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import usePollTransactionStatus from "src/hooks/usePollTransactionStatus";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
 import { useAccountStatus } from "src/store/non-persisted/useAccountStatus";
@@ -28,11 +28,9 @@ const SuperFollow: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const pollTransactionStatus = usePollTransactionStatus();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
-  const [getTransactionStatus] = useTransactionStatusLazyQuery({
-    fetchPolicy: "no-cache"
-  });
   const [getCurrentAccountDetails] = useMeLazyQuery({
     fetchPolicy: "no-cache"
   });
@@ -50,23 +48,13 @@ const SuperFollow: FC = () => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
-  const pollTransactionStatus = async (hash: string) => {
-    const { data } = await getTransactionStatus({
-      variables: { request: { txHash: hash } }
-    });
-
-    if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
+  const onCompleted = (hash: string) => {
+    trackEvent(Events.Account.UpdateSettings, { type: "simple_payment_rule" });
+    pollTransactionStatus(hash, async () => {
       const accountData = await getCurrentAccountDetails();
       setCurrentAccount(accountData?.data?.me.loggedInAs.account);
       reload();
-    } else {
-      setTimeout(() => pollTransactionStatus(hash), 1000);
-    }
-  };
-
-  const onCompleted = (hash: string) => {
-    trackEvent(Events.Account.UpdateSettings, { type: "simple_payment_rule" });
-    pollTransactionStatus(hash);
+    });
   };
 
   const onError = (error: any) => {
