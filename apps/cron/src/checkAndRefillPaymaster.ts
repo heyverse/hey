@@ -5,7 +5,7 @@ import formatDate from "@hey/helpers/datetime/formatDate";
 import getRpc from "@hey/helpers/getRpc";
 import logger from "@hey/helpers/logger";
 import sendBuzz from "@hey/helpers/sendBuzz";
-import { chains } from "@lens-network/sdk/viem";
+import { chains } from "@lens-chain/sdk/viem";
 import { createPublicClient, formatEther } from "viem";
 
 const checkAndRefillPaymaster = async () => {

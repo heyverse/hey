@@ -10,6 +10,7 @@ export const Events = {
     Mute: "mute_account",
     Unmute: "unmute_account",
     UpdateSettings: "update_account_settings",
+    FundAccount: "fund_account",
     WithdrawFunds: "withdraw_funds"
   },
   Post: {

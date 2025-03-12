@@ -14,7 +14,7 @@
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
-    "@lens-network/sdk": "0.0.0-canary-20241203140504",
+    "@lens-chain/sdk": "canary",
     "dotenv": "^16.4.7",
     "node-cron": "^3.0.3",
     "tsx": "^4.19.3",
