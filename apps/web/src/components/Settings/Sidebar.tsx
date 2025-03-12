@@ -4,6 +4,7 @@ import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
   CodeBracketIcon,
+  CreditCardIcon,
   ExclamationTriangleIcon,
   FingerPrintIcon,
   GlobeAltIcon,
@@ -28,6 +29,11 @@ const SettingsSidebar: FC = () => {
       icon: <UserIcon className="size-4" />,
       title: "Account",
       url: "/settings/account"
+    },
+    {
+      icon: <CreditCardIcon className="size-4" />,
+      title: "Funds",
+      url: "/settings/funds"
     },
     {
       icon: <AtSymbolIcon className="size-4" />,
