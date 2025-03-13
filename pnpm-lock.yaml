@@ -218,6 +218,9 @@ importers:
       '@aws-sdk/lib-storage':
         specifier: ^3.758.0
         version: 3.758.0(@aws-sdk/client-s3@3.758.0)
+      '@halliday-sdk/commerce':
+        specifier: ^3.2.2
+        version: 3.2.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@headlessui/react':
         specifier: 2.2.0
         version: 2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1925,6 +1928,9 @@ packages:
     resolution: {integrity: sha512-AiXO/bfe9bmxBjxxtYxFAXGZvMaN5s8kO+jBHAJCON8rJoB5YS/D6X7ZNc6XQkuHNmyl4CYaMI1fJ/Gn27RGGw==}
     engines: {node: '>=6'}
     hasBin: true
+
+  '@halliday-sdk/commerce@3.2.2':
+    resolution: {integrity: sha512-rStsuFrlShwUEzcbCgHHPccQOLWbAg1LppcOPHHhKWbBu3YDsRjTV/eeqhV5gqZzadu/rGe8M8nGywORWzv89w==}
 
   '@headlessui/react@2.2.0':
     resolution: {integrity: sha512-RzCEg+LXsuI7mHiSomsu/gBJSjpupm6A1qIZ5sWjd7JhARNlMiSA4kKfJpCKwU9tE+zMRterhhrP74PvfJrpXQ==}
@@ -10893,6 +10899,13 @@ snapshots:
       long: 5.3.1
       protobufjs: 7.4.0
       yargs: 17.7.2
+
+  '@halliday-sdk/commerce@3.2.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+    dependencies:
+      ethers: 6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
 
   '@headlessui/react@2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:

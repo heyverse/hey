@@ -1,3 +1,4 @@
+import { openHalliday } from "@halliday-sdk/commerce";
 import errorToast from "@helpers/errorToast";
 import { DEFAULT_COLLECT_TOKEN } from "@hey/data/constants";
 import { Button, Card, Input, Spinner } from "@hey/ui";
@@ -66,11 +67,11 @@ const Fund: FC<FundProps> = ({
 
   const onOtherAmount = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value as unknown as number;
-    setAmount(value);
+    setAmount(Number(value));
   };
 
   const handleSetAmount = (amount: number) => {
-    setAmount(amount);
+    setAmount(Number(amount));
     setOther(false);
   };
 
@@ -163,23 +164,47 @@ const Fund: FC<FundProps> = ({
             />
           </div>
         ) : null}
-        {isLoading || isWriting || isSending ? (
-          <Button
-            className="flex w-full justify-center"
-            disabled
-            icon={<Spinner className="my-1" size="xs" />}
-          />
-        ) : Number(walletBalance) < amount ? (
-          <Button disabled className="w-full">
-            <b>Insufficient balance</b>
-          </Button>
-        ) : (
-          <Button disabled={!amount} className="w-full" onClick={handleFund}>
-            <b>
+        <div className="flex space-x-2">
+          {isLoading || isWriting || isSending ? (
+            <Button
+              className="flex w-full justify-center"
+              disabled
+              icon={<Spinner className="my-1" size="xs" />}
+            />
+          ) : Number(walletBalance) < amount ? (
+            <Button disabled className="w-full">
+              Insufficient balance
+            </Button>
+          ) : (
+            <Button
+              disabled={amount === 0}
+              className="w-full"
+              onClick={handleFund}
+            >
               {isHeyTip ? "Tip" : "Purchase"} {amount} {symbol}
-            </b>
+            </Button>
+          )}
+          <Button
+            disabled={amount === 0}
+            className="w-full"
+            onClick={() => {
+              openHalliday({
+                apiKey: "0e3b7179-0be7-44f6-bac6-65323a8d2756",
+                destinationChainId: 1,
+                destinationAddress: recipient,
+                onrampInputAmount: amount.toString(),
+                authType: "SESSION_KEY",
+                destinationTokenAddress:
+                  "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+                onrampProviders: ["STRIPE"],
+                services: ["ONRAMP", "EXCHANGE", "SWAP"]
+              });
+            }}
+            outline
+          >
+            Use Card
           </Button>
-        )}
+        </div>
       </div>
     </Card>
   );
