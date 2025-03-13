@@ -66,11 +66,11 @@ const Fund: FC<FundProps> = ({
 
   const onOtherAmount = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value as unknown as number;
-    setAmount(value);
+    setAmount(Number(value));
   };
 
   const handleSetAmount = (amount: number) => {
-    setAmount(amount);
+    setAmount(Number(amount));
     setOther(false);
   };
 
@@ -163,23 +163,35 @@ const Fund: FC<FundProps> = ({
             />
           </div>
         ) : null}
-        {isLoading || isWriting || isSending ? (
-          <Button
-            className="flex w-full justify-center"
-            disabled
-            icon={<Spinner className="my-1" size="xs" />}
-          />
-        ) : Number(walletBalance) < amount ? (
-          <Button disabled className="w-full">
-            <b>Insufficient balance</b>
-          </Button>
-        ) : (
-          <Button disabled={!amount} className="w-full" onClick={handleFund}>
-            <b>
+        <div className="flex space-x-2">
+          {isLoading || isWriting || isSending ? (
+            <Button
+              className="flex w-full justify-center"
+              disabled
+              icon={<Spinner className="my-1" size="xs" />}
+            />
+          ) : Number(walletBalance) < amount ? (
+            <Button disabled className="w-full">
+              Insufficient balance
+            </Button>
+          ) : (
+            <Button
+              disabled={amount === 0}
+              className="w-full"
+              onClick={handleFund}
+            >
               {isHeyTip ? "Tip" : "Purchase"} {amount} {symbol}
-            </b>
+            </Button>
+          )}
+          <Button
+            disabled={amount === 0}
+            className="w-full"
+            onClick={handleFund}
+            outline
+          >
+            Use Card
           </Button>
-        )}
+        </div>
       </div>
     </Card>
   );
