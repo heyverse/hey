@@ -39,8 +39,8 @@ importers:
         specifier: ^1.3.4
         version: 1.3.4(graphql@16.10.0)
       axios:
-        specifier: ^1.8.2
-        version: 1.8.2(debug@4.4.0)
+        specifier: ^1.8.3
+        version: 1.8.3(debug@4.4.0)
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -63,8 +63,8 @@ importers:
         specifier: ^16.10.0
         version: 16.10.0
       jose:
-        specifier: ^6.0.9
-        version: 6.0.9
+        specifier: ^6.0.10
+        version: 6.0.10
       linkedom:
         specifier: ^0.18.9
         version: 0.18.9
@@ -127,8 +127,8 @@ importers:
         specifier: ^3.1.9
         version: 3.1.9
       start-server-and-test:
-        specifier: ^2.0.10
-        version: 2.0.10
+        specifier: ^2.0.11
+        version: 2.0.11
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.13.10)(typescript@5.8.2)
@@ -273,8 +273,8 @@ importers:
         specifier: ^4.5.2
         version: 4.5.2(unleash-proxy-client@3.7.3)
       axios:
-        specifier: ^1.8.2
-        version: 1.8.2(debug@4.4.0)
+        specifier: ^1.8.3
+        version: 1.8.3(debug@4.4.0)
       browser-image-compression:
         specifier: ^2.0.2
         version: 2.0.2
@@ -517,8 +517,8 @@ importers:
         specifier: ^2.0.9
         version: 2.0.9
       axios:
-        specifier: ^1.8.2
-        version: 1.8.2(debug@4.4.0)
+        specifier: ^1.8.3
+        version: 1.8.3(debug@4.4.0)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -585,8 +585,8 @@ importers:
         specifier: workspace:*
         version: link:../data
       axios:
-        specifier: ^1.8.2
-        version: 1.8.2(debug@4.4.0)
+        specifier: ^1.8.3
+        version: 1.8.3(debug@4.4.0)
       graphql:
         specifier: ^16.10.0
         version: 16.10.0
@@ -3547,14 +3547,14 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
-  '@tanstack/react-virtual@3.13.2':
-    resolution: {integrity: sha512-LceSUgABBKF6HSsHK2ZqHzQ37IKV/jlaWbHm+NyTa3/WNb/JZVcThDuTainf+PixltOOcFCYXwxbLpOX9sCx+g==}
+  '@tanstack/react-virtual@3.13.3':
+    resolution: {integrity: sha512-khJmiDJCkklsDTvXxTZHfEa7H161e94eDKxKyXqg9/3LstIbRg4JWBxPD2/e3LKtklC5dxkoYzNllCMVR904FA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@tanstack/virtual-core@3.13.2':
-    resolution: {integrity: sha512-Qzz4EgzMbO5gKrmqUondCjiHcuu4B1ftHb0pjCut661lXZdGoHeze9f/M8iwsK1t5LGR6aNuNGU7mxkowaW6RQ==}
+  '@tanstack/virtual-core@3.13.3':
+    resolution: {integrity: sha512-9kfCeSG6zUx1I1iF4RKZrquNog3Eho1T6+LyJEDYpHjNNdDlRhXyqzTod5u6LCEBSeG0f2txkNjAq0tFbCJ4bA==}
 
   '@ts-morph/common@0.23.0':
     resolution: {integrity: sha512-m7Lllj9n/S6sOkCkRftpM7L24uvmfXQFedlW/4hENcuJH1HHm9u5EgxZb9uVjQSCGrbBWBkOGgcTxNg36r6ywA==}
@@ -4154,8 +4154,8 @@ packages:
   axios@0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
 
-  axios@1.8.2:
-    resolution: {integrity: sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==}
+  axios@1.8.3:
+    resolution: {integrity: sha512-iP4DebzoNlP/YN2dpwCgb8zoCmhtkajzS48JvwmkSkXvPI3DHc7m+XYL5tGnSlJtR6nImXZmdCuN5aP8dh1d8A==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -4938,8 +4938,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  electron-to-chromium@1.5.114:
-    resolution: {integrity: sha512-DFptFef3iktoKlFQK/afbo274/XNWD00Am0xa7M8FZUepHlHT8PEuiNBoRfFHbH1okqN58AlhbJ4QTkcnXorjA==}
+  electron-to-chromium@1.5.115:
+    resolution: {integrity: sha512-MN1nahVHAQMOz6dz6bNZ7apgqc9InZy7Ja4DBEVCTdeiUcegbyOYE9bi/f2Z/z6ZxLi0RxLpyJ3EGe+4h3w73A==}
 
   elliptic@6.6.1:
     resolution: {integrity: sha512-RaddvvMatK2LJHqFJ+YA4WysVN5Ita9E35botqIYspQ4TkRAlCicdzKOjlyv/1Za5RyTNn7di//eEV0uTAfe3g==}
@@ -5984,8 +5984,8 @@ packages:
   jose@5.10.0:
     resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
 
-  jose@6.0.9:
-    resolution: {integrity: sha512-6HEy/G3IBiGwOeT0phvu19yt/zagFKSpQPpQ6YUIiCxBUPfThVkOv9wlwHGkatUqbHvkWHYPtJJil4U5jHwllw==}
+  jose@6.0.10:
+    resolution: {integrity: sha512-skIAxZqcMkOrSwjJvplIPYrlXGpxTPnro2/QWTDCxAdWQrSTV5/KqspMWmi5WAx5+ULswASJiZ0a+1B/Lxt9cw==}
 
   js-cookie@2.2.1:
     resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==}
@@ -7799,8 +7799,8 @@ packages:
     resolution: {integrity: sha512-WjlahMgHmCJpqzU8bIBy4qtsZdU9lRlcZE3Lvyej6t4tuOuv1vk57OW3MBrj6hXBFx/nNoC9MPMTcr5YA7NQbg==}
     engines: {node: '>=6'}
 
-  start-server-and-test@2.0.10:
-    resolution: {integrity: sha512-nZphcfcqGqwk74lbZkqSwClkYz+M5ZPGOMgWxNVJrdztPKN96qe6HooRu6L3TpwITn0lKJJdKACqHbJtqythOQ==}
+  start-server-and-test@2.0.11:
+    resolution: {integrity: sha512-TN39gLzPhHAflxyOkE/oMfQGj+pj3JgF6qVicFH/JrXt7xXktidKXwqfRga+ve7lVA8+RgPZVc25VrEPRScaDw==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -8537,8 +8537,8 @@ packages:
       typescript:
         optional: true
 
-  wait-on@8.0.2:
-    resolution: {integrity: sha512-qHlU6AawrgAIHlueGQHQ+ETcPLAauXbnoTKl3RKq20W0T8x0DKVAo5xWIYjHSyvHxQlcYbFdR0jp4T9bDVITFA==}
+  wait-on@8.0.3:
+    resolution: {integrity: sha512-nQFqAFzZDeRxsu7S3C7LbuxslHhk+gnJZHyethuGKAn2IVleIbTB9I3vJSQiSR+DifUqmdzfPMoMPJfLqMF2vw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
 
@@ -10993,7 +10993,7 @@ snapshots:
       '@floating-ui/react': 0.26.28(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-aria/focus': 3.20.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-aria/interactions': 3.24.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tanstack/react-virtual': 3.13.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@tanstack/react-virtual': 3.13.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
@@ -11239,7 +11239,7 @@ snapshots:
   '@matterlabs/hardhat-zksync-node@1.3.1(hardhat@2.22.19(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.2))(typescript@5.8.2)(utf-8-validate@5.0.10))':
     dependencies:
       '@matterlabs/hardhat-zksync-solc': 1.2.6(hardhat@2.22.19(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.2))(typescript@5.8.2)(utf-8-validate@5.0.10))
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       chai: 4.5.0
       chalk: 4.1.2
       debug: 4.4.0(supports-color@8.1.1)
@@ -11313,7 +11313,7 @@ snapshots:
       '@ethersproject/address': 5.7.0
       '@matterlabs/hardhat-zksync-solc': 1.2.6(hardhat@2.22.19(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.2))(typescript@5.8.2)(utf-8-validate@5.0.10))
       '@nomicfoundation/hardhat-verify': 2.0.13(hardhat@2.22.19(bufferutil@4.0.9)(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.2))(typescript@5.8.2)(utf-8-validate@5.0.10))
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       cbor: 9.0.2
       chai: 4.5.0
       chalk: 4.1.2
@@ -11859,7 +11859,7 @@ snapshots:
   '@openzeppelin/defender-sdk-deploy-client@1.15.2':
     dependencies:
       '@openzeppelin/defender-sdk-base-client': 1.15.2
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       lodash: 4.17.21
     transitivePeerDependencies:
       - debug
@@ -11868,7 +11868,7 @@ snapshots:
   '@openzeppelin/defender-sdk-deploy-client@2.4.0(debug@4.4.0)':
     dependencies:
       '@openzeppelin/defender-sdk-base-client': 2.4.0
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       lodash: 4.17.21
     transitivePeerDependencies:
       - aws-crt
@@ -11878,7 +11878,7 @@ snapshots:
   '@openzeppelin/defender-sdk-network-client@1.15.2':
     dependencies:
       '@openzeppelin/defender-sdk-base-client': 1.15.2
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       lodash: 4.17.21
     transitivePeerDependencies:
       - debug
@@ -11887,7 +11887,7 @@ snapshots:
   '@openzeppelin/defender-sdk-network-client@2.4.0(debug@4.4.0)':
     dependencies:
       '@openzeppelin/defender-sdk-base-client': 2.4.0
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       lodash: 4.17.21
     transitivePeerDependencies:
       - aws-crt
@@ -13234,13 +13234,13 @@ snapshots:
       '@tanstack/query-core': 5.67.3
       react: 19.0.0
 
-  '@tanstack/react-virtual@3.13.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@tanstack/react-virtual@3.13.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@tanstack/virtual-core': 3.13.2
+      '@tanstack/virtual-core': 3.13.3
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  '@tanstack/virtual-core@3.13.2': {}
+  '@tanstack/virtual-core@3.13.3': {}
 
   '@ts-morph/common@0.23.0':
     dependencies:
@@ -14181,7 +14181,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.8.2(debug@4.4.0):
+  axios@1.8.3(debug@4.4.0):
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.0)
       form-data: 4.0.2
@@ -14339,7 +14339,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001703
-      electron-to-chromium: 1.5.114
+      electron-to-chromium: 1.5.115
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
@@ -15060,7 +15060,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  electron-to-chromium@1.5.114: {}
+  electron-to-chromium@1.5.115: {}
 
   elliptic@6.6.1:
     dependencies:
@@ -15219,7 +15219,7 @@ snapshots:
   eth-gas-reporter@0.2.27(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
       '@solidity-parser/parser': 0.14.5
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       cli-table3: 0.5.1
       colors: 1.4.0
       ethereum-cryptography: 1.2.0
@@ -16457,7 +16457,7 @@ snapshots:
 
   jose@5.10.0: {}
 
-  jose@6.0.9: {}
+  jose@6.0.10: {}
 
   js-cookie@2.2.1: {}
 
@@ -18551,7 +18551,7 @@ snapshots:
     dependencies:
       type-fest: 0.7.1
 
-  start-server-and-test@2.0.10:
+  start-server-and-test@2.0.11:
     dependencies:
       arg: 5.0.2
       bluebird: 3.7.2
@@ -18560,7 +18560,7 @@ snapshots:
       execa: 5.1.1
       lazy-ass: 1.6.0
       ps-tree: 1.2.0
-      wait-on: 8.0.2(debug@4.4.0)
+      wait-on: 8.0.3(debug@4.4.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -19341,9 +19341,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  wait-on@8.0.2(debug@4.4.0):
+  wait-on@8.0.3(debug@4.4.0):
     dependencies:
-      axios: 1.8.2(debug@4.4.0)
+      axios: 1.8.3(debug@4.4.0)
       joi: 17.13.3
       lodash: 4.17.21
       minimist: 1.2.8
