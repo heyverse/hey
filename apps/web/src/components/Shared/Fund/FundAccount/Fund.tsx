@@ -1,3 +1,4 @@
+import { openHalliday } from "@halliday-sdk/commerce";
 import errorToast from "@helpers/errorToast";
 import { DEFAULT_COLLECT_TOKEN } from "@hey/data/constants";
 import { Button, Card, Input, Spinner } from "@hey/ui";
@@ -186,7 +187,19 @@ const Fund: FC<FundProps> = ({
           <Button
             disabled={amount === 0}
             className="w-full"
-            onClick={handleFund}
+            onClick={() => {
+              openHalliday({
+                apiKey: "0e3b7179-0be7-44f6-bac6-65323a8d2756",
+                destinationChainId: 1,
+                destinationAddress: recipient,
+                onrampInputAmount: amount.toString(),
+                authType: "SESSION_KEY",
+                destinationTokenAddress:
+                  "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+                onrampProviders: ["STRIPE"],
+                services: ["ONRAMP", "EXCHANGE", "SWAP"]
+              });
+            }}
             outline
           >
             Use Card
