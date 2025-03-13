@@ -1709,6 +1709,7 @@ export type FollowingRequest = {
 
 export enum ForYouSource {
   Curated = 'CURATED',
+  ExtendedNetwork = 'EXTENDED_NETWORK',
   Following = 'FOLLOWING',
   Popular = 'POPULAR'
 }
@@ -2639,8 +2640,13 @@ export type MlexplorePostsRequest = {
   pageSize?: PageSize;
 };
 
+export type MlinternalForYouRequest = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+  secret: Scalars['String']['input'];
+};
+
 export type MlpostsForYouRequest = {
-  account: Scalars['EvmAddress']['input'];
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   pageSize?: PageSize;
   shuffle?: Scalars['Boolean']['input'];
@@ -2694,6 +2700,7 @@ export type Mutation = {
   leaveGroup: LeaveGroupResult;
   legacyRolloverRefresh: RefreshResult;
   mlDismissRecommendedAccounts: Scalars['Void']['output'];
+  mlForYouInternal: Scalars['Void']['output'];
   mute: Scalars['Void']['output'];
   pauseSponsorship: PausingResult;
   post: PostResult;
@@ -2979,6 +2986,11 @@ export type MutationLegacyRolloverRefreshArgs = {
 
 export type MutationMlDismissRecommendedAccountsArgs = {
   request: DismissRecommendedAccountsRequest;
+};
+
+
+export type MutationMlForYouInternalArgs = {
+  request: MlinternalForYouRequest;
 };
 
 
@@ -4963,7 +4975,6 @@ export enum SnsNotificationType {
   AccountUsernameAssigned = 'ACCOUNT_USERNAME_ASSIGNED',
   AccountUsernameCreated = 'ACCOUNT_USERNAME_CREATED',
   AccountUsernameUnassigned = 'ACCOUNT_USERNAME_UNASSIGNED',
-  CommentCreated = 'COMMENT_CREATED',
   MediaSnapshotError = 'MEDIA_SNAPSHOT_ERROR',
   MediaSnapshotSuccess = 'MEDIA_SNAPSHOT_SUCCESS',
   MetadataSnapshotError = 'METADATA_SNAPSHOT_ERROR',
@@ -4977,10 +4988,8 @@ export enum SnsNotificationType {
   PostReactionAdded = 'POST_REACTION_ADDED',
   PostReactionRemoved = 'POST_REACTION_REMOVED',
   PostReported = 'POST_REPORTED',
-  QuoteCreated = 'QUOTE_CREATED',
   RefreshMetadataError = 'REFRESH_METADATA_ERROR',
-  RefreshMetadataSuccess = 'REFRESH_METADATA_SUCCESS',
-  RepostCreated = 'REPOST_CREATED'
+  RefreshMetadataSuccess = 'REFRESH_METADATA_SUCCESS'
 }
 
 export type SnsSubscription = {
@@ -5009,7 +5018,6 @@ export type SnsTopicInput = {
   accountUsernameAssigned?: InputMaybe<AccountUsernameAssignedNotificationAttributes>;
   accountUsernameCreated?: InputMaybe<AccountUsernameCreatedNotificationAttributes>;
   accountUsernameUnassigned?: InputMaybe<AccountUsernameUnassignedNotificationAttributes>;
-  commentCreated?: InputMaybe<PostCreatedNotificationAttributes>;
   mediaSnapshotError?: InputMaybe<MediaSnapshotNotificationAttributes>;
   mediaSnapshotSuccess?: InputMaybe<MediaSnapshotNotificationAttributes>;
   metadataSnapshotError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
@@ -5020,10 +5028,8 @@ export type SnsTopicInput = {
   postReactionAdded?: InputMaybe<PostReactionAddedNotificationAttributes>;
   postReactionRemoved?: InputMaybe<PostReactionRemovedNotificationAttributes>;
   postReported?: InputMaybe<PostReportedNotificationAttributes>;
-  quoteCreated?: InputMaybe<PostCreatedNotificationAttributes>;
   refreshMetadataError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
   refreshMetadataSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
-  repostCreated?: InputMaybe<PostCreatedNotificationAttributes>;
 };
 
 export type SpaceMetadata = {
