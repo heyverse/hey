@@ -1,4 +1,3 @@
-import getUserLocale from "@helpers/getUserLocale";
 import { APP_NAME } from "@hey/data/constants";
 import {
   audio,
@@ -34,8 +33,7 @@ const usePostMetadata = () => {
       (attributes || []).length > 0 || baseMetadata.attributes?.length > 0
         ? [...(baseMetadata.attributes || []), ...(attributes || [])]
         : undefined,
-    id: uuid(),
-    locale: getUserLocale()
+    id: uuid()
   });
 
   const processAttachments = () =>
