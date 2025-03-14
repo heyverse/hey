@@ -49,6 +49,12 @@ interface INamespaceRule {
 }
 
 contract VerifiedNamespaceRule is INamespaceRule {
+    address public adminAddress;
+
+    constructor(address _adminAddress) {
+        adminAddress = _adminAddress;
+    }
+
     function configure(bytes32, KeyValue[] calldata) external override {}
 
     function processCreation(
@@ -59,11 +65,18 @@ contract VerifiedNamespaceRule is INamespaceRule {
         KeyValue[] calldata,
         KeyValue[] calldata
     ) external override {
-        if (originalMsgSender != 0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF) {
+        if (originalMsgSender != adminAddress) {
             revert("Not an admin");
         }
 
         // how to assign username to account as admin?
+    }
+
+    function updateAdminAddress(address newAdmin) external {
+        if (msg.sender != adminAddress) {
+            revert("Not an admin");
+        }
+        adminAddress = newAdmin;
     }
 
     function processRemoval(
