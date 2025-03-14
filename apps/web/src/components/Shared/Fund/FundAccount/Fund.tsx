@@ -1,6 +1,6 @@
 import errorToast from "@helpers/errorToast";
 import { DEFAULT_COLLECT_TOKEN } from "@hey/data/constants";
-import { Button, Card, Input, Modal, Spinner } from "@hey/ui";
+import { Button, Card, Input, Spinner } from "@hey/ui";
 import {
   type ChangeEvent,
   type FC,
@@ -10,7 +10,6 @@ import {
 } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
-import { ThirdwebProvider } from "thirdweb/react";
 import { type Address, formatUnits, parseEther } from "viem";
 import {
   useAccount,
@@ -18,7 +17,6 @@ import {
   useSendTransaction,
   useWriteContract
 } from "wagmi";
-import FiatOnRamp from "./FiatOnRamp";
 
 const ABI = [
   {
@@ -48,7 +46,6 @@ const Fund: FC<FundProps> = ({
 }) => {
   const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
-  const [showFiatOnRamp, setShowFiatOnRamp] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const { address } = useAccount();
@@ -166,49 +163,26 @@ const Fund: FC<FundProps> = ({
             />
           </div>
         ) : null}
-        <div className="flex space-x-2">
-          {isLoading || isWriting || isSending ? (
-            <Button
-              className="flex w-full justify-center"
-              disabled
-              icon={<Spinner className="my-1" size="xs" />}
-            />
-          ) : Number(walletBalance) < amount ? (
-            <Button disabled className="w-full">
-              Insufficient balance
-            </Button>
-          ) : (
-            <Button
-              disabled={amount === 0}
-              className="w-full"
-              onClick={handleFund}
-            >
-              {isHeyTip ? "Tip" : "Purchase"} {amount} {symbol}
-            </Button>
-          )}
+        {isLoading || isWriting || isSending ? (
+          <Button
+            className="flex w-full justify-center"
+            disabled
+            icon={<Spinner className="my-1" size="xs" />}
+          />
+        ) : Number(walletBalance) < amount ? (
+          <Button disabled className="w-full">
+            Insufficient balance
+          </Button>
+        ) : (
           <Button
             disabled={amount === 0}
             className="w-full"
-            onClick={() => setShowFiatOnRamp(true)}
-            outline
+            onClick={handleFund}
           >
-            Use Card
+            {isHeyTip ? "Tip" : "Purchase"} {amount} {symbol}
           </Button>
-        </div>
+        )}
       </div>
-      <Modal
-        title="Purchase with Thirdweb"
-        show={showFiatOnRamp}
-        onClose={() => setShowFiatOnRamp(false)}
-      >
-        <ThirdwebProvider>
-          <FiatOnRamp
-            amount={amount.toString()}
-            recipient={recipient}
-            onSuccess={() => setShowFiatOnRamp(false)}
-          />
-        </ThirdwebProvider>
-      </Modal>
     </Card>
   );
 };
