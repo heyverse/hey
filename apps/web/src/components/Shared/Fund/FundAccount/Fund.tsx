@@ -1,7 +1,6 @@
-import { openHalliday } from "@halliday-sdk/commerce";
 import errorToast from "@helpers/errorToast";
 import { DEFAULT_COLLECT_TOKEN } from "@hey/data/constants";
-import { Button, Card, Input, Spinner } from "@hey/ui";
+import { Button, Card, Input, Modal, Spinner } from "@hey/ui";
 import {
   type ChangeEvent,
   type FC,
@@ -11,6 +10,7 @@ import {
 } from "react";
 import toast from "react-hot-toast";
 import usePreventScrollOnNumberInput from "src/hooks/usePreventScrollOnNumberInput";
+import { ThirdwebProvider } from "thirdweb/react";
 import { type Address, formatUnits, parseEther } from "viem";
 import {
   useAccount,
@@ -18,6 +18,7 @@ import {
   useSendTransaction,
   useWriteContract
 } from "wagmi";
+import FiatOnRamp from "./FiatOnRamp";
 
 const ABI = [
   {
@@ -47,6 +48,7 @@ const Fund: FC<FundProps> = ({
 }) => {
   const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
+  const [showFiatOnRamp, setShowFiatOnRamp] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const { address } = useAccount();
@@ -187,25 +189,26 @@ const Fund: FC<FundProps> = ({
           <Button
             disabled={amount === 0}
             className="w-full"
-            onClick={() => {
-              openHalliday({
-                apiKey: "0e3b7179-0be7-44f6-bac6-65323a8d2756",
-                destinationChainId: 1,
-                destinationAddress: recipient,
-                onrampInputAmount: amount.toString(),
-                authType: "SESSION_KEY",
-                destinationTokenAddress:
-                  "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-                onrampProviders: ["STRIPE"],
-                services: ["ONRAMP", "EXCHANGE", "SWAP"]
-              });
-            }}
+            onClick={() => setShowFiatOnRamp(true)}
             outline
           >
             Use Card
           </Button>
         </div>
       </div>
+      <Modal
+        title="Purchase with Thirdweb"
+        show={showFiatOnRamp}
+        onClose={() => setShowFiatOnRamp(false)}
+      >
+        <ThirdwebProvider>
+          <FiatOnRamp
+            amount={amount.toString()}
+            recipient={recipient}
+            onSuccess={() => setShowFiatOnRamp(false)}
+          />
+        </ThirdwebProvider>
+      </Modal>
     </Card>
   );
 };
