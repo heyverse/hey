@@ -86,7 +86,7 @@ const Balances: FC = () => {
         <Button
           size="sm"
           outline
-          onClick={() => handleWithdraw(currency, "0.01")}
+          onClick={() => handleWithdraw(currency, value)}
           disabled={isSubmitting}
         >
           Withdraw
