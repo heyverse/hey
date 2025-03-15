@@ -3923,6 +3923,7 @@ export type PostOperationValidationUnknown = {
 
 export type PostReaction = {
   __typename?: 'PostReaction';
+  app?: Maybe<Scalars['EvmAddress']['output']>;
   reactedAt: Scalars['DateTime']['output'];
   reaction: PostReactionType;
 };
@@ -3949,6 +3950,7 @@ export type PostReactionRemovedNotificationAttributes = {
 export type PostReactionStatus = {
   __typename?: 'PostReactionStatus';
   account: Scalars['EvmAddress']['output'];
+  app?: Maybe<Scalars['EvmAddress']['output']>;
   postId: Scalars['PostId']['output'];
   result: Scalars['Boolean']['output'];
 };
@@ -4632,6 +4634,7 @@ export type ReferralCut = {
 };
 
 export type RefreshMetadataRequest = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
   entity: EntityId;
 };
 
