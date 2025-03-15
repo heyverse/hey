@@ -31,10 +31,10 @@
     "rate-limit-redis": "^4.2.0",
     "request-ip": "^3.3.0",
     "tsx": "^4.19.3",
-    "ua-parser-js": "2.0.2",
+    "ua-parser-js": "2.0.3",
     "urlcat": "^3.1.0",
     "uuid": "^11.1.0",
-    "viem": "^2.23.10",
+    "viem": "^2.23.11",
     "zod": "^3.24.2"
   },
   "devDependencies": {
