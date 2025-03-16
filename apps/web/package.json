@@ -27,7 +27,7 @@
     "@livepeer/react": "^4.2.10",
     "@next/bundle-analyzer": "^15.2.2",
     "@radix-ui/react-hover-card": "^1.1.6",
-    "@tanstack/react-query": "^5.67.3",
+    "@tanstack/react-query": "^5.68.0",
     "@uidotdev/usehooks": "^2.4.1",
     "@unleash/proxy-client-react": "^4.5.2",
     "axios": "^1.8.3",
@@ -63,7 +63,7 @@
     "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "uuid": "^11.1.0",
-    "viem": "^2.23.10",
+    "viem": "^2.23.11",
     "wagmi": "^2.14.13",
     "zod": "^3.24.2",
     "zustand": "5.0.3"
