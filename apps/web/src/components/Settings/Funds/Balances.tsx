@@ -1,22 +1,13 @@
 import Loader from "@components/Shared/Loader";
-import trackEvent from "@helpers/analytics";
-import errorToast from "@helpers/errorToast";
-import { Events } from "@hey/data/events";
 import { tokens } from "@hey/data/tokens";
 import getTokenImage from "@hey/helpers/getTokenImage";
-import { useAccountBalancesQuery, useWithdrawMutation } from "@hey/indexer";
-import { Button, ErrorMessage, Image } from "@hey/ui";
-import { type FC, useState } from "react";
-import toast from "react-hot-toast";
-import usePollTransactionStatus from "src/hooks/usePollTransactionStatus";
-import useTransactionLifecycle from "src/hooks/useTransactionLifecycle";
+import { useAccountBalancesQuery } from "@hey/indexer";
+import { ErrorMessage, Image } from "@hey/ui";
+import type { FC } from "react";
 import type { Address } from "viem";
+import Withdraw from "./Withdraw";
 
 const Balances: FC = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleTransactionLifecycle = useTransactionLifecycle();
-  const pollTransactionStatus = usePollTransactionStatus();
-
   const { data, loading, error, refetch } = useAccountBalancesQuery({
     variables: {
       request: {
@@ -26,48 +17,6 @@ const Balances: FC = () => {
     },
     pollInterval: 5000
   });
-
-  const onCompleted = (hash: string) => {
-    setIsSubmitting(false);
-    trackEvent(Events.Account.WithdrawFunds);
-    toast.success("Withdrawal Initiated");
-    pollTransactionStatus(hash, () => {
-      refetch();
-      toast.success("Withdrawal Successful");
-    });
-  };
-
-  const onError = (error: any) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  };
-
-  const [withdraw] = useWithdrawMutation({
-    onCompleted: async ({ withdraw }) => {
-      if (withdraw.__typename === "InsufficientFunds") {
-        return onError({ message: "Insufficient funds" });
-      }
-
-      return await handleTransactionLifecycle({
-        transactionData: withdraw,
-        onCompleted,
-        onError
-      });
-    },
-    onError
-  });
-
-  const handleWithdraw = (currency: Address | undefined, value: string) => {
-    setIsSubmitting(true);
-
-    return withdraw({
-      variables: {
-        request: {
-          ...(currency ? { erc20: { currency, value } } : { native: value })
-        }
-      }
-    });
-  };
 
   interface TokenBalanceProps {
     value: string;
@@ -83,14 +32,7 @@ const Balances: FC = () => {
           <b>{Number.parseFloat(value).toFixed(2)} </b>
           {symbol}
         </div>
-        <Button
-          size="sm"
-          outline
-          onClick={() => handleWithdraw(currency, value)}
-          disabled={isSubmitting}
-        >
-          Withdraw
-        </Button>
+        <Withdraw currency={currency} value={value} refetch={refetch} />
       </div>
     );
   };
