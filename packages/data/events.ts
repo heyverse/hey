@@ -11,7 +11,9 @@ export const Events = {
     Unmute: "unmute_account",
     UpdateSettings: "update_account_settings",
     FundAccount: "fund_account",
-    WithdrawFunds: "withdraw_funds"
+    WithdrawFunds: "withdraw_funds",
+    WrapTokens: "wrap_tokens",
+    UnwrapTokens: "unwrap_tokens"
   },
   Post: {
     Post: "new_post",

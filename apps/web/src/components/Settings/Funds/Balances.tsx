@@ -1,11 +1,14 @@
 import Loader from "@components/Shared/Loader";
+import { DEFAULT_COLLECT_TOKEN } from "@hey/data/constants";
 import { tokens } from "@hey/data/tokens";
 import getTokenImage from "@hey/helpers/getTokenImage";
 import { useAccountBalancesQuery } from "@hey/indexer";
 import { ErrorMessage, Image } from "@hey/ui";
 import type { FC } from "react";
 import type { Address } from "viem";
+import Unwrap from "./Unwrap";
 import Withdraw from "./Withdraw";
+import Wrap from "./Wrap";
 
 const Balances: FC = () => {
   const { data, loading, error, refetch } = useAccountBalancesQuery({
@@ -32,7 +35,13 @@ const Balances: FC = () => {
           <b>{Number.parseFloat(value).toFixed(2)} </b>
           {symbol}
         </div>
-        <Withdraw currency={currency} value={value} refetch={refetch} />
+        <div className="flex items-center gap-2">
+          <Withdraw currency={currency} value={value} refetch={refetch} />
+          {!currency && <Wrap value={value} refetch={refetch} />}
+          {currency === DEFAULT_COLLECT_TOKEN && (
+            <Unwrap value={value} refetch={refetch} />
+          )}
+        </div>
       </div>
     );
   };
