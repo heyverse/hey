@@ -95,6 +95,7 @@ const Withdraw: FC<WithdrawProps> = ({ currency, value, refetch }) => {
           </div>
           <Button
             className="w-full"
+            size="lg"
             onClick={handleWithdraw}
             disabled={
               isSubmitting || !valueToWithdraw || valueToWithdraw === "0"
