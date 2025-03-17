@@ -1,0 +1,22 @@
+mutation CreateUsername($request: CreateUsernameRequest!) {
+  createUsername(request: $request) {
+    ... on CreateUsernameResponse {
+      hash
+    }
+    ... on NamespaceOperationValidationFailed {
+      reason
+    }
+    ... on UsernameTaken {
+      reason
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

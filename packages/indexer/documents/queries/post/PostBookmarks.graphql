@@ -1,0 +1,10 @@
+query PostBookmarks($request: PostBookmarksRequest!) {
+  postBookmarks(request: $request) {
+    items {
+      ...AnyPost
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

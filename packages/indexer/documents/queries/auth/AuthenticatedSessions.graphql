@@ -1,0 +1,19 @@
+query AuthenticatedSessions($request: AuthenticatedSessionsRequest!) {
+  authenticatedSessions(request: $request) {
+    items {
+      authenticationId
+      app
+      browser
+      device
+      os
+      origin
+      signer
+      expiresAt
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

@@ -1,0 +1,12 @@
+fragment SpaceMetadata on SpaceMetadata {
+  id
+  content
+  contentWarning
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...AnyMedia
+  }
+}

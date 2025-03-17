@@ -1,0 +1,10 @@
+query AccountBalances($request: AccountBalancesRequest!) {
+  accountBalances(request: $request) {
+    ... on NativeAmount {
+      ...NativeAmount
+    }
+    ... on Erc20Amount {
+      ...Erc20Amount
+    }
+  }
+}

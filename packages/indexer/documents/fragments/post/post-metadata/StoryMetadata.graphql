@@ -1,0 +1,9 @@
+fragment StoryMetadata on StoryMetadata {
+  id
+  content
+  contentWarning
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+}

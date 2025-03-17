@@ -1,0 +1,20 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "pnpm --filter @hey/cron build",
+    "watchPatterns": ["apps/cron/**", "packages/**/*"]
+  },
+  "deploy": {
+    "runtime": "V2",
+    "startCommand": "pnpm --filter @hey/cron start",
+    "restartPolicyType": "ALWAYS",
+    "sleepApplication": false,
+    "limitOverride": {
+      "containers": {
+        "cpu": 5,
+        "memoryBytes": 5000000000
+      }
+    }
+  }
+}

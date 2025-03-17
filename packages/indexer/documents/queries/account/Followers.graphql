@@ -1,0 +1,12 @@
+query Followers($request: FollowersRequest!) {
+  followers(request: $request) {
+    items {
+      follower {
+        ...Account
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

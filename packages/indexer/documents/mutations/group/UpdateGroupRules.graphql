@@ -1,0 +1,13 @@
+mutation UpdateGroupRules($request: UpdateGroupRulesRequest!) {
+  updateGroupRules(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

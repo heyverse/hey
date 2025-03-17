@@ -1,0 +1,11 @@
+fragment Repost on Repost {
+  id
+  isDeleted
+  author {
+    ...Account
+  }
+  repostOf {
+    ...Post
+  }
+  timestamp
+}

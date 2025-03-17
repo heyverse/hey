@@ -1,0 +1,16 @@
+mutation Block($request: BlockRequest!) {
+  block(request: $request) {
+    ... on AccountBlockedResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

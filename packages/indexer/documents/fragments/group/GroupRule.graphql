@@ -1,0 +1,7 @@
+fragment GroupRule on GroupRule {
+  id
+  type
+  config {
+    ...AnyKeyValue
+  }
+}

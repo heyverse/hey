@@ -1,0 +1,19 @@
+mutation Unfollow($request: CreateUnfollowRequest!) {
+  unfollow(request: $request) {
+    ... on UnfollowResponse {
+      hash
+    }
+    ... on AccountFollowOperationValidationFailed {
+      reason
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

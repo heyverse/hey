@@ -1,0 +1,29 @@
+{
+  "name": "@hey/cron",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "echo 'Not required'",
+    "dev": "NODE_ENV=production tsx src/index.ts",
+    "start": "NODE_ENV=production tsx src/index.ts",
+    "sync": "NODE_ENV=production tsx src/run.ts",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "@hey/data": "workspace:*",
+    "@hey/db": "workspace:*",
+    "@hey/helpers": "workspace:*",
+    "@lens-chain/sdk": "canary",
+    "dotenv": "^16.4.7",
+    "node-cron": "^3.0.3",
+    "tsx": "^4.19.3",
+    "viem": "^2.23.11"
+  },
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "@types/node": "^22.13.10",
+    "@types/node-cron": "^3.0.11",
+    "typescript": "^5.7.3"
+  }
+}

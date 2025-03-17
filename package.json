@@ -1,0 +1,27 @@
+{
+  "name": "hey",
+  "version": "4.1.3",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "biome:check": "biome check .",
+    "biome:fix": "biome check --write .",
+    "build": "pnpm --recursive --parallel run build",
+    "codegen": "pnpm --recursive --parallel run codegen",
+    "dep:check": "pnpm dlx sherif@latest",
+    "dep:fix": "pnpm dlx sherif@latest --fix",
+    "dev": "pnpm --recursive --parallel run dev",
+    "prepare": "husky install",
+    "start": "pnpm --recursive --parallel run start",
+    "test": "pnpm --recursive run test",
+    "typecheck": "pnpm --recursive --parallel run typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "husky": "^9.1.7"
+  },
+  "packageManager": "pnpm@10.4.1",
+  "engines": {
+    "node": ">=18.x <=22.x"
+  }
+}

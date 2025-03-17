@@ -1,0 +1,22 @@
+query Me {
+  me {
+    loggedInAs {
+      ... on AccountManaged {
+        account {
+          ...Account
+        }
+      }
+      ... on AccountOwned {
+        account {
+          ...Account
+        }
+      }
+    }
+    limit {
+      allowanceLeft
+      allowanceUsed
+      allowance
+      window
+    }
+  }
+}

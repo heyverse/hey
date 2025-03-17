@@ -1,0 +1,24 @@
+mutation CreateAccountWithUsername(
+  $request: CreateAccountWithUsernameRequest!
+) {
+  createAccountWithUsername(request: $request) {
+    ... on CreateAccountResponse {
+      hash
+    }
+    ... on NamespaceOperationValidationFailed {
+      reason
+    }
+    ... on UsernameTaken {
+      reason
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

@@ -1,0 +1,10 @@
+query PostReferences($request: PostReferencesRequest!) {
+  postReferences(request: $request) {
+    items {
+      ...AnyPost
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

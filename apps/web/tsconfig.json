@@ -1,0 +1,12 @@
+{
+  "extends": "@hey/config/react.tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
+    "paths": {
+      "@components*": ["src/components*"],
+      "@helpers*": ["src/helpers*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+}

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /*
+Disallow: /settings/*
+Disallow: /staff/*
+Disallow: /bookmarks
+Disallow: /notifications
+Disallow: /search?q=
+
+User-agent: nsa
+Disallow: /

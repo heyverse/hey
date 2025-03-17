@@ -1,0 +1,16 @@
+fragment AudioMetadata on AudioMetadata {
+  id
+  title
+  content
+  contentWarning
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  audio {
+    ...MediaAudio
+  }
+  attachments {
+    ...AnyMedia
+  }
+}

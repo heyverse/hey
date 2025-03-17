@@ -1,0 +1,17 @@
+query GroupBannedAccounts($request: GroupBannedAccountsRequest!) {
+  groupBannedAccounts(request: $request) {
+    items {
+      account {
+        ...Account
+      }
+      bannedBy {
+        ...Account
+      }
+      bannedAt
+      lastActiveAt
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

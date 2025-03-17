@@ -1,0 +1,14 @@
+{
+  "name": "@hey/data",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "typecheck": "tsc --pretty"
+  },
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "@types/node": "^22.13.10",
+    "typescript": "^5.7.3"
+  }
+}

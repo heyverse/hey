@@ -1,0 +1,12 @@
+fragment ArticleMetadata on ArticleMetadata {
+  id
+  content
+  contentWarning
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...AnyMedia
+  }
+}
