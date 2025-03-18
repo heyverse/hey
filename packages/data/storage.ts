@@ -6,7 +6,5 @@ export const Localstorage = {
   SearchStore: "search.store",
   TransactionStore: "transaction.store",
   VerifiedMembersStore: "verified-members.store",
-  HomeTabStore: "home-tab.store",
-  UnleashRepositoryStore: "unleash:repository:repo",
-  UnleashRepositorySessionIdStore: "unleash:repository:sessionId"
+  HomeTabStore: "home-tab.store"
 };
