@@ -6,7 +6,6 @@ import { ThemeProvider } from "next-themes";
 import type { FC, ReactNode } from "react";
 import ErrorBoundary from "../ErrorBoundary";
 import Layout from "../Layout";
-import FeatureFlagProvider from "./FeatureFlagProvider";
 import OptimisticPublicationProvider from "./OptimisticPublicationProvider";
 import PreferencesProvider from "./PreferencesProvider";
 import Web3Provider from "./Web3Provider";
@@ -27,13 +26,11 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
       <QueryClientProvider client={queryClient}>
         <Web3Provider>
           <ApolloProvider client={lensApolloClient}>
-            <FeatureFlagProvider>
-              <OptimisticPublicationProvider />
-              <PreferencesProvider />
-              <ThemeProvider attribute="class" defaultTheme="light">
-                <Layout>{children}</Layout>
-              </ThemeProvider>
-            </FeatureFlagProvider>
+            <OptimisticPublicationProvider />
+            <PreferencesProvider />
+            <ThemeProvider attribute="class" defaultTheme="light">
+              <Layout>{children}</Layout>
+            </ThemeProvider>
           </ApolloProvider>
         </Web3Provider>
       </QueryClientProvider>

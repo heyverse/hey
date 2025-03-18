@@ -2,6 +2,7 @@ import FollowUnfollowButton from "@components/Shared/Account/FollowUnfollowButto
 import Verified from "@components/Shared/Account/Icons/Verified";
 import Markup from "@components/Shared/Markup";
 import Slug from "@components/Shared/Slug";
+import hasAccess from "@helpers/hasAccess";
 import {
   Cog6ToothIcon,
   MapPinIcon,
@@ -9,7 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from "@hey/data/constants";
-import { FeatureFlag } from "@hey/data/feature-flags";
+import { Features } from "@hey/data/features";
 import getAccount from "@hey/helpers/getAccount";
 import getAccountAttribute from "@hey/helpers/getAccountAttribute";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -17,7 +18,6 @@ import getFavicon from "@hey/helpers/getFavicon";
 import getMentions from "@hey/helpers/getMentions";
 import type { AccountFragment } from "@hey/indexer";
 import { Button, H3, Image, LightBox, Tooltip } from "@hey/ui";
-import { useFlag } from "@unleash/proxy-client-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -40,7 +40,7 @@ const Details: FC<DetailsProps> = ({ isSuspended = false, account }) => {
   const { push } = useRouter();
   const { currentAccount } = useAccountStore();
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
-  const isStaff = useFlag(FeatureFlag.Staff);
+  const isStaff = hasAccess(Features.Staff);
   const { resolvedTheme } = useTheme();
 
   const renderAccountAttribute = (

@@ -1,5 +1,6 @@
+import hasAccess from "@helpers/hasAccess";
 import { QueueListIcon } from "@heroicons/react/24/outline";
-import { FeatureFlag } from "@hey/data/feature-flags";
+import { Features } from "@hey/data/features";
 import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
@@ -9,7 +10,6 @@ import type { AnyPostFragment } from "@hey/indexer";
 import { Card, Tooltip } from "@hey/ui";
 import cn from "@hey/ui/cn";
 import { useQuery } from "@tanstack/react-query";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useHiddenCommentFeedStore } from ".";
 import PostActions from "./Actions";
@@ -28,7 +28,7 @@ interface FullPostProps {
 const FullPost: FC<FullPostProps> = ({ hasHiddenComments, post }) => {
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
-  const isStaff = useFlag(FeatureFlag.Staff);
+  const isStaff = hasAccess(Features.Staff);
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const { author, timestamp } = targetPost;

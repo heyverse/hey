@@ -1,10 +1,10 @@
+import hasAccess from "@helpers/hasAccess";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { FeatureFlag } from "@hey/data/feature-flags";
+import { Features } from "@hey/data/features";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import { useFlag } from "@unleash/proxy-client-react";
 import Link from "next/link";
 import type { FC } from "react";
 import { useMobileDrawerModalStore } from "src/store/non-persisted/modal/useMobileDrawerModalStore";
@@ -24,7 +24,7 @@ import YourAccount from "./NavItems/YourAccount";
 const MobileDrawerMenu: FC = () => {
   const { currentAccount } = useAccountStore();
   const { setShowMobileDrawer } = useMobileDrawerModalStore();
-  const isStaff = useFlag(FeatureFlag.Staff);
+  const isStaff = hasAccess(Features.Staff);
 
   const handleCloseDrawer = () => {
     setShowMobileDrawer(false);

@@ -1,9 +1,9 @@
 import { Errors } from "@hey/data/errors";
-import { FeatureFlag } from "@hey/data/feature-flags";
+import { Access } from "@hey/data/features";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { NextFunction, Request, Response } from "express";
+import { getAddress } from "viem";
 import catchedError from "../catchedError";
-import getFeatureFlags from "./getFeatureFlags";
 
 const handleUnauthorized = (res: Response) => {
   return catchedError(res, new Error(Errors.Unauthorized), 401);
@@ -21,12 +21,11 @@ const validateIsStaff = async (
 
   try {
     const payload = parseJwt(idToken);
-    const flags = await getFeatureFlags(payload.act.sub);
-    const staffToggle = flags.find(
-      (toggle: any) => toggle.name === FeatureFlag.Staff
-    );
+    const isStaff = Access["staff"]
+      .map((account) => getAddress(account))
+      .includes(getAddress(payload.act.sub));
 
-    if (staffToggle?.enabled && staffToggle?.variant?.featureEnabled) {
+    if (isStaff) {
       return next();
     }
 

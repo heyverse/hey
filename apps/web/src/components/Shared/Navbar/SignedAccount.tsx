@@ -1,10 +1,10 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { FeatureFlag } from "@hey/data/feature-flags";
+import hasAccess from "@helpers/hasAccess";
+import { Features } from "@hey/data/features";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { Image } from "@hey/ui";
 import cn from "@hey/ui/cn";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import { useMobileDrawerModalStore } from "src/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "src/store/persisted/useAccountStore";
@@ -23,7 +23,7 @@ import YourAccount from "./NavItems/YourAccount";
 const SignedAccount: FC = () => {
   const { currentAccount } = useAccountStore();
   const { setShowMobileDrawer, showMobileDrawer } = useMobileDrawerModalStore();
-  const isStaff = useFlag(FeatureFlag.Staff);
+  const isStaff = hasAccess(Features.Staff);
 
   const Avatar = () => (
     <Image

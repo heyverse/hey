@@ -2,9 +2,10 @@ import MetaTags from "@components/Common/MetaTags";
 import Loader from "@components/Shared/Loader";
 import AccountStaffTool from "@components/Staff/Accounts/Overview/Tool";
 import StaffSidebar from "@components/Staff/Sidebar";
+import hasAccess from "@helpers/hasAccess";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { APP_NAME } from "@hey/data/constants";
-import { FeatureFlag } from "@hey/data/feature-flags";
+import { Features } from "@hey/data/features";
 import { useAccountQuery } from "@hey/indexer";
 import {
   Card,
@@ -14,7 +15,6 @@ import {
   GridItemFour,
   GridLayout
 } from "@hey/ui";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Custom404 from "src/pages/404";
@@ -26,7 +26,7 @@ const Overview: NextPage = () => {
     query: { address }
   } = useRouter();
   const { currentAccount } = useAccountStore();
-  const isStaff = useFlag(FeatureFlag.Staff);
+  const isStaff = hasAccess(Features.Staff);
 
   const { data, error, loading } = useAccountQuery({
     skip: !address || !isReady,

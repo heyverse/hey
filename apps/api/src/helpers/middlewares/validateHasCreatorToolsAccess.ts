@@ -1,16 +1,9 @@
 import { Errors } from "@hey/data/errors";
-import { FeatureFlag } from "@hey/data/feature-flags";
+import { Access } from "@hey/data/features";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { NextFunction, Request, Response } from "express";
+import { getAddress } from "viem";
 import catchedError from "../catchedError";
-import getFeatureFlags from "./getFeatureFlags";
-
-const isCreatorToolsEnabled = (flags: any[]) => {
-  const staffToggle = flags.find(
-    (toggle: any) => toggle.name === FeatureFlag.CreatorTools
-  );
-  return staffToggle?.enabled && staffToggle?.variant?.featureEnabled;
-};
 
 const validateHasCreatorToolsAccess = async (
   req: Request,
@@ -24,9 +17,11 @@ const validateHasCreatorToolsAccess = async (
 
   try {
     const payload = parseJwt(idToken);
-    const flags = await getFeatureFlags(payload.act.sub);
+    const hasCreatorToolAccess = Access["creator-tools"]
+      .map((account) => getAddress(account))
+      .includes(getAddress(payload.act.sub));
 
-    if (isCreatorToolsEnabled(flags)) {
+    if (hasCreatorToolAccess) {
       return next();
     }
 

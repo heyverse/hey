@@ -1,10 +1,11 @@
 import MetaTags from "@components/Common/MetaTags";
 import NewPost from "@components/Composer/NewPost";
 import Cover from "@components/Shared/Cover";
+import hasAccess from "@helpers/hasAccess";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { AccountFeedType } from "@hey/data/enums";
-import { FeatureFlag } from "@hey/data/feature-flags";
+import { Features } from "@hey/data/features";
 import getAccountDetails, {
   GET_ACCOUNT_DETAILS_QUERY_KEY
 } from "@hey/helpers/api/getAccountDetails";
@@ -13,7 +14,6 @@ import isAccountDeleted from "@hey/helpers/isAccountDeleted";
 import { useAccountQuery } from "@hey/indexer";
 import { EmptyState, GridItemEight, GridItemFour, GridLayout } from "@hey/ui";
 import { useQuery } from "@tanstack/react-query";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Custom404 from "src/pages/404";
@@ -32,7 +32,7 @@ const ViewProfile: NextPage = () => {
     query: { username, address, type }
   } = useRouter();
   const { currentAccount } = useAccountStore();
-  const isStaff = useFlag(FeatureFlag.Staff);
+  const isStaff = hasAccess(Features.Staff);
 
   const lowerCaseAccountFeedType = [
     AccountFeedType.Feed.toLowerCase(),

@@ -1,7 +1,7 @@
-import { FeatureFlag } from "@hey/data/feature-flags";
+import hasAccess from "@helpers/hasAccess";
+import { Features } from "@hey/data/features";
 import type { AccountFragment } from "@hey/indexer";
 import { Card } from "@hey/ui";
-import { useFlag } from "@unleash/proxy-client-react";
 import type { FC } from "react";
 import CreatorTool from "./CreatorTool";
 import StaffTool from "./StaffTool";
@@ -11,8 +11,8 @@ interface InternalToolsProps {
 }
 
 const InternalTools: FC<InternalToolsProps> = ({ account }) => {
-  const hasCreatorToolAccess = useFlag(FeatureFlag.CreatorTools);
-  const isStaff = useFlag(FeatureFlag.Staff);
+  const hasCreatorToolAccess = hasAccess(Features.CreatorTools);
+  const isStaff = hasAccess(Features.Staff);
 
   if (!hasCreatorToolAccess || !isStaff) {
     return null;
