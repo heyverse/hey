@@ -16,6 +16,6 @@
     "hardhat": "^2.22.15",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
-    "zksync-ethers": "^6.16.1"
+    "zksync-ethers": "^6.16.2"
   }
 }
