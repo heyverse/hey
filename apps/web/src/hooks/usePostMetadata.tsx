@@ -1,5 +1,6 @@
 import {
   audio,
+  checkingIn,
   image,
   liveStream,
   textOnly,
@@ -7,6 +8,7 @@ import {
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
 import { usePostAttachmentStore } from "src/store/non-persisted/post/usePostAttachmentStore";
+import { usePostCheckinStore } from "src/store/non-persisted/post/usePostCheckinStore";
 import { usePostLicenseStore } from "src/store/non-persisted/post/usePostLicenseStore";
 import { usePostLiveStore } from "src/store/non-persisted/post/usePostLiveStore";
 import { usePostVideoStore } from "src/store/non-persisted/post/usePostVideoStore";
@@ -22,6 +24,7 @@ const usePostMetadata = () => {
   const { license } = usePostLicenseStore();
   const { attachments } = usePostAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
+  const { location, position } = usePostCheckinStore();
 
   const processAttachments = () =>
     attachments
@@ -38,6 +41,7 @@ const usePostMetadata = () => {
       const isAudio = attachments[0]?.type === "Audio";
       const isVideo = attachments[0]?.type === "Video";
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
+      const isCheckingIn = Boolean(location);
 
       const attachmentsToBeUploaded = processAttachments();
 
@@ -48,6 +52,10 @@ const usePostMetadata = () => {
           playbackUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
           startsAt: new Date().toISOString()
         });
+      }
+
+      if (isCheckingIn) {
+        return checkingIn({ ...baseMetadata, location, position });
       }
 
       if (!hasAttachments) {
