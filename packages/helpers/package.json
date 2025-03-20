@@ -12,11 +12,11 @@
     "@hey/indexer": "workspace:*",
     "@hey/types": "workspace:*",
     "@penseapp/discord-notification": "^2.0.9",
-    "axios": "^1.8.3",
+    "axios": "^1.8.4",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "omit-deep": "^0.3.0",
-    "viem": "^2.23.12",
+    "viem": "^2.23.13",
     "winston": "^3.16.0"
   },
   "devDependencies": {

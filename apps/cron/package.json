@@ -18,7 +18,7 @@
     "dotenv": "^16.4.7",
     "node-cron": "^3.0.3",
     "tsx": "^4.19.3",
-    "viem": "^2.23.12"
+    "viem": "^2.23.13"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
