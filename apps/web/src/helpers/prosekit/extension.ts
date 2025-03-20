@@ -3,15 +3,13 @@ import { Regex } from "@hey/data/regex";
 import {
   defineBaseCommands,
   defineBaseKeymap,
-  defineDoc,
   defineHistory,
   defineMarkSpec,
   defineNodeSpec,
-  defineParagraph,
-  defineText,
   union
 } from "prosekit/core";
 import { defineBold } from "prosekit/extensions/bold";
+import { defineDoc } from "prosekit/extensions/doc";
 import { defineHeading } from "prosekit/extensions/heading";
 import { defineItalic } from "prosekit/extensions/italic";
 import { defineLinkMarkRule, defineLinkSpec } from "prosekit/extensions/link";
@@ -19,7 +17,9 @@ import { defineMarkRule } from "prosekit/extensions/mark-rule";
 import type { MentionAttrs } from "prosekit/extensions/mention";
 import { defineMentionCommands } from "prosekit/extensions/mention";
 import { defineModClickPrevention } from "prosekit/extensions/mod-click-prevention";
+import { defineParagraph } from "prosekit/extensions/paragraph";
 import { definePlaceholder } from "prosekit/extensions/placeholder";
+import { defineText } from "prosekit/extensions/text";
 import { defineVirtualSelection } from "prosekit/extensions/virtual-selection";
 
 const defineHashtag = () => {
