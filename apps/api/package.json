@@ -11,7 +11,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.758.0",
+    "@aws-sdk/client-sts": "^3.772.0",
     "@hey/data": "workspace:*",
     "@hey/db": "workspace:*",
     "@hey/helpers": "workspace:*",
