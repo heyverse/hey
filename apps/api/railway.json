@@ -1,7 +1,7 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
   "build": {
-    "builder": "RAILPACK",
+    "builder": "NIXPACKS",
     "buildCommand": "pnpm --filter @hey/api build",
     "watchPatterns": ["apps/api/**", "packages/**/*"]
   },
