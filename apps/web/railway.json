@@ -8,7 +8,6 @@
   "deploy": {
     "runtime": "V2",
     "startCommand": "pnpm --filter @hey/web start",
-    "healthcheckPath": "/",
     "healthcheckTimeout": 100,
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
