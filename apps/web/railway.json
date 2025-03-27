@@ -9,12 +9,12 @@
     "runtime": "V2",
     "startCommand": "pnpm --filter @hey/web start",
     "healthcheckPath": "/",
-    "healthcheckTimeout": 60,
+    "healthcheckTimeout": 100,
     "restartPolicyType": "ALWAYS",
     "sleepApplication": false,
     "limitOverride": {
       "containers": {
-        "cpu": 2,
+        "cpu": 5,
         "memoryBytes": 4000000000
       }
     }
