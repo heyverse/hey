@@ -62,7 +62,7 @@
     "tailwind-merge": "3.0.2",
     "unified": "^11.0.5",
     "unist-util-visit-parents": "^6.0.1",
-    "viem": "^2.23.15",
+    "viem": "^2.24.1",
     "wagmi": "^2.14.15",
     "zod": "^3.24.2",
     "zustand": "5.0.3"
@@ -72,7 +72,7 @@
     "@hey/types": "workspace:*",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.10",
-    "@types/node": "^22.13.13",
+    "@types/node": "^22.13.14",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "autoprefixer": "^10.4.21",
