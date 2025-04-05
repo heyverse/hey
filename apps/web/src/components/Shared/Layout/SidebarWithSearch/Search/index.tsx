@@ -78,7 +78,7 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
     <div className="w-full">
       <form onSubmit={handleKeyDown}>
         <Input
-          className="px-3 py-2 text-sm"
+          className="px-3 py-3 text-sm"
           iconLeft={<MagnifyingGlassIcon />}
           iconRight={
             <XMarkIcon
@@ -97,10 +97,7 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
         />
       </form>
       {pathname !== "/search" && showDropdown ? (
-        <div
-          className="absolute mt-2 flex w-[94%] max-w-md flex-col"
-          ref={dropdownRef}
-        >
+        <div className="absolute mt-2 w-full" ref={dropdownRef}>
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {!debouncedSearchText && (
               <RecentAccounts onAccountClick={handleReset} />

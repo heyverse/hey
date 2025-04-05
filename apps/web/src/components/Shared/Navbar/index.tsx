@@ -71,7 +71,7 @@ const Navbar = () => {
   };
 
   return (
-    <aside className="sticky top-10 hidden w-10 shrink-0 flex-col items-center gap-y-5 lg:flex">
+    <aside className="sticky top-10 mt-10 hidden w-10 shrink-0 flex-col items-center gap-y-5 lg:flex">
       <Link to="/">
         <Image
           alt="Logo"
