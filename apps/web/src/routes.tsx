@@ -11,6 +11,7 @@ import Notification from "@/components/Notification";
 import Copyright from "@/components/Pages/Copyright";
 import Guidelines from "@/components/Pages/Guidelines";
 import Privacy from "@/components/Pages/Privacy";
+import Support from "@/components/Pages/Support";
 import Terms from "@/components/Pages/Terms";
 import ViewPost from "@/components/Post";
 import Search from "@/components/Search";
@@ -28,7 +29,6 @@ import Custom404 from "@/components/Shared/404";
 import Accounts from "@/components/Staff/Accounts";
 import StaffAccountOverview from "@/components/Staff/Accounts/Overview";
 import StaffOverview from "@/components/Staff/Overview";
-import Support from "@/components/Support";
 import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 
 export const Routes = () => {

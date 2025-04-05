@@ -1,14 +1,15 @@
-import Footer from "@/components/Shared/Footer";
 import { H2, H4 } from "@/components/Shared/UI";
 import { APP_NAME } from "@hey/data/constants";
 import { Link } from "react-router";
+import Sidebar from "../Home/Sidebar";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 
 const Copyright = () => {
   const updatedAt = "October 22, 2024";
 
   return (
-    <>
-      <div className="flex h-48 w-full items-center justify-center bg-neutral-400">
+    <GeneralPageLayout title="Copyright Policy" sidebar={<Sidebar />}>
+      <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-neutral-400">
         <div className="relative text-center">
           <H2 className="text-white">Copyright Policy</H2>
           <div className="mt-4 flex justify-center">
@@ -20,7 +21,7 @@ const Copyright = () => {
       </div>
       <div className="relative">
         <div className="flex justify-center">
-          <div className="relative mx-auto max-w-3/4 rounded-lg sm:w-2/4">
+          <div className="relative mx-auto rounded-lg">
             <div className="!p-8 max-w-none text-neutral-500 dark:text-neutral-200">
               {/* Notification of Copyright Infringement beings */}
               <H4 className="mb-5">Notification of Copyright Infringement</H4>
@@ -129,11 +130,8 @@ const Copyright = () => {
             </div>
           </div>
         </div>
-        <div className="mt-2 mb-6 flex justify-center">
-          <Footer />
-        </div>
       </div>
-    </>
+    </GeneralPageLayout>
   );
 };
 

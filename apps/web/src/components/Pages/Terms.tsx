@@ -1,13 +1,14 @@
-import Footer from "@/components/Shared/Footer";
 import { H2, H4 } from "@/components/Shared/UI";
 import { Link } from "react-router";
+import Sidebar from "../Home/Sidebar";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 
 const Terms = () => {
   const updatedAt = "March 21, 2025";
 
   return (
-    <>
-      <div className="flex h-48 w-full items-center justify-center bg-neutral-400">
+    <GeneralPageLayout title="Terms & Conditions" sidebar={<Sidebar />}>
+      <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-neutral-400">
         <div className="relative text-center">
           <H2 className="text-white">Terms & Conditions</H2>
           <div className="mt-4 flex justify-center">
@@ -19,7 +20,7 @@ const Terms = () => {
       </div>
       <div className="relative">
         <div className="flex justify-center">
-          <div className="relative mx-auto max-w-3/4 rounded-lg sm:w-2/4">
+          <div className="relative mx-auto rounded-lg">
             <div className="!p-8 max-w-none text-neutral-500 dark:text-neutral-200">
               {/* 1. Overview beings */}
               <H4 className="mb-5">1. Overview</H4>
@@ -308,11 +309,8 @@ const Terms = () => {
             </div>
           </div>
         </div>
-        <div className="mt-2 mb-6 flex justify-center">
-          <Footer />
-        </div>
       </div>
-    </>
+    </GeneralPageLayout>
   );
 };
 

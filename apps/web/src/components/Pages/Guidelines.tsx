@@ -1,19 +1,20 @@
-import Footer from "@/components/Shared/Footer";
 import { H2, H4 } from "@/components/Shared/UI";
 import { APP_NAME } from "@hey/data/constants";
 import { Link } from "react-router";
+import Sidebar from "../Home/Sidebar";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 
 const Guidelines = () => {
   return (
-    <>
-      <div className="flex h-48 w-full items-center justify-center bg-neutral-400">
+    <GeneralPageLayout title="Community Guidelines" sidebar={<Sidebar />}>
+      <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-neutral-400">
         <div className="relative text-center">
           <H2 className="text-white">Community Guidelines</H2>
         </div>
       </div>
       <div className="relative">
         <div className="flex justify-center">
-          <div className="relative mx-auto max-w-3/4 rounded-lg sm:w-2/4">
+          <div className="relative mx-auto rounded-lg">
             <div className="!p-8 max-w-none text-neutral-500 dark:text-neutral-200">
               <div className="space-y-5">
                 <p className="leading-7">
@@ -122,11 +123,8 @@ const Guidelines = () => {
             </div>
           </div>
         </div>
-        <div className="mt-2 mb-6 flex justify-center">
-          <Footer />
-        </div>
       </div>
-    </>
+    </GeneralPageLayout>
   );
 };
 
