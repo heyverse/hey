@@ -4,6 +4,8 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { APP_NAME } from "@hey/data/constants";
 import { NotificationFeedType } from "@hey/data/enums";
 import { useSearchParams } from "react-router";
+import Sidebar from "../Home/Sidebar";
+import SidebarWithSearch from "../Shared/SidebarWithSearch/SidebarWithSearch";
 import FeedType from "./FeedType";
 import List from "./List";
 import Settings from "./Settings";
@@ -32,16 +34,19 @@ const Notification = () => {
   }
 
   return (
-    <div className="flex grow justify-center px-0 py-8 sm:px-6 lg:px-8">
+    <>
       <MetaTags title={`Notifications • ${APP_NAME}`} />
-      <div className="w-full max-w-4xl space-y-3">
+      <div className="mt-10 flex-1 space-y-5">
         <div className="flex flex-wrap justify-between gap-3 pb-2">
           <FeedType feedType={feedType as NotificationFeedType} />
           <Settings />
         </div>
         <List feedType={feedType} />
       </div>
-    </div>
+      <SidebarWithSearch>
+        <Sidebar />
+      </SidebarWithSearch>
+    </>
   );
 };
 

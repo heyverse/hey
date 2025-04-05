@@ -16,7 +16,7 @@ const FeedType = ({ feedType }: FeedTypeProps) => {
   const tabs = [
     {
       icon: <BellIcon className="size-4" />,
-      name: "All notifications",
+      name: "All",
       type: NotificationFeedType.All
     },
     {
