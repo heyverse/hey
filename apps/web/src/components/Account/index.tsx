@@ -110,8 +110,6 @@ const ViewProfile = () => {
   return (
     <>
       <MetaTags
-        creator={getAccount(account).name}
-        description={account.metadata?.bio || ""}
         title={`${getAccount(account).name} (${getAccount(account).usernameWithPrefix}) • ${APP_NAME}`}
       />
       <Cover
