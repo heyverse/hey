@@ -1,30 +1,6 @@
-import cn from "@/helpers/cn";
 import { MainContentFocus } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
-
-interface FeedLinkProps {
-  focus?: MainContentFocus;
-  name: string;
-  setFocus: Dispatch<SetStateAction<MainContentFocus | undefined>>;
-  type?: MainContentFocus;
-}
-
-const FeedLink = ({ focus, name, setFocus, type }: FeedLinkProps) => (
-  <button
-    aria-label={name}
-    className={cn(
-      focus === type
-        ? "bg-black text-white"
-        : "bg-neutral-100 dark:bg-neutral-800",
-      "rounded-full px-3 py-1.5 text-xs sm:px-4",
-      "border border-neutral-300 dark:border-neutral-500"
-    )}
-    onClick={() => setFocus(type)}
-    type="button"
-  >
-    {name}
-  </button>
-);
+import { TabButton } from "./UI";
 
 interface FeedFocusTypeProps {
   focus?: MainContentFocus;
@@ -33,30 +9,30 @@ interface FeedFocusTypeProps {
 
 const FeedFocusType = ({ focus, setFocus }: FeedFocusTypeProps) => (
   <div className="mx-5 flex flex-wrap gap-3 sm:mx-0">
-    <FeedLink focus={focus} name="All posts" setFocus={setFocus} />
-    <FeedLink
-      focus={focus}
+    <TabButton
+      active={!focus}
+      name="All posts"
+      onClick={() => setFocus(undefined)}
+    />
+    <TabButton
+      active={focus === MainContentFocus.TextOnly}
       name="Text"
-      setFocus={setFocus}
-      type={MainContentFocus.TextOnly}
+      onClick={() => setFocus(MainContentFocus.TextOnly)}
     />
-    <FeedLink
-      focus={focus}
+    <TabButton
+      active={focus === MainContentFocus.Video}
       name="Video"
-      setFocus={setFocus}
-      type={MainContentFocus.Video}
+      onClick={() => setFocus(MainContentFocus.Video)}
     />
-    <FeedLink
-      focus={focus}
+    <TabButton
+      active={focus === MainContentFocus.Audio}
       name="Audio"
-      setFocus={setFocus}
-      type={MainContentFocus.Audio}
+      onClick={() => setFocus(MainContentFocus.Audio)}
     />
-    <FeedLink
-      focus={focus}
+    <TabButton
+      active={focus === MainContentFocus.Image}
       name="Images"
-      setFocus={setFocus}
-      type={MainContentFocus.Image}
+      onClick={() => setFocus(MainContentFocus.Image)}
     />
   </div>
 );
