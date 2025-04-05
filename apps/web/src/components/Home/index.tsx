@@ -5,6 +5,7 @@ import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 import { APP_NAME } from "@hey/data/constants";
 import { HomeFeedType } from "@hey/data/enums";
 import MetaTags from "../Common/MetaTags";
+import Search from "../Shared/Navbar/Search";
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
 import Highlights from "./Highlights";
@@ -37,7 +38,8 @@ const Home = () => {
           <ExploreFeed />
         )}
       </div>
-      <aside className="sticky top-10 hidden w-96 shrink-0 xl:block">
+      <aside className="sticky top-10 hidden w-96 shrink-0 flex-col gap-y-5 xl:flex">
+        <Search />
         <Sidebar />
       </aside>
     </>

@@ -22,7 +22,7 @@ const BottomNavigation = () => {
   const isActivePath = (path: string) => pathname === path;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[5] border-neutral-200 border-t bg-white pb-safe md:hidden dark:border-neutral-800 dark:bg-black">
+    <nav className="fixed inset-x-0 bottom-0 z-[5] border-neutral-200 border-t bg-white pb-safe md:hidden dark:border-neutral-800 dark:bg-black">
       <div
         className={cn("grid", currentAccount ? "grid-cols-4" : "grid-cols-3")}
       >
@@ -65,7 +65,7 @@ const BottomNavigation = () => {
           </Link>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 

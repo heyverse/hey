@@ -29,7 +29,7 @@ const WhoToFollow = () => {
 
   if (loading) {
     return (
-      <Card as="aside" className="space-y-4 p-5">
+      <Card className="space-y-4 p-5">
         <Title />
         <SingleAccountShimmer showFollowUnfollowButton />
         <SingleAccountShimmer showFollowUnfollowButton />
@@ -58,7 +58,7 @@ const WhoToFollow = () => {
 
   return (
     <>
-      <Card as="aside" className="space-y-4 p-5">
+      <Card className="space-y-4 p-5">
         <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
         {recommendedAccounts?.slice(0, 5).map((account) => (

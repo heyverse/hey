@@ -34,7 +34,7 @@ const SetAccount = () => {
   }
 
   return (
-    <Card as="aside" className="mb-4 space-y-4 p-5">
+    <Card className="mb-4 space-y-4 p-5">
       <H5>Setup your {APP_NAME} account</H5>
       <div className="space-y-1 text-sm leading-5">
         <Status

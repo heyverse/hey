@@ -13,7 +13,7 @@ const SignupCard = () => {
   };
 
   return (
-    <Card as="aside" className="mb-4 space-y-4 p-5">
+    <Card className="mb-4 space-y-4 p-5">
       <Image
         alt="Dizzy emoji"
         className="mx-auto size-14"

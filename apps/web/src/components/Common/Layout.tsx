@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router";
 import GlobalModals from "../Shared/GlobalModals";
+import Navbar from "../Shared/Navbar";
 import BottomNavigation from "../Shared/Navbar/BottomNavigation";
 
 const Layout = () => {
@@ -60,9 +61,7 @@ const Layout = () => {
       <GlobalModals />
       <GlobalAlerts />
       <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8">
-        <aside className="sticky top-10 hidden w-10 shrink-0 lg:block">
-          gm
-        </aside>
+        <Navbar />
         <Outlet />
         <BottomNavigation />
       </div>
