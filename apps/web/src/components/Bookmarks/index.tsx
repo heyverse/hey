@@ -9,7 +9,6 @@ import {
   GridLayout
 } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { APP_NAME } from "@hey/data/constants";
 import type { MainContentFocus } from "@hey/indexer";
 import { useState } from "react";
 import BookmarksFeed from "./BookmarksFeed";
@@ -24,7 +23,7 @@ const Bookmarks = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Bookmarks • ${APP_NAME}`} />
+      <MetaTags title="Bookmarks" />
       <GridItemEight className="space-y-5">
         <FeedFocusType focus={focus} setFocus={setFocus} />
         <BookmarksFeed focus={focus} />

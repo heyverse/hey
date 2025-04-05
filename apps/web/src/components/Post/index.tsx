@@ -1,23 +1,15 @@
 import CommentFeed from "@/components/Comment/CommentFeed";
 import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
-import MetaTags from "@/components/Common/MetaTags";
 import NewPublication from "@/components/Composer/NewPublication";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import Footer from "@/components/Shared/Footer";
 import SingleAccount from "@/components/Shared/SingleAccount";
-import {
-  Card,
-  GridItemEight,
-  GridItemFour,
-  GridLayout,
-  WarningMessage
-} from "@/components/Shared/UI";
+import { Card, WarningMessage } from "@/components/Shared/UI";
 import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { APP_NAME } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
-import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
   PageSize,
@@ -29,6 +21,7 @@ import {
 import { useLocation, useParams } from "react-router";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 import FullPost from "./FullPost";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";
@@ -92,15 +85,30 @@ const ViewPost = () => {
     "PostOperationValidationPassed";
 
   return (
-    <GridLayout>
-      <MetaTags
-        creator={getAccount(targetPost.author).name}
-        description={getPostData(targetPost.metadata)?.content}
-        title={`${targetPost.__typename} by ${
-          getAccount(targetPost.author).usernameWithPrefix
-        } • ${APP_NAME}`}
-      />
-      <GridItemEight className="space-y-5">
+    <GeneralPageLayout
+      title={`${targetPost.__typename} by ${
+        getAccount(targetPost.author).usernameWithPrefix
+      } • ${APP_NAME}`}
+      sidebar={
+        <div className="space-y-5">
+          <Card as="aside" className="p-5">
+            <SingleAccount
+              hideFollowButton={
+                currentAccount?.address === targetPost.author.address
+              }
+              hideUnfollowButton={
+                currentAccount?.address === targetPost.author.address
+              }
+              account={targetPost.author}
+              showBio
+            />
+          </Card>
+          <RelevantPeople mentions={targetPost.mentions} />
+          <Footer />
+        </div>
+      }
+    >
+      <div className="space-y-5">
         {showQuotes ? (
           <Quotes post={targetPost} />
         ) : (
@@ -129,24 +137,8 @@ const ViewPost = () => {
             )}
           </>
         )}
-      </GridItemEight>
-      <GridItemFour className="space-y-5">
-        <Card as="aside" className="p-5">
-          <SingleAccount
-            hideFollowButton={
-              currentAccount?.address === targetPost.author.address
-            }
-            hideUnfollowButton={
-              currentAccount?.address === targetPost.author.address
-            }
-            account={targetPost.author}
-            showBio
-          />
-        </Card>
-        <RelevantPeople mentions={targetPost.mentions} />
-        <Footer />
-      </GridItemFour>
-    </GridLayout>
+      </div>
+    </GeneralPageLayout>
   );
 };
 

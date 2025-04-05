@@ -10,7 +10,7 @@ import {
   WarningMessage
 } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { APP_NAME, STATIC_IMAGES_URL } from "@hey/data/constants";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { useGroupQuery } from "@hey/indexer";
 import { useParams } from "react-router";
 import Details from "./Details";
@@ -44,10 +44,7 @@ const ViewGroup = () => {
 
   return (
     <>
-      <MetaTags
-        description={group.metadata?.description || ""}
-        title={`${group.metadata?.name} • ${APP_NAME}`}
-      />
+      <MetaTags title={group.metadata?.name} />
       <Cover
         cover={group.metadata?.icon || `${STATIC_IMAGES_URL}/patterns/2.svg`}
       />
