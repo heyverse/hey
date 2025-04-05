@@ -5,7 +5,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {} from "@headlessui/react";
 import { MainContentFocus } from "@hey/indexer";
 import { useState } from "react";
-import SidebarWithSearch from "../Shared/SidebarWithSearch/SidebarWithSearch";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 import ExploreFeed from "./ExploreFeed";
 import ImageFeed from "./ImageFeed";
 
@@ -14,21 +14,23 @@ const Explore = () => {
   const [focus, setFocus] = useState<MainContentFocus>();
 
   return (
-    <>
-      <div className="mt-10 flex-1 space-y-5">
-        <FeedFocusType focus={focus} setFocus={setFocus} />
-        {focus === MainContentFocus.Image ? (
-          <ImageFeed />
-        ) : (
-          <ExploreFeed focus={focus} />
-        )}
-      </div>
-      <SidebarWithSearch>
-        {/* <Gitcoin /> */}
-        {currentAccount ? <WhoToFollow /> : null}
-        <Footer />
-      </SidebarWithSearch>
-    </>
+    <GeneralPageLayout
+      title="Explore"
+      sidebar={
+        <>
+          {/* <Gitcoin /> */}
+          {currentAccount ? <WhoToFollow /> : null}
+          <Footer />
+        </>
+      }
+    >
+      <FeedFocusType focus={focus} setFocus={setFocus} />
+      {focus === MainContentFocus.Image ? (
+        <ImageFeed />
+      ) : (
+        <ExploreFeed focus={focus} />
+      )}
+    </GeneralPageLayout>
   );
 };
 

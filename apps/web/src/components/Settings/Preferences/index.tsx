@@ -1,12 +1,6 @@
-import MetaTags from "@/components/Common/MetaTags";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import {
-  Card,
-  CardHeader,
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@/components/Shared/UI";
+import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { APP_NAME } from "@hey/data/constants";
 import SettingsSidebar from "../Sidebar";
@@ -21,12 +15,11 @@ const PreferencesSettings = () => {
   }
 
   return (
-    <GridLayout>
-      <MetaTags title={`Preferences settings • ${APP_NAME}`} />
-      <GridItemFour>
-        <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight className="space-y-5">
+    <SettingsPageLayout
+      title="Preferences settings"
+      sidebar={<SettingsSidebar />}
+    >
+      <div className="space-y-5">
         <Card>
           <CardHeader
             body={`Update your preferences to control how you can change your
@@ -38,8 +31,8 @@ const PreferencesSettings = () => {
           </div>
         </Card>
         <AppIcon />
-      </GridItemEight>
-    </GridLayout>
+      </div>
+    </SettingsPageLayout>
   );
 };
 

@@ -1,12 +1,7 @@
-import MetaTags from "@/components/Common/MetaTags";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import {
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@/components/Shared/UI";
+import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { APP_NAME } from "@hey/data/constants";
 import SettingsSidebar from "../Sidebar";
 import SuperFollow from "./SuperFollow";
 
@@ -18,15 +13,9 @@ const AccountSettings = () => {
   }
 
   return (
-    <GridLayout>
-      <MetaTags title={`Account settings • ${APP_NAME}`} />
-      <GridItemFour>
-        <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight>
-        <SuperFollow />
-      </GridItemEight>
-    </GridLayout>
+    <SettingsPageLayout title="Account settings" sidebar={<SettingsSidebar />}>
+      <SuperFollow />
+    </SettingsPageLayout>
   );
 };
 

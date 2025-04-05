@@ -1,12 +1,6 @@
-import MetaTags from "@/components/Common/MetaTags";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import {
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@/components/Shared/UI";
+import { SettingsPageLayout } from "@/components/Shared/PageLayout";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { APP_NAME } from "@hey/data/constants";
 import SettingsSidebar from "../Sidebar";
 import LinkUsername from "./LinkUsername";
 import UnlinkUsername from "./UnlinkUsername";
@@ -19,16 +13,12 @@ const UsernameSettings = () => {
   }
 
   return (
-    <GridLayout>
-      <MetaTags title={`Username settings • ${APP_NAME}`} />
-      <GridItemFour>
-        <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight className="space-y-5">
+    <SettingsPageLayout title="Username settings" sidebar={<SettingsSidebar />}>
+      <div className="space-y-5">
         <UnlinkUsername />
         <LinkUsername />
-      </GridItemEight>
-    </GridLayout>
+      </div>
+    </SettingsPageLayout>
   );
 };
 

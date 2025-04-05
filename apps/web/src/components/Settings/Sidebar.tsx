@@ -1,6 +1,4 @@
 import Sidebar from "@/components/Shared/Sidebar";
-import SingleAccount from "@/components/Shared/SingleAccount";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,
@@ -13,11 +11,8 @@ import {
   PaintBrushIcon,
   UserIcon
 } from "@heroicons/react/24/outline";
-import type { AccountFragment } from "@hey/indexer";
 
 const SettingsSidebar = () => {
-  const { currentAccount } = useAccountStore();
-
   const sidebarItems = [
     {
       icon: <PaintBrushIcon className="size-4" />,
@@ -71,19 +66,7 @@ const SettingsSidebar = () => {
     }
   ];
 
-  return (
-    <div className="mb-4 px-3 sm:px-0">
-      <div className="pb-3">
-        <SingleAccount
-          hideFollowButton
-          hideUnfollowButton
-          account={currentAccount as AccountFragment}
-          showUserPreview={false}
-        />
-      </div>
-      <Sidebar items={sidebarItems} />
-    </div>
-  );
+  return <Sidebar items={sidebarItems} />;
 };
 
 export default SettingsSidebar;
