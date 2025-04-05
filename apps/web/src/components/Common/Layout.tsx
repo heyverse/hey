@@ -1,7 +1,5 @@
 import FullPageLoader from "@/components/Shared/FullPageLoader";
 import GlobalAlerts from "@/components/Shared/GlobalAlerts";
-import GlobalBanners from "@/components/Shared/GlobalBanners";
-import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import getCurrentSession from "@/helpers/getCurrentSession";
 import getToastOptions from "@/helpers/getToastOptions";
 import { useTheme } from "@/hooks/useTheme";
@@ -15,7 +13,7 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router";
 import GlobalModals from "../Shared/GlobalModals";
-import Navbar from "../Shared/Navbar";
+import BottomNavigation from "../Shared/Navbar/BottomNavigation";
 
 const Layout = () => {
   const { theme } = useTheme();
@@ -61,11 +59,12 @@ const Layout = () => {
       />
       <GlobalModals />
       <GlobalAlerts />
-      <div className="flex min-h-screen flex-col pb-14 md:pb-0">
-        <Navbar />
-        <GlobalBanners />
-        <BottomNavigation />
+      <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8">
+        <aside className="sticky top-10 hidden w-10 shrink-0 lg:block">
+          gm
+        </aside>
         <Outlet />
+        <BottomNavigation />
       </div>
     </main>
   );
