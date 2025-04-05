@@ -1,14 +1,8 @@
-import MetaTags from "@/components/Common/MetaTags";
 import NewPost from "@/components/Composer/NewPost";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import Cover from "@/components/Shared/Cover";
-import {
-  EmptyState,
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@/components/Shared/UI";
+import { EmptyState } from "@/components/Shared/UI";
 import hasAccess from "@/helpers/hasAccess";
 import { trpc } from "@/helpers/trpc";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -21,6 +15,8 @@ import isAccountDeleted from "@hey/helpers/isAccountDeleted";
 import { useAccountQuery } from "@hey/indexer";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router";
+import Sidebar from "../Home/Sidebar";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 import AccountFeed from "./AccountFeed";
 import DeletedDetails from "./DeletedDetails";
 import Details from "./Details";
@@ -109,41 +105,39 @@ const ViewProfile = () => {
 
   return (
     <>
-      <MetaTags
+      <GeneralPageLayout
         title={`${getAccount(account).name} (${getAccount(account).usernameWithPrefix}) • ${APP_NAME}`}
-      />
-      <Cover
-        cover={
-          isSuspended
-            ? `${STATIC_IMAGES_URL}/patterns/2.svg`
-            : account?.metadata?.coverPicture ||
-              `${STATIC_IMAGES_URL}/patterns/2.svg`
-        }
-      />
-      <GridLayout>
-        <GridItemFour>{renderAccountDetails()}</GridItemFour>
-        <GridItemEight className="space-y-5">
-          {isDeleted || isSuspended ? (
-            renderEmptyState()
-          ) : (
-            <>
-              <FeedType feedType={feedType as AccountFeedType} />
-              {currentAccount?.address === account?.address && <NewPost />}
-              {(feedType === AccountFeedType.Feed ||
-                feedType === AccountFeedType.Replies ||
-                feedType === AccountFeedType.Media ||
-                feedType === AccountFeedType.Collects) && (
-                <AccountFeed
-                  username={getAccount(account).usernameWithPrefix}
-                  accountDetailsLoading={accountDetailsLoading}
-                  address={account.address}
-                  type={feedType}
-                />
-              )}
-            </>
-          )}
-        </GridItemEight>
-      </GridLayout>
+        sidebar={<Sidebar />}
+      >
+        <Cover
+          cover={
+            isSuspended
+              ? `${STATIC_IMAGES_URL}/patterns/2.svg`
+              : account?.metadata?.coverPicture ||
+                `${STATIC_IMAGES_URL}/patterns/2.svg`
+          }
+        />
+        {renderAccountDetails()}
+        {isDeleted || isSuspended ? (
+          renderEmptyState()
+        ) : (
+          <>
+            <FeedType feedType={feedType as AccountFeedType} />
+            {currentAccount?.address === account?.address && <NewPost />}
+            {(feedType === AccountFeedType.Feed ||
+              feedType === AccountFeedType.Replies ||
+              feedType === AccountFeedType.Media ||
+              feedType === AccountFeedType.Collects) && (
+              <AccountFeed
+                username={getAccount(account).usernameWithPrefix}
+                accountDetailsLoading={accountDetailsLoading}
+                address={account.address}
+                type={feedType}
+              />
+            )}
+          </>
+        )}
+      </GeneralPageLayout>
     </>
   );
 };
