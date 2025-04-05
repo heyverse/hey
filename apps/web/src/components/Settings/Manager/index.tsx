@@ -19,16 +19,14 @@ const ManagerSettings = () => {
 
   return (
     <SettingsPageLayout title="Manager settings" sidebar={<SettingsSidebar />}>
-      <div className="space-y-5">
-        {disabled ? (
-          <WrongWallet />
-        ) : (
-          <>
-            <Signless />
-            <AccountManager />
-          </>
-        )}
-      </div>
+      {disabled ? (
+        <WrongWallet />
+      ) : (
+        <>
+          <Signless />
+          <AccountManager />
+        </>
+      )}
     </SettingsPageLayout>
   );
 };

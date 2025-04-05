@@ -14,10 +14,8 @@ const UsernameSettings = () => {
 
   return (
     <SettingsPageLayout title="Username settings" sidebar={<SettingsSidebar />}>
-      <div className="space-y-5">
-        <UnlinkUsername />
-        <LinkUsername />
-      </div>
+      <UnlinkUsername />
+      <LinkUsername />
     </SettingsPageLayout>
   );
 };

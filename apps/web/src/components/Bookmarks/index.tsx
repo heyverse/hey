@@ -1,16 +1,11 @@
-import MetaTags from "@/components/Common/MetaTags";
-import WhoToFollow from "@/components/Home/Sidebar/WhoToFollow";
 import FeedFocusType from "@/components/Shared/FeedFocusType";
-import Footer from "@/components/Shared/Footer";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import {
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@/components/Shared/UI";
+import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { MainContentFocus } from "@hey/indexer";
 import { useState } from "react";
+import Sidebar from "../Home/Sidebar";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 import BookmarksFeed from "./BookmarksFeed";
 
 const Bookmarks = () => {
@@ -22,17 +17,10 @@ const Bookmarks = () => {
   }
 
   return (
-    <GridLayout>
-      <MetaTags title="Bookmarks" />
-      <GridItemEight className="space-y-5">
-        <FeedFocusType focus={focus} setFocus={setFocus} />
-        <BookmarksFeed focus={focus} />
-      </GridItemEight>
-      <GridItemFour>
-        <WhoToFollow />
-        <Footer />
-      </GridItemFour>
-    </GridLayout>
+    <GeneralPageLayout title="Bookmarks" sidebar={<Sidebar />}>
+      <FeedFocusType focus={focus} setFocus={setFocus} />
+      <BookmarksFeed focus={focus} />
+    </GeneralPageLayout>
   );
 };
 
