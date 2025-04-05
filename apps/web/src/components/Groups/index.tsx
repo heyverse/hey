@@ -1,15 +1,9 @@
-import MetaTags from "@/components/Common/MetaTags";
 import Footer from "@/components/Shared/Footer";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import {
-  Card,
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@/components/Shared/UI";
+import { Card } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { APP_NAME } from "@hey/data/constants";
 import { useState } from "react";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 import List from "./List";
 import ListFocusType from "./ListFocusType";
 import CreateGroup from "./Sidebar/Create/CreateGroup";
@@ -28,19 +22,20 @@ const Groups = () => {
   }
 
   return (
-    <GridLayout>
-      <MetaTags title={`Groups • ${APP_NAME}`} />
-      <GridItemEight className="space-y-5">
-        <ListFocusType focus={focus} setFocus={setFocus} />
-        <Card>
-          <List focus={focus} />
-        </Card>
-      </GridItemEight>
-      <GridItemFour>
-        <CreateGroup />
-        <Footer />
-      </GridItemFour>
-    </GridLayout>
+    <GeneralPageLayout
+      title="Groups"
+      sidebar={
+        <>
+          <CreateGroup />
+          <Footer />
+        </>
+      }
+    >
+      <ListFocusType focus={focus} setFocus={setFocus} />
+      <Card>
+        <List focus={focus} />
+      </Card>
+    </GeneralPageLayout>
   );
 };
 
