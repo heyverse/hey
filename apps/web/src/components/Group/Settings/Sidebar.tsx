@@ -1,14 +1,8 @@
 import Sidebar from "@/components/Shared/Sidebar";
-import SingleGroup from "@/components/Shared/SingleGroup";
 import { LockClosedIcon, UserGroupIcon } from "@heroicons/react/24/outline";
-import type { GroupFragment } from "@hey/indexer";
 import { useLocation, useParams } from "react-router";
 
-interface SettingsSidebarProps {
-  group: GroupFragment;
-}
-
-const SettingsSidebar = ({ group }: SettingsSidebarProps) => {
+const SettingsSidebar = () => {
   const { pathname } = useLocation();
   const { address } = useParams<{ address: string }>();
 
@@ -27,14 +21,7 @@ const SettingsSidebar = ({ group }: SettingsSidebarProps) => {
     }
   ];
 
-  return (
-    <div className="mb-4 px-3 sm:px-0">
-      <div className="pb-3">
-        <SingleGroup group={group} hideJoinButton hideLeaveButton />
-      </div>
-      <Sidebar items={sidebarItems} />
-    </div>
-  );
+  return <Sidebar items={sidebarItems} />;
 };
 
 export default SettingsSidebar;

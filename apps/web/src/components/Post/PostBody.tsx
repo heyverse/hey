@@ -67,7 +67,7 @@ const PostBody = ({
       <Markup
         className={cn(
           { "line-clamp-5": canShowMore },
-          "markup linkify break-words text-md",
+          "markup linkify break-words",
           contentClassName
         )}
         mentions={targetPost.mentions}

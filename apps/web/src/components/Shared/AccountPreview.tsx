@@ -84,9 +84,7 @@ const AccountPreview = ({
 
     const UserName = () => (
       <div>
-        <div className="max-w-sm truncate">
-          <div className="text-md">{getAccount(account).name}</div>
-        </div>
+        <div className="max-w-sm truncate">{getAccount(account).name}</div>
         <span>
           <Slug
             className="text-sm"
@@ -124,7 +122,7 @@ const AccountPreview = ({
               Following
             </div>
           </div>
-          <div className="flex items-center space-x-1 text-md">
+          <div className="flex items-center space-x-1">
             <div className="text-base">
               {nFormatter(stats.graphFollowStats?.followers)}
             </div>

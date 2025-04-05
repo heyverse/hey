@@ -1,13 +1,8 @@
-import MetaTags from "@/components/Common/MetaTags";
 import Custom404 from "@/components/Shared/404";
-import {
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@/components/Shared/UI";
+import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import {} from "@/components/Shared/UI";
 import hasAccess from "@/helpers/hasAccess";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { APP_NAME } from "@hey/data/constants";
 import { Features } from "@hey/data/features";
 import StaffSidebar from "../Sidebar";
 import App from "./App";
@@ -22,16 +17,10 @@ const StaffOverview = () => {
   }
 
   return (
-    <GridLayout>
-      <MetaTags title={`Staff Tools • Overview • ${APP_NAME}`} />
-      <GridItemFour>
-        <StaffSidebar />
-      </GridItemFour>
-      <GridItemEight className="space-y-5">
-        <App />
-        <Sponsorship />
-      </GridItemEight>
-    </GridLayout>
+    <SettingsPageLayout title="Staff Tools" sidebar={<StaffSidebar />}>
+      <App />
+      <Sponsorship />
+    </SettingsPageLayout>
   );
 };
 

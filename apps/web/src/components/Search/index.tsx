@@ -1,12 +1,8 @@
 import Custom404 from "@/components/Shared/404";
 import Sidebar from "@/components/Shared/Sidebar";
-import {
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from "@/components/Shared/UI";
 import { PencilSquareIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { useSearchParams } from "react-router";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 import Accounts from "./Accounts";
 import Posts from "./Posts";
 
@@ -39,15 +35,13 @@ const Search = () => {
   ];
 
   return (
-    <GridLayout>
-      <GridItemFour>
-        <Sidebar items={settingsSidebarItems} />
-      </GridItemFour>
-      <GridItemEight>
-        {type === "accounts" ? <Accounts query={q as string} /> : null}
-        {type === "posts" ? <Posts query={q as string} /> : null}
-      </GridItemEight>
-    </GridLayout>
+    <GeneralPageLayout
+      title="Search"
+      sidebar={<Sidebar items={settingsSidebarItems} />}
+    >
+      {type === "accounts" ? <Accounts query={q as string} /> : null}
+      {type === "posts" ? <Posts query={q as string} /> : null}
+    </GeneralPageLayout>
   );
 };
 

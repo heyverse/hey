@@ -126,10 +126,6 @@
     }
   }
 
-  .text-md {
-    @apply !text-sm sm:!text-base;
-  }
-
   .oembed-player,
   iframe {
     @apply rounded-xl;

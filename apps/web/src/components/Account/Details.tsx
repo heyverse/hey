@@ -58,11 +58,11 @@ const Details = ({ isSuspended = false, account }: DetailsProps) => {
   };
 
   return (
-    <div className="mb-4 space-y-5 px-5 sm:px-0">
-      <div className="-mt-14 sm:-mt-24 relative size-20 sm:size-36">
+    <div className="mb-4 space-y-4 px-5 sm:px-0">
+      <div className="-mt-14 sm:-mt-24 relative ml-2 size-20 sm:size-36">
         <Image
           alt={account.address}
-          className="size-20 cursor-pointer rounded-full bg-neutral-200 ring-8 ring-neutral-50 sm:size-36 dark:bg-neutral-700 dark:ring-black"
+          className="size-20 cursor-pointer rounded-full bg-neutral-200 ring-3 ring-neutral-50 sm:size-36 dark:bg-neutral-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(account, EXPANDED_AVATAR))}
           src={getAvatar(account)}
@@ -92,7 +92,7 @@ const Details = ({ isSuspended = false, account }: DetailsProps) => {
         </div>
       </div>
       {account?.metadata?.bio ? (
-        <div className="markup linkify mr-0 break-words text-md sm:mr-10">
+        <div className="markup linkify">
           <Markup mentions={getMentions(account?.metadata.bio)}>
             {account?.metadata.bio}
           </Markup>
@@ -120,12 +120,10 @@ const Details = ({ isSuspended = false, account }: DetailsProps) => {
             address={account.address}
           />
         ) : null}
-        <div className="divider w-full" />
-        <div className="space-y-2">
-          {renderAccountAttribute(
-            "location",
-            <MapPinIcon className="size-4" />
-          )}
+        <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <MetaDetails icon={<MapPinIcon className="size-4" />}>
+            {getAccountAttribute("location", account?.metadata?.attributes)}
+          </MetaDetails>
           {renderAccountAttribute(
             "website",
             <img

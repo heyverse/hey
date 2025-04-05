@@ -46,7 +46,7 @@ const SingleAccount = ({
 
   const UserName = () => (
     <>
-      <div className={cn(isBig ? "font-bold" : "text-md", "grid", "max-w-sm")}>
+      <div className={cn({ "font-bold": isBig }, "grid max-w-sm")}>
         <div className="truncate font-semibold">{getAccount(account).name}</div>
       </div>
       <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />

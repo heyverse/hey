@@ -8,7 +8,7 @@ interface MetaDetailsProps {
 const MetaDetails = ({ children, icon }: MetaDetailsProps) => (
   <div className="flex items-center gap-2">
     {icon}
-    <div className="truncate text-md">{children}</div>
+    <div className="truncate">{children}</div>
   </div>
 );
 

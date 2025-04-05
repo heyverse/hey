@@ -21,11 +21,8 @@ const Cover = ({ cover }: CoverProps) => {
   };
 
   return (
-    <div className="container mx-auto max-w-[1350px]">
-      <div
-        className="h-52 sm:h-[350px] md:rounded-2xl"
-        style={backgroundStyles}
-      />
+    <div className="container mx-auto">
+      <div className="h-52 sm:h-64 md:rounded-2xl" style={backgroundStyles} />
     </div>
   );
 };
