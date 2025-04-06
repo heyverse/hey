@@ -1,18 +1,14 @@
-import MetaTags from "@/components/Common/MetaTags";
 import NewPost from "@/components/Composer/NewPost";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import Cover from "@/components/Shared/Cover";
-import {
-  GridItemEight,
-  GridItemFour,
-  GridLayout,
-  WarningMessage
-} from "@/components/Shared/UI";
+import { WarningMessage } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { useGroupQuery } from "@hey/indexer";
 import { useParams } from "react-router";
+import Sidebar from "../Home/Sidebar";
+import { GeneralPageLayout } from "../Shared/PageLayout";
 import Details from "./Details";
 import GroupFeed from "./GroupFeed";
 import GroupPageShimmer from "./Shimmer";
@@ -43,29 +39,22 @@ const ViewGroup = () => {
   const isBanned = group.operations?.isBanned;
 
   return (
-    <>
-      <MetaTags title={group.metadata?.name} />
+    <GeneralPageLayout title={group.metadata?.name} sidebar={<Sidebar />}>
       <Cover
         cover={group.metadata?.icon || `${STATIC_IMAGES_URL}/patterns/2.svg`}
       />
-      <GridLayout>
-        <GridItemFour>
-          <Details group={group} />
-        </GridItemFour>
-        <GridItemEight className="space-y-5">
-          {isBanned && (
-            <WarningMessage
-              title="You are banned from this group"
-              message="Please contact the group owner to unban yourself."
-            />
-          )}
-          {currentAccount && isMember && !isBanned && (
-            <NewPost feed={group.feed?.address} />
-          )}
-          <GroupFeed feed={group.feed?.address} />
-        </GridItemEight>
-      </GridLayout>
-    </>
+      <Details group={group} />
+      {isBanned && (
+        <WarningMessage
+          title="You are banned from this group"
+          message="Please contact the group owner to unban yourself."
+        />
+      )}
+      {currentAccount && isMember && !isBanned && (
+        <NewPost feed={group.feed?.address} />
+      )}
+      <GroupFeed feed={group.feed?.address} />
+    </GeneralPageLayout>
   );
 };
 

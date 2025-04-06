@@ -21,10 +21,10 @@ const Details = ({ group }: DetailsProps) => {
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
-      <div className="-mt-24 sm:-mt-32 relative size-32 sm:size-52">
+      <div className="-mt-24 sm:-mt-24 relative ml-2 size-32 sm:size-36">
         <Image
           alt={group.address}
-          className="size-32 cursor-pointer rounded-xl bg-neutral-200 ring-8 ring-neutral-50 sm:size-52 dark:bg-neutral-700 dark:ring-black"
+          className="size-32 cursor-pointer rounded-xl bg-neutral-200 ring-3 ring-neutral-50 sm:size-36 dark:bg-neutral-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(group))}
           src={getAvatar(group)}

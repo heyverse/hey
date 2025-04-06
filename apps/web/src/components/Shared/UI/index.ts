@@ -7,12 +7,6 @@ export { Checkbox } from "./Checkbox";
 export { EmptyState } from "./EmptyState";
 export { ErrorMessage } from "./ErrorMessage";
 export { FieldError, Form, useZodForm } from "./Form";
-export {
-  GridItemEight,
-  GridItemFour,
-  GridItemTwelve,
-  GridLayout
-} from "./GridLayout";
 export { default as HelpTooltip } from "./HelpTooltip";
 export { Image } from "./Image";
 export { Input } from "./Input";
