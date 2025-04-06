@@ -121,9 +121,11 @@ const Details = ({ isSuspended = false, account }: DetailsProps) => {
           />
         ) : null}
         <div className="flex flex-wrap gap-x-5 gap-y-2">
-          <MetaDetails icon={<MapPinIcon className="size-4" />}>
-            {getAccountAttribute("location", account?.metadata?.attributes)}
-          </MetaDetails>
+          {getAccountAttribute("location", account?.metadata?.attributes) && (
+            <MetaDetails icon={<MapPinIcon className="size-4" />}>
+              {getAccountAttribute("location", account?.metadata?.attributes)}
+            </MetaDetails>
+          )}
           {renderAccountAttribute(
             "website",
             <img

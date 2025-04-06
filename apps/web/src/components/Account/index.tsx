@@ -104,41 +104,39 @@ const ViewProfile = () => {
   );
 
   return (
-    <>
-      <GeneralPageLayout
-        title={`${getAccount(account).name} (${getAccount(account).usernameWithPrefix}) • ${APP_NAME}`}
-        sidebar={<Sidebar />}
-      >
-        <Cover
-          cover={
-            isSuspended
-              ? `${STATIC_IMAGES_URL}/patterns/2.svg`
-              : account?.metadata?.coverPicture ||
-                `${STATIC_IMAGES_URL}/patterns/2.svg`
-          }
-        />
-        {renderAccountDetails()}
-        {isDeleted || isSuspended ? (
-          renderEmptyState()
-        ) : (
-          <>
-            <FeedType feedType={feedType as AccountFeedType} />
-            {currentAccount?.address === account?.address && <NewPost />}
-            {(feedType === AccountFeedType.Feed ||
-              feedType === AccountFeedType.Replies ||
-              feedType === AccountFeedType.Media ||
-              feedType === AccountFeedType.Collects) && (
-              <AccountFeed
-                username={getAccount(account).usernameWithPrefix}
-                accountDetailsLoading={accountDetailsLoading}
-                address={account.address}
-                type={feedType}
-              />
-            )}
-          </>
-        )}
-      </GeneralPageLayout>
-    </>
+    <GeneralPageLayout
+      title={`${getAccount(account).name} (${getAccount(account).usernameWithPrefix}) • ${APP_NAME}`}
+      sidebar={<Sidebar />}
+    >
+      <Cover
+        cover={
+          isSuspended
+            ? `${STATIC_IMAGES_URL}/patterns/2.svg`
+            : account?.metadata?.coverPicture ||
+              `${STATIC_IMAGES_URL}/patterns/2.svg`
+        }
+      />
+      {renderAccountDetails()}
+      {isDeleted || isSuspended ? (
+        renderEmptyState()
+      ) : (
+        <>
+          <FeedType feedType={feedType as AccountFeedType} />
+          {currentAccount?.address === account?.address && <NewPost />}
+          {(feedType === AccountFeedType.Feed ||
+            feedType === AccountFeedType.Replies ||
+            feedType === AccountFeedType.Media ||
+            feedType === AccountFeedType.Collects) && (
+            <AccountFeed
+              username={getAccount(account).usernameWithPrefix}
+              accountDetailsLoading={accountDetailsLoading}
+              address={account.address}
+              type={feedType}
+            />
+          )}
+        </>
+      )}
+    </GeneralPageLayout>
   );
 };
 
