@@ -9,7 +9,7 @@ interface SidebarProps {
 
 const Sidebar = ({ children, showSearch = false }: SidebarProps) => {
   return (
-    <aside className="no-scrollbar sticky top-5 mt-5 hidden max-h-screen w-96 shrink-0 flex-col gap-y-5 overflow-y-auto xl:flex">
+    <aside className="no-scrollbar sticky top-5 mt-5 hidden max-h-screen w-96 shrink-0 flex-col gap-y-5 overflow-y-auto lg:flex">
       {showSearch && <Search />}
       {children}
     </aside>
@@ -30,7 +30,7 @@ export const GeneralPageLayout = ({
   return (
     <>
       {title && <MetaTags title={title} />}
-      <div className="mt-5 flex-1 space-y-5 px-0 md:pr-5">{children}</div>
+      <div className="mt-5 flex-1 space-y-5 pr-5 sm:pr-0">{children}</div>
       <Sidebar showSearch>{sidebar}</Sidebar>
     </>
   );

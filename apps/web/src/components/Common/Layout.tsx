@@ -53,6 +53,20 @@ const Layout = () => {
 
   return (
     <main>
+      <div className="text-center font-bold">
+        <div className="block">
+          Breakpoint: <span>Default</span>
+        </div>
+        <div className="hidden sm:block md:hidden">
+          Breakpoint: <span>SM (≥600px)</span>
+        </div>
+        <div className="hidden md:block lg:hidden">
+          Breakpoint: <span>MD (≥768px)</span>
+        </div>
+        <div className="hidden lg:block">
+          Breakpoint: <span>LG (≥1024px)</span>
+        </div>
+      </div>
       <Toaster
         containerStyle={{ wordBreak: "break-word" }}
         position="bottom-right"
@@ -60,7 +74,7 @@ const Layout = () => {
       />
       <GlobalModals />
       <GlobalAlerts />
-      <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8">
+      <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8 px-5">
         <Navbar />
         <Outlet />
         <BottomNavigation />

@@ -77,7 +77,7 @@ const Navbar = () => {
   const { appIcon } = usePreferencesStore();
 
   return (
-    <aside className="sticky top-5 mt-5 ml-5 hidden w-10 shrink-0 flex-col items-center gap-y-5 md:flex">
+    <aside className="sticky top-5 mt-5 hidden w-10 shrink-0 flex-col items-center gap-y-5 md:flex">
       <Link to="/">
         <Image
           alt="Logo"
