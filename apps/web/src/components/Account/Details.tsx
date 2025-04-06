@@ -59,7 +59,7 @@ const Details = ({ isSuspended = false, account }: DetailsProps) => {
 
   return (
     <div className="mb-4 space-y-4 px-5 sm:px-0">
-      <div className="-mt-14 sm:-mt-24 relative ml-2 size-20 sm:size-36">
+      <div className="-mt-14 sm:-mt-24 relative ml-5 size-20 sm:size-36">
         <Image
           alt={account.address}
           className="size-20 cursor-pointer rounded-full bg-neutral-200 ring-3 ring-neutral-50 sm:size-36 dark:bg-neutral-700 dark:ring-black"
