@@ -1,4 +1,3 @@
-import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import hasAccess from "@/helpers/hasAccess";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
@@ -6,9 +5,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Features } from "@hey/data/features";
 import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
 import { Link } from "react-router";
-import Slug from "../Slug";
 import Bookmarks from "./NavItems/Bookmarks";
 import Groups from "./NavItems/Groups";
 import Logout from "./NavItems/Logout";
@@ -36,28 +33,6 @@ const MobileDrawerMenu = () => {
         <XMarkIcon className="size-6" />
       </button>
       <div className="w-full space-y-2">
-        <Link
-          className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-neutral-200 dark:hover:bg-neutral-800"
-          to={getAccount(currentAccount).link}
-          onClick={handleCloseDrawer}
-        >
-          <div className="flex w-full space-x-1.5">
-            <Image
-              alt={currentAccount?.address}
-              className="size-12 cursor-pointer rounded-full border border-neutral-200 dark:border-neutral-700"
-              src={getAvatar(currentAccount)}
-            />
-            <div>
-              Logged in as
-              <div className="truncate">
-                <Slug
-                  className="font-bold"
-                  slug={getAccount(currentAccount).usernameWithPrefix}
-                />
-              </div>
-            </div>
-          </div>
-        </Link>
         <div className="bg-white dark:bg-neutral-900">
           <div className="divider" />
           <SwitchAccount className={cn(itemClass, "px-4")} />

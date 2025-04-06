@@ -8,7 +8,6 @@ import { Features } from "@hey/data/features";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import MenuTransition from "../MenuTransition";
-import Slug from "../Slug";
 import { NextLink } from "./MenuItems";
 import MobileDrawerMenu from "./MobileDrawerMenu";
 import Logout from "./NavItems/Logout";
@@ -56,34 +55,6 @@ const SignedAccount = () => {
           >
             <MenuItem
               as={NextLink}
-              className="m-2 flex items-center rounded-lg px-4 py-2 text-neutral-700 text-sm hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
-              to={getAccount(currentAccount).link}
-            >
-              <div className="flex w-full flex-col">
-                <div>Logged in as</div>
-                <div className="truncate">
-                  <Slug
-                    className="font-bold"
-                    slug={getAccount(currentAccount).usernameWithPrefix}
-                  />
-                </div>
-              </div>
-            </MenuItem>
-            <div className="divider" />
-            <MenuItem
-              as="div"
-              className={({ focus }: { focus: boolean }) =>
-                cn(
-                  { "dropdown-active": focus },
-                  "m-2 rounded-lg border border-neutral-200 dark:border-neutral-700"
-                )
-              }
-            >
-              <SwitchAccount />
-            </MenuItem>
-            <div className="divider" />
-            <MenuItem
-              as={NextLink}
               className={({ focus }: { focus: boolean }) =>
                 cn({ "dropdown-active": focus }, "menu-item")
               }
@@ -120,6 +91,14 @@ const SignedAccount = () => {
               <Logout />
             </MenuItem>
             <div className="divider" />
+            <MenuItem
+              as="div"
+              className={({ focus }) =>
+                cn({ "dropdown-active": focus }, "m-2 rounded-lg")
+              }
+            >
+              <SwitchAccount />
+            </MenuItem>
             <MenuItem
               as="div"
               className={({ focus }) =>
