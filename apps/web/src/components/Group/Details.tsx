@@ -20,7 +20,7 @@ const Details = ({ group }: DetailsProps) => {
   const [expandedImage, setExpandedImage] = useState<null | string>(null);
 
   return (
-    <div className="mb-4 space-y-5 px-5 sm:px-0">
+    <div className="mb-4 space-y-5 px-5 md:px-0">
       <div className="-mt-24 sm:-mt-24 relative ml-5 size-32 sm:size-36">
         <Image
           alt={group.address}

@@ -42,7 +42,7 @@ const FeedType = ({ feedType }: FeedTypeProps) => {
 
   return (
     <div className="flex items-center justify-between">
-      <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
+      <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 md:px-0 md:pb-0">
         {tabs.map((tab) => (
           <TabButton
             active={feedType === tab.type}

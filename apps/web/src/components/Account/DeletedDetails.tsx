@@ -12,7 +12,7 @@ const DeletedDetails = ({ account }: DeletedDetailsProps) => {
   const { name, usernameWithPrefix } = getAccount(account);
 
   return (
-    <div className="space-y-5 px-5 sm:px-0">
+    <div className="space-y-5 px-5 md:px-0">
       <div className="-mt-24 sm:-mt-32 relative size-32 sm:size-52">
         <Image
           alt={account.address}

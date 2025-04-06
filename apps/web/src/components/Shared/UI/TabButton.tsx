@@ -40,7 +40,7 @@ const TabButton = ({
       className={cn(
         { "bg-neutral-300 dark:bg-neutral-300/20": active },
         "hover:bg-neutral-300 dark:hover:bg-neutral-300/30",
-        "flex items-center justify-center space-x-2 whitespace-nowrap rounded-lg px-4 py-2 text-sm sm:px-3 sm:py-1.5",
+        "flex items-center justify-center gap-x-2 whitespace-nowrap rounded-lg px-4 py-2 text-sm sm:px-3 sm:py-1.5",
         className
       )}
       onClick={() => {

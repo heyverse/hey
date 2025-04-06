@@ -22,7 +22,7 @@ const FeedType = () => {
   );
 
   return (
-    <div className="flex flex-wrap gap-3 px-5 sm:px-0">
+    <div className="flex flex-wrap gap-3 px-5 md:px-0">
       {tabs.map((tab) => (
         <TabButton
           active={feedType === tab.type}

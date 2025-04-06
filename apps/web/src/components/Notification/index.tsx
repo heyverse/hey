@@ -33,7 +33,7 @@ const Notification = () => {
 
   return (
     <GeneralPageLayout title="Notifications" sidebar={<Sidebar />}>
-      <div className="flex flex-wrap justify-between gap-3 pb-2">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <FeedType feedType={feedType as NotificationFeedType} />
         <Settings />
       </div>

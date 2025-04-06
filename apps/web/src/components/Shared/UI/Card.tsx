@@ -21,7 +21,7 @@ export const Card = ({
       className={cn(
         forceRounded
           ? "rounded-xl"
-          : "rounded-none border-x-0 sm:rounded-xl sm:border-x",
+          : "rounded-none border-x-0 md:rounded-xl md:border-x",
         "border border-neutral-200 dark:border-neutral-700",
         "bg-white dark:bg-black",
         className

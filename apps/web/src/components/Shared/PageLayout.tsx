@@ -30,7 +30,7 @@ export const GeneralPageLayout = ({
   return (
     <>
       {title && <MetaTags title={title} />}
-      <div className="mt-5 flex-1 space-y-5">{children}</div>
+      <div className="mt-5 flex-1 space-y-5 px-0 md:pr-5">{children}</div>
       <Sidebar showSearch>{sidebar}</Sidebar>
     </>
   );
