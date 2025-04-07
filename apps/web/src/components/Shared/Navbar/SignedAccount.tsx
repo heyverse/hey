@@ -44,8 +44,8 @@ const SignedAccount = () => {
       >
         <Avatar />
       </button>
-      <Menu as="div" className="hidden md:block">
-        <MenuButton className="flex self-center rounded-full">
+      <Menu as="div">
+        <MenuButton>
           <Avatar />
         </MenuButton>
         <MenuTransition>
