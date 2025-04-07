@@ -6,7 +6,6 @@ interface TabButtonProps {
   active: boolean;
   badge?: ReactNode;
   className?: string;
-  icon?: ReactNode;
   name: string;
   onClick?: () => void;
   showOnSm?: boolean;
@@ -17,7 +16,6 @@ const TabButton = ({
   active,
   badge,
   className = "",
-  icon,
   name,
   onClick,
   showOnSm = false,
@@ -49,7 +47,6 @@ const TabButton = ({
       }}
       type="button"
     >
-      {icon}
       <span className={cn({ "hidden sm:block": !showOnSm })}>{name}</span>
       {badge}
     </button>

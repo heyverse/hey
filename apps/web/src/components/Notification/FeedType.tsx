@@ -1,11 +1,5 @@
 import { TabButton } from "@/components/Shared/UI";
-import {
-  AtSymbolIcon,
-  BellIcon,
-  ChatBubbleLeftIcon,
-  HeartIcon,
-  ShoppingBagIcon
-} from "@heroicons/react/24/outline";
+import {} from "@heroicons/react/24/outline";
 import { NotificationFeedType } from "@hey/data/enums";
 
 interface FeedTypeProps {
@@ -15,27 +9,22 @@ interface FeedTypeProps {
 const FeedType = ({ feedType }: FeedTypeProps) => {
   const tabs = [
     {
-      icon: <BellIcon className="size-4" />,
       name: "All",
       type: NotificationFeedType.All
     },
     {
-      icon: <AtSymbolIcon className="size-4" />,
       name: "Mentions",
       type: NotificationFeedType.Mentions
     },
     {
-      icon: <ChatBubbleLeftIcon className="size-4" />,
       name: "Comments",
       type: NotificationFeedType.Comments
     },
     {
-      icon: <HeartIcon className="size-4" />,
       name: "Likes",
       type: NotificationFeedType.Likes
     },
     {
-      icon: <ShoppingBagIcon className="size-4" />,
       name: "Actions",
       type: NotificationFeedType.PostActions
     }
@@ -47,7 +36,6 @@ const FeedType = ({ feedType }: FeedTypeProps) => {
         {tabs.map((tab) => (
           <TabButton
             active={feedType === tab.type}
-            icon={tab.icon}
             key={tab.type}
             name={tab.name}
             type={tab.type.toLowerCase()}
