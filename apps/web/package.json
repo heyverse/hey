@@ -28,7 +28,7 @@
     "@radix-ui/react-slider": "^1.2.3",
     "@radix-ui/react-tooltip": "^1.1.8",
     "@tailwindcss/vite": "^4.1.3",
-    "@tanstack/react-query": "^5.71.10",
+    "@tanstack/react-query": "^5.72.0",
     "@trpc/client": "^11.0.2",
     "@trpc/tanstack-react-query": "^11.0.2",
     "@uidotdev/usehooks": "^2.4.1",
