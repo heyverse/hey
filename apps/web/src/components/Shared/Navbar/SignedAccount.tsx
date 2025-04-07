@@ -50,7 +50,7 @@ const SignedAccount = () => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-            className="absolute left-0 mt-2 w-48 rounded-xl border border-neutral-200 bg-white py-1 shadow-xs focus:outline-hidden dark:border-neutral-700 dark:bg-black"
+            className="absolute mt-2 w-48 rounded-xl border border-neutral-200 bg-white py-1 shadow-xs focus:outline-hidden dark:border-neutral-700 dark:bg-black"
             static
           >
             <MenuItem

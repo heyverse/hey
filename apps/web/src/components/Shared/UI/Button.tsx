@@ -3,7 +3,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { forwardRef, memo } from "react";
 
-const buttonVariants = cva("rounded-full font-bold transition-colors", {
+const buttonVariants = cva("rounded-full font-bold", {
   variants: {
     variant: { primary: "", danger: "" },
     size: { sm: "px-3 py-0.5 text-sm", md: "px-4 py-1", lg: "px-5 py-1.5" },
