@@ -63,7 +63,7 @@ const Tokens = () => {
       <Card>
         <CardHeader title="Your temporary access token" />
         <button
-          className="m-5 cursor-pointer break-all rounded-md bg-neutral-300 p-2 px-3 text-left dark:bg-neutral-600"
+          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           onClick={() => {
             toast.success("Copied to clipboard");
             navigator.clipboard.writeText(accessToken as string);
@@ -76,7 +76,7 @@ const Tokens = () => {
       <Card>
         <CardHeader title="Your temporary refresh token" />
         <button
-          className="m-5 cursor-pointer break-all rounded-md bg-neutral-300 p-2 px-3 text-left dark:bg-neutral-600"
+          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           onClick={() => {
             toast.success("Copied to clipboard");
             navigator.clipboard.writeText(refreshToken as string);
@@ -89,7 +89,7 @@ const Tokens = () => {
       <Card>
         <CardHeader title="Your temporary ID token" />
         <button
-          className="m-5 cursor-pointer break-all rounded-md bg-neutral-300 p-2 px-3 text-left dark:bg-neutral-600"
+          className="m-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
           type="button"
           onClick={() => {
             toast.success("Copied to clipboard");
@@ -107,7 +107,7 @@ const Tokens = () => {
           </Button>
           {builderToken && (
             <button
-              className="mt-5 cursor-pointer break-all rounded-md bg-neutral-300 p-2 px-3 text-left dark:bg-neutral-600"
+              className="mt-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
               type="button"
               onClick={() => {
                 toast.success("Copied to clipboard");

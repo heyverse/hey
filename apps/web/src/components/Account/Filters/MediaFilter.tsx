@@ -18,14 +18,14 @@ const MediaFilter = () => {
 
   return (
     <Menu as="div" className="relative">
-      <MenuButton className="rounded-md hover:bg-neutral-300/20">
+      <MenuButton className="rounded-md hover:bg-gray-300/20">
         <Tooltip content="Filter" placement="top">
           <AdjustmentsVerticalIcon className="size-5" />
         </Tooltip>
       </MenuButton>
       <MenuTransition>
         <MenuItems
-          className="absolute right-0 z-[5] mt-1 rounded-xl border border-neutral-200 bg-white py-1 shadow-xs focus:outline-hidden dark:border-neutral-700 dark:bg-neutral-900"
+          className="absolute right-0 z-[5] mt-1 rounded-xl border border-gray-200 bg-white py-1 shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
           static
         >
           <MenuItem

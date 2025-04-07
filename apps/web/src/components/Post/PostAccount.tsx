@@ -52,7 +52,7 @@ const PostAccount = ({
           />
         </CustomLink>
         {timestamp ? (
-          <span className="text-neutral-500 dark:text-neutral-200">
+          <span className="text-gray-500 dark:text-gray-200">
             <span className="mr-1">·</span>
             <Link className="text-xs hover:underline" to={`/posts/${postSlug}`}>
               {formatRelativeOrAbsolute(timestamp)}
@@ -70,7 +70,7 @@ const PostAccount = ({
             alt={group.metadata.name}
             className="size-4 rounded"
           />
-          <span className="truncate text-neutral-500 dark:text-neutral-200">
+          <span className="truncate text-gray-500 dark:text-gray-200">
             {group.metadata.name}
           </span>
         </Link>

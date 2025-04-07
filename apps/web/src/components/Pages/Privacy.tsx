@@ -9,11 +9,11 @@ const Privacy = () => {
 
   return (
     <GeneralPageLayout title="Privacy Policy" sidebar={<Sidebar />}>
-      <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-neutral-400">
+      <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-gray-400">
         <div className="relative text-center">
           <H2 className="text-white">Privacy Policy</H2>
           <div className="mt-4 flex justify-center">
-            <div className="rounded-md bg-neutral-800 px-2 py-0.5 text-white text-xs">
+            <div className="rounded-md bg-gray-800 px-2 py-0.5 text-white text-xs">
               Updated {updatedAt}
             </div>
           </div>
@@ -22,7 +22,7 @@ const Privacy = () => {
       <div className="relative">
         <div className="flex justify-center">
           <div className="relative mx-auto rounded-lg">
-            <div className="!p-8 max-w-none text-neutral-500 dark:text-neutral-200">
+            <div className="!p-8 max-w-none text-gray-500 dark:text-gray-200">
               {/* 1. Overview beings */}
               <H4 className="mb-5">1. Overview</H4>
               <div className="space-y-5">

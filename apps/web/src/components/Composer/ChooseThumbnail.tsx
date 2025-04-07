@@ -129,7 +129,7 @@ const ChooseThumbnail = () => {
       <b>Choose Thumbnail</b>
       <div className="mt-1 grid grid-cols-3 gap-3 py-0.5 md:grid-cols-5">
         <label
-          className="flex h-24 w-full max-w-32 flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-neutral-200 dark:border-neutral-700"
+          className="flex h-24 w-full max-w-32 flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700"
           htmlFor="chooseThumbnail"
         >
           <input
@@ -163,17 +163,17 @@ const ChooseThumbnail = () => {
             >
               <img
                 alt="thumbnail"
-                className="h-24 w-full rounded-xl border border-neutral-200 object-cover dark:border-neutral-700"
+                className="h-24 w-full rounded-xl border border-gray-200 object-cover dark:border-gray-700"
                 draggable={false}
                 src={blobUrl}
               />
               {decentralizedUrl && isSelected && isUploaded ? (
-                <div className="absolute inset-0 grid place-items-center rounded-xl bg-neutral-100/10">
+                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
                   <CheckCircleIcon className="size-6" />
                 </div>
               ) : null}
               {isUploading && isSelected && (
-                <div className="absolute inset-0 grid place-items-center rounded-xl bg-neutral-100/10 backdrop-blur-md">
+                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10 backdrop-blur-md">
                   <Spinner size="sm" />
                 </div>
               )}

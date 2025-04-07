@@ -24,7 +24,7 @@ const DismissRecommendedAccount = ({
 
   return (
     <button onClick={handleDismiss} type="reset">
-      <XMarkIcon className="size-4 text-neutral-500" />
+      <XMarkIcon className="size-4 text-gray-500" />
     </button>
   );
 };

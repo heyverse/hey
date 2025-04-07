@@ -13,7 +13,7 @@ const EmptyOembed = ({ url }: EmptyOembedProps) => {
         <div className="flex items-center">
           <Image
             alt="Thumbnail"
-            className="size-16 rounded-xl bg-neutral-200 md:size-20"
+            className="size-16 rounded-xl bg-gray-200 md:size-20"
             height={80}
             src={PLACEHOLDER_IMAGE}
             width={80}
@@ -21,7 +21,7 @@ const EmptyOembed = ({ url }: EmptyOembedProps) => {
           <div className="truncate px-5 py-4">
             <div className="space-y-1">
               <div className="flex items-center space-x-1.5">
-                <LinkIcon className="size-4 text-neutral-500 dark:text-neutral-200" />
+                <LinkIcon className="size-4 text-gray-500 dark:text-gray-200" />
                 <b className="max-w-sm truncate">{url}</b>
               </div>
             </div>

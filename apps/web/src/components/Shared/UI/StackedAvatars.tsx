@@ -16,7 +16,7 @@ const StackedAvatars = ({ avatars, limit }: StackedAvatarsProps) => {
         {avatars.slice(0, limit)?.map((avatar, index) => (
           <Image
             alt={avatar}
-            className="size-5 rounded-full border border-neutral-200 dark:border-neutral-700"
+            className="size-5 rounded-full border border-gray-200 dark:border-gray-700"
             key={avatar + index}
             src={avatar}
           />

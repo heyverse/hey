@@ -15,14 +15,14 @@ const buttonVariants = cva("rounded-full font-bold", {
       variant: "primary",
       outline: false,
       class: cn(
-        "text-white hover:text-white active:text-neutral-400",
-        "bg-neutral-950 hover:bg-neutral-700 active:bg-neutral-700",
-        "border border-neutral-950 hover:border-neutral-800 active:border-neutral-700",
-        "dark:text-neutral-950 dark:hover:text-neutral-900 dark:active:text-neutral-600",
-        "dark:bg-white dark:hover:bg-neutral-200 dark:active:bg-neutral-200",
-        "dark:border-white dark:hover:border-neutral-100 dark:active:border-neutral-200",
-        "disabled:text-neutral-500 disabled:bg-neutral-200 disabled:border-neutral-200",
-        "dark:disabled:text-neutral-600 dark:disabled:bg-neutral-800 dark:disabled:border-neutral-800"
+        "text-white hover:text-white active:text-gray-400",
+        "bg-gray-950 hover:bg-gray-700 active:bg-gray-700",
+        "border border-gray-950 hover:border-gray-800 active:border-gray-700",
+        "dark:text-gray-950 dark:hover:text-gray-900 dark:active:text-gray-600",
+        "dark:bg-white dark:hover:bg-gray-200 dark:active:bg-gray-200",
+        "dark:border-white dark:hover:border-gray-100 dark:active:border-gray-200",
+        "disabled:text-gray-500 disabled:bg-gray-200 disabled:border-gray-200",
+        "dark:disabled:text-gray-600 dark:disabled:bg-gray-800 dark:disabled:border-gray-800"
       )
     },
     // Non-outline Danger
@@ -30,10 +30,10 @@ const buttonVariants = cva("rounded-full font-bold", {
       variant: "danger",
       outline: false,
       class: cn(
-        "text-white hover:text-white active:text-neutral-400",
+        "text-white hover:text-white active:text-gray-400",
         "bg-red-500 hover:bg-red-800 active:bg-red-700",
         "border border-red-500 hover:border-red-800 active:border-red-700",
-        "dark:text-neutral-950 dark:hover:text-neutral-900 dark:active:text-neutral-600",
+        "dark:text-gray-950 dark:hover:text-gray-900 dark:active:text-gray-600",
         "dark:bg-red-500 dark:hover:bg-red-800 dark:active:bg-red-700",
         "dark:border-red-500 dark:hover:border-red-800 dark:active:border-red-800",
         "disabled:text-red-200 disabled:bg-red-500 disabled:border-red-500",
@@ -45,11 +45,11 @@ const buttonVariants = cva("rounded-full font-bold", {
       variant: "primary",
       outline: true,
       class: cn(
-        "text-neutral-950 active:text-neutral-300",
-        "border border-neutral-300 hover:border-neutral-950",
-        "dark:text-white dark:active:text-neutral-700",
-        "dark:border-neutral-700 dark:hover:border-neutral-100",
-        "disabled:text-neutral-300 disabled:border-neutral-300"
+        "text-gray-950 active:text-gray-300",
+        "border border-gray-300 hover:border-gray-950",
+        "dark:text-white dark:active:text-gray-700",
+        "dark:border-gray-700 dark:hover:border-gray-100",
+        "disabled:text-gray-300 disabled:border-gray-300"
       )
     },
     // Outline Danger

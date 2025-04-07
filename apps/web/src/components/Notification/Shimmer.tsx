@@ -11,7 +11,7 @@ const NotificationShimmer = () => {
           <div className="shimmer h-3 w-3/5 rounded-lg" />
         </div>
       </div>
-      <div className="text-[12px] text-neutral-400">
+      <div className="text-[12px] text-gray-400">
         <div className="shimmer h-3 w-16 rounded-lg" />
       </div>
     </div>

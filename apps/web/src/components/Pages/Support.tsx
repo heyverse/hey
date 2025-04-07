@@ -36,7 +36,7 @@ const Support = () => {
               <Link to="/copyright">Copyright Policy</Link>
             </li>
           </ul>
-          <p className="text-neutral-500 text-sm">
+          <p className="text-gray-500 text-sm">
             Send any legal requests to{" "}
             <Link to="mailto:legal@hey.xyz">legal@hey.xyz</Link>
           </p>

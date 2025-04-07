@@ -6,7 +6,7 @@ const getToastOptions = (theme?: string) => ({
       secondary: "white"
     }
   },
-  loading: { className: "border border-neutral-300" },
+  loading: { className: "border border-gray-300" },
   style: {
     background: theme === "dark" ? "#18181B" : "",
     color: theme === "dark" ? "#fff" : ""

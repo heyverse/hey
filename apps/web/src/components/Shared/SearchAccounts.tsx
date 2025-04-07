@@ -59,7 +59,7 @@ const SearchAccounts = ({
             ) : accounts && accounts.length > 0 ? (
               accounts.slice(0, 7).map((account) => (
                 <div
-                  className="cursor-pointer px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                  className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   key={account.address}
                   onClick={() => onAccountSelected(account)}
                 >

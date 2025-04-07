@@ -49,11 +49,11 @@ const PostHeader = ({
       {quoted && isNew ? (
         <button
           aria-label="Remove Quote"
-          className="rounded-full border border-neutral-200 p-1.5 hover:bg-neutral-300/20 dark:border-neutral-700"
+          className="rounded-full border border-gray-200 p-1.5 hover:bg-gray-300/20 dark:border-gray-700"
           onClick={() => setQuotedPost()}
           type="reset"
         >
-          <XMarkIcon className="size-4 text-neutral-500 dark:text-neutral-200" />
+          <XMarkIcon className="size-4 text-gray-500 dark:text-gray-200" />
         </button>
       ) : null}
     </div>

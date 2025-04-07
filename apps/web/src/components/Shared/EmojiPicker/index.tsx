@@ -42,7 +42,7 @@ const EmojiPicker = ({
           )}
         </button>
         {showEmojiPicker ? (
-          <div className="absolute z-[5] mt-1 w-[300px] rounded-xl border border-neutral-200 bg-white shadow-xs focus:outline-hidden dark:border-neutral-700 dark:bg-neutral-900">
+          <div className="absolute z-[5] mt-1 w-[300px] rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900">
             <List setEmoji={setEmoji} />
           </div>
         ) : null}

@@ -25,20 +25,20 @@ const MobileDrawerMenu = () => {
     setShowMobileDrawer(false);
   };
 
-  const itemClass = "py-3 hover:bg-neutral-100 dark:hover:bg-neutral-800";
+  const itemClass = "py-3 hover:bg-gray-100 dark:hover:bg-gray-800";
 
   return (
-    <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-neutral-100 py-4 md:hidden dark:bg-black">
+    <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
       <button className="px-5" onClick={handleCloseDrawer} type="button">
         <XMarkIcon className="size-6" />
       </button>
       <div className="w-full space-y-2">
-        <div className="bg-white dark:bg-neutral-900">
+        <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <SwitchAccount className={cn(itemClass, "px-4")} />
           <div className="divider" />
         </div>
-        <div className="bg-white dark:bg-neutral-900">
+        <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
             <Link
@@ -68,16 +68,16 @@ const MobileDrawerMenu = () => {
           </div>
           <div className="divider" />
         </div>
-        <div className="bg-white dark:bg-neutral-900">
+        <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <Link to="/support" onClick={handleCloseDrawer}>
             <Support className={cn(itemClass, "px-4")} />
           </Link>
           <div className="divider" />
         </div>
-        <div className="bg-white dark:bg-neutral-900">
+        <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div className="hover:bg-neutral-100 dark:hover:bg-neutral-800">
+          <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
             <Logout
               className={cn(itemClass, "px-4 py-3")}
               onClick={handleCloseDrawer}

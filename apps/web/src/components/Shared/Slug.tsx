@@ -16,9 +16,7 @@ const Slug = ({
   return (
     <span
       className={cn(
-        useBrandColor
-          ? "text-brand-500"
-          : "text-neutral-500 dark:text-neutral-200",
+        useBrandColor ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
         className
       )}
     >

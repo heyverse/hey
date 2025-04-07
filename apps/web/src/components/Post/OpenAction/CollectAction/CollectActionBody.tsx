@@ -94,7 +94,7 @@ const CollectActionBody = ({
           content={`${percentageCollected.toFixed(0)}% Collected`}
           placement="top"
         >
-          <div className="h-2.5 w-full bg-neutral-200 dark:bg-neutral-700">
+          <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
             <div
               className="h-2.5 bg-black dark:bg-white"
               style={{ width: `${percentageCollected}%` }}
@@ -165,7 +165,7 @@ const CollectActionBody = ({
         <div className="space-y-1.5">
           <div className="block items-center space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
-              <UsersIcon className="size-4 text-neutral-500 dark:text-neutral-200" />
+              <UsersIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <button
                 className="font-bold"
                 onClick={() => setShowCollectorsModal(true)}
@@ -176,7 +176,7 @@ const CollectActionBody = ({
             </div>
             {collectLimit && !isAllCollected ? (
               <div className="flex items-center space-x-2">
-                <PhotoIcon className="size-4 text-neutral-500 dark:text-neutral-200" />
+                <PhotoIcon className="size-4 text-gray-500 dark:text-gray-200" />
                 <div className="font-bold">
                   {collectLimit - collects} available
                 </div>
@@ -185,10 +185,10 @@ const CollectActionBody = ({
           </div>
           {endTimestamp && !isAllCollected ? (
             <div className="flex items-center space-x-2">
-              <ClockIcon className="size-4 text-neutral-500 dark:text-neutral-200" />
+              <ClockIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>{isSaleEnded ? "Sale ended on:" : "Sale ends:"}</span>
-                <span className="font-bold text-neutral-600">
+                <span className="font-bold text-gray-600">
                   {isSaleEnded ? (
                     `${formatDate(endTimestamp, "MMM D, YYYY, hh:mm A")}`
                   ) : (
@@ -200,11 +200,11 @@ const CollectActionBody = ({
           ) : null}
           {collectAction.address ? (
             <div className="flex items-center space-x-2">
-              <PuzzlePieceIcon className="size-4 text-neutral-500 dark:text-neutral-200" />
+              <PuzzlePieceIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <Link
-                  className="font-bold text-neutral-600"
+                  className="font-bold text-gray-600"
                   to={`${BLOCK_EXPLORER_URL}/address/${collectAction.address}`}
                   rel="noreferrer noopener"
                   target="_blank"
@@ -216,14 +216,14 @@ const CollectActionBody = ({
           ) : null}
           {amount ? (
             <div className="flex items-center space-x-2">
-              <CurrencyDollarIcon className="size-4 text-neutral-500 dark:text-neutral-200" />
+              <CurrencyDollarIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>Revenue:</span>
                 <Tooltip
                   content={`${humanize(amount * collects)} ${currency}`}
                   placement="top"
                 >
-                  <span className="font-bold text-neutral-600">
+                  <span className="font-bold text-gray-600">
                     {nFormatter(amount * collects)} {currency}
                   </span>
                 </Tooltip>

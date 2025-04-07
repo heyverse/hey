@@ -108,7 +108,7 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
               <>
                 {accounts.map((account) => (
                   <div
-                    className="cursor-pointer px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     key={account.address}
                     onClick={() => {
                       addAccount(account.address);

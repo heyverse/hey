@@ -16,7 +16,7 @@ const links = [
 const Footer = () => {
   return (
     <footer className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 text-sm lg:px-0">
-      <span className="font-bold text-neutral-500 dark:text-neutral-200">
+      <span className="font-bold text-gray-500 dark:text-gray-200">
         &copy; {currentYear} {APP_NAME}.xyz
       </span>
       {links.map((link) => (

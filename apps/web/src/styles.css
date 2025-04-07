@@ -41,18 +41,18 @@
   }
 
   body {
-    @apply bg-neutral-50;
+    @apply bg-gray-50;
     @apply dark:bg-black;
   }
 
   .shimmer {
     @apply animate-shimmer;
-    @apply bg-neutral-300;
-    @apply dark:bg-neutral-600;
+    @apply bg-gray-300;
+    @apply dark:bg-gray-600;
   }
 
   .menu-item {
-    @apply m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-neutral-700 dark:text-neutral-200;
+    @apply m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200;
   }
 
   .linkify a {
@@ -67,7 +67,7 @@
 
   ::-webkit-file-upload-button {
     @apply mr-2 cursor-pointer rounded-l-xl border-0 px-3 py-2;
-    @apply bg-neutral-200 dark:bg-neutral-900;
+    @apply bg-gray-200 dark:bg-gray-900;
   }
 
   .no-scrollbar::-webkit-scrollbar {
@@ -90,24 +90,24 @@
   }
 
   .label {
-    @apply mb-1 font-medium text-neutral-800 dark:text-neutral-200;
+    @apply mb-1 font-medium text-gray-800 dark:text-gray-200;
   }
 
   .dropdown-active {
-    @apply bg-neutral-100 dark:bg-neutral-800;
+    @apply bg-gray-100 dark:bg-gray-800;
   }
 
   .focusable-dropdown-item[data-focused] {
-    @apply bg-neutral-200 dark:bg-neutral-700;
+    @apply bg-gray-200 dark:bg-gray-700;
   }
 
   .divider {
-    @apply border-b border-neutral-200 dark:border-neutral-700;
+    @apply border-b border-gray-200 dark:border-gray-700;
   }
 
   .ProseMirror {
     & code {
-      @apply rounded-lg bg-neutral-300 px-[5px] py-[2px] text-sm dark:bg-neutral-700;
+      @apply rounded-lg bg-gray-300 px-[5px] py-[2px] text-sm dark:bg-gray-700;
     }
 
     & a,
@@ -170,12 +170,12 @@
   .virtual-account-list {
     @apply !h-[80vh];
     @apply [&>div>div]:divide-y;
-    @apply [&>div>div]:divide-neutral-200 dark:[&>div>div]:divide-neutral-700;
+    @apply [&>div>div]:divide-gray-200 dark:[&>div>div]:divide-gray-700;
   }
 
   .virtual-divider-list-window {
     @apply [&>div>div]:divide-y;
-    @apply [&>div>div]:divide-neutral-200 dark:[&>div>div]:divide-neutral-700;
+    @apply [&>div>div]:divide-gray-200 dark:[&>div>div]:divide-gray-700;
   }
 
   button:not(:disabled),

@@ -114,7 +114,7 @@ const List = () => {
                 {session.os ? <span> - {session.os}</span> : null}
               </div>
             </div>
-            <div className="space-y-1 text-neutral-500 text-sm dark:text-neutral-200">
+            <div className="space-y-1 text-gray-500 text-sm dark:text-gray-200">
               {session.origin ? (
                 <div>
                   <b>Origin -</b> {session.origin}

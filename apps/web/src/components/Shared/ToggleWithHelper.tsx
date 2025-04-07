@@ -25,7 +25,7 @@ const ToggleWithHelper = ({
         <div>
           {heading && <b>{heading}</b>}
           {description && (
-            <H6 className="font-normal text-neutral-500 dark:text-neutral-200">
+            <H6 className="font-normal text-gray-500 dark:text-gray-200">
               {description}
             </H6>
           )}

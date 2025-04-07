@@ -17,7 +17,7 @@ const Status = ({ finished, title }: StatusProps) => (
     ) : (
       <MinusCircleIcon className="size-5" />
     )}
-    <div className="text-neutral-500 dark:text-neutral-200">{title}</div>
+    <div className="text-gray-500 dark:text-gray-200">{title}</div>
   </div>
 );
 

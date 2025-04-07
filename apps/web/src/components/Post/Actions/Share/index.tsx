@@ -51,7 +51,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
           className={cn(
             hasShared
               ? "text-brand-500 hover:bg-brand-300/20"
-              : "text-neutral-500 hover:bg-neutral-300/20 dark:text-neutral-200",
+              : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
             "rounded-full p-1.5 outline-offset-2"
           )}
           onClick={stopEventPropagation}
@@ -78,7 +78,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-            className="absolute z-[5] mt-1 w-max rounded-xl border border-neutral-200 bg-white shadow-xs focus:outline-hidden dark:border-neutral-700 dark:bg-neutral-900"
+            className="absolute z-[5] mt-1 w-max rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
             static
           >
             {canRepost && (
@@ -102,9 +102,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
       {shares > 0 && !showCount ? (
         <span
           className={cn(
-            hasShared
-              ? "text-brand-500"
-              : "text-neutral-500 dark:text-neutral-200",
+            hasShared ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
             "text-[11px] sm:text-xs"
           )}
         >

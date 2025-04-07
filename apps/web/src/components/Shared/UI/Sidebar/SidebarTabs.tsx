@@ -24,8 +24,8 @@ const Menu = ({ children, current, url }: MenuProps) => (
   <Link
     className={cn(
       { "font-bold": current },
-      { "bg-neutral-300 dark:bg-neutral-300/20": current },
-      "hover:bg-neutral-300 dark:hover:bg-neutral-300/30",
+      { "bg-gray-300 dark:bg-gray-300/20": current },
+      "hover:bg-gray-300 dark:hover:bg-gray-300/30",
       "flex items-center space-x-2 rounded-lg px-3 py-2"
     )}
     to={url}

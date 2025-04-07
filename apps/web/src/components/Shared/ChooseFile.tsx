@@ -13,7 +13,7 @@ const ChooseFile = ({ onChange, disabled }: ChooseFileProps) => {
   return (
     <div className="flex items-center space-x-2">
       <label
-        className="flex cursor-pointer items-center space-x-2 rounded-xl border border-neutral-300 bg-white px-3 py-1 text-neutral-700 shadow-xs outline-offset-4 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white"
+        className="flex cursor-pointer items-center space-x-2 rounded-xl border border-gray-300 bg-white px-3 py-1 text-gray-700 shadow-xs outline-offset-4 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
         htmlFor={id}
       >
         <PaperClipIcon className="size-4" />

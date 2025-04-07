@@ -15,7 +15,7 @@ const ThreadBody = ({ post }: ThreadBodyProps) => {
     <PostWrapper post={post}>
       <div className="relative flex items-start gap-x-3 pb-3">
         <PostAvatar post={post} />
-        <div className="absolute bottom-0 left-[21px] h-full border-[0.9px] border-neutral-300 border-solid dark:border-neutral-700" />
+        <div className="absolute bottom-0 left-[21px] h-full border-[0.9px] border-gray-300 border-solid dark:border-gray-700" />
         <div className="w-[calc(100%-55px)]">
           <PostHeader post={post} />
           {post.isDeleted ? (

@@ -24,8 +24,8 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
         step={1}
         {...rest}
       >
-        <SliderPrimitive.Track className="relative h-1 grow rounded-full bg-neutral-200 dark:bg-neutral-800">
-          <SliderPrimitive.Range className="absolute h-full rounded-full bg-neutral-600" />
+        <SliderPrimitive.Track className="relative h-1 grow rounded-full bg-gray-200 dark:bg-gray-800">
+          <SliderPrimitive.Range className="absolute h-full rounded-full bg-gray-600" />
         </SliderPrimitive.Track>
         <SliderPrimitive.Thumb
           aria-label="Slider"
@@ -33,7 +33,7 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
             showValueInThumb
               ? "rounded-lg px-2 py-1 font-bold text-white text-xs"
               : "size-5 rounded-full",
-            "block bg-neutral-900 focus:outline-hidden active:scale-110"
+            "block bg-gray-900 focus:outline-hidden active:scale-110"
           )}
         >
           {showValueInThumb ? displayValue || rest.value : null}

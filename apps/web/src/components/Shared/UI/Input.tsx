@@ -33,7 +33,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const id = useId();
 
   const iconStyles = [
-    "text-zinc-500 [&>*]:peer-focus:text-neutral-500 [&>*]:h-5",
+    "text-zinc-500 [&>*]:peer-focus:text-gray-500 [&>*]:h-5",
     { "!text-red-500 [&>*]:peer-focus:!text-red-500": error }
   ];
 
@@ -41,7 +41,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <label className="w-full" htmlFor={id}>
       {label ? (
         <div className="mb-1 flex items-center space-x-1.5">
-          <div className="font-medium text-neutral-800 dark:text-neutral-200">
+          <div className="font-medium text-gray-800 dark:text-gray-200">
             {label}
           </div>
           <HelpTooltip>{helper}</HelpTooltip>
@@ -49,16 +49,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       ) : null}
       <div className="flex">
         {prefix ? (
-          <span className="inline-flex items-center rounded-l-xl border border-neutral-300 border-r-0 bg-neutral-100 px-3 text-neutral-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-200">
+          <span className="inline-flex items-center rounded-l-xl border border-gray-300 border-r-0 bg-gray-100 px-3 text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
             {prefix}
           </span>
         ) : null}
         <div
           className={cn(
-            { "!bg-neutral-500/20 opacity-50": props.disabled },
+            { "!bg-gray-500/20 opacity-50": props.disabled },
             error ? "!border-red-500" : "focus-within:ring-1",
             prefix ? "rounded-r-xl" : "rounded-xl",
-            "flex w-full items-center border border-neutral-300 bg-white focus-within:border-neutral-500 focus-within:ring-neutral-400 dark:border-neutral-700 dark:bg-neutral-900"
+            "flex w-full items-center border border-gray-300 bg-white focus-within:border-gray-500 focus-within:ring-gray-400 dark:border-gray-700 dark:bg-gray-900"
           )}
         >
           <input

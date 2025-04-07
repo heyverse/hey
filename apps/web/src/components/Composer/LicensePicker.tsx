@@ -40,7 +40,7 @@ const LicensePicker = () => {
           }
           placement="top"
         >
-          <div className="text-neutral-500 text-sm dark:text-neutral-200">
+          <div className="text-gray-500 text-sm dark:text-gray-200">
             What's this?
           </div>
         </Tooltip>
@@ -49,7 +49,7 @@ const LicensePicker = () => {
         onChange={(value) => setLicense(value as MetadataLicenseType)}
         options={options}
       />
-      <div className="linkify mt-2 text-neutral-500 text-sm dark:text-neutral-200">
+      <div className="linkify mt-2 text-gray-500 text-sm dark:text-gray-200">
         {getAssetLicense(license)?.helper ||
           "You are not granting a license to the collector and retain all rights."}
         <Link

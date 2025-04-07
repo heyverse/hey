@@ -38,8 +38,8 @@ const TabButton = ({
     <button
       aria-label={name}
       className={cn(
-        { "bg-neutral-300 dark:bg-neutral-300/20": active },
-        "hover:bg-neutral-300 dark:hover:bg-neutral-300/30",
+        { "bg-gray-300 dark:bg-gray-300/20": active },
+        "hover:bg-gray-300 dark:hover:bg-gray-300/30",
         "flex items-center justify-center gap-x-2 whitespace-nowrap rounded-lg px-3 py-1.5 text-sm",
         className
       )}

@@ -45,7 +45,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <div className="relative">
           <ListboxButton
             className={cn(
-              "flex w-full items-center justify-between space-x-3 rounded-xl border border-neutral-300 bg-white px-3 py-2 text-left outline-hidden focus:border-neutral-500 focus:ring-neutral-400 dark:border-neutral-700 dark:bg-neutral-800",
+              "flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-hidden focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800",
               className
             )}
           >
@@ -59,7 +59,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
               )}
               <span>{selected?.htmlLabel || selected?.label}</span>
             </span>
-            <ChevronDownIcon className="mr-1 size-5 text-neutral-400" />
+            <ChevronDownIcon className="mr-1 size-5 text-gray-400" />
           </ListboxButton>
           <Transition
             as={Fragment}
@@ -70,7 +70,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <ListboxOptions className="no-scrollbar absolute z-[5] mt-2 max-h-60 w-full overflow-auto rounded-xl border border-neutral-200 bg-white shadow-xs focus:outline-hidden dark:border-neutral-700 dark:bg-neutral-900">
+            <ListboxOptions className="no-scrollbar absolute z-[5] mt-2 max-h-60 w-full overflow-auto rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900">
               {showSearch ? (
                 <div className="mx-4 mt-4">
                   <Input
@@ -103,7 +103,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                   >
                     {({ selected }) => (
                       <div className="mx-2 flex flex-col space-y-0 py-1.5">
-                        <span className="flex w-full items-center justify-between space-x-3 text-neutral-700 dark:text-neutral-200">
+                        <span className="flex w-full items-center justify-between space-x-3 text-gray-700 dark:text-gray-200">
                           <span className="flex items-center space-x-2">
                             {option.icon && (
                               <img
@@ -121,7 +121,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
                           ) : null}
                         </span>
                         {option.helper ? (
-                          <span className="text-neutral-500 text-xs dark:text-neutral-200">
+                          <span className="text-gray-500 text-xs dark:text-gray-200">
                             {option.helper}
                           </span>
                         ) : null}

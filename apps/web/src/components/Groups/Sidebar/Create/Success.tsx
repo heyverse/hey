@@ -20,7 +20,7 @@ const Success = () => {
   return (
     <div className="m-8 flex flex-col items-center justify-center">
       <H4>Waaa-hey! You got your group!</H4>
-      <div className="mt-3 text-center font-semibold text-neutral-500 dark:text-neutral-200">
+      <div className="mt-3 text-center font-semibold text-gray-500 dark:text-gray-200">
         Welcome to decentralised social where everything is sooooooooooooo much
         better! 🎉
       </div>
@@ -31,7 +31,7 @@ const Success = () => {
         height={56}
         width={56}
       />
-      <i className="mt-8 text-neutral-500 dark:text-neutral-200">
+      <i className="mt-8 text-gray-500 dark:text-gray-200">
         We are taking you to your group...
       </i>
     </div>

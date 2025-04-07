@@ -44,7 +44,7 @@ const EmojiPicker = () => {
   return (
     <AutocompletePopover
       className={cn(
-        "z-10 w-52 select-none rounded-xl border border-neutral-200 bg-white shadow-xs dark:border-neutral-700 dark:bg-neutral-900",
+        "z-10 w-52 select-none rounded-xl border border-gray-200 bg-white shadow-xs dark:border-gray-700 dark:bg-gray-900",
         !emojis.length && "hidden"
       )}
       offset={10}

@@ -77,7 +77,7 @@ const WhoToFollow = () => {
           </div>
         ))}
         <button
-          className="font-bold text-neutral-500 dark:text-neutral-200"
+          className="font-bold text-gray-500 dark:text-gray-200"
           onClick={() => setShowMore(true)}
           type="button"
         >

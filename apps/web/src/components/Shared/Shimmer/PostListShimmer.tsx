@@ -4,7 +4,7 @@ import PostShimmer from "./PostShimmer";
 
 const PostListShimmer = () => {
   return (
-    <Card className="divide-y divide-neutral-200 dark:divide-neutral-700">
+    <Card className="divide-y divide-gray-200 dark:divide-gray-700">
       <div className="flex items-center space-x-3 px-5 py-6">
         <ArrowLeftIcon className="size-5" />
         <div className="shimmer h-4 w-1/5 rounded-full" />

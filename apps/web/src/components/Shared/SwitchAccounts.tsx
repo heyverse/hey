@@ -72,7 +72,7 @@ const SwitchAccounts = () => {
       />
       {accountsAvailable.map((accountAvailable, index) => (
         <button
-          className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-neutral-700 hover:bg-neutral-100 dark:text-neutral-200 dark:hover:bg-neutral-800"
+          className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           key={accountAvailable?.account.address}
           onClick={async () => {
             const selectedAccount = accountsAvailable[index].account;
@@ -83,7 +83,7 @@ const SwitchAccounts = () => {
           <span className="flex items-center space-x-2">
             <Image
               alt={accountAvailable.account.address}
-              className="size-6 rounded-full border border-neutral-200 dark:border-neutral-700"
+              className="size-6 rounded-full border border-gray-200 dark:border-gray-700"
               height={20}
               src={getAvatar(accountAvailable.account)}
               width={20}

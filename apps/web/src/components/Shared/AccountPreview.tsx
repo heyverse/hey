@@ -74,7 +74,7 @@ const AccountPreview = ({
     const UserAvatar = () => (
       <Image
         alt={account.address}
-        className="size-12 rounded-full border border-neutral-200 bg-neutral-200 dark:border-neutral-700"
+        className="size-12 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
         height={48}
         loading="lazy"
         src={getAvatar(account)}
@@ -91,7 +91,7 @@ const AccountPreview = ({
             slug={getAccount(account).usernameWithPrefix}
           />
           {account.operations?.isFollowingMe && (
-            <span className="ml-2 rounded-full bg-neutral-200 px-2 py-0.5 text-xs dark:bg-neutral-700">
+            <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </span>
           )}
@@ -118,7 +118,7 @@ const AccountPreview = ({
             <div className="text-base">
               {nFormatter(stats.graphFollowStats?.following)}
             </div>
-            <div className="text-neutral-500 text-sm dark:text-neutral-200">
+            <div className="text-gray-500 text-sm dark:text-gray-200">
               Following
             </div>
           </div>
@@ -126,7 +126,7 @@ const AccountPreview = ({
             <div className="text-base">
               {nFormatter(stats.graphFollowStats?.followers)}
             </div>
-            <div className="text-neutral-500 text-sm dark:text-neutral-200">
+            <div className="text-gray-500 text-sm dark:text-gray-200">
               {plur("Follower", stats.graphFollowStats?.followers)}
             </div>
           </div>

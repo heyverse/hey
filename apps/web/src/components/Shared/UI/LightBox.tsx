@@ -15,7 +15,7 @@ export const LightBox = ({ onClose, url }: LightBoxProps) => {
 
   return (
     <Dialog open={show} onClose={onClose} className="relative z-10">
-      <div className="fixed inset-0 flex w-screen items-center justify-center bg-neutral-500/75 p-4 dark:bg-neutral-900/80">
+      <div className="fixed inset-0 flex w-screen items-center justify-center bg-gray-500/75 p-4 dark:bg-gray-900/80">
         <DialogPanel>
           <img
             alt={url || ""}

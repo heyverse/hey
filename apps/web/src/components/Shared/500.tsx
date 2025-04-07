@@ -13,7 +13,7 @@ const Custom500 = () => {
     <GeneralPageLayout title="500" sidebar={<Footer />}>
       <div className="p-10 text-center">
         <H3 className="mb-4">Looks like something went wrong!</H3>
-        <div className="mb-4 text-neutral-500 dark:text-neutral-200">
+        <div className="mb-4 text-gray-500 dark:text-gray-200">
           We track these errors automatically, but if the problem persists feel
           free to contact us. In the meantime, try refreshing.
         </div>

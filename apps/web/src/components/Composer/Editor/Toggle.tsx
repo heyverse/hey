@@ -19,7 +19,7 @@ const Toggle = ({
   return (
     <Tooltip content={tooltip} placement="top">
       <button
-        className="flex items-center justify-center rounded-lg bg-transparent p-2 hover:bg-neutral-100 data-[state=on]:bg-neutral-200 dark:data-[state=on]:bg-neutral-700 dark:hover:bg-neutral-800"
+        className="flex items-center justify-center rounded-lg bg-transparent p-2 hover:bg-gray-100 data-[state=on]:bg-gray-200 dark:data-[state=on]:bg-gray-700 dark:hover:bg-gray-800"
         data-state={pressed ? "on" : "off"}
         disabled={disabled}
         type="button"

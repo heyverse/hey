@@ -34,7 +34,7 @@ const MembersCount = ({ group }: MembersCountProps) => {
         type="button"
       >
         <H4>{humanize(stats?.totalMembers)}</H4>
-        <div className="text-neutral-500 dark:text-neutral-200">Members</div>
+        <div className="text-gray-500 dark:text-gray-200">Members</div>
       </button>
       <Modal
         onClose={() => setShowMembersModal(false)}

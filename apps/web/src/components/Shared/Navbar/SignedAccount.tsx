@@ -25,7 +25,7 @@ const SignedAccount = () => {
   const Avatar = () => (
     <Image
       alt={currentAccount?.address}
-      className="size-8 cursor-pointer rounded-full border border-neutral-200 dark:border-neutral-700"
+      className="size-8 cursor-pointer rounded-full border border-gray-200 dark:border-gray-700"
       src={getAvatar(currentAccount)}
     />
   );
@@ -50,7 +50,7 @@ const SignedAccount = () => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-            className="absolute mt-2 w-48 rounded-xl border border-neutral-200 bg-white py-1 shadow-xs focus:outline-hidden dark:border-neutral-700 dark:bg-black"
+            className="absolute mt-2 w-48 rounded-xl border border-gray-200 bg-white py-1 shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-black"
             static
           >
             <MenuItem

@@ -40,7 +40,7 @@ export const Modal = ({
         <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
         <div
           aria-hidden="true"
-          className="fixed inset-0 bg-neutral-500/75 dark:bg-neutral-900/80"
+          className="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/80"
           onClick={handleClose}
         />
         <TransitionChild
@@ -58,7 +58,7 @@ export const Modal = ({
               { "sm:max-w-3xl": size === "md" },
               { "sm:max-w-lg": size === "sm" },
               { "sm:max-w-sm": size === "xs" },
-              "inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-neutral-800"
+              "inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-gray-800"
             )}
           >
             {title ? (
@@ -66,7 +66,7 @@ export const Modal = ({
                 <b>{title}</b>
                 {onClose ? (
                   <button
-                    className="rounded-full p-1 text-neutral-800 hover:bg-neutral-200 dark:text-neutral-100 dark:hover:bg-neutral-700"
+                    className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
                     onClick={(e) => {
                       e.stopPropagation();
                       onClose();

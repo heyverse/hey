@@ -34,7 +34,7 @@ const PostAvatar = ({
         alt={account.address}
         className={cn(
           quoted ? "size-6" : "size-11",
-          "z-[1] cursor-pointer rounded-full border border-neutral-200 bg-neutral-200 dark:border-neutral-700"
+          "z-[1] cursor-pointer rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
         )}
         height={quoted ? 25 : 44}
         loading="lazy"

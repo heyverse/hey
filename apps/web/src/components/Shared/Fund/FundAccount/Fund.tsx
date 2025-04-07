@@ -108,7 +108,7 @@ const Fund = ({ token }: FundProps) => {
         {balanceLoading ? (
           <span className="shimmer h-2.5 w-20 rounded-full" />
         ) : (
-          <span className="text-neutral-500 text-sm dark:text-neutral-200">
+          <span className="text-gray-500 text-sm dark:text-gray-200">
             Balance: {walletBalance} {symbol}
           </span>
         )}

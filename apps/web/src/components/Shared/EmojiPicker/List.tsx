@@ -83,7 +83,7 @@ const List = ({ setEmoji }: ListProps) => {
       <div className="grid max-h-[10rem] grid-cols-8 overflow-y-auto p-2 pt-2">
         {emojis.map((emoji: Emoji) => (
           <button
-            className="rounded-lg py-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+            className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
             key={emoji.emoji}
             onClick={() => setEmoji(emoji.emoji)}
             type="button"

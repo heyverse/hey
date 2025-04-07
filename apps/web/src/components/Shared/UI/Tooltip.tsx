@@ -24,12 +24,12 @@ export const Tooltip = ({
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
-            className="!rounded-lg !text-xs !leading-6 z-10 hidden bg-neutral-700 px-3 py-0.5 text-white tracking-wide sm:block"
+            className="!rounded-lg !text-xs !leading-6 z-10 hidden bg-gray-700 px-3 py-0.5 text-white tracking-wide sm:block"
             side={placement}
             sideOffset={5}
           >
             <span>{content}</span>
-            <RadixTooltip.Arrow className="fill-neutral-700" />
+            <RadixTooltip.Arrow className="fill-gray-700" />
           </RadixTooltip.Content>
         </RadixTooltip.Portal>
       </RadixTooltip.Root>

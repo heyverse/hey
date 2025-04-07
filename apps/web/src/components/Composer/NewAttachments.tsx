@@ -123,7 +123,7 @@ const NewAttachments = ({
             ) : isImage ? (
               <Image
                 alt={attachment.previewUri}
-                className="cursor-pointer rounded-lg border border-neutral-200 bg-neutral-100 object-cover dark:border-neutral-700 dark:bg-neutral-800"
+                className="cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
                 height={1000}
                 loading="lazy"
                 onError={({ currentTarget }) => {
@@ -136,7 +136,7 @@ const NewAttachments = ({
             {!hideDelete && (
               <div className="absolute top-0 right-0 m-3">
                 <button
-                  className="rounded-full bg-neutral-900 p-1.5 opacity-75"
+                  className="rounded-full bg-gray-900 p-1.5 opacity-75"
                   onClick={() => handleRemoveAttachment(attachment)}
                   type="button"
                 >

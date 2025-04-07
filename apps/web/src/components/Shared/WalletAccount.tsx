@@ -22,7 +22,7 @@ const WalletAccount = ({ address }: WalletAccountProps) => {
     <div className="flex items-center gap-x-3">
       <Image
         alt={address}
-        className="size-10 rounded-full border bg-neutral-200"
+        className="size-10 rounded-full border bg-gray-200"
         height={40}
         src={DEFAULT_AVATAR}
         width={40}

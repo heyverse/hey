@@ -26,7 +26,7 @@ const MentionItem = ({ onSelect, account }: MentionItemProps) => {
       >
         <Image
           alt={account.displayUsername}
-          className="size-7 rounded-full border border-neutral-200 bg-neutral-200 dark:border-neutral-700"
+          className="size-7 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
           height="28"
           src={account.picture}
           width="28"
@@ -57,7 +57,7 @@ const MentionPicker = () => {
   return (
     <AutocompletePopover
       className={cn(
-        "z-10 block w-52 rounded-xl border border-neutral-200 bg-white p-0 shadow-xs dark:border-neutral-700 dark:bg-neutral-900",
+        "z-10 block w-52 rounded-xl border border-gray-200 bg-white p-0 shadow-xs dark:border-gray-700 dark:bg-gray-900",
         !results.length && "hidden"
       )}
       offset={10}
@@ -65,7 +65,7 @@ const MentionPicker = () => {
       regex={EditorRegex.mention}
     >
       <AutocompleteList
-        className="divide-y divide-neutral-200 dark:divide-neutral-700"
+        className="divide-y divide-gray-200 dark:divide-gray-700"
         filter={null}
       >
         {results.map((account) => (

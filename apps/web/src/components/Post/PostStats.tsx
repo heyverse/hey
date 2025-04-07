@@ -36,7 +36,7 @@ const PostStats = ({ post }: PostStatsProps) => {
   return (
     <>
       <div className="divider" />
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-3 text-neutral-500 text-sm dark:text-neutral-200">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-3 text-gray-500 text-sm dark:text-gray-200">
         {comments > 0 ? (
           <span>
             <b className="text-black dark:text-white">{nFormatter(comments)}</b>{" "}

@@ -57,7 +57,7 @@ const SuperJoin = () => {
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <H5>Super Join</H5>
-        <div className="text-neutral-500 dark:text-neutral-200">
+        <div className="text-gray-500 dark:text-gray-200">
           Support your favorite group on {APP_NAME}.
         </div>
       </div>

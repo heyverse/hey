@@ -9,7 +9,7 @@ const Groups = ({ className = "" }: GroupsProps) => {
   return (
     <div
       className={cn(
-        "flex w-full items-center space-x-1.5 text-neutral-700 text-sm dark:text-neutral-200",
+        "flex w-full items-center space-x-1.5 text-gray-700 text-sm dark:text-gray-200",
         className
       )}
     >

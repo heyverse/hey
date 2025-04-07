@@ -22,16 +22,16 @@ const AccountMenu = ({ account }: AccountMenuProps) => {
       <MenuButton as={Fragment}>
         <button
           aria-label="More"
-          className="rounded-full p-1.5 hover:bg-neutral-300/20"
+          className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           type="button"
         >
-          <EllipsisVerticalIcon className="size-5 text-neutral-500 dark:text-neutral-200" />
+          <EllipsisVerticalIcon className="size-5 text-gray-500 dark:text-gray-200" />
         </button>
       </MenuButton>
       <MenuTransition>
         <MenuItems
-          className="absolute z-[5] mt-1 w-max rounded-xl border border-neutral-200 bg-white shadow-xs focus:outline-hidden dark:border-neutral-700 dark:bg-neutral-900"
+          className="absolute z-[5] mt-1 w-max rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
           static
         >
           <CopyLink account={account} />

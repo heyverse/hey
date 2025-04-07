@@ -19,7 +19,7 @@ const Metadata = ({ metadata }: MetadataProps) => {
 
   return (
     <Card
-      className="mt-3 space-y-2 px-3 py-2 text-neutral-500 text-sm dark:text-neutral-200"
+      className="mt-3 space-y-2 px-3 py-2 text-gray-500 text-sm dark:text-gray-200"
       forceRounded
     >
       <div className="flex items-center space-x-2">

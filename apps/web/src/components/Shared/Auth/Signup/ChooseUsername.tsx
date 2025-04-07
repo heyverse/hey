@@ -185,7 +185,7 @@ const ChooseUsername = () => {
               <b>{form.formState.errors.username?.message?.toString()}</b>
             </div>
           ) : (
-            <div className="mt-2 flex items-center space-x-1 text-neutral-500 text-sm dark:text-neutral-200">
+            <div className="mt-2 flex items-center space-x-1 text-gray-500 text-sm dark:text-gray-200">
               <FaceSmileIcon className="size-4" />
               <b>Hope you will get a good one!</b>
             </div>

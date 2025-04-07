@@ -35,7 +35,7 @@ const SingleAccount = ({
       alt={account.address}
       className={cn(
         isBig ? "size-14" : "size-11",
-        "rounded-full border border-neutral-200 bg-neutral-200 dark:border-neutral-700"
+        "rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
       )}
       height={isBig ? 56 : 44}
       loading="lazy"

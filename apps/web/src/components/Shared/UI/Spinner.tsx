@@ -5,7 +5,7 @@ import { memo } from "react";
 const spinnerVariants = cva("animate-spin rounded-full", {
   variants: {
     variant: {
-      primary: "border-neutral-200 border-t-neutral-600",
+      primary: "border-gray-200 border-t-gray-600",
       danger: "border-red-200 border-t-red-600",
       warning: "border-yellow-200 border-t-yellow-600"
     },

@@ -27,7 +27,7 @@ const Embed = ({ og }: EmbedProps) => {
             {og.image ? (
               <Image
                 alt="Thumbnail"
-                className="size-16 rounded-xl bg-neutral-200 md:size-20"
+                className="size-16 rounded-xl bg-gray-200 md:size-20"
                 height={80}
                 onError={({ currentTarget }) => {
                   currentTarget.src = og.image as string;
@@ -54,7 +54,7 @@ const Embed = ({ og }: EmbedProps) => {
                   </div>
                 ) : null}
                 {og.description ? (
-                  <div className="line-clamp-1 whitespace-break-spaces text-neutral-500 dark:text-neutral-200">
+                  <div className="line-clamp-1 whitespace-break-spaces text-gray-500 dark:text-gray-200">
                     {og.description.replace(/ +/g, " ")}
                   </div>
                 ) : null}

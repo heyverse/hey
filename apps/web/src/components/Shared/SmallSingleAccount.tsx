@@ -28,7 +28,7 @@ const SmallSingleAccount = ({
       alt={account.address}
       className={cn(
         smallAvatar ? "size-4" : "size-6",
-        "rounded-full border border-neutral-200 bg-neutral-200 dark:border-neutral-700"
+        "rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
       )}
       height={smallAvatar ? 16 : 24}
       loading="lazy"
@@ -49,7 +49,7 @@ const SmallSingleAccount = ({
         />
       )}
       {timestamp && (
-        <span className="text-neutral-500 dark:text-neutral-200">
+        <span className="text-gray-500 dark:text-gray-200">
           <span className="mx-1.5">·</span>
           <span className="text-xs">{formatRelativeOrAbsolute(timestamp)}</span>
         </span>

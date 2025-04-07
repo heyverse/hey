@@ -57,14 +57,12 @@ const NewPost = ({ feed }: NewPostProps) => {
       <div className="flex items-center space-x-3">
         <Image
           alt={currentAccount?.address}
-          className="size-11 cursor-pointer rounded-full border border-neutral-200 bg-neutral-200 dark:border-neutral-700"
+          className="size-11 cursor-pointer rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
           height={44}
           src={getAvatar(currentAccount)}
           width={44}
         />
-        <span className="text-neutral-500 dark:text-neutral-200">
-          What's new?!
-        </span>
+        <span className="text-gray-500 dark:text-gray-200">What's new?!</span>
       </div>
     </Card>
   );

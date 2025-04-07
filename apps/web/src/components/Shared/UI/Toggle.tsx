@@ -15,9 +15,7 @@ export const Toggle = ({ disabled = false, on, setOn }: ToggleProps) => {
       disabled={disabled}
       className={({ checked }) =>
         cn(
-          checked
-            ? "bg-black dark:bg-white"
-            : "bg-neutral-200 dark:bg-neutral-500",
+          checked ? "bg-black dark:bg-white" : "bg-gray-200 dark:bg-gray-500",
           disabled && "cursor-not-allowed opacity-50",
           "inline-flex h-[22px] w-[42.5px] min-w-[42.5px] items-center rounded-full border-2 border-transparent outline-none duration-200 ease-in-out"
         )

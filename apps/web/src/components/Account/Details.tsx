@@ -62,7 +62,7 @@ const Details = ({ isSuspended = false, account }: DetailsProps) => {
       <div className="-mt-14 sm:-mt-24 relative ml-5 size-20 sm:size-36">
         <Image
           alt={account.address}
-          className="size-20 cursor-pointer rounded-full bg-neutral-200 ring-3 ring-neutral-50 sm:size-36 dark:bg-neutral-700 dark:ring-black"
+          className="size-20 cursor-pointer rounded-full bg-gray-200 ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
           height={128}
           onClick={() => setExpandedImage(getAvatar(account, EXPANDED_AVATAR))}
           src={getAvatar(account)}
@@ -85,7 +85,7 @@ const Details = ({ isSuspended = false, account }: DetailsProps) => {
             slug={getAccount(account).usernameWithPrefix}
           />
           {account.operations?.isFollowingMe ? (
-            <div className="rounded-full bg-neutral-200 px-2 py-0.5 text-xs dark:bg-neutral-700">
+            <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you
             </div>
           ) : null}

@@ -51,7 +51,7 @@ const WalletSelector: FC = () => {
                 "hover:bg-gray-100 dark:hover:bg-gray-700":
                   connector.id !== activeConnector?.id
               },
-              "flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border border-neutral-200 px-4 py-3 outline-none dark:border-neutral-700"
+              "flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border border-gray-200 px-4 py-3 outline-none dark:border-gray-700"
             )}
             disabled={connector.id === activeConnector?.id || isPending}
             key={connector.id}
@@ -70,7 +70,7 @@ const WalletSelector: FC = () => {
           </button>
         );
       })}
-      <div className="linkify text-neutral-500 text-sm">
+      <div className="linkify text-gray-500 text-sm">
         By connecting wallet, you agree to our{" "}
         <Link to="/terms" target="_blank">
           Terms

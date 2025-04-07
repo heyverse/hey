@@ -22,7 +22,7 @@ const BottomNavigation = () => {
   const isActivePath = (path: string) => pathname === path;
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-[5] border-neutral-200 border-t bg-white pb-safe md:hidden dark:border-neutral-800 dark:bg-black">
+    <nav className="fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-white pb-safe md:hidden dark:border-gray-800 dark:bg-black">
       <div
         className={cn("grid", currentAccount ? "grid-cols-4" : "grid-cols-3")}
       >
@@ -59,7 +59,7 @@ const BottomNavigation = () => {
           >
             <Image
               alt={currentAccount.address}
-              className="size-6 rounded-full border border-neutral-200 dark:border-neutral-700"
+              className="size-6 rounded-full border border-gray-200 dark:border-gray-700"
               src={getAvatar(currentAccount)}
             />
           </Link>

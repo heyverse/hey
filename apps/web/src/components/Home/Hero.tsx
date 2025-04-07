@@ -13,7 +13,7 @@ const Hero = () => {
       />
       <div className="flex-1 space-y-1 tracking-tight">
         <div className="font-extrabold text-3xl">Welcome to {APP_NAME},</div>
-        <div className="font-extrabold text-3xl text-neutral-500 dark:text-neutral-200">
+        <div className="font-extrabold text-3xl text-gray-500 dark:text-gray-200">
           a social network built on Lens Protocol
         </div>
       </div>

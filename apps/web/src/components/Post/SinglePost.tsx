@@ -38,7 +38,7 @@ const SinglePost = ({
       className={cn(
         isFirst && "rounded-t-xl",
         isLast && "rounded-b-xl",
-        "cursor-pointer px-5 pt-4 pb-3 hover:bg-neutral-100 dark:hover:bg-neutral-900"
+        "cursor-pointer px-5 pt-4 pb-3 hover:bg-gray-100 dark:hover:bg-gray-900"
       )}
       post={rootPost}
     >

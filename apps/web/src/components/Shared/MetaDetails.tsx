@@ -37,7 +37,7 @@ const MetaDetails = ({
       <H6 className="flex items-center gap-1">
         {icon}
         {title && (
-          <div className="text-neutral-500 dark:text-neutral-200">
+          <div className="text-gray-500 dark:text-gray-200">
             {title}
             {!noFlex && ":"}
           </div>

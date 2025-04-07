@@ -13,12 +13,12 @@ const Settings = () => {
   return (
     <>
       <button
-        className="mx-3 rounded-md p-1 hover:bg-neutral-300/20 sm:mx-0"
+        className="mx-3 rounded-md p-1 hover:bg-gray-300/20 sm:mx-0"
         onClick={handleOpenSettings}
         type="button"
       >
         <Tooltip content="Notification settings" placement="top">
-          <Cog6ToothIcon className="size-5 text-neutral-500 dark:text-neutral-200" />
+          <Cog6ToothIcon className="size-5 text-gray-500 dark:text-gray-200" />
         </Tooltip>
       </button>
       <Modal

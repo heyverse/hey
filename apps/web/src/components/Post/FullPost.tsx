@@ -41,7 +41,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
 
   if (isSuspended) {
     return (
-      <Card className="!bg-neutral-100 dark:!bg-neutral-800 m-5" forceRounded>
+      <Card className="!bg-gray-100 dark:!bg-gray-800 m-5" forceRounded>
         <div className="px-4 py-3 text-sm">
           Author Account has been suspended!
         </div>
@@ -64,7 +64,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
                 contentClassName="full-page-post-markup"
                 post={targetPost}
               />
-              <div className="my-3 text-neutral-500 text-sm dark:text-neutral-200">
+              <div className="my-3 text-gray-500 text-sm dark:text-gray-200">
                 <span>{formatDate(timestamp, "hh:mm A · MMM D, YYYY")}</span>
               </div>
               <PostStats post={targetPost} />
@@ -78,7 +78,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
                       className={cn(
                         showHiddenComments
                           ? "text-emerald-500 hover:bg-emerald-300/20"
-                          : "text-neutral-500 hover:bg-neutral-300/20 dark:text-neutral-200",
+                          : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
                         "rounded-full p-1.5 outline-offset-2"
                       )}
                       onClick={() => setShowHiddenComments(!showHiddenComments)}

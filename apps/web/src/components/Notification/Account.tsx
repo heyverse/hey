@@ -25,7 +25,7 @@ export const NotificationAccountAvatar = ({
       >
         <Image
           alt={account.address}
-          className="size-7 rounded-full border border-neutral-200 bg-neutral-200 sm:size-8 dark:border-neutral-700"
+          className="size-7 rounded-full border border-gray-200 bg-gray-200 sm:size-8 dark:border-gray-700"
           height={32}
           src={getAvatar(account)}
           width={32}

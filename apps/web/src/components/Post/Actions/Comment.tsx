@@ -18,10 +18,10 @@ const Comment = ({ post, showCount }: CommentProps) => {
     : "w-[15px] sm:w-[18px]";
 
   return (
-    <div className="flex items-center space-x-1 text-neutral-500 dark:text-neutral-200">
+    <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-200">
       <button
         aria-label="Comment"
-        className="rounded-full p-1.5 outline-offset-2 hover:bg-neutral-300/20"
+        className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
         onClick={() => navigate(`/posts/${post.slug}`)}
         type="button"
       >

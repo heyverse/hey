@@ -20,10 +20,10 @@ const SidebarMenu = ({ items }: SidebarProps) => {
           <>
             <MenuButton
               className={cn(
-                "flex w-full items-center space-x-2 rounded-xl border border-neutral-300 bg-white px-3 py-2 text-left outline-hidden focus:border-neutral-500 focus:ring-neutral-400 dark:border-neutral-700 dark:bg-neutral-800",
+                "flex w-full items-center space-x-2 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-hidden focus:border-gray-500 focus:ring-gray-400 dark:border-gray-700 dark:bg-gray-800",
                 {
-                  "bg-neutral-200 dark:bg-neutral-800": open,
-                  "text-neutral-700 hover:bg-neutral-200 hover:text-black dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white":
+                  "bg-gray-200 dark:bg-gray-800": open,
+                  "text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white":
                     !open
                 }
               )}

@@ -120,7 +120,7 @@ const CoverUpload = ({ src, setSrc }: CoverUploadProps) => {
             />
           </div>
           <div className="flex w-full flex-wrap items-center justify-between gap-y-3">
-            <div className="flex items-center space-x-1 text-left text-neutral-500 text-sm dark:text-neutral-200">
+            <div className="flex items-center space-x-1 text-left text-gray-500 text-sm dark:text-gray-200">
               <InformationCircleIcon className="size-4" />
               <div>
                 Optimal cover picture size is <b>1350x350</b>

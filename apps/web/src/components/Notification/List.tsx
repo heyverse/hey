@@ -67,7 +67,7 @@ const List = ({ feedType }: ListProps) => {
 
   if (loading) {
     return (
-      <Card className="divide-y divide-neutral-200 dark:divide-neutral-700">
+      <Card className="divide-y divide-gray-200 dark:divide-gray-700">
         <NotificationShimmer />
         <NotificationShimmer />
         <NotificationShimmer />

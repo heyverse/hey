@@ -12,7 +12,7 @@ const SwitchAccount = ({ className = "" }: SwitchAccountProps) => {
   return (
     <button
       className={cn(
-        "flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-neutral-700 text-sm dark:text-neutral-200",
+        "flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-gray-700 text-sm dark:text-gray-200",
         className
       )}
       onClick={() => setShowSwitchAccountModal(true)}

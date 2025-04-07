@@ -22,7 +22,7 @@ interface WrapperProps {
 
 const Wrapper = ({ children }: WrapperProps) => {
   return (
-    <Card className="flex justify-center p-3 font-bold hover:bg-neutral-50 dark:hover:bg-neutral-900">
+    <Card className="flex justify-center p-3 font-bold hover:bg-gray-50 dark:hover:bg-gray-900">
       <div className="flex items-center space-x-2">{children}</div>
     </Card>
   );
@@ -89,7 +89,7 @@ const LivestreamEditor = () => {
                   }}
                   type="button"
                 >
-                  <ClipboardDocumentIcon className="size-4 text-neutral-400" />
+                  <ClipboardDocumentIcon className="size-4 text-gray-400" />
                 </button>
               </div>
               <div className="flex items-center space-x-1">
@@ -104,7 +104,7 @@ const LivestreamEditor = () => {
                   }}
                   type="button"
                 >
-                  <ClipboardDocumentIcon className="size-4 text-neutral-400" />
+                  <ClipboardDocumentIcon className="size-4 text-gray-400" />
                 </button>
               </div>
             </Card>

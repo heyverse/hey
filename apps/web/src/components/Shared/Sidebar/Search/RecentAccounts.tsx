@@ -41,14 +41,12 @@ const RecentAccounts = ({ onAccountClick }: RecentAccountsProps) => {
           <div className="flex items-center justify-between px-4 pt-1 pb-2">
             <b>Recent</b>
             <button onClick={clearAccounts} type="button">
-              <H6 className="text-neutral-500 dark:text-neutral-200">
-                Clear all
-              </H6>
+              <H6 className="text-gray-500 dark:text-gray-200">Clear all</H6>
             </button>
           </div>
           {accounts.map((account) => (
             <div
-              className="flex cursor-pointer items-center space-x-3 truncate px-4 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              className="flex cursor-pointer items-center space-x-3 truncate px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
               key={account.address}
               onClick={() => {
                 addAccount(account.address);
@@ -72,7 +70,7 @@ const RecentAccounts = ({ onAccountClick }: RecentAccountsProps) => {
                 }}
                 type="reset"
               >
-                <XMarkIcon className="size-4 text-neutral-500" />
+                <XMarkIcon className="size-4 text-gray-500" />
               </button>
             </div>
           ))}

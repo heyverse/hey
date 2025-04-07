@@ -3,7 +3,7 @@ import PostShimmer from "./PostShimmer";
 
 const PostsShimmer = () => {
   return (
-    <Card className="divide-y divide-neutral-200 dark:divide-neutral-700">
+    <Card className="divide-y divide-gray-200 dark:divide-gray-700">
       {Array.from({ length: 3 }).map((_, index) => (
         <PostShimmer key={index} />
       ))}
