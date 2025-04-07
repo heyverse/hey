@@ -1,27 +1,24 @@
-import SidebarMenu from "@/components/Shared/Sidebar/SidebarMenu";
-import SidebarTabs from "@/components/Shared/Sidebar/SidebarTabs";
+import SignupCard from "@/components/Shared/Auth/SignupCard";
+import Footer from "@/components/Shared/Footer";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { memo } from "react";
+import SetAccount from "./SetAccount";
+import WhoToFollow from "./WhoToFollow";
 
-export interface SidebarProps {
-  items: {
-    active?: boolean;
-    enabled?: boolean;
-    icon: any;
-    title: any;
-    url: string;
-  }[];
-}
+const Sidebar = () => {
+  const { currentAccount } = useAccountStore();
+  const loggedInWithProfile = Boolean(currentAccount);
+  const loggedOut = !loggedInWithProfile;
 
-const Sidebar = ({ items }: SidebarProps) => {
   return (
     <>
-      <div className="hidden lg:block">
-        <SidebarTabs items={items} />
-      </div>
-      <div className="block lg:hidden">
-        <SidebarMenu items={items} />
-      </div>
+      {/* <Gitcoin /> */}
+      {loggedOut && <SignupCard />} {/* Onboarding steps */}
+      {loggedInWithProfile && <SetAccount />}
+      {loggedInWithProfile && <WhoToFollow />}
+      <Footer />
     </>
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

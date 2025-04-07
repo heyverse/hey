@@ -1,7 +1,7 @@
 import { Card, H3 } from "@/components/Shared/UI";
 import { Link } from "react-router";
-import Sidebar from "../Home/Sidebar";
 import { GeneralPageLayout } from "../Shared/PageLayout";
+import Sidebar from "../Shared/Sidebar";
 
 const Support = () => {
   return (

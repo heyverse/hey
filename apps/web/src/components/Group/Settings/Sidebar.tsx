@@ -1,4 +1,4 @@
-import Sidebar from "@/components/Shared/Sidebar";
+import { Sidebar } from "@/components/Shared/UI";
 import { LockClosedIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import { useLocation, useParams } from "react-router";
 

@@ -16,6 +16,7 @@ export { default as NumberedStat } from "./NumberedStat";
 export { PageLoading } from "./PageLoading";
 export { RangeSlider } from "./RangeSlider";
 export { Select } from "./Select";
+export { default as Sidebar } from "./Sidebar";
 export { Spinner } from "./Spinner";
 export { default as StackedAvatars } from "./StackedAvatars";
 export { default as TabButton } from "./TabButton";

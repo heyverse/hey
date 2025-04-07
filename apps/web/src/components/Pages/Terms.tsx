@@ -1,7 +1,7 @@
 import { H2, H4 } from "@/components/Shared/UI";
 import { Link } from "react-router";
-import Sidebar from "../Home/Sidebar";
 import { GeneralPageLayout } from "../Shared/PageLayout";
+import Sidebar from "../Shared/Sidebar";
 
 const Terms = () => {
   const updatedAt = "March 21, 2025";

@@ -1,5 +1,5 @@
 import Custom404 from "@/components/Shared/404";
-import Sidebar from "@/components/Shared/Sidebar";
+import { Sidebar } from "@/components/Shared/UI";
 import { PencilSquareIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { useSearchParams } from "react-router";
 import { GeneralPageLayout } from "../Shared/PageLayout";

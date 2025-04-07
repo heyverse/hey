@@ -1,4 +1,4 @@
-import Sidebar from "@/components/Shared/Sidebar";
+import { Sidebar } from "@/components/Shared/UI";
 import { ClipboardIcon, UserIcon } from "@heroicons/react/24/outline";
 
 const sidebarItems = [

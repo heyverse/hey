@@ -1,4 +1,4 @@
-import Sidebar from "@/components/Shared/Sidebar";
+import { Sidebar } from "@/components/Shared/UI";
 import {
   AdjustmentsVerticalIcon,
   AtSymbolIcon,

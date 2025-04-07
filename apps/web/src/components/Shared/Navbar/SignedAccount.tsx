@@ -7,8 +7,8 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Features } from "@hey/data/features";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
+import { Link } from "react-router";
 import MenuTransition from "../MenuTransition";
-import { NextLink } from "./MenuItems";
 import MobileDrawerMenu from "./MobileDrawerMenu";
 import Logout from "./NavItems/Logout";
 import Settings from "./NavItems/Settings";
@@ -54,7 +54,7 @@ const SignedAccount = () => {
             static
           >
             <MenuItem
-              as={NextLink}
+              as={Link}
               className={({ focus }: { focus: boolean }) =>
                 cn({ "dropdown-active": focus }, "menu-item")
               }
@@ -63,7 +63,7 @@ const SignedAccount = () => {
               <YourAccount />
             </MenuItem>
             <MenuItem
-              as={NextLink}
+              as={Link}
               className={({ focus }: { focus: boolean }) =>
                 cn({ "dropdown-active": focus }, "menu-item")
               }
@@ -73,7 +73,7 @@ const SignedAccount = () => {
             </MenuItem>
             {isStaff ? (
               <MenuItem
-                as={NextLink}
+                as={Link}
                 className={({ focus }: { focus: boolean }) =>
                   cn({ "dropdown-active": focus }, "menu-item")
                 }

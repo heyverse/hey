@@ -1,6 +1,6 @@
-import WhoToFollow from "@/components/Home/Sidebar/WhoToFollow";
 import FeedFocusType from "@/components/Shared/FeedFocusType";
 import Footer from "@/components/Shared/Footer";
+import WhoToFollow from "@/components/Shared/Sidebar/WhoToFollow";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {} from "@headlessui/react";
 import { MainContentFocus } from "@hey/indexer";

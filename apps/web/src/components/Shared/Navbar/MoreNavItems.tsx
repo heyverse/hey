@@ -2,8 +2,8 @@ import { H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { Link } from "react-router";
 import MenuTransition from "../MenuTransition";
-import { NextLink } from "./MenuItems";
 import Bookmarks from "./NavItems/Bookmarks";
 import Groups from "./NavItems/Groups";
 import Support from "./NavItems/Support";
@@ -35,7 +35,7 @@ const MoreNavItems = () => {
               {currentAccount ? (
                 <>
                   <MenuItem
-                    as={NextLink}
+                    as={Link}
                     className={({ focus }: { focus: boolean }) =>
                       cn({ "dropdown-active": focus }, "menu-item")
                     }
@@ -44,7 +44,7 @@ const MoreNavItems = () => {
                     <Groups />
                   </MenuItem>
                   <MenuItem
-                    as={NextLink}
+                    as={Link}
                     className={({ focus }: { focus: boolean }) =>
                       cn({ "dropdown-active": focus }, "menu-item")
                     }
@@ -56,7 +56,7 @@ const MoreNavItems = () => {
                 </>
               ) : null}
               <MenuItem
-                as={NextLink}
+                as={Link}
                 className={({ focus }: { focus: boolean }) =>
                   cn({ "dropdown-active": focus }, "menu-item")
                 }

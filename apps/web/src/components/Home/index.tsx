@@ -5,11 +5,11 @@ import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 import { APP_NAME } from "@hey/data/constants";
 import { HomeFeedType } from "@hey/data/enums";
 import { GeneralPageLayout } from "../Shared/PageLayout";
+import Sidebar from "../Shared/Sidebar";
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
 import Hero from "./Hero";
 import Highlights from "./Highlights";
-import Sidebar from "./Sidebar";
 import Timeline from "./Timeline";
 
 const Home = () => {

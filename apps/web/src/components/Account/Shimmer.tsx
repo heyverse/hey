@@ -1,7 +1,7 @@
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import Sidebar from "../Home/Sidebar";
 import { GeneralPageLayout } from "../Shared/PageLayout";
+import Sidebar from "../Shared/Sidebar";
 
 const AccountPageShimmer = () => {
   return (

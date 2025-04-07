@@ -9,7 +9,7 @@ import {
   useAccountRecommendationsQuery
 } from "@hey/indexer";
 import { useState } from "react";
-import Suggested from "../Suggested";
+import Suggested from "../../Home/Suggested";
 
 const Title = () => <H5>Who to Follow</H5>;
 

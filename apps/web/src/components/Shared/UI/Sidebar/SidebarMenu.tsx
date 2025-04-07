@@ -1,11 +1,10 @@
+import MenuTransition from "@/components/Shared/MenuTransition";
 import { Card } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { useState } from "react";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import type { SidebarProps } from ".";
-import MenuTransition from "../MenuTransition";
-import { NextLink } from "../Navbar/MenuItems";
 
 const SidebarMenu = ({ items }: SidebarProps) => {
   const { pathname } = useLocation();
@@ -37,7 +36,7 @@ const SidebarMenu = ({ items }: SidebarProps) => {
                 <Card forceRounded>
                   {menuItems.map((item) => (
                     <MenuItem
-                      as={NextLink}
+                      as={Link}
                       className={({ focus }: { focus: boolean }) =>
                         cn(
                           {

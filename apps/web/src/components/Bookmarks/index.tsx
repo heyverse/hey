@@ -4,8 +4,8 @@ import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { MainContentFocus } from "@hey/indexer";
 import { useState } from "react";
-import Sidebar from "../Home/Sidebar";
 import { GeneralPageLayout } from "../Shared/PageLayout";
+import Sidebar from "../Shared/Sidebar";
 import BookmarksFeed from "./BookmarksFeed";
 
 const Bookmarks = () => {
