@@ -99,10 +99,13 @@ const AccountFeed = ({
     filter: {
       metadata,
       postTypes,
-      authors: [address],
-      ...(type === AccountFeedType.Collects && {
-        collectedBy: { account: address }
-      })
+      ...(type === AccountFeedType.Collects
+        ? {
+            collectedBy: { account: address }
+          }
+        : {
+            authors: [address]
+          })
     }
   };
 
