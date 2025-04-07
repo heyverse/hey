@@ -17,12 +17,11 @@ const fetchData = async (url: string) => {
 };
 
 const extractMetadata = (document: Document, url: string) => {
-  const image = getImage(document) as string;
   return {
     description: getDescription(document),
     favicon: getFavicon(url),
     html: generateIframe(getEmbedUrl(document), url),
-    image: image,
+    image: getImage(document),
     site: getSite(document),
     title: getTitle(document),
     url
