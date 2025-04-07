@@ -2,7 +2,11 @@ import { Button } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useSignupStore } from "../Auth/Signup";
 
-const SignupButton = () => {
+interface SignupButtonProps {
+  className?: string;
+}
+
+const SignupButton = ({ className }: SignupButtonProps) => {
   const { setShowAuthModal } = useAuthModalStore();
   const { setScreen } = useSignupStore();
 
@@ -14,6 +18,7 @@ const SignupButton = () => {
       }}
       outline
       size="md"
+      className={className}
     >
       Signup
     </Button>

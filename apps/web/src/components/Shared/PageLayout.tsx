@@ -1,5 +1,7 @@
 import MetaTags from "@/components/Common/MetaTags";
 import type { ReactNode } from "react";
+import LoginButton from "./LoginButton";
+import SignupButton from "./Navbar/SignupButton";
 import Search from "./Sidebar/Search";
 
 interface SidebarProps {
@@ -10,6 +12,10 @@ interface SidebarProps {
 const Sidebar = ({ children, showSearch = false }: SidebarProps) => {
   return (
     <aside className="no-scrollbar sticky top-5 mt-5 hidden max-h-screen w-[23rem] shrink-0 flex-col gap-y-5 overflow-y-auto lg:flex">
+      <div className="flex items-center gap-x-2">
+        <SignupButton className="w-full" />
+        <LoginButton className="w-full" />
+      </div>
       {showSearch && <Search />}
       {children}
     </aside>

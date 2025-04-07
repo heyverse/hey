@@ -7,6 +7,7 @@ import { HomeFeedType } from "@hey/data/enums";
 import { GeneralPageLayout } from "../Shared/PageLayout";
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
+import Hero from "./Hero";
 import Highlights from "./Highlights";
 import Sidebar from "./Sidebar";
 import Timeline from "./Timeline";
@@ -32,7 +33,10 @@ const Home = () => {
           ) : null}
         </>
       ) : (
-        <ExploreFeed />
+        <>
+          <Hero />
+          <ExploreFeed />
+        </>
       )}
     </GeneralPageLayout>
   );

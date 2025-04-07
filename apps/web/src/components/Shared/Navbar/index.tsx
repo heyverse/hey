@@ -42,7 +42,7 @@ const icons = {
 };
 
 const NavItem = ({ url, icon }: { url: string; icon: ReactNode }) => (
-  <Tooltip content={icons[url as keyof typeof icons].title} placement="right">
+  <Tooltip content={icons[url as keyof typeof icons].title}>
     <Link to={url}>{icon}</Link>
   </Tooltip>
 );

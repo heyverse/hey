@@ -1,8 +1,7 @@
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router";
-import LoginButton from "../LoginButton";
 import SignedAccount from "./SignedAccount";
-import SignupButton from "./SignupButton";
 
 export const NextLink = ({ children, to, ...rest }: Record<string, any>) => (
   <Link to={to} {...rest}>
@@ -18,10 +17,9 @@ const MenuItems = () => {
   }
 
   return (
-    <div className="flex items-center space-x-2">
-      <SignupButton />
-      <LoginButton />
-    </div>
+    <button onClick={() => {}} type="button">
+      <UserCircleIcon className="size-6" />
+    </button>
   );
 };
 
