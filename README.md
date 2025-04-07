@@ -70,34 +70,6 @@ Ready to build the application? Just run this command:
 pnpm build
 ```
 
-## Periodic Tasks
-
-### Remove unused exports and helpers
-
-We use `ts-prune` to hunt down and eliminate unused exports and helpers lurking in our codebase. Just a heads-up: you'll need to run this task manually for each package and app. Happy pruning!
-
-```bash
-cd apps/web; npx ts-prune -i generated.ts
-```
-
-### Update dependencies
-
-Time to give our dependencies a makeover! We rely on the magical powers of `pnpm` to keep everything up-to-date and looking sharp.
-
-```bash
-script/clean-branches
-script/update-dependencies
-```
-
-### Update lock file
-
-We trust `pnpm` to keep our lock file fresh and fabulous!
-
-```bash
-script/clean-branches
-script/update-lock-file
-```
-
 ## License
 
 This project is open-sourced under the **AGPL-3.0** license. For all the nitty-gritty details, check out the [LICENSE](./LICENSE) file. It's a real page-turner!
