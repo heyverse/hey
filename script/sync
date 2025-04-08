@@ -15,5 +15,5 @@ if ! git remote get-url $PUBLIC_NAME &>/dev/null; then
 fi
 
 echo "🚀 Syncing to public repo..."
-git push $PUBLIC_NAME HEAD:main
+git push $PUBLIC_NAME main --force
 echo "✅ Synced to public repo"
