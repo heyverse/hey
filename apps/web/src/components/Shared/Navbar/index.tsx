@@ -5,6 +5,7 @@ import {
   BellIcon as BellOutline,
   GlobeAltIcon as GlobeOutline,
   HomeIcon as HomeOutline,
+  UserCircleIcon,
   UserGroupIcon as UserGroupOutline
 } from "@heroicons/react/24/outline";
 import {
@@ -16,7 +17,7 @@ import {
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import type { ReactNode } from "react";
 import { Link, useLocation } from "react-router";
-import MenuItems from "./MenuItems";
+import SignedAccount from "./SignedAccount";
 
 const icons = {
   "/": {
@@ -88,7 +89,13 @@ const Navbar = () => {
         />
       </Link>
       <NavItems isLoggedIn={!!currentAccount} />
-      <MenuItems />
+      {currentAccount ? (
+        <SignedAccount />
+      ) : (
+        <button onClick={() => {}} type="button">
+          <UserCircleIcon className="size-6" />
+        </button>
+      )}
     </aside>
   );
 };
