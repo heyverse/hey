@@ -24,19 +24,16 @@ const AccountManager = () => {
             active={type === Type.MANAGERS}
             name="Managers"
             onClick={() => setType(Type.MANAGERS)}
-            showOnSm
           />
           <TabButton
             active={type === Type.MANAGED}
             name="Managed"
             onClick={() => setType(Type.MANAGED)}
-            showOnSm
           />
           <TabButton
             active={type === Type.UNMANAGED}
             name="Un-managed"
             onClick={() => setType(Type.UNMANAGED)}
-            showOnSm
           />
         </div>
         {type === Type.MANAGERS && (

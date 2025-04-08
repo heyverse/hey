@@ -5,7 +5,9 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Features } from "@hey/data/features";
 import getAccount from "@hey/helpers/getAccount";
+import type { AccountFragment } from "@hey/indexer";
 import { Link } from "react-router";
+import SingleAccount from "../SingleAccount";
 import Bookmarks from "./NavItems/Bookmarks";
 import Groups from "./NavItems/Groups";
 import Logout from "./NavItems/Logout";
@@ -33,6 +35,17 @@ const MobileDrawerMenu = () => {
         <XMarkIcon className="size-6" />
       </button>
       <div className="w-full space-y-2">
+        <Link
+          className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-neutral-200 dark:hover:bg-neutral-800"
+          to={getAccount(currentAccount).link}
+          onClick={handleCloseDrawer}
+        >
+          <SingleAccount
+            account={currentAccount as AccountFragment}
+            linkToAccount={false}
+            showUserPreview={false}
+          />
+        </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <SwitchAccount className={cn(itemClass, "px-4")} />
@@ -50,17 +63,17 @@ const MobileDrawerMenu = () => {
             <Link to="/settings" onClick={handleCloseDrawer}>
               <Settings className={cn(itemClass, "px-4")} />
             </Link>
-            {isStaff ? (
-              <Link to="/staff" onClick={handleCloseDrawer}>
-                <StaffTools className={cn(itemClass, "px-4")} />
-              </Link>
-            ) : null}
             <Link to="/groups" onClick={handleCloseDrawer}>
               <Groups className={cn(itemClass, "px-4")} />
             </Link>
             <Link to="/bookmarks" onClick={handleCloseDrawer}>
               <Bookmarks className={cn(itemClass, "px-4")} />
             </Link>
+            {isStaff ? (
+              <Link to="/staff" onClick={handleCloseDrawer}>
+                <StaffTools className={cn(itemClass, "px-4")} />
+              </Link>
+            ) : null}
             <ThemeSwitch
               className={cn(itemClass, "px-4")}
               onClick={handleCloseDrawer}
@@ -83,6 +96,7 @@ const MobileDrawerMenu = () => {
               onClick={handleCloseDrawer}
             />
           </div>
+          <div className="divider" />
         </div>
       </div>
     </div>

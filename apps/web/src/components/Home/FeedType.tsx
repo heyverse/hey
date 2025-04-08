@@ -30,7 +30,6 @@ const FeedType = () => {
           key={tab.type}
           name={tab.name}
           onClick={() => setFeedType(tab.type)}
-          showOnSm
         />
       ))}
     </div>

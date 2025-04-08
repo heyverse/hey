@@ -1,5 +1,6 @@
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   BellIcon,
@@ -11,18 +12,19 @@ import {
   HomeIcon as HomeIconSolid,
   Squares2X2Icon as Squares2X2IconSolid
 } from "@heroicons/react/24/solid";
-import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { Link, useLocation } from "react-router";
+import MobileDrawerMenu from "./MobileDrawerMenu";
 
 const BottomNavigation = () => {
-  const { currentAccount } = useAccountStore();
   const { pathname } = useLocation();
-
+  const { currentAccount } = useAccountStore();
+  const { showMobileDrawer, setShowMobileDrawer } = useMobileDrawerModalStore();
   const isActivePath = (path: string) => pathname === path;
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-white pb-safe md:hidden dark:border-gray-800 dark:bg-black">
+      {showMobileDrawer ? <MobileDrawerMenu /> : null}
       <div
         className={cn("grid", currentAccount ? "grid-cols-4" : "grid-cols-3")}
       >
@@ -52,17 +54,18 @@ const BottomNavigation = () => {
           )}
         </Link>
         {currentAccount && (
-          <Link
+          <button
             aria-label="Your account"
-            className="mx-auto my-3"
-            to={getAccount(currentAccount).link}
+            className="m-auto h-fit"
+            onClick={() => setShowMobileDrawer(true)}
+            type="button"
           >
             <Image
               alt={currentAccount.address}
-              className="size-6 rounded-full border border-gray-200 dark:border-gray-700"
+              className="m-0.5 size-6 rounded-full border border-gray-200 dark:border-gray-700"
               src={getAvatar(currentAccount)}
             />
-          </Link>
+          </button>
         )}
       </div>
     </nav>

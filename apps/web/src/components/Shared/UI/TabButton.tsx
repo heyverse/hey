@@ -8,7 +8,6 @@ interface TabButtonProps {
   className?: string;
   name: string;
   onClick?: () => void;
-  showOnSm?: boolean;
   type?: string;
 }
 
@@ -18,7 +17,6 @@ const TabButton = ({
   className = "",
   name,
   onClick,
-  showOnSm = false,
   type
 }: TabButtonProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,7 +45,7 @@ const TabButton = ({
       }}
       type="button"
     >
-      <span className={cn({ "hidden sm:block": !showOnSm })}>{name}</span>
+      <span>{name}</span>
       {badge}
     </button>
   );
