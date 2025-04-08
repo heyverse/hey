@@ -1,5 +1,5 @@
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import WrongWallet from "@/components/Shared/Settings/WrongWallet";
 import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -18,7 +18,11 @@ const ManagerSettings = () => {
   }
 
   return (
-    <SettingsPageLayout title="Manager settings" sidebar={<SettingsSidebar />}>
+    <PageLayout
+      title="Manager settings"
+      sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
+    >
       {disabled ? (
         <WrongWallet />
       ) : (
@@ -27,7 +31,7 @@ const ManagerSettings = () => {
           <AccountManager />
         </>
       )}
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

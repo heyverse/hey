@@ -21,7 +21,7 @@ import {
 import { useLocation, useParams } from "react-router";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import FullPost from "./FullPost";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";
@@ -85,7 +85,7 @@ const ViewPost = () => {
     "PostOperationValidationPassed";
 
   return (
-    <GeneralPageLayout
+    <PageLayout
       title={`${targetPost.__typename} by ${
         getAccount(targetPost.author).usernameWithPrefix
       } • ${APP_NAME}`}
@@ -107,6 +107,8 @@ const ViewPost = () => {
           <Footer />
         </div>
       }
+      sidebarPosition="right"
+      showSearch
     >
       <div className="space-y-5">
         {showQuotes ? (
@@ -138,7 +140,7 @@ const ViewPost = () => {
           </>
         )}
       </div>
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

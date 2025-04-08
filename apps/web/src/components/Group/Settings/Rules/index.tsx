@@ -1,7 +1,7 @@
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import { PageLoading } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useGroupQuery } from "@hey/indexer";
@@ -38,10 +38,14 @@ const RulesSettings = () => {
   }
 
   return (
-    <SettingsPageLayout title="Rules settings" sidebar={<SettingsSidebar />}>
+    <PageLayout
+      title="Rules settings"
+      sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
+    >
       <ApprovalRule group={group} />
       <SuperJoin group={group} />
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

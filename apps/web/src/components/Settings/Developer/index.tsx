@@ -1,5 +1,5 @@
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
@@ -13,12 +13,13 @@ const DeveloperSettings = () => {
   }
 
   return (
-    <SettingsPageLayout
+    <PageLayout
       title="Developer settings"
       sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
     >
       <Tokens />
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

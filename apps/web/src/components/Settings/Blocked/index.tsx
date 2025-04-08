@@ -1,5 +1,5 @@
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
@@ -13,7 +13,11 @@ const BlockedSettings = () => {
   }
 
   return (
-    <SettingsPageLayout title="Blocked accounts" sidebar={<SettingsSidebar />}>
+    <PageLayout
+      title="Blocked accounts"
+      sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
+    >
       <Card>
         <CardHeader
           body="This is a list of blocked accounts. You can unblock them at any time."
@@ -21,7 +25,7 @@ const BlockedSettings = () => {
         />
         <List />
       </Card>
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

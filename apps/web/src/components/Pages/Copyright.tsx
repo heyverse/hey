@@ -1,14 +1,19 @@
 import { H2, H4 } from "@/components/Shared/UI";
 import { APP_NAME } from "@hey/data/constants";
 import { Link } from "react-router";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 
 const Copyright = () => {
   const updatedAt = "October 22, 2024";
 
   return (
-    <GeneralPageLayout title="Copyright Policy" sidebar={<Sidebar />}>
+    <PageLayout
+      title="Copyright Policy"
+      sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
+    >
       <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-gray-400">
         <div className="relative text-center">
           <H2 className="text-white">Copyright Policy</H2>
@@ -131,7 +136,7 @@ const Copyright = () => {
           </div>
         </div>
       </div>
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

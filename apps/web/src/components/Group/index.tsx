@@ -7,7 +7,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { useGroupQuery } from "@hey/indexer";
 import { useParams } from "react-router";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 import Details from "./Details";
 import GroupFeed from "./GroupFeed";
@@ -39,7 +39,12 @@ const ViewGroup = () => {
   const isBanned = group.operations?.isBanned;
 
   return (
-    <GeneralPageLayout title={group.metadata?.name} sidebar={<Sidebar />}>
+    <PageLayout
+      title={group.metadata?.name}
+      sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
+    >
       <Cover
         cover={group.metadata?.icon || `${STATIC_IMAGES_URL}/patterns/2.svg`}
       />
@@ -54,7 +59,7 @@ const ViewGroup = () => {
         <NewPost feed={group.feed?.address} />
       )}
       <GroupFeed feed={group.feed?.address} />
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

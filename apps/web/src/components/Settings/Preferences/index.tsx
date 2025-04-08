@@ -1,5 +1,5 @@
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { APP_NAME } from "@hey/data/constants";
@@ -15,9 +15,10 @@ const PreferencesSettings = () => {
   }
 
   return (
-    <SettingsPageLayout
+    <PageLayout
       title="Preferences settings"
       sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
     >
       <div className="space-y-5">
         <Card>
@@ -32,7 +33,7 @@ const PreferencesSettings = () => {
         </Card>
         <AppIcon />
       </div>
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

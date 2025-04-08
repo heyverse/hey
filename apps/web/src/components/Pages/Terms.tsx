@@ -1,13 +1,18 @@
 import { H2, H4 } from "@/components/Shared/UI";
 import { Link } from "react-router";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 
 const Terms = () => {
   const updatedAt = "March 21, 2025";
 
   return (
-    <GeneralPageLayout title="Terms & Conditions" sidebar={<Sidebar />}>
+    <PageLayout
+      title="Terms & Conditions"
+      sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
+    >
       <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-gray-400">
         <div className="relative text-center">
           <H2 className="text-white">Terms & Conditions</H2>
@@ -310,7 +315,7 @@ const Terms = () => {
           </div>
         </div>
       </div>
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

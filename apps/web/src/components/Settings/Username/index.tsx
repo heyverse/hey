@@ -1,5 +1,5 @@
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
 import LinkUsername from "./LinkUsername";
@@ -13,10 +13,14 @@ const UsernameSettings = () => {
   }
 
   return (
-    <SettingsPageLayout title="Username settings" sidebar={<SettingsSidebar />}>
+    <PageLayout
+      title="Username settings"
+      sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
+    >
       <UnlinkUsername />
       <LinkUsername />
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

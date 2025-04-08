@@ -1,12 +1,17 @@
 import { H2, H4 } from "@/components/Shared/UI";
 import { APP_NAME } from "@hey/data/constants";
 import { Link } from "react-router";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 
 const Guidelines = () => {
   return (
-    <GeneralPageLayout title="Community Guidelines" sidebar={<Sidebar />}>
+    <PageLayout
+      title="Community Guidelines"
+      sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
+    >
       <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-gray-400">
         <div className="relative text-center">
           <H2 className="text-white">Community Guidelines</H2>
@@ -124,7 +129,7 @@ const Guidelines = () => {
           </div>
         </div>
       </div>
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

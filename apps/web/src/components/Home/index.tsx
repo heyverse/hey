@@ -4,7 +4,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 import { APP_NAME } from "@hey/data/constants";
 import { HomeFeedType } from "@hey/data/enums";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
@@ -19,7 +19,12 @@ const Home = () => {
   const loggedInWithProfile = Boolean(currentAccount);
 
   return (
-    <GeneralPageLayout title={APP_NAME} sidebar={<Sidebar />}>
+    <PageLayout
+      title={APP_NAME}
+      sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
+    >
       {loggedInWithProfile ? (
         <>
           <FeedType />
@@ -38,7 +43,7 @@ const Home = () => {
           <ExploreFeed />
         </>
       )}
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

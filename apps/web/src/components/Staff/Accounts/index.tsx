@@ -1,5 +1,5 @@
 import Custom404 from "@/components/Shared/404";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import {} from "@/components/Shared/UI";
 import hasAccess from "@/helpers/hasAccess";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -16,12 +16,13 @@ const Accounts = () => {
   }
 
   return (
-    <SettingsPageLayout
+    <PageLayout
       title="Staff Tools - Accounts"
       sidebar={<StaffSidebar />}
+      sidebarPosition="left"
     >
       <List />
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

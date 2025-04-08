@@ -31,32 +31,29 @@ interface PageLayoutProps {
   title?: string;
   children: ReactNode;
   sidebar?: ReactNode;
+  sidebarPosition?: "left" | "right";
+  showSearch?: boolean;
 }
 
-export const GeneralPageLayout = ({
+export const PageLayout = ({
   title,
   children,
-  sidebar
+  sidebar,
+  sidebarPosition = "right",
+  showSearch = false
 }: PageLayoutProps) => {
   return (
     <>
-      {title && <MetaTags title={title} />}
-      <div className="mt-5 flex-1 space-y-5">{children}</div>
-      <Sidebar showSearch>{sidebar}</Sidebar>
-    </>
-  );
-};
-
-export const SettingsPageLayout = ({
-  title,
-  children,
-  sidebar
-}: PageLayoutProps) => {
-  return (
-    <>
-      {title && <MetaTags title={title} />}
-      <Sidebar>{sidebar}</Sidebar>
-      <div className="mt-5 flex-1 space-y-5">{children}</div>
+      <MetaTags title={title} />
+      <div className="flex w-full gap-x-8">
+        {sidebarPosition === "left" && (
+          <Sidebar showSearch={showSearch}>{sidebar}</Sidebar>
+        )}
+        <div className="my-5 flex-1 space-y-5">{children}</div>
+        {sidebarPosition === "right" && (
+          <Sidebar showSearch={showSearch}>{sidebar}</Sidebar>
+        )}
+      </div>
     </>
   );
 };

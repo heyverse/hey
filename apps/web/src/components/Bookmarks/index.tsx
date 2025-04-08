@@ -4,7 +4,7 @@ import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { MainContentFocus } from "@hey/indexer";
 import { useState } from "react";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 import BookmarksFeed from "./BookmarksFeed";
 
@@ -17,10 +17,15 @@ const Bookmarks = () => {
   }
 
   return (
-    <GeneralPageLayout title="Bookmarks" sidebar={<Sidebar />}>
+    <PageLayout
+      title="Bookmarks"
+      sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
+    >
       <FeedFocusType focus={focus} setFocus={setFocus} />
       <BookmarksFeed focus={focus} />
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

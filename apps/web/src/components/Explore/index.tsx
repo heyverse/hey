@@ -5,7 +5,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {} from "@headlessui/react";
 import { MainContentFocus } from "@hey/indexer";
 import { useState } from "react";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import ExploreFeed from "./ExploreFeed";
 import ImageFeed from "./ImageFeed";
 
@@ -14,7 +14,7 @@ const Explore = () => {
   const [focus, setFocus] = useState<MainContentFocus>();
 
   return (
-    <GeneralPageLayout
+    <PageLayout
       title="Explore"
       sidebar={
         <>
@@ -23,6 +23,8 @@ const Explore = () => {
           <Footer />
         </>
       }
+      sidebarPosition="right"
+      showSearch
     >
       <FeedFocusType focus={focus} setFocus={setFocus} />
       {focus === MainContentFocus.Image ? (
@@ -30,7 +32,7 @@ const Explore = () => {
       ) : (
         <ExploreFeed focus={focus} />
       )}
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

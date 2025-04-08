@@ -1,7 +1,7 @@
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import { PageLoading } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useGroupQuery } from "@hey/indexer";
@@ -37,9 +37,13 @@ const GroupSettings = () => {
   }
 
   return (
-    <SettingsPageLayout title="Group settings" sidebar={<SettingsSidebar />}>
+    <PageLayout
+      title="Group settings"
+      sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
+    >
       <GroupSettingsForm group={group} />
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

@@ -1,6 +1,6 @@
 import Custom404 from "@/components/Shared/404";
 import Loader from "@/components/Shared/Loader";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import AccountStaffTool from "@/components/Staff/Accounts/Overview/Tool";
 import StaffSidebar from "@/components/Staff/Sidebar";
@@ -28,9 +28,10 @@ const StaffAccountOverview = () => {
   }
 
   return (
-    <SettingsPageLayout
+    <PageLayout
       title="Staff Tools - Account Overview"
       sidebar={<StaffSidebar />}
+      sidebarPosition="left"
     >
       <Card className="!bg-yellow-300/20 border-yellow-600 border-dashed p-5">
         {loading ? (
@@ -49,7 +50,7 @@ const StaffAccountOverview = () => {
           />
         )}
       </Card>
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

@@ -15,7 +15,7 @@ import isAccountDeleted from "@hey/helpers/isAccountDeleted";
 import { useAccountQuery } from "@hey/indexer";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 import AccountFeed from "./AccountFeed";
 import DeletedDetails from "./DeletedDetails";
@@ -104,9 +104,11 @@ const ViewProfile = () => {
   );
 
   return (
-    <GeneralPageLayout
+    <PageLayout
       title={`${getAccount(account).name} (${getAccount(account).usernameWithPrefix}) • ${APP_NAME}`}
       sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
     >
       <Cover
         cover={
@@ -136,7 +138,7 @@ const ViewProfile = () => {
           )}
         </>
       )}
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

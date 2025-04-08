@@ -1,5 +1,5 @@
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import SettingsSidebar from "../Sidebar";
@@ -13,7 +13,11 @@ const FundsSettings = () => {
   }
 
   return (
-    <SettingsPageLayout title="Funds settings" sidebar={<SettingsSidebar />}>
+    <PageLayout
+      title="Funds settings"
+      sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
+    >
       <Card>
         <CardHeader
           title="Manage account balances"
@@ -21,7 +25,7 @@ const FundsSettings = () => {
         />
         <Balances />
       </Card>
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 

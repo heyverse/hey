@@ -1,10 +1,10 @@
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 
 const GroupPageShimmer = () => {
   return (
-    <GeneralPageLayout sidebar={<Sidebar />}>
+    <PageLayout sidebar={<Sidebar />} sidebarPosition="right" showSearch>
       <div className="container mx-auto">
         <div className="shimmer h-52 sm:h-64 md:rounded-2xl" />
       </div>
@@ -28,7 +28,7 @@ const GroupPageShimmer = () => {
         </div>
       </div>
       <PostsShimmer />
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

@@ -1,14 +1,19 @@
 import { H2, H4 } from "@/components/Shared/UI";
 import { APP_NAME } from "@hey/data/constants";
 import { Link } from "react-router";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 
 const Privacy = () => {
   const updatedAt = "October 30, 2023";
 
   return (
-    <GeneralPageLayout title="Privacy Policy" sidebar={<Sidebar />}>
+    <PageLayout
+      title="Privacy Policy"
+      sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
+    >
       <div className="flex h-48 w-full items-center justify-center rounded-2xl bg-gray-400">
         <div className="relative text-center">
           <H2 className="text-white">Privacy Policy</H2>
@@ -211,7 +216,7 @@ const Privacy = () => {
           </div>
         </div>
       </div>
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

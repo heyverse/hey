@@ -3,7 +3,7 @@ import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import { Card } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useState } from "react";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import List from "./List";
 import ListFocusType from "./ListFocusType";
 import CreateGroup from "./Sidebar/Create/CreateGroup";
@@ -22,7 +22,7 @@ const Groups = () => {
   }
 
   return (
-    <GeneralPageLayout
+    <PageLayout
       title="Groups"
       sidebar={
         <>
@@ -30,12 +30,14 @@ const Groups = () => {
           <Footer />
         </>
       }
+      sidebarPosition="right"
+      showSearch
     >
       <ListFocusType focus={focus} setFocus={setFocus} />
       <Card>
         <List focus={focus} />
       </Card>
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

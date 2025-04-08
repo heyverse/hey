@@ -1,11 +1,16 @@
 import { Card, H3 } from "@/components/Shared/UI";
 import { Link } from "react-router";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 import Sidebar from "../Shared/Sidebar";
 
 const Support = () => {
   return (
-    <GeneralPageLayout title="Support" sidebar={<Sidebar />}>
+    <PageLayout
+      title="Support"
+      sidebar={<Sidebar />}
+      sidebarPosition="right"
+      showSearch
+    >
       <Card className="flex flex-col items-center p-8">
         <div className="linkify max-w-xl text-center">
           <H3>Support</H3>
@@ -42,7 +47,7 @@ const Support = () => {
           </p>
         </div>
       </Card>
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

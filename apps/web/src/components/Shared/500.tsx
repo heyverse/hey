@@ -1,7 +1,7 @@
 import { Button, H3 } from "@/components/Shared/UI";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import Footer from "./Footer";
-import { GeneralPageLayout } from "./PageLayout";
+import { PageLayout } from "./PageLayout";
 
 const Custom500 = () => {
   const clearLocalData = () => {
@@ -10,7 +10,12 @@ const Custom500 = () => {
   };
 
   return (
-    <GeneralPageLayout title="500" sidebar={<Footer />}>
+    <PageLayout
+      title="500"
+      sidebar={<Footer />}
+      sidebarPosition="right"
+      showSearch
+    >
       <div className="p-10 text-center">
         <H3 className="mb-4">Looks like something went wrong!</H3>
         <div className="mb-4 text-gray-500 dark:text-gray-200">
@@ -25,7 +30,7 @@ const Custom500 = () => {
           Clear cache and refresh
         </Button>
       </div>
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

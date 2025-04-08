@@ -4,7 +4,7 @@ import PostShimmer from "@/components/Shared/Shimmer/PostShimmer";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
 import { Card } from "@/components/Shared/UI";
-import { GeneralPageLayout } from "../Shared/PageLayout";
+import { PageLayout } from "../Shared/PageLayout";
 
 interface PublicationPageShimmerProps {
   publicationList?: boolean;
@@ -14,7 +14,7 @@ const PublicationPageShimmer = ({
   publicationList = false
 }: PublicationPageShimmerProps) => {
   return (
-    <GeneralPageLayout
+    <PageLayout
       sidebar={
         <div className="space-y-5">
           <Card className="p-5">
@@ -34,6 +34,8 @@ const PublicationPageShimmer = ({
           <Footer />
         </div>
       }
+      sidebarPosition="right"
+      showSearch
     >
       {publicationList ? (
         <PostListShimmer />
@@ -45,7 +47,7 @@ const PublicationPageShimmer = ({
           <PostsShimmer />
         </>
       )}
-    </GeneralPageLayout>
+    </PageLayout>
   );
 };
 

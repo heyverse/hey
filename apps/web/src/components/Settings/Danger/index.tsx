@@ -1,5 +1,5 @@
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { SettingsPageLayout } from "@/components/Shared/PageLayout";
+import { PageLayout } from "@/components/Shared/PageLayout";
 import WrongWallet from "@/components/Shared/Settings/WrongWallet";
 import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -17,9 +17,13 @@ const DangerSettings = () => {
   }
 
   return (
-    <SettingsPageLayout title="Delete account" sidebar={<SettingsSidebar />}>
+    <PageLayout
+      title="Delete account"
+      sidebar={<SettingsSidebar />}
+      sidebarPosition="left"
+    >
       {disabled ? <WrongWallet /> : <DeleteSettings />}
-    </SettingsPageLayout>
+    </PageLayout>
   );
 };
 
