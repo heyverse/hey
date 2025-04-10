@@ -38,6 +38,7 @@
     "clsx": "^2.1.1",
     "family": "^0.1.1",
     "motion": "^12.6.3",
+    "motion-plus-react": "^0.1.5",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
     "prosekit": "^0.12.1",

@@ -214,6 +214,9 @@ importers:
       motion:
         specifier: ^12.6.3
         version: 12.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      motion-plus-react:
+        specifier: ^0.1.5
+        version: 0.1.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       plur:
         specifier: ^5.1.0
         version: 5.1.0
@@ -5191,6 +5194,20 @@ packages:
 
   motion-dom@12.6.3:
     resolution: {integrity: sha512-gRY08RjcnzgFYLemUZ1lo/e9RkBxR+6d4BRvoeZDSeArG4XQXERSPapKl3LNQRu22Sndjf1h+iavgY0O4NrYqA==}
+
+  motion-plus-dom@0.1.5:
+    resolution: {integrity: sha512-/XIAij0nud4sMFq1wrDQGhLJ/+Dfc/or0IyrbjwFgp+kprDRVpGqqJ+NSx9cwqS/QVJUoLzfTJ+yr88lC/soLQ==}
+
+  motion-plus-react@0.1.5:
+    resolution: {integrity: sha512-RyH4iuvUpC8VphhMp7taLgb8siYMaVv9F3ELkDI5YdsOSsLQ8h9FqDAmFscIye/v+C6qwFjpcuOFmoLPy1UFOQ==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   motion-utils@12.6.3:
     resolution: {integrity: sha512-R/b3Ia2VxtTNZ4LTEO5pKYau1OUNHOuUfxuP0WFCTDYdHkeTBR9UtxR1cc8mDmKr8PEhmmfnTKGz3rSMjNRoRg==}
@@ -13384,6 +13401,27 @@ snapshots:
   motion-dom@12.6.3:
     dependencies:
       motion-utils: 12.6.3
+
+  motion-plus-dom@0.1.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      motion: 12.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      motion-dom: 12.6.3
+      motion-utils: 12.6.3
+    transitivePeerDependencies:
+      - '@emotion/is-prop-valid'
+      - react
+      - react-dom
+
+  motion-plus-react@0.1.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      motion: 12.6.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      motion-plus-dom: 0.1.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      motion-utils: 12.6.3
+    optionalDependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+    transitivePeerDependencies:
+      - '@emotion/is-prop-valid'
 
   motion-utils@12.6.3: {}
 

@@ -4,10 +4,10 @@ import cn from "@/helpers/cn";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import humanize from "@hey/helpers/humanize";
-import nFormatter from "@hey/helpers/nFormatter";
 import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPostFragment } from "@hey/indexer";
+import { AnimateNumber } from "motion-plus-react";
 import { useState } from "react";
 import Quote from "./Quote";
 import Repost from "./Repost";
@@ -101,14 +101,16 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
         </MenuTransition>
       </Menu>
       {shares > 0 && !showCount ? (
-        <span
+        <AnimateNumber
+          format={{ notation: "compact" }}
+          transition={{ type: "tween" }}
           className={cn(
             hasShared ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
             "w-3 text-[11px] sm:text-xs"
           )}
         >
-          {nFormatter(shares)}
-        </span>
+          {shares}
+        </AnimateNumber>
       ) : null}
     </div>
   );

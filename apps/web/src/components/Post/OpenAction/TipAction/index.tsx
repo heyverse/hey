@@ -3,9 +3,9 @@ import MenuTransition from "@/components/Shared/MenuTransition";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import nFormatter from "@hey/helpers/nFormatter";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { PostFragment } from "@hey/indexer";
+import { AnimateNumber } from "motion-plus-react";
 import Action from "./Action";
 
 interface TipActionProps {
@@ -53,14 +53,16 @@ const TipAction = ({ post, showCount }: TipActionProps) => {
         </MenuTransition>
       </Menu>
       {(tips || 0) > 0 && !showCount && (
-        <span
+        <AnimateNumber
+          format={{ notation: "compact" }}
+          transition={{ type: "tween" }}
           className={cn(
             hasTipped ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
             "w-3 text-[11px] sm:text-xs"
           )}
         >
-          {nFormatter(tips || 0)}
-        </span>
+          {tips || 0}
+        </AnimateNumber>
       )}
     </div>
   );

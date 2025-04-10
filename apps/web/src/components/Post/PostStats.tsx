@@ -2,11 +2,26 @@ import Collectors from "@/components/Shared/Modal/Collectors";
 import Likes from "@/components/Shared/Modal/Likes";
 import Reposts from "@/components/Shared/Modal/Reposts";
 import { Modal } from "@/components/Shared/UI";
-import nFormatter from "@hey/helpers/nFormatter";
 import type { PostFragment } from "@hey/indexer";
+import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
 import { memo, useState } from "react";
 import { Link } from "react-router";
+
+const AnimatedNumber = ({ name, value }: { name: string; value: number }) => {
+  return (
+    <span className="flex items-center gap-x-1">
+      <AnimateNumber
+        format={{ notation: "compact" }}
+        transition={{ type: "tween" }}
+        className="font-bold text-black dark:text-white"
+      >
+        {value}
+      </AnimateNumber>
+      {plur(name, value)}
+    </span>
+  );
+};
 
 interface PostStatsProps {
   post: PostFragment;
@@ -38,10 +53,7 @@ const PostStats = ({ post }: PostStatsProps) => {
       <div className="divider" />
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 py-3 text-gray-500 text-sm dark:text-gray-200">
         {comments > 0 ? (
-          <span>
-            <b className="text-black dark:text-white">{nFormatter(comments)}</b>{" "}
-            {plur("Comment", comments)}
-          </span>
+          <AnimatedNumber name="Comment" value={comments} />
         ) : null}
         {reposts > 0 ? (
           <button
@@ -49,14 +61,12 @@ const PostStats = ({ post }: PostStatsProps) => {
             onClick={() => setShowRepostsModal(true)}
             type="button"
           >
-            <b className="text-black dark:text-white">{nFormatter(reposts)}</b>{" "}
-            {plur("Repost", reposts)}
+            <AnimatedNumber name="Repost" value={reposts} />
           </button>
         ) : null}
         {quotes > 0 ? (
           <Link className="outline-offset-2" to={`/posts/${post.slug}/quotes`}>
-            <b className="text-black dark:text-white">{nFormatter(quotes)}</b>{" "}
-            {plur("Quote", quotes)}
+            <AnimatedNumber name="Quote" value={quotes} />
           </Link>
         ) : null}
         {reactions > 0 ? (
@@ -65,35 +75,21 @@ const PostStats = ({ post }: PostStatsProps) => {
             onClick={() => setShowLikesModal(true)}
             type="button"
           >
-            <b className="text-black dark:text-white">
-              {nFormatter(reactions)}
-            </b>{" "}
-            {plur("Like", reactions)}
+            <AnimatedNumber name="Like" value={reactions} />
           </button>
         ) : null}
-        {tips > 0 ? (
-          <span>
-            <b className="text-black dark:text-white">{nFormatter(tips)}</b>{" "}
-            {plur("Tip", tips)}
-          </span>
-        ) : null}
+        {tips > 0 ? <AnimatedNumber name="Tip" value={tips} /> : null}
         {collects > 0 ? (
           <button
             className="outline-offset-2"
             onClick={() => setShowCollectorsModal(true)}
             type="button"
           >
-            <b className="text-black dark:text-white">{nFormatter(collects)}</b>{" "}
-            {plur("Collect", collects)}
+            <AnimatedNumber name="Collect" value={collects} />
           </button>
         ) : null}
         {bookmarks > 0 ? (
-          <span>
-            <b className="text-black dark:text-white">
-              {nFormatter(bookmarks)}
-            </b>{" "}
-            {plur("Bookmark", bookmarks)}
-          </span>
+          <AnimatedNumber name="Bookmark" value={bookmarks} />
         ) : null}
       </div>
       <Modal

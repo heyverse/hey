@@ -7,7 +7,6 @@ import type { ApolloCache } from "@apollo/client";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { Errors } from "@hey/data/errors";
-import nFormatter from "@hey/helpers/nFormatter";
 import {
   type PostFragment,
   PostReactionType,
@@ -15,6 +14,7 @@ import {
   useUndoReactionMutation
 } from "@hey/indexer";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
+import { AnimateNumber } from "motion-plus-react";
 import toast from "react-hot-toast";
 
 interface LikeProps {
@@ -135,9 +135,13 @@ const Like = ({ post, showCount }: LikeProps) => {
         </Tooltip>
       </button>
       {reactions > 0 && !showCount ? (
-        <span className="w-3 text-[11px] sm:text-xs">
-          {nFormatter(reactions)}
-        </span>
+        <AnimateNumber
+          format={{ notation: "compact" }}
+          transition={{ type: "tween" }}
+          className="w-3 text-[11px] sm:text-xs"
+        >
+          {reactions}
+        </AnimateNumber>
       ) : null}
     </div>
   );
