@@ -28,7 +28,7 @@ const Support = () => {
                 to="https://www.lens.xyz/legal/lens.xyz-privacy-policy.pdf"
                 target="_blank"
               >
-                Lens Protocol Privacy Policy
+                Lens Privacy Policy
               </Link>
             </li>
             <li>

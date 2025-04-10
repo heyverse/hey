@@ -77,9 +77,8 @@ const Terms = () => {
                   User Lens account is referred as the Account in the “Site”.
                 </p>
                 <p className="leading-7">
-                  The Site allow you to interact with the Lens Protocol,
-                  including posts, reposts, comments and other content related
-                  actions.
+                  The Site allow you to interact with the Lens, including posts,
+                  reposts, comments and other content related actions.
                 </p>
                 <p className="leading-7">
                   We reserve the right - but are not obligated to - limit the
@@ -103,19 +102,18 @@ const Terms = () => {
                 <p className="leading-7">
                   It is important to understand that neither we nor any
                   affiliated entity is a party to any transaction on the
-                  blockchain networks underlying the Lens Protocol; we do not
-                  have possession, custody or control over any items on your
-                  wallet and we do not have possession, custody, ability to
-                  delete or control over any items on any user's wallet or
-                  interactions with the Lens Protocol.
+                  blockchain networks underlying the Lens; we do not have
+                  possession, custody or control over any items on your wallet
+                  and we do not have possession, custody, ability to delete or
+                  control over any items on any user's wallet or interactions
+                  with the Lens.
                 </p>
                 <p className="leading-7">
                   If you're not comfortable with interacting with an inherently
                   transparent blockchain, you should not engage with our Site to
-                  create and manage a content on the Lens Protocol. You are
-                  solely responsible for the safekeeping of the private key
-                  associated with the blockchain address used to interact with
-                  the Lens Protocol.{" "}
+                  create and manage a content on the Lens. You are solely
+                  responsible for the safekeeping of the private key associated
+                  with the blockchain address used to interact with the Lens.{" "}
                   <b className="leading-7">
                     The transactions on blockchain including transfer of tokens
                     and data attached to it are permanent and cannot be undone.
@@ -130,8 +128,8 @@ const Terms = () => {
                   including through the Site, is at your own risk.
                 </p>
                 <p className="leading-7">
-                  The Lens Protocol is deployed on blockchain-based networks,
-                  and we are not responsible for the operation of such networks.
+                  The Lens is deployed on blockchain-based networks, and we are
+                  not responsible for the operation of such networks.
                 </p>
               </div>
               {/* 3. Services ends */}

@@ -13,7 +13,7 @@ const Hero = () => {
       <div className="absolute bottom-5 left-5">
         <div className="font-extrabold text-3xl text-white">Welcome to Hey</div>
         <div className="font-extrabold text-gray-200">
-          a social network built on Lens Protocol
+          a social network built on Lens
         </div>
       </div>
     </div>

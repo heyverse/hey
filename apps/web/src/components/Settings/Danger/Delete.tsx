@@ -38,10 +38,10 @@ const DeleteSettings = () => {
         <div className="space-y-3">
           <H5 className="text-red-500">Delete Lens account</H5>
           <p>
-            This will permanently delete your Account NFT on the Lens Protocol.
-            You will not be able to use any apps built on Lens, including Hey.
-            All your data will be wiped out immediately and you won't be able to
-            get it back.
+            This will permanently delete your Account NFT on the Lens. You will
+            not be able to use any apps built on Lens, including Hey. All your
+            data will be wiped out immediately and you won't be able to get it
+            back.
           </p>
         </div>
         <H5>What else you should know</H5>

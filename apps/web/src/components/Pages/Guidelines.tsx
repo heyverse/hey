@@ -93,7 +93,7 @@ const Guidelines = () => {
                 </p>
                 <H4 className="mt-8 mb-5">Suspension</H4>
                 <p className="leading-7">
-                  Account suspension only apply to Hey and not on Lens Protocol,
+                  Account suspension only apply to Hey and not on Lens,
                   decisions on suspension an account will be made by the Hey
                   team and its not automated.
                 </p>
