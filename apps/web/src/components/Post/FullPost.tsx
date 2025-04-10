@@ -8,6 +8,7 @@ import formatDate from "@hey/helpers/datetime/formatDate";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
 import { useHiddenCommentFeedStore } from ".";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
@@ -25,7 +26,15 @@ interface FullPostProps {
 const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
+  const scrollTargetRef = useRef<HTMLDivElement | null>(null);
   const isStaff = hasAccess(Features.Staff);
+
+  useEffect(() => {
+    if (scrollTargetRef.current) {
+      scrollTargetRef.current.scrollIntoView({ behavior: "instant" });
+      window.scrollBy(0, -15);
+    }
+  }, []);
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const { author, timestamp } = targetPost;
@@ -52,6 +61,9 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   return (
     <article className="p-5">
       <PostType post={post} showType />
+      {post.__typename === "Post" && post.commentOn ? (
+        <div ref={scrollTargetRef} />
+      ) : null}
       <div className="flex items-start gap-x-3">
         <PostAvatar post={post} />
         <div className="w-[calc(100%-55px)]">

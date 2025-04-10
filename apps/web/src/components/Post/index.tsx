@@ -108,7 +108,7 @@ const ViewPost = () => {
       }
       zeroTopMargin
     >
-      <div className="space-y-5">
+      <div className="h-[calc(150vh)] space-y-5">
         {showQuotes ? (
           <Quotes post={targetPost} />
         ) : (
