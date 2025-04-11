@@ -1,11 +1,9 @@
 import SinglePost from "@/components/Post/SinglePost";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import { useAccountFeedStore } from "@/store/non-persisted/useAccountFeedStore";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
 import {
-  MainContentFocus,
   PageSize,
   PostType,
   type PostsRequest,
@@ -34,30 +32,11 @@ const AccountFeed = ({
   address,
   type
 }: AccountFeedProps) => {
-  const { mediaFeedFilters } = useAccountFeedStore();
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   useEffect(() => {
     virtuosoState = { ranges: [], screenTop: 0 };
   }, [address, username]);
-
-  const getMediaFilters = () => {
-    return Object.entries(mediaFeedFilters)
-      .filter(([_, value]) => value)
-      .map(([key]) => {
-        switch (key) {
-          case "images":
-            return MainContentFocus.Image;
-          case "video":
-            return MainContentFocus.Video;
-          case "audio":
-            return MainContentFocus.Audio;
-          default:
-            return null;
-        }
-      })
-      .filter(Boolean) as MainContentFocus[];
-  };
 
   const getPostTypes = () => {
     switch (type) {
@@ -89,15 +68,10 @@ const AccountFeed = ({
   };
 
   const postTypes = getPostTypes();
-  const metadata =
-    type === AccountFeedType.Media
-      ? { mainContentFocus: getMediaFilters() }
-      : null;
 
   const request: PostsRequest = {
     pageSize: PageSize.Fifty,
     filter: {
-      metadata,
       postTypes,
       ...(type === AccountFeedType.Collects
         ? { collectedBy: { account: address } }
