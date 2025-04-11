@@ -6,7 +6,7 @@ import { useApolloClient } from "@apollo/client";
 import { Errors } from "@hey/data/errors";
 import { type GroupFragment, useJoinGroupMutation } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface JoinProps {
   group: GroupFragment;

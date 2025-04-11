@@ -15,7 +15,7 @@ import convertToTitleCase from "@hey/helpers/convertToTitleCase";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import { PostReportReason, useReportPostMutation } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const ValidationSchema = z.object({

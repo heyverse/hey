@@ -7,7 +7,7 @@ import { MenuItem } from "@headlessui/react";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import type { PostFragment } from "@hey/indexer";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface QuoteProps {
   post: PostFragment;

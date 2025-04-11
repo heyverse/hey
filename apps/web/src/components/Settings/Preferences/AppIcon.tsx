@@ -6,7 +6,7 @@ import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/o
 import { CheckCircleIcon as CheckCircleIconSolid } from "@heroicons/react/24/solid";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const icons = [
   { id: 0, name: "Default" },

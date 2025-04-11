@@ -5,7 +5,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { WRAPPED_NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useWrapTokensMutation } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface WrapProps {
   value: string;

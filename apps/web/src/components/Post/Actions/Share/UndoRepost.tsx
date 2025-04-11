@@ -9,7 +9,7 @@ import { Errors } from "@hey/data/errors";
 import { isRepost } from "@hey/helpers/postHelpers";
 import { type AnyPostFragment, useDeletePostMutation } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 interface UndoRepostProps {
   post: AnyPostFragment;

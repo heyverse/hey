@@ -12,8 +12,8 @@ import {
   useUnhideManagedAccountMutation
 } from "@hey/indexer";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
+import { toast } from "sonner";
 import { useAccount } from "wagmi";
 
 interface ListProps {

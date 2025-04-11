@@ -10,7 +10,7 @@ import {
 import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useDepositMutation } from "@hey/indexer";
 import { type ChangeEvent, type RefObject, useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { formatUnits } from "viem";
 import { useAccount, useBalance } from "wagmi";
 

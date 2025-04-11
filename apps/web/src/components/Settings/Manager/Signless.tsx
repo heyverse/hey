@@ -5,7 +5,7 @@ import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { Errors } from "@hey/data/errors";
 import { useEnableSignlessMutation } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const Signless = () => {
   const { isSuspended } = useAccountStatus();

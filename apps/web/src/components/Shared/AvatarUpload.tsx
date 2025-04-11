@@ -11,7 +11,7 @@ import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
 import Cropper, { type Area } from "react-easy-crop";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface AvatarUploadProps {
   src: string;

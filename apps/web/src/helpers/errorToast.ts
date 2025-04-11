@@ -1,5 +1,5 @@
 import { Errors } from "@hey/data/errors";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 const FORBIDDEN_ERROR =
   "Forbidden - Failed to generate source stamp: App rejected verification request:";

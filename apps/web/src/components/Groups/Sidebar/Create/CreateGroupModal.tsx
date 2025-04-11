@@ -15,7 +15,7 @@ import { Regex } from "@hey/data/regex";
 import { useCreateGroupMutation } from "@hey/indexer";
 import { group } from "@lens-protocol/metadata";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { z } from "zod";
 import { useCreateGroupStore } from "./CreateGroup";
 

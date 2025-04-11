@@ -9,7 +9,7 @@ import { Errors } from "@hey/data/errors";
 import { useAddAccountManagerMutation } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { isAddress } from "viem";
 
 interface AddAccountManagerProps {

@@ -21,7 +21,7 @@ import {
   useReportAccountMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const ValidationSchema = z.object({

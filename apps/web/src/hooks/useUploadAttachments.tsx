@@ -4,7 +4,7 @@ import generateUUID from "@hey/helpers/generateUUID";
 import type { NewAttachment } from "@hey/types/misc";
 import imageCompression from "browser-image-compression";
 import { useCallback } from "react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 const useUploadAttachments = () => {
   const {

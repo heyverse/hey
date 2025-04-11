@@ -12,8 +12,8 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { NULL_ADDRESS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 const DeleteSettings = () => {
   const { currentAccount } = useAccountStore();

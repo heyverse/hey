@@ -4,7 +4,7 @@ import { LinkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AccountFragment } from "@hey/indexer";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface CopyLinkProps {
   account: AccountFragment;

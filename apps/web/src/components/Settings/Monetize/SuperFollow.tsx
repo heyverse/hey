@@ -29,7 +29,7 @@ import {
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
 import { type RefObject, useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const SuperFollow = () => {
   const { currentAccount, setCurrentAccount } = useAccountStore();

@@ -4,7 +4,7 @@ import { trpc } from "@/helpers/trpc";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { SwatchIcon } from "@heroicons/react/24/outline";
 import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const IncludeLowScore = () => {
   const { includeLowScore, setIncludeLowScore } = usePreferencesStore();

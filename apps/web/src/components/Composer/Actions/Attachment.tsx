@@ -16,7 +16,7 @@ import {
 import { useClickAway } from "@uidotdev/usehooks";
 import type { ChangeEvent, JSX, MutableRefObject } from "react";
 import { useId, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);

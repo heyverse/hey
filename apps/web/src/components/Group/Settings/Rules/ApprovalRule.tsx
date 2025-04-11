@@ -10,7 +10,7 @@ import {
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface ApprovalRuleProps {
   group: GroupFragment;

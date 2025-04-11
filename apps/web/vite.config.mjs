@@ -32,7 +32,6 @@ export default defineConfig({
             "react-virtuoso",
             "react-easy-crop",
             "react-hook-form",
-            "react-hot-toast",
             "react-router",
             "react-tracked"
           ],
@@ -55,6 +54,7 @@ export default defineConfig({
             "@radix-ui/react-slider",
             "@radix-ui/react-tooltip",
             "@uidotdev/usehooks",
+            "sonner",
             "motion"
           ],
           aws: ["@aws-sdk/client-s3", "@aws-sdk/lib-storage"],

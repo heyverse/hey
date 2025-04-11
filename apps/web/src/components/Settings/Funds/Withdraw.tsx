@@ -4,7 +4,7 @@ import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useWithdrawMutation } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import type { Address } from "viem";
 
 interface WithdrawProps {

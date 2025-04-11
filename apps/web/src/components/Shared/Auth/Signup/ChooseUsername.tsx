@@ -19,7 +19,7 @@ import {
 } from "@hey/indexer";
 import { account as accountMetadata } from "@lens-protocol/metadata";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { useAccount, useSignMessage } from "wagmi";
 import { z } from "zod";
 import { useSignupStore } from ".";

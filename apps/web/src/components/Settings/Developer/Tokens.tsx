@@ -6,7 +6,7 @@ import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { Errors } from "@hey/data/errors";
 import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { useAccount, useSignMessage } from "wagmi";
 
 const Tokens = () => {

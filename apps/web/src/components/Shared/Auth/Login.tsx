@@ -12,7 +12,7 @@ import {
 } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import { useAccount, useDisconnect, useSignMessage } from "wagmi";
 import SingleAccount from "../Account/SingleAccount";
 import Loader from "../Loader";

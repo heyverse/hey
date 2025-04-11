@@ -5,7 +5,7 @@ import {
   useCreatePostMutation,
   usePostLazyQuery
 } from "@hey/indexer";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import usePollTransactionStatus from "./usePollTransactionStatus";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 
@@ -26,15 +26,13 @@ const useCreatePost = ({
   const { cache } = useApolloClient();
   const isComment = Boolean(commentOn);
 
-  const updateCache = async (txHash: string, toastId: string) => {
+  const updateCache = async (txHash: string) => {
     const { data } = await getPost({ variables: { request: { txHash } } });
     if (!data?.post) {
       return;
     }
 
-    toast.dismiss(toastId);
     toast.success(`${isComment ? "Comment" : "Post"} created successfully!`);
-
     cache.modify({
       fields: {
         [isComment ? "postReferences" : "posts"]: () => {
@@ -45,8 +43,7 @@ const useCreatePost = ({
   };
 
   const onCompletedWithTransaction = (hash: string) => {
-    const toastId = toast.loading("Processing...");
-    pollTransactionStatus(hash, () => updateCache(hash, toastId));
+    pollTransactionStatus(hash, () => updateCache(hash));
     return onCompleted();
   };
 

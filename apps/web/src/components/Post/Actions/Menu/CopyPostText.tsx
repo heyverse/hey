@@ -4,7 +4,7 @@ import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { PostFragment } from "@hey/indexer";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface CopyPostTextProps {
   post: PostFragment;

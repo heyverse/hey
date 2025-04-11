@@ -8,7 +8,7 @@ import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import { useMuteMutation, useUnmuteMutation } from "@hey/indexer";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 const MuteOrUnmuteAccount = () => {
   const { currentAccount } = useAccountStore();

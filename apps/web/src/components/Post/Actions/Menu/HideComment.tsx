@@ -11,7 +11,7 @@ import {
   useHideReplyMutation,
   useUnhideReplyMutation
 } from "@hey/indexer";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 interface HideCommentProps {
   post: PostFragment;

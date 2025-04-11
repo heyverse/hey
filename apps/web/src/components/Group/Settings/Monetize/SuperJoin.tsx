@@ -27,7 +27,7 @@ import {
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import { type RefObject, useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface SuperJoinProps {
   group: GroupFragment;

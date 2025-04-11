@@ -13,7 +13,7 @@ import {
   useUsernamesQuery
 } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const LinkUsername = () => {
   const { currentAccount } = useAccountStore();

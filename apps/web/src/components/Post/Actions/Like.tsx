@@ -15,7 +15,7 @@ import {
 } from "@hey/indexer";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { AnimateNumber } from "motion-plus-react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface LikeProps {
   post: PostFragment;

@@ -14,7 +14,7 @@ import { getSrc } from "@livepeer/react/external";
 import { useMutation } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface WrapperProps {
   children: ReactNode;

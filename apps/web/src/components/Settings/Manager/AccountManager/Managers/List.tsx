@@ -16,8 +16,8 @@ import {
   useRemoveAccountManagerMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
+import { toast } from "sonner";
 import Permission from "./Permission";
 
 const List = () => {

@@ -3,7 +3,7 @@ import { MenuItem } from "@headlessui/react";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { PostFragment } from "@hey/indexer";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface ShareProps {
   post: PostFragment;

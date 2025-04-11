@@ -5,7 +5,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useUnwrapTokensMutation } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface UnwrapProps {
   value: string;

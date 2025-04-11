@@ -11,7 +11,7 @@ import {
   useUpdateAccountManagerMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface PermissionsProps {
   title: string;

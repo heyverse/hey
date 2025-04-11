@@ -10,7 +10,7 @@ import { Errors } from "@hey/data/errors";
 import { type PostFragment, useRepostMutation } from "@hey/indexer";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, SetStateAction } from "react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 interface RepostProps {
   isSubmitting: boolean;

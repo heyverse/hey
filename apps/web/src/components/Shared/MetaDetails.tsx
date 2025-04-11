@@ -1,7 +1,7 @@
 import { H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import type { ReactNode } from "react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 interface MetaDetailsProps {
   children: ReactNode;

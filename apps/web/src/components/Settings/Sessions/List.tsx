@@ -13,8 +13,8 @@ import {
   useRevokeAuthenticationMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import { Virtuoso } from "react-virtuoso";
+import { toast } from "sonner";
 
 const List = () => {
   const { currentAccount } = useAccountStore();

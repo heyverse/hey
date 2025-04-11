@@ -5,7 +5,7 @@ import { trpc } from "@/helpers/trpc";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { Permission, PermissionId } from "@hey/data/permissions";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface PermissionsProps {
   address: string;

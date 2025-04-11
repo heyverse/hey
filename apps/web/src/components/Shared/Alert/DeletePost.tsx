@@ -6,7 +6,7 @@ import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useApolloClient } from "@apollo/client";
 import { Errors } from "@hey/data/errors";
 import { useDeletePostMutation } from "@hey/indexer";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 const DeletePost = () => {
   const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =

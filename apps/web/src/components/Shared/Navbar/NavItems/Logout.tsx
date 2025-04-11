@@ -6,7 +6,7 @@ import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useRevokeAuthenticationMutation } from "@hey/indexer";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 interface LogoutProps {
   className?: string;

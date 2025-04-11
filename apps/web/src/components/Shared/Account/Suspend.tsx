@@ -2,7 +2,7 @@ import errorToast from "@/helpers/errorToast";
 import { trpc } from "@/helpers/trpc";
 import { Permission, PermissionId } from "@hey/data/permissions";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import ToggleWithHelper from "../ToggleWithHelper";
 
 interface SuspendProps {

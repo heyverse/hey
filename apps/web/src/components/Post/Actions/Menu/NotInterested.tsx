@@ -10,7 +10,7 @@ import {
   useAddPostNotInterestedMutation,
   useUndoPostNotInterestedMutation
 } from "@hey/indexer";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 interface NotInterestedProps {
   post: PostFragment;

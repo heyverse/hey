@@ -4,7 +4,7 @@ import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttach
 import { type Editor, defineDOMEventHandler, union } from "prosekit/core";
 import { useExtension } from "prosekit/react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const handleFiles = (
   event: Event,

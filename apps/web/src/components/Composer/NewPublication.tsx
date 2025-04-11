@@ -33,7 +33,7 @@ import type { PostFragment } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import Attachment from "./Actions/Attachment";
 import CollectSettings from "./Actions/CollectSettings";
 import Gif from "./Actions/Gif";

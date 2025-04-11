@@ -10,8 +10,8 @@ import {
   useBookmarkPostMutation,
   useUndoBookmarkPostMutation
 } from "@hey/indexer";
-import { toast } from "react-hot-toast";
 import { useLocation } from "react-router";
+import { toast } from "sonner";
 
 interface BookmarkProps {
   post: PostFragment;

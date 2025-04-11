@@ -8,7 +8,7 @@ import { generateVideoThumbnails } from "@hey/helpers/generateVideoThumbnails";
 import getFileFromDataURL from "@hey/helpers/getFileFromDataURL";
 import type { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import { toast } from "sonner";
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;

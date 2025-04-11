@@ -21,7 +21,7 @@ import {
 } from "@hey/indexer";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
