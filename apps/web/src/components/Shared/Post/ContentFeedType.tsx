@@ -1,7 +1,6 @@
 import { MainContentFocus } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
-import { TabButton } from "../UI";
-import { MotionTabIndicator } from "../UI/TabButton";
+import { Tabs } from "../UI";
 
 interface ContentFeedTypeProps {
   focus?: MainContentFocus;
@@ -15,7 +14,7 @@ const ContentFeedType = ({
   layoutId
 }: ContentFeedTypeProps) => {
   const tabs = [
-    { name: "All posts", type: undefined },
+    { name: "All posts", type: "" },
     { name: "Text", type: MainContentFocus.TextOnly },
     { name: "Video", type: MainContentFocus.Video },
     { name: "Audio", type: MainContentFocus.Audio },
@@ -23,22 +22,13 @@ const ContentFeedType = ({
   ];
 
   return (
-    <li className="mx-5 flex flex-wrap gap-3 md:mx-0">
-      {tabs.map((tab) => {
-        const isSelected = focus === tab.type;
-        return (
-          <div key={tab.type} className="relative">
-            {isSelected && <MotionTabIndicator layoutId={layoutId} />}
-            <TabButton
-              active={isSelected}
-              name={tab.name}
-              onClick={() => setFocus(tab.type)}
-              className="relative"
-            />
-          </div>
-        );
-      })}
-    </li>
+    <Tabs
+      tabs={tabs}
+      active={focus || ""}
+      setActive={(type) => setFocus(type as MainContentFocus)}
+      className="mx-5 mb-5 md:mx-0"
+      layoutId={layoutId}
+    />
   );
 };
 

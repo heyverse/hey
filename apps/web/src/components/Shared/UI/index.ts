@@ -18,7 +18,6 @@ export { Select } from "./Select";
 export { default as SettingsHelper } from "./SettingsHelper";
 export { Spinner } from "./Spinner";
 export { default as StackedAvatars } from "./StackedAvatars";
-export { default as TabButton } from "./TabButton";
 export { default as Tabs } from "./Tabs";
 export { TextArea } from "./TextArea";
 export { Toggle } from "./Toggle";

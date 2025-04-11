@@ -5,7 +5,6 @@ import { NotificationFeedType } from "@hey/data/enums";
 import { useState } from "react";
 import FeedType from "./FeedType";
 import List from "./List";
-import Settings from "./Settings";
 
 const Notification = () => {
   const { currentAccount } = useAccountStore();
@@ -19,10 +18,7 @@ const Notification = () => {
 
   return (
     <PageLayout title="Notifications">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <FeedType feedType={feedType} setFeedType={setFeedType} />
-        <Settings />
-      </div>
+      <FeedType feedType={feedType} setFeedType={setFeedType} />
       <List feedType={feedType} />
     </PageLayout>
   );

@@ -1,5 +1,5 @@
-import { TabButton } from "@/components/Shared/UI";
-import { MotionTabIndicator } from "@/components/Shared/UI/TabButton";
+import { Tabs } from "@/components/Shared/UI";
+import { useSearchParams } from "react-router";
 
 export enum SearchTabFocus {
   Accounts = "ACCOUNTS",
@@ -11,30 +11,30 @@ interface FeedTypeProps {
 }
 
 const FeedType = ({ feedType }: FeedTypeProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const tabs = [
     { name: "Accounts", type: SearchTabFocus.Accounts },
     { name: "Posts", type: SearchTabFocus.Posts }
-  ].filter((tab): tab is { name: string; type: SearchTabFocus } =>
-    Boolean(tab)
-  );
+  ];
+
+  const updateQuery = (type?: string) => {
+    if (!type) {
+      return;
+    }
+
+    searchParams.set("type", type);
+    setSearchParams(searchParams);
+  };
 
   return (
-    <li className="flex flex-wrap gap-3 px-5 md:px-0">
-      {tabs.map((tab) => {
-        const isSelected = feedType === tab.type;
-        return (
-          <div key={tab.type} className="relative">
-            {isSelected && <MotionTabIndicator layoutId="search-tabs" />}
-            <TabButton
-              active={isSelected}
-              name={tab.name}
-              type={tab.type.toLowerCase()}
-              className="relative"
-            />
-          </div>
-        );
-      })}
-    </li>
+    <Tabs
+      tabs={tabs}
+      active={feedType}
+      setActive={updateQuery}
+      className="mx-5 mb-5 md:mx-0"
+      layoutId="notification-tabs"
+    />
   );
 };
 

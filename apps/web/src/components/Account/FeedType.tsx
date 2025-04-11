@@ -13,14 +13,14 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
     { name: "Replies", type: AccountFeedType.Replies },
     { name: "Media", type: AccountFeedType.Media },
     { name: "Collected", type: AccountFeedType.Collects }
-  ].filter((tab) => Boolean(tab));
+  ];
 
   return (
     <Tabs
       tabs={tabs}
       active={feedType}
       setActive={(type) => setFeedType(type as AccountFeedType)}
-      className="px-5 md:px-0"
+      className="mx-5 mb-5 md:mx-0"
       layoutId="account-tabs"
     />
   );

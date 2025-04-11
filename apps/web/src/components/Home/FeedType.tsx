@@ -10,14 +10,14 @@ const FeedType = () => {
     { name: "Following", type: HomeFeedType.FOLLOWING },
     { name: "Highlights", type: HomeFeedType.HIGHLIGHTS },
     { name: "For You", type: HomeFeedType.FORYOU, suffix: <New /> }
-  ].filter((tab) => Boolean(tab));
+  ];
 
   return (
     <Tabs
       tabs={tabs}
       active={feedType}
       setActive={(type) => setFeedType(type as HomeFeedType)}
-      className="px-5 md:px-0"
+      className="mx-5 mb-5 md:mx-0"
       layoutId="home-tabs"
     />
   );

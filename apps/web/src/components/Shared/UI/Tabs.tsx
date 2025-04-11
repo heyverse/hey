@@ -13,7 +13,10 @@ interface TabsProps {
 const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   return (
     <MotionConfig transition={{ type: "spring", bounce: 0, duration: 0.4 }}>
-      <motion.ul layout className={cn("flex list-none gap-3", className)}>
+      <motion.ul
+        layout
+        className={cn("mb-0 flex list-none flex-wrap gap-3", className)}
+      >
         {tabs.map((tab) => (
           <motion.li
             layout

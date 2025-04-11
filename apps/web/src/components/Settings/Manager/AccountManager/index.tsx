@@ -1,5 +1,4 @@
-import { Button, Modal, TabButton } from "@/components/Shared/UI";
-import { MotionTabIndicator } from "@/components/Shared/UI/TabButton";
+import { Button, Modal, Tabs } from "@/components/Shared/UI";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import AddAccountManager from "./AddAccountManager";
@@ -26,25 +25,13 @@ const AccountManager = () => {
   return (
     <div className="linkify space-y-2">
       <div className="mx-5 mt-5 flex items-center justify-between">
-        <li className="flex items-center gap-3">
-          {tabs.map((tab) => {
-            const isSelected = type === tab.type;
-            return (
-              <div key={tab.type} className="relative">
-                {isSelected && (
-                  <MotionTabIndicator layoutId="account-manager-tabs" />
-                )}
-                <TabButton
-                  active={isSelected}
-                  name={tab.name}
-                  onClick={() => setType(tab.type)}
-                  type={tab.type}
-                  className="relative"
-                />
-              </div>
-            );
-          })}
-        </li>
+        <Tabs
+          tabs={tabs}
+          active={type}
+          setActive={(type) => setType(type as Type)}
+          className="mx-5 md:mx-0"
+          layoutId="account-manager-tabs"
+        />
         {type === Type.MANAGERS && (
           <>
             <Button

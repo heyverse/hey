@@ -1,5 +1,4 @@
-import { TabButton } from "@/components/Shared/UI";
-import { MotionTabIndicator } from "@/components/Shared/UI/TabButton";
+import { Tabs } from "@/components/Shared/UI";
 import { NotificationFeedType } from "@hey/data/enums";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -18,22 +17,13 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
   ];
 
   return (
-    <li className="flex gap-3 overflow-x-auto px-5 sm:mt-0 md:px-0 md:pb-0">
-      {tabs.map((tab) => {
-        const isSelected = feedType === tab.type;
-        return (
-          <div key={tab.type} className="relative">
-            {isSelected && <MotionTabIndicator layoutId="notification-tabs" />}
-            <TabButton
-              active={isSelected}
-              name={tab.name}
-              className="relative"
-              onClick={() => setFeedType(tab.type)}
-            />
-          </div>
-        );
-      })}
-    </li>
+    <Tabs
+      tabs={tabs}
+      active={feedType}
+      setActive={(type) => setFeedType(type as NotificationFeedType)}
+      className="mx-5 mb-5 md:mx-0"
+      layoutId="notification-tabs"
+    />
   );
 };
 
