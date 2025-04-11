@@ -37,7 +37,6 @@ export default defineConfig({
           ],
           editor: [
             "react-markdown",
-            "strip-markdown",
             "unified",
             "prosekit",
             "rehype-parse",

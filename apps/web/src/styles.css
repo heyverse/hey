@@ -154,8 +154,8 @@
   /* Markup styles */
   .markup > p,
   ul {
-    @apply leading-6;
-    @apply [&:not(:last-child)]:mb-2;
+    @apply leading-6 list-disc list-inside;
+    @apply [&:not(:last-child)]:mb-3;
   }
 
   .full-page-post-markup > p,

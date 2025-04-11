@@ -23,6 +23,7 @@ const useContentChange = (editor: Editor<EditorExtension>) => {
 
   const serializeContent = useCallback(() => {
     const markdown = getMarkdownContent(editor);
+    console.log(JSON.stringify(markdown, null, 2));
     updatePostContent(markdown);
   }, [editor, updatePostContent]);
 
