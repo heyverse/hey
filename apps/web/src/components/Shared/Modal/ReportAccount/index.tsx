@@ -53,8 +53,6 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
       return toast.error(Errors.Suspended);
     }
 
-    console.log(reason);
-
     return await createReport({
       variables: {
         request: {

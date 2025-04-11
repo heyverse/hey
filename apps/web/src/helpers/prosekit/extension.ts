@@ -11,6 +11,7 @@ import {
 import { defineBold } from "prosekit/extensions/bold";
 import { defineDoc } from "prosekit/extensions/doc";
 import { defineHeading } from "prosekit/extensions/heading";
+import { defineHorizontalRule } from "prosekit/extensions/horizontal-rule";
 import { defineItalic } from "prosekit/extensions/italic";
 import { defineLinkMarkRule, defineLinkSpec } from "prosekit/extensions/link";
 import { defineMarkRule } from "prosekit/extensions/mark-rule";
@@ -92,6 +93,7 @@ export const defineEditorExtension = () => {
     defineDoc(),
     defineText(),
     defineParagraph(),
+    defineHorizontalRule(),
     defineHeading(),
     defineHistory(),
     defineBaseKeymap(),

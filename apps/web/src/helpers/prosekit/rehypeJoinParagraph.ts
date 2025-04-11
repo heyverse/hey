@@ -61,8 +61,6 @@ function joinChildren<T extends Node>(children: T[]): T[] {
 }
 
 const rehypeJoinParagraphTransformer = (root: Root): Root => {
-  console.log("root", JSON.stringify(root, null, 4));
-
   visitParents(root, (node) => {
     if (isParent(node)) {
       node.children = joinChildren(node.children);
