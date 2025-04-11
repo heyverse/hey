@@ -9,11 +9,13 @@ import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Toaster, type ToasterProps } from "sonner";
+import { Spinner } from "../Shared/UI";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -58,7 +60,19 @@ const Layout = () => {
 
   return (
     <>
-      <Toaster position="bottom-right" theme={theme as ToasterProps["theme"]} />
+      <Toaster
+        position="bottom-right"
+        theme={theme as ToasterProps["theme"]}
+        toastOptions={{
+          className: "font-sofia-pro",
+          style: { boxShadow: "none" }
+        }}
+        icons={{
+          success: <CheckCircleIcon />,
+          error: <XCircleIcon />,
+          loading: <Spinner size="xs" />
+        }}
+      />
       <GlobalModals />
       <GlobalAlerts />
       <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8 px-0 md:px-5">
