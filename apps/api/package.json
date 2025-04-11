@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.782.0",
+    "@aws-sdk/client-sts": "^3.787.0",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@lens-protocol/metadata": "^2.0.0",
@@ -24,13 +24,13 @@
     "@trpc/server": "^11.0.4",
     "axios": "^1.8.4",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "graphql": "^16.10.0",
     "jose": "^6.0.10",
     "linkedom": "^0.18.9",
     "tsx": "^4.19.3",
-    "viem": "^2.26.2",
+    "viem": "^2.26.3",
     "zod": "^3.24.2"
   },
   "devDependencies": {
