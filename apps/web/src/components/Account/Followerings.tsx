@@ -6,15 +6,22 @@ import getAccount from "@hey/helpers/getAccount";
 import humanize from "@hey/helpers/humanize";
 import { type AccountFragment, useAccountStatsQuery } from "@hey/indexer";
 import plur from "plur";
-import { type FC, useState } from "react";
+import { type FC, useEffect, useState } from "react";
+import { useLocation } from "react-router";
 
 interface FolloweringsProps {
   account: AccountFragment;
 }
 
 const Followerings = ({ account }: FolloweringsProps) => {
+  const location = useLocation();
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
+
+  useEffect(() => {
+    setShowFollowersModal(false);
+    setShowFollowingModal(false);
+  }, [location.key]);
 
   const { data, loading } = useAccountStatsQuery({
     variables: { request: { account: account.address } }
