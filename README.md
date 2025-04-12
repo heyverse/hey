@@ -2,25 +2,25 @@
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/en/download/) (v18 or higher) - The backbone of our project, make sure you have this installed.
-- [pnpm](https://pnpm.io/installation) - Our trusty package manager, because who doesn't love faster installs?
-- [Postgres App](https://postgresapp.com/) - Our database of choice, because data needs a cozy home.
+To get started with the Hey monorepo, ensure the following dependencies are installed on your system:
+
+- [Node.js](https://nodejs.org/en/download/) (v18 or higher) - The backbone of our project.
+- [pnpm](https://pnpm.io/installation) - Our trusty package manager.
+- [Postgres App](https://postgresapp.com/) - Our database of choice.
 
 ## Installation
 
-We harness the power of [pnpm workspaces](https://pnpm.io/workspaces) to keep our monorepo running smoother than a freshly buttered pancake.
+This repository uses [pnpm workspaces](https://pnpm.io/workspaces) to manage multiple packages within a monorepo structure.
 
-### Clone the repository
-
-Clone the Hey monorepo to your local machine:
+### Clone the Repository
 
 ```bash
 git clone git@github.com:heyverse/hey.git
 ```
 
-### Install NVM (Node Version Manager) and pnpm
+### Install NVM and pnpm
 
-Rocking a macOS? You can grab both with Homebrew, like a true brew master:
+If you're on macOS, both can be installed via Homebrew:
 
 ```bash
 brew install nvm pnpm
@@ -28,33 +28,33 @@ brew install nvm pnpm
 
 ### Install Node.js
 
-Use `nvm` to summon the magical version of Node.js you need:
+Use `nvm` to install the correct Node.js version:
 
 ```bash
 nvm install
 ```
 
-### Install dependencies
+### Install Dependencies
 
-Teleport yourself to the root of the repository and let pnpm sprinkle its dependency magic:
+Navigate to the root of the repository and install all dependencies using pnpm:
 
 ```bash
 pnpm install
 ```
 
-### Create a `.env` file
+### Setup Environment Variables
 
-Channel your inner wizard and conjure up a `.env` file from the `.env.example` template for every package and app that needs it. Don't forget to sprinkle in the necessary environment variables!
+Copy the `.env.example` file to create a new `.env` file for each package or app that requires environment configuration:
 
 ```bash
 cp .env.example .env
 ```
 
-Don't forget to play copycat and repeat this `.env` file creation for every package and app that needs it. Consistency is key!
+Repeat this process for all relevant packages and applications in the monorepo.
 
-### Start the application
+### Start the Development Server
 
-When all the stars align and everything is in place, kick off the application in development mode:
+To run the application in development mode:
 
 ```bash
 pnpm dev
@@ -62,9 +62,9 @@ pnpm dev
 
 ## Build and Test
 
-### Build the application
+### Build the Application
 
-Ready to build the application? Just run this command:
+To compile the application:
 
 ```bash
 pnpm build
@@ -72,7 +72,7 @@ pnpm build
 
 ## License
 
-This project is open-sourced under the **AGPL-3.0** license. For all the nitty-gritty details, check out the [LICENSE](./LICENSE) file. It's a real page-turner!
+This project is licensed under the **AGPL-3.0** license. Please refer to the [LICENSE](./LICENSE) file for full terms and conditions.
 
 ## P.S
 
