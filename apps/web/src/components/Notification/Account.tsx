@@ -4,7 +4,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AccountFragment } from "@hey/indexer";
-import { Link } from "react-router";
+import AccountLink from "../Shared/Account/AccountLink";
 
 interface NotificationProfileProps {
   account: AccountFragment;
@@ -18,9 +18,9 @@ export const NotificationAccountAvatar = ({
       username={account.username?.localName}
       address={account.address}
     >
-      <Link
+      <AccountLink
         className="rounded-full outline-offset-2"
-        to={getAccount(account).link}
+        account={account}
         onClick={stopEventPropagation}
       >
         <Image
@@ -30,7 +30,7 @@ export const NotificationAccountAvatar = ({
           src={getAvatar(account)}
           width={32}
         />
-      </Link>
+      </AccountLink>
     </AccountPreview>
   );
 };
@@ -38,20 +38,18 @@ export const NotificationAccountAvatar = ({
 export const NotificationAccountName = ({
   account
 }: NotificationProfileProps) => {
-  const profileLink = getAccount(account).link;
-
   return (
     <AccountPreview
       username={account.username?.localName}
       address={account.address}
     >
-      <Link
+      <AccountLink
         className="font-bold outline-hidden hover:underline focus:underline"
-        to={profileLink}
+        account={account}
         onClick={stopEventPropagation}
       >
         {getAccount(account).name}
-      </Link>
+      </AccountLink>
     </AccountPreview>
   );
 };

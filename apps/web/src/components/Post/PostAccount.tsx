@@ -8,6 +8,7 @@ import type { AccountFragment, PostGroupInfoFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { Link } from "react-router";
+import AccountLink from "../Shared/Account/AccountLink";
 
 interface PostAccountProps {
   account: AccountFragment;
@@ -23,9 +24,9 @@ const PostAccount = ({
   timestamp
 }: PostAccountProps) => {
   const CustomLink = ({ children }: { children: ReactNode }) => (
-    <Link
+    <AccountLink
       className="outline-hidden hover:underline focus:underline"
-      to={getAccount(account).link}
+      account={account}
     >
       <AccountPreview
         username={account.username?.localName}
@@ -34,7 +35,7 @@ const PostAccount = ({
       >
         {children}
       </AccountPreview>
-    </Link>
+    </AccountLink>
   );
 
   return (

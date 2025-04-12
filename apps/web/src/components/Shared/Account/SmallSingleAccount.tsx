@@ -5,8 +5,8 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
 import { memo } from "react";
-import { Link } from "react-router";
 import Slug from "../Slug";
+import AccountLink from "./AccountLink";
 
 interface SmallSingleAccountProps {
   hideSlug?: boolean;
@@ -65,9 +65,9 @@ const SmallSingleAccount = ({
   );
 
   return linkToAccount ? (
-    <Link to={getAccount(account).link}>
+    <AccountLink account={account}>
       <AccountInfo />
-    </Link>
+    </AccountLink>
   ) : (
     <AccountInfo />
   );

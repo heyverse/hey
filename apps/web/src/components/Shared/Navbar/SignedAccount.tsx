@@ -4,9 +4,10 @@ import hasAccess from "@/helpers/hasAccess";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Features } from "@hey/data/features";
-import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
+import type { AccountFragment } from "@hey/indexer";
 import { Link } from "react-router";
+import AccountLink from "../Account/AccountLink";
 import MenuTransition from "../MenuTransition";
 import Logout from "./NavItems/Logout";
 import Settings from "./NavItems/Settings";
@@ -39,11 +40,11 @@ const SignedAccount = () => {
           anchor="bottom start"
         >
           <MenuItem
-            as={Link}
+            as={AccountLink}
             className={({ focus }: { focus: boolean }) =>
               cn({ "dropdown-active": focus }, "menu-item")
             }
-            to={getAccount(currentAccount).link}
+            account={currentAccount as AccountFragment}
           >
             <YourAccount />
           </MenuItem>

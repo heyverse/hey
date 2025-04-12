@@ -1,3 +1,4 @@
+import AccountLink from "@/components/Shared/Account/AccountLink";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
 import { CHAIN } from "@/constants";
@@ -56,9 +57,9 @@ const Splits = ({ recipients }: SplitsProps) => {
                     src={getAvatar(account)}
                   />
                   {account ? (
-                    <Link to={getAccount(account).link}>
+                    <AccountLink account={account}>
                       <Slug slug={getAccount(account).usernameWithPrefix} />
-                    </Link>
+                    </AccountLink>
                   ) : (
                     <Link
                       to={`${CHAIN.blockExplorers?.default}/address/${address}`}

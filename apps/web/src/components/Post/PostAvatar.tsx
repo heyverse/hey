@@ -1,3 +1,4 @@
+import AccountLink from "@/components/Shared/Account/AccountLink";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import getAccount from "@hey/helpers/getAccount";
@@ -6,7 +7,7 @@ import { isRepost } from "@hey/helpers/postHelpers";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
 import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import { memo } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 interface PostAvatarProps {
   timelineItem?: TimelineItemFragment;
@@ -25,9 +26,9 @@ const PostAvatar = ({
   const account = timelineItem ? rootPost.author : targetPost.author;
 
   return (
-    <Link
+    <AccountLink
       className="contents"
-      to={getAccount(account).link}
+      account={account}
       onClick={stopEventPropagation}
     >
       <Image
@@ -42,7 +43,7 @@ const PostAvatar = ({
         src={getAvatar(account)}
         width={quoted ? 25 : 44}
       />
-    </Link>
+    </AccountLink>
   );
 };
 

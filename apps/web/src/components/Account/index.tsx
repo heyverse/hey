@@ -6,6 +6,7 @@ import { PageLayout } from "@/components/Shared/PageLayout";
 import { EmptyState } from "@/components/Shared/UI";
 import hasAccess from "@/helpers/hasAccess";
 import { trpc } from "@/helpers/trpc";
+import { useAccountLinkStore } from "@/store/non-persisted/useAccountLinkStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
@@ -34,6 +35,7 @@ const ViewProfile = () => {
   );
 
   const { currentAccount } = useAccountStore();
+  const { cachedAccount } = useAccountLinkStore();
   const isStaff = hasAccess(Features.Staff);
 
   const { data, error, loading } = useAccountQuery({
@@ -47,7 +49,7 @@ const ViewProfile = () => {
     }
   });
 
-  const account = data?.account;
+  const account = data?.account ?? cachedAccount;
 
   const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery(
     trpc.account.get.queryOptions(
@@ -56,7 +58,7 @@ const ViewProfile = () => {
     )
   );
 
-  if ((!username && !address) || loading) {
+  if ((!username && !address) || (loading && !cachedAccount)) {
     return <AccountPageShimmer />;
   }
 

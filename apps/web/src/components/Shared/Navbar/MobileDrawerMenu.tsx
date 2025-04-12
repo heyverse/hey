@@ -4,9 +4,9 @@ import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobile
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Features } from "@hey/data/features";
-import getAccount from "@hey/helpers/getAccount";
 import type { AccountFragment } from "@hey/indexer";
 import { Link } from "react-router";
+import AccountLink from "../Account/AccountLink";
 import SingleAccount from "../Account/SingleAccount";
 import Bookmarks from "./NavItems/Bookmarks";
 import Groups from "./NavItems/Groups";
@@ -35,9 +35,9 @@ const MobileDrawerMenu = () => {
         <XMarkIcon className="size-6" />
       </button>
       <div className="w-full space-y-2">
-        <Link
+        <AccountLink
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
-          to={getAccount(currentAccount).link}
+          account={currentAccount as AccountFragment}
           onClick={handleCloseDrawer}
         >
           <SingleAccount
@@ -45,7 +45,7 @@ const MobileDrawerMenu = () => {
             linkToAccount={false}
             showUserPreview={false}
           />
-        </Link>
+        </AccountLink>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <SwitchAccount className={cn(itemClass, "px-4")} />
@@ -54,12 +54,12 @@ const MobileDrawerMenu = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Link
-              to={getAccount(currentAccount).link}
+            <AccountLink
+              account={currentAccount as AccountFragment}
               onClick={handleCloseDrawer}
             >
               <YourAccount className={cn(itemClass, "px-4")} />
-            </Link>
+            </AccountLink>
             <Link to="/settings" onClick={handleCloseDrawer}>
               <Settings className={cn(itemClass, "px-4")} />
             </Link>
