@@ -71,7 +71,6 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250412.0",
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@tailwindcss/aspect-ratio": "^0.4.2",

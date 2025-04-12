@@ -305,9 +305,6 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@19.1.1)(immer@10.1.1)(react@19.1.0)(use-sync-external-store@1.4.0(react@19.1.0))
     devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20250412.0
-        version: 4.20250412.0
       '@hey/config':
         specifier: workspace:*
         version: link:../../packages/config
@@ -1043,9 +1040,6 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
-
-  '@cloudflare/workers-types@4.20250412.0':
-    resolution: {integrity: sha512-ukQE+TRc5HNkM6VvGfTNC9x54TLQKjdcm624F8Qh1ZRe0iJrW2/j1eYgvJABJPexDousYCR7VzCGteShLcBJYQ==}
 
   '@coinbase/wallet-sdk@3.9.3':
     resolution: {integrity: sha512-N/A2DRIf0Y3PHc1XAMvbBUu4zisna6qAdqABMZwBMNEfWrXpAwx16pZGkYCLGE+Rvv1edbcB2LYDRnACNcmCiw==}
@@ -7594,8 +7588,6 @@ snapshots:
 
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
-
-  '@cloudflare/workers-types@4.20250412.0': {}
 
   '@coinbase/wallet-sdk@3.9.3':
     dependencies:
