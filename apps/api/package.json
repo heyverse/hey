@@ -21,7 +21,7 @@
     "@lens-protocol/metadata": "^2.0.0",
     "@prisma/client": "^6.6.0",
     "@trpc-limiter/memory": "^1.0.0",
-    "@trpc/server": "^11.0.4",
+    "@trpc/server": "^11.1.0",
     "axios": "^1.8.4",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
@@ -38,7 +38,7 @@
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.14.1",
     "prisma": "^6.6.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
