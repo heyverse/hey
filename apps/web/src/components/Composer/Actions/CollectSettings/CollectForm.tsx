@@ -87,12 +87,7 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
         </>
       )}
       <div className="flex space-x-2 p-5">
-        <Button
-          className="ml-auto"
-          onClick={handleClose}
-          outline
-          variant="danger"
-        >
+        <Button className="ml-auto" onClick={handleClose} outline>
           {collectAction.enabled ? "Reset" : "Cancel"}
         </Button>
         <Button

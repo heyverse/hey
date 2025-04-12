@@ -77,7 +77,7 @@ const DeleteSettings = () => {
             )
           }
           onClick={() => setShowWarningModal(true)}
-          variant="danger"
+          outline
         >
           {isSubmitting ? "Deleting..." : "Delete your account"}
         </Button>
@@ -103,7 +103,7 @@ const DeleteSettings = () => {
               setShowWarningModal(false);
               await handleDelete();
             }}
-            variant="danger"
+            outline
           >
             Yes, delete my account
           </Button>

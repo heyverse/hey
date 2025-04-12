@@ -134,7 +134,6 @@ const List = ({ managed = false }: ListProps) => {
               }
               outline
               size="sm"
-              variant="danger"
             >
               {managed ? "Un-manage" : "Manage"}
             </Button>

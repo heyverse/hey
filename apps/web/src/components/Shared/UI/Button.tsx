@@ -5,7 +5,7 @@ import { forwardRef, memo } from "react";
 
 const buttonVariants = cva("rounded-full font-bold", {
   variants: {
-    variant: { primary: "", danger: "" },
+    variant: { primary: "" },
     size: { sm: "px-3 py-0.5 text-sm", md: "px-4 py-1", lg: "px-5 py-1.5" },
     outline: { true: "", false: "" }
   },
@@ -25,21 +25,6 @@ const buttonVariants = cva("rounded-full font-bold", {
         "dark:disabled:text-gray-600 dark:disabled:bg-gray-800 dark:disabled:border-gray-800"
       )
     },
-    // Non-outline Danger
-    {
-      variant: "danger",
-      outline: false,
-      class: cn(
-        "text-white hover:text-white active:text-gray-400",
-        "bg-red-500 hover:bg-red-800 active:bg-red-700",
-        "border border-red-500 hover:border-red-800 active:border-red-700",
-        "dark:text-gray-950 dark:hover:text-gray-900 dark:active:text-gray-600",
-        "dark:bg-red-500 dark:hover:bg-red-800 dark:active:bg-red-700",
-        "dark:border-red-500 dark:hover:border-red-800 dark:active:border-red-800",
-        "disabled:text-red-200 disabled:bg-red-500 disabled:border-red-500",
-        "dark:disabled:text-red-900"
-      )
-    },
     // Outline Primary
     {
       variant: "primary",
@@ -50,16 +35,6 @@ const buttonVariants = cva("rounded-full font-bold", {
         "dark:text-white dark:active:text-gray-700",
         "dark:border-gray-700 dark:hover:border-gray-100",
         "disabled:text-gray-300 disabled:border-gray-300"
-      )
-    },
-    // Outline Danger
-    {
-      variant: "danger",
-      outline: true,
-      class: cn(
-        "text-red-500 hover:text-red-400",
-        "border border-red-600 hover:border-red-400",
-        "disabled:text-red-400 disabled:border-red-400"
       )
     }
   ],

@@ -151,9 +151,9 @@ const SuperFollow = () => {
         <div className="flex justify-end space-x-2">
           {simplePaymentRule && (
             <Button
-              variant="danger"
               disabled={isSubmitting}
               onClick={() => handleUpdateRule(true)}
+              outline
             >
               Remove
             </Button>
