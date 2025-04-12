@@ -4,7 +4,8 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { type Follower, useFollowersYouKnowQuery } from "@hey/indexer";
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import FollowersYouKnowShimmer from "../Shared/Shimmer/FollowersYouKnowShimmer";
 
 interface FollowersYouKnowOverviewProps {
@@ -16,9 +17,14 @@ const FollowersYouKnowOverview = ({
   username,
   address
 }: FollowersYouKnowOverviewProps) => {
+  const location = useLocation();
   const { currentAccount } = useAccountStore();
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
+
+  useEffect(() => {
+    setShowMutualFollowersModal(false);
+  }, [location.key]);
 
   const { data, error, loading } = useFollowersYouKnowQuery({
     skip: !address || !currentAccount?.address,
