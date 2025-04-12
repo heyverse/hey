@@ -3,7 +3,7 @@ import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { memo } from "react";
-import { Link } from "react-router";
+import PostLink from "../Shared/Post/PostLink";
 
 interface SingleImagePostProps {
   post: AnyPostFragment;
@@ -17,8 +17,8 @@ const SingleImagePost = ({ post }: SingleImagePostProps) => {
   const backgroundImage = filteredAsset?.uri || filteredAttachments[0]?.uri;
 
   return (
-    <Link
-      to={`/posts/${post.slug}`}
+    <PostLink
+      post={post}
       key={post.id}
       className="relative h-80 overflow-hidden rounded-xl bg-center bg-cover"
       style={{
@@ -29,7 +29,7 @@ const SingleImagePost = ({ post }: SingleImagePostProps) => {
       <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 font-bold text-sm text-white">
         <SmallSingleAccount account={targetPost.author} hideSlug />
       </div>
-    </Link>
+    </PostLink>
   );
 };
 

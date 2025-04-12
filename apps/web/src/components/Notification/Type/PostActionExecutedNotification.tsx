@@ -1,9 +1,9 @@
 import Markup from "@/components/Shared/Markup";
+import PostLink from "@/components/Shared/Post/PostLink";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
 import type { PostActionExecutedNotificationFragment } from "@hey/indexer";
 import plur from "plur";
-import { Link } from "react-router";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -71,12 +71,12 @@ const PostActionExecutedNotification = ({
             type="Post"
           />
         )}
-        <Link
+        <PostLink
           className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
-          to={`/posts/${notification.post.slug}`}
+          post={post}
         >
           <Markup mentions={post.mentions}>{filteredContent}</Markup>
-        </Link>
+        </PostLink>
       </div>
     </div>
   );

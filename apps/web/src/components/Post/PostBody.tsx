@@ -12,7 +12,7 @@ import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { getSrc } from "@livepeer/react/external";
 import { memo } from "react";
-import { Link } from "react-router";
+import PostLink from "../Shared/Post/PostLink";
 
 interface PostBodyProps {
   contentClassName?: string;
@@ -28,7 +28,7 @@ const PostBody = ({
   showMore = false
 }: PostBodyProps) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
-  const { slug, metadata } = targetPost;
+  const { metadata } = targetPost;
 
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAttachments = getPostData(metadata)?.attachments || [];
@@ -76,7 +76,7 @@ const PostBody = ({
       {canShowMore ? (
         <H6 className="mt-4 flex items-center space-x-1 text-gray-500 dark:text-gray-200">
           <EyeIcon className="size-4" />
-          <Link to={`/posts/${slug}`}>Show more</Link>
+          <PostLink post={post}>Show more</PostLink>
         </H6>
       ) : null}
       {/* Attachments and Quotes */}

@@ -1,4 +1,4 @@
-import { useAccountLinkStore } from "@/store/non-persisted/useAccountLinkStore";
+import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import getAccount from "@hey/helpers/getAccount";
 import type { AccountFragment } from "@hey/indexer";
 import type { ComponentProps, ReactNode } from "react";

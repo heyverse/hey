@@ -1,8 +1,8 @@
 import Markup from "@/components/Shared/Markup";
+import PostLink from "@/components/Shared/Post/PostLink";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
 import type { QuoteNotificationFragment } from "@hey/indexer";
-import { Link } from "react-router";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -33,14 +33,14 @@ const QuoteNotification = ({ notification }: QuoteNotificationProps) => {
           text={text}
           type={type}
         />
-        <Link
+        <PostLink
           className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
-          to={`/posts/${notification.quote.slug}`}
+          post={notification.quote}
         >
           <Markup mentions={notification.quote.mentions}>
             {filteredContent}
           </Markup>
-        </Link>
+        </PostLink>
       </div>
     </div>
   );

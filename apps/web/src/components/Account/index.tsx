@@ -6,7 +6,7 @@ import { PageLayout } from "@/components/Shared/PageLayout";
 import { EmptyState } from "@/components/Shared/UI";
 import hasAccess from "@/helpers/hasAccess";
 import { trpc } from "@/helpers/trpc";
-import { useAccountLinkStore } from "@/store/non-persisted/useAccountLinkStore";
+import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";

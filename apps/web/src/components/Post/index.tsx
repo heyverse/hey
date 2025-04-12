@@ -7,6 +7,7 @@ import BackButton from "@/components/Shared/BackButton";
 import Footer from "@/components/Shared/Footer";
 import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, CardHeader, WarningMessage } from "@/components/Shared/UI";
+import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
 import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAccount from "@hey/helpers/getAccount";
@@ -43,13 +44,19 @@ const ViewPost = () => {
   const { pathname } = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const { currentAccount } = useAccountStore();
+  const { cachedPost, setCachedPost } = usePostLinkStore();
   const { isSuspended } = useAccountStatus();
 
   const showQuotes = pathname === `/posts/${slug}/quotes`;
 
   const { data, error, loading } = usePostQuery({
     skip: !slug,
-    variables: { request: { post: slug } }
+    variables: { request: { post: slug } },
+    onCompleted: (data) => {
+      if (data?.post) {
+        setCachedPost(null);
+      }
+    }
   });
 
   const { data: comments } = useHiddenCommentsQuery({
@@ -64,13 +71,14 @@ const ViewPost = () => {
     }
   });
 
+  const post = data?.post ?? cachedPost;
   const hasHiddenComments = (comments?.postReferences.items.length || 0) > 0;
 
-  if (!slug || loading) {
+  if (!slug || (loading && !cachedPost)) {
     return <PublicationPageShimmer publicationList={showQuotes} />;
   }
 
-  if (!data?.post) {
+  if (!post) {
     return <Custom404 />;
   }
 
@@ -78,7 +86,6 @@ const ViewPost = () => {
     return <Custom500 />;
   }
 
-  const post = data?.post;
   const targetPost = isRepost(post) ? post.repostOf : post;
   const canComment =
     targetPost.operations?.canComment.__typename ===

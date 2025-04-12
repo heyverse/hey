@@ -4,25 +4,25 @@ import { Image } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@hey/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { AccountFragment, PostGroupInfoFragment } from "@hey/indexer";
+import type {
+  AccountFragment,
+  AnyPostFragment,
+  PostGroupInfoFragment
+} from "@hey/indexer";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { Link } from "react-router";
 import AccountLink from "../Shared/Account/AccountLink";
+import PostLink from "../Shared/Post/PostLink";
 
 interface PostAccountProps {
   account: AccountFragment;
   group?: PostGroupInfoFragment;
-  postSlug: string;
+  post: AnyPostFragment;
   timestamp: Date;
 }
 
-const PostAccount = ({
-  account,
-  group,
-  postSlug,
-  timestamp
-}: PostAccountProps) => {
+const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
   const CustomLink = ({ children }: { children: ReactNode }) => (
     <AccountLink
       className="outline-hidden hover:underline focus:underline"
@@ -53,9 +53,9 @@ const PostAccount = ({
         {timestamp ? (
           <span className="text-gray-500 dark:text-gray-200">
             <span className="mr-1">·</span>
-            <Link className="text-xs hover:underline" to={`/posts/${postSlug}`}>
+            <PostLink className="text-xs hover:underline" post={post}>
               {formatRelativeOrAbsolute(timestamp)}
-            </Link>
+            </PostLink>
           </span>
         ) : null}
       </div>

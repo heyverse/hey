@@ -1,8 +1,8 @@
 import Markup from "@/components/Shared/Markup";
+import PostLink from "@/components/Shared/Post/PostLink";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
 import type { MentionNotificationFragment } from "@hey/indexer";
-import { Link } from "react-router";
 import { NotificationAccountAvatar } from "../Account";
 import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
@@ -33,14 +33,14 @@ const MentionNotification = ({ notification }: MentionNotificationProps) => {
           text={text}
           type={type}
         />
-        <Link
+        <PostLink
           className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
-          to={`/posts/${notification.post.slug}`}
+          post={notification.post}
         >
           <Markup mentions={notification.post.mentions}>
             {filteredContent}
           </Markup>
-        </Link>
+        </PostLink>
       </div>
     </div>
   );
