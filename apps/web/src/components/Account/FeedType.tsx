@@ -1,7 +1,7 @@
 import { Tabs } from "@/components/Shared/UI";
 import { AccountFeedType } from "@hey/data/enums";
+import generateUUID from "@hey/helpers/generateUUID";
 import type { Dispatch, SetStateAction } from "react";
-import { useLocation } from "react-router";
 
 interface FeedTypeProps {
   feedType: AccountFeedType;
@@ -9,8 +9,6 @@ interface FeedTypeProps {
 }
 
 const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
-  const location = useLocation();
-
   const tabs = [
     { name: "Feed", type: AccountFeedType.Feed },
     { name: "Replies", type: AccountFeedType.Replies },
@@ -20,7 +18,7 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
 
   return (
     <Tabs
-      key={location.pathname}
+      key={generateUUID()}
       tabs={tabs}
       active={feedType}
       setActive={(type) => setFeedType(type as AccountFeedType)}
