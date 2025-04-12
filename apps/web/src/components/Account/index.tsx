@@ -35,7 +35,7 @@ const ViewProfile = () => {
   );
 
   const { currentAccount } = useAccountStore();
-  const { cachedAccount } = useAccountLinkStore();
+  const { cachedAccount, setCachedAccount } = useAccountLinkStore();
   const isStaff = hasAccess(Features.Staff);
 
   const { data, error, loading } = useAccountQuery({
@@ -45,6 +45,11 @@ const ViewProfile = () => {
         ...(address
           ? { address }
           : { username: { localName: username as string } })
+      }
+    },
+    onCompleted: (data) => {
+      if (data?.account) {
+        setCachedAccount(null);
       }
     }
   });
