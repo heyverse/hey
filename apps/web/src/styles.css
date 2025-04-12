@@ -150,6 +150,7 @@
   /* Markup styles */
   .markup > p,
   ul {
+    word-break: break-word;
     @apply leading-6 list-disc list-inside;
     @apply [&:not(:last-child)]:mb-3;
   }

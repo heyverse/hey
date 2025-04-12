@@ -85,7 +85,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [postContentError, setPostContentError] = useState("");
-  const [exceededMentionsLimit, setExceededMentionsLimit] = useState(false);
 
   const editor = useEditorContext();
   const getMetadata = usePostMetadata();
@@ -130,13 +129,17 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   }, [audioPost]);
 
   useEffect(() => {
-    if (getMentions(postContent).length > 50) {
-      setExceededMentionsLimit(true);
-      setPostContentError("You can only mention 50 people at a time!");
-    } else {
-      setExceededMentionsLimit(false);
-      setPostContentError("");
+    if (postContent.length > 25000) {
+      setPostContentError("Content should not exceed 25000 characters!");
+      return;
     }
+
+    if (getMentions(postContent).length > 50) {
+      setPostContentError("You can only mention 50 people at a time!");
+      return;
+    }
+
+    setPostContentError("");
   }, [postContent]);
 
   const getAnimationUrl = () => {
@@ -273,7 +276,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
               isSubmitting ||
               isUploading ||
               videoThumbnail.uploading ||
-              exceededMentionsLimit
+              postContentError.length > 0
             }
             onClick={handleCreatePost}
           >
