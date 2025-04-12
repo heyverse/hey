@@ -1,6 +1,7 @@
 import { PageLayout } from "@/components/Shared/PageLayout";
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
+import FollowersYouKnowShimmer from "../Shared/Shimmer/FollowersYouKnowShimmer";
 
 const AccountPageShimmer = () => {
   return (
@@ -21,6 +22,8 @@ const AccountPageShimmer = () => {
         </div>
         <div className="space-y-5">
           <div className="shimmer h-3 w-7/12 rounded-lg" />
+          <GraphStatsShimmer count={2} />
+          <FollowersYouKnowShimmer />
           <GraphStatsShimmer count={2} />
         </div>
       </div>

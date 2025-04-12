@@ -5,6 +5,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { type Follower, useFollowersYouKnowQuery } from "@hey/indexer";
 import { type ReactNode, useState } from "react";
+import FollowersYouKnowShimmer from "../Shared/Shimmer/FollowersYouKnowShimmer";
 
 interface FollowersYouKnowOverviewProps {
   username: string;
@@ -66,7 +67,11 @@ const FollowersYouKnowOverview = ({
     </button>
   );
 
-  if (!accounts.length || loading || error) {
+  if (loading) {
+    return <FollowersYouKnowShimmer />;
+  }
+
+  if (!accounts.length || error) {
     return null;
   }
 
