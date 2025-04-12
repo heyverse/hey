@@ -2,7 +2,7 @@ fragment FollowNotification on FollowNotification {
   id
   followers {
     account {
-      ...ReferencedAccount
+      ...Account
     }
   }
 }

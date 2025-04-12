@@ -3,7 +3,7 @@ fragment PostActionExecutedNotification on PostActionExecutedNotification {
   actions {
     ... on SimpleCollectPostActionExecuted {
       executedBy {
-        ...ReferencedAccount
+        ...Account
       }
       action {
         payToCollect {
@@ -16,7 +16,7 @@ fragment PostActionExecutedNotification on PostActionExecutedNotification {
         ...Erc20Amount
       }
       executedBy {
-        ...ReferencedAccount
+        ...Account
       }
     }
   }

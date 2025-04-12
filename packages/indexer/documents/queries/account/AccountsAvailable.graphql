@@ -3,18 +3,18 @@ query AccountsAvailable(
   $lastLoggedInAccountRequest: LastLoggedInAccountRequest!
 ) {
   lastLoggedInAccount(request: $lastLoggedInAccountRequest) {
-    ...ReferencedAccount
+    ...Account
   }
   accountsAvailable(request: $accountsAvailableRequest) {
     items {
       ... on AccountManaged {
         account {
-          ...ReferencedAccount
+          ...Account
         }
       }
       ... on AccountOwned {
         account {
-          ...ReferencedAccount
+          ...Account
         }
       }
     }

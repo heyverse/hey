@@ -5,7 +5,7 @@ fragment RepostNotification on RepostNotification {
   }
   reposts {
     account {
-      ...ReferencedAccount
+      ...Account
     }
   }
 }

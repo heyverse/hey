@@ -5,7 +5,7 @@ fragment ReactionNotification on ReactionNotification {
   }
   reactions {
     account {
-      ...ReferencedAccount
+      ...Account
     }
   }
 }
