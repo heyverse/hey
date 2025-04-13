@@ -19,7 +19,11 @@ const sha256 = (text: string): string => {
 
 const hashedIp = (req: Request): string => sha256(getIp(req)).slice(0, 25);
 
-const rateLimiter = (requests: number) => {
+interface RateLimiterOptions {
+  requests: number;
+}
+
+const rateLimiter = ({ requests }: RateLimiterOptions) => {
   return rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
     limit: requests,

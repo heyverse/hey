@@ -28,6 +28,6 @@ app.route("/oembed", oembedRouter);
 app.route("/preferences", preferencesRouter);
 app.get("/sitemap.xml", sitemap);
 
-serve(app, (info) => {
+serve({ fetch: app.fetch, port: 4784 }, (info) => {
   console.info(`Server running on port ${info.port}`);
 });
