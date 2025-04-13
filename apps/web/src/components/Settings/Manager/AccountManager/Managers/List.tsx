@@ -144,6 +144,7 @@ const List = () => {
           </div>
           <Button
             disabled={removingAddress === accountManager.manager}
+            loading={removingAddress === accountManager.manager}
             onClick={() => handleRemoveManager(accountManager.manager)}
             outline
           >

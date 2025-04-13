@@ -20,12 +20,11 @@ const Wrap = ({ value, refetch }: WrapProps) => {
   const pollTransactionStatus = usePollTransactionStatus();
 
   const onCompleted = (hash: string) => {
-    setIsSubmitting(false);
     setShowModal(false);
-    const toastId = toast.loading("Wrapping...");
     pollTransactionStatus(hash, () => {
+      setIsSubmitting(false);
       refetch();
-      toast.success("Wrap Successful", { id: toastId });
+      toast.success("Wrap Successful");
     });
   };
 
@@ -64,6 +63,7 @@ const Wrap = ({ value, refetch }: WrapProps) => {
         outline
         onClick={() => setShowModal(true)}
         disabled={isSubmitting || valueToWrap === "0"}
+        loading={isSubmitting}
       >
         Wrap to {WRAPPED_NATIVE_TOKEN_SYMBOL}
       </Button>
@@ -84,6 +84,7 @@ const Wrap = ({ value, refetch }: WrapProps) => {
             size="lg"
             onClick={handleWrap}
             disabled={isSubmitting || !valueToWrap || valueToWrap === "0"}
+            loading={isSubmitting}
           >
             Wrap
           </Button>

@@ -154,6 +154,9 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                   disabled={
                     isSubmitting && loggingInAccountId === account.address
                   }
+                  loading={
+                    isSubmitting && loggingInAccountId === account.address
+                  }
                   onClick={() => handleSign(account.address)}
                   outline
                 >

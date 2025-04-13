@@ -68,12 +68,11 @@ const PersonalizeSettingsForm = () => {
   });
 
   const onCompleted = (hash: string) => {
-    const toastId = toast.loading("Updating account...");
     pollTransactionStatus(hash, async () => {
       const accountData = await getCurrentAccountDetails();
       setCurrentAccount(accountData?.data?.me.loggedInAs.account);
       setIsSubmitting(false);
-      toast.success("Account updated", { id: toastId });
+      toast.success("Account updated");
     });
   };
 
@@ -242,6 +241,7 @@ const PersonalizeSettingsForm = () => {
           disabled={
             isSubmitting || (!form.formState.isDirty && !coverUrl && !pfpUrl)
           }
+          loading={isSubmitting}
           type="submit"
         >
           Save

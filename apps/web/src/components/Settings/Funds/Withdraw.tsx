@@ -21,12 +21,11 @@ const Withdraw = ({ currency, value, refetch }: WithdrawProps) => {
   const pollTransactionStatus = usePollTransactionStatus();
 
   const onCompleted = (hash: string) => {
-    setIsSubmitting(false);
     setShowModal(false);
-    const toastId = toast.loading("Withdrawing...");
     pollTransactionStatus(hash, () => {
+      setIsSubmitting(false);
       refetch();
-      toast.success("Withdrawal Successful", { id: toastId });
+      toast.success("Withdrawal Successful");
     });
   };
 
@@ -71,6 +70,7 @@ const Withdraw = ({ currency, value, refetch }: WithdrawProps) => {
         outline
         onClick={() => setShowModal(true)}
         disabled={isSubmitting || valueToWithdraw === "0"}
+        loading={isSubmitting}
       >
         Withdraw
       </Button>
@@ -97,6 +97,7 @@ const Withdraw = ({ currency, value, refetch }: WithdrawProps) => {
             disabled={
               isSubmitting || !valueToWithdraw || valueToWithdraw === "0"
             }
+            loading={isSubmitting}
           >
             Withdraw
           </Button>

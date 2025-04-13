@@ -128,6 +128,7 @@ const CoverUpload = ({ src, setSrc }: CoverUploadProps) => {
             </div>
             <Button
               disabled={uploading || !pictureSrc}
+              loading={uploading}
               onClick={handleUploadAndSave}
               type="submit"
             >

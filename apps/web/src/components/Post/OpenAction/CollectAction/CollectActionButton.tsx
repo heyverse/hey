@@ -182,6 +182,7 @@ const CollectActionButton = ({
     <Button
       className="mt-5 w-full justify-center"
       disabled={isSubmitting}
+      loading={isSubmitting}
       onClick={handleCreateCollect}
     >
       Collect now

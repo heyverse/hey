@@ -102,6 +102,7 @@ const CreateGroupModal = () => {
       <Button
         className="flex w-full justify-center"
         disabled={isSubmitting}
+        loading={isSubmitting}
         type="submit"
       >
         Create group

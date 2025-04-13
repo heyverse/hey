@@ -129,6 +129,7 @@ const List = ({ managed = false }: ListProps) => {
           {address !== accountAvailable.account.owner && (
             <Button
               disabled={hiding || unhiding}
+              loading={hiding || unhiding}
               onClick={() =>
                 handleToggleManagement(accountAvailable.account.address)
               }

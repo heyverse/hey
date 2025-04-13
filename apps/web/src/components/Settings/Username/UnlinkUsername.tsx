@@ -70,7 +70,12 @@ const UnlinkUsername = () => {
           </H6>
         </div>
       </div>
-      <Button disabled={unlinking} onClick={handleUnlink} outline>
+      <Button
+        disabled={unlinking}
+        loading={unlinking}
+        onClick={handleUnlink}
+        outline
+      >
         Un-link {getAccount(currentAccount).usernameWithPrefix}
       </Button>
     </div>

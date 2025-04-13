@@ -138,6 +138,9 @@ const List = () => {
             disabled={
               revoking && revokeingSessionId === session.authenticationId
             }
+            loading={
+              revoking && revokeingSessionId === session.authenticationId
+            }
             onClick={() => handleRevoke(session.authenticationId)}
           >
             Revoke

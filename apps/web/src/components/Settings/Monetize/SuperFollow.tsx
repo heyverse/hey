@@ -152,6 +152,7 @@ const SuperFollow = () => {
           {simplePaymentRule && (
             <Button
               disabled={isSubmitting}
+              loading={isSubmitting}
               onClick={() => handleUpdateRule(true)}
               outline
             >
@@ -160,6 +161,7 @@ const SuperFollow = () => {
           )}
           <Button
             disabled={isSubmitting}
+            loading={isSubmitting}
             onClick={() => handleUpdateRule(false)}
           >
             Update

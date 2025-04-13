@@ -62,6 +62,7 @@ const DeleteSettings = () => {
         </div>
         <Button
           disabled={isSubmitting}
+          loading={isSubmitting}
           onClick={() => setShowWarningModal(true)}
           outline
         >
@@ -85,6 +86,7 @@ const DeleteSettings = () => {
           />
           <Button
             disabled={isSubmitting}
+            loading={isSubmitting}
             onClick={async () => {
               setShowWarningModal(false);
               await handleDelete();

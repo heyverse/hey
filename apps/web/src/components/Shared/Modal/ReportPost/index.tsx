@@ -100,6 +100,7 @@ const ReportPost = ({ postId }: ReportPostProps) => {
                 <Button
                   className="flex w-full justify-center"
                   disabled={loading}
+                  loading={loading}
                   type="submit"
                 >
                   Report

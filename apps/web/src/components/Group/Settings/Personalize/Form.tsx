@@ -158,6 +158,7 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
           disabled={
             isSubmitting || (!form.formState.isDirty && !coverUrl && !pfpUrl)
           }
+          loading={isSubmitting}
           type="submit"
         >
           Save
