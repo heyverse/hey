@@ -61,9 +61,8 @@ const DeleteSettings = () => {
           </p>
         </div>
         <Button
-          disabled={isSubmitting}
-          onClick={() => setShowWarningModal(true)}
-          outline
+          loading={isSubmitting}
+          onClick={() => setIsSubmitting(!isSubmitting)}
         >
           Delete your account
         </Button>

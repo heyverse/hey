@@ -278,6 +278,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
               videoThumbnail.uploading ||
               postContentError.length > 0
             }
+            loading={isSubmitting}
             onClick={handleCreatePost}
           >
             {isComment ? "Comment" : "Post"}

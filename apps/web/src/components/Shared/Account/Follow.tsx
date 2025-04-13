@@ -94,6 +94,7 @@ const Follow = ({
       aria-label={title}
       className={buttonClassName}
       disabled={isSubmitting}
+      loading={isSubmitting}
       onClick={handleCreateFollow}
       outline
       size={small ? "sm" : "md"}
