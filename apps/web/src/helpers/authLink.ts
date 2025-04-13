@@ -7,7 +7,6 @@ import { ApolloLink, fromPromise, toPromise } from "@apollo/client";
 import { LENS_API_URL } from "@hey/data/constants";
 import parseJwt from "@hey/helpers/parseJwt";
 import type { RefreshResult } from "@hey/indexer";
-import axios from "axios";
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -31,16 +30,21 @@ const executeTokenRefresh = async (
   attempt = 0
 ): Promise<string> => {
   try {
-    const { data } = await axios.post(
-      LENS_API_URL,
-      {
+    const response = await fetch(LENS_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         operationName: "Refresh",
         query: REFRESH_AUTHENTICATION_MUTATION,
         variables: { request: { refreshToken } }
-      },
-      { headers: { "Content-Type": "application/json" } }
-    );
+      })
+    });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
     const refreshResult = data?.data?.refresh as RefreshResult;
 
     if (!refreshResult) {
