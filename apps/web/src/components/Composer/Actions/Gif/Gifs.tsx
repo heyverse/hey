@@ -1,7 +1,6 @@
 import { GIPHY_KEY } from "@hey/data/constants";
 import type { IGif } from "@hey/types/giphy";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import type { Dispatch, SetStateAction } from "react";
 
 const GET_GIFS_QUERY_KEY = "getGifs";
@@ -27,10 +26,11 @@ const Gifs = ({
 
   const getGifs = async (input: string): Promise<IGif[]> => {
     try {
-      const { data } = await axios.get("https://api.giphy.com/v1/gifs/search", {
-        params: { api_key: GIPHY_KEY, limit: 48, q: input }
-      });
+      const response = await fetch(
+        `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&limit=48&q=${encodeURIComponent(input)}`
+      );
 
+      const data = await response.json();
       return data.data;
     } catch {
       return [];

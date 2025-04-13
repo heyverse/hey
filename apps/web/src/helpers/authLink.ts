@@ -41,7 +41,7 @@ const executeTokenRefresh = async (
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      executeTokenRefresh(refreshToken, attempt + 1);
     }
 
     const data = await response.json();

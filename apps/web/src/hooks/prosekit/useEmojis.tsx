@@ -1,7 +1,6 @@
 import { STATIC_ASSETS_URL } from "@hey/data/constants";
 import type { Emoji } from "@hey/types/misc";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useMemo } from "react";
 
 const GET_EMOJIS_QUERY_KEY = "getEmojis";
@@ -31,8 +30,8 @@ const useEmojis = ({
     isLoading
   } = useQuery<Emoji[]>({
     queryFn: async () => {
-      const { data } = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
-      return data;
+      const response = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
+      return response.json();
     },
     queryKey: [GET_EMOJIS_QUERY_KEY]
   });

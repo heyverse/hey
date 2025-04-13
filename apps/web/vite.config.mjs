@@ -63,7 +63,6 @@ export default defineConfig({
             "@lens-chain/storage-client",
             "@lens-protocol/metadata",
             "@apollo/client",
-            "axios",
             "zustand",
             "tailwind-merge",
             "zod"

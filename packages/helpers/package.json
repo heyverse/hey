@@ -11,7 +11,6 @@
     "@hey/data": "workspace:*",
     "@hey/indexer": "workspace:*",
     "@hey/types": "workspace:*",
-    "axios": "^1.8.4",
     "dayjs": "^1.11.13",
     "viem": "^2.26.3"
   },

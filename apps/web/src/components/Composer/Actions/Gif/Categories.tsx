@@ -2,7 +2,6 @@ import { H5 } from "@/components/Shared/UI";
 import { GIPHY_KEY } from "@hey/data/constants";
 import type { Category } from "@hey/types/giphy";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import type { Dispatch, SetStateAction } from "react";
 
 const GET_GIPHY_CATEGORIES_QUERY_KEY = "getGiphyCategories";
@@ -14,11 +13,11 @@ interface CategoriesProps {
 const Categories = ({ setSearchText }: CategoriesProps) => {
   const getGiphyCategories = async () => {
     try {
-      const { data } = await axios.get(
-        "https://api.giphy.com/v1/gifs/categories",
-        { params: { api_key: GIPHY_KEY } }
+      const response = await fetch(
+        `https://api.giphy.com/v1/gifs/categories?api_key=${GIPHY_KEY}`
       );
 
+      const data = await response.json();
       return data.data;
     } catch {
       return [];
