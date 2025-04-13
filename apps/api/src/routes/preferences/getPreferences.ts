@@ -21,7 +21,8 @@ const getPreferences = async (ctx: Context) => {
       includeLowScore: Boolean(preference?.includeLowScore),
       permissions: permissions.map(({ permission }) => permission.key)
     });
-  } catch {
+  } catch (error) {
+    console.error(error);
     return ctx.json({ error: Errors.SomethingWentWrong }, 500);
   }
 };

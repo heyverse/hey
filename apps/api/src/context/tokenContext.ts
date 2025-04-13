@@ -2,10 +2,10 @@ import parseJwt from "@hey/helpers/parseJwt";
 import type { Context, Next } from "hono";
 
 const tokenContext = async (ctx: Context, next: Next) => {
-  const token = (ctx.req.raw.headers as any)["x-id-token"];
-  const payload = parseJwt(token);
+  const token = ctx.req.raw.headers.get("x-id-token");
+  const payload = parseJwt(token as string);
 
-  if (!token) {
+  if (!payload.act.sub) {
     ctx.set("account", null);
     ctx.set("token", null);
     return next();
