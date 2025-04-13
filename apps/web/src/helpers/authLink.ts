@@ -41,7 +41,7 @@ const executeTokenRefresh = async (
     });
 
     if (!response.ok) {
-      executeTokenRefresh(refreshToken, attempt + 1);
+      await executeTokenRefresh(refreshToken, attempt + 1);
     }
 
     const data = await response.json();
@@ -79,7 +79,7 @@ const executeTokenRefresh = async (
     }
 
     if (attempt < MAX_RETRIES) {
-      return executeTokenRefresh(refreshToken, attempt + 1);
+      return await executeTokenRefresh(refreshToken, attempt + 1);
     }
 
     throw new Error("Unknown error during token refresh");
