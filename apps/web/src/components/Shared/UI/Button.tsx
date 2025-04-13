@@ -73,9 +73,7 @@ export const Button = memo(
     ) => {
       return (
         <button
-          className={cn(buttonVariants({ variant, size, outline, className }), {
-            "inline-flex items-center justify-center gap-x-1.5": icon
-          })}
+          className={buttonVariants({ variant, size, outline, className })}
           disabled={disabled}
           ref={ref}
           type={rest.type}
@@ -84,28 +82,24 @@ export const Button = memo(
           <AnimatePresence mode="wait">
             <motion.div
               className="flex items-center gap-x-1.5"
-              initial="visible"
-              animate={loading ? "hidden" : "visible"}
+              initial="idle"
+              animate={loading ? "loading" : "idle"}
               variants={{
-                visible: { opacity: 1, y: 0 },
-                hidden: { opacity: 0, y: 20 }
+                idle: { opacity: 1, y: 0 },
+                loading: { opacity: 0, y: -20 }
               }}
-              transition={{ duration: 0.1, ease: "easeInOut" }}
+              transition={{ type: "spring", duration: 0.2, bounce: 0 }}
             >
               {icon}
               {children}
             </motion.div>
             {loading && (
               <motion.div
-                className="absolute inset-0 flex items-center justify-center"
-                initial="hidden"
-                animate="visible"
-                exit="hidden"
-                variants={{
-                  hidden: { opacity: 0, y: -20 },
-                  visible: { opacity: 1, y: 0 }
-                }}
-                transition={{ duration: 0.1, ease: "easeInOut" }}
+                className="absolute flex items-center justify-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ type: "spring", duration: 0.2, bounce: 0 }}
               >
                 <Spinner size="xs" />
               </motion.div>
