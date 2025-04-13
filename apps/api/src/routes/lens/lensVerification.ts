@@ -1,6 +1,5 @@
 import { HEY_APP } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
-import type {} from "express";
 import type { Context } from "hono";
 import { type Address, checksumAddress } from "viem";
 import { heyWalletClient } from "../../helpers/heyWalletClient";
@@ -41,7 +40,7 @@ const lensVerification = async (ctx: Context) => {
 
     return ctx.json({ allowed: true, signature });
   } catch {
-    return ctx.json({ error: Errors.SomethingWentWrong });
+    return ctx.json({ success: false, error: Errors.SomethingWentWrong });
   }
 };
 

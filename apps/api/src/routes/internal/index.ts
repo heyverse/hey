@@ -1,8 +1,8 @@
 import { Hono } from "hono";
-import accountRouter from "./account";
+import permissionRouter from "./permission";
 
 const app = new Hono();
 
-app.route("/account", accountRouter);
+app.route("/permission", permissionRouter);
 
 export default app;

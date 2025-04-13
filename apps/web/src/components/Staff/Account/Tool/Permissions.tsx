@@ -3,7 +3,7 @@ import { H5 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { hono } from "@/helpers/fetcher";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
-import { Permission, PermissionId } from "@hey/data/permissions";
+import { PermissionId } from "@hey/data/permissions";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -12,9 +12,14 @@ interface PermissionsProps {
 }
 
 const Permissions = ({ address }: PermissionsProps) => {
-  const { data: account, isLoading } = useQuery({
-    queryFn: () => hono.internal.account.get(address),
-    queryKey: ["account", address]
+  const {
+    data: account,
+    isLoading,
+    refetch
+  } = useQuery({
+    queryFn: () => hono.account.get(address),
+    queryKey: ["account", address],
+    enabled: Boolean(address)
   });
 
   const { mutate } = useMutation({
@@ -23,13 +28,15 @@ const Permissions = ({ address }: PermissionsProps) => {
       enabled,
       permission
     }: { account: string; enabled: boolean; permission: PermissionId }) =>
-      hono.internal.permissions.assign({ account, enabled, permission }),
-    onSuccess: () => toast.success("Account suspended"),
+      hono.internal.permission.assign({ account, enabled, permission }),
+    onSuccess: () => {
+      refetch();
+      toast.success("Account suspended");
+    },
     onError: errorToast
   });
 
-  const isSuspended =
-    account?.permissions.includes(Permission.Suspended) || false;
+  const isSuspended = account?.isSuspended ?? false;
 
   return (
     <>

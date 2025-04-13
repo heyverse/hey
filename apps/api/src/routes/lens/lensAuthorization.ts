@@ -1,4 +1,3 @@
-import type {} from "express";
 import type { Context } from "hono";
 import {
   CACHE_AGE_1_DAY,

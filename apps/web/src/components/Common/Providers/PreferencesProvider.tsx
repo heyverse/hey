@@ -13,7 +13,7 @@ const PreferencesProvider = () => {
 
   const { data: preferences } = useQuery({
     queryFn: () => hono.preferences.get(),
-    queryKey: ["preferences"],
+    queryKey: ["preferences", sessionAccountAddress],
     enabled: Boolean(sessionAccountAddress)
   });
 

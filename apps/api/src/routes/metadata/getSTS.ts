@@ -41,12 +41,15 @@ const getSTS = async (ctx: Context) => {
     const { Credentials: credentials } = await stsClient.send(command);
 
     return ctx.json({
-      accessKeyId: credentials?.AccessKeyId,
-      secretAccessKey: credentials?.SecretAccessKey,
-      sessionToken: credentials?.SessionToken
+      success: true,
+      data: {
+        accessKeyId: credentials?.AccessKeyId,
+        secretAccessKey: credentials?.SecretAccessKey,
+        sessionToken: credentials?.SessionToken
+      }
     });
   } catch {
-    return ctx.json({ error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
   }
 };
 

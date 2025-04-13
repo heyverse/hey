@@ -15,10 +15,13 @@ const getAccount = async (ctx: Context) => {
     });
 
     return ctx.json({
-      isSuspended: accountPermission?.permissionId === PermissionId.Suspended
+      success: true,
+      data: {
+        isSuspended: accountPermission?.permissionId === PermissionId.Suspended
+      }
     });
   } catch {
-    return ctx.json({ error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
   }
 };
 

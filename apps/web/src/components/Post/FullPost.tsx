@@ -32,7 +32,8 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
 
   const { data: accountDetails } = useQuery({
     queryKey: ["account", author.address],
-    queryFn: () => hono.account.get(author.address)
+    queryFn: () => hono.account.get(author.address),
+    enabled: Boolean(author.address)
   });
 
   const isSuspended = isStaff ? false : accountDetails?.isSuspended;

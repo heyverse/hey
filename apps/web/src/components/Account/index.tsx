@@ -58,7 +58,8 @@ const ViewProfile = () => {
 
   const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery({
     queryKey: ["account", account?.address],
-    queryFn: () => hono.account.get(account?.address)
+    queryFn: () => hono.account.get(account?.address),
+    enabled: Boolean(account?.address)
   });
 
   if ((!username && !address) || (loading && !cachedAccount)) {

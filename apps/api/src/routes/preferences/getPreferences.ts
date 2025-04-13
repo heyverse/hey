@@ -17,13 +17,15 @@ const getPreferences = async (ctx: Context) => {
     ]);
 
     return ctx.json({
-      appIcon: preference?.appIcon || 0,
-      includeLowScore: Boolean(preference?.includeLowScore),
-      permissions: permissions.map(({ permission }) => permission.key)
+      success: true,
+      data: {
+        appIcon: preference?.appIcon || 0,
+        includeLowScore: Boolean(preference?.includeLowScore),
+        permissions: permissions.map(({ permission }) => permission.key)
+      }
     });
-  } catch (error) {
-    console.error(error);
-    return ctx.json({ error: Errors.SomethingWentWrong }, 500);
+  } catch {
+    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
   }
 };
 

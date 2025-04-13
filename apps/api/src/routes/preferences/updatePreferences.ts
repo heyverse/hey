@@ -14,11 +14,14 @@ const updatePreferences = async (ctx: Context) => {
     });
 
     return ctx.json({
-      appIcon: preference.appIcon ?? 0,
-      includeLowScore: preference.includeLowScore ?? false
+      success: true,
+      data: {
+        appIcon: preference.appIcon ?? 0,
+        includeLowScore: preference.includeLowScore ?? false
+      }
     });
   } catch {
-    return ctx.json({ error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
   }
 };
 

@@ -36,15 +36,16 @@ const createLive = async (ctx: Context) => {
       method: "POST"
     });
 
-    return ctx.json(
-      (await response.json()) as {
+    return ctx.json({
+      success: true,
+      data: (await response.json()) as {
         id: string;
         playbackId: string;
         streamKey: string;
       }
-    );
+    });
   } catch {
-    return ctx.json({ error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
   }
 };
 
