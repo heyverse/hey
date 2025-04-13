@@ -9,10 +9,13 @@ import getAccount from "./getAccount";
 const app = new Hono();
 
 app.get(
-  "/get",
+  "/get/:address",
   authMiddleware,
   staffAccessMiddleware,
-  zValidator("json", z.object({ address: z.string().regex(Regex.evmAddress) })),
+  zValidator(
+    "param",
+    z.object({ address: z.string().regex(Regex.evmAddress) })
+  ),
   getAccount
 );
 

@@ -1,5 +1,5 @@
 import errorToast from "@/helpers/errorToast";
-import { trpc } from "@/helpers/trpc";
+import { hono } from "@/helpers/fetcher";
 import { Permission, PermissionId } from "@hey/data/permissions";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -10,16 +10,21 @@ interface SuspendProps {
 }
 
 const Suspend = ({ address }: SuspendProps) => {
-  const { data: account, isLoading } = useQuery(
-    trpc.internal.account.queryOptions({ address })
-  );
+  const { data: account, isLoading } = useQuery({
+    queryKey: ["account", address],
+    queryFn: () => hono.internal.account.get(address)
+  });
 
-  const { mutate } = useMutation(
-    trpc.internal.permissions.assign.mutationOptions({
-      onSuccess: () => toast.success("Account suspended"),
-      onError: errorToast
-    })
-  );
+  const { mutate } = useMutation({
+    mutationFn: ({
+      account,
+      enabled,
+      permission
+    }: { account: string; enabled: boolean; permission: PermissionId }) =>
+      hono.internal.permissions.assign({ account, enabled, permission }),
+    onSuccess: () => toast.success("Account suspended"),
+    onError: errorToast
+  });
 
   const isSuspended =
     account?.permissions.includes(Permission.Suspended) || false;

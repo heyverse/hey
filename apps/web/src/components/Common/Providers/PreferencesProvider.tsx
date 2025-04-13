@@ -1,5 +1,5 @@
+import { hono } from "@/helpers/fetcher";
 import getCurrentSession from "@/helpers/getCurrentSession";
-import { trpc } from "@/helpers/trpc";
 import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { Permission } from "@hey/data/permissions";
@@ -11,11 +11,11 @@ const PreferencesProvider = () => {
   const { setAppIcon, setIncludeLowScore } = usePreferencesStore();
   const { setStatus } = useAccountStatus();
 
-  const { data: preferences } = useQuery(
-    trpc.preferences.get.queryOptions(undefined, {
-      enabled: Boolean(sessionAccountAddress)
-    })
-  );
+  const { data: preferences } = useQuery({
+    queryFn: () => hono.preferences.get(),
+    queryKey: ["preferences"],
+    enabled: Boolean(sessionAccountAddress)
+  });
 
   useEffect(() => {
     if (preferences) {

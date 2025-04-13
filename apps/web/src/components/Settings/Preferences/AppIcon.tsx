@@ -1,6 +1,6 @@
 import { Image, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import { trpc } from "@/helpers/trpc";
+import { hono } from "@/helpers/fetcher";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
 import { CheckCircleIcon as CheckCircleIconSolid } from "@heroicons/react/24/solid";
@@ -18,15 +18,16 @@ const icons = [
 
 const AppIcon = () => {
   const { appIcon, setAppIcon } = usePreferencesStore();
-  const { mutate, isPending } = useMutation(
-    trpc.preferences.update.mutationOptions({
-      onSuccess: (data) => {
-        setAppIcon(data.appIcon ?? 0);
-        toast.success("App icon updated");
-      },
-      onError: errorToast
-    })
-  );
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ appIcon }: { appIcon: number }) =>
+      hono.preferences.update({ appIcon }),
+    onSuccess: (data) => {
+      setAppIcon(data.appIcon ?? 0);
+      toast.success("App icon updated");
+    },
+    onError: errorToast
+  });
 
   return (
     <div className="m-5 flex flex-col gap-y-5">

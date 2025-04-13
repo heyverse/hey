@@ -1,7 +1,7 @@
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { H5 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import { trpc } from "@/helpers/trpc";
+import { hono } from "@/helpers/fetcher";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { Permission, PermissionId } from "@hey/data/permissions";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -12,16 +12,21 @@ interface PermissionsProps {
 }
 
 const Permissions = ({ address }: PermissionsProps) => {
-  const { data: account, isLoading } = useQuery(
-    trpc.internal.account.queryOptions({ address })
-  );
+  const { data: account, isLoading } = useQuery({
+    queryFn: () => hono.internal.account.get(address),
+    queryKey: ["account", address]
+  });
 
-  const { mutate } = useMutation(
-    trpc.internal.permissions.assign.mutationOptions({
-      onSuccess: () => toast.success("Account suspended"),
-      onError: errorToast
-    })
-  );
+  const { mutate } = useMutation({
+    mutationFn: ({
+      account,
+      enabled,
+      permission
+    }: { account: string; enabled: boolean; permission: PermissionId }) =>
+      hono.internal.permissions.assign({ account, enabled, permission }),
+    onSuccess: () => toast.success("Account suspended"),
+    onError: errorToast
+  });
 
   const isSuspended =
     account?.permissions.includes(Permission.Suspended) || false;

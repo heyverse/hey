@@ -1,6 +1,6 @@
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import errorToast from "@/helpers/errorToast";
-import { trpc } from "@/helpers/trpc";
+import { hono } from "@/helpers/fetcher";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { SwatchIcon } from "@heroicons/react/24/outline";
 import { useMutation } from "@tanstack/react-query";
@@ -8,15 +8,16 @@ import { toast } from "sonner";
 
 const IncludeLowScore = () => {
   const { includeLowScore, setIncludeLowScore } = usePreferencesStore();
-  const { mutate, isPending } = useMutation(
-    trpc.preferences.update.mutationOptions({
-      onSuccess: (data) => {
-        setIncludeLowScore(data.includeLowScore);
-        toast.success("Notification preference updated");
-      },
-      onError: errorToast
-    })
-  );
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ includeLowScore }: { includeLowScore: boolean }) =>
+      hono.preferences.update({ includeLowScore }),
+    onSuccess: (data) => {
+      setIncludeLowScore(data.includeLowScore);
+      toast.success("Notification preference updated");
+    },
+    onError: errorToast
+  });
 
   return (
     <div className="m-5">
