@@ -5,7 +5,7 @@ import getMetadata from "./helpers/getMetadata";
 
 const getOembed = async (ctx: Context) => {
   try {
-    const { url } = await ctx.req.json();
+    const { url } = ctx.req.query();
     ctx.header("Cache-Control", CACHE_AGE_1_DAY);
     return ctx.json(await getMetadata(url));
   } catch {

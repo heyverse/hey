@@ -9,7 +9,7 @@ const app = new Hono();
 app.get(
   "/get",
   rateLimiter({ requests: 500 }),
-  zValidator("json", z.object({ url: z.string().url() })),
+  zValidator("query", z.object({ url: z.string().url() })),
   getOembed
 );
 
