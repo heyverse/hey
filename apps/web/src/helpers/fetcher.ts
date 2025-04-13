@@ -31,8 +31,9 @@ const fetchApi = async <T>(
   });
 
   if (!response.ok) {
-    throw new Error(`API Error: ${response.status}`);
+    throw new Error(`HTTP error! Status: ${response.status}`);
   }
+
   const result = await response.json();
 
   if (result.success) {

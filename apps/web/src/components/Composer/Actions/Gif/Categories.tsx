@@ -17,6 +17,10 @@ const Categories = ({ setSearchText }: CategoriesProps) => {
         `https://api.giphy.com/v1/gifs/categories?api_key=${GIPHY_KEY}`
       );
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const data = await response.json();
       return data.data;
     } catch {

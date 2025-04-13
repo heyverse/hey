@@ -31,6 +31,9 @@ const useEmojis = ({
   } = useQuery<Emoji[]>({
     queryFn: async () => {
       const response = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
       return response.json();
     },
     queryKey: [GET_EMOJIS_QUERY_KEY]

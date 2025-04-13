@@ -30,6 +30,10 @@ const Gifs = ({
         `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_KEY}&limit=48&q=${encodeURIComponent(input)}`
       );
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const data = await response.json();
       return data.data;
     } catch {

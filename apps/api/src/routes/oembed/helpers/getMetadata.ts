@@ -8,6 +8,10 @@ const fetchData = async (url: string) => {
     headers: { "User-Agent": HEY_USER_AGENT }
   });
 
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
   return await response.text();
 };
 
