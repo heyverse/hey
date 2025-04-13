@@ -29,7 +29,7 @@ const WalletAccount = ({ address }: WalletAccountProps) => {
         width={40}
       />
       <Link
-        to={`${CHAIN.blockExplorers?.default}/address/${address}`}
+        to={`${CHAIN.blockExplorers?.default.url}/address/${address}`}
         rel="noreferrer noopener"
         target="_blank"
       >
