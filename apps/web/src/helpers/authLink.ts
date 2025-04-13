@@ -41,7 +41,7 @@ const executeTokenRefresh = async (
     });
 
     if (!response.ok) {
-      await executeTokenRefresh(refreshToken, attempt + 1);
+      return await executeTokenRefresh(refreshToken, attempt + 1);
     }
 
     const data = await response.json();
