@@ -1,11 +1,11 @@
 import { Card } from "@/components/Shared/UI";
-import type { OembedRouterOutput } from "@hey/api/src/routers/oembed";
 import getFavicon from "@hey/helpers/getFavicon";
 import stopEventPropagation from "@hey/helpers/stopEventPropagation";
+import type { Oembed } from "@hey/types/api";
 import { Link } from "react-router";
 
 interface EmbedProps {
-  og: OembedRouterOutput["get"];
+  og: Oembed;
 }
 
 const Embed = ({ og }: EmbedProps) => {

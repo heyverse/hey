@@ -386,6 +386,9 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../config
+      '@types/node':
+        specifier: ^22.14.1
+        version: 22.14.1
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
