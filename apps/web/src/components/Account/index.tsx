@@ -4,8 +4,8 @@ import Custom500 from "@/components/Shared/500";
 import Cover from "@/components/Shared/Cover";
 import { PageLayout } from "@/components/Shared/PageLayout";
 import { EmptyState } from "@/components/Shared/UI";
+import { hono } from "@/helpers/fetcher";
 import hasAccess from "@/helpers/hasAccess";
-import { trpc } from "@/helpers/trpc";
 import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
@@ -56,12 +56,10 @@ const ViewProfile = () => {
 
   const account = data?.account ?? cachedAccount;
 
-  const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery(
-    trpc.account.get.queryOptions(
-      { address: account?.address },
-      { enabled: Boolean(account?.address) }
-    )
-  );
+  const { data: accountDetails, isLoading: accountDetailsLoading } = useQuery({
+    queryKey: ["account", account?.address],
+    queryFn: () => hono.account.get(account?.address)
+  });
 
   if ((!username && !address) || (loading && !cachedAccount)) {
     return <AccountPageShimmer />;

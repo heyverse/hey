@@ -1,7 +1,7 @@
 import Video from "@/components/Shared/Post/Video";
 import { Card, Spinner, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import { trpc } from "@/helpers/trpc";
+import { hono } from "@/helpers/fetcher";
 import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
 import {
   ClipboardDocumentIcon,
@@ -40,14 +40,14 @@ const LivestreamEditor = () => {
   } = usePostLiveStore();
 
   const [screen, setScreen] = useState<"create" | "record">("create");
-  const { mutate, isPending } = useMutation(
-    trpc.live.create.mutationOptions({
-      onSuccess: (data) => {
-        setLiveVideoConfig(data);
-      },
-      onError: errorToast
-    })
-  );
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ record }: { record: boolean }) =>
+      hono.live.create({ record }),
+    onSuccess: (data) => {
+      setLiveVideoConfig(data);
+    },
+    onError: errorToast
+  });
 
   return (
     <Card className="m-5 px-5 py-3" forceRounded>

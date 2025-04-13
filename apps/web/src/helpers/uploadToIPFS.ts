@@ -4,14 +4,14 @@ import { Upload } from "@aws-sdk/lib-storage";
 import { EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
 import generateUUID from "@hey/helpers/generateUUID";
 import { immutable } from "@lens-chain/storage-client";
+import { hono } from "./fetcher";
 import { storageClient } from "./storageClient";
-import { queryClient, trpc } from "./trpc";
 
 const FALLBACK_TYPE = "image/jpeg";
 const FILE_SIZE_LIMIT_MB = 8 * 1024 * 1024; // 8MB in bytes
 
 const getS3Client = async (): Promise<S3> => {
-  const data = await queryClient.fetchQuery(trpc.misc.sts.queryOptions());
+  const data = await hono.metadata.sts();
 
   if (!data) {
     throw new Error("Failed to get S3 client");

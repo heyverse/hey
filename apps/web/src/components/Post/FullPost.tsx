@@ -1,7 +1,7 @@
 import { Card, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { hono } from "@/helpers/fetcher";
 import hasAccess from "@/helpers/hasAccess";
-import { trpc } from "@/helpers/trpc";
 import { QueueListIcon } from "@heroicons/react/24/outline";
 import { Features } from "@hey/data/features";
 import formatDate from "@hey/helpers/datetime/formatDate";
@@ -30,12 +30,10 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const { author, timestamp } = targetPost;
 
-  const { data: accountDetails } = useQuery(
-    trpc.account.get.queryOptions(
-      { address: author.address },
-      { enabled: Boolean(author.address) }
-    )
-  );
+  const { data: accountDetails } = useQuery({
+    queryKey: ["account", author.address],
+    queryFn: () => hono.account.get(author.address)
+  });
 
   const isSuspended = isStaff ? false : accountDetails?.isSuspended;
 

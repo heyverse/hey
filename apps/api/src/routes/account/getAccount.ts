@@ -5,7 +5,7 @@ import prisma from "src/prisma/client";
 
 const getAccount = async (ctx: Context) => {
   try {
-    const { address } = await ctx.req.json();
+    const { address } = ctx.req.param();
 
     const accountPermission = await prisma.accountPermission.findFirst({
       where: {
