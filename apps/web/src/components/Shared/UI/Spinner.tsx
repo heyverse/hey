@@ -1,31 +1,35 @@
 import cn from "@/helpers/cn";
-import { type VariantProps, cva } from "class-variance-authority";
 import { memo } from "react";
 
-const spinnerVariants = cva("animate-spin rounded-full", {
-  variants: {
-    variant: {
-      primary: "border-gray-200 border-t-gray-600",
-      danger: "border-red-200 border-t-red-600",
-      warning: "border-yellow-200 border-t-yellow-600"
-    },
-    size: {
-      xs: "size-4 border-[2px]",
-      sm: "size-5 border-2",
-      md: "size-8 border-[3px]",
-      lg: "size-10 border-4"
-    }
-  },
-  defaultVariants: {
-    variant: "primary",
-    size: "md"
-  }
-});
-
-interface SpinnerProps extends VariantProps<typeof spinnerVariants> {
+interface SpinnerProps {
   className?: string;
+  size?: "xs" | "sm" | "md";
 }
 
-export const Spinner = memo(({ className, size, variant }: SpinnerProps) => {
-  return <div className={cn(spinnerVariants({ variant, size }), className)} />;
+export const Spinner = memo(({ className, size = "md" }: SpinnerProps) => {
+  const sizeClasses = { xs: "size-4", sm: "size-5", md: "size-7" };
+
+  return (
+    <svg
+      className={cn(sizeClasses[size], className)}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+        opacity=".3"
+      />
+      <path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z">
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          dur="0.3s"
+          values="0 12 12;360 12 12"
+          repeatCount="indefinite"
+        />
+      </path>
+    </svg>
+  );
 });

@@ -122,6 +122,7 @@ const AvatarUpload = ({ src, setSrc, isSmall = false }: AvatarUploadProps) => {
           <Button
             className="w-full"
             disabled={uploading || !pictureSrc}
+            loading={uploading}
             onClick={handleUploadAndSave}
             type="submit"
           >

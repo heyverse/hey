@@ -1,6 +1,6 @@
 import cn from "@/helpers/cn";
 import { MotionConfig, motion } from "motion/react";
-import type { ReactNode } from "react";
+import { type ReactNode, memo } from "react";
 
 interface TabsProps {
   tabs: { name: string; type: string; suffix?: ReactNode }[];
@@ -42,4 +42,4 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   );
 };
 
-export default Tabs;
+export default memo(Tabs);

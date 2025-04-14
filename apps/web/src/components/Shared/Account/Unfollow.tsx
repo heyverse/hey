@@ -90,6 +90,7 @@ const Unfollow = ({
       aria-label={title}
       className={buttonClassName}
       disabled={isSubmitting}
+      loading={isSubmitting}
       onClick={handleCreateUnfollow}
       size={small ? "sm" : "md"}
     >

@@ -87,6 +87,7 @@ const AddAccountManager = ({
         <Button
           className="ml-auto"
           disabled={isSubmitting || !isAddress(manager)}
+          loading={isSubmitting}
           onClick={handleAddManager}
           type="submit"
         >

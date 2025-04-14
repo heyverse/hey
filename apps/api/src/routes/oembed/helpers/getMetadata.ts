@@ -24,9 +24,13 @@ const extractMetadata = (document: Document, url: string) => {
 };
 
 const getMetadata = async (url: string) => {
-  const data = await fetchData(url);
-  const { document } = parseHTML(data);
-  return extractMetadata(document, url);
+  try {
+    const data = await fetchData(url);
+    const { document } = parseHTML(data);
+    return extractMetadata(document, url);
+  } catch {
+    return { title: null, description: null, url };
+  }
 };
 
 export default getMetadata;

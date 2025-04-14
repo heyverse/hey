@@ -78,6 +78,7 @@ const Leave = ({ group, setJoined, small }: LeaveProps) => {
     <Button
       aria-label="Leave"
       disabled={isSubmitting}
+      loading={isSubmitting}
       onClick={handleLeave}
       size={small ? "sm" : "md"}
     >

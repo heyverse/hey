@@ -146,6 +146,7 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
           {simplePaymentRule && (
             <Button
               disabled={isSubmitting}
+              loading={isSubmitting}
               onClick={() => handleUpdateRule(true)}
               outline
             >
@@ -154,6 +155,7 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
           )}
           <Button
             disabled={isSubmitting}
+            loading={isSubmitting}
             onClick={() => handleUpdateRule(false)}
           >
             Update

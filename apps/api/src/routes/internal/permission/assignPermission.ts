@@ -7,14 +7,17 @@ const assignPermission = async (ctx: Context) => {
   try {
     const { account, permission, enabled } = await ctx.req.json();
 
-    const cacheKey = `permissions:${account}`;
+    const clearCache = async () => {
+      await delRedis(`permissions:${account}`);
+      await delRedis(`account:${account}`);
+    };
 
     if (enabled) {
       await prisma.accountPermission.create({
         data: { permissionId: permission, accountAddress: account }
       });
 
-      await delRedis(cacheKey);
+      await clearCache();
 
       return ctx.json({ success: true, data: { enabled } });
     }
@@ -23,7 +26,7 @@ const assignPermission = async (ctx: Context) => {
       where: { permissionId: permission, accountAddress: account }
     });
 
-    await delRedis(cacheKey);
+    await clearCache();
 
     return ctx.json({ success: true, data: { enabled } });
   } catch {

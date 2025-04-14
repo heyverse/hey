@@ -20,12 +20,11 @@ const Unwrap = ({ value, refetch }: UnwrapProps) => {
   const pollTransactionStatus = usePollTransactionStatus();
 
   const onCompleted = (hash: string) => {
-    setIsSubmitting(false);
     setShowModal(false);
-    const toastId = toast.loading("Unwrapping...");
     pollTransactionStatus(hash, () => {
+      setIsSubmitting(false);
       refetch();
-      toast.success("Unwrap Successful", { id: toastId });
+      toast.success("Unwrap Successful");
     });
   };
 
@@ -64,6 +63,7 @@ const Unwrap = ({ value, refetch }: UnwrapProps) => {
         outline
         onClick={() => setShowModal(true)}
         disabled={isSubmitting || valueToUnwrap === "0"}
+        loading={isSubmitting}
       >
         Unwrap to {NATIVE_TOKEN_SYMBOL}
       </Button>
@@ -88,6 +88,7 @@ const Unwrap = ({ value, refetch }: UnwrapProps) => {
             size="lg"
             onClick={handleUnwrap}
             disabled={isSubmitting || !valueToUnwrap || valueToUnwrap === "0"}
+            loading={isSubmitting}
           >
             Unwrap
           </Button>

@@ -117,6 +117,7 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
                 <Button
                   className="flex w-full justify-center"
                   disabled={loading}
+                  loading={loading}
                   type="submit"
                 >
                   Report

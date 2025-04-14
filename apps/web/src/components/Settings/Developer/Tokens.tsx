@@ -107,8 +107,12 @@ const Tokens = () => {
         </div>
         <div className="flex flex-col gap-y-3">
           <b>Your temporary builder token</b>
-          <Button onClick={handleGenerateBuilderToken} disabled={isSubmitting}>
-            {isSubmitting ? "Generating..." : "Generate builder token"}
+          <Button
+            disabled={isSubmitting}
+            loading={isSubmitting}
+            onClick={handleGenerateBuilderToken}
+          >
+            Generate builder token
           </Button>
           {builderToken && (
             <button

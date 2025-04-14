@@ -57,11 +57,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
           onClick={stopEventPropagation}
         >
           {isSubmitting ? (
-            <Spinner
-              className="mr-0.5"
-              size="xs"
-              variant={hasShared ? "danger" : "primary"}
-            />
+            <Spinner className="mr-0.5" size="xs" />
           ) : (
             <Tooltip
               content={

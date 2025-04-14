@@ -55,6 +55,7 @@ const Signless = () => {
       <Button
         className="mr-auto"
         disabled={isSubmitting}
+        loading={isSubmitting}
         onClick={handleToggleSignless}
         variant="primary"
       >

@@ -66,6 +66,7 @@ export const Alert = ({
                   <Button
                     className="w-full"
                     disabled={isPerformingAction}
+                    loading={isPerformingAction}
                     onClick={() => onConfirm()}
                     size="lg"
                   >

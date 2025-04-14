@@ -39,11 +39,10 @@ const Transfer = ({ token }: TransferProps) => {
   const onCompleted = (hash: string) => {
     setAmount(2);
     setOther(false);
-    setIsSubmitting(false);
-    const toastId = toast.loading("Transferring...");
     pollTransactionStatus(hash, () => {
+      setIsSubmitting(false);
       setShowFundModal(false);
-      toast.success("Transferred successfully", { id: toastId });
+      toast.success("Transferred successfully");
     });
   };
 
@@ -162,7 +161,7 @@ const Transfer = ({ token }: TransferProps) => {
             />
           </div>
         ) : null}
-        {balanceLoading || isSubmitting ? (
+        {balanceLoading ? (
           <Button
             className="flex w-full justify-center"
             disabled
@@ -174,7 +173,8 @@ const Transfer = ({ token }: TransferProps) => {
           </Button>
         ) : (
           <Button
-            disabled={amount === 0}
+            disabled={isSubmitting || amount === 0}
+            loading={isSubmitting}
             className="w-full"
             onClick={handleDeposit}
           >
