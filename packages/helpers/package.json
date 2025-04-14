@@ -12,7 +12,7 @@
     "@hey/indexer": "workspace:*",
     "@hey/types": "workspace:*",
     "dayjs": "^1.11.13",
-    "viem": "^2.26.3"
+    "viem": "^2.26.5"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
