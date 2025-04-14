@@ -3,9 +3,6 @@ fragment TimelineItem on TimelineItem {
   primary {
     ...Post
   }
-  comments {
-    ...Post
-  }
   reposts {
     ...Repost
   }

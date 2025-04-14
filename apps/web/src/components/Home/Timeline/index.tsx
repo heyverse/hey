@@ -3,7 +3,11 @@ import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
-import { type TimelineRequest, useTimelineQuery } from "@hey/indexer";
+import {
+  TimelineEventItemType,
+  type TimelineRequest,
+  useTimelineQuery
+} from "@hey/indexer";
 import { memo, useRef } from "react";
 import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
 import { Virtuoso } from "react-virtuoso";
@@ -15,7 +19,14 @@ const Timeline = () => {
   const virtuoso = useRef<VirtuosoHandle>(null);
 
   const request: TimelineRequest = {
-    account: currentAccount?.address
+    account: currentAccount?.address,
+    filter: {
+      eventType: [
+        TimelineEventItemType.Post,
+        TimelineEventItemType.Quote,
+        TimelineEventItemType.Repost
+      ]
+    }
   };
 
   const { data, error, fetchMore, loading } = useTimelineQuery({
