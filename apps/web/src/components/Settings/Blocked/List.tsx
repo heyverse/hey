@@ -9,11 +9,18 @@ import {
   PageSize,
   useAccountsBlockedQuery
 } from "@hey/indexer";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { WindowVirtualizer } from "virtua";
 
 const List = () => {
   const { currentAccount } = useAccountStore();
   const { setShowBlockOrUnblockAlert } = useBlockAlertStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: AccountsBlockedRequest = { pageSize: PageSize.Fifty };
   const { data, error, fetchMore, loading } = useAccountsBlockedQuery({
@@ -32,6 +39,12 @@ const List = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
 
   if (loading) {
     return <Loader className="py-10" />;
@@ -54,13 +67,13 @@ const List = () => {
   }
 
   return (
-    <div className="space-y-4">
-      <Virtuoso
-        className="virtual-divider-list-window"
-        data={accountsBlocked}
-        endReached={onEndReached}
-        itemContent={(_, accountBlocked) => (
-          <div className="flex items-center justify-between p-5">
+    <div className="virtual-divider-list-window space-y-4">
+      <WindowVirtualizer>
+        {accountsBlocked.map((accountBlocked) => (
+          <div
+            className="flex items-center justify-between p-5"
+            key={accountBlocked.account.address}
+          >
             <SingleAccount
               hideFollowButton
               hideUnfollowButton
@@ -74,9 +87,9 @@ const List = () => {
               Unblock
             </Button>
           </div>
-        )}
-        useWindowScroll
-      />
+        ))}
+        {hasMore && <span ref={ref} />}
+      </WindowVirtualizer>
     </div>
   );
 };

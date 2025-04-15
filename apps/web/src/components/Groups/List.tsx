@@ -10,7 +10,9 @@ import {
   PageSize,
   useGroupsQuery
 } from "@hey/indexer";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { WindowVirtualizer } from "virtua";
 
 interface ListProps {
   feedType: GroupsFeedType;
@@ -18,6 +20,11 @@ interface ListProps {
 
 const List = ({ feedType }: ListProps) => {
   const { currentAccount } = useAccountStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: GroupsRequest = {
     filter: {
@@ -48,6 +55,12 @@ const List = ({ feedType }: ListProps) => {
     }
   };
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
+
   if (loading) {
     return <GroupListShimmer />;
   }
@@ -73,17 +86,16 @@ const List = ({ feedType }: ListProps) => {
   }
 
   return (
-    <Virtuoso
-      className="virtual-divider-list-window"
-      data={groups}
-      endReached={onEndReached}
-      itemContent={(_, group) => (
-        <div className="p-5">
-          <SingleGroup group={group} showDescription isBig />
-        </div>
-      )}
-      useWindowScroll
-    />
+    <div className="virtual-divider-list-window">
+      <WindowVirtualizer>
+        {groups.map((group) => (
+          <div className="p-5" key={group.address}>
+            <SingleGroup group={group} showDescription isBig />
+          </div>
+        ))}
+        {hasMore && <span ref={ref} />}
+      </WindowVirtualizer>
+    </div>
   );
 };
 

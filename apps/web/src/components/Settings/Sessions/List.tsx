@@ -12,9 +12,10 @@ import {
   useAuthenticatedSessionsQuery,
   useRevokeAuthenticationMutation
 } from "@hey/indexer";
-import { useState } from "react";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { WindowVirtualizer } from "virtua";
 
 const List = () => {
   const { currentAccount } = useAccountStore();
@@ -23,6 +24,11 @@ const List = () => {
   const [revokeingSessionId, setRevokeingSessionId] = useState<null | string>(
     null
   );
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const onError = (error: Error) => {
     setRevoking(false);
@@ -75,6 +81,12 @@ const List = () => {
     }
   };
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
+
   if (loading) {
     return <Loader className="my-10" />;
   }
@@ -100,55 +112,57 @@ const List = () => {
   }
 
   return (
-    <Virtuoso
-      className="virtual-divider-list-window"
-      data={authenticatedSessions}
-      endReached={onEndReached}
-      itemContent={(_, session) => (
-        <div className="flex flex-wrap items-start justify-between p-5">
-          <div>
-            <div className="mb-3 flex items-center space-x-2">
-              <ComputerDesktopIcon className="size-8" />
-              <div>
-                {session.browser ? <span>{session.browser}</span> : null}
-                {session.os ? <span> - {session.os}</span> : null}
-              </div>
-            </div>
-            <div className="space-y-1 text-gray-500 text-sm dark:text-gray-200">
-              {session.origin ? (
-                <div>
-                  <b>Origin -</b> {session.origin}
-                </div>
-              ) : null}
-              <div>
-                <b>Registered -</b>{" "}
-                {formatDate(session.createdAt, "MMM D, YYYY - hh:mm:ss A")}
-              </div>
-              <div>
-                <b>Last accessed -</b>{" "}
-                {formatDate(session.updatedAt, "MMM D, YYYY - hh:mm:ss A")}
-              </div>
-              <div>
-                <b>Expires at -</b>{" "}
-                {formatDate(session.expiresAt, "MMM D, YYYY - hh:mm:ss A")}
-              </div>
-            </div>
-          </div>
-          <Button
-            disabled={
-              revoking && revokeingSessionId === session.authenticationId
-            }
-            loading={
-              revoking && revokeingSessionId === session.authenticationId
-            }
-            onClick={() => handleRevoke(session.authenticationId)}
+    <div className="virtual-divider-list-window">
+      <WindowVirtualizer>
+        {authenticatedSessions.map((session) => (
+          <div
+            className="flex flex-wrap items-start justify-between p-5"
+            key={session.authenticationId}
           >
-            Revoke
-          </Button>
-        </div>
-      )}
-      useWindowScroll
-    />
+            <div>
+              <div className="mb-3 flex items-center space-x-2">
+                <ComputerDesktopIcon className="size-8" />
+                <div>
+                  {session.browser ? <span>{session.browser}</span> : null}
+                  {session.os ? <span> - {session.os}</span> : null}
+                </div>
+              </div>
+              <div className="space-y-1 text-gray-500 text-sm dark:text-gray-200">
+                {session.origin ? (
+                  <div>
+                    <b>Origin -</b> {session.origin}
+                  </div>
+                ) : null}
+                <div>
+                  <b>Registered -</b>{" "}
+                  {formatDate(session.createdAt, "MMM D, YYYY - hh:mm:ss A")}
+                </div>
+                <div>
+                  <b>Last accessed -</b>{" "}
+                  {formatDate(session.updatedAt, "MMM D, YYYY - hh:mm:ss A")}
+                </div>
+                <div>
+                  <b>Expires at -</b>{" "}
+                  {formatDate(session.expiresAt, "MMM D, YYYY - hh:mm:ss A")}
+                </div>
+              </div>
+            </div>
+            <Button
+              disabled={
+                revoking && revokeingSessionId === session.authenticationId
+              }
+              loading={
+                revoking && revokeingSessionId === session.authenticationId
+              }
+              onClick={() => handleRevoke(session.authenticationId)}
+            >
+              Revoke
+            </Button>
+          </div>
+        ))}
+        {hasMore && <span ref={ref} />}
+      </WindowVirtualizer>
+    </div>
   );
 };
 
