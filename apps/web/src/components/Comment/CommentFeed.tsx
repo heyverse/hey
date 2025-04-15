@@ -11,7 +11,9 @@ import {
   ReferenceRelevancyFilter,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { WindowVirtualizer } from "virtua";
 
 interface CommentFeedProps {
   postId: string;
@@ -19,6 +21,11 @@ interface CommentFeedProps {
 
 const CommentFeed = ({ postId }: CommentFeedProps) => {
   const { showHiddenComments } = useHiddenCommentFeedStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
@@ -47,6 +54,12 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
     }
   };
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
+
   if (loading) {
     return <PostsShimmer />;
   }
@@ -65,12 +78,9 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
   }
 
   return (
-    <Card>
-      <Virtuoso
-        className="virtual-divider-list-window"
-        data={comments}
-        endReached={onEndReached}
-        itemContent={(index, comment) => {
+    <Card className="virtual-divider-list-window">
+      <WindowVirtualizer>
+        {comments.map((comment, index) => {
           if (comment.isDeleted) {
             return null;
           }
@@ -80,15 +90,16 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
 
           return (
             <SinglePost
+              key={comment.id}
               isFirst={isFirst}
               isLast={isLast}
               post={comment}
               showType={false}
             />
           );
-        }}
-        useWindowScroll
-      />
+        })}
+        {hasMore && <span ref={ref} />}
+      </WindowVirtualizer>
     </Card>
   );
 };

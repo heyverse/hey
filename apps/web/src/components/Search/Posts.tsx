@@ -3,18 +3,20 @@ import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
-import { useRef } from "react";
-import type { StateSnapshot, VirtuosoHandle } from "react-virtuoso";
-import { Virtuoso } from "react-virtuoso";
-
-let virtuosoState: any = { ranges: [], screenTop: 0 };
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { WindowVirtualizer } from "virtua";
 
 interface PostsProps {
   query: string;
 }
 
 const Posts = ({ query }: PostsProps) => {
-  const virtuoso = useRef<VirtuosoHandle>(null);
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: PostsRequest = {
     pageSize: PageSize.Fifty,
@@ -29,14 +31,6 @@ const Posts = ({ query }: PostsProps) => {
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onScrolling = (scrolling: boolean) => {
-    if (!scrolling) {
-      virtuoso?.current?.getState((state: StateSnapshot) => {
-        virtuosoState = { ...state };
-      });
-    }
-  };
-
   const onEndReached = async () => {
     if (hasMore) {
       await fetchMore({
@@ -44,6 +38,12 @@ const Posts = ({ query }: PostsProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
 
   if (loading) {
     return <PostsShimmer />;
@@ -67,27 +67,18 @@ const Posts = ({ query }: PostsProps) => {
   }
 
   return (
-    <Card>
-      <Virtuoso
-        className="virtual-divider-list-window"
-        data={posts}
-        endReached={onEndReached}
-        isScrolling={onScrolling}
-        itemContent={(index, post) => (
+    <Card className="virtual-divider-list-window">
+      <WindowVirtualizer>
+        {posts.map((post, index) => (
           <SinglePost
+            key={post.id}
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
             post={post}
           />
-        )}
-        ref={virtuoso}
-        restoreStateFrom={
-          virtuosoState.ranges.length
-            ? virtuosoState
-            : virtuosoState?.current?.getState((state: StateSnapshot) => state)
-        }
-        useWindowScroll
-      />
+        ))}
+        {hasMore && <span ref={ref} />}
+      </WindowVirtualizer>
     </Card>
   );
 };

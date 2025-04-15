@@ -12,8 +12,9 @@ import {
   ReferenceRelevancyFilter,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { useState } from "react";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect, useState } from "react";
+import { WindowVirtualizer } from "virtua";
 
 interface NoneRelevantFeedProps {
   postId: string;
@@ -22,6 +23,11 @@ interface NoneRelevantFeedProps {
 const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
   const { showHiddenComments } = useHiddenCommentFeedStore();
   const [showMore, setShowMore] = useState(false);
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
@@ -51,6 +57,12 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
     }
   };
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
+
   if (totalComments === 0) {
     return null;
   }
@@ -75,12 +87,9 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
         )}
       </Card>
       {showMore ? (
-        <Card>
-          <Virtuoso
-            className="virtual-divider-list-window"
-            data={comments}
-            endReached={onEndReached}
-            itemContent={(index, comment) => {
+        <Card className="virtual-divider-list-window">
+          <WindowVirtualizer>
+            {comments.map((comment, index) => {
               if (comment.isDeleted) {
                 return null;
               }
@@ -90,15 +99,16 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
 
               return (
                 <SinglePost
+                  key={comment.id}
                   isFirst={isFirst}
                   isLast={isLast}
                   post={comment}
                   showType={false}
                 />
               );
-            }}
-            useWindowScroll
-          />
+            })}
+            {hasMore && <span ref={ref} />}
+          </WindowVirtualizer>
         </Card>
       ) : null}
     </>

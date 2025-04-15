@@ -289,6 +289,9 @@ importers:
       viem:
         specifier: ^2.27.0
         version: 2.27.0(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.24.2)
+      virtua:
+        specifier: ^0.40.3
+        version: 0.40.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       vite:
         specifier: ^6.2.6
         version: 6.2.6(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3)(yaml@2.7.1)
@@ -6094,6 +6097,26 @@ packages:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
       typescript:
+        optional: true
+
+  virtua@0.40.3:
+    resolution: {integrity: sha512-rfl6VohBFoT0U64fVdOGag2p0D+YZbki7HQ5bjFZObStWBaWjjataIHFDjl4KuSr3yHBMgGd/+Va7W4Z2Y0LRg==}
+    peerDependencies:
+      react: '>=16.14.0'
+      react-dom: '>=16.14.0'
+      solid-js: '>=1.0'
+      svelte: '>=5.0'
+      vue: '>=3.2'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      solid-js:
+        optional: true
+      svelte:
+        optional: true
+      vue:
         optional: true
 
   vite-plugin-environment@1.1.3:
@@ -13643,6 +13666,11 @@ snapshots:
       - bufferutil
       - utf-8-validate
       - zod
+
+  virtua@0.40.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    optionalDependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   vite-plugin-environment@1.1.3(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.3)(yaml@2.7.1)):
     dependencies:

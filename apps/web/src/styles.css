@@ -168,8 +168,8 @@
   }
 
   .virtual-divider-list-window {
-    @apply [&>div>div]:divide-y;
-    @apply [&>div>div]:divide-gray-200 dark:[&>div>div]:divide-gray-700;
+    @apply [&>div]:divide-y;
+    @apply [&>div]:divide-gray-200 dark:[&>div]:divide-gray-700;
   }
 
   button:not(:disabled),
