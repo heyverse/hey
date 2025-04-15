@@ -244,9 +244,6 @@ importers:
       react-tracked:
         specifier: ^2.0.1
         version: 2.0.1(react@19.1.0)(scheduler@0.26.0)
-      react-virtuoso:
-        specifier: ^4.12.6
-        version: 4.12.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       rehype-parse:
         specifier: ^9.0.1
         version: 9.0.1
@@ -5397,12 +5394,6 @@ packages:
     peerDependencies:
       react: '>=18.0.0'
       scheduler: '>=0.19.0'
-
-  react-virtuoso@4.12.6:
-    resolution: {integrity: sha512-bfvS6aCL1ehXmq39KRiz/vxznGUbtA27I5I24TYCe1DhMf84O3aVNCIwrSjYQjkJGJGzY46ihdN8WkYlemuhMQ==}
-    peerDependencies:
-      react: '>=16 || >=17 || >= 18 || >= 19'
-      react-dom: '>=16 || >=17 || >= 18 || >=19'
 
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
@@ -12944,11 +12935,6 @@ snapshots:
       react: 19.1.0
       scheduler: 0.26.0
       use-context-selector: 2.0.0(react@19.1.0)(scheduler@0.26.0)
-
-  react-virtuoso@4.12.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
 
   react@19.1.0: {}
 
