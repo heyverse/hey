@@ -4,7 +4,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
 import type { AccountFragment } from "@hey/indexer";
 import { motion } from "motion/react";
-import { Virtuoso } from "react-virtuoso";
+import { Virtualizer } from "virtua";
 
 interface MoreRelevantPeopleProps {
   accounts: AccountFragment[];
@@ -15,12 +15,10 @@ const MoreRelevantPeople = ({ accounts }: MoreRelevantPeopleProps) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <Virtuoso
-        className="!h-[80vh]"
-        // remove the first 5 accounts from the list because they are already shown in the sidebar
-        data={accounts.slice(5)}
-        itemContent={(index, account) => (
+      <Virtualizer>
+        {accounts.slice(5).map((account, index) => (
           <motion.div
+            key={account.address}
             className={cn(
               "divider p-5",
               index === accounts.slice(5).length - 1 && "border-b-0"
@@ -37,8 +35,8 @@ const MoreRelevantPeople = ({ accounts }: MoreRelevantPeopleProps) => {
               showUserPreview={false}
             />
           </motion.div>
-        )}
-      />
+        ))}
+      </Virtualizer>
     </div>
   );
 };

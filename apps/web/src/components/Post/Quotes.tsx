@@ -14,7 +14,9 @@ import {
   type PostReferencesRequest,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { WindowVirtualizer } from "virtua";
 import SinglePost from "./SinglePost";
 
 interface QuotesProps {
@@ -22,6 +24,12 @@ interface QuotesProps {
 }
 
 const Quotes = ({ post }: QuotesProps) => {
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
+
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
     referenceTypes: [PostReferenceType.QuoteOf],
@@ -45,6 +53,12 @@ const Quotes = ({ post }: QuotesProps) => {
     }
   };
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
+
   if (loading) {
     return <PostListShimmer title="Quote" />;
   }
@@ -65,20 +79,20 @@ const Quotes = ({ post }: QuotesProps) => {
   return (
     <Card>
       <CardHeader icon={<BackButton />} title="Quotes" />
-      <Virtuoso
-        className="virtual-divider-list-window"
-        data={quotes}
-        endReached={onEndReached}
-        itemContent={(index, quote) => (
-          <SinglePost
-            isFirst={false}
-            isLast={index === quotes.length - 1}
-            post={quote}
-            showType={false}
-          />
-        )}
-        useWindowScroll
-      />
+      <div className="virtual-divider-list-window">
+        <WindowVirtualizer>
+          {quotes.map((quote, index) => (
+            <SinglePost
+              key={quote.id}
+              isFirst={false}
+              isLast={index === quotes.length - 1}
+              post={quote}
+              showType={false}
+            />
+          ))}
+          {hasMore && <span ref={ref} />}
+        </WindowVirtualizer>
+      </div>
     </Card>
   );
 };

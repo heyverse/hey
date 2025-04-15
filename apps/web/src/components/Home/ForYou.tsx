@@ -8,10 +8,17 @@ import {
   type PostsForYouRequest,
   usePostsForYouQuery
 } from "@hey/indexer";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { WindowVirtualizer } from "virtua";
 
 const ForYou = () => {
   const { currentAccount } = useAccountStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: PostsForYouRequest = {
     pageSize: PageSize.Fifty,
@@ -35,6 +42,12 @@ const ForYou = () => {
     }
   };
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
+
   if (loading) {
     return <PostsShimmer />;
   }
@@ -53,20 +66,18 @@ const ForYou = () => {
   }
 
   return (
-    <Card>
-      <Virtuoso
-        className="virtual-divider-list-window"
-        data={posts}
-        endReached={onEndReached}
-        itemContent={(index, item) => (
+    <Card className="virtual-divider-list-window">
+      <WindowVirtualizer>
+        {posts.map((item, index) => (
           <SinglePost
+            key={item.post.id}
             isFirst={index === 0}
             isLast={index === (posts?.length || 0) - 1}
             post={item.post}
           />
-        )}
-        useWindowScroll
-      />
+        ))}
+        {hasMore && <span ref={ref} />}
+      </WindowVirtualizer>
     </Card>
   );
 };

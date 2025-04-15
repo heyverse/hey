@@ -9,8 +9,10 @@ import {
   type WhoExecutedActionOnPostRequest,
   useWhoExecutedActionOnPostQuery
 } from "@hey/indexer";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
-import { Virtuoso } from "react-virtuoso";
+import { useEffect } from "react";
+import { Virtualizer } from "virtua";
 
 interface CollectorsProps {
   postId: string;
@@ -18,6 +20,11 @@ interface CollectorsProps {
 
 const Collectors = ({ postId }: CollectorsProps) => {
   const { currentAccount } = useAccountStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: WhoExecutedActionOnPostRequest = {
     post: postId,
@@ -40,6 +47,12 @@ const Collectors = ({ postId }: CollectorsProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
 
   if (loading) {
     return <AccountListShimmer />;
@@ -68,34 +81,35 @@ const Collectors = ({ postId }: CollectorsProps) => {
   }
 
   return (
-    <Virtuoso
-      className="!h-[80vh]"
-      data={accounts}
-      endReached={onEndReached}
-      itemContent={(index, action) => (
-        <motion.div
-          className={cn(
-            "divider p-5",
-            index === accounts.slice(5).length - 1 && "border-b-0"
-          )}
-          variants={accountsList}
-          initial="hidden"
-          animate="visible"
-        >
-          <SingleAccount
-            hideFollowButton={
-              currentAccount?.address === action.account.address
-            }
-            hideUnfollowButton={
-              currentAccount?.address === action.account.address
-            }
-            account={action.account}
-            showBio
-            showUserPreview={false}
-          />
-        </motion.div>
-      )}
-    />
+    <div className="max-h-[80vh] overflow-y-auto">
+      <Virtualizer>
+        {accounts.map((action, index) => (
+          <motion.div
+            key={action.account.address}
+            className={cn(
+              "divider p-5",
+              index === accounts.slice(5).length - 1 && "border-b-0"
+            )}
+            variants={accountsList}
+            initial="hidden"
+            animate="visible"
+          >
+            <SingleAccount
+              hideFollowButton={
+                currentAccount?.address === action.account.address
+              }
+              hideUnfollowButton={
+                currentAccount?.address === action.account.address
+              }
+              account={action.account}
+              showBio
+              showUserPreview={false}
+            />
+          </motion.div>
+        ))}
+        {hasMore && <span ref={ref} />}
+      </Virtualizer>
+    </div>
   );
 };
 
