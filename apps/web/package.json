@@ -47,7 +47,6 @@
     "react-markdown": "^10.1.0",
     "react-router": "^7.5.0",
     "react-tracked": "^2.0.1",
-    "react-virtuoso": "^4.12.6",
     "rehype-parse": "^9.0.1",
     "rehype-remark": "^10.0.1",
     "remark-breaks": "^4.0.0",

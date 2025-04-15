@@ -3,13 +3,21 @@ import SingleAccountsShimmer from "@/components/Shared/Shimmer/SingleAccountsShi
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { type AccountsRequest, PageSize, useAccountsQuery } from "@hey/indexer";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { WindowVirtualizer } from "virtua";
 
 interface AccountsProps {
   query: string;
 }
 
 const Accounts = ({ query }: AccountsProps) => {
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
+
   const request: AccountsRequest = {
     pageSize: PageSize.Fifty,
     filter: { searchBy: { localNameQuery: query } }
@@ -31,6 +39,12 @@ const Accounts = ({ query }: AccountsProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
 
   if (loading) {
     return <SingleAccountsShimmer isBig />;
@@ -54,17 +68,14 @@ const Accounts = ({ query }: AccountsProps) => {
   }
 
   return (
-    <Virtuoso
-      className="[&>div>div]:space-y-3"
-      data={accounts}
-      endReached={onEndReached}
-      itemContent={(_, account) => (
-        <Card className="p-5">
+    <WindowVirtualizer>
+      {accounts.map((account) => (
+        <Card className="mb-5 p-5" key={account.address}>
           <SingleAccount isBig account={account} showBio />
         </Card>
-      )}
-      useWindowScroll
-    />
+      ))}
+      {hasMore && <span ref={ref} />}
+    </WindowVirtualizer>
   );
 };
 

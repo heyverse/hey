@@ -8,7 +8,9 @@ import {
   NotificationType,
   useNotificationsQuery
 } from "@hey/indexer";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { WindowVirtualizer } from "virtua";
 import NotificationShimmer from "./Shimmer";
 import CommentNotification from "./Type/CommentNotification";
 import FollowNotification from "./Type/FollowNotification";
@@ -24,6 +26,11 @@ interface ListProps {
 
 const List = ({ feedType }: ListProps) => {
   const { includeLowScore } = usePreferencesStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -65,6 +72,12 @@ const List = ({ feedType }: ListProps) => {
     }
   };
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
+
   if (loading) {
     return (
       <Card className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -90,13 +103,11 @@ const List = ({ feedType }: ListProps) => {
   }
 
   return (
-    <Card>
-      <Virtuoso
-        className="virtual-divider-list-window"
-        data={notifications}
-        endReached={onEndReached}
-        itemContent={(_, notification) => (
+    <Card className="virtual-divider-list-window">
+      <WindowVirtualizer>
+        {notifications.map((notification, index) => (
           <div
+            key={index}
             className={cn({
               "p-5": notification.__typename !== "FollowNotification"
             })}
@@ -123,9 +134,9 @@ const List = ({ feedType }: ListProps) => {
               <PostActionExecutedNotification notification={notification} />
             )}
           </div>
-        )}
-        useWindowScroll
-      />
+        ))}
+        {hasMore && <span ref={ref} />}
+      </WindowVirtualizer>
     </Card>
   );
 };

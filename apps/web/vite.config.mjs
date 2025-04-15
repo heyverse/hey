@@ -29,7 +29,6 @@ export default defineConfig({
           react: [
             "react",
             "react-dom",
-            "react-virtuoso",
             "react-easy-crop",
             "react-hook-form",
             "react-router",
@@ -65,6 +64,7 @@ export default defineConfig({
             "@apollo/client",
             "zustand",
             "tailwind-merge",
+            "virtua",
             "zod"
           ]
         }

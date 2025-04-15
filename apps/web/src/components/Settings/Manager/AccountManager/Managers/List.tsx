@@ -15,9 +15,10 @@ import {
   useAccountManagersQuery,
   useRemoveAccountManagerMutation
 } from "@hey/indexer";
-import { useState } from "react";
-import { Virtuoso } from "react-virtuoso";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { WindowVirtualizer } from "virtua";
 import Permission from "./Permission";
 
 const List = () => {
@@ -26,6 +27,11 @@ const List = () => {
   const [removingAddress, setRemovingAddress] = useState<string | null>(null);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const updateCache = () => {
     if (data?.accountManagers?.items) {
@@ -103,6 +109,12 @@ const List = () => {
     }
   };
 
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
+
   if (loading) {
     return <Loader className="my-10" />;
   }
@@ -124,12 +136,12 @@ const List = () => {
   }
 
   return (
-    <Virtuoso
-      data={accountManagers}
-      endReached={onEndReached}
-      className="virtual-divider-list-window"
-      itemContent={(_, accountManager) => (
-        <div className="flex flex-wrap items-center justify-between p-5">
+    <WindowVirtualizer>
+      {accountManagers.map((accountManager) => (
+        <div
+          className="flex flex-wrap items-center justify-between p-5"
+          key={accountManager.manager}
+        >
           <div className="flex flex-col gap-y-3">
             <WalletAccount address={accountManager.manager} />
             <Permission
@@ -151,9 +163,9 @@ const List = () => {
             Remove
           </Button>
         </div>
-      )}
-      useWindowScroll
-    />
+      ))}
+      {hasMore && <span ref={ref} />}
+    </WindowVirtualizer>
   );
 };
 

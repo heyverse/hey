@@ -11,9 +11,10 @@ import {
   useHideManagedAccountMutation,
   useUnhideManagedAccountMutation
 } from "@hey/indexer";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { useEffect } from "react";
-import { Virtuoso } from "react-virtuoso";
 import { toast } from "sonner";
+import { WindowVirtualizer } from "virtua";
 import { useAccount } from "wagmi";
 
 interface ListProps {
@@ -22,6 +23,11 @@ interface ListProps {
 
 const List = ({ managed = false }: ListProps) => {
   const { address } = useAccount();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const lastLoggedInAccountRequest: LastLoggedInAccountRequest = { address };
   const accountsAvailableRequest: AccountsAvailableRequest = {
@@ -65,6 +71,12 @@ const List = ({ managed = false }: ListProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
 
   if (loading) {
     return <Loader className="my-10" />;
@@ -116,11 +128,12 @@ const List = ({ managed = false }: ListProps) => {
   };
 
   return (
-    <Virtuoso
-      data={accountsAvailable}
-      endReached={onEndReached}
-      itemContent={(_, accountAvailable) => (
-        <div className="flex items-center justify-between py-2">
+    <WindowVirtualizer>
+      {accountsAvailable.map((accountAvailable) => (
+        <div
+          className="flex items-center justify-between py-2"
+          key={accountAvailable.account.address}
+        >
           <SingleAccount
             hideFollowButton
             hideUnfollowButton
@@ -140,9 +153,9 @@ const List = ({ managed = false }: ListProps) => {
             </Button>
           )}
         </div>
-      )}
-      useWindowScroll
-    />
+      ))}
+      {hasMore && <span ref={ref} />}
+    </WindowVirtualizer>
   );
 };
 
