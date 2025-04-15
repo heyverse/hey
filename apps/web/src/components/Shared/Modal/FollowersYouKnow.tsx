@@ -80,7 +80,7 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
         <motion.div
           className={cn(
             "divider p-5",
-            index === followersYouKnow.slice(5).length - 1 && "border-b-0"
+            index === followersYouKnow.length - 1 && "border-b-0"
           )}
           variants={accountsList}
           initial="hidden"

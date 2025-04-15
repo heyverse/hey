@@ -79,7 +79,7 @@ const Reposts = ({ postId }: RepostsProps) => {
         <motion.div
           className={cn(
             "divider p-5",
-            index === accounts.slice(5).length - 1 && "border-b-0"
+            index === accounts.length - 1 && "border-b-0"
           )}
           variants={accountsList}
           initial="hidden"

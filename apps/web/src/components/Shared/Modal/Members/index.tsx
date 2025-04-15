@@ -76,7 +76,7 @@ const Members = ({ group }: MembersProps) => {
         <motion.div
           className={cn(
             "divider p-5",
-            index === groupMembers.slice(5).length - 1 && "border-b-0"
+            index === groupMembers.length - 1 && "border-b-0"
           )}
           variants={accountsList}
           initial="hidden"
