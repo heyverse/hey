@@ -13,7 +13,7 @@ interface QuotedPostProps {
 const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
   return (
     <PostWrapper
-      className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
+      className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl"
       post={post}
     >
       <div className="flex items-center gap-x-2">
