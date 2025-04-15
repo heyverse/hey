@@ -9,8 +9,10 @@ import {
   type FollowersYouKnowRequest,
   useFollowersYouKnowQuery
 } from "@hey/indexer";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
-import { Virtuoso } from "react-virtuoso";
+import { useEffect } from "react";
+import { Virtualizer } from "virtua";
 
 interface FollowersYouKnowProps {
   username: string;
@@ -19,6 +21,11 @@ interface FollowersYouKnowProps {
 
 const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
   const { currentAccount } = useAccountStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: FollowersYouKnowRequest = {
     observer: currentAccount?.address,
@@ -41,6 +48,12 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
 
   if (loading) {
     return <AccountListShimmer />;
@@ -72,34 +85,35 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
   }
 
   return (
-    <Virtuoso
-      className="!h-[80vh]"
-      data={followersYouKnow}
-      endReached={onEndReached}
-      itemContent={(index, follower) => (
-        <motion.div
-          className={cn(
-            "divider p-5",
-            index === followersYouKnow.length - 1 && "border-b-0"
-          )}
-          variants={accountsList}
-          initial="hidden"
-          animate="visible"
-        >
-          <SingleAccount
-            hideFollowButton={
-              currentAccount?.address === follower.follower.address
-            }
-            hideUnfollowButton={
-              currentAccount?.address === follower.follower.address
-            }
-            account={follower.follower}
-            showBio
-            showUserPreview={false}
-          />
-        </motion.div>
-      )}
-    />
+    <div className="max-h-[80vh] overflow-y-auto">
+      <Virtualizer>
+        {followersYouKnow.map((follower, index) => (
+          <motion.div
+            key={follower.follower.address}
+            className={cn(
+              "divider p-5",
+              index === followersYouKnow.length - 1 && "border-b-0"
+            )}
+            variants={accountsList}
+            initial="hidden"
+            animate="visible"
+          >
+            <SingleAccount
+              hideFollowButton={
+                currentAccount?.address === follower.follower.address
+              }
+              hideUnfollowButton={
+                currentAccount?.address === follower.follower.address
+              }
+              account={follower.follower}
+              showBio
+              showUserPreview={false}
+            />
+          </motion.div>
+        ))}
+        {hasMore && <span ref={ref} />}
+      </Virtualizer>
+    </div>
   );
 };
 

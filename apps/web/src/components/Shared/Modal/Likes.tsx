@@ -10,8 +10,10 @@ import {
   type PostReactionsRequest,
   usePostReactionsQuery
 } from "@hey/indexer";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
-import { Virtuoso } from "react-virtuoso";
+import { useEffect } from "react";
+import { Virtualizer } from "virtua";
 
 interface LikesProps {
   postId: string;
@@ -19,6 +21,11 @@ interface LikesProps {
 
 const Likes = ({ postId }: LikesProps) => {
   const { currentAccount } = useAccountStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: PostReactionsRequest = {
     post: postId,
@@ -41,6 +48,12 @@ const Likes = ({ postId }: LikesProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
 
   if (loading) {
     return <AccountListShimmer />;
@@ -69,32 +82,35 @@ const Likes = ({ postId }: LikesProps) => {
   }
 
   return (
-    <Virtuoso
-      className="!h-[80vh]"
-      data={accounts}
-      endReached={onEndReached}
-      itemContent={(index, like) => (
-        <motion.div
-          className={cn(
-            "divider p-5",
-            index === accounts.length - 1 && "border-b-0"
-          )}
-          variants={accountsList}
-          initial="hidden"
-          animate="visible"
-        >
-          <SingleAccount
-            hideFollowButton={currentAccount?.address === like.account.address}
-            hideUnfollowButton={
-              currentAccount?.address === like.account.address
-            }
-            account={like.account}
-            showBio
-            showUserPreview={false}
-          />
-        </motion.div>
-      )}
-    />
+    <div className="max-h-[80vh] overflow-y-auto">
+      <Virtualizer>
+        {accounts.map((like, index) => (
+          <motion.div
+            key={like.account.address}
+            className={cn(
+              "divider p-5",
+              index === accounts.length - 1 && "border-b-0"
+            )}
+            variants={accountsList}
+            initial="hidden"
+            animate="visible"
+          >
+            <SingleAccount
+              hideFollowButton={
+                currentAccount?.address === like.account.address
+              }
+              hideUnfollowButton={
+                currentAccount?.address === like.account.address
+              }
+              account={like.account}
+              showBio
+              showUserPreview={false}
+            />
+          </motion.div>
+        ))}
+        {hasMore && <span ref={ref} />}
+      </Virtualizer>
+    </div>
   );
 };
 

@@ -11,8 +11,10 @@ import {
   PageSize,
   useGroupMembersQuery
 } from "@hey/indexer";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
-import { Virtuoso } from "react-virtuoso";
+import { useEffect } from "react";
+import { Virtualizer } from "virtua";
 
 interface MembersProps {
   group: GroupFragment;
@@ -20,6 +22,11 @@ interface MembersProps {
 
 const Members = ({ group }: MembersProps) => {
   const { currentAccount } = useAccountStore();
+  const [ref, entry] = useIntersectionObserver({
+    threshold: 0,
+    root: null,
+    rootMargin: "0px"
+  });
 
   const request: GroupMembersRequest = {
     pageSize: PageSize.Fifty,
@@ -42,6 +49,12 @@ const Members = ({ group }: MembersProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      onEndReached();
+    }
+  }, [entry?.isIntersecting]);
 
   if (loading) {
     return <AccountListShimmer />;
@@ -68,34 +81,35 @@ const Members = ({ group }: MembersProps) => {
   }
 
   return (
-    <Virtuoso
-      className="!h-[80vh]"
-      data={groupMembers}
-      endReached={onEndReached}
-      itemContent={(index, member) => (
-        <motion.div
-          className={cn(
-            "divider p-5",
-            index === groupMembers.length - 1 && "border-b-0"
-          )}
-          variants={accountsList}
-          initial="hidden"
-          animate="visible"
-        >
-          <SingleAccount
-            hideFollowButton={
-              currentAccount?.address === member.account.address
-            }
-            hideUnfollowButton={
-              currentAccount?.address === member.account.address
-            }
-            account={member.account}
-            showBio
-            showUserPreview={false}
-          />
-        </motion.div>
-      )}
-    />
+    <div className="max-h-[80vh] overflow-y-auto">
+      <Virtualizer>
+        {groupMembers.map((member, index) => (
+          <motion.div
+            key={member.account.address}
+            className={cn(
+              "divider p-5",
+              index === groupMembers.length - 1 && "border-b-0"
+            )}
+            variants={accountsList}
+            initial="hidden"
+            animate="visible"
+          >
+            <SingleAccount
+              hideFollowButton={
+                currentAccount?.address === member.account.address
+              }
+              hideUnfollowButton={
+                currentAccount?.address === member.account.address
+              }
+              account={member.account}
+              showBio
+              showUserPreview={false}
+            />
+          </motion.div>
+        ))}
+        {hasMore && <span ref={ref} />}
+      </Virtualizer>
+    </div>
   );
 };
 
