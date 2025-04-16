@@ -21,6 +21,7 @@ import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import TipButton from "../Shared/Account/TipButton";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import AccountMenu from "./Menu";
@@ -88,6 +89,7 @@ const Details = ({ isSuspended = false, account }: DetailsProps) => {
           ) : (
             <FollowUnfollowButton account={account} />
           )}
+          <TipButton account={account} />
           <AccountMenu account={account} />
         </div>
       </div>

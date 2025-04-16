@@ -33,9 +33,9 @@ const buttonVariants = cva(
         outline: true,
         class: cn(
           "text-gray-950 active:text-gray-500",
-          "border border-gray-300 hover:border-gray-950",
+          "border border-gray-300 hover:border-gray-400",
           "dark:text-white dark:active:text-gray-700",
-          "dark:border-gray-700 dark:hover:border-gray-100"
+          "dark:border-gray-700 dark:hover:border-gray-600"
         )
       }
     ],

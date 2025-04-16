@@ -1,12 +1,12 @@
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import MenuTransition from "@/components/Shared/MenuTransition";
+import TipMenu from "@/components/Shared/TipMenu";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
-import Action from "./Action";
 
 interface TipActionProps {
   post: PostFragment;
@@ -47,7 +47,7 @@ const TipAction = ({ post, showCount }: TipActionProps) => {
             static
           >
             <MenuItem>
-              {({ close }) => <Action closePopover={close} post={post} />}
+              {({ close }) => <TipMenu closePopover={close} post={post} />}
             </MenuItem>
           </MenuItems>
         </MenuTransition>

@@ -15,8 +15,10 @@ import {
 } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import {
+  type AccountFragment,
   type PostFragment,
   useAccountBalancesQuery,
+  useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ChangeEvent, RefObject } from "react";
@@ -25,12 +27,13 @@ import { toast } from "sonner";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
-interface ActionProps {
+interface TipMenuProps {
   closePopover: () => void;
-  post: PostFragment;
+  post?: PostFragment;
+  account?: AccountFragment;
 }
 
-const Action = ({ closePopover, post }: ActionProps) => {
+const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const { currentAccount } = useAccountStore();
   const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,23 +52,25 @@ const Action = ({ closePopover, post }: ActionProps) => {
   });
 
   const updateCache = () => {
-    if (!post.operations) {
-      return;
-    }
+    if (post) {
+      if (!post.operations) {
+        return;
+      }
 
-    cache.modify({
-      fields: { hasTipped: () => true },
-      id: cache.identify(post.operations)
-    });
-    cache.modify({
-      fields: {
-        stats: (existingData) => ({
-          ...existingData,
-          tips: existingData.tips + 1
-        })
-      },
-      id: cache.identify(post)
-    });
+      cache.modify({
+        fields: { hasTipped: () => true },
+        id: cache.identify(post.operations)
+      });
+      cache.modify({
+        fields: {
+          stats: (existingData) => ({
+            ...existingData,
+            tips: existingData.tips + 1
+          })
+        },
+        id: cache.identify(post)
+      });
+    }
   };
 
   const onCompleted = () => {
@@ -84,7 +89,7 @@ const Action = ({ closePopover, post }: ActionProps) => {
 
   const erc20Balance =
     balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+      ? Number(balance.accountBalances[0].value).toFixed(2)
       : 0;
 
   const canTip = Number(erc20Balance) >= cryptoRate;
@@ -97,6 +102,21 @@ const Action = ({ closePopover, post }: ActionProps) => {
 
       return await handleTransactionLifecycle({
         transactionData: executePostAction,
+        onCompleted,
+        onError
+      });
+    },
+    onError
+  });
+
+  const [executeAccountAction] = useExecuteAccountActionMutation({
+    onCompleted: async ({ executeAccountAction }) => {
+      if (executeAccountAction.__typename === "ExecuteAccountActionResponse") {
+        return onCompleted();
+      }
+
+      return await handleTransactionLifecycle({
+        transactionData: executeAccountAction,
         onCompleted,
         onError
       });
@@ -121,19 +141,24 @@ const Action = ({ closePopover, post }: ActionProps) => {
 
     setIsSubmitting(true);
 
-    return executePostAction({
-      variables: {
-        request: {
-          post: post.id,
-          action: {
-            tipping: {
-              currency: DEFAULT_COLLECT_TOKEN,
-              value: cryptoRate.toString()
-            }
-          }
+    const tipping = {
+      currency: DEFAULT_COLLECT_TOKEN,
+      value: cryptoRate.toString()
+    };
+
+    if (post) {
+      return executePostAction({
+        variables: { request: { post: post.id, action: { tipping } } }
+      });
+    }
+
+    if (account) {
+      return executeAccountAction({
+        variables: {
+          request: { account: account.address, action: { tipping } }
         }
-      }
-    });
+      });
+    }
   };
 
   const amountDisabled = isSubmitting || !currentAccount;
@@ -227,4 +252,4 @@ const Action = ({ closePopover, post }: ActionProps) => {
   );
 };
 
-export default Action;
+export default TipMenu;
