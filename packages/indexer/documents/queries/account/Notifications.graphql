@@ -22,6 +22,9 @@ query Notifications($request: NotificationRequest!) {
       ... on PostActionExecutedNotification {
         ...PostActionExecutedNotification
       }
+      ... on AccountActionExecutedNotification {
+        ...AccountActionExecutedNotification
+      }
     }
     pageInfo {
       ...PaginatedResultInfo

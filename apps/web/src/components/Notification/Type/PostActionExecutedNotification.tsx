@@ -1,3 +1,4 @@
+import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
@@ -40,7 +41,8 @@ const PostActionExecutedNotification = ({
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <ShoppingBagIcon className="size-6" />
+        {type === "collected" && <ShoppingBagIcon className="size-6" />}
+        {type === "tipped" && <TipIcon className="size-6" />}
         <div className="flex items-center space-x-1">
           {actions.slice(0, 10).map((action, index: number) => {
             const account =

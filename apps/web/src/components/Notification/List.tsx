@@ -12,6 +12,7 @@ import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { WindowVirtualizer } from "virtua";
 import NotificationShimmer from "./Shimmer";
+import AccountActionExecutedNotification from "./Type/AccountActionExecutedNotification";
 import CommentNotification from "./Type/CommentNotification";
 import FollowNotification from "./Type/FollowNotification";
 import MentionNotification from "./Type/MentionNotification";
@@ -132,6 +133,10 @@ const List = ({ feedType }: ListProps) => {
             )}
             {notification.__typename === "PostActionExecutedNotification" && (
               <PostActionExecutedNotification notification={notification} />
+            )}
+            {notification.__typename ===
+              "AccountActionExecutedNotification" && (
+              <AccountActionExecutedNotification notification={notification} />
             )}
           </div>
         ))}
