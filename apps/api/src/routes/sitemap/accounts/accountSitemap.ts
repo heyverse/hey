@@ -2,7 +2,7 @@ import { Errors } from "@hey/data/errors";
 import type { Context } from "hono";
 import { SITEMAP_BATCH_SIZE } from "src/utils/constants";
 import lensPg from "src/utils/lensPg";
-import { getRedis, setRedis } from "src/utils/redis";
+import { generateForeverExpiry, getRedis, setRedis } from "src/utils/redis";
 import { create } from "xmlbuilder2";
 
 const accountSitemap = async (ctx: Context) => {
@@ -37,7 +37,11 @@ const accountSitemap = async (ctx: Context) => {
       );
 
       usernames = newUsernames.map((username) => username.local_name);
-      await setRedis(cacheKey, JSON.stringify(usernames));
+      await setRedis(
+        cacheKey,
+        JSON.stringify(usernames),
+        generateForeverExpiry()
+      );
     }
 
     const sitemap = create({ version: "1.0", encoding: "UTF-8" }).ele(

@@ -2,7 +2,7 @@ import { Errors } from "@hey/data/errors";
 import type { Context } from "hono";
 import { SITEMAP_BATCH_SIZE } from "src/utils/constants";
 import lensPg from "src/utils/lensPg";
-import { getRedis, setRedis } from "src/utils/redis";
+import { generateForeverExpiry, getRedis, setRedis } from "src/utils/redis";
 import { create } from "xmlbuilder2";
 
 const accountsSitemapIndex = async (ctx: Context) => {
@@ -23,7 +23,7 @@ const accountsSitemapIndex = async (ctx: Context) => {
       );
 
       totalUsernames = Number(usernames[0]?.count) || 0;
-      await setRedis(cacheKey, totalUsernames);
+      await setRedis(cacheKey, totalUsernames, generateForeverExpiry());
     }
 
     const sitemaps = Array.from({ length: totalUsernames }, (_, index) => ({
