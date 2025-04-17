@@ -5,7 +5,6 @@ import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import getCurrentSession from "@/helpers/getCurrentSession";
 import { useTheme } from "@/hooks/useTheme";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
@@ -22,7 +21,6 @@ const Layout = () => {
   const { theme } = useTheme();
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const { resetPreferences } = usePreferencesStore();
-  const { resetStatus } = useAccountStatus();
   const isMounted = useIsClient();
   const { address: sessionAccountAddress } = getCurrentSession();
 
@@ -33,7 +31,6 @@ const Layout = () => {
 
   const logout = (shouldReload = false) => {
     resetPreferences();
-    resetStatus();
     signOut();
     if (shouldReload) {
       location.reload();

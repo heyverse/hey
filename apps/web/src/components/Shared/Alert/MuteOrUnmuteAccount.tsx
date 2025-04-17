@@ -1,7 +1,6 @@
 import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { useMuteAlertStore } from "@/store/non-persisted/alert/useMuteAlertStore";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { Errors } from "@hey/data/errors";
@@ -22,7 +21,6 @@ const MuteOrUnmuteAccount = () => {
   const [hasMuted, setHasMuted] = useState(
     mutingOrUnmutingAccount?.operations?.isMutedByMe
   );
-  const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
 
   const updateCache = () => {
@@ -62,10 +60,6 @@ const MuteOrUnmuteAccount = () => {
   const muteOrUnmute = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setIsSubmitting(true);

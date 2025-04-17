@@ -1,9 +1,7 @@
 import { Button, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
 import { useState } from "react";
@@ -11,7 +9,6 @@ import { toast } from "sonner";
 
 const UnlinkUsername = () => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [unlinking, setUnlinking] = useState<boolean>(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -45,10 +42,6 @@ const UnlinkUsername = () => {
   const handleUnlink = async () => {
     if (!currentAccount) {
       return;
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setUnlinking(true);

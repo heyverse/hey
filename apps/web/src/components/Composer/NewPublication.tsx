@@ -24,7 +24,6 @@ import {
   DEFAULT_VIDEO_THUMBNAIL,
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -50,7 +49,6 @@ interface NewPublicationProps {
 
 const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
 
   // New post modal store
   const { setShowNewPostModal } = useNewPostModalStore();
@@ -163,10 +161,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   const handleCreatePost = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     try {

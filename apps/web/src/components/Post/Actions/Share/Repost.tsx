@@ -1,7 +1,6 @@
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
@@ -20,7 +19,6 @@ interface RepostProps {
 
 const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const hasReposted =
     post.operations?.hasReposted.optimistic ||
     post.operations?.hasReposted.onChain;
@@ -84,10 +82,6 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
   const handleCreateRepost = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setIsSubmitting(true);

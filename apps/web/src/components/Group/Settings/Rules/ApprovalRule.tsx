@@ -1,9 +1,7 @@
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { Errors } from "@hey/data/errors";
 import {
   type GroupFragment,
   GroupRuleType,
@@ -17,7 +15,6 @@ interface ApprovalRuleProps {
 }
 
 const ApprovalRule = ({ group }: ApprovalRuleProps) => {
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -55,10 +52,6 @@ const ApprovalRule = ({ group }: ApprovalRuleProps) => {
   });
 
   const handleUpdateRule = () => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     setIsSubmitting(true);
 
     return updateGroupRules({

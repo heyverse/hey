@@ -13,7 +13,6 @@ import {
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
@@ -41,7 +40,6 @@ interface PersonalizeSettingsFormProps {
 
 const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pfpUrl, setPfpUrl] = useState<string | undefined>(
     group.metadata?.icon
@@ -91,10 +89,6 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
   ) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setIsSubmitting(true);

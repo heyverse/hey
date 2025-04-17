@@ -9,13 +9,10 @@ import {
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
-import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { useCreateGroupMutation } from "@hey/indexer";
 import { group } from "@lens-protocol/metadata";
 import { useState } from "react";
-import { toast } from "sonner";
 import { z } from "zod";
 import { useCreateGroupStore } from "./CreateGroup";
 
@@ -32,7 +29,6 @@ const ValidationSchema = z.object({
 });
 
 const CreateGroupModal = () => {
-  const { isSuspended } = useAccountStatus();
   const { setScreen, setTransactionHash } = useCreateGroupStore();
   const [pfpUrl, setPfpUrl] = useState<string | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,10 +65,6 @@ const CreateGroupModal = () => {
   });
 
   const handleCreateGroup = async (data: z.infer<typeof ValidationSchema>) => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     setIsSubmitting(true);
 
     const metadataUri = await uploadMetadata(

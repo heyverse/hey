@@ -1,7 +1,6 @@
 import cn from "@/helpers/cn";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { MenuItem } from "@headlessui/react";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
@@ -17,7 +16,6 @@ const Quote = ({ post }: QuoteProps) => {
   const { currentAccount } = useAccountStore();
   const { setShowNewPostModal } = useNewPostModalStore();
   const { setQuotedPost } = usePostStore();
-  const { isSuspended } = useAccountStatus();
 
   return (
     <MenuItem
@@ -31,10 +29,6 @@ const Quote = ({ post }: QuoteProps) => {
       onClick={() => {
         if (!currentAccount) {
           return toast.error(Errors.SignWallet);
-        }
-
-        if (isSuspended) {
-          return toast.error(Errors.Suspended);
         }
 
         setQuotedPost(post);

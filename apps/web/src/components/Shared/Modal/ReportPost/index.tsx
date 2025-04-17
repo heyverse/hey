@@ -10,12 +10,9 @@ import {
 import convertToTitleCase from "@/helpers/convertToTitleCase";
 import errorToast from "@/helpers/errorToast";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { Errors } from "@hey/data/errors";
 import { PostReportReason, useReportPostMutation } from "@hey/indexer";
 import { useState } from "react";
-import { toast } from "sonner";
 import { z } from "zod";
 
 const ValidationSchema = z.object({
@@ -29,7 +26,6 @@ interface ReportPostProps {
 }
 
 const ReportPost = ({ postId }: ReportPostProps) => {
-  const { isSuspended } = useAccountStatus();
   const [reason, setReason] = useState("");
 
   const form = useZodForm({
@@ -43,10 +39,6 @@ const ReportPost = ({ postId }: ReportPostProps) => {
   const reportPost = async ({
     additionalComment
   }: z.infer<typeof ValidationSchema>) => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     return await createReport({
       variables: {
         request: {

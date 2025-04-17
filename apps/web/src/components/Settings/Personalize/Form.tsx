@@ -16,7 +16,6 @@ import trimify from "@/helpers/trimify";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
@@ -53,7 +52,6 @@ const ValidationSchema = z.object({
 
 const PersonalizeSettingsForm = () => {
   const { currentAccount, setCurrentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pfpUrl, setPfpUrl] = useState<string | undefined>(
     currentAccount?.metadata?.picture
@@ -123,10 +121,6 @@ const PersonalizeSettingsForm = () => {
   ) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setIsSubmitting(true);

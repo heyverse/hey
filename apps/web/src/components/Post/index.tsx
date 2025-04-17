@@ -8,7 +8,6 @@ import Footer from "@/components/Shared/Footer";
 import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, CardHeader, WarningMessage } from "@/components/Shared/UI";
 import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAccount from "@hey/helpers/getAccount";
 import { isRepost } from "@hey/helpers/postHelpers";
@@ -45,7 +44,6 @@ const ViewPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { currentAccount } = useAccountStore();
   const { cachedPost, setCachedPost } = usePostLinkStore();
-  const { isSuspended } = useAccountStatus();
 
   const showQuotes = pathname === `/posts/${slug}/quotes`;
 
@@ -135,7 +133,7 @@ const ViewPost = () => {
                 message="You don't have permission to comment on this post."
               />
             )}
-            {currentAccount && !post.isDeleted && !isSuspended && canComment ? (
+            {currentAccount && !post.isDeleted && canComment ? (
               <NewPublication
                 post={targetPost}
                 feed={targetPost.feed.address}

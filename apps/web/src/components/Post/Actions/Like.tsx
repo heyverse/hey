@@ -1,7 +1,6 @@
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { ApolloCache } from "@apollo/client";
 import { HeartIcon } from "@heroicons/react/24/outline";
@@ -24,7 +23,6 @@ interface LikeProps {
 
 const Like = ({ post, showCount }: LikeProps) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
 
   const [hasReacted, toggleReact] = useToggle(post.operations?.hasReacted);
   const [reactions, { decrement, increment }] = useCounter(
@@ -77,10 +75,6 @@ const Like = ({ post, showCount }: LikeProps) => {
   const handleCreateLike = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     toggleReact();

@@ -2,13 +2,10 @@ import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
-import { Errors } from "@hey/data/errors";
 import { type AccountFragment, useUnfollowMutation } from "@hey/indexer";
 import { useState } from "react";
-import { toast } from "sonner";
 
 interface UnfollowProps {
   buttonClassName: string;
@@ -24,7 +21,6 @@ const Unfollow = ({
   title
 }: UnfollowProps) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const { setShowAuthModal } = useAuthModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { cache } = useApolloClient();
@@ -73,10 +69,6 @@ const Unfollow = ({
   const handleCreateUnfollow = async () => {
     if (!currentAccount) {
       return setShowAuthModal(true);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setIsSubmitting(true);

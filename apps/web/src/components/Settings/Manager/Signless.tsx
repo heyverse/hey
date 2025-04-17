@@ -1,14 +1,11 @@
 import { Button, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
-import { Errors } from "@hey/data/errors";
 import { useEnableSignlessMutation } from "@hey/indexer";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const Signless = () => {
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -34,10 +31,6 @@ const Signless = () => {
   });
 
   const handleToggleSignless = async () => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     setIsSubmitting(true);
 
     return await enableSignless();

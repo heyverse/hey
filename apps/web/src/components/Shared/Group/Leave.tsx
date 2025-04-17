@@ -1,9 +1,7 @@
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useApolloClient } from "@apollo/client";
-import { Errors } from "@hey/data/errors";
 import { type GroupFragment, useLeaveGroupMutation } from "@hey/indexer";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -15,7 +13,6 @@ interface LeaveProps {
 }
 
 const Leave = ({ group, setJoined, small }: LeaveProps) => {
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -63,10 +60,6 @@ const Leave = ({ group, setJoined, small }: LeaveProps) => {
   });
 
   const handleLeave = async () => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     setIsSubmitting(true);
 
     return await leaveGroup({

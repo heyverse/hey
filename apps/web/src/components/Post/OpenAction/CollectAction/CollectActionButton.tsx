@@ -4,11 +4,9 @@ import { Button, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getCollectActionData from "@/helpers/getCollectActionData";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
 import {
   type PostActionFragment,
   type PostFragment,
@@ -33,7 +31,6 @@ const CollectActionButton = ({
 }: CollectActionButtonProps) => {
   const collectAction = getCollectActionData(postAction as any);
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
     collectAction?.amount ? false : post.operations?.hasSimpleCollected
@@ -121,10 +118,6 @@ const CollectActionButton = ({
   });
 
   const handleCreateCollect = async () => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     setIsSubmitting(true);
 
     return await executePostAction({

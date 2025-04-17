@@ -5,7 +5,6 @@ import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import {
@@ -13,7 +12,6 @@ import {
   DEFAULT_TOKEN,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
 import {
   type AccountFragment,
   type PostFragment,
@@ -35,7 +33,6 @@ interface TipMenuProps {
 
 const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(2);
   const [other, setOther] = useState(false);
@@ -135,10 +132,6 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   };
 
   const handleTip = async () => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     setIsSubmitting(true);
 
     const tipping = {

@@ -2,7 +2,6 @@ import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { Errors } from "@hey/data/errors";
@@ -23,7 +22,6 @@ const BlockOrUnblockAccount = () => {
   const [hasBlocked, setHasBlocked] = useState(
     blockingorUnblockingAccount?.operations?.isBlockedByMe
   );
-  const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -87,10 +85,6 @@ const BlockOrUnblockAccount = () => {
   const blockOrUnblock = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setIsSubmitting(true);

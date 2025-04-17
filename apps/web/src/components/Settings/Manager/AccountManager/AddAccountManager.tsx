@@ -2,7 +2,6 @@ import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
@@ -20,7 +19,6 @@ const AddAccountManager = ({
   setShowAddManagerModal
 }: AddAccountManagerProps) => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [manager, setManager] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -50,10 +48,6 @@ const AddAccountManager = ({
   const handleAddManager = async () => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setIsSubmitting(true);

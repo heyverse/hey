@@ -1,10 +1,8 @@
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { ComputerDesktopIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
-import { Errors } from "@hey/data/errors";
 import formatDate from "@hey/helpers/datetime/formatDate";
 import {
   type AuthenticatedSessionsRequest,
@@ -19,7 +17,6 @@ import { WindowVirtualizer } from "virtua";
 
 const List = () => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [revoking, setRevoking] = useState(false);
   const [revokeingSessionId, setRevokeingSessionId] = useState<null | string>(
     null
@@ -51,10 +48,6 @@ const List = () => {
   });
 
   const handleRevoke = async (authenticationId: string) => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     setRevoking(true);
     setRevokeingSessionId(authenticationId);
 

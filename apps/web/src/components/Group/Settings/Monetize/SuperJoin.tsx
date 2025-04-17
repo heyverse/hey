@@ -12,14 +12,12 @@ import { getSimplePaymentDetails } from "@/helpers/rules";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import {
   DEFAULT_COLLECT_TOKEN,
   IS_MAINNET,
   STATIC_IMAGES_URL,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
 import {
   type GroupFragment,
   GroupRuleType,
@@ -27,14 +25,12 @@ import {
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import { type RefObject, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
 
 interface SuperJoinProps {
   group: GroupFragment;
 }
 
 const SuperJoin = ({ group }: SuperJoinProps) => {
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -79,8 +75,6 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
   });
 
   const handleUpdateRule = async (remove: boolean) => {
-    if (isSuspended) return toast.error(Errors.Suspended);
-
     setIsSubmitting(true);
 
     return await updateGroupRules({

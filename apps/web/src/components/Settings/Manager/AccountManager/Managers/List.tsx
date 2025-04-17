@@ -3,7 +3,6 @@ import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
@@ -23,7 +22,6 @@ import Permission from "./Permission";
 
 const List = () => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [removingAddress, setRemovingAddress] = useState<string | null>(null);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -82,10 +80,6 @@ const List = () => {
   const handleRemoveManager = async (manager: string) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     setRemovingAddress(manager);

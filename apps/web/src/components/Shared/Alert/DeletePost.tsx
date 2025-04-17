@@ -2,16 +2,13 @@ import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useDeletePostAlertStore } from "@/store/non-persisted/alert/useDeletePostAlertStore";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useApolloClient } from "@apollo/client";
-import { Errors } from "@hey/data/errors";
 import { useDeletePostMutation } from "@hey/indexer";
 import { toast } from "sonner";
 
 const DeletePost = () => {
   const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =
     useDeletePostAlertStore();
-  const { isSuspended } = useAccountStatus();
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -46,10 +43,6 @@ const DeletePost = () => {
   });
 
   const handleDelete = async () => {
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
-    }
-
     return await deletePost({
       variables: { request: { post: deletingPost?.id } }
     });

@@ -12,7 +12,6 @@ import { getSimplePaymentDetails } from "@/helpers/rules";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   DEFAULT_COLLECT_TOKEN,
@@ -20,7 +19,6 @@ import {
   STATIC_IMAGES_URL,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
 import {
   AccountFollowRuleType,
   type AccountFollowRules,
@@ -29,11 +27,9 @@ import {
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
 import { type RefObject, useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
 
 const SuperFollow = () => {
   const { currentAccount, setCurrentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -89,8 +85,6 @@ const SuperFollow = () => {
   });
 
   const handleUpdateRule = (remove: boolean) => {
-    if (isSuspended) return toast.error(Errors.Suspended);
-
     setIsSubmitting(true);
 
     return updateAccountFollowRules({

@@ -4,10 +4,8 @@ import Slug from "@/components/Shared/Slug";
 import { Button, EmptyState, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStatus } from "@/store/non-persisted/useAccountStatus";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
-import { Errors } from "@hey/data/errors";
 import {
   useAssignUsernameToAccountMutation,
   useUsernamesQuery
@@ -17,7 +15,6 @@ import { toast } from "sonner";
 
 const LinkUsername = () => {
   const { currentAccount } = useAccountStore();
-  const { isSuspended } = useAccountStatus();
   const [linkingUsername, setLinkingUsername] = useState<null | string>(null);
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -55,10 +52,6 @@ const LinkUsername = () => {
   const handleLink = async (localName: string) => {
     if (!currentAccount) {
       return;
-    }
-
-    if (isSuspended) {
-      return toast.error(Errors.Suspended);
     }
 
     const confirmation = confirm(
