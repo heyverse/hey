@@ -1,5 +1,5 @@
-import Collectors from "@/components/Shared/Modal/Collectors";
 import Likes from "@/components/Shared/Modal/Likes";
+import PostExecutors from "@/components/Shared/Modal/PostExecutors";
 import Reposts from "@/components/Shared/Modal/Reposts";
 import { Modal } from "@/components/Shared/UI";
 import type { PostFragment } from "@hey/indexer";
@@ -32,6 +32,8 @@ const AnimatedNumber = ({
   );
 };
 
+type PostExecutorsType = "Tippers" | "Collectors";
+
 interface PostStatsProps {
   post: PostFragment;
 }
@@ -39,7 +41,8 @@ interface PostStatsProps {
 const PostStats = ({ post }: PostStatsProps) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showRepostsModal, setShowRepostsModal] = useState(false);
-  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
+  const [showPostExecutorsModal, setShowPostExecutorsModal] =
+    useState<PostExecutorsType | null>(null);
 
   const { bookmarks, comments, reposts, quotes, reactions, collects, tips } =
     post.stats;
@@ -104,16 +107,22 @@ const PostStats = ({ post }: PostStatsProps) => {
           </button>
         ) : null}
         {tips > 0 ? (
-          <AnimatedNumber
-            key={`tip-count-${post.id}`}
-            name="Tip"
-            value={tips}
-          />
+          <button
+            className="outline-offset-2"
+            onClick={() => setShowPostExecutorsModal("Tippers")}
+            type="button"
+          >
+            <AnimatedNumber
+              key={`tip-count-${post.id}`}
+              name="Tip"
+              value={tips}
+            />
+          </button>
         ) : null}
         {collects > 0 ? (
           <button
             className="outline-offset-2"
-            onClick={() => setShowCollectorsModal(true)}
+            onClick={() => setShowPostExecutorsModal("Collectors")}
             type="button"
           >
             <AnimatedNumber
@@ -146,11 +155,18 @@ const PostStats = ({ post }: PostStatsProps) => {
         <Reposts postId={post.id} />
       </Modal>
       <Modal
-        onClose={() => setShowCollectorsModal(false)}
-        show={showCollectorsModal}
-        title="Collectors"
+        onClose={() => setShowPostExecutorsModal(null)}
+        show={showPostExecutorsModal !== null}
+        title={showPostExecutorsModal === "Tippers" ? "Tippers" : "Collectors"}
       >
-        <Collectors postId={post.id} />
+        <PostExecutors
+          postId={post.id}
+          filter={
+            showPostExecutorsModal === "Tippers"
+              ? { tipping: true }
+              : { simpleCollect: true }
+          }
+        />
       </Modal>
     </>
   );

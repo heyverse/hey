@@ -1,6 +1,6 @@
 import CountdownTimer from "@/components/Shared/CountdownTimer";
 import Loader from "@/components/Shared/Loader";
-import Collectors from "@/components/Shared/Modal/Collectors";
+import PostExecutors from "@/components/Shared/Modal/PostExecutors";
 import Slug from "@/components/Shared/Slug";
 import {
   H3,
@@ -249,7 +249,10 @@ const CollectActionBody = ({
         show={showCollectorsModal}
         title="Collectors"
       >
-        <Collectors postId={targetPost.id} />
+        <PostExecutors
+          postId={targetPost.id}
+          filter={{ simpleCollect: true }}
+        />
       </Modal>
     </>
   );

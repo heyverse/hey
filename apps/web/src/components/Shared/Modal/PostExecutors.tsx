@@ -6,6 +6,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import {
+  type PostActionFilter,
   type WhoExecutedActionOnPostRequest,
   useWhoExecutedActionOnPostQuery
 } from "@hey/indexer";
@@ -14,11 +15,12 @@ import { motion } from "motion/react";
 import { useEffect } from "react";
 import { Virtualizer } from "virtua";
 
-interface CollectorsProps {
+interface PostExecutorsProps {
   postId: string;
+  filter: PostActionFilter;
 }
 
-const Collectors = ({ postId }: CollectorsProps) => {
+const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
   const { currentAccount } = useAccountStore();
   const [ref, entry] = useIntersectionObserver({
     threshold: 0,
@@ -28,7 +30,7 @@ const Collectors = ({ postId }: CollectorsProps) => {
 
   const request: WhoExecutedActionOnPostRequest = {
     post: postId,
-    filter: { anyOf: [{ simpleCollect: true }] }
+    filter: { anyOf: [filter] }
   };
 
   const { data, error, fetchMore, loading } = useWhoExecutedActionOnPostQuery({
@@ -63,7 +65,7 @@ const Collectors = ({ postId }: CollectorsProps) => {
       <div className="p-5">
         <EmptyState
           icon={<ShoppingBagIcon className="size-8" />}
-          message="No collectors."
+          message="No actions."
           hideCard
         />
       </div>
@@ -75,7 +77,7 @@ const Collectors = ({ postId }: CollectorsProps) => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load collectors"
+        title="Failed to load actions"
       />
     );
   }
@@ -113,4 +115,4 @@ const Collectors = ({ postId }: CollectorsProps) => {
   );
 };
 
-export default Collectors;
+export default PostExecutors;
