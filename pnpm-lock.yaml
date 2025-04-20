@@ -162,7 +162,7 @@ importers:
         version: link:../../packages/indexer
       '@hookform/resolvers':
         specifier: ^5.0.1
-        version: 5.0.1(react-hook-form@7.55.0(react@19.1.0))
+        version: 5.0.1(react-hook-form@7.56.0(react@19.1.0))
       '@lens-chain/storage-client':
         specifier: ^1.0.4
         version: 1.0.4
@@ -236,8 +236,8 @@ importers:
         specifier: ^5.4.1
         version: 5.4.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-hook-form:
-        specifier: ^7.55.0
-        version: 7.55.0(react@19.1.0)
+        specifier: ^7.56.0
+        version: 7.56.0(react@19.1.0)
       react-markdown:
         specifier: ^10.1.0
         version: 10.1.0(@types/react@19.1.2)(react@19.1.0)
@@ -3576,20 +3576,20 @@ packages:
     resolution: {integrity: sha512-FNoYzHawTMk/6KMQoEG5O4PuioX19UbwdQKF44yw0nLfOypfQdjtfZzo/UIJWAJ23sNIFbD1Ug9lbaDGMwbqQA==}
     engines: {node: '>=8'}
 
-  '@zag-js/dismissable@1.10.0':
-    resolution: {integrity: sha512-sSqWGrK4qwW4iX36C6jSPirZA81cinN062gCPTeweS7GHoLFYqmd0SWWPAthrWrl/ldCcRb45HIrlNkrB43T+A==}
+  '@zag-js/dismissable@1.11.0':
+    resolution: {integrity: sha512-N0HDnrPh4rDj8qPUiIDWMmMAtx0vYgFHCzhNC204zxZsv7vw+IoULP+bKRZOwxiTKtKHuKMZZDGUNktuR/rHIg==}
 
-  '@zag-js/dom-query@1.10.0':
-    resolution: {integrity: sha512-UQM4pHPPwpPNyuIcaDvuTjI4ntvBCV0oatpd+OcOW8NdUc2VVcPzL4cN6q1h+Q9s0Rpi+q77X0x6t9c1QWj1Iw==}
+  '@zag-js/dom-query@1.11.0':
+    resolution: {integrity: sha512-S8EVSktfD2AhRjnm9UBv6ESE+NuSy+2ytiIdhmUmqSWs6hgeSjH5X1+3dZEpGD42u/Zmc2VJgdODbSCp7KeZSQ==}
 
-  '@zag-js/interact-outside@1.10.0':
-    resolution: {integrity: sha512-K5E2zArV6bExx1TTJKlmy+lAS7/Of6w50AYt77YUcsmwb6VeBVwe2+egid0pPeULNsuDvC7/DLmIumdn+WLiFA==}
+  '@zag-js/interact-outside@1.11.0':
+    resolution: {integrity: sha512-iyoU2PfC3TBVhZQ+iZigkyx6hxGBPSfFlWV/C6NMCnHGS0coL/DVAxKB9P5/12kbu8aIrtE867cgANLBKgBYCQ==}
 
-  '@zag-js/types@1.10.0':
-    resolution: {integrity: sha512-HlM+EHYPLPaHgmuf2Bg5isNy2Kv30nwaANbkcMhVQYi8OfrTraxUQbTDXk3hb56qFmW1HQCMZzt1L7aS2qlOyQ==}
+  '@zag-js/types@1.11.0':
+    resolution: {integrity: sha512-ovlrKX3/by7MqNiITF0XcLvitsUFKQbRAhztanWMShPsBG3ii0cQViY97fGKamXEpWcFvX2AxipP1umiPQ755A==}
 
-  '@zag-js/utils@1.10.0':
-    resolution: {integrity: sha512-Ze3QU9lV0nihfy+urze5rGUx5c615GguPoshHFov3JhFczEvze/Ewp5Am59l8UoHxU9DUQHC3Dcq9vIPANLL3Q==}
+  '@zag-js/utils@1.11.0':
+    resolution: {integrity: sha512-XgT01GHOBC284fGeub+p4TKr4TZVaVLeypVy126IfFDpQ7ZmZ4I3vkgyyHg9RzG4O25Y5SmchEB9BuEWHz7gzg==}
 
   abitype@1.0.8:
     resolution: {integrity: sha512-ZeiI6h3GnW06uYDLx0etQtX/p8E24UaHHBj57RSjK7YBFe7iuVn07EDpOeP451D06sF27VOz9JJPlIKJmXgkEg==}
@@ -5980,8 +5980,8 @@ packages:
       react: '>=16.4.0'
       react-dom: '>=16.4.0'
 
-  react-hook-form@7.55.0:
-    resolution: {integrity: sha512-XRnjsH3GVMQz1moZTW53MxfoWN7aDpUg/GpVNc4A3eXRVNdGXfbzJ4vM4aLQ8g6XCUh1nIbx70aaNCl7kxnjog==}
+  react-hook-form@7.56.0:
+    resolution: {integrity: sha512-U2QQgx5z2Y8Z0qlXv3W19hWHJgfKdWMz0O/osuY+o+CYq568V2R/JhzC6OAXfR8k24rIN0Muan2Qliaq9eKs/g==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -7423,7 +7423,7 @@ snapshots:
       '@ariatype/aria-attributes': 1.0.1
       '@ariatype/aria-roles': 1.0.1
       '@preact/signals-core': 1.8.0
-      '@zag-js/dom-query': 1.10.0
+      '@zag-js/dom-query': 1.11.0
       just-kebab-case: 4.2.0
       just-map-values: 3.2.0
       server-dom-shim: 1.0.2
@@ -7449,20 +7449,20 @@ snapshots:
       '@aria-ui/core': 0.0.21
       '@floating-ui/dom': 1.6.13
       '@floating-ui/utils': 0.2.9
-      '@zag-js/dom-query': 1.10.0
+      '@zag-js/dom-query': 1.11.0
 
   '@aria-ui/popover@0.0.27':
     dependencies:
       '@aria-ui/core': 0.0.21
       '@aria-ui/overlay': 0.0.24
       '@aria-ui/presence': 0.0.19
-      '@zag-js/dismissable': 1.10.0
-      '@zag-js/dom-query': 1.10.0
+      '@zag-js/dismissable': 1.11.0
+      '@zag-js/dom-query': 1.11.0
 
   '@aria-ui/presence@0.0.19':
     dependencies:
       '@aria-ui/core': 0.0.21
-      '@zag-js/dom-query': 1.10.0
+      '@zag-js/dom-query': 1.11.0
 
   '@aria-ui/tooltip@0.0.29':
     dependencies:
@@ -9498,10 +9498,10 @@ snapshots:
       hono: 4.7.7
       zod: 3.24.3
 
-  '@hookform/resolvers@5.0.1(react-hook-form@7.55.0(react@19.1.0))':
+  '@hookform/resolvers@5.0.1(react-hook-form@7.56.0(react@19.1.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.55.0(react@19.1.0)
+      react-hook-form: 7.56.0(react@19.1.0)
 
   '@img/sharp-darwin-arm64@0.34.1':
     optionalDependencies:
@@ -10229,7 +10229,7 @@ snapshots:
       '@prosekit/core': 0.8.0(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-transform@1.10.3)
       '@prosekit/extensions': 0.8.0(@shikijs/types@3.2.2)(@types/hast@3.0.4)(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-transform@1.10.3)(prosemirror-view@1.39.1)
       '@prosekit/pm': 0.1.9
-      '@zag-js/dom-query': 1.10.0
+      '@zag-js/dom-query': 1.11.0
       just-map-values: 3.2.0
       just-omit: 2.2.0
       prosemirror-tables: 1.7.1
@@ -11879,26 +11879,26 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@zag-js/dismissable@1.10.0':
+  '@zag-js/dismissable@1.11.0':
     dependencies:
-      '@zag-js/dom-query': 1.10.0
-      '@zag-js/interact-outside': 1.10.0
-      '@zag-js/utils': 1.10.0
+      '@zag-js/dom-query': 1.11.0
+      '@zag-js/interact-outside': 1.11.0
+      '@zag-js/utils': 1.11.0
 
-  '@zag-js/dom-query@1.10.0':
+  '@zag-js/dom-query@1.11.0':
     dependencies:
-      '@zag-js/types': 1.10.0
+      '@zag-js/types': 1.11.0
 
-  '@zag-js/interact-outside@1.10.0':
+  '@zag-js/interact-outside@1.11.0':
     dependencies:
-      '@zag-js/dom-query': 1.10.0
-      '@zag-js/utils': 1.10.0
+      '@zag-js/dom-query': 1.11.0
+      '@zag-js/utils': 1.11.0
 
-  '@zag-js/types@1.10.0':
+  '@zag-js/types@1.11.0':
     dependencies:
       csstype: 3.1.3
 
-  '@zag-js/utils@1.10.0': {}
+  '@zag-js/utils@1.11.0': {}
 
   abitype@1.0.8(typescript@5.8.3)(zod@3.24.3):
     optionalDependencies:
@@ -14618,7 +14618,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       tslib: 2.8.1
 
-  react-hook-form@7.55.0(react@19.1.0):
+  react-hook-form@7.56.0(react@19.1.0):
     dependencies:
       react: 19.1.0
 
