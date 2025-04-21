@@ -1,6 +1,7 @@
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
@@ -22,11 +23,16 @@ const AddAccountManager = ({
   const [manager, setManager] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const pollTransactionStatus = usePollTransactionStatus();
 
-  const onCompleted = () => {
+  const onCompleted = (hash: string) => {
     setIsSubmitting(false);
     setShowAddManagerModal(false);
-    toast.success("Account manager added");
+    const toastId = toast.loading("Adding manager...");
+    pollTransactionStatus(hash, () => {
+      toast.success("Manager added successfully", { id: toastId });
+      location.reload();
+    });
   };
 
   const onError = (error: Error) => {
