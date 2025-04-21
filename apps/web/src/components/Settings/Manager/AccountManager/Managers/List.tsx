@@ -8,7 +8,7 @@ import { useApolloClient } from "@apollo/client";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import {
-  AccountManagersDocument,
+  type AccountManagerFragment,
   type AccountManagersRequest,
   PageSize,
   useAccountManagersQuery,
@@ -22,7 +22,8 @@ import Permission from "./Permission";
 
 const List = () => {
   const { currentAccount } = useAccountStore();
-  const [removingAddress, setRemovingAddress] = useState<string | null>(null);
+  const [removingManager, setRemovingManager] =
+    useState<AccountManagerFragment | null>(null);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const [ref, entry] = useIntersectionObserver({
@@ -32,33 +33,22 @@ const List = () => {
   });
 
   const updateCache = () => {
-    if (data?.accountManagers?.items) {
-      const updatedManagers = data.accountManagers.items.filter(
-        (item) => item.manager !== removingAddress
-      );
-
-      cache.writeQuery({
-        query: AccountManagersDocument,
-        variables: { request },
-        data: {
-          accountManagers: {
-            ...data.accountManagers,
-            items: updatedManagers
-          }
-        }
+    if (removingManager) {
+      cache.evict({
+        id: cache.identify(removingManager)
       });
     }
   };
 
   const onCompleted = () => {
-    setRemovingAddress(null);
+    setRemovingManager(null);
     updateCache();
     toast.success("Manager removed successfully");
   };
 
   const onError = (error: Error) => {
     errorToast(error);
-    setRemovingAddress(null);
+    setRemovingManager(null);
   };
 
   const request: AccountManagersRequest = { pageSize: PageSize.Fifty };
@@ -77,15 +67,15 @@ const List = () => {
     onError
   });
 
-  const handleRemoveManager = async (manager: string) => {
+  const handleRemoveManager = async (manager: AccountManagerFragment) => {
     if (!currentAccount) {
       return toast.error(Errors.SignWallet);
     }
 
-    setRemovingAddress(manager);
+    setRemovingManager(manager);
 
     return await removeAccountManager({
-      variables: { request: { manager } }
+      variables: { request: { manager: manager.manager } }
     });
   };
 
@@ -153,9 +143,9 @@ const List = () => {
             />
           </div>
           <Button
-            disabled={removingAddress === accountManager.manager}
-            loading={removingAddress === accountManager.manager}
-            onClick={() => handleRemoveManager(accountManager.manager)}
+            disabled={removingManager?.manager === accountManager.manager}
+            loading={removingManager?.manager === accountManager.manager}
+            onClick={() => handleRemoveManager(accountManager)}
             outline
           >
             Remove
