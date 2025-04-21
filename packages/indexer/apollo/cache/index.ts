@@ -11,6 +11,7 @@ const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
   typePolicies: {
     AccountManager: { keyFields: ["manager"] },
+    Account: { keyFields: ["address"] },
     Query: {
       fields: {
         timeline: createAccountRequestFieldPolicy(),
