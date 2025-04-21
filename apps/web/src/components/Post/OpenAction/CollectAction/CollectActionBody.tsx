@@ -22,7 +22,7 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from "@heroicons/react/24/outline";
-import { CHAIN } from "@hey/data/constants";
+import { BLOCK_EXPLORER_URL } from "@hey/data/constants";
 import { tokens } from "@hey/data/tokens";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
@@ -205,7 +205,7 @@ const CollectActionBody = ({
                 <span>Token:</span>
                 <Link
                   className="font-bold text-gray-600"
-                  to={`${CHAIN.blockExplorers?.default}/address/${collectAction.address}`}
+                  to={`${BLOCK_EXPLORER_URL}/address/${collectAction.address}`}
                   rel="noreferrer noopener"
                   target="_blank"
                 >

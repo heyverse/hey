@@ -1,7 +1,7 @@
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
-import { AVATAR_TINY, CHAIN } from "@hey/data/constants";
+import { AVATAR_TINY, BLOCK_EXPLORER_URL } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -62,7 +62,7 @@ const Splits = ({ recipients }: SplitsProps) => {
                     </AccountLink>
                   ) : (
                     <Link
-                      to={`${CHAIN.blockExplorers?.default}/address/${address}`}
+                      to={`${BLOCK_EXPLORER_URL}/address/${address}`}
                       rel="noreferrer noopener"
                       target="_blank"
                     >

@@ -1,6 +1,6 @@
 import { Image } from "@/components/Shared/UI";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { CHAIN, DEFAULT_AVATAR } from "@hey/data/constants";
+import { BLOCK_EXPLORER_URL, DEFAULT_AVATAR } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import { Link } from "react-router";
 import type { Address } from "viem";
@@ -28,7 +28,7 @@ const WalletAccount = ({ address }: WalletAccountProps) => {
         width={40}
       />
       <Link
-        to={`${CHAIN.blockExplorers?.default.url}/address/${address}`}
+        to={`${BLOCK_EXPLORER_URL}/address/${address}`}
         rel="noreferrer noopener"
         target="_blank"
       >

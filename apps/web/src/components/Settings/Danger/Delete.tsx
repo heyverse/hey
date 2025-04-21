@@ -1,7 +1,7 @@
 import { Button, H5, Modal, WarningMessage } from "@/components/Shared/UI";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { CHAIN, NULL_ADDRESS } from "@hey/data/constants";
+import { BLOCK_EXPLORER_URL, NULL_ADDRESS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { useState } from "react";
 import { Link } from "react-router";
@@ -48,9 +48,7 @@ const DeleteSettings = () => {
           </p>
           <p className="linkify py-3">
             Your account will be transferred to a{" "}
-            <Link
-              to={`${CHAIN.blockExplorers?.default}/address/${NULL_ADDRESS}`}
-            >
+            <Link to={`${BLOCK_EXPLORER_URL}/address/${NULL_ADDRESS}`}>
               null address
             </Link>{" "}
             after deletion.

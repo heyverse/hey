@@ -34,6 +34,9 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/cover.png`;
 export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const DEVELOPER_PORTAL_URL = "https://developer.lens.xyz/sponsorship";
+export const BLOCK_EXPLORER_URL = IS_MAINNET
+  ? "https://lenscan.io"
+  : "https://testnet.lenscan.io";
 
 // Storage
 export const STORAGE_NODE_URL = "https://api.grove.storage";
