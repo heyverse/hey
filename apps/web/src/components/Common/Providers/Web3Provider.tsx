@@ -1,9 +1,9 @@
+import getRpc from "@/helpers/getRpc";
 import {
   CHAIN,
   IS_MAINNET,
   WALLETCONNECT_PROJECT_ID
 } from "@hey/data/constants";
-import getRpc from "@hey/helpers/getRpc";
 import { familyAccountsConnector } from "family";
 import type { ReactNode } from "react";
 import { WagmiProvider, createConfig } from "wagmi";
