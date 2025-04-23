@@ -70,7 +70,7 @@ const LinkUsername = () => {
   };
 
   if (loading) {
-    return <Loader className="py-10" />;
+    return <Loader className="my-10" />;
   }
 
   const usernames = data?.usernames.items;

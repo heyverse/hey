@@ -36,6 +36,7 @@ import { toast } from "sonner";
 import Attachment from "./Actions/Attachment";
 import CollectSettings from "./Actions/CollectSettings";
 import Gif from "./Actions/Gif";
+import GroupSettings from "./Actions/GroupSettings";
 import LivestreamSettings from "./Actions/LivestreamSettings";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
@@ -263,6 +264,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           {!isComment && <LivestreamSettings />}
+          <GroupSettings />
         </div>
         <div className="mt-2 ml-auto sm:mt-0">
           <Button
