@@ -1,6 +1,7 @@
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import useUploadAttachments from "@/hooks/useUploadAttachments";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
 import { type Editor, defineDOMEventHandler, union } from "prosekit/core";
 import { useExtension } from "prosekit/react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
@@ -44,8 +45,13 @@ export const usePaste = (editor: Editor<EditorExtension>) => {
   const handlePaste = useCallback(
     async (pastedFiles: FileList) => {
       const totalAttachments = attachments.length + pastedFiles.length;
-      if (attachments.length === 4 || totalAttachments > 4) {
-        return toast.error("Please choose either 1 video or up to 4 photos.");
+      if (
+        attachments.length === MAX_IMAGE_UPLOAD ||
+        totalAttachments > MAX_IMAGE_UPLOAD
+      ) {
+        return toast.error(
+          `Please choose either 1 video or up to ${MAX_IMAGE_UPLOAD} photos.`
+        );
       }
 
       if (pastedFiles) {

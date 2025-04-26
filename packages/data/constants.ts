@@ -66,3 +66,5 @@ export const DEFAULT_TOKEN = {
   contractAddress: DEFAULT_COLLECT_TOKEN,
   symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
 };
+
+export const MAX_IMAGE_UPLOAD = 8;

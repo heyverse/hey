@@ -9,6 +9,7 @@ import {
   PhotoIcon,
   VideoCameraIcon
 } from "@heroicons/react/24/outline";
+import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
 import {
   MediaAudioMimeType,
   MediaImageMimeType
@@ -27,7 +28,6 @@ const VideoMimeType = [
   "video/webm",
   "video/quicktime"
 ];
-const MAX_IMAGE_UPLOAD = 4;
 
 const Attachment = () => {
   const { attachments, isUploading } = usePostAttachmentStore((state) => state);
@@ -57,7 +57,9 @@ const Attachment = () => {
     if (!files) return;
 
     if (!isUploadAllowed(files)) {
-      return toast.error("Exceeded max limit of 1 audio, 1 video, or 4 images");
+      return toast.error(
+        `Exceeded max limit of 1 audio, 1 video, or ${MAX_IMAGE_UPLOAD} images`
+      );
     }
     if (!isTypeAllowed(files)) {
       return toast.error("File format not allowed.");

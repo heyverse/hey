@@ -6,30 +6,18 @@ import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
 import type { NewAttachment } from "@hey/types/misc";
 import { useEffect, useRef } from "react";
 
 const getClass = (attachments: number) => {
-  if (attachments === 1) {
-    return {
-      aspect: "aspect-w-16 aspect-h-10",
-      row: "grid-cols-1 grid-rows-1"
-    };
-  }
-
-  if (attachments === 2) {
-    return {
-      aspect: "aspect-w-16 aspect-h-12",
-      row: "grid-cols-2 grid-rows-1"
-    };
-  }
-
-  if (attachments > 2) {
-    return {
-      aspect: "aspect-w-16 aspect-h-12",
-      row: "grid-cols-2 grid-rows-2"
-    };
-  }
+  const aspect = "aspect-w-16 aspect-h-12";
+  if (attachments === 1) return { aspect: "", row: "grid-cols-1 grid-rows-1" };
+  if (attachments === 2) return { aspect, row: "grid-cols-2 grid-rows-1" };
+  if (attachments <= 4) return { aspect, row: "grid-cols-2 grid-rows-2" };
+  if (attachments <= 6) return { aspect, row: "grid-cols-3 grid-rows-2" };
+  if (attachments <= 8) return { aspect, row: "grid-cols-4 grid-rows-2" };
+  return { aspect, row: "grid-cols-5 grid-rows-2" };
 };
 
 interface NewAttachmentsProps {
@@ -74,7 +62,7 @@ const NewAttachments = ({
       attachment.type === "Video" || attachment.type === "Audio"
   )
     ? attachments?.slice(0, 1)
-    : attachments?.slice(0, 4);
+    : attachments?.slice(0, MAX_IMAGE_UPLOAD);
   const attachmentsLength = slicedAttachments?.length;
 
   return attachmentsLength !== 0 ? (
