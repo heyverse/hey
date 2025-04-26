@@ -21,6 +21,12 @@ export const LightBox = ({
   const [isLoading, setIsLoading] = useState(true);
   const currentImage = images[currentIndex];
 
+  useEffect(() => {
+    if (show) {
+      setCurrentIndex(initialIndex);
+    }
+  }, [show, initialIndex]);
+
   const goToNext = () => {
     if (currentIndex < images.length - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -100,7 +106,7 @@ export const LightBox = ({
           )}
           <img
             alt={`${currentIndex + 1} of ${images.length}`}
-            className="max-h-[90vh] max-w-fit cursor-zoom-in touch-manipulation select-none object-contain"
+            className="max-h-[90vh] w-auto max-w-full cursor-zoom-in touch-manipulation select-none object-contain"
             onClick={() => window.open(currentImage, "_blank")}
             src={currentImage}
             onLoad={() => setIsLoading(false)}

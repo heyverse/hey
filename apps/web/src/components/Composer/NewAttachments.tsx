@@ -114,12 +114,7 @@ const NewAttachments = ({
                 <ChooseThumbnail />
               </>
             ) : isAudio ? (
-              <Audio
-                expandCover={() => {}}
-                isNew
-                poster=""
-                src={attachment.previewUri}
-              />
+              <Audio isNew poster="" src={attachment.previewUri} />
             ) : isImage ? (
               <Image
                 alt={attachment.previewUri}

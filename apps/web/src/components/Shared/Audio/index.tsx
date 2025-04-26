@@ -16,21 +16,13 @@ export const AudioPostSchema = z.object({
 
 interface AudioProps {
   artist?: string;
-  expandCover: (url: string) => void;
   isNew?: boolean;
   poster: string;
   src: string;
   title?: string;
 }
 
-const Audio = ({
-  artist,
-  expandCover,
-  isNew = false,
-  poster,
-  src,
-  title
-}: AudioProps) => {
+const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
   const { audioPost, setAudioPost } = usePostAudioStore();
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const [playing, setPlaying] = useState(false);
@@ -68,7 +60,6 @@ const Audio = ({
       <div className="flex flex-wrap p-5 backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2 md:p-0">
         <CoverImage
           cover={isNew ? (newPreviewUri as string) : poster}
-          expandCover={expandCover}
           imageRef={imageRef}
           isNew={isNew}
           setCover={(previewUri, cover, mimeType) => {

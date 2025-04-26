@@ -11,7 +11,6 @@ import { useState } from "react";
 
 interface CoverImageProps {
   cover: string;
-  expandCover: (url: string) => void;
   imageRef: Ref<HTMLImageElement>;
   isNew: boolean;
   setCover: (previewUri: string, url: string, mimeType: string) => void;
@@ -19,7 +18,6 @@ interface CoverImageProps {
 
 const CoverImage = ({
   cover,
-  expandCover,
   imageRef,
   isNew = false,
   setCover
@@ -48,17 +46,9 @@ const CoverImage = ({
     }
   };
 
-  const handleExpandCover = () => {
-    expandCover(cover ? sanitizeDStorageUrl(cover) : cover);
-  };
-
   return (
     <div className="group relative flex-none overflow-hidden">
-      <button
-        className="flex focus:outline-hidden"
-        onClick={handleExpandCover}
-        type="button"
-      >
+      <button className="flex focus:outline-hidden" type="button">
         <Image
           alt={`attachment-audio-cover-${cover}`}
           className="size-24 rounded-xl object-cover md:size-40 md:rounded-none"

@@ -64,9 +64,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
         setExpandedImageIndex(index);
         setShowLightBox(true);
       }}
-      onError={({ currentTarget }) => {
-        currentTarget.src = uri;
-      }}
+      onError={({ currentTarget }) => (currentTarget.src = uri)}
       src={imageKit(uri, ATTACHMENT)}
       width={1000}
     />
@@ -113,10 +111,6 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
       {displayDecision === "displayAudioAsset" && (
         <Audio
           artist={asset?.artist}
-          expandCover={() => {
-            setShowLightBox(true);
-            setExpandedImageIndex(0);
-          }}
           poster={asset?.cover as string}
           src={asset?.uri as string}
           title={asset?.title}
