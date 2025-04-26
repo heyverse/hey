@@ -1,6 +1,6 @@
 import cn from "@/helpers/cn";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import { useEffect, useMemo, useState } from "react";
 import { Spinner } from "./Spinner";
 
@@ -86,27 +86,26 @@ export const LightBox = ({
                 onClick={goToPrevious}
                 disabled={currentIndex === 0}
                 className={cn(
-                  "fixed top-1/2 left-4 z-50 rounded-full bg-black/50 p-2 text-white md:left-6 md:p-3",
-                  currentIndex === 0
-                    ? "cursor-not-allowed opacity-50"
-                    : "hover:bg-black/70"
+                  "fixed top-1/2 left-4 rounded-full bg-black/50 p-2 text-white md:left-6 md:p-3",
+                  { "cursor-not-allowed opacity-50": currentIndex === 0 }
                 )}
                 type="button"
               >
-                <ChevronLeftIcon className="size-6" />
+                <ArrowLeftIcon className="size-6" />
               </button>
               <button
                 onClick={goToNext}
                 disabled={currentIndex === images.length - 1}
                 className={cn(
-                  "fixed top-1/2 right-4 z-50 rounded-full bg-black/50 p-2 text-white md:right-6 md:p-3",
-                  currentIndex === images.length - 1
-                    ? "cursor-not-allowed opacity-50"
-                    : "hover:bg-black/70"
+                  "fixed top-1/2 right-4 rounded-full bg-black/50 p-2 text-white md:right-6 md:p-3",
+                  {
+                    "cursor-not-allowed opacity-50":
+                      currentIndex === images.length - 1
+                  }
                 )}
                 type="button"
               >
-                <ChevronRightIcon className="size-6" />
+                <ArrowRightIcon className="size-6" />
               </button>
             </>
           )}
