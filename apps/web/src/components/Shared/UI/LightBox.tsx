@@ -1,7 +1,7 @@
 import cn from "@/helpers/cn";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Spinner } from "./Spinner";
 
 interface LightBoxProps {
@@ -19,47 +19,53 @@ export const LightBox = ({
 }: LightBoxProps) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isLoading, setIsLoading] = useState(true);
-  const currentImage = images[currentIndex];
+
+  const currentImage = useMemo(
+    () => images[currentIndex],
+    [images, currentIndex]
+  );
 
   useEffect(() => {
     if (show) {
       setCurrentIndex(initialIndex);
+      setIsLoading(true);
     }
   }, [show, initialIndex]);
 
-  const goToNext = () => {
-    if (currentIndex < images.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setIsLoading(true);
-    }
-  };
-
-  const goToPrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-      setIsLoading(true);
-    }
-  };
-
   useEffect(() => {
+    if (!show) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
       } else if (e.key === "ArrowRight") {
-        goToNext();
+        setCurrentIndex((prev) => Math.min(prev + 1, images.length - 1));
+        setIsLoading(true);
       } else if (e.key === "ArrowLeft") {
-        goToPrevious();
+        setCurrentIndex((prev) => Math.max(prev - 1, 0));
+        setIsLoading(true);
       }
     };
 
-    if (show) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [show, onClose, images.length]);
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [show, onClose, currentIndex]);
+  const goToNext = () => {
+    setCurrentIndex((prev) => {
+      const next = Math.min(prev + 1, images.length - 1);
+      if (next !== prev) setIsLoading(true);
+      return next;
+    });
+  };
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => {
+      const prevIndex = Math.max(prev - 1, 0);
+      if (prevIndex !== prev) setIsLoading(true);
+      return prevIndex;
+    });
+  };
 
   return (
     <Dialog open={show} onClose={onClose} className="relative z-50">
@@ -106,13 +112,13 @@ export const LightBox = ({
           )}
           <img
             alt={`${currentIndex + 1} of ${images.length}`}
-            className="max-h-[90vh] w-auto max-w-full cursor-zoom-in touch-manipulation select-none object-contain"
-            onClick={() => window.open(currentImage, "_blank")}
             src={currentImage}
+            loading="lazy"
+            draggable={false}
+            className="max-h-[90vh] w-auto max-w-full cursor-zoom-in touch-manipulation select-none object-contain"
+            onClick={() => window.open(currentImage, "_blank", "noopener")}
             onLoad={() => setIsLoading(false)}
             onError={() => setIsLoading(false)}
-            width={1000}
-            height={1000}
           />
         </DialogPanel>
       </div>
