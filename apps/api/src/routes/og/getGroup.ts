@@ -3,7 +3,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import { GroupDocument, type GroupFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Context } from "hono";
-import { html } from "hono/html";
+import { html, raw } from "hono/html";
 import defaultMetadata from "src/utils/defaultMetadata";
 import { getRedis, setRedis } from "src/utils/redis";
 
@@ -43,6 +43,11 @@ const getGroup = async (ctx: Context) => {
       url: `https://hey.xyz/g/${address}`
     };
 
+    const escapedJsonLd = JSON.stringify(jsonLd)
+      .replace(/</g, "\\u003c")
+      .replace(/>/g, "\\u003e")
+      .replace(/&/g, "\\u0026");
+
     const ogHtml = html`
       <html>
         <head>
@@ -65,7 +70,7 @@ const getGroup = async (ctx: Context) => {
           <link rel="canonical" href="https://hey.xyz/g/${group.address}" />
         </head>
         <body>
-          <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
+          <script type="application/ld+json">${raw(escapedJsonLd)}</script>
           <h1>${title}</h1>
           <h2>${description}</h2>
         </body>
