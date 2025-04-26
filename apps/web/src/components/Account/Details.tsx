@@ -42,7 +42,7 @@ const Details = ({
 }: DetailsProps) => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
-  const [expandedImage, setExpandedImage] = useState<null | string>(null);
+  const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const { theme } = useTheme();
 
   const renderAccountAttribute = (
@@ -79,15 +79,14 @@ const Details = ({
             alt={account.address}
             className="size-20 cursor-pointer rounded-full bg-gray-200 ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
             height={128}
-            onClick={() =>
-              setExpandedImage(getAvatar(account, EXPANDED_AVATAR))
-            }
+            onClick={() => setShowLightBox(true)}
             src={getAvatar(account, AVATAR_BIG)}
             width={128}
           />
           <LightBox
-            onClose={() => setExpandedImage(null)}
-            url={expandedImage}
+            onClose={() => setShowLightBox(false)}
+            show={showLightBox}
+            images={[getAvatar(account, EXPANDED_AVATAR)]}
           />
         </div>
         <div className="flex items-center gap-x-2">

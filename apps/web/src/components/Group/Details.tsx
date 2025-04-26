@@ -3,7 +3,7 @@ import Markup from "@/components/Shared/Markup";
 import { Button, H3, Image, LightBox } from "@/components/Shared/UI";
 import getMentions from "@/helpers/getMentions";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { AVATAR_BIG } from "@hey/data/constants";
+import { AVATAR_BIG, EXPANDED_AVATAR } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { GroupFragment } from "@hey/indexer";
 import { useState } from "react";
@@ -17,7 +17,7 @@ interface DetailsProps {
 const Details = ({ group }: DetailsProps) => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
-  const [expandedImage, setExpandedImage] = useState<null | string>(null);
+  const [showLightBox, setShowLightBox] = useState<boolean>(false);
 
   return (
     <div className="mb-4 space-y-3 px-5 md:px-0">
@@ -27,13 +27,14 @@ const Details = ({ group }: DetailsProps) => {
             alt={group.address}
             className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
             height={128}
-            onClick={() => setExpandedImage(getAvatar(group))}
+            onClick={() => setShowLightBox(true)}
             src={getAvatar(group, AVATAR_BIG)}
             width={128}
           />
           <LightBox
-            onClose={() => setExpandedImage(null)}
-            url={expandedImage}
+            onClose={() => setShowLightBox(false)}
+            show={showLightBox}
+            images={[getAvatar(group, EXPANDED_AVATAR)]}
           />
         </div>
         {currentAccount?.address === group.owner ? (
