@@ -42,7 +42,8 @@ const getAccount = async (ctx: Context) => {
       alternateName: username,
       description,
       image: getAvatar(account, AVATAR_BIG),
-      url: `https://hey.xyz/u/${username}`
+      url: `https://hey.xyz/u/${username}`,
+      memberOf: { "@type": "Organization", name: "Hey.xyz" }
     };
 
     const escapedJsonLd = JSON.stringify(jsonLd)

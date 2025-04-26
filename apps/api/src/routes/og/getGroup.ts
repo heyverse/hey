@@ -40,7 +40,8 @@ const getGroup = async (ctx: Context) => {
       alternateName: address,
       description,
       image: getAvatar(group, AVATAR_BIG),
-      url: `https://hey.xyz/g/${address}`
+      url: `https://hey.xyz/g/${address}`,
+      memberOf: { "@type": "Organization", name: "Hey.xyz" }
     };
 
     const escapedJsonLd = JSON.stringify(jsonLd)
