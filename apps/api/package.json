@@ -25,7 +25,7 @@
     "@prisma/client": "^6.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "hono": "^4.7.7",
+    "hono": "^4.7.8",
     "hono-rate-limiter": "^0.4.2",
     "jose": "^6.0.10",
     "linkedom": "^0.18.9",
