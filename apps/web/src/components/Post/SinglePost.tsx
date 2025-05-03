@@ -1,7 +1,6 @@
 import ActionType from "@/components/Home/Timeline/EventType";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
 import cn from "@/helpers/cn";
-import {} from "@/helpers/getBlockedMessage";
 import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import { memo } from "react";
 import PostActions from "./Actions";

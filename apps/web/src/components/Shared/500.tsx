@@ -1,4 +1,3 @@
-import {} from "@/components/Shared/UI";
 import { PageLayout } from "./PageLayout";
 import SiteError from "./SiteError";
 

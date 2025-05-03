@@ -47,6 +47,7 @@
     "react-dom": "^19.1.0",
     "react-easy-crop": "^5.4.1",
     "react-hook-form": "^7.56.1",
+    "react-hotkeys-hook": "^5.0.1",
     "react-markdown": "^10.1.0",
     "react-router": "^7.5.3",
     "react-tracked": "^2.0.1",
