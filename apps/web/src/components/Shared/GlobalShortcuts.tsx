@@ -33,6 +33,16 @@ const GlobalShortcuts = () => {
     navigate("/search");
   });
 
+  // Go to bookmarks
+  useHotkeys(KeyboardShortcuts.GoToBookmarks.key, () => {
+    navigate("/bookmarks");
+  });
+
+  // Go to settings
+  useHotkeys(KeyboardShortcuts.GoToSettings.key, () => {
+    navigate("/settings");
+  });
+
   return null;
 };
 
