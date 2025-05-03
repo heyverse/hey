@@ -1,8 +1,10 @@
 import FullPageLoader from "@/components/Shared/FullPageLoader";
 import GlobalAlerts from "@/components/Shared/GlobalAlerts";
 import GlobalModals from "@/components/Shared/GlobalModals";
+import GlobalShortcuts from "@/components/Shared/GlobalShortcuts";
 import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
+import { Spinner } from "@/components/Shared/UI";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
@@ -13,7 +15,6 @@ import { useIsClient } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Toaster, type ToasterProps } from "sonner";
-import { Spinner } from "../Shared/UI";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -61,6 +62,7 @@ const Layout = () => {
           loading: <Spinner size="xs" />
         }}
       />
+      <GlobalShortcuts />
       <GlobalModals />
       <GlobalAlerts />
       <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8 px-0 md:px-5">
