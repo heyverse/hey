@@ -7,6 +7,7 @@ import { Button, Card, H6 } from "@/components/Shared/UI";
 import collectActionParams from "@/helpers/collectActionParams";
 import errorToast from "@/helpers/errorToast";
 import getMentions from "@/helpers/getMentions";
+import KeyboardShortcuts from "@/helpers/shortcuts";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useCreatePost from "@/hooks/useCreatePost";
 import usePostMetadata from "@/hooks/usePostMetadata";
@@ -32,6 +33,7 @@ import type { PostFragment } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { useEffect, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "sonner";
 import Attachment from "./Actions/Attachment";
 import CollectSettings from "./Actions/CollectSettings";
@@ -233,6 +235,10 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     };
     addAttachments([attachment]);
   };
+
+  useHotkeys(KeyboardShortcuts.CreatePost.key, () => handleCreatePost(), {
+    enableOnContentEditable: true
+  });
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
