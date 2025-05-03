@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
@@ -88,7 +89,8 @@ export default defineConfig({
         ]
       }
     }),
-    EnvironmentPlugin(["VITE_IS_PRODUCTION", "NEXT_PUBLIC_LENS_NETWORK"])
+    EnvironmentPlugin(["VITE_IS_PRODUCTION", "NEXT_PUBLIC_LENS_NETWORK"]),
+    sentryVitePlugin({ org: "heyverse", project: "web" })
   ],
   build: {
     target: "esnext",
@@ -104,6 +106,8 @@ export default defineConfig({
         },
         manualChunks: dependenciesToChunk
       }
-    }
+    },
+
+    sourcemap: true
   }
 });
