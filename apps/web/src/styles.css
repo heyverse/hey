@@ -9,16 +9,9 @@
 
   /* Brand Colors */
   --color-brand-50: #fff0f2;
-  --color-brand-100: #ffe3e5;
-  --color-brand-200: #ffcbd3;
   --color-brand-300: #ffa1ad;
-  --color-brand-400: #ff6c82;
   --color-brand-500: #fb3a5d;
   --color-brand-600: #e91546;
-  --color-brand-700: #c50b3b;
-  --color-brand-800: #a40d39;
-  --color-brand-900: #8c0f36;
-  --color-brand-950: #4f0219;
 }
 
 @keyframes shimmer {
