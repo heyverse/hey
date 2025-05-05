@@ -29,7 +29,7 @@
     "@sentry/react-router": "^9.15.0",
     "@sentry/vite-plugin": "^3.3.1",
     "@tailwindcss/vite": "^4.1.5",
-    "@tanstack/react-query": "^5.75.1",
+    "@tanstack/react-query": "^5.75.2",
     "@uidotdev/usehooks": "^2.4.1",
     "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.1",
@@ -68,7 +68,7 @@
     "virtua": "^0.41.0",
     "vite": "^6.3.4",
     "wagmi": "^2.15.2",
-    "zod": "^3.24.3",
+    "zod": "^3.24.4",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
