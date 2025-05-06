@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.799.0",
+    "@aws-sdk/client-sts": "^3.803.0",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hey/indexer": "workspace:*",
@@ -27,12 +27,12 @@
     "dotenv": "^16.5.0",
     "hono": "^4.7.8",
     "hono-rate-limiter": "^0.4.2",
-    "jose": "^6.0.10",
+    "jose": "^6.0.11",
     "linkedom": "^0.18.10",
     "pg-promise": "^11.13.0",
-    "redis": "^5.0.0",
+    "redis": "^5.0.1",
     "tsx": "^4.19.4",
-    "viem": "^2.28.4",
+    "viem": "^2.29.0",
     "xmlbuilder2": "^3.1.1",
     "zod": "^3.24.4"
   },
@@ -40,7 +40,7 @@
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.17",
-    "@types/node": "^22.15.3",
+    "@types/node": "^22.15.11",
     "prisma": "^6.7.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

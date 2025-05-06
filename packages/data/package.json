@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.15.3",
+    "@types/node": "^22.15.11",
     "typescript": "^5.8.3"
   }
 }
