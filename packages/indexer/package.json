@@ -14,13 +14,13 @@
     "graphql": "^16.11.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.5",
+    "@graphql-codegen/cli": "^5.0.6",
     "@graphql-codegen/fragment-matcher": "^5.1.0",
     "@graphql-codegen/typescript": "^4.1.6",
-    "@graphql-codegen/typescript-operations": "^4.6.0",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.2",
     "@hey/config": "workspace:*",
-    "@types/node": "^22.15.12",
+    "@types/node": "^22.15.14",
     "typescript": "^5.8.3"
   }
 }
