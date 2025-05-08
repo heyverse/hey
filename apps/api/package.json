@@ -32,7 +32,7 @@
     "pg-promise": "^11.13.0",
     "redis": "^5.0.1",
     "tsx": "^4.19.4",
-    "viem": "^2.29.0",
+    "viem": "^2.29.1",
     "xmlbuilder2": "^3.1.1",
     "zod": "^3.24.4"
   },
@@ -40,7 +40,7 @@
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.17",
-    "@types/node": "^22.15.14",
+    "@types/node": "^22.15.16",
     "prisma": "^6.7.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
