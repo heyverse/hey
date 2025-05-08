@@ -38,7 +38,7 @@
     "family": "^0.1.1",
     "hast": "^1.0.0",
     "mdast-util-to-markdown": "^2.1.2",
-    "motion": "^12.10.1",
+    "motion": "^12.10.4",
     "motion-plus-react": "^0.1.5",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
