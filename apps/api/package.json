@@ -40,7 +40,7 @@
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.18",
-    "@types/node": "^22.15.16",
+    "@types/node": "^22.15.17",
     "prisma": "^6.7.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
