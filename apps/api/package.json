@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.804.0",
+    "@aws-sdk/client-sts": "^3.806.0",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hey/indexer": "workspace:*",
@@ -25,7 +25,7 @@
     "@prisma/client": "^6.7.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "hono": "^4.7.8",
+    "hono": "^4.7.9",
     "hono-rate-limiter": "^0.4.2",
     "jose": "^6.0.11",
     "linkedom": "^0.18.10",
