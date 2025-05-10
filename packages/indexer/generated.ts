@@ -98,12 +98,12 @@ export type AccountActionExecutedNotification = {
   id: Scalars['GeneratedNotificationId']['output'];
 };
 
-export type AccountActionExecutedNotificationAttributes = {
-  account?: InputMaybe<Scalars['EvmAddress']['input']>;
-  action?: InputMaybe<Scalars['EvmAddress']['input']>;
-  actionType?: InputMaybe<AccountActionType>;
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  executingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountActionExecutedNotificationFilter = {
+  account?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  action?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  actionType?: InputMaybe<Array<AccountActionType>>;
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  executingAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountActionFilter = {
@@ -129,9 +129,9 @@ export type AccountBlocked = {
   blockedAt: Scalars['DateTime']['output'];
 };
 
-export type AccountBlockedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountBlockedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  graph?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountBlockedResponse = {
@@ -139,9 +139,9 @@ export type AccountBlockedResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type AccountCreatedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountCreatedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  graph?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountExecutedActions = {
@@ -245,11 +245,11 @@ export type AccountFollowUnsatisfiedRules = {
   required: Array<AccountFollowUnsatisfiedRule>;
 };
 
-export type AccountFollowedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  followedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  follower?: InputMaybe<Scalars['EvmAddress']['input']>;
-  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountFollowedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  followedAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  follower?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  graph?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountGraphsFollowStats = {
@@ -282,9 +282,9 @@ export type AccountManager = {
   permissions: AccountManagerPermissions;
 };
 
-export type AccountManagerAddedNotificationAttributes = {
-  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountManagerAddedNotificationFilter = {
+  managedAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  manager?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountManagerChallengeRequest = {
@@ -308,14 +308,14 @@ export type AccountManagerPermissionsInput = {
   canTransferTokens: Scalars['Boolean']['input'];
 };
 
-export type AccountManagerRemovedNotificationAttributes = {
-  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountManagerRemovedNotificationFilter = {
+  managedAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  manager?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
-export type AccountManagerUpdatedNotificationAttributes = {
-  managedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  manager?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountManagerUpdatedNotificationFilter = {
+  managedAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  manager?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountManagersRequest = {
@@ -330,12 +330,12 @@ export type AccountMention = {
   replace: MentionReplace;
 };
 
-export type AccountMentionedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  mentionedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  mentionedUsername?: InputMaybe<Scalars['UsernameValue']['input']>;
+export type AccountMentionedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  author?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  feed?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  mentionedAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  mentionedUsername?: InputMaybe<Array<Scalars['UsernameValue']['input']>>;
 };
 
 export type AccountMetadata = {
@@ -370,8 +370,8 @@ export type AccountOwnerChallengeRequest = {
   owner: Scalars['EvmAddress']['input'];
 };
 
-export type AccountOwnershipTransferredNotificationAttributes = {
-  account?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountOwnershipTransferredNotificationFilter = {
+  account?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountPostReaction = {
@@ -393,10 +393,10 @@ export enum AccountReportReason {
   RepetitiveSpam = 'REPETITIVE_SPAM'
 }
 
-export type AccountReportedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  reportedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountReportedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  reportedAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  reporter?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountRequest = {
@@ -429,9 +429,9 @@ export type AccountStatsRequest = {
   username?: InputMaybe<UsernameInput>;
 };
 
-export type AccountUnblockedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountUnblockedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  graph?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountUnblockedResponse = {
@@ -439,21 +439,21 @@ export type AccountUnblockedResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type AccountUnfollowedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  graph?: InputMaybe<Scalars['EvmAddress']['input']>;
-  unfollowedAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  unfollower?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountUnfollowedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  graph?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  unfollowedAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  unfollower?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
-export type AccountUsernameAssignedNotificationAttributes = {
-  account?: InputMaybe<Scalars['EvmAddress']['input']>;
-  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountUsernameAssignedNotificationFilter = {
+  account?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  namespace?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
-export type AccountUsernameCreatedNotificationAttributes = {
-  account?: InputMaybe<Scalars['EvmAddress']['input']>;
-  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountUsernameCreatedNotificationFilter = {
+  account?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  namespace?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountUsernameOneOf = {
@@ -461,9 +461,9 @@ export type AccountUsernameOneOf = {
   namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
 };
 
-export type AccountUsernameUnassignedNotificationAttributes = {
-  namespace?: InputMaybe<Scalars['EvmAddress']['input']>;
-  previousAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type AccountUsernameUnassignedNotificationFilter = {
+  namespace?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  previousAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type AccountsAvailableRequest = {
@@ -2555,8 +2555,8 @@ export enum MediaImageType {
   XMsBmp = 'X_MS_BMP'
 }
 
-export type MediaSnapshotNotificationAttributes = {
-  source?: InputMaybe<PrimitiveId>;
+export type MediaSnapshotNotificationFilter = {
+  source?: InputMaybe<Array<PrimitiveId>>;
 };
 
 export type MediaVideo = {
@@ -2667,8 +2667,8 @@ export enum MetadataLicenseType {
   TbnlNcNdPlLegal = 'TBNL_NC_ND_PL_LEGAL'
 }
 
-export type MetadataSnapshotNotificationAttributes = {
-  source?: InputMaybe<PrimitiveId>;
+export type MetadataSnapshotNotificationFilter = {
+  source?: InputMaybe<Array<PrimitiveId>>;
 };
 
 export type MintMetadata = {
@@ -3874,13 +3874,13 @@ export type PostActionExecutedNotification = {
   post: Post;
 };
 
-export type PostActionExecutedNotificationAttributes = {
-  action?: InputMaybe<Scalars['EvmAddress']['input']>;
-  actionType?: InputMaybe<PostActionType>;
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  executingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  postId?: InputMaybe<Scalars['PostId']['input']>;
-  receivingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type PostActionExecutedNotificationFilter = {
+  action?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  actionType?: InputMaybe<Array<PostActionType>>;
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  executingAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  postId?: InputMaybe<Array<Scalars['PostId']['input']>>;
+  receivingAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type PostActionFilter = {
@@ -3910,31 +3910,31 @@ export type PostBookmarksRequest = {
   pageSize?: PageSize;
 };
 
-export type PostCollectedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  collector?: InputMaybe<Scalars['EvmAddress']['input']>;
-  postAuthor?: InputMaybe<Scalars['EvmAddress']['input']>;
-  postId?: InputMaybe<Scalars['PostId']['input']>;
+export type PostCollectedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  author?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  collector?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  postId?: InputMaybe<Array<Scalars['PostId']['input']>>;
 };
 
 export type PostContentUriRequest = {
   useSnapshot: Scalars['Boolean']['input'];
 };
 
-export type PostCreatedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
-  postTypes?: InputMaybe<Array<PostType>>;
+export type PostCreatedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  author?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  feed?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  parentPostId?: InputMaybe<Array<InputMaybe<Scalars['PostId']['input']>>>;
+  postTypes?: InputMaybe<Array<Array<PostType>>>;
 };
 
-export type PostDeletedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
-  postTypes?: InputMaybe<Array<PostType>>;
+export type PostDeletedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  author?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  feed?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  parentPostId?: InputMaybe<Array<InputMaybe<Scalars['PostId']['input']>>>;
+  postTypes?: InputMaybe<Array<Array<PostType>>>;
 };
 
 export type PostEdit = {
@@ -3943,12 +3943,12 @@ export type PostEdit = {
   timestamp: Scalars['DateTime']['output'];
 };
 
-export type PostEditedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  parentPostId?: InputMaybe<Scalars['PostId']['input']>;
-  postTypes?: InputMaybe<Array<PostType>>;
+export type PostEditedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  author?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  feed?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  parentPostId?: InputMaybe<Array<InputMaybe<Scalars['PostId']['input']>>>;
+  postTypes?: InputMaybe<Array<Array<PostType>>>;
 };
 
 export type PostEditsRequest = {
@@ -4034,11 +4034,11 @@ export type PostReaction = {
   reaction: PostReactionType;
 };
 
-export type PostReactionAddedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  postId?: InputMaybe<Scalars['PostId']['input']>;
-  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  reactionType?: InputMaybe<PostReactionType>;
+export type PostReactionAddedNotificationFilter = {
+  app?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  postId?: InputMaybe<Array<Scalars['PostId']['input']>>;
+  reactingAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  reactionType?: InputMaybe<Array<PostReactionType>>;
 };
 
 export enum PostReactionOrderBy {
@@ -4046,11 +4046,11 @@ export enum PostReactionOrderBy {
   Default = 'DEFAULT'
 }
 
-export type PostReactionRemovedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  postId?: InputMaybe<Scalars['PostId']['input']>;
-  reactingAccount?: InputMaybe<Scalars['EvmAddress']['input']>;
-  reactionType?: InputMaybe<PostReactionType>;
+export type PostReactionRemovedNotificationFilter = {
+  app?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  postId?: InputMaybe<Array<Scalars['PostId']['input']>>;
+  reactingAccount?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  reactionType?: InputMaybe<Array<PostReactionType>>;
 };
 
 export type PostReactionStatus = {
@@ -4119,11 +4119,11 @@ export enum PostReportReason {
   Violence = 'VIOLENCE'
 }
 
-export type PostReportedNotificationAttributes = {
-  app?: InputMaybe<Scalars['EvmAddress']['input']>;
-  author?: InputMaybe<Scalars['EvmAddress']['input']>;
-  feed?: InputMaybe<Scalars['EvmAddress']['input']>;
-  reporter?: InputMaybe<Scalars['EvmAddress']['input']>;
+export type PostReportedNotificationFilter = {
+  app?: InputMaybe<Array<InputMaybe<Scalars['EvmAddress']['input']>>>;
+  author?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  feed?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
+  reporter?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
 };
 
 export type PostRequest = {
@@ -5194,35 +5194,35 @@ export type SnsSubscription = {
 };
 
 export type SnsTopicInput = {
-  accountActionExecuted?: InputMaybe<AccountActionExecutedNotificationAttributes>;
-  accountBlocked?: InputMaybe<AccountBlockedNotificationAttributes>;
-  accountCreated?: InputMaybe<AccountCreatedNotificationAttributes>;
-  accountFollowed?: InputMaybe<AccountFollowedNotificationAttributes>;
-  accountManagerAdded?: InputMaybe<AccountManagerAddedNotificationAttributes>;
-  accountManagerRemoved?: InputMaybe<AccountManagerRemovedNotificationAttributes>;
-  accountManagerUpdated?: InputMaybe<AccountManagerUpdatedNotificationAttributes>;
-  accountMentioned?: InputMaybe<AccountMentionedNotificationAttributes>;
-  accountOwnershipTransferred?: InputMaybe<AccountOwnershipTransferredNotificationAttributes>;
-  accountReported?: InputMaybe<AccountReportedNotificationAttributes>;
-  accountUnblocked?: InputMaybe<AccountUnblockedNotificationAttributes>;
-  accountUnfollowed?: InputMaybe<AccountUnfollowedNotificationAttributes>;
-  accountUsernameAssigned?: InputMaybe<AccountUsernameAssignedNotificationAttributes>;
-  accountUsernameCreated?: InputMaybe<AccountUsernameCreatedNotificationAttributes>;
-  accountUsernameUnassigned?: InputMaybe<AccountUsernameUnassignedNotificationAttributes>;
-  mediaSnapshotError?: InputMaybe<MediaSnapshotNotificationAttributes>;
-  mediaSnapshotSuccess?: InputMaybe<MediaSnapshotNotificationAttributes>;
-  metadataSnapshotError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
-  metadataSnapshotSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
-  postActionExecuted?: InputMaybe<PostActionExecutedNotificationAttributes>;
-  postCollected?: InputMaybe<PostCollectedNotificationAttributes>;
-  postCreated?: InputMaybe<PostCreatedNotificationAttributes>;
-  postDeleted?: InputMaybe<PostDeletedNotificationAttributes>;
-  postEdited?: InputMaybe<PostEditedNotificationAttributes>;
-  postReactionAdded?: InputMaybe<PostReactionAddedNotificationAttributes>;
-  postReactionRemoved?: InputMaybe<PostReactionRemovedNotificationAttributes>;
-  postReported?: InputMaybe<PostReportedNotificationAttributes>;
-  refreshMetadataError?: InputMaybe<MetadataSnapshotNotificationAttributes>;
-  refreshMetadataSuccess?: InputMaybe<MetadataSnapshotNotificationAttributes>;
+  accountActionExecuted?: InputMaybe<AccountActionExecutedNotificationFilter>;
+  accountBlocked?: InputMaybe<AccountBlockedNotificationFilter>;
+  accountCreated?: InputMaybe<AccountCreatedNotificationFilter>;
+  accountFollowed?: InputMaybe<AccountFollowedNotificationFilter>;
+  accountManagerAdded?: InputMaybe<AccountManagerAddedNotificationFilter>;
+  accountManagerRemoved?: InputMaybe<AccountManagerRemovedNotificationFilter>;
+  accountManagerUpdated?: InputMaybe<AccountManagerUpdatedNotificationFilter>;
+  accountMentioned?: InputMaybe<AccountMentionedNotificationFilter>;
+  accountOwnershipTransferred?: InputMaybe<AccountOwnershipTransferredNotificationFilter>;
+  accountReported?: InputMaybe<AccountReportedNotificationFilter>;
+  accountUnblocked?: InputMaybe<AccountUnblockedNotificationFilter>;
+  accountUnfollowed?: InputMaybe<AccountUnfollowedNotificationFilter>;
+  accountUsernameAssigned?: InputMaybe<AccountUsernameAssignedNotificationFilter>;
+  accountUsernameCreated?: InputMaybe<AccountUsernameCreatedNotificationFilter>;
+  accountUsernameUnassigned?: InputMaybe<AccountUsernameUnassignedNotificationFilter>;
+  mediaSnapshotError?: InputMaybe<MediaSnapshotNotificationFilter>;
+  mediaSnapshotSuccess?: InputMaybe<MediaSnapshotNotificationFilter>;
+  metadataSnapshotError?: InputMaybe<MetadataSnapshotNotificationFilter>;
+  metadataSnapshotSuccess?: InputMaybe<MetadataSnapshotNotificationFilter>;
+  postActionExecuted?: InputMaybe<PostActionExecutedNotificationFilter>;
+  postCollected?: InputMaybe<PostCollectedNotificationFilter>;
+  postCreated?: InputMaybe<PostCreatedNotificationFilter>;
+  postDeleted?: InputMaybe<PostDeletedNotificationFilter>;
+  postEdited?: InputMaybe<PostEditedNotificationFilter>;
+  postReactionAdded?: InputMaybe<PostReactionAddedNotificationFilter>;
+  postReactionRemoved?: InputMaybe<PostReactionRemovedNotificationFilter>;
+  postReported?: InputMaybe<PostReportedNotificationFilter>;
+  refreshMetadataError?: InputMaybe<MetadataSnapshotNotificationFilter>;
+  refreshMetadataSuccess?: InputMaybe<MetadataSnapshotNotificationFilter>;
 };
 
 export type SpaceMetadata = {
@@ -7061,6 +7061,15 @@ export type PostMetadataFragment = PostMetadata_ArticleMetadata_Fragment | PostM
 
 export type PostStatsFragment = { __typename?: 'PostStats', bookmarks: number, comments: number, quotes: number, reactions: number, reposts: number, collects: number, tips: number };
 
+type Pro_Post_Fragment = { __typename?: 'Post', id: any, operations?: { __typename?: 'LoggedInPostOperations', hasBookmarked: boolean, hasTipped: boolean, lastTip?: { __typename?: 'PostTip', date: any, amount: (
+        { __typename?: 'Erc20Amount' }
+        & Erc20AmountFragment
+      ) } | null } | null };
+
+type Pro_Repost_Fragment = { __typename?: 'Repost' };
+
+export type ProFragment = Pro_Post_Fragment | Pro_Repost_Fragment;
+
 export type ReferencedPostFragment = { __typename?: 'Post', id: any, slug: any, isDeleted: boolean, timestamp: any, feed: (
     { __typename?: 'PostFeedInfo' }
     & PostFeedInfoFragment
@@ -8134,7 +8143,13 @@ export type MeQuery = { __typename?: 'Query', me: { __typename?: 'MeResult', log
       ) } | { __typename?: 'AccountOwned', account: (
         { __typename?: 'Account' }
         & AccountFragment
-      ) } } };
+      ) } }, pro?: (
+    { __typename?: 'Post' }
+    & Pro_Post_Fragment
+  ) | (
+    { __typename?: 'Repost' }
+    & Pro_Repost_Fragment
+  ) | null };
 
 export type NotificationsQueryVariables = Exact<{
   request: NotificationRequest;
@@ -8495,6 +8510,7 @@ export const AnyPostFragmentDoc = {"kind":"Document","definitions":[{"kind":"Fra
 export const SimpleCollectActionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SimpleCollectAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"collectLimit"}},{"kind":"Field","name":{"kind":"Name","value":"endsAt"}},{"kind":"Field","name":{"kind":"Name","value":"payToCollect"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PayToCollectConfig"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PayToCollectConfig"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PayToCollectConfig"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"referralShare"}},{"kind":"Field","name":{"kind":"Name","value":"recipients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}}]}},{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}}]} as unknown as DocumentNode;
 export const UnknownPostActionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownPostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode;
 export const PostActionFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SimpleCollectAction"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"UnknownPostAction"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PayToCollectConfig"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PayToCollectConfig"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"referralShare"}},{"kind":"Field","name":{"kind":"Name","value":"recipients"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"percent"}}]}},{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SimpleCollectAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SimpleCollectAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"collectLimit"}},{"kind":"Field","name":{"kind":"Name","value":"endsAt"}},{"kind":"Field","name":{"kind":"Name","value":"payToCollect"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PayToCollectConfig"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownPostAction"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostAction"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode;
+export const ProFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pro"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AnyPost"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasBookmarked"}},{"kind":"Field","name":{"kind":"Name","value":"hasTipped"}},{"kind":"Field","name":{"kind":"Name","value":"lastTip"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
 export const UnknownPostMetadataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"UnknownPostMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"UnknownPostMetadata"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"raw"}}]}}]} as unknown as DocumentNode;
 export const SelfFundedTransactionRequestFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SelfFundedTransactionRequest"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SelfFundedTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]} as unknown as DocumentNode;
 export const SponsoredTransactionRequestFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SponsoredTransactionRequest"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SponsoredTransactionRequest"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"reason"}},{"kind":"Field","name":{"kind":"Name","value":"raw"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"chainId"}},{"kind":"Field","name":{"kind":"Name","value":"data"}},{"kind":"Field","name":{"kind":"Name","value":"from"}},{"kind":"Field","name":{"kind":"Name","value":"gasLimit"}},{"kind":"Field","name":{"kind":"Name","value":"maxFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"maxPriorityFeePerGas"}},{"kind":"Field","name":{"kind":"Name","value":"nonce"}},{"kind":"Field","name":{"kind":"Name","value":"to"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"customData"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customSignature"}},{"kind":"Field","name":{"kind":"Name","value":"factoryDeps"}},{"kind":"Field","name":{"kind":"Name","value":"gasPerPubdata"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterParams"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymaster"}},{"kind":"Field","name":{"kind":"Name","value":"paymasterInput"}}]}}]}}]}}]}}]} as unknown as DocumentNode;
@@ -8995,7 +9011,7 @@ export function useFullAccountSuspenseQuery(baseOptions?: Apollo.SkipToken | Apo
 export type FullAccountQueryHookResult = ReturnType<typeof useFullAccountQuery>;
 export type FullAccountLazyQueryHookResult = ReturnType<typeof useFullAccountLazyQuery>;
 export type FullAccountSuspenseQueryHookResult = ReturnType<typeof useFullAccountSuspenseQuery>;
-export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loggedInAs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountManaged"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Account"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountOwned"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Account"}}]}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AnyKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AnyKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddressKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BigDecimalKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"bigDecimal"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StringKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"string"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Account"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"owner"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"rules"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"anyOf"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFollowRule"}}]}},{"kind":"Field","name":{"kind":"Name","value":"required"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFollowRule"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LoggedInAccountOperations"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountMetadata"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"autoResolve"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountFollowRule"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountFollowRule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"config"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AnyKeyValue"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountMetadata"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MetadataAttribute"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LoggedInAccountOperations"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LoggedInAccountOperations"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowingMe"}},{"kind":"Field","name":{"kind":"Name","value":"isMutedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isBlockedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"hasBlockedMe"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Username"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Username"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"namespace"}},{"kind":"Field","name":{"kind":"Name","value":"localName"}},{"kind":"Field","name":{"kind":"Name","value":"linkedTo"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MetadataAttribute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MetadataAttribute"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
+export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"loggedInAs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountManaged"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Account"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountOwned"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"account"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Account"}}]}}]}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"pro"},"name":{"kind":"Name","value":"post"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"post"},"value":{"kind":"StringValue","value":"2mgw7kzz2w6fs8n99j8","block":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Pro"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AnyKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AnyKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddressKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BigDecimalKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"bigDecimal"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StringKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"string"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Account"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"owner"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"rules"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"anyOf"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFollowRule"}}]}},{"kind":"Field","name":{"kind":"Name","value":"required"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFollowRule"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LoggedInAccountOperations"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountMetadata"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"autoResolve"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Username"}}]}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountFollowRule"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountFollowRule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"config"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AnyKeyValue"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountMetadata"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MetadataAttribute"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LoggedInAccountOperations"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LoggedInAccountOperations"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowingMe"}},{"kind":"Field","name":{"kind":"Name","value":"isMutedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isBlockedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"hasBlockedMe"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Username"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Username"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"namespace"}},{"kind":"Field","name":{"kind":"Name","value":"localName"}},{"kind":"Field","name":{"kind":"Name","value":"linkedTo"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Pro"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AnyPost"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Post"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasBookmarked"}},{"kind":"Field","name":{"kind":"Name","value":"hasTipped"}},{"kind":"Field","name":{"kind":"Name","value":"lastTip"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"amount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}},{"kind":"Field","name":{"kind":"Name","value":"date"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MetadataAttribute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MetadataAttribute"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
 export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);

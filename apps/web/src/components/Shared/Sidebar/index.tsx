@@ -12,7 +12,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* <Gitcoin /> */}
+      {/* <Donate /> */}
       {loggedOut && <SignupCard />} {/* Onboarding steps */}
       {loggedInWithAccount && (
         <>

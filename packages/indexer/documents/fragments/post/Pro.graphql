@@ -1,0 +1,15 @@
+fragment Pro on AnyPost {
+  ... on Post {
+    id
+    operations {
+      hasBookmarked
+      hasTipped
+      lastTip {
+        amount {
+          ...Erc20Amount
+        }
+        date
+      }
+    }
+  }
+}

@@ -1,9 +1,16 @@
 import CountdownTimer from "@/components/Shared/CountdownTimer";
 import { Button, Card, Image } from "@/components/Shared/UI";
+import { useProStore } from "@/store/persisted/useProStore";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Link } from "react-router";
 
-const Gitcoin = () => {
+const Donate = () => {
+  const { isPro } = useProStore();
+
+  if (isPro) {
+    return null;
+  }
+
   return (
     <Card
       as="aside"
@@ -35,4 +42,4 @@ const Gitcoin = () => {
   );
 };
 
-export default Gitcoin;
+export default Donate;
