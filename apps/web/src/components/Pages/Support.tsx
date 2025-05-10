@@ -18,7 +18,7 @@ const Support = () => {
             <Link to="/terms">Terms of Service</Link>
             <Link to="/privacy">Hey Privacy Policy</Link>
             <Link
-              to="https://www.lens.xyz/legal/lens.xyz-privacy-policy.pdf"
+              to="https://www.lens.xyz/privacy"
               target="_blank"
             >
               Lens Privacy Policy
