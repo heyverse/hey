@@ -3,7 +3,6 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import EnvironmentPlugin from "vite-plugin-environment";
-import { VitePWA } from "vite-plugin-pwa";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 const dependenciesToChunk = {
@@ -53,42 +52,11 @@ const dependenciesToChunk = {
   ]
 };
 
-const navigateFallbackDenylist = [
-  /^\/sitemap/,
-  /^\/blog/,
-  /^\/discord/,
-  /^\/donate/
-];
-
-const bigIcon = { src: "pwa-512x512.png", sizes: "512x512", type: "image/png" };
-
-const manifest = {
-  name: "Hey",
-  short_name: "Hey",
-  description:
-    "Hey.xyz is a decentralized, and permissionless social media app built with Lens",
-  categories: ["social", "decentralized", "lens"],
-  lang: "en",
-  theme_color: "#f9fafb",
-  display: "standalone",
-  icons: [
-    { src: "pwa-192x192.png", sizes: "192x192", type: "image/png" },
-    bigIcon,
-    { ...bigIcon, purpose: "any" },
-    { ...bigIcon, purpose: "maskable" }
-  ]
-};
-
 export default defineConfig({
   plugins: [
     tsconfigPaths(),
     react(),
     tailwindcss(),
-    VitePWA({
-      registerType: "autoUpdate",
-      workbox: { navigateFallbackDenylist },
-      manifest
-    }),
     EnvironmentPlugin(["VITE_IS_PRODUCTION", "NEXT_PUBLIC_LENS_NETWORK"]),
     sentryVitePlugin({
       org: "heyverse",
