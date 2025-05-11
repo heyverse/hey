@@ -3,11 +3,5 @@
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
 
-/manifest.webmanifest
-  Content-Type: application/manifest+json
-
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
-
-/sw.js
-  Cache-Control: public, max-age=0, must-revalidate

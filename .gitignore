@@ -41,6 +41,3 @@ yarn-error.log*
 
 # Node build artifacts
 dist
-
-# Sentry
-.env.sentry-build-plugin
