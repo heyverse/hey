@@ -1,4 +1,3 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
@@ -57,13 +56,7 @@ export default defineConfig({
     tsconfigPaths(),
     react(),
     tailwindcss(),
-    EnvironmentPlugin(["VITE_IS_PRODUCTION", "NEXT_PUBLIC_LENS_NETWORK"]),
-    sentryVitePlugin({
-      org: "heyverse",
-      project: "web",
-      telemetry: false,
-      sourcemaps: { filesToDeleteAfterUpload: ["./dist/assets/*.js.map"] }
-    })
+    EnvironmentPlugin(["VITE_IS_PRODUCTION", "NEXT_PUBLIC_LENS_NETWORK"])
   ],
   build: {
     sourcemap: true,
