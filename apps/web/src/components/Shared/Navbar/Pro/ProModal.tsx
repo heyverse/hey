@@ -1,0 +1,114 @@
+import { Button } from "@/components/Shared/UI";
+import formatDate from "@/helpers/datetime/formatDate";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useProStore } from "@/store/persisted/useProStore";
+import {
+  DEFAULT_COLLECT_TOKEN,
+  DEFAULT_TOKEN,
+  PRO_POST_ID,
+  PRO_SUBSCRIPTION_AMOUNT
+} from "@hey/data/constants";
+import {
+  type TippingAmountInput,
+  useAccountBalancesQuery,
+  useExecutePostActionMutation
+} from "@hey/indexer";
+import { useState } from "react";
+import { toast } from "sonner";
+import TransferFundButton from "../../Account/Fund/FundButton";
+import Loader from "../../Loader";
+
+interface ProModalProps {
+  setShowProModal: (show: boolean) => void;
+}
+
+const ProModal = ({ setShowProModal }: ProModalProps) => {
+  const { currentAccount } = useAccountStore();
+  const { isPro, expiresAt } = useProStore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleTransactionLifecycle = useTransactionLifecycle();
+
+  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
+    variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
+    fetchPolicy: "no-cache"
+  });
+
+  const onCompleted = () => {
+    setShowProModal(false);
+    toast.success("Subscribed to Pro");
+  };
+
+  const onError = (error: Error) => {
+    setIsSubmitting(false);
+    errorToast(error);
+  };
+
+  const erc20Balance =
+    balance?.accountBalances[0].__typename === "Erc20Amount"
+      ? Number(balance.accountBalances[0].value).toFixed(2)
+      : 0;
+
+  const canSubscribe = Number(erc20Balance) >= PRO_SUBSCRIPTION_AMOUNT;
+
+  const [executeTipAction] = useExecutePostActionMutation({
+    onCompleted: async ({ executePostAction }) => {
+      if (executePostAction.__typename === "ExecutePostActionResponse") {
+        return onCompleted();
+      }
+
+      return await handleTransactionLifecycle({
+        transactionData: executePostAction,
+        onCompleted,
+        onError
+      });
+    },
+    onError
+  });
+
+  const handleSubscribe = () => {
+    setIsSubmitting(true);
+
+    const tipping: TippingAmountInput = {
+      currency: DEFAULT_COLLECT_TOKEN,
+      value: PRO_SUBSCRIPTION_AMOUNT.toString()
+    };
+
+    return executeTipAction({
+      variables: { request: { post: PRO_POST_ID, action: { tipping } } }
+    });
+  };
+
+  if (balanceLoading) {
+    return <Loader className="my-10" />;
+  }
+
+  return (
+    <div className="m-5">
+      {expiresAt ? (
+        <div>{formatDate(expiresAt)}</div>
+      ) : (
+        <div>You are not subscribed to Pro</div>
+      )}
+      {isPro ? (
+        <div>You are subscribed to Pro</div>
+      ) : canSubscribe ? (
+        <Button
+          className="w-full"
+          onClick={handleSubscribe}
+          disabled={isSubmitting}
+          loading={isSubmitting}
+        >
+          Subscribe for ${PRO_SUBSCRIPTION_AMOUNT}/month
+        </Button>
+      ) : (
+        <TransferFundButton className="w-full" token={DEFAULT_TOKEN} />
+      )}
+    </div>
+  );
+};
+
+export default ProModal;

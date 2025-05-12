@@ -6,7 +6,9 @@ import type { ProFragment } from "@hey/indexer";
 
 const PRO_TIP_DAYS_SINCE_TIP = 30;
 
-const checkProStatus = (post: ProFragment): { isPro: boolean } => {
+const checkProStatus = (
+  post: ProFragment
+): { isPro: boolean; expiresAt?: Date } => {
   if (post.__typename !== "Post") {
     return { isPro: false };
   }
@@ -31,7 +33,12 @@ const checkProStatus = (post: ProFragment): { isPro: boolean } => {
     tipAmountUsd >= PRO_SUBSCRIPTION_AMOUNT &&
     assetSymbol === WRAPPED_NATIVE_TOKEN_SYMBOL;
 
-  return { isPro };
+  const expiresAt =
+    isPro && lastSubscriptionDate
+      ? new Date(lastSubscriptionDate.getTime() + 30 * 24 * 60 * 60 * 1000)
+      : undefined;
+
+  return { isPro, expiresAt };
 };
 
 export default checkProStatus;
