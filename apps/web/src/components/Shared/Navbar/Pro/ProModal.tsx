@@ -1,9 +1,10 @@
-import { Button, Image } from "@/components/Shared/UI";
+import { Button, H4, Image, Tooltip } from "@/components/Shared/UI";
 import formatDate from "@/helpers/datetime/formatDate";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useProStore } from "@/store/persisted/useProStore";
+import { SparklesIcon } from "@heroicons/react/24/solid";
 import {
   DEFAULT_COLLECT_TOKEN,
   DEFAULT_TOKEN,
@@ -93,12 +94,42 @@ const ProModal = ({ setShowProModal }: ProModalProps) => {
         <div>{formatDate(expiresAt)}</div>
       ) : (
         <div className="flex flex-col items-center">
-          <b className="mb-2">You'll get</b>
-          <div className="flex flex-col items-center gap-y-1 text-gray-500 text-sm">
-            <div>Pro Badge on your profile</div>
-            <div>Advanced Collect Settings</div>
-            <div>Create Live Streams</div>
-            <div>More coming soon™</div>
+          <H4 className="mb-3">What you'll get</H4>
+          <div className="flex flex-col items-center gap-y-1.5 text-gray-500 text-sm">
+            <Tooltip
+              content={
+                <div className="flex max-w-xs items-center gap-x-1 py-1.5 leading-5">
+                  You will have nice <SparklesIcon className="size-4" /> icon on
+                  your profile
+                </div>
+              }
+              placement="top"
+            >
+              <div>Pro Badge on your profile</div>
+            </Tooltip>
+            <Tooltip
+              content={
+                <div className="max-w-xs py-1.5 leading-5">
+                  Unlock premium collect features: customize limits, set
+                  timeframes, split revenue between accounts, choose licenses,
+                  and access exclusive tools
+                </div>
+              }
+              placement="top"
+            >
+              <div>Advanced Collect Settings</div>
+            </Tooltip>
+            <Tooltip
+              content={
+                <div className="max-w-xs py-1.5 leading-5">
+                  Host live streams and engage with your audience in real-time
+                </div>
+              }
+              placement="top"
+            >
+              <div>Create Live Streams</div>
+            </Tooltip>
+            <div>More coming soon</div>
           </div>
         </div>
       )}
