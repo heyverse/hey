@@ -1,4 +1,4 @@
-query Me {
+query Me($request: PostRequest!) {
   me {
     loggedInAs {
       ... on AccountManaged {
@@ -13,7 +13,7 @@ query Me {
       }
     }
   }
-  pro: post(request: { post: "2mgw7kzz2w6fs8n99j8" }) {
+  pro: post(request: $request) {
     ...Pro
   }
 }
