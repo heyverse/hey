@@ -127,6 +127,7 @@ const ProModal = () => {
             >
               <div>Create Live Streams</div>
             </Tooltip>
+            <div>Choose your app icon</div>
             <div>More coming soon</div>
           </div>
         </div>

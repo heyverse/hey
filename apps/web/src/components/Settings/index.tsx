@@ -10,7 +10,6 @@ import {
   CodeBracketIcon,
   CreditCardIcon,
   CurrencyDollarIcon,
-  ExclamationTriangleIcon,
   FingerPrintIcon,
   GlobeAltIcon,
   NoSymbolIcon,
@@ -67,11 +66,6 @@ const AccountSettings = () => {
       icon: <CodeBracketIcon className="size-5" />,
       title: "Developer",
       url: "/settings/developer"
-    },
-    {
-      icon: <ExclamationTriangleIcon className="size-5 text-red-500" />,
-      title: <div className="text-red-500">Danger zone</div>,
-      url: "/settings/danger"
     }
   ];
 

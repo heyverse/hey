@@ -19,7 +19,6 @@ import ViewPost from "@/components/Post";
 import Search from "@/components/Search";
 import AccountSettings from "@/components/Settings";
 import BlockedSettings from "@/components/Settings/Blocked";
-import DangerSettings from "@/components/Settings/Danger";
 import DeveloperSettings from "@/components/Settings/Developer";
 import FundsSettings from "@/components/Settings/Funds";
 import ManagerSettings from "@/components/Settings/Manager";
@@ -70,7 +69,6 @@ export const Routes = () => {
             />
             <Route path="monetize" element={<AccountMonetizeSettings />} />
             <Route path="blocked" element={<BlockedSettings />} />
-            <Route path="danger" element={<DangerSettings />} />
             <Route path="developer" element={<DeveloperSettings />} />
             <Route path="funds" element={<FundsSettings />} />
             <Route path="manager" element={<ManagerSettings />} />
