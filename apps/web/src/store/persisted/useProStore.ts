@@ -5,34 +5,14 @@ import { persist } from "zustand/middleware";
 
 interface State {
   isPro: boolean;
-  hasIgnored: boolean;
-  shouldShowRenewBanner: boolean;
-  setProStatus: ({
-    isPro,
-    hasIgnored,
-    shouldShowRenewBanner
-  }: {
-    isPro: boolean;
-    hasIgnored: boolean;
-    shouldShowRenewBanner: boolean;
-  }) => void;
+  setProStatus: ({ isPro }: { isPro: boolean }) => void;
 }
 
 const store = create(
   persist<State>(
     (set) => ({
       isPro: false,
-      hasIgnored: false,
-      shouldShowRenewBanner: false,
-      setProStatus: ({
-        isPro,
-        hasIgnored,
-        shouldShowRenewBanner
-      }: {
-        isPro: boolean;
-        hasIgnored: boolean;
-        shouldShowRenewBanner: boolean;
-      }) => set(() => ({ isPro, hasIgnored, shouldShowRenewBanner }))
+      setProStatus: ({ isPro }: { isPro: boolean }) => set(() => ({ isPro }))
     }),
     { name: Localstorage.ProStore }
   )

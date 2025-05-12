@@ -22,8 +22,7 @@ const Layout = () => {
   const { pathname } = useLocation();
   const { theme } = useTheme();
   const { currentAccount, setCurrentAccount } = useAccountStore();
-  const { setProStatus, isPro, hasIgnored, shouldShowRenewBanner } =
-    useProStore();
+  const { setProStatus } = useProStore();
   const { resetPreferences } = usePreferencesStore();
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
@@ -56,9 +55,6 @@ const Layout = () => {
 
   return (
     <>
-      {JSON.stringify(
-        `isPro: ${isPro}, hasIgnored: ${hasIgnored}, shouldShowRenewBanner: ${shouldShowRenewBanner}`
-      )}
       <Toaster
         position="bottom-right"
         theme={theme as ToasterProps["theme"]}
