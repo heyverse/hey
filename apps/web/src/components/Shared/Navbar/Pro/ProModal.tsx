@@ -115,7 +115,18 @@ const ProModal = () => {
               }
               placement="top"
             >
-              <div>Advanced Collect Settings</div>
+              <div>Advanced Collect</div>
+            </Tooltip>
+            <Tooltip
+              content={
+                <div className="max-w-xs py-1.5 leading-5">
+                  Enable monetization by allowing others to super follow your
+                  profile and super join your groups
+                </div>
+              }
+              placement="top"
+            >
+              <div>Super Follow & Join</div>
             </Tooltip>
             <Tooltip
               content={

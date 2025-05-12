@@ -23,7 +23,7 @@ const MonetizeSettings = () => {
         <Card>
           <CardHeader
             icon={<BackButton path="/settings" />}
-            title="Super follow"
+            title="Super Follow"
           />
           <div className="m-5 flex items-center gap-x-2 text-gray-500 text-sm">
             <SparklesIcon className="size-4" />
