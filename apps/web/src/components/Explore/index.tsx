@@ -16,7 +16,6 @@ const Explore = () => {
       title="Explore"
       sidebar={
         <>
-          {/* <Gitcoin /> */}
           {currentAccount ? <WhoToFollow /> : null}
           <Footer />
         </>

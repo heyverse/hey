@@ -12,8 +12,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* <Donate /> */}
-      {loggedOut && <SignupCard />} {/* Onboarding steps */}
+      {loggedOut && <SignupCard />}
       {loggedInWithAccount && (
         <>
           <SetAccount />
