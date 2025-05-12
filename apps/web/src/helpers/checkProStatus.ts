@@ -10,14 +10,18 @@ const checkProStatus = (post: ProFragment): { isPro: boolean } => {
   }
 
   const operations = post?.operations;
-  const lastTip = operations?.lastTip;
+  const lastSubscription = operations?.lastSubscription;
 
-  const lastTipDate = lastTip?.date ? new Date(lastTip.date) : null;
-  const tipAmountUsd = Number.parseFloat(lastTip?.amount?.value || "0");
-  const assetSymbol = lastTip?.amount?.asset?.symbol;
+  const lastSubscriptionDate = lastSubscription?.date
+    ? new Date(lastSubscription.date)
+    : null;
+  const tipAmountUsd = Number.parseFloat(
+    lastSubscription?.amount?.value || "0"
+  );
+  const assetSymbol = lastSubscription?.amount?.asset?.symbol;
 
-  const daysSinceTip = lastTipDate
-    ? (Date.now() - lastTipDate.getTime()) / (1000 * 60 * 60 * 24)
+  const daysSinceTip = lastSubscriptionDate
+    ? (Date.now() - lastSubscriptionDate.getTime()) / (1000 * 60 * 60 * 24)
     : Number.POSITIVE_INFINITY;
 
   const isPro =

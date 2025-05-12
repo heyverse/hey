@@ -1,10 +1,7 @@
 fragment Pro on AnyPost {
   ... on Post {
-    id
     operations {
-      hasBookmarked
-      hasTipped
-      lastTip {
+      lastSubscription: lastTip {
         amount {
           ...Erc20Amount
         }
