@@ -7,6 +7,7 @@ import {
   BookmarkIcon as BookmarkOutline,
   GlobeAltIcon as GlobeOutline,
   HomeIcon as HomeOutline,
+  SparklesIcon,
   UserCircleIcon,
   UserGroupIcon as UserGroupOutline
 } from "@heroicons/react/24/outline";
@@ -107,10 +108,19 @@ const Navbar = () => {
       </Link>
       <NavItems isLoggedIn={!!currentAccount} />
       {currentAccount ? (
-        <SignedAccount />
+        <>
+          <button onClick={() => setShowAuthModal(true)} type="button">
+            <Tooltip content="Pro">
+              <SparklesIcon className="size-6" />
+            </Tooltip>
+          </button>
+          <SignedAccount />
+        </>
       ) : (
         <button onClick={() => setShowAuthModal(true)} type="button">
-          <UserCircleIcon className="size-6" />
+          <Tooltip content="Login">
+            <UserCircleIcon className="size-6" />
+          </Tooltip>
         </button>
       )}
     </aside>
