@@ -145,7 +145,12 @@ const ProModal = ({ setShowProModal }: ProModalProps) => {
           Subscribe for ${PRO_SUBSCRIPTION_AMOUNT}/month
         </Button>
       ) : (
-        <TransferFundButton className="w-full" token={DEFAULT_TOKEN} />
+        <TransferFundButton
+          className="w-full"
+          token={DEFAULT_TOKEN}
+          label="Transfer funds to your account"
+          outline
+        />
       )}
     </div>
   );

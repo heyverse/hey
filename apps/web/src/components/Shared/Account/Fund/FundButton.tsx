@@ -9,13 +9,15 @@ interface TransferFundButtonProps {
   outline?: boolean;
   className?: string;
   token?: FundingToken;
+  label?: string;
 }
 
 const TransferFundButton = ({
   size = "md",
   outline = false,
   className = "",
-  token
+  token,
+  label = "Transfer fund"
 }: TransferFundButtonProps) => {
   const { setShowFundModal } = useFundModalStore();
 
@@ -27,7 +29,7 @@ const TransferFundButton = ({
       size={size}
       outline={outline}
     >
-      Transfer fund
+      {label}
     </Button>
   );
 };
