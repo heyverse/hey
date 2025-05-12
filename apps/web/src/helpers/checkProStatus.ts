@@ -1,10 +1,9 @@
 import {
   PRO_SUBSCRIPTION_AMOUNT,
+  PRO_SUBSCRIPTION_DURATION_DAYS,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
 import type { ProFragment } from "@hey/indexer";
-
-const PRO_SUBSCRIPTION_DURATION_DAYS = 30;
 
 const checkProStatus = (
   post: ProFragment
