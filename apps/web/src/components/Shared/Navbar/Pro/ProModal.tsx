@@ -87,7 +87,9 @@ const ProModal = () => {
     <div className="m-5 flex flex-col items-center gap-y-5">
       <Image src="https://i.ibb.co/gFXzgjhx/pro-1.png" alt="Pro" width={100} />
       {expiresAt ? (
-        <div>{formatDate(expiresAt)}</div>
+        <div>
+          Your pro expires on <b>{formatDate(expiresAt)}</b>
+        </div>
       ) : (
         <div className="flex flex-col items-center">
           <H4 className="mb-3">What you'll get</H4>
@@ -129,9 +131,7 @@ const ProModal = () => {
           </div>
         </div>
       )}
-      {isPro ? (
-        <b>You are a Pro subscriber</b>
-      ) : canSubscribe ? (
+      {isPro ? null : canSubscribe ? (
         <Button
           className="w-full"
           onClick={handleSubscribe}
