@@ -3,13 +3,11 @@ import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useProStore } from "@/store/persisted/useProStore";
 import AppIcon from "./AppIcon";
 import IncludeLowScore from "./IncludeLowScore";
 
 const PreferencesSettings = () => {
   const { currentAccount } = useAccountStore();
-  const { isPro } = useProStore();
 
   if (!currentAccount) {
     return <NotLoggedIn />;
@@ -23,12 +21,8 @@ const PreferencesSettings = () => {
           title="Preferences"
         />
         <IncludeLowScore />
-        {isPro && (
-          <>
-            <div className="divider" />
-            <AppIcon />
-          </>
-        )}
+        <div className="divider" />
+        <AppIcon />
       </Card>
     </PageLayout>
   );
