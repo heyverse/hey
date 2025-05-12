@@ -1,4 +1,4 @@
-import { Button } from "@/components/Shared/UI";
+import { Button, Image } from "@/components/Shared/UI";
 import formatDate from "@/helpers/datetime/formatDate";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
@@ -87,14 +87,22 @@ const ProModal = ({ setShowProModal }: ProModalProps) => {
   }
 
   return (
-    <div className="m-5">
+    <div className="m-5 flex flex-col items-center gap-y-5">
+      <Image src="https://i.ibb.co/gFXzgjhx/pro-1.png" alt="Pro" width={100} />
       {expiresAt ? (
         <div>{formatDate(expiresAt)}</div>
       ) : (
-        <div>You are not subscribed to Pro</div>
+        <div className="flex flex-col items-center">
+          <b className="mb-2">You'll get</b>
+          <div className="flex flex-col items-center gap-y-1 text-gray-500 text-sm">
+            <div>Pro Badge on your profile</div>
+            <div>Create Live Streams</div>
+            <div>More coming soon™</div>
+          </div>
+        </div>
       )}
       {isPro ? (
-        <div>You are subscribed to Pro</div>
+        <b>You are a Pro subscriber</b>
       ) : canSubscribe ? (
         <Button
           className="w-full"
