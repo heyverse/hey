@@ -18,7 +18,7 @@ const Pro = () => {
         onClose={() => setShowProModal(false)}
         title="Pro"
       >
-        <ProModal setShowProModal={setShowProModal} />
+        <ProModal />
       </Modal>
     </>
   );

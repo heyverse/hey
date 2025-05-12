@@ -1,6 +1,7 @@
 import { Button, H4, Image, Tooltip } from "@/components/Shared/UI";
 import formatDate from "@/helpers/datetime/formatDate";
 import errorToast from "@/helpers/errorToast";
+import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useProStore } from "@/store/persisted/useProStore";
@@ -17,19 +18,15 @@ import {
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import { toast } from "sonner";
 import TransferFundButton from "../../Account/Fund/FundButton";
 import Loader from "../../Loader";
 
-interface ProModalProps {
-  setShowProModal: (show: boolean) => void;
-}
-
-const ProModal = ({ setShowProModal }: ProModalProps) => {
+const ProModal = () => {
   const { currentAccount } = useAccountStore();
   const { isPro, expiresAt } = useProStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const pollTransactionStatus = usePollTransactionStatus();
 
   const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
     variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
@@ -38,9 +35,8 @@ const ProModal = ({ setShowProModal }: ProModalProps) => {
     fetchPolicy: "no-cache"
   });
 
-  const onCompleted = () => {
-    setShowProModal(false);
-    toast.success("Subscribed to Pro");
+  const onCompleted = (hash: string) => {
+    pollTransactionStatus(hash, () => location.reload());
   };
 
   const onError = (error: Error) => {
@@ -58,7 +54,7 @@ const ProModal = ({ setShowProModal }: ProModalProps) => {
   const [executeTipAction] = useExecutePostActionMutation({
     onCompleted: async ({ executePostAction }) => {
       if (executePostAction.__typename === "ExecutePostActionResponse") {
-        return onCompleted();
+        return onCompleted(executePostAction.hash);
       }
 
       return await handleTransactionLifecycle({
