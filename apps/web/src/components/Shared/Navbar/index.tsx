@@ -7,7 +7,6 @@ import {
   BookmarkIcon as BookmarkOutline,
   GlobeAltIcon as GlobeOutline,
   HomeIcon as HomeOutline,
-  SparklesIcon,
   UserCircleIcon,
   UserGroupIcon as UserGroupOutline
 } from "@heroicons/react/24/outline";
@@ -21,6 +20,7 @@ import {
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
+import Pro from "./Pro";
 import SignedAccount from "./SignedAccount";
 
 const navigationItems = {
@@ -109,11 +109,7 @@ const Navbar = () => {
       <NavItems isLoggedIn={!!currentAccount} />
       {currentAccount ? (
         <>
-          <button onClick={() => setShowAuthModal(true)} type="button">
-            <Tooltip content="Pro">
-              <SparklesIcon className="size-6" />
-            </Tooltip>
-          </button>
+          <Pro />
           <SignedAccount />
         </>
       ) : (
