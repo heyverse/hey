@@ -4,7 +4,7 @@ import {
 } from "@hey/data/constants";
 import type { ProFragment } from "@hey/indexer";
 
-const PRO_TIP_DAYS_SINCE_TIP = 30;
+const PRO_SUBSCRIPTION_DURATION_DAYS = 30;
 
 const checkProStatus = (
   post: ProFragment
@@ -29,13 +29,16 @@ const checkProStatus = (
     : Number.POSITIVE_INFINITY;
 
   const isPro =
-    daysSinceTip <= PRO_TIP_DAYS_SINCE_TIP &&
+    daysSinceTip <= PRO_SUBSCRIPTION_DURATION_DAYS &&
     tipAmountUsd >= PRO_SUBSCRIPTION_AMOUNT &&
     assetSymbol === WRAPPED_NATIVE_TOKEN_SYMBOL;
 
   const expiresAt =
     isPro && lastSubscriptionDate
-      ? new Date(lastSubscriptionDate.getTime() + 30 * 24 * 60 * 60 * 1000)
+      ? new Date(
+          lastSubscriptionDate.getTime() +
+            PRO_SUBSCRIPTION_DURATION_DAYS * 24 * 60 * 60 * 1000
+        )
       : undefined;
 
   return { isPro, expiresAt };
