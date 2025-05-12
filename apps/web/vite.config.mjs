@@ -40,7 +40,6 @@ const dependenciesToChunk = {
   aws: ["@aws-sdk/client-s3", "@aws-sdk/lib-storage"],
   media: ["plyr-react", "@livepeer/react", "browser-image-compression"],
   misc: [
-    "@sentry/react-router",
     "@lens-chain/storage-client",
     "@lens-protocol/metadata",
     "@apollo/client",
