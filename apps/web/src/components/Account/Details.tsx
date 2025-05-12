@@ -8,8 +8,9 @@ import getFavicon from "@/helpers/getFavicon";
 import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useProStore } from "@/store/persisted/useProStore";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import { EyeSlashIcon } from "@heroicons/react/24/solid";
+import { EyeSlashIcon, SparklesIcon } from "@heroicons/react/24/solid";
 import {
   AVATAR_BIG,
   EXPANDED_AVATAR,
@@ -42,6 +43,7 @@ const Details = ({
 }: DetailsProps) => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
+  const { isPro } = useProStore();
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const { theme } = useTheme();
 
@@ -104,6 +106,11 @@ const Details = ({
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
+          {currentAccount?.address === account.address && isPro ? (
+            <Tooltip content="Pro">
+              <SparklesIcon className="size-6" />
+            </Tooltip>
+          ) : null}
           {isSuspended ? (
             <Tooltip content="Suspended">
               <EyeSlashIcon className="size-6 text-brand-500" />
