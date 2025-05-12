@@ -58,7 +58,7 @@
     "remark-stringify": "^11.0.0",
     "sonner": "^2.0.3",
     "strip-markdown": "^6.0.0",
-    "tailwind-merge": "^3.2.0",
+    "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.6",
     "unified": "^11.0.5",
     "unist-util-visit-parents": "^6.0.1",
