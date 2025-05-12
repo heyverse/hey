@@ -96,6 +96,7 @@ const ProModal = ({ setShowProModal }: ProModalProps) => {
           <b className="mb-2">You'll get</b>
           <div className="flex flex-col items-center gap-y-1 text-gray-500 text-sm">
             <div>Pro Badge on your profile</div>
+            <div>Advanced Collect Settings</div>
             <div>Create Live Streams</div>
             <div>More coming soon™</div>
           </div>
