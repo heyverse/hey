@@ -22,7 +22,12 @@ export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const CHAIN = IS_MAINNET ? chains.mainnet : chains.testnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
-export const PRO_POST_ID = "2mgw7kzz2w6fs8n99j8";
+
+// Pro
+export const PRO_POST_ID =
+  "50153806200833687328024964106319800727104947937150242991555069330630011322";
+export const PRO_SUBSCRIPTION_AMOUNT = 3;
+export const PRO_SUBSCRIPTION_DURATION_DAYS = 30;
 
 // Application
 export const BRAND_COLOR = "#FB3A5D";

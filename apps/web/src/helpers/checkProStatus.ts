@@ -1,10 +1,13 @@
-import { WRAPPED_NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
+import {
+  PRO_SUBSCRIPTION_AMOUNT,
+  PRO_SUBSCRIPTION_DURATION_DAYS,
+  WRAPPED_NATIVE_TOKEN_SYMBOL
+} from "@hey/data/constants";
 import type { ProFragment } from "@hey/indexer";
 
-const PRO_TIP_AMOUNT_USD = 1;
-const PRO_TIP_DAYS_SINCE_TIP = 30;
-
-const checkProStatus = (post: ProFragment): { isPro: boolean } => {
+const checkProStatus = (
+  post: ProFragment
+): { isPro: boolean; expiresAt?: Date } => {
   if (post.__typename !== "Post") {
     return { isPro: false };
   }
@@ -25,11 +28,19 @@ const checkProStatus = (post: ProFragment): { isPro: boolean } => {
     : Number.POSITIVE_INFINITY;
 
   const isPro =
-    daysSinceTip <= PRO_TIP_DAYS_SINCE_TIP &&
-    tipAmountUsd >= PRO_TIP_AMOUNT_USD &&
+    daysSinceTip <= PRO_SUBSCRIPTION_DURATION_DAYS &&
+    tipAmountUsd >= PRO_SUBSCRIPTION_AMOUNT &&
     assetSymbol === WRAPPED_NATIVE_TOKEN_SYMBOL;
 
-  return { isPro };
+  const expiresAt =
+    isPro && lastSubscriptionDate
+      ? new Date(
+          lastSubscriptionDate.getTime() +
+            PRO_SUBSCRIPTION_DURATION_DAYS * 24 * 60 * 60 * 1000
+        )
+      : undefined;
+
+  return { isPro, expiresAt };
 };
 
 export default checkProStatus;

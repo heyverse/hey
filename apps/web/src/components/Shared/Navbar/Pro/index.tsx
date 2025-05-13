@@ -1,6 +1,7 @@
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import { SparklesIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import ProModal from "./ProModal";
 
 const Pro = () => {
   const [showProModal, setShowProModal] = useState(false);
@@ -15,9 +16,9 @@ const Pro = () => {
       <Modal
         show={showProModal}
         onClose={() => setShowProModal(false)}
-        title="Pro"
+        title="Hey Pro"
       >
-        <div className="m-5">Coming soon</div>
+        <ProModal />
       </Modal>
     </>
   );

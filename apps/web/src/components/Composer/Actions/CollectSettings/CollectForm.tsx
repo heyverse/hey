@@ -3,7 +3,9 @@ import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
+import { useProStore } from "@/store/persisted/useProStore";
 import { EXPANSION_EASE } from "@/variants";
+import { SparklesIcon } from "@heroicons/react/24/solid";
 import type { CollectActionType } from "@hey/types/hey";
 import { motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
@@ -20,6 +22,7 @@ interface CollectFormProps {
 
 const CollectForm = ({ setShowModal }: CollectFormProps) => {
   const { collectAction, setCollectAction, reset } = useCollectActionStore();
+  const { isPro } = useProStore();
   const { setLicense } = usePostLicenseStore();
 
   const recipients = collectAction.payToCollect?.recipients || [];
@@ -80,20 +83,34 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             transition={{ duration: 0.2, ease: EXPANSION_EASE }}
           >
             <AmountConfig setCollectType={setCollectType} />
-            {collectAction.payToCollect?.amount.value && (
+            {isPro && collectAction.payToCollect?.amount.value && (
               <SplitConfig
                 isRecipientsDuplicated={validationChecks.isRecipientsDuplicated}
                 setCollectType={setCollectType}
               />
             )}
-            <CollectLimitConfig setCollectType={setCollectType} />
-            <TimeLimitConfig setCollectType={setCollectType} />
-            <FollowersConfig setCollectType={setCollectType} />
+            {isPro && (
+              <>
+                <CollectLimitConfig setCollectType={setCollectType} />
+                <TimeLimitConfig setCollectType={setCollectType} />
+                <FollowersConfig setCollectType={setCollectType} />
+              </>
+            )}
+            {!isPro && (
+              <div className="mt-5 flex items-center gap-x-1 text-gray-500 text-xs">
+                <SparklesIcon className="size-3" />
+                <span>Upgrade to Pro to unlock advanced collect settings</span>
+              </div>
+            )}
           </motion.div>
-          <div className="divider" />
-          <div className="m-5">
-            <LicensePicker />
-          </div>
+          {isPro && (
+            <>
+              <div className="divider" />
+              <div className="m-5">
+                <LicensePicker />
+              </div>
+            </>
+          )}
           <div className="divider" />
         </>
       )}
