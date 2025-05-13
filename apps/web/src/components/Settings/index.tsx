@@ -1,5 +1,6 @@
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import BackButton from "@/components/Shared/BackButton";
+import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -10,7 +11,6 @@ import {
   CodeBracketIcon,
   CreditCardIcon,
   CurrencyDollarIcon,
-  ExclamationTriangleIcon,
   FingerPrintIcon,
   GlobeAltIcon,
   NoSymbolIcon,
@@ -21,6 +21,10 @@ import { Link } from "react-router";
 
 const AccountSettings = () => {
   const { currentAccount } = useAccountStore();
+
+  if (!currentAccount) {
+    return <NotLoggedIn />;
+  }
 
   const settingsPages = [
     {
@@ -67,11 +71,6 @@ const AccountSettings = () => {
       icon: <CodeBracketIcon className="size-5" />,
       title: "Developer",
       url: "/settings/developer"
-    },
-    {
-      icon: <ExclamationTriangleIcon className="size-5 text-red-500" />,
-      title: <div className="text-red-500">Danger zone</div>,
-      url: "/settings/danger"
     }
   ];
 
@@ -98,9 +97,7 @@ const AccountSettings = () => {
                 {page.icon}
                 <div>{page.title}</div>
               </div>
-              <div>
-                <ArrowRightIcon className="size-4" />
-              </div>
+              <ArrowRightIcon className="size-4" />
             </Link>
           ))}
         </div>

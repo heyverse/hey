@@ -1,11 +1,6 @@
-export type Account = {
-  isSuspended: boolean;
-};
-
 export type Preferences = {
   appIcon: number;
   includeLowScore: boolean;
-  permissions: string[];
 };
 
 export type Oembed = {

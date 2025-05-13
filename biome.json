@@ -1,8 +1,6 @@
 {
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
+  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
+  "organizeImports": { "enabled": true },
   "files": {
     "ignore": [
       ".pnpm-store/*",

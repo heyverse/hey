@@ -1,0 +1,12 @@
+fragment Pro on AnyPost {
+  ... on Post {
+    operations {
+      lastSubscription: lastTip {
+        amount {
+          ...Erc20Amount
+        }
+        date
+      }
+    }
+  }
+}

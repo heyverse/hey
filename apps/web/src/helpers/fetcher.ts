@@ -1,7 +1,6 @@
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { HEY_API_URL } from "@hey/data/constants";
-import type { PermissionId } from "@hey/data/permissions";
-import type { Account, Live, Oembed, Preferences, STS } from "@hey/types/api";
+import type { Live, Oembed, Preferences, STS } from "@hey/types/api";
 
 type ApiResponse<T> = Promise<T>;
 
@@ -44,11 +43,6 @@ const fetchApi = async <T>(
 };
 
 export const hono = {
-  account: {
-    get: async (address: string): ApiResponse<Account> => {
-      return fetchApi<Account>(`/account/get/${address}`, { method: "GET" });
-    }
-  },
   live: {
     create: async ({ record }: { record: boolean }): ApiResponse<Live> => {
       return fetchApi<Live>("/live/create", {
@@ -78,24 +72,6 @@ export const hono = {
         method: "POST",
         body: JSON.stringify(preferences)
       });
-    }
-  },
-  internal: {
-    permission: {
-      assign: async ({
-        account,
-        enabled,
-        permission
-      }: {
-        account: string;
-        enabled: boolean;
-        permission: PermissionId;
-      }): ApiResponse<Preferences> => {
-        return fetchApi<Preferences>("/internal/permission/assign", {
-          method: "POST",
-          body: JSON.stringify({ account, enabled, permission })
-        });
-      }
     }
   }
 };

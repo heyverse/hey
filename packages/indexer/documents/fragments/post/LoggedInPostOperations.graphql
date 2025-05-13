@@ -4,6 +4,7 @@ fragment LoggedInPostOperations on LoggedInPostOperations {
   hasReacted
   hasSimpleCollected
   hasTipped
+  hasReported
   isNotInterested
   hasQuoted {
     ...BooleanValue

@@ -16,7 +16,6 @@ import { WindowVirtualizer } from "virtua";
 
 interface AccountFeedProps {
   username: string;
-  accountDetailsLoading: boolean;
   address: string;
   type:
     | AccountFeedType.Collects
@@ -25,12 +24,7 @@ interface AccountFeedProps {
     | AccountFeedType.Replies;
 }
 
-const AccountFeed = ({
-  username,
-  accountDetailsLoading,
-  address,
-  type
-}: AccountFeedProps) => {
+const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   const [ref, entry] = useIntersectionObserver({
     threshold: 0,
     root: null,
@@ -111,7 +105,7 @@ const AccountFeed = ({
     }
   }, [entry?.isIntersecting]);
 
-  if (loading || accountDetailsLoading) {
+  if (loading) {
     return <PostsShimmer />;
   }
 

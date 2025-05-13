@@ -4,7 +4,6 @@ import { Hono } from "hono";
 import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
 import infoLogger from "./middlewares/infoLogger";
-import accountRouter from "./routes/account";
 import internalRouter from "./routes/internal";
 import lensRouter from "./routes/lens";
 import liveRouter from "./routes/live";
@@ -25,7 +24,6 @@ app.use(infoLogger);
 // Routes
 app.get("/ping", ping);
 app.route("/lens", lensRouter);
-app.route("/account", accountRouter);
 app.route("/internal", internalRouter);
 app.route("/live", liveRouter);
 app.route("/metadata", metadataRouter);

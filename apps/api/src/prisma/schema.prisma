@@ -13,34 +13,3 @@ model Preference {
   includeLowScore Boolean  @default(false)
   createdAt       DateTime @default(now())
 }
-
-model Permission {
-  id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  key       String         @unique
-  type      PermissionType @default(PERMISSION)
-  createdAt DateTime       @default(now())
-
-  // Relations
-  accounts AccountPermission[]
-
-  // Indexes
-  @@index([type])
-}
-
-enum PermissionType {
-  PERMISSION
-  COHORT
-}
-
-model AccountPermission {
-  accountAddress String
-  permissionId   String     @db.Uuid
-  permission     Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  enabled        Boolean    @default(true)
-  createdAt      DateTime   @default(now())
-
-  @@id([accountAddress, permissionId])
-  // Indexes
-  @@index([accountAddress])
-  @@index([permissionId])
-}

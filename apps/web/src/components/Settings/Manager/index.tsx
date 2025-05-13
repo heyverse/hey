@@ -6,7 +6,6 @@ import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useAccount } from "wagmi";
 import AccountManager from "./AccountManager";
-import Signless from "./Signless";
 
 const ManagerSettings = () => {
   const { currentAccount } = useAccountStore();
@@ -28,8 +27,8 @@ const ManagerSettings = () => {
           <WrongWallet />
         ) : (
           <>
-            <Signless />
-            <div className="divider" />
+            {/* <Signless />
+            <div className="divider" /> */}
             <AccountManager />
           </>
         )}

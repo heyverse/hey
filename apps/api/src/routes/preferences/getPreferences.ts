@@ -18,20 +18,13 @@ const getPreferences = async (ctx: Context) => {
       });
     }
 
-    const [preference, permissions] = await prisma.$transaction([
-      prisma.preference.findUnique({
-        where: { accountAddress: account as string }
-      }),
-      prisma.accountPermission.findMany({
-        include: { permission: { select: { key: true } } },
-        where: { enabled: true, accountAddress: account as string }
-      })
-    ]);
+    const preference = await prisma.preference.findUnique({
+      where: { accountAddress: account as string }
+    });
 
     const data = {
       appIcon: preference?.appIcon || 0,
-      includeLowScore: Boolean(preference?.includeLowScore),
-      permissions: permissions.map(({ permission }) => permission.key)
+      includeLowScore: Boolean(preference?.includeLowScore)
     };
 
     await setRedis(cacheKey, data);
