@@ -22,9 +22,11 @@ import { Link } from "react-router";
 
 const AccountSettings = () => {
   const { currentAccount } = useAccountStore();
+
   if(!currentAccount) {
     return <NotLoggedIn />;
   }
+
   const settingsPages = [
     {
       icon: <PaintBrushIcon className="size-5" />,
