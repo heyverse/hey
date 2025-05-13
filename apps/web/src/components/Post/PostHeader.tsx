@@ -1,5 +1,6 @@
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
+import type { SmartMedia, SmartMediaLight } from "@/types/smart-media";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type {
@@ -15,13 +16,15 @@ interface PostHeaderProps {
   isNew?: boolean;
   post: AnyPostFragment;
   quoted?: boolean;
+  smartMedia?: SmartMedia | SmartMediaLight | null;
 }
 
 const PostHeader = ({
   timelineItem,
   isNew = false,
   post,
-  quoted = false
+  quoted = false,
+  smartMedia
 }: PostHeaderProps) => {
   const { setQuotedPost } = usePostStore();
 
@@ -35,12 +38,15 @@ const PostHeader = ({
       className="flex w-full items-start justify-between"
       onClick={stopEventPropagation}
     >
-      <PostAccount
-        account={account}
-        group={targetPost.feed?.group as PostGroupInfoFragment}
-        post={targetPost}
-        timestamp={timestamp}
-      />
+      <div className="flex items-center gap-x-4">
+        <PostAccount
+          account={account}
+          group={targetPost.feed?.group as PostGroupInfoFragment}
+          post={targetPost}
+          timestamp={timestamp}
+          smartMediaCategoryFormatted={smartMedia?.category?.formatted}
+        />
+      </div>
       {!post.isDeleted && !quoted ? (
         <PostMenu post={targetPost} />
       ) : (

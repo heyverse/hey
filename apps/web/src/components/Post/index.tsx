@@ -8,20 +8,26 @@ import Footer from "@/components/Shared/Footer";
 import { PageLayout } from "@/components/Shared/PageLayout";
 import { Card, CardHeader, WarningMessage } from "@/components/Shared/UI";
 import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
+import { usePostSmartMedia } from "@/store/non-persisted/post/useSmartMediaStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { type SmartMedia, SmartMediaStatus } from "@/types/smart-media";
 import getAccount from "@hey/helpers/getAccount";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
   PageSize,
+  type Post,
   PostReferenceType,
   PostVisibilityFilter,
   useHiddenCommentsQuery,
   usePostQuery
 } from "@hey/indexer";
+import { useEffect } from "react";
 import { useLocation, useParams } from "react-router";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 import NoneRelevantFeed from "../Comment/NoneRelevantFeed";
+import SmartMediaCard from "../SmartMedia/Card";
+import SmartMediaDetails from "../SmartMedia/Details";
 import FullPost from "./FullPost";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";
@@ -44,6 +50,12 @@ const ViewPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { currentAccount } = useAccountStore();
   const { cachedPost, setCachedPost } = usePostLinkStore();
+  const {
+    smartMedia: _smartMedia,
+    fetchSmartMedia,
+    isLoading: isLoadingSmartMedia
+  } = usePostSmartMedia(slug || "");
+  const smartMedia = _smartMedia as SmartMedia | undefined;
 
   const showQuotes = pathname === `/posts/${slug}/quotes`;
 
@@ -72,7 +84,13 @@ const ViewPost = () => {
   const post = data?.post ?? cachedPost;
   const hasHiddenComments = (comments?.postReferences.items.length || 0) > 0;
 
-  if (!slug || (loading && !cachedPost)) {
+  useEffect(() => {
+    if (post) {
+      fetchSmartMedia(post as Post, true);
+    }
+  }, [post, fetchSmartMedia]);
+
+  if (!slug || (loading && !cachedPost) || isLoadingSmartMedia) {
     return <PostPageShimmer isQuotes={showQuotes} />;
   }
 
@@ -109,6 +127,11 @@ const ViewPost = () => {
             />
           </Card>
           <RelevantPeople mentions={targetPost.mentions} />
+          {smartMedia?.status === SmartMediaStatus.ACTIVE && (
+            <SmartMediaCard as="aside" className="p-5" forceRounded withGlow>
+              <SmartMediaDetails smartMedia={smartMedia} />
+            </SmartMediaCard>
+          )}
           <Footer />
         </div>
       }
@@ -125,6 +148,7 @@ const ViewPost = () => {
                 hasHiddenComments={hasHiddenComments}
                 key={post?.id}
                 post={post}
+                smartMedia={smartMedia}
               />
             </Card>
             {currentAccount && !canComment && (

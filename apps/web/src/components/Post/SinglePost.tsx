@@ -1,8 +1,9 @@
 import ActionType from "@/components/Home/Timeline/EventType";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
 import cn from "@/helpers/cn";
-import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
-import { memo } from "react";
+import { usePostSmartMedia } from "@/store/non-persisted/post/useSmartMediaStore";
+import type { AnyPostFragment, Post, TimelineItemFragment } from "@hey/indexer";
+import { memo, useEffect } from "react";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
@@ -28,6 +29,11 @@ const SinglePost = ({
   showType = true
 }: SinglePostProps) => {
   const rootPost = timelineItem ? timelineItem?.primary : post;
+  const { smartMedia, fetchSmartMedia } = usePostSmartMedia(post.slug);
+
+  useEffect(() => {
+    if (!(post as Post).root) fetchSmartMedia(post as Post, false);
+  }, [post, fetchSmartMedia]);
 
   return (
     <PostWrapper
@@ -46,7 +52,11 @@ const SinglePost = ({
       <div className="flex items-start gap-x-3">
         <PostAvatar timelineItem={timelineItem} post={rootPost} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader timelineItem={timelineItem} post={rootPost} />
+          <PostHeader
+            timelineItem={timelineItem}
+            post={rootPost}
+            smartMedia={smartMedia}
+          />
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : (
