@@ -130,13 +130,8 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   return (
     <Card className="virtual-divider-list-window">
       <WindowVirtualizer>
-        {posts.map((post, index) => (
-          <SinglePost
-            key={post.id}
-            isFirst={index === 0}
-            isLast={index === (posts?.length || 0) - 1}
-            post={post}
-          />
+        {posts.map((post) => (
+          <SinglePost key={post.id} post={post} />
         ))}
         {hasMore && <span ref={ref} />}
       </WindowVirtualizer>

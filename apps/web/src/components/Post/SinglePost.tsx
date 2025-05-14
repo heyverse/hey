@@ -13,8 +13,6 @@ import PostType from "./Type";
 
 interface SinglePostProps {
   timelineItem?: TimelineItemFragment;
-  isFirst?: boolean;
-  isLast?: boolean;
   post: AnyPostFragment;
   showMore?: boolean;
   showType?: boolean;
@@ -22,8 +20,6 @@ interface SinglePostProps {
 
 const SinglePost = ({
   timelineItem,
-  isFirst = false,
-  isLast = false,
   post,
   showMore = true,
   showType = true
@@ -36,14 +32,7 @@ const SinglePost = ({
   }, [post, fetchSmartMedia]);
 
   return (
-    <PostWrapper
-      className={cn(
-        isFirst && "rounded-t-xl",
-        isLast && "rounded-b-xl",
-        "cursor-pointer px-5 pt-4 pb-3"
-      )}
-      post={rootPost}
-    >
+    <PostWrapper className="cursor-pointer px-5 pt-4 pb-3" post={rootPost}>
       {timelineItem ? (
         <ActionType timelineItem={timelineItem} />
       ) : (

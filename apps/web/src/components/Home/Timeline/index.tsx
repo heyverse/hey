@@ -70,24 +70,23 @@ const Timeline = () => {
     return <ErrorMessage error={error} title="Failed to load timeline" />;
   }
 
+  const filteredPosts = feed.filter(
+    (timelineItem) =>
+      !timelineItem.primary.author.operations?.hasBlockedMe &&
+      !timelineItem.primary.author.operations?.isBlockedByMe &&
+      !timelineItem.primary.operations?.hasReported
+  );
+
   return (
     <Card className="virtual-divider-list-window">
       <WindowVirtualizer>
-        {feed
-          .filter(
-            (timelineItem) =>
-              !timelineItem.primary.author.operations?.hasBlockedMe ||
-              !timelineItem.primary.author.operations?.isBlockedByMe
-          )
-          .map((timelineItem, index) => (
-            <SinglePost
-              key={timelineItem.id}
-              timelineItem={timelineItem}
-              isFirst={index === 0}
-              isLast={index === (feed?.length || 0) - 1}
-              post={timelineItem.primary}
-            />
-          ))}
+        {filteredPosts.map((timelineItem) => (
+          <SinglePost
+            key={timelineItem.id}
+            timelineItem={timelineItem}
+            post={timelineItem.primary}
+          />
+        ))}
         {hasMore && <span ref={ref} />}
       </WindowVirtualizer>
     </Card>

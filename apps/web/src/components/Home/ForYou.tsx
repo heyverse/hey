@@ -65,23 +65,19 @@ const ForYou = () => {
     return <ErrorMessage error={error} title="Failed to load highlights" />;
   }
 
+  const filteredPosts = posts.filter(
+    (item) =>
+      !item.post.author.operations?.hasBlockedMe &&
+      !item.post.author.operations?.isBlockedByMe &&
+      !item.post.operations?.hasReported
+  );
+
   return (
     <Card className="virtual-divider-list-window">
       <WindowVirtualizer>
-        {posts
-          .filter(
-            (item) =>
-              !item.post.author.operations?.hasBlockedMe ||
-              !item.post.author.operations?.isBlockedByMe
-          )
-          .map((item, index) => (
-            <SinglePost
-              key={item.post.id}
-              isFirst={index === 0}
-              isLast={index === (posts?.length || 0) - 1}
-              post={item.post}
-            />
-          ))}
+        {filteredPosts.map((item) => (
+          <SinglePost key={item.post.id} post={item.post} />
+        ))}
         {hasMore && <span ref={ref} />}
       </WindowVirtualizer>
     </Card>

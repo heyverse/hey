@@ -73,14 +73,8 @@ const Quotes = ({ post }: QuotesProps) => {
       ) : quotes.length ? (
         <div className="virtual-divider-list-window">
           <WindowVirtualizer>
-            {quotes.map((quote, index) => (
-              <SinglePost
-                key={quote.id}
-                isFirst={false}
-                isLast={index === quotes.length - 1}
-                post={quote}
-                showType={false}
-              />
+            {quotes.map((quote) => (
+              <SinglePost key={quote.id} post={quote} showType={false} />
             ))}
             {hasMore && <span ref={ref} />}
           </WindowVirtualizer>
