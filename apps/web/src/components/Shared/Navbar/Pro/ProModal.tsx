@@ -10,7 +10,8 @@ import {
   DEFAULT_COLLECT_TOKEN,
   DEFAULT_TOKEN,
   PRO_POST_ID,
-  PRO_SUBSCRIPTION_AMOUNT
+  PRO_SUBSCRIPTION_AMOUNT,
+  STATIC_IMAGES_URL
 } from "@hey/data/constants";
 import {
   type TippingAmountInput,
@@ -86,7 +87,7 @@ const ProModal = () => {
   return (
     <div className="m-5 flex flex-col items-center gap-y-5">
       <Image
-        src="https://i.ibb.co/gFXzgjhx/pro-1.png"
+        src={`${STATIC_IMAGES_URL}/pro.png`}
         alt="Pro"
         width={112}
         className="w-28"

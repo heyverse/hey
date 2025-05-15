@@ -4,13 +4,9 @@ import { getAddress } from "viem";
 
 const isFeatureEnabled = (feature: string): boolean => {
   const address = hydrateAccount()?.address;
-
-  if (!address) {
-    return false;
-  }
-
-  const accounts = Access[feature].map((account) => getAddress(account));
-  return accounts.includes(getAddress(address));
+  if (!address || !Access[feature]) return false;
+  const normalized = getAddress(address);
+  return Access[feature].some((acc) => getAddress(acc) === normalized);
 };
 
 export default isFeatureEnabled;
