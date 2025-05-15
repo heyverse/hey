@@ -22,7 +22,7 @@
     "@hono/node-server": "^1.14.1",
     "@hono/zod-validator": "^0.5.0",
     "@lens-protocol/metadata": "^2.0.0",
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.8.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "hono": "^4.7.9",
@@ -41,7 +41,7 @@
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.18",
     "@types/node": "^22.15.18",
-    "prisma": "^6.7.0",
+    "prisma": "^6.8.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
