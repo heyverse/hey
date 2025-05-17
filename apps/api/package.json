@@ -15,14 +15,14 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.810.0",
+    "@aws-sdk/client-sts": "^3.812.0",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hey/indexer": "workspace:*",
     "@hono/node-server": "^1.14.1",
     "@hono/zod-validator": "^0.5.0",
     "@lens-protocol/metadata": "^2.0.0",
-    "@prisma/client": "^6.8.0",
+    "@prisma/client": "^6.8.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "hono": "^4.7.9",
@@ -32,7 +32,7 @@
     "pg-promise": "^11.13.0",
     "redis": "^5.0.1",
     "tsx": "^4.19.4",
-    "viem": "^2.29.3",
+    "viem": "^2.29.4",
     "xmlbuilder2": "^3.1.1",
     "zod": "^3.24.4"
   },
@@ -41,7 +41,7 @@
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.18",
     "@types/node": "^22.15.18",
-    "prisma": "^6.8.0",
+    "prisma": "^6.8.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
