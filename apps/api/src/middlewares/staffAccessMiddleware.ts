@@ -10,7 +10,7 @@ const staffAccessMiddleware = async (c: Context, next: Next) => {
     .includes(getAddress(account as Address));
 
   if (!isStaff) {
-    return c.body(null, 401);
+    return c.body("Unauthorized", 401);
   }
 
   return next();

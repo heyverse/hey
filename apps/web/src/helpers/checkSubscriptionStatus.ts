@@ -1,15 +1,15 @@
 import {
-  PRO_SUBSCRIPTION_AMOUNT,
-  PRO_SUBSCRIPTION_DURATION_DAYS,
+  SUBSCRIPTION_AMOUNT,
+  SUBSCRIPTION_DURATION_DAYS,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
 import type { PlatformFeesFragment } from "@hey/indexer";
 
-const checkProStatus = (
+const checkSubscriptionStatus = (
   post: PlatformFeesFragment
-): { isPro: boolean; expiresAt?: Date } => {
+): { hasSubscribed: boolean; expiresAt?: Date } => {
   if (post.__typename !== "Post") {
-    return { isPro: false };
+    return { hasSubscribed: false };
   }
 
   const operations = post?.operations;
@@ -27,20 +27,20 @@ const checkProStatus = (
     ? (Date.now() - lastSubscriptionDate.getTime()) / (1000 * 60 * 60 * 24)
     : Number.POSITIVE_INFINITY;
 
-  const isPro =
-    daysSinceTip <= PRO_SUBSCRIPTION_DURATION_DAYS &&
-    tipAmountUsd >= PRO_SUBSCRIPTION_AMOUNT &&
+  const hasSubscribed =
+    daysSinceTip <= SUBSCRIPTION_DURATION_DAYS &&
+    tipAmountUsd >= SUBSCRIPTION_AMOUNT &&
     assetSymbol === WRAPPED_NATIVE_TOKEN_SYMBOL;
 
   const expiresAt =
-    isPro && lastSubscriptionDate
+    hasSubscribed && lastSubscriptionDate
       ? new Date(
           lastSubscriptionDate.getTime() +
-            PRO_SUBSCRIPTION_DURATION_DAYS * 24 * 60 * 60 * 1000
+            SUBSCRIPTION_DURATION_DAYS * 24 * 60 * 60 * 1000
         )
       : undefined;
 
-  return { isPro, expiresAt };
+  return { hasSubscribed, expiresAt };
 };
 
-export default checkProStatus;
+export default checkSubscriptionStatus;

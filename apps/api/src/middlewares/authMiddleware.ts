@@ -12,13 +12,13 @@ const authMiddleware = async (c: Context, next: Next) => {
   const token = c.get("token");
 
   if (!token) {
-    return c.body(null, 401);
+    return c.body("Unauthorized", 401);
   }
 
   try {
     await jwtVerify(token, JWKS);
   } catch {
-    return c.body(null, 401);
+    return c.body("Unauthorized", 401);
   }
 
   return next();
