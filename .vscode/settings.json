@@ -10,6 +10,9 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
   "[markdown]": {
     "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
   },
@@ -18,8 +21,8 @@
     "editor.tabSize": 1
   },
   "editor.codeActionsOnSave": {
-    "quickfix.biome": "explicit",
-    "source.organizeImports": "explicit"
+    "quickfix.biome": true,
+    "source.organizeImports": true
   },
   "search.exclude": {
     "**/node_modules": true
