@@ -21,24 +21,24 @@ const SuperFollow = () => {
   const { superFollowingAccount, setShowSuperFollowModal } =
     useSuperFollowModalStore();
   const { address } = useAccount();
-  const { assetContract, assetSymbol, amount } = getSimplePaymentDetails(
+  const { assetAddress, assetSymbol, amount } = getSimplePaymentDetails(
     superFollowingAccount?.rules as AccountFollowRules
   );
   const enabledTokens = tokens.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
   const { data: balance, isLoading: balanceLoading } = useReadContract({
-    address: assetContract as Address,
+    address: assetAddress as Address,
     abi: erc20Abi,
     functionName: "balanceOf",
     args: [address as Address],
     query: {
       refetchInterval: 3000,
-      enabled: !assetContract || Boolean(address)
+      enabled: !assetAddress || Boolean(address)
     }
   });
 
-  if (!assetContract || !assetSymbol || !amount) {
+  if (!assetAddress || !assetSymbol || !amount) {
     return null;
   }
 
@@ -97,7 +97,7 @@ const SuperFollow = () => {
           ) : (
             <TransferFundButton
               className="w-full"
-              token={{ contractAddress: assetContract, symbol: assetSymbol }}
+              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
             />
           )
         ) : (
