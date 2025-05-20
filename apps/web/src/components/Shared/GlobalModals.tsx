@@ -17,6 +17,7 @@ import ReportAccount from "./Modal/ReportAccount";
 import Subscribe from "./Modal/Subscribe";
 
 const GlobalModals = () => {
+  // const { currentAccount } = useAccountStore();
   const { setShowSwitchAccountModal, showSwitchAccountModal } =
     useSwitchAccountModalStore();
   const { showNewPostModal, setShowNewPostModal } = useNewPostModalStore();
