@@ -88,8 +88,8 @@ const Subscribe = () => {
       <Image
         src={`${STATIC_IMAGES_URL}/pro.png`}
         alt="Pro"
-        width={112}
-        className="w-28"
+        width={144}
+        className="w-36"
       />
       <div className="max-w-md text-center text-gray-500 text-sm">
         Subscribe to Hey to access the platform. A subscription is required to
