@@ -2,14 +2,12 @@ import NewPublication from "@/components/Composer/NewPublication";
 import ReportPost from "@/components/Shared/Modal/ReportPost";
 import { Modal } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { useReportAccountModalStore } from "@/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPostModalStore";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
-import TransferFund from "./Account/Fund/TransferFund";
 import SuperFollow from "./Account/SuperFollow";
 import SwitchAccounts from "./Account/SwitchAccounts";
 import Auth from "./Auth";
@@ -31,7 +29,6 @@ const GlobalModals = () => {
   } = useReportAccountModalStore();
   const { reportingPostId, showReportPostModal, setShowReportPostModal } =
     useReportPostModalStore();
-  const { showFundModal, setShowFundModal } = useFundModalStore();
   const { showSuperJoinModal, setShowSuperJoinModal, superJoiningGroup } =
     useSuperJoinModalStore();
   const {
@@ -91,13 +88,6 @@ const GlobalModals = () => {
         title="Create post"
       >
         <NewPublication className="!rounded-b-xl !rounded-t-none border-none" />
-      </Modal>
-      <Modal
-        onClose={() => setShowFundModal(false)}
-        show={showFundModal}
-        title="Transfer fund"
-      >
-        <TransferFund />
       </Modal>
       <Modal
         onClose={() => setShowSuperJoinModal(false, superJoiningGroup)}

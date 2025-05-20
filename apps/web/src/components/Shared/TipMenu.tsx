@@ -1,5 +1,5 @@
-import SwapButton from "@/components/Shared/Account/Fund/SwapButton";
 import LoginButton from "@/components/Shared/LoginButton";
+import SwapButton from "@/components/Shared/SwapButton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";

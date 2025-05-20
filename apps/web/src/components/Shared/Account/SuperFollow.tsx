@@ -13,8 +13,8 @@ import { useReadContract } from "wagmi";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
 import Slug from "../Slug";
+import SwapButton from "../SwapButton";
 import Follow from "./Follow";
-import SwapButton from "./Fund/SwapButton";
 
 const SuperFollow = () => {
   const { currentAccount } = useAccountStore();

@@ -19,8 +19,8 @@ import {
 import { useState } from "react";
 import { erc20Abi, formatUnits } from "viem";
 import { useReadContract } from "wagmi";
-import SwapButton from "../../Account/Fund/SwapButton";
 import Loader from "../../Loader";
+import SwapButton from "../../SwapButton";
 
 const ProModal = () => {
   const { currentAccount } = useAccountStore();

@@ -11,9 +11,9 @@ import { tokens } from "@hey/data/tokens";
 import type { Group, GroupRules } from "@hey/indexer";
 import { type Address, erc20Abi, formatUnits } from "viem";
 import { useReadContract } from "wagmi";
-import SwapButton from "../Account/Fund/SwapButton";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
+import SwapButton from "../SwapButton";
 import Join from "./Join";
 
 const SuperJoin = () => {
