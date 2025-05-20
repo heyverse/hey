@@ -8,11 +8,9 @@ import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoin
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { tokens } from "@hey/data/tokens";
-import {
-  type Group,
-  type GroupRules,
-  useAccountBalancesQuery
-} from "@hey/indexer";
+import type { Group, GroupRules } from "@hey/indexer";
+import { type Address, erc20Abi, formatUnits } from "viem";
+import { useAccount, useReadContract } from "wagmi";
 import TransferFundButton from "../Account/Fund/FundButton";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
@@ -21,6 +19,7 @@ import Join from "./Join";
 const SuperJoin = () => {
   const { currentAccount } = useAccountStore();
   const { superJoiningGroup, setShowSuperJoinModal } = useSuperJoinModalStore();
+  const { address } = useAccount();
   const { assetAddress, assetSymbol, amount } = getSimplePaymentDetails(
     superJoiningGroup?.rules as GroupRules
   );
@@ -30,11 +29,15 @@ const SuperJoin = () => {
   const enabledTokens = tokens.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetAddress] } },
-    pollInterval: 3000,
-    skip: !assetAddress || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: assetAddress as Address,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [address as Address],
+    query: {
+      refetchInterval: 3000,
+      enabled: !assetAddress || Boolean(address)
+    }
   });
 
   if (!assetAddress || !assetSymbol || !amount) {
@@ -46,8 +49,8 @@ const SuperJoin = () => {
   }
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+    balance !== undefined
+      ? Number(formatUnits(balance as bigint, 18)).toFixed(2)
       : 0;
 
   const hasEnoughBalance = Number(erc20Balance) >= Number(amount || 0);
