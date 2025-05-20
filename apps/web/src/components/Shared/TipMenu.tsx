@@ -24,7 +24,7 @@ import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { type Address, erc20Abi, formatUnits } from "viem";
-import { useAccount, useReadContracts } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -45,15 +45,11 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
-  const { data: balance, isLoading: balanceLoading } = useReadContracts({
-    contracts: [
-      {
-        address: DEFAULT_COLLECT_TOKEN,
-        abi: erc20Abi,
-        functionName: "balanceOf",
-        args: [address as Address]
-      }
-    ],
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: DEFAULT_COLLECT_TOKEN,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [address as Address],
     query: { refetchInterval: 3000, enabled: Boolean(address) }
   });
 
@@ -92,9 +88,10 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   };
 
   const cryptoRate = Number(amount);
-  const balanceResult = formatUnits(balance?.[0].result as bigint, 18);
   const erc20Balance =
-    balanceResult !== undefined ? Number(balanceResult).toFixed(2) : 0;
+    balance !== undefined
+      ? Number(formatUnits(balance as bigint, 18)).toFixed(2)
+      : 0;
   const canTip = Number(erc20Balance) >= cryptoRate;
 
   const [executeTipAction] = useExecutePostActionMutation({

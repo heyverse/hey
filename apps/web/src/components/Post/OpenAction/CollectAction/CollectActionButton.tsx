@@ -10,11 +10,12 @@ import { HEY_TREASURY } from "@hey/data/constants";
 import {
   type PostActionFragment,
   type PostFragment,
-  useAccountBalancesQuery,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
 import { toast } from "sonner";
+import { type Address, erc20Abi, formatUnits } from "viem";
+import { useAccount, useReadContract } from "wagmi";
 
 interface CollectActionButtonProps {
   collects: number;
@@ -37,6 +38,7 @@ const CollectActionButton = ({
   );
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
+  const { address } = useAccount();
 
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = collectAction?.collectLimit;
@@ -83,20 +85,21 @@ const CollectActionButton = ({
     errorToast(error);
   };
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetAddress] } },
-    pollInterval: 3000,
-    skip: !assetAddress || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: assetAddress,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [address as Address],
+    query: { refetchInterval: 3000, enabled: !assetAddress || Boolean(address) }
   });
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+    balance !== undefined
+      ? Number(formatUnits(balance as bigint, 18)).toFixed(2)
       : 0;
 
   let hasAmount = false;
-  if (Number.parseFloat(erc20Balance) < amount) {
+  if (Number(erc20Balance) < amount) {
     hasAmount = false;
   } else {
     hasAmount = true;
