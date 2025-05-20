@@ -9,7 +9,11 @@ import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useProStore } from "@/store/persisted/useProStore";
-import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import {
+  CalendarIcon,
+  LinkIcon,
+  MapPinIcon
+} from "@heroicons/react/24/outline";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import {
   AVATAR_BIG,
@@ -109,6 +113,19 @@ const Details = ({
               <SparklesIcon className="size-6" />
             </Tooltip>
           ) : null}
+          {account.linkedXUsername?.localName && (
+            <a
+              href={`https://x.com/${account.linkedXUsername.localName}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 flex items-center gap-1 rounded bg-black px-2 py-0.5 font-semibold text-white text-xs hover:bg-gray-800"
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`View ${account.linkedXUsername.localName} on X`}
+            >
+              Linked with X
+              <LinkIcon className="ml-1 size-3" />
+            </a>
+          )}
         </div>
         <div className="flex items-center space-x-3">
           <Slug

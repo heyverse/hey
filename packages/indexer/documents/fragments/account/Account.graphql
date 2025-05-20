@@ -18,5 +18,10 @@ fragment Account on Account {
   username(request: { autoResolve: true }) {
     ...Username
   }
+  linkedXUsername: username(
+    request: { namespace: "0x3b0819e12C5E1e491EA13Fe8326e3fED84c8DE85" }
+  ) {
+    ...Username
+  }
   createdAt
 }
