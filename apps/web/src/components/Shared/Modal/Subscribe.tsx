@@ -5,7 +5,6 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   DEFAULT_COLLECT_TOKEN,
-  DEFAULT_TOKEN,
   STATIC_IMAGES_URL,
   SUBSCRIPTION_AMOUNT,
   SUBSCRIPTION_POST_ID
@@ -17,7 +16,7 @@ import {
 import { useState } from "react";
 import { erc20Abi, formatUnits } from "viem";
 import { useReadContract } from "wagmi";
-import TransferFundButton from "../Account/Fund/FundButton";
+import SwapButton from "../Account/Fund/SwapButton";
 import Loader from "../Loader";
 
 const Subscribe = () => {
@@ -107,9 +106,9 @@ const Subscribe = () => {
           Subscribe for {SUBSCRIPTION_AMOUNT} WGHO/year
         </Button>
       ) : (
-        <TransferFundButton
+        <SwapButton
           className="w-sm"
-          token={DEFAULT_TOKEN}
+          token={DEFAULT_COLLECT_TOKEN}
           label={`Transfer ${SUBSCRIPTION_AMOUNT} WGHO to your account`}
           outline
         />

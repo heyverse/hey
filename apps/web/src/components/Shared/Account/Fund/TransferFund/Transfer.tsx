@@ -3,19 +3,16 @@ import errorToast from "@/helpers/errorToast";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import {
-  type FundingToken,
-  useFundModalStore
-} from "@/store/non-persisted/modal/useFundModalStore";
+import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useDepositMutation } from "@hey/indexer";
 import { type ChangeEvent, type RefObject, useRef, useState } from "react";
 import { toast } from "sonner";
-import { formatUnits } from "viem";
+import { type Address, formatUnits } from "viem";
 import { useAccount, useBalance } from "wagmi";
 
 interface TransferProps {
-  token?: FundingToken;
+  token?: Address;
 }
 
 const Transfer = ({ token }: TransferProps) => {
@@ -28,11 +25,11 @@ const Transfer = ({ token }: TransferProps) => {
   const { address } = useAccount();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
-  const symbol = token?.symbol ?? NATIVE_TOKEN_SYMBOL;
+  const symbol = token ?? NATIVE_TOKEN_SYMBOL;
 
   const { data: balance, isLoading: balanceLoading } = useBalance({
     address,
-    token: token?.contractAddress,
+    token: token,
     query: { refetchInterval: 2000 }
   });
 
@@ -94,7 +91,7 @@ const Transfer = ({ token }: TransferProps) => {
     return await deposit({
       variables: {
         request: {
-          erc20: { currency: token.contractAddress, value: amount.toString() }
+          erc20: { currency: token, value: amount.toString() }
         }
       }
     });

@@ -1,4 +1,4 @@
-import TransferFundButton from "@/components/Shared/Account/Fund/FundButton";
+import SwapButton from "@/components/Shared/Account/Fund/SwapButton";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -43,7 +43,6 @@ const CollectActionButton = ({
   const collectLimit = collectAction?.collectLimit;
   const amount = collectAction?.amount as number;
   const assetAddress = collectAction?.assetAddress as any;
-  const assetSymbol = collectAction?.assetSymbol as string;
   const isAllCollected = collectLimit ? collects >= collectLimit : false;
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
@@ -168,12 +167,7 @@ const CollectActionButton = ({
   }
 
   if (!hasAmount) {
-    return (
-      <TransferFundButton
-        className="mt-5 w-full"
-        token={{ contractAddress: assetAddress, symbol: assetSymbol }}
-      />
-    );
+    return <SwapButton className="mt-5 w-full" token={assetAddress} />;
   }
 
   return (

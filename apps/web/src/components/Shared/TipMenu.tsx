@@ -1,4 +1,4 @@
-import TransferFundButton from "@/components/Shared/Account/Fund/FundButton";
+import SwapButton from "@/components/Shared/Account/Fund/SwapButton";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -9,7 +9,6 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import {
   DEFAULT_COLLECT_TOKEN,
-  DEFAULT_TOKEN,
   HEY_TREASURY,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
@@ -243,7 +242,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <b>Tip ${amount}</b>
         </Button>
       ) : (
-        <TransferFundButton className="w-full" token={DEFAULT_TOKEN} />
+        <SwapButton className="w-full" token={DEFAULT_COLLECT_TOKEN} />
       )}
     </div>
   );

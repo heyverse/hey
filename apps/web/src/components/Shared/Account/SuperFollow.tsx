@@ -10,11 +10,11 @@ import type { AccountFollowRules, AccountFragment } from "@hey/indexer";
 import type { Address } from "viem";
 import { erc20Abi, formatUnits } from "viem";
 import { useReadContract } from "wagmi";
-import TransferFundButton from "../Account/Fund/FundButton";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
 import Slug from "../Slug";
 import Follow from "./Follow";
+import SwapButton from "./Fund/SwapButton";
 
 const SuperFollow = () => {
   const { currentAccount } = useAccountStore();
@@ -94,10 +94,7 @@ const SuperFollow = () => {
               }
             />
           ) : (
-            <TransferFundButton
-              className="w-full"
-              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
-            />
+            <SwapButton className="w-full" token={assetAddress} />
           )
         ) : (
           <LoginButton className="w-full" title="Login to Follow" />

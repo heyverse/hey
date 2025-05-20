@@ -11,7 +11,7 @@ import { tokens } from "@hey/data/tokens";
 import type { Group, GroupRules } from "@hey/indexer";
 import { type Address, erc20Abi, formatUnits } from "viem";
 import { useReadContract } from "wagmi";
-import TransferFundButton from "../Account/Fund/FundButton";
+import SwapButton from "../Account/Fund/SwapButton";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
 import Join from "./Join";
@@ -93,10 +93,7 @@ const SuperJoin = () => {
               }
             />
           ) : (
-            <TransferFundButton
-              className="w-full"
-              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
-            />
+            <SwapButton className="w-full" token={assetAddress} />
           )
         ) : (
           <LoginButton className="w-full" title="Login to Join" />

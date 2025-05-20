@@ -8,7 +8,6 @@ import { useProStore } from "@/store/persisted/useProStore";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import {
   DEFAULT_COLLECT_TOKEN,
-  DEFAULT_TOKEN,
   PRO_POST_ID,
   PRO_SUBSCRIPTION_AMOUNT,
   STATIC_IMAGES_URL
@@ -20,7 +19,7 @@ import {
 import { useState } from "react";
 import { erc20Abi, formatUnits } from "viem";
 import { useReadContract } from "wagmi";
-import TransferFundButton from "../../Account/Fund/FundButton";
+import SwapButton from "../../Account/Fund/SwapButton";
 import Loader from "../../Loader";
 
 const ProModal = () => {
@@ -158,9 +157,9 @@ const ProModal = () => {
           Subscribe for {PRO_SUBSCRIPTION_AMOUNT} WGHO/month
         </Button>
       ) : (
-        <TransferFundButton
+        <SwapButton
           className="w-full"
-          token={DEFAULT_TOKEN}
+          token={DEFAULT_COLLECT_TOKEN}
           label={`Transfer ${PRO_SUBSCRIPTION_AMOUNT} WGHO to your account`}
           outline
         />
