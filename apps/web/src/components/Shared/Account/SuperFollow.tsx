@@ -9,7 +9,7 @@ import getAccount from "@hey/helpers/getAccount";
 import type { AccountFollowRules, AccountFragment } from "@hey/indexer";
 import type { Address } from "viem";
 import { erc20Abi, formatUnits } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { useReadContract } from "wagmi";
 import TransferFundButton from "../Account/Fund/FundButton";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
@@ -20,7 +20,6 @@ const SuperFollow = () => {
   const { currentAccount } = useAccountStore();
   const { superFollowingAccount, setShowSuperFollowModal } =
     useSuperFollowModalStore();
-  const { address } = useAccount();
   const { assetAddress, assetSymbol, amount } = getSimplePaymentDetails(
     superFollowingAccount?.rules as AccountFollowRules
   );
@@ -31,10 +30,10 @@ const SuperFollow = () => {
     address: assetAddress as Address,
     abi: erc20Abi,
     functionName: "balanceOf",
-    args: [address as Address],
+    args: [currentAccount?.owner],
     query: {
       refetchInterval: 3000,
-      enabled: !assetAddress || Boolean(address)
+      enabled: !assetAddress || Boolean(currentAccount?.owner)
     }
   });
 

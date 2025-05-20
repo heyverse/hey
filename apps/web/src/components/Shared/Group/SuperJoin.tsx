@@ -10,7 +10,7 @@ import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { tokens } from "@hey/data/tokens";
 import type { Group, GroupRules } from "@hey/indexer";
 import { type Address, erc20Abi, formatUnits } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { useReadContract } from "wagmi";
 import TransferFundButton from "../Account/Fund/FundButton";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
@@ -19,7 +19,6 @@ import Join from "./Join";
 const SuperJoin = () => {
   const { currentAccount } = useAccountStore();
   const { superJoiningGroup, setShowSuperJoinModal } = useSuperJoinModalStore();
-  const { address } = useAccount();
   const { assetAddress, assetSymbol, amount } = getSimplePaymentDetails(
     superJoiningGroup?.rules as GroupRules
   );
@@ -33,10 +32,10 @@ const SuperJoin = () => {
     address: assetAddress as Address,
     abi: erc20Abi,
     functionName: "balanceOf",
-    args: [address as Address],
+    args: [currentAccount?.owner],
     query: {
       refetchInterval: 3000,
-      enabled: !assetAddress || Boolean(address)
+      enabled: !assetAddress || Boolean(currentAccount?.owner)
     }
   });
 

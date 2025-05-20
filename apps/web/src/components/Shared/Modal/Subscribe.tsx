@@ -2,6 +2,7 @@ import { Button, Image } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   DEFAULT_COLLECT_TOKEN,
   DEFAULT_TOKEN,
@@ -14,14 +15,14 @@ import {
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import { type Address, erc20Abi, formatUnits } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 import TransferFundButton from "../Account/Fund/FundButton";
 import Loader from "../Loader";
 
 const Subscribe = () => {
+  const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { address } = useAccount();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
@@ -29,8 +30,8 @@ const Subscribe = () => {
     address: DEFAULT_COLLECT_TOKEN,
     abi: erc20Abi,
     functionName: "balanceOf",
-    args: [address as Address],
-    query: { refetchInterval: 3000, enabled: !address }
+    args: [currentAccount?.owner],
+    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.owner) }
   });
 
   const onCompleted = (hash: string) => {

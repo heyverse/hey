@@ -3,6 +3,7 @@ import formatDate from "@/helpers/datetime/formatDate";
 import errorToast from "@/helpers/errorToast";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useProStore } from "@/store/persisted/useProStore";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import {
@@ -17,15 +18,15 @@ import {
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import { type Address, erc20Abi, formatUnits } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 import TransferFundButton from "../../Account/Fund/FundButton";
 import Loader from "../../Loader";
 
 const ProModal = () => {
+  const { currentAccount } = useAccountStore();
   const { isPro, expiresAt } = useProStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { address } = useAccount();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
@@ -33,8 +34,8 @@ const ProModal = () => {
     address: DEFAULT_COLLECT_TOKEN,
     abi: erc20Abi,
     functionName: "balanceOf",
-    args: [address as Address],
-    query: { refetchInterval: 3000, enabled: !address }
+    args: [currentAccount?.owner],
+    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.owner) }
   });
 
   const onCompleted = (hash: string) => {

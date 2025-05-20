@@ -14,8 +14,8 @@ import {
 } from "@hey/indexer";
 import { useState } from "react";
 import { toast } from "sonner";
-import { type Address, erc20Abi, formatUnits } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 
 interface CollectActionButtonProps {
   collects: number;
@@ -38,7 +38,6 @@ const CollectActionButton = ({
   );
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const { address } = useAccount();
 
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = collectAction?.collectLimit;
@@ -89,8 +88,11 @@ const CollectActionButton = ({
     address: assetAddress,
     abi: erc20Abi,
     functionName: "balanceOf",
-    args: [address as Address],
-    query: { refetchInterval: 3000, enabled: !assetAddress || Boolean(address) }
+    args: [currentAccount?.owner],
+    query: {
+      refetchInterval: 3000,
+      enabled: !assetAddress || Boolean(currentAccount?.owner)
+    }
   });
 
   const erc20Balance =

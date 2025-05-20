@@ -23,8 +23,8 @@ import {
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { type Address, erc20Abi, formatUnits } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -40,7 +40,6 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const [amount, setAmount] = useState(1);
   const [other, setOther] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const { address } = useAccount();
   const { cache } = useApolloClient();
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
@@ -49,8 +48,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     address: DEFAULT_COLLECT_TOKEN,
     abi: erc20Abi,
     functionName: "balanceOf",
-    args: [address as Address],
-    query: { refetchInterval: 3000, enabled: Boolean(address) }
+    args: [currentAccount?.owner],
+    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.owner) }
   });
 
   const updateCache = () => {
