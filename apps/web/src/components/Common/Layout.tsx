@@ -13,7 +13,7 @@ import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useSubscriptionStore } from "@/store/persisted/useSubscriptionStore";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { SUBSCRIPTION_POST_ID } from "@hey/data/constants";
-import { SubscriptionFragment, useMetype Query } from "@hey/indexer";
+import { type SubscriptionFragment, useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
@@ -40,9 +40,7 @@ const Layout = () => {
   };
 
   const { loading } = useMeQuery({
-    variables: {
-      subscriptionRequest: { post: SUBSCRIPTION_POST_ID }
-    },
+    variables: { subscriptionId: SUBSCRIPTION_POST_ID },
     onCompleted: ({ me, subscription }) => {
       setCurrentAccount(me.loggedInAs.account);
       setSubscriptionStatus(
