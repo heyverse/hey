@@ -20,7 +20,6 @@ import {
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
-import Pro from "./Pro";
 import SignedAccount from "./SignedAccount";
 
 const navigationItems = {
@@ -108,10 +107,7 @@ const Navbar = () => {
       </Link>
       <NavItems isLoggedIn={!!currentAccount} />
       {currentAccount ? (
-        <>
-          <Pro />
-          <SignedAccount />
-        </>
+        <SignedAccount />
       ) : (
         <button onClick={() => setShowAuthModal(true)} type="button">
           <Tooltip content="Login">

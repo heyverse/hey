@@ -6,13 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  sync-pro-guild:
-    name: Sync Pro Accounts to Guild
+  sync-subscribers-guild:
+    name: Sync Subscribers to Guild
     runs-on: ubuntu-latest
     steps:
-      - name: Sync Pro Accounts to Guild
+      - name: Sync Subscribers to Guild
         run: |
-          curl -X GET "https://api.hey.xyz/guild/syncProAccounts?secret=${{ secrets.SHARED_SECRET }}"
+          curl -X GET "https://api.hey.xyz/guild/syncSubscribers?secret=${{ secrets.SHARED_SECRET }}"
 
   sync-hq-score-guild:
     name: Sync HQ Score Accounts to Guild

@@ -3,8 +3,8 @@ import type { Context } from "hono";
 import lensPg from "src/utils/lensPg";
 import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
 
-// Sync accounts that has current pro status
-const syncProAccounts = async (ctx: Context) => {
+// Sync accounts that has current subscriber status
+const syncSubscribers = async (ctx: Context) => {
   try {
     const accounts = await lensPg.query(
       `
@@ -36,4 +36,4 @@ const syncProAccounts = async (ctx: Context) => {
   }
 };
 
-export default syncProAccounts;
+export default syncSubscribers;
