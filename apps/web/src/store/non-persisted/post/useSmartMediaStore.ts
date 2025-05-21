@@ -19,7 +19,7 @@ const store = create<State>((set) => ({
   records: {},
   fetchSmartMedia: async (post: Post, resolve?: boolean) => {
     const slug = post.slug;
-    console.log(`fetchSmartMedia:: ${slug}`);
+    logDebug(`fetchSmartMedia:: ${slug}`);
 
     try {
       set((state) => ({
