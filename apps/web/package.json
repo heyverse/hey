@@ -66,8 +66,8 @@
     "virtua": "^0.41.2",
     "vite": "^6.3.5",
     "wagmi": "^2.15.4",
-    "zod": "^3.25.16",
-    "zustand": "^5.0.4"
+    "zod": "^3.25.17",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
@@ -76,7 +76,7 @@
     "@tailwindcss/forms": "^0.5.10",
     "@types/hast": "^3.0.4",
     "@types/node": "^22.15.21",
-    "@types/react": "^19.1.4",
+    "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.4.1",
     "autoprefixer": "^10.4.21",
