@@ -3,9 +3,10 @@ import type { Context } from "hono";
 import lensPg from "src/utils/lensPg";
 import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
 
+// Sync accounts that has current pro status
 const syncProAccounts = async (ctx: Context) => {
   try {
-    const proAccounts = await lensPg.query(
+    const accounts = await lensPg.query(
       `
         SELECT DISTINCT a.owned_by
         FROM post.action_executed e
@@ -19,7 +20,7 @@ const syncProAccounts = async (ctx: Context) => {
       `
     );
 
-    const addresses = proAccounts.map((account) =>
+    const addresses = accounts.map((account) =>
       `0x${account.owned_by.toString("hex")}`.toLowerCase()
     );
 
