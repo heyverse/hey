@@ -159,7 +159,7 @@ const ProModal = () => {
         <TransferFundButton
           className="w-full"
           token={DEFAULT_TOKEN}
-          label="Transfer 3 WGHO to your account"
+          label={`Transfer ${PRO_SUBSCRIPTION_AMOUNT} WGHO to your account`}
           outline
         />
       )}

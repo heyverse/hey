@@ -4,7 +4,7 @@
 # Update dependencies across all packages
 
 branch_name="update-dependencies-$(date +%Y-%m-%d-%H-%M)"
-commit_message="chore: update dependencies across all packages"
+commit_message="chore: Update dependencies across all packages"
 
 # Check for uncommitted changes
 if [[ $(git status --porcelain) ]]; then

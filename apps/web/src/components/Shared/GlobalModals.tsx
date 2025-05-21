@@ -16,6 +16,7 @@ import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import SuperJoin from "./Group/SuperJoin";
 import ReportAccount from "./Modal/ReportAccount";
+import Subscribe from "./Modal/Subscribe";
 
 const GlobalModals = () => {
   const { setShowSwitchAccountModal, showSwitchAccountModal } =
@@ -38,6 +39,7 @@ const GlobalModals = () => {
     setShowSuperFollowModal,
     superFollowingAccount
   } = useSuperFollowModalStore();
+  // const { hasSubscribed } = useSubscriptionStore();
 
   const { screen: signupScreen } = useSignupStore();
 
@@ -50,6 +52,9 @@ const GlobalModals = () => {
 
   return (
     <>
+      <Modal show={false} size="md">
+        <Subscribe />
+      </Modal>
       <Modal
         onClose={() => setShowReportPostModal(false, reportingPostId)}
         show={showReportPostModal}
