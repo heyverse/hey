@@ -14,6 +14,6 @@ query Me($subscriptionRequest: PostRequest!) {
     }
   }
   subscription: post(request: $subscriptionRequest) {
-    ...PlatformFees
+    ...Subscription
   }
 }

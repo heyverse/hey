@@ -13,7 +13,7 @@ import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useSubscriptionStore } from "@/store/persisted/useSubscriptionStore";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { SUBSCRIPTION_POST_ID } from "@hey/data/constants";
-import { type PlatformFeesFragment, useMeQuery } from "@hey/indexer";
+import { SubscriptionFragment, useMetype Query } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
@@ -46,7 +46,7 @@ const Layout = () => {
     onCompleted: ({ me, subscription }) => {
       setCurrentAccount(me.loggedInAs.account);
       setSubscriptionStatus(
-        checkSubscriptionStatus(subscription as PlatformFeesFragment)
+        checkSubscriptionStatus(subscription as SubscriptionFragment)
       );
     },
     onError,
