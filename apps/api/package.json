@@ -31,17 +31,17 @@
     "jose": "^6.0.11",
     "linkedom": "^0.18.10",
     "pg-promise": "^11.13.0",
-    "redis": "^5.0.1",
+    "redis": "^5.1.0",
     "tsx": "^4.19.4",
     "viem": "^2.30.0",
     "xmlbuilder2": "^3.1.1",
-    "zod": "^3.25.7"
+    "zod": "^3.25.13"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.18",
-    "@types/node": "^22.15.19",
+    "@types/node": "^22.15.21",
     "prisma": "^6.8.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
