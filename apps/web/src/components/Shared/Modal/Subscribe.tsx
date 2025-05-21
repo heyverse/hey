@@ -87,7 +87,7 @@ const Subscribe = () => {
     <div className="mx-5 my-10 flex flex-col items-center gap-y-8">
       <Image
         src={`${STATIC_IMAGES_URL}/pro.png`}
-        alt="Pro"
+        alt="Subscribe"
         width={144}
         className="w-36"
       />
