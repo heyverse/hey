@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
-    "@aws-sdk/client-s3": "^3.812.0",
-    "@aws-sdk/lib-storage": "^3.812.0",
+    "@aws-sdk/client-s3": "^3.815.0",
+    "@aws-sdk/lib-storage": "^3.815.0",
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
     "@hey/api": "workspace:*",
@@ -66,7 +66,7 @@
     "virtua": "^0.41.2",
     "vite": "^6.3.5",
     "wagmi": "^2.15.4",
-    "zod": "^3.25.17",
+    "zod": "^3.25.20",
     "zustand": "^5.0.5"
   },
   "devDependencies": {
