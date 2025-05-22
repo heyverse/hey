@@ -43,7 +43,7 @@
     "prosekit": "^0.13.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-easy-crop": "^5.4.1",
+    "react-easy-crop": "^5.4.2",
     "react-hook-form": "^7.56.4",
     "react-hotkeys-hook": "^5.1.0",
     "react-markdown": "^10.1.0",
