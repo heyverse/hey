@@ -228,6 +228,7 @@ export type AccountFollowRules = {
 };
 
 export type AccountFollowRulesProcessingParams = {
+  simplePaymentRule?: InputMaybe<SimplePaymentRuleProcessingParamsInput>;
   unknownRule?: InputMaybe<UnknownRuleProcessingParams>;
 };
 
@@ -2544,6 +2545,7 @@ export type MediaImageRequest = {
 };
 
 export enum MediaImageType {
+  Avif = 'AVIF',
   Bmp = 'BMP',
   Gif = 'GIF',
   Heic = 'HEIC',
@@ -5133,16 +5135,23 @@ export type SimpleCollectValidationPassed = {
 export type SimplePaymentFeedRuleConfig = {
   cost: AmountInput;
   recipient: Scalars['EvmAddress']['input'];
+  referralShare?: Scalars['Float']['input'];
 };
 
 export type SimplePaymentFollowRuleConfig = {
   cost: AmountInput;
   recipient: Scalars['EvmAddress']['input'];
+  referralShare?: Scalars['Float']['input'];
 };
 
 export type SimplePaymentGroupRuleConfig = {
   cost: AmountInput;
   recipient: Scalars['EvmAddress']['input'];
+  referralShare?: Scalars['Float']['input'];
+};
+
+export type SimplePaymentRuleProcessingParamsInput = {
+  referrals: Array<ReferralCut>;
 };
 
 export enum SnsNotificationType {
