@@ -603,11 +603,6 @@ export type AdminsForRequest = {
   pageSize?: PageSize;
 };
 
-export type AmountInput = {
-  currency: Scalars['EvmAddress']['input'];
-  value: Scalars['BigDecimal']['input'];
-};
-
 export type AnyAccountBalance = Erc20Amount | Erc20BalanceError | NativeAmount | NativeBalanceError;
 
 export type AnyKeyValue = AddressKeyValue | ArrayKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
@@ -1209,7 +1204,7 @@ export type DeleteSnsSubscriptionRequest = {
 };
 
 export type DepositRequest = {
-  erc20?: InputMaybe<AmountInput>;
+  erc20?: InputMaybe<Erc20AmountInput>;
   native?: InputMaybe<Scalars['BigDecimal']['input']>;
 };
 
@@ -1407,6 +1402,11 @@ export type Erc20Amount = {
   value: Scalars['BigDecimal']['output'];
 };
 
+export type Erc20AmountInput = {
+  currency: Scalars['EvmAddress']['input'];
+  value: Scalars['BigDecimal']['input'];
+};
+
 export type Erc20BalanceError = {
   __typename?: 'Erc20BalanceError';
   reason: Scalars['String']['output'];
@@ -1455,7 +1455,7 @@ export type ExecuteAccountActionResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type ExecuteAccountActionResult = ExecuteAccountActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type ExecuteAccountActionResult = ExecuteAccountActionResponse | InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ExecutePostActionRequest = {
   action: PostActionExecuteInput;
@@ -1467,7 +1467,7 @@ export type ExecutePostActionResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type ExecutePostActionResult = ExecutePostActionResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type ExecutePostActionResult = ExecutePostActionResponse | InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ExecutedUnknownActionRequest = {
   address: Scalars['EvmAddress']['input'];
@@ -3489,6 +3489,7 @@ export type NativeBalanceError = {
 
 export type NativeToken = {
   __typename?: 'NativeToken';
+  contract: NetworkAddress;
   decimals: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   symbol: Scalars['String']['output'];
@@ -3774,16 +3775,20 @@ export type PausingResult = SelfFundedTransactionRequest | SponsoredTransactionR
 
 export type PayToCollectConfig = {
   __typename?: 'PayToCollectConfig';
-  amount: Erc20Amount;
+  amount: PayableAmount;
   recipients: Array<RecipientPercent>;
   referralShare?: Maybe<Scalars['Float']['output']>;
 };
 
 export type PayToCollectInput = {
-  amount: AmountInput;
+  amount?: InputMaybe<Erc20AmountInput>;
+  erc20?: InputMaybe<Erc20AmountInput>;
+  native?: InputMaybe<Scalars['BigDecimal']['input']>;
   recipients: Array<RecipientPercentInput>;
   referralShare?: InputMaybe<Scalars['Float']['input']>;
 };
+
+export type PayableAmount = Erc20Amount | NativeAmount;
 
 export type PaymasterParams = {
   __typename?: 'PaymasterParams';
@@ -5133,19 +5138,19 @@ export type SimpleCollectValidationPassed = {
 };
 
 export type SimplePaymentFeedRuleConfig = {
-  cost: AmountInput;
+  cost: Erc20AmountInput;
   recipient: Scalars['EvmAddress']['input'];
   referralShare?: Scalars['Float']['input'];
 };
 
 export type SimplePaymentFollowRuleConfig = {
-  cost: AmountInput;
+  cost: Erc20AmountInput;
   recipient: Scalars['EvmAddress']['input'];
   referralShare?: Scalars['Float']['input'];
 };
 
 export type SimplePaymentGroupRuleConfig = {
-  cost: AmountInput;
+  cost: Erc20AmountInput;
   recipient: Scalars['EvmAddress']['input'];
   referralShare?: Scalars['Float']['input'];
 };
@@ -6002,9 +6007,11 @@ export type TippingAccountActionExecuted = {
 };
 
 export type TippingAmountInput = {
-  currency: Scalars['EvmAddress']['input'];
+  currency?: InputMaybe<Scalars['EvmAddress']['input']>;
+  erc20?: InputMaybe<Erc20AmountInput>;
+  native?: InputMaybe<Scalars['BigDecimal']['input']>;
   referrals?: InputMaybe<Array<ReferralCut>>;
-  value: Scalars['BigDecimal']['input'];
+  value?: InputMaybe<Scalars['BigDecimal']['input']>;
 };
 
 export type TippingPostActionContract = {
@@ -6573,7 +6580,7 @@ export type UsernameNamespaceStats = {
 };
 
 export type UsernamePricePerLengthNamespaceRuleConfig = {
-  cost: AmountInput;
+  cost: Erc20AmountInput;
   costOverrides?: InputMaybe<Array<LengthAmountPair>>;
   recipient: Scalars['EvmAddress']['input'];
 };
@@ -6689,7 +6696,7 @@ export type WidthBasedTransform = {
 };
 
 export type WithdrawRequest = {
-  erc20?: InputMaybe<AmountInput>;
+  erc20?: InputMaybe<Erc20AmountInput>;
   native?: InputMaybe<Scalars['BigDecimal']['input']>;
 };
 
@@ -7158,7 +7165,7 @@ export type SubscriptionFragment = Subscription_Post_Fragment | Subscription_Rep
 export type PayToCollectConfigFragment = { __typename?: 'PayToCollectConfig', referralShare?: number | null, recipients: Array<{ __typename?: 'RecipientPercent', address: any, percent: number }>, amount: (
     { __typename?: 'Erc20Amount' }
     & Erc20AmountFragment
-  ) };
+  ) | { __typename?: 'NativeAmount' } };
 
 export type SimpleCollectActionFragment = { __typename?: 'SimpleCollectAction', address: any, collectLimit?: number | null, endsAt?: any | null, payToCollect?: (
     { __typename?: 'PayToCollectConfig' }
@@ -7500,7 +7507,7 @@ export type ExecuteAccountActionMutationVariables = Exact<{
 }>;
 
 
-export type ExecuteAccountActionMutation = { __typename?: 'Mutation', executeAccountAction: { __typename?: 'ExecuteAccountActionResponse', hash: any } | (
+export type ExecuteAccountActionMutation = { __typename?: 'Mutation', executeAccountAction: { __typename?: 'ExecuteAccountActionResponse', hash: any } | { __typename?: 'InsufficientFunds' } | (
     { __typename?: 'SelfFundedTransactionRequest' }
     & SelfFundedTransactionRequestFragment
   ) | (
@@ -7870,7 +7877,7 @@ export type ExecutePostActionMutationVariables = Exact<{
 }>;
 
 
-export type ExecutePostActionMutation = { __typename?: 'Mutation', executePostAction: { __typename?: 'ExecutePostActionResponse', hash: any } | (
+export type ExecutePostActionMutation = { __typename?: 'Mutation', executePostAction: { __typename?: 'ExecutePostActionResponse', hash: any } | { __typename?: 'InsufficientFunds' } | (
     { __typename?: 'SelfFundedTransactionRequest' }
     & SelfFundedTransactionRequestFragment
   ) | (
