@@ -17,7 +17,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
   const { currentAccount } = useAccountStore();
   const { collectAction } = useCollectActionStore((state) => state);
 
-  const enabled = Boolean(collectAction.payToCollect?.amount.value);
+  const enabled = Boolean(collectAction.payToCollect?.amount?.value);
 
   return (
     <div>
@@ -40,7 +40,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
           });
         }}
       />
-      {collectAction.payToCollect?.amount.value ? (
+      {collectAction.payToCollect?.amount?.value ? (
         <motion.div
           className="mt-4 ml-8"
           initial="hidden"
@@ -62,7 +62,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                   payToCollect: {
                     ...collectAction.payToCollect,
                     amount: {
-                      currency: collectAction.payToCollect?.amount.currency,
+                      currency: collectAction.payToCollect?.amount?.currency,
                       value: event.target.value ? event.target.value : "0"
                     }
                   }
@@ -86,7 +86,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                       amount: {
                         currency: value,
                         value: collectAction.payToCollect?.amount
-                          .value as string
+                          ?.value as string
                       }
                     }
                   });
@@ -96,7 +96,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                   label: token.name,
                   selected:
                     token.contractAddress ===
-                    collectAction.payToCollect?.amount.currency,
+                    collectAction.payToCollect?.amount?.currency,
                   value: token.contractAddress
                 }))}
               />
