@@ -1,4 +1,4 @@
-query Me($proRequest: PostRequest!, $subscriptionRequest: PostRequest!) {
+query Me($subscriptionId: PostId!) {
   me {
     loggedInAs {
       ... on AccountManaged {
@@ -13,10 +13,7 @@ query Me($proRequest: PostRequest!, $subscriptionRequest: PostRequest!) {
       }
     }
   }
-  pro: post(request: $proRequest) {
-    ...PlatformFees
-  }
-  subscription: post(request: $subscriptionRequest) {
-    ...PlatformFees
+  subscription: post(request: { post: $subscriptionId }) {
+    ...Subscription
   }
 }

@@ -1,5 +1,5 @@
-import TransferFundButton from "@/components/Shared/Account/Fund/FundButton";
 import LoginButton from "@/components/Shared/LoginButton";
+import SwapButton from "@/components/Shared/SwapButton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -9,7 +9,6 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import {
   DEFAULT_COLLECT_TOKEN,
-  DEFAULT_TOKEN,
   HEY_TREASURY,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
@@ -17,13 +16,14 @@ import {
   type AccountFragment,
   type PostFragment,
   type TippingAmountInput,
-  useAccountBalancesQuery,
   useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import { erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -43,11 +43,12 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: DEFAULT_COLLECT_TOKEN,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [currentAccount?.owner],
+    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.owner) }
   });
 
   const updateCache = () => {
@@ -85,12 +86,10 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   };
 
   const cryptoRate = Number(amount);
-
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? Number(balance.accountBalances[0].value).toFixed(2)
+    balance !== undefined
+      ? Number(formatUnits(balance as bigint, 18)).toFixed(2)
       : 0;
-
   const canTip = Number(erc20Balance) >= cryptoRate;
 
   const [executeTipAction] = useExecutePostActionMutation({
@@ -243,7 +242,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <b>Tip ${amount}</b>
         </Button>
       ) : (
-        <TransferFundButton className="w-full" token={DEFAULT_TOKEN} />
+        <SwapButton className="w-full" token={DEFAULT_COLLECT_TOKEN} />
       )}
     </div>
   );

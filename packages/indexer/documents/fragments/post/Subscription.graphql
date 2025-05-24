@@ -1,4 +1,4 @@
-fragment PlatformFees on AnyPost {
+fragment Subscription on AnyPost {
   ... on Post {
     operations {
       lastSubscription: lastTip {

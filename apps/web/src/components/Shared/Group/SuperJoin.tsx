@@ -8,20 +8,18 @@ import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoin
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { tokens } from "@hey/data/tokens";
-import {
-  type Group,
-  type GroupRules,
-  useAccountBalancesQuery
-} from "@hey/indexer";
-import TransferFundButton from "../Account/Fund/FundButton";
+import type { Group, GroupRules } from "@hey/indexer";
+import { type Address, erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
+import SwapButton from "../SwapButton";
 import Join from "./Join";
 
 const SuperJoin = () => {
   const { currentAccount } = useAccountStore();
   const { superJoiningGroup, setShowSuperJoinModal } = useSuperJoinModalStore();
-  const { assetContract, assetSymbol, amount } = getSimplePaymentDetails(
+  const { assetAddress, assetSymbol, amount } = getSimplePaymentDetails(
     superJoiningGroup?.rules as GroupRules
   );
   const requiresMembershipApproval = getMembershipApprovalDetails(
@@ -30,14 +28,18 @@ const SuperJoin = () => {
   const enabledTokens = tokens.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetContract] } },
-    pollInterval: 3000,
-    skip: !assetContract || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: assetAddress as Address,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [currentAccount?.owner],
+    query: {
+      refetchInterval: 3000,
+      enabled: !assetAddress || Boolean(currentAccount?.owner)
+    }
   });
 
-  if (!assetContract || !assetSymbol || !amount) {
+  if (!assetAddress || !assetSymbol || !amount) {
     return null;
   }
 
@@ -46,8 +48,8 @@ const SuperJoin = () => {
   }
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+    balance !== undefined
+      ? Number(formatUnits(balance as bigint, 18)).toFixed(2)
       : 0;
 
   const hasEnoughBalance = Number(erc20Balance) >= Number(amount || 0);
@@ -91,10 +93,7 @@ const SuperJoin = () => {
               }
             />
           ) : (
-            <TransferFundButton
-              className="w-full"
-              token={{ contractAddress: assetContract, symbol: assetSymbol }}
-            />
+            <SwapButton className="w-full" token={assetAddress} />
           )
         ) : (
           <LoginButton className="w-full" title="Login to Join" />

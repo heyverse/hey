@@ -6,35 +6,38 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { tokens } from "@hey/data/tokens";
 import getAccount from "@hey/helpers/getAccount";
-import {
-  type AccountFollowRules,
-  type AccountFragment,
-  useAccountBalancesQuery
-} from "@hey/indexer";
-import TransferFundButton from "../Account/Fund/FundButton";
+import type { AccountFollowRules, AccountFragment } from "@hey/indexer";
+import type { Address } from "viem";
+import { erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
 import Slug from "../Slug";
+import SwapButton from "../SwapButton";
 import Follow from "./Follow";
 
 const SuperFollow = () => {
   const { currentAccount } = useAccountStore();
   const { superFollowingAccount, setShowSuperFollowModal } =
     useSuperFollowModalStore();
-  const { assetContract, assetSymbol, amount } = getSimplePaymentDetails(
+  const { assetAddress, assetSymbol, amount } = getSimplePaymentDetails(
     superFollowingAccount?.rules as AccountFollowRules
   );
   const enabledTokens = tokens.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetContract] } },
-    pollInterval: 3000,
-    skip: !assetContract || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: assetAddress as Address,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [currentAccount?.owner],
+    query: {
+      refetchInterval: 3000,
+      enabled: !assetAddress || Boolean(currentAccount?.owner)
+    }
   });
 
-  if (!assetContract || !assetSymbol || !amount) {
+  if (!assetAddress || !assetSymbol || !amount) {
     return null;
   }
 
@@ -43,8 +46,8 @@ const SuperFollow = () => {
   }
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+    balance !== undefined
+      ? Number(formatUnits(balance as bigint, 18)).toFixed(2)
       : 0;
 
   const hasEnoughBalance = Number(erc20Balance) >= Number(amount || 0);
@@ -91,10 +94,7 @@ const SuperFollow = () => {
               }
             />
           ) : (
-            <TransferFundButton
-              className="w-full"
-              token={{ contractAddress: assetContract, symbol: assetSymbol }}
-            />
+            <SwapButton className="w-full" token={assetAddress} />
           )
         ) : (
           <LoginButton className="w-full" title="Login to Follow" />

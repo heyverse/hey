@@ -1,5 +1,5 @@
-import TransferFundButton from "@/components/Shared/Account/Fund/FundButton";
 import LoginButton from "@/components/Shared/LoginButton";
+import SwapButton from "@/components/Shared/SwapButton";
 import { Button, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getCollectActionData from "@/helpers/getCollectActionData";
@@ -10,11 +10,12 @@ import { HEY_TREASURY } from "@hey/data/constants";
 import {
   type PostActionFragment,
   type PostFragment,
-  useAccountBalancesQuery,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
 import { toast } from "sonner";
+import { erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 
 interface CollectActionButtonProps {
   collects: number;
@@ -42,7 +43,6 @@ const CollectActionButton = ({
   const collectLimit = collectAction?.collectLimit;
   const amount = collectAction?.amount as number;
   const assetAddress = collectAction?.assetAddress as any;
-  const assetSymbol = collectAction?.assetSymbol as string;
   const isAllCollected = collectLimit ? collects >= collectLimit : false;
   const isSaleEnded = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
@@ -83,20 +83,24 @@ const CollectActionButton = ({
     errorToast(error);
   };
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetAddress] } },
-    pollInterval: 3000,
-    skip: !assetAddress || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: assetAddress,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [currentAccount?.owner],
+    query: {
+      refetchInterval: 3000,
+      enabled: !assetAddress || Boolean(currentAccount?.owner)
+    }
   });
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+    balance !== undefined
+      ? Number(formatUnits(balance as bigint, 18)).toFixed(2)
       : 0;
 
   let hasAmount = false;
-  if (Number.parseFloat(erc20Balance) < amount) {
+  if (Number(erc20Balance) < amount) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -163,12 +167,7 @@ const CollectActionButton = ({
   }
 
   if (!hasAmount) {
-    return (
-      <TransferFundButton
-        className="mt-5 w-full"
-        token={{ contractAddress: assetAddress, symbol: assetSymbol }}
-      />
-    );
+    return <SwapButton className="mt-5 w-full" token={assetAddress} />;
   }
 
   return (

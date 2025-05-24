@@ -2,15 +2,10 @@ import { createTrackedSelector } from "react-tracked";
 import type { Address } from "viem";
 import { create } from "zustand";
 
-export interface FundingToken {
-  contractAddress: Address;
-  symbol: string;
-}
-
 interface State {
   showFundModal: boolean;
-  token?: FundingToken;
-  setShowFundModal: (showFundModal: boolean, token?: FundingToken) => void;
+  token?: Address;
+  setShowFundModal: (showFundModal: boolean, token?: Address) => void;
 }
 
 const store = create<State>((set) => ({

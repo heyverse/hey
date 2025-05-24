@@ -1,16 +1,14 @@
 import FollowUnfollowButton from "@/components/Shared/Account/FollowUnfollowButton";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
-import { Button, H3, Image, LightBox, Tooltip } from "@/components/Shared/UI";
+import { Button, H3, Image, LightBox } from "@/components/Shared/UI";
 import formatDate from "@/helpers/datetime/formatDate";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
 import getFavicon from "@/helpers/getFavicon";
 import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useProStore } from "@/store/persisted/useProStore";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import { SparklesIcon } from "@heroicons/react/24/solid";
 import {
   AVATAR_BIG,
   EXPANDED_AVATAR,
@@ -41,7 +39,6 @@ const Details = ({
 }: DetailsProps) => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
-  const { isPro } = useProStore();
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const { theme } = useTheme();
 
@@ -104,11 +101,6 @@ const Details = ({
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
-          {currentAccount?.address === account.address && isPro ? (
-            <Tooltip content="Pro">
-              <SparklesIcon className="size-6" />
-            </Tooltip>
-          ) : null}
         </div>
         <div className="flex items-center space-x-3">
           <Slug

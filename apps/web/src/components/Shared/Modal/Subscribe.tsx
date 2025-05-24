@@ -5,19 +5,19 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   DEFAULT_COLLECT_TOKEN,
-  DEFAULT_TOKEN,
   STATIC_IMAGES_URL,
   SUBSCRIPTION_AMOUNT,
   SUBSCRIPTION_POST_ID
 } from "@hey/data/constants";
 import {
   type TippingAmountInput,
-  useAccountBalancesQuery,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import TransferFundButton from "../Account/Fund/FundButton";
+import { erc20Abi, formatUnits } from "viem";
+import { useReadContract } from "wagmi";
 import Loader from "../Loader";
+import SwapButton from "../SwapButton";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
@@ -25,11 +25,12 @@ const Subscribe = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: DEFAULT_COLLECT_TOKEN,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [currentAccount?.owner],
+    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.owner) }
   });
 
   const onCompleted = (hash: string) => {
@@ -42,8 +43,8 @@ const Subscribe = () => {
   };
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? Number(balance.accountBalances[0].value).toFixed(2)
+    balance !== undefined
+      ? Number(formatUnits(balance as bigint, 18)).toFixed(2)
       : 0;
 
   const canSubscribe = Number(erc20Balance) >= SUBSCRIPTION_AMOUNT;
@@ -86,9 +87,9 @@ const Subscribe = () => {
     <div className="mx-5 my-10 flex flex-col items-center gap-y-8">
       <Image
         src={`${STATIC_IMAGES_URL}/pro.png`}
-        alt="Pro"
-        width={112}
-        className="w-28"
+        alt="Subscribe"
+        width={144}
+        className="w-36"
       />
       <div className="max-w-md text-center text-gray-500 text-sm">
         Subscribe to Hey to access the platform. A subscription is required to
@@ -105,9 +106,9 @@ const Subscribe = () => {
           Subscribe for {SUBSCRIPTION_AMOUNT} WGHO/year
         </Button>
       ) : (
-        <TransferFundButton
+        <SwapButton
           className="w-sm"
-          token={DEFAULT_TOKEN}
+          token={DEFAULT_COLLECT_TOKEN}
           label={`Transfer ${SUBSCRIPTION_AMOUNT} WGHO to your account`}
           outline
         />

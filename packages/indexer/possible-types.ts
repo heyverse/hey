@@ -218,12 +218,14 @@ const result: PossibleTypesResultData = {
     ],
     ExecuteAccountActionResult: [
       "ExecuteAccountActionResponse",
+      "InsufficientFunds",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
     ],
     ExecutePostActionResult: [
       "ExecutePostActionResponse",
+      "InsufficientFunds",
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
@@ -281,6 +283,7 @@ const result: PossibleTypesResultData = {
       "SponsoredTransactionRequest",
       "TransactionWillFail"
     ],
+    PayableAmount: ["Erc20Amount", "NativeAmount"],
     PostAction: ["SimpleCollectAction", "UnknownPostAction"],
     PostActionContract: [
       "SimpleCollectActionContract",

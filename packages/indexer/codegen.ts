@@ -31,7 +31,7 @@ const config: CodegenConfig = {
     afterAllFileWrite: ["biome format --write ."]
   },
   overwrite: true,
-  schema: LensEndpoint.Mainnet
+  schema: LensEndpoint.Staging
 };
 
 export default config;

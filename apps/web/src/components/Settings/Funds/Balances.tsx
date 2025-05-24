@@ -1,17 +1,11 @@
-import TransferFundButton from "@/components/Shared/Account/Fund/FundButton";
 import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Image } from "@/components/Shared/UI";
 import getTokenImage from "@/helpers/getTokenImage";
-import {
-  DEFAULT_COLLECT_TOKEN,
-  NATIVE_TOKEN_SYMBOL
-} from "@hey/data/constants";
+import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { tokens } from "@hey/data/tokens";
 import { useAccountBalancesQuery } from "@hey/indexer";
 import type { Address } from "viem";
-import Unwrap from "./Unwrap";
 import Withdraw from "./Withdraw";
-import Wrap from "./Wrap";
 
 const Balances = () => {
   const { data, loading, error, refetch } = useAccountBalancesQuery({
@@ -42,22 +36,7 @@ const Balances = () => {
           <b>{Number.parseFloat(value).toFixed(2)} </b>
           {symbol}
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <Withdraw currency={currency} value={value} refetch={refetch} />
-          {!currency && <Wrap value={value} refetch={refetch} />}
-          {currency === DEFAULT_COLLECT_TOKEN && (
-            <Unwrap value={value} refetch={refetch} />
-          )}
-          <TransferFundButton
-            size="sm"
-            outline
-            token={
-              currency
-                ? { contractAddress: currency, symbol: symbol }
-                : undefined
-            }
-          />
-        </div>
+        <Withdraw currency={currency} value={value} refetch={refetch} />
       </div>
     );
   };
