@@ -1,6 +1,8 @@
 fragment NativeAmount on NativeAmount {
-  asset {
-    ...NativeToken
+  contract {
+    address
   }
-  value
+  decimals
+  name
+  symbol
 }
