@@ -1,20 +1,21 @@
+import { Regex } from "@hey/data/regex";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
-import getJumperQuotes from "./getJumperQuotes";
-import getJumperTips from "./getJumperTips";
+import getJumperData from "./getJumperData";
 
 const app = new Hono();
 
-app.get(
-  "/jumper/quotes/:id",
-  zValidator("param", z.object({ id: z.string() })),
-  getJumperQuotes
-);
-app.get(
-  "/jumper/tips/:id",
-  zValidator("param", z.object({ id: z.string() })),
-  getJumperTips
+app.post(
+  "/jumper/get",
+  zValidator(
+    "json",
+    z.object({
+      address: z.string().regex(Regex.evmAddress),
+      id: z.string()
+    })
+  ),
+  getJumperData
 );
 
 export default app;

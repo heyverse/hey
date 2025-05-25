@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.816.0",
+    "@aws-sdk/client-sts": "^3.817.0",
     "@guildxyz/sdk": "^2.6.9",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
@@ -33,9 +33,9 @@
     "pg-promise": "^11.13.0",
     "redis": "^5.1.0",
     "tsx": "^4.19.4",
-    "viem": "^2.30.0",
+    "viem": "^2.30.1",
     "xmlbuilder2": "^3.1.1",
-    "zod": "^3.25.23"
+    "zod": "^3.25.28"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
