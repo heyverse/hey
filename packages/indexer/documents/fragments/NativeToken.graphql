@@ -1,8 +1,0 @@
-fragment NativeToken on NativeToken {
-  contract {
-    address
-  }
-  decimals
-  name
-  symbol
-}
