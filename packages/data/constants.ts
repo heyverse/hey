@@ -58,7 +58,6 @@ export const EVER_REGION = "4EVERLAND";
 export const EVER_BUCKET = "heyverse";
 
 // Tokens / Keys
-export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
 export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd";
 export const LIVEPEER_KEY = "70508bf8-2e16-4594-852d-5aed798f6403";
 
