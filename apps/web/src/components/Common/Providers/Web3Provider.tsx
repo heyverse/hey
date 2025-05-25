@@ -1,19 +1,11 @@
 import getRpc from "@/helpers/getRpc";
-import {
-  CHAIN,
-  IS_MAINNET,
-  WALLETCONNECT_PROJECT_ID
-} from "@hey/data/constants";
+import { CHAIN, IS_MAINNET } from "@hey/data/constants";
 import { familyAccountsConnector } from "family";
 import type { ReactNode } from "react";
 import { WagmiProvider, createConfig } from "wagmi";
-import { injected, walletConnect } from "wagmi/connectors";
+import { injected } from "wagmi/connectors";
 
-const connectors = [
-  familyAccountsConnector(),
-  walletConnect({ projectId: WALLETCONNECT_PROJECT_ID }),
-  injected()
-];
+const connectors = [familyAccountsConnector(), injected()];
 
 const config = createConfig({
   chains: [CHAIN],
