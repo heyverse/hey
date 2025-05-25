@@ -5,6 +5,6 @@ fragment PayToCollectConfig on PayToCollectConfig {
     percent
   }
   amount {
-    ...Erc20Amount
+    ...PayableAmount
   }
 }
