@@ -1,7 +1,7 @@
 import {
+  NATIVE_TOKEN_SYMBOL,
   PRO_SUBSCRIPTION_AMOUNT,
-  PRO_SUBSCRIPTION_DURATION_DAYS,
-  WRAPPED_NATIVE_TOKEN_SYMBOL
+  PRO_SUBSCRIPTION_DURATION_DAYS
 } from "@hey/data/constants";
 import type { PlatformFeesFragment } from "@hey/indexer";
 
@@ -30,7 +30,7 @@ const checkProStatus = (
   const isPro =
     daysSinceTip <= PRO_SUBSCRIPTION_DURATION_DAYS &&
     tipAmountUsd >= PRO_SUBSCRIPTION_AMOUNT &&
-    assetSymbol === WRAPPED_NATIVE_TOKEN_SYMBOL;
+    assetSymbol === NATIVE_TOKEN_SYMBOL;
 
   const expiresAt =
     isPro && lastSubscriptionDate
