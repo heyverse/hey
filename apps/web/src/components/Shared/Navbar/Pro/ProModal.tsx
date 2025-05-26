@@ -7,7 +7,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useProStore } from "@/store/persisted/useProStore";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import {
-  DEFAULT_TOKEN,
+  NATIVE_TOKEN_SYMBOL,
   PRO_POST_ID,
   PRO_SUBSCRIPTION_AMOUNT,
   STATIC_IMAGES_URL
@@ -150,13 +150,12 @@ const ProModal = () => {
           disabled={isSubmitting}
           loading={isSubmitting}
         >
-          Subscribe for {PRO_SUBSCRIPTION_AMOUNT} WGHO/month
+          Subscribe for {PRO_SUBSCRIPTION_AMOUNT} {NATIVE_TOKEN_SYMBOL}/month
         </Button>
       ) : (
         <TransferFundButton
           className="w-full"
-          token={DEFAULT_TOKEN}
-          label={`Transfer ${PRO_SUBSCRIPTION_AMOUNT} WGHO to your account`}
+          label={`Transfer ${PRO_SUBSCRIPTION_AMOUNT} ${NATIVE_TOKEN_SYMBOL} to your account`}
           outline
         />
       )}

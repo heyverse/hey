@@ -7,11 +7,7 @@ import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
-import {
-  DEFAULT_TOKEN,
-  HEY_TREASURY,
-  WRAPPED_NATIVE_TOKEN_SYMBOL
-} from "@hey/data/constants";
+import { HEY_TREASURY, WRAPPED_NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import {
   type AccountFragment,
   type PostFragment,
@@ -240,7 +236,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <b>Tip ${amount}</b>
         </Button>
       ) : (
-        <TransferFundButton className="w-full" token={DEFAULT_TOKEN} />
+        <TransferFundButton className="w-full" />
       )}
     </div>
   );

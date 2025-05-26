@@ -4,7 +4,7 @@ import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
-  DEFAULT_TOKEN,
+  NATIVE_TOKEN_SYMBOL,
   STATIC_IMAGES_URL,
   SUBSCRIPTION_AMOUNT,
   SUBSCRIPTION_POST_ID
@@ -99,13 +99,12 @@ const Subscribe = () => {
           disabled={isSubmitting}
           loading={isSubmitting}
         >
-          Subscribe for {SUBSCRIPTION_AMOUNT} WGHO/year
+          Subscribe for {SUBSCRIPTION_AMOUNT} {NATIVE_TOKEN_SYMBOL}/year
         </Button>
       ) : (
         <TransferFundButton
           className="w-sm"
-          token={DEFAULT_TOKEN}
-          label={`Transfer ${SUBSCRIPTION_AMOUNT} WGHO to your account`}
+          label={`Transfer ${SUBSCRIPTION_AMOUNT} ${NATIVE_TOKEN_SYMBOL} to your account`}
           outline
         />
       )}
