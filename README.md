@@ -70,6 +70,34 @@ To compile the application:
 pnpm build
 ```
 
+### Run Tests
+
+To execute the test suite:
+
+```bash
+pnpm test
+```
+
+For running tests with watch mode during development:
+
+```bash
+pnpm test:watch
+```
+
+### Lint and Format Code
+
+Check code quality and formatting:
+
+```bash
+pnpm lint
+```
+
+Fix linting and formatting issues automatically:
+
+```bash
+pnpm lint:fix
+```
+
 ## License
 
 This project is licensed under the **AGPL-3.0** license. Please refer to the [LICENSE](./LICENSE) file for full terms and conditions.
