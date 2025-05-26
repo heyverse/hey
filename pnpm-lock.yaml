@@ -184,8 +184,8 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2
       motion:
-        specifier: ^12.12.2
-        version: 12.12.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^12.13.0
+        version: 12.13.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       motion-plus-react:
         specifier: ^0.1.9
         version: 0.1.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -388,8 +388,8 @@ importers:
         specifier: ^4.6.1
         version: 4.6.1(graphql@16.11.0)
       '@graphql-codegen/typescript-react-apollo':
-        specifier: ^4.3.2
-        version: 4.3.2(graphql@16.11.0)
+        specifier: ^4.3.3
+        version: 4.3.3(graphql@16.11.0)
       '@hey/config':
         specifier: workspace:*
         version: link:../config
@@ -1272,11 +1272,6 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
-  '@graphql-codegen/plugin-helpers@2.7.2':
-    resolution: {integrity: sha512-kln2AZ12uii6U59OQXdjLk5nOlh1pHis1R98cDZGFnfaiAbX9V3fxcZ1MMJkB7qFUymTALzyjZoXXdyVmPMfRg==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-
   '@graphql-codegen/plugin-helpers@3.1.2':
     resolution: {integrity: sha512-emOQiHyIliVOIjKVKdsI5MXj312zmRDwmHpyUTZMjfpvxq/UVAHUJIVdVf+lnjjrI+LXBTgMlTWTgHQfmICxjg==}
     peerDependencies:
@@ -1309,8 +1304,8 @@ packages:
       graphql-sock:
         optional: true
 
-  '@graphql-codegen/typescript-react-apollo@4.3.2':
-    resolution: {integrity: sha512-io2tWfeehBqOB2X6llqLE6B9wjjsXZT/GTZlguGVXdbR7WhSJO9GXyLflXYKxom/h2bPjkVL534Ev6wZLcs0wA==}
+  '@graphql-codegen/typescript-react-apollo@4.3.3':
+    resolution: {integrity: sha512-ecuzzqoZEHCtlxaEXL1LQTrfzVYwNNtbVUBHc/KQDfkJIQZon+dG5ZXOoJ4BpbRA2L99yTx+TZc2VkpOVfSypw==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -1321,8 +1316,8 @@ packages:
     peerDependencies:
       graphql: ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
-  '@graphql-codegen/visitor-plugin-common@2.13.1':
-    resolution: {integrity: sha512-mD9ufZhDGhyrSaWQGrU1Q1c5f01TeWtSWy/cDwXYjJcHIj1Y/DG2x0tOflEfCvh5WcnmHNIw4lzDsg1W7iFJEg==}
+  '@graphql-codegen/visitor-plugin-common@2.13.8':
+    resolution: {integrity: sha512-IQWu99YV4wt8hGxIbBQPtqRuaWZhkQRG2IZKbMoSvh0vGeWb3dB0n0hSgKaOOxDY+tljtOf9MTcUYvJslQucMQ==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
@@ -1487,11 +1482,6 @@ packages:
   '@graphql-tools/utils@10.8.6':
     resolution: {integrity: sha512-Alc9Vyg0oOsGhRapfL3xvqh1zV8nKoFUdtLhXX7Ki4nClaIJXckrA86j+uxEuG3ic6j4jlM1nvcWXRn/71AVLQ==}
     engines: {node: '>=16.0.0'}
-    peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-
-  '@graphql-tools/utils@8.13.1':
-    resolution: {integrity: sha512-qIh9yYpdUFmctVqovwMdheVNJqFh+DQNWIhX87FJStfXYnmweBUDATok9fWPleKeFwxnW8IapKmY8m8toJEkAw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
@@ -3305,9 +3295,6 @@ packages:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
 
-  change-case-all@1.0.14:
-    resolution: {integrity: sha512-CWVm2uT7dmSHdO/z1CXT/n47mWonyypzBbuCy5tN7uMg22BsfkhwT6oHmFCAk+gL1LOOxhdbB9SZz3J1KTY3gA==}
-
   change-case-all@1.0.15:
     resolution: {integrity: sha512-3+GIFhk3sNuvFAJKU46o26OdzudQlPNBCu1ZQi3cMeMHhty1bhDxu2WrEilVNYaGvqUtR1VSigFcJOiS13dRhQ==}
 
@@ -3810,8 +3797,8 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@12.12.2:
-    resolution: {integrity: sha512-qCszZCiGWkilL40E3VuhIJJC/CS3SIBl2IHyGK8FU30nOUhTmhBNWPrNFyozAWH/bXxwzi19vJHIGVdALF0LCg==}
+  framer-motion@12.13.0:
+    resolution: {integrity: sha512-fz24XiDr9SM/gBUqi2kRoI0U0TfuRGrO6HIlao12/72q5gPaoWc9cwQZwxrSmUPvDGsQ2HqAtHesKu29Ihuj0A==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -4575,8 +4562,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  motion-dom@12.12.1:
-    resolution: {integrity: sha512-GXq/uUbZBEiFFE+K1Z/sxdPdadMdfJ/jmBALDfIuHGi0NmtealLOfH9FqT+6aNPgVx8ilq0DtYmyQlo6Uj9LKQ==}
+  motion-dom@12.13.0:
+    resolution: {integrity: sha512-ivjt+BkkbqnumnjBEDUcmfG/Fh74VDUrUoetCF+j701qcy6OJ0zdy8lQWvLTTvs6vglmjm8agVaY55n+IswhKA==}
 
   motion-plus-dom@0.1.7:
     resolution: {integrity: sha512-VhKHcQCiv+s9y0hjRskV+/UVaHYR5O8zaSou8qRwkEl5RtMyxbgfKs4/uzt6aRDToFW+DiZuxBgsvCd9WWbfXw==}
@@ -4595,8 +4582,8 @@ packages:
   motion-utils@12.12.1:
     resolution: {integrity: sha512-f9qiqUHm7hWSLlNW8gS9pisnsN7CRFRD58vNjptKdsqFLpkVnX00TNeD6Q0d27V9KzT7ySFyK1TZ/DShfVOv6w==}
 
-  motion@12.12.2:
-    resolution: {integrity: sha512-ZMvJXkm8QnEYH8NsKGNGMkROjyMtouc7FxTB7FVXW5KQk+ZhunEkh0FWdUKT9kia8dGL0o6YU/RmrFxsI5Plgw==}
+  motion@12.13.0:
+    resolution: {integrity: sha512-lejaux4xyUPJG0njC7NKDhcn0Qssr38HwA8Odu0bPHcX6sifzof/lIHhxTl+MhZk6lr8FZGzkJFaR+t+Kg7zRw==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
@@ -7577,16 +7564,6 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@graphql-codegen/plugin-helpers@2.7.2(graphql@16.11.0)':
-    dependencies:
-      '@graphql-tools/utils': 8.13.1(graphql@16.11.0)
-      change-case-all: 1.0.14
-      common-tags: 1.8.2
-      graphql: 16.11.0
-      import-from: 4.0.0
-      lodash: 4.17.21
-      tslib: 2.4.1
-
   '@graphql-codegen/plugin-helpers@3.1.2(graphql@16.11.0)':
     dependencies:
       '@graphql-tools/utils': 9.2.1(graphql@16.11.0)
@@ -7636,14 +7613,14 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@graphql-codegen/typescript-react-apollo@4.3.2(graphql@16.11.0)':
+  '@graphql-codegen/typescript-react-apollo@4.3.3(graphql@16.11.0)':
     dependencies:
       '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.11.0)
-      '@graphql-codegen/visitor-plugin-common': 2.13.1(graphql@16.11.0)
+      '@graphql-codegen/visitor-plugin-common': 2.13.8(graphql@16.11.0)
       auto-bind: 4.0.0
       change-case-all: 1.0.15
       graphql: 16.11.0
-      tslib: 2.6.3
+      tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -7659,14 +7636,14 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@graphql-codegen/visitor-plugin-common@2.13.1(graphql@16.11.0)':
+  '@graphql-codegen/visitor-plugin-common@2.13.8(graphql@16.11.0)':
     dependencies:
-      '@graphql-codegen/plugin-helpers': 2.7.2(graphql@16.11.0)
+      '@graphql-codegen/plugin-helpers': 3.1.2(graphql@16.11.0)
       '@graphql-tools/optimize': 1.4.0(graphql@16.11.0)
       '@graphql-tools/relay-operation-optimizer': 6.5.18(graphql@16.11.0)
-      '@graphql-tools/utils': 8.13.1(graphql@16.11.0)
+      '@graphql-tools/utils': 9.2.1(graphql@16.11.0)
       auto-bind: 4.0.0
-      change-case-all: 1.0.14
+      change-case-all: 1.0.15
       dependency-graph: 0.11.0
       graphql: 16.11.0
       graphql-tag: 2.12.6(graphql@16.11.0)
@@ -7880,7 +7857,7 @@ snapshots:
   '@graphql-tools/optimize@1.4.0(graphql@16.11.0)':
     dependencies:
       graphql: 16.11.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@graphql-tools/optimize@2.0.0(graphql@16.11.0)':
     dependencies:
@@ -7921,7 +7898,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.11.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.11.0)
       graphql: 16.11.0
-      tslib: 2.6.3
+      tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -7974,16 +7951,11 @@ snapshots:
       graphql: 16.11.0
       tslib: 2.8.1
 
-  '@graphql-tools/utils@8.13.1(graphql@16.11.0)':
-    dependencies:
-      graphql: 16.11.0
-      tslib: 2.6.3
-
   '@graphql-tools/utils@9.2.1(graphql@16.11.0)':
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.11.0)
       graphql: 16.11.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@graphql-tools/wrap@10.0.36(graphql@16.11.0)':
     dependencies:
@@ -10839,7 +10811,7 @@ snapshots:
   camel-case@4.1.2:
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   camelcase@5.3.1: {}
 
@@ -10848,7 +10820,7 @@ snapshots:
   capital-case@1.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
       upper-case-first: 2.0.2
 
   ccount@2.0.1: {}
@@ -10857,19 +10829,6 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-
-  change-case-all@1.0.14:
-    dependencies:
-      change-case: 4.1.2
-      is-lower-case: 2.0.2
-      is-upper-case: 2.0.2
-      lower-case: 2.0.2
-      lower-case-first: 2.0.2
-      sponge-case: 1.0.1
-      swap-case: 2.0.2
-      title-case: 3.0.3
-      upper-case: 2.0.2
-      upper-case-first: 2.0.2
 
   change-case-all@1.0.15:
     dependencies:
@@ -10897,7 +10856,7 @@ snapshots:
       path-case: 3.0.4
       sentence-case: 3.0.4
       snake-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   character-entities-html4@2.1.0: {}
 
@@ -10971,7 +10930,7 @@ snapshots:
   constant-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
       upper-case: 2.0.2
 
   convert-source-map@2.0.0: {}
@@ -11129,7 +11088,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   dotenv@16.5.0: {}
 
@@ -11387,9 +11346,9 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@12.12.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  framer-motion@12.13.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      motion-dom: 12.12.1
+      motion-dom: 12.13.0
       motion-utils: 12.12.1
       tslib: 2.8.1
     optionalDependencies:
@@ -11680,7 +11639,7 @@ snapshots:
   header-case@2.0.4:
     dependencies:
       capital-case: 1.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   hls.js@1.6.2: {}
 
@@ -11825,7 +11784,7 @@ snapshots:
 
   is-lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   is-number@7.0.0: {}
 
@@ -11856,7 +11815,7 @@ snapshots:
 
   is-upper-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   is-windows@1.0.2: {}
 
@@ -12049,11 +12008,11 @@ snapshots:
 
   lower-case-first@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   lru-cache@10.4.3: {}
 
@@ -12342,14 +12301,14 @@ snapshots:
 
   mkdirp@3.0.1: {}
 
-  motion-dom@12.12.1:
+  motion-dom@12.13.0:
     dependencies:
       motion-utils: 12.12.1
 
   motion-plus-dom@0.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      motion: 12.12.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      motion-dom: 12.12.1
+      motion: 12.13.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      motion-dom: 12.13.0
       motion-utils: 12.12.1
     transitivePeerDependencies:
       - '@emotion/is-prop-valid'
@@ -12358,7 +12317,7 @@ snapshots:
 
   motion-plus-react@0.1.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      motion: 12.12.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      motion: 12.13.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       motion-plus-dom: 0.1.7(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       motion-utils: 12.12.1
     optionalDependencies:
@@ -12369,9 +12328,9 @@ snapshots:
 
   motion-utils@12.12.1: {}
 
-  motion@12.12.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  motion@12.13.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      framer-motion: 12.12.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      framer-motion: 12.13.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tslib: 2.8.1
     optionalDependencies:
       react: 19.1.0
@@ -12392,7 +12351,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   node-addon-api@2.0.2: {}
 
@@ -12556,7 +12515,7 @@ snapshots:
   param-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   parent-module@1.0.1:
     dependencies:
@@ -12592,12 +12551,12 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   path-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   path-exists@4.0.0: {}
 
@@ -13230,7 +13189,7 @@ snapshots:
   sentence-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
       upper-case-first: 2.0.2
 
   server-dom-shim@1.0.2:
@@ -13291,7 +13250,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   socket.io-client@4.8.1(bufferutil@4.0.9)(utf-8-validate@5.0.10):
     dependencies:
@@ -13332,7 +13291,7 @@ snapshots:
 
   sponge-case@1.0.1:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   sprintf-js@1.0.3: {}
 
@@ -13392,7 +13351,7 @@ snapshots:
 
   swap-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   symbol-observable@4.0.0: {}
 
@@ -13434,7 +13393,7 @@ snapshots:
 
   title-case@3.0.3:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   tmp@0.0.33:
     dependencies:
@@ -13594,11 +13553,11 @@ snapshots:
 
   upper-case-first@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   upper-case@2.0.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   url-polyfill@1.1.13: {}
 
