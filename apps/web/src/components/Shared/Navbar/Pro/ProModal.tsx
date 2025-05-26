@@ -7,7 +7,6 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useProStore } from "@/store/persisted/useProStore";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import {
-  DEFAULT_COLLECT_TOKEN,
   DEFAULT_TOKEN,
   PRO_POST_ID,
   PRO_SUBSCRIPTION_AMOUNT,
@@ -15,10 +14,11 @@ import {
 } from "@hey/data/constants";
 import {
   type TippingAmountInput,
-  useAccountBalancesQuery,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
+import { formatUnits } from "viem";
+import { useBalance } from "wagmi";
 import TransferFundButton from "../../Account/Fund/FundButton";
 import Loader from "../../Loader";
 
@@ -29,11 +29,9 @@ const ProModal = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useBalance({
+    address: currentAccount?.address,
+    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.address) }
   });
 
   const onCompleted = (hash: string) => {
@@ -46,8 +44,8 @@ const ProModal = () => {
   };
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? Number(balance.accountBalances[0].value).toFixed(2)
+    balance?.value !== undefined
+      ? Number(formatUnits(balance.value, 18)).toFixed(2)
       : 0;
 
   const canSubscribe = Number(erc20Balance) >= PRO_SUBSCRIPTION_AMOUNT;
@@ -71,8 +69,7 @@ const ProModal = () => {
     setIsSubmitting(true);
 
     const tipping: TippingAmountInput = {
-      currency: DEFAULT_COLLECT_TOKEN,
-      value: PRO_SUBSCRIPTION_AMOUNT.toString()
+      native: PRO_SUBSCRIPTION_AMOUNT.toString()
     };
 
     return executeTipAction({

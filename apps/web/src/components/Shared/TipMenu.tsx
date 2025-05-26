@@ -8,7 +8,6 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import {
-  DEFAULT_COLLECT_TOKEN,
   DEFAULT_TOKEN,
   HEY_TREASURY,
   WRAPPED_NATIVE_TOKEN_SYMBOL
@@ -17,13 +16,14 @@ import {
   type AccountFragment,
   type PostFragment,
   type TippingAmountInput,
-  useAccountBalancesQuery,
   useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import { formatUnits } from "viem";
+import { useBalance } from "wagmi";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -43,11 +43,9 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useBalance({
+    address: currentAccount?.address,
+    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.address) }
   });
 
   const updateCache = () => {
@@ -87,8 +85,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const cryptoRate = Number(amount);
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? Number(balance.accountBalances[0].value).toFixed(2)
+    balance?.value !== undefined
+      ? Number(formatUnits(balance.value, 18)).toFixed(2)
       : 0;
 
   const canTip = Number(erc20Balance) >= cryptoRate;
@@ -139,8 +137,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     const tipping: TippingAmountInput = {
       // 7.62 is a calculated value based on the referral pool of 20% and the lens fee of 1.5%
       referrals: [{ address: HEY_TREASURY, percent: 7.62 }],
-      currency: DEFAULT_COLLECT_TOKEN,
-      value: cryptoRate.toString()
+      native: cryptoRate.toString()
     };
 
     if (post) {
