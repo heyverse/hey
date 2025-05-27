@@ -14,11 +14,10 @@ import {
 } from "@hey/data/constants";
 import {
   type TippingAmountInput,
+  useAccountBalancesQuery,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import { formatUnits } from "viem";
-import { useBalance } from "wagmi";
 import TransferFundButton from "../../Account/Fund/FundButton";
 import Loader from "../../Loader";
 
@@ -29,9 +28,11 @@ const ProModal = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
-  const { data: balance, isLoading: balanceLoading } = useBalance({
-    address: currentAccount?.address,
-    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.address) }
+  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
+    variables: { request: { includeNative: true } },
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
+    fetchPolicy: "no-cache"
   });
 
   const onCompleted = (hash: string) => {
@@ -44,8 +45,8 @@ const ProModal = () => {
   };
 
   const erc20Balance =
-    balance?.value !== undefined
-      ? Number(formatUnits(balance.value, 18)).toFixed(2)
+    balance?.accountBalances[0].__typename === "NativeAmount"
+      ? Number(balance.accountBalances[0].value).toFixed(2)
       : 0;
 
   const canSubscribe = Number(erc20Balance) >= PRO_SUBSCRIPTION_AMOUNT;

@@ -12,14 +12,13 @@ import {
   type AccountFragment,
   type PostFragment,
   type TippingAmountInput,
+  useAccountBalancesQuery,
   useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { formatUnits } from "viem";
-import { useBalance } from "wagmi";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -39,9 +38,11 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
-  const { data: balance, isLoading: balanceLoading } = useBalance({
-    address: currentAccount?.address,
-    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.address) }
+  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
+    variables: { request: { includeNative: true } },
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
+    fetchPolicy: "no-cache"
   });
 
   const updateCache = () => {
@@ -81,8 +82,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const cryptoRate = Number(amount);
 
   const erc20Balance =
-    balance?.value !== undefined
-      ? Number(formatUnits(balance.value, 18)).toFixed(2)
+    balance?.accountBalances[0].__typename === "NativeAmount"
+      ? Number(balance.accountBalances[0].value).toFixed(2)
       : 0;
 
   const canTip = Number(erc20Balance) >= cryptoRate;
