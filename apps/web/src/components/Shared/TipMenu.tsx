@@ -7,7 +7,7 @@ import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
-import { HEY_TREASURY, WRAPPED_NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
+import { HEY_TREASURY, NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import {
   type AccountFragment,
   type PostFragment,
@@ -70,7 +70,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     setIsSubmitting(false);
     closePopover();
     updateCache();
-    toast.success(`Tipped ${amount} ${WRAPPED_NATIVE_TOKEN_SYMBOL}`);
+    toast.success(`Tipped ${amount} ${NATIVE_TOKEN_SYMBOL}`);
   };
 
   const onError = (error: Error) => {
@@ -164,7 +164,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <span>Balance:</span>
           <span>
             {erc20Balance ? (
-              `${erc20Balance} ${WRAPPED_NATIVE_TOKEN_SYMBOL}`
+              `${erc20Balance} ${NATIVE_TOKEN_SYMBOL}`
             ) : (
               <div className="shimmer h-2.5 w-14 rounded-full" />
             )}
