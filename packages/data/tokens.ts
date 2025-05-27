@@ -1,13 +1,7 @@
-import { IS_MAINNET, NULL_ADDRESS } from "./constants";
+import { IS_MAINNET } from "./constants";
 import { MainnetContracts, TestnetContracts } from "./contracts";
 
 const mainnetTokens = [
-  {
-    name: "GHO",
-    symbol: "GHO",
-    decimals: 18,
-    contractAddress: NULL_ADDRESS
-  },
   {
     name: "Wrapped GHO",
     symbol: "WGHO",
@@ -23,12 +17,6 @@ const mainnetTokens = [
 ];
 
 const testnetTokens = [
-  {
-    name: "Grass",
-    symbol: "GRASS",
-    decimals: 18,
-    contractAddress: NULL_ADDRESS
-  },
   {
     name: "Wrapped Grass",
     symbol: "WGRASS",
