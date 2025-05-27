@@ -33,14 +33,14 @@ const CollectActionButton = ({
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
-    collectAction?.amount ? false : post.operations?.hasSimpleCollected
+    collectAction?.price ? false : post.operations?.hasSimpleCollected
   );
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = collectAction?.collectLimit;
-  const amount = collectAction?.amount as number;
+  const amount = collectAction?.price as number;
   const assetAddress = collectAction?.assetAddress as any;
   const assetSymbol = collectAction?.assetSymbol as string;
   const isAllCollected = collectLimit ? collects >= collectLimit : false;

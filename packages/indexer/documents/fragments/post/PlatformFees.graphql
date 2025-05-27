@@ -2,7 +2,7 @@ fragment PlatformFees on AnyPost {
   ... on Post {
     operations {
       lastSubscription: lastTip {
-        amount {
+        tipAmount {
           ...PayableAmount
         }
         date

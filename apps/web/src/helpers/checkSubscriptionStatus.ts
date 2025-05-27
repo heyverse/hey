@@ -19,9 +19,9 @@ const checkSubscriptionStatus = (
     ? new Date(lastSubscription.date)
     : null;
   const tipAmountUsd = Number.parseFloat(
-    lastSubscription?.amount?.value || "0"
+    lastSubscription?.tipAmount?.value || "0"
   );
-  const assetSymbol = lastSubscription?.amount?.asset?.symbol;
+  const assetSymbol = lastSubscription?.tipAmount?.asset?.symbol;
 
   const daysSinceTip = lastSubscriptionDate
     ? (Date.now() - lastSubscriptionDate.getTime()) / (1000 * 60 * 60 * 24)

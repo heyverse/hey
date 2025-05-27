@@ -4,7 +4,7 @@ fragment PayToCollectConfig on PayToCollectConfig {
     address
     percent
   }
-  amount {
+  price {
     ...PayableAmount
   }
 }
