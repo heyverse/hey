@@ -70,20 +70,6 @@ To compile the application:
 pnpm build
 ```
 
-### Run Tests
-
-To execute the test suite:
-
-```bash
-pnpm test
-```
-
-For running tests with watch mode during development:
-
-```bash
-pnpm test:watch
-```
-
 ### Lint and Format Code
 
 Check code quality and formatting:
