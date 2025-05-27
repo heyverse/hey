@@ -66,7 +66,7 @@
     "virtua": "^0.41.2",
     "vite": "^6.3.5",
     "wagmi": "^2.15.4",
-    "zod": "^3.25.28",
+    "zod": "^3.25.30",
     "zustand": "^5.0.5"
   },
   "devDependencies": {
