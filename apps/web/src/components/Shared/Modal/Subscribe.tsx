@@ -129,16 +129,11 @@ const Subscribe = () => {
           outline
         />
       )}
-      <div className="-mt-1 space-y-2 text-center text-gray-500 text-xs">
-        <div>
-          This is not recurring. You need to manually resubscribe every year.
-        </div>
-        <div>
-          <button className="underline" type="button" onClick={handleLogout}>
-            Logout
-          </button>{" "}
-          and try with different account
-        </div>
+      <div className="-mt-1 text-center text-gray-500 text-xs">
+        <button className="underline" type="button" onClick={handleLogout}>
+          Logout
+        </button>{" "}
+        and try with different account
       </div>
     </div>
   );
