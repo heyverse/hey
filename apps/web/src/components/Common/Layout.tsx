@@ -12,8 +12,8 @@ import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useSubscriptionStore } from "@/store/persisted/useSubscriptionStore";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { PRO_POST_ID, SUBSCRIPTION_POST_ID } from "@hey/data/constants";
-import { type PlatformFeesFragment, useMeQuery } from "@hey/indexer";
+import { SUBSCRIPTION_POST_ID } from "@hey/data/constants";
+import { type SubscriptionFragment, useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
@@ -40,14 +40,11 @@ const Layout = () => {
   };
 
   const { loading } = useMeQuery({
-    variables: {
-      proRequest: { post: PRO_POST_ID },
-      subscriptionRequest: { post: SUBSCRIPTION_POST_ID }
-    },
+    variables: { subscriptionId: SUBSCRIPTION_POST_ID },
     onCompleted: ({ me, subscription }) => {
       setCurrentAccount(me.loggedInAs.account);
       setSubscriptionStatus(
-        checkSubscriptionStatus(subscription as PlatformFeesFragment)
+        checkSubscriptionStatus(subscription as SubscriptionFragment)
       );
     },
     onError,

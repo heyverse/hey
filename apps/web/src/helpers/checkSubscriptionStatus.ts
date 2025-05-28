@@ -3,10 +3,10 @@ import {
   SUBSCRIPTION_AMOUNT,
   SUBSCRIPTION_DURATION_DAYS
 } from "@hey/data/constants";
-import type { PlatformFeesFragment } from "@hey/indexer";
+import type { SubscriptionFragment } from "@hey/indexer";
 
 const checkSubscriptionStatus = (
-  post: PlatformFeesFragment
+  post: SubscriptionFragment
 ): { hasSubscribed: boolean; expiresAt?: Date } => {
   if (post.__typename !== "Post") {
     return { hasSubscribed: false };

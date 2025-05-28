@@ -4,7 +4,6 @@ import { Button } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { EXPANSION_EASE } from "@/variants";
-import { SparklesIcon } from "@heroicons/react/24/solid";
 import type { CollectActionType } from "@hey/types/hey";
 import { motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
@@ -88,10 +87,6 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             <CollectLimitConfig setCollectType={setCollectType} />
             <TimeLimitConfig setCollectType={setCollectType} />
             <FollowersConfig setCollectType={setCollectType} />
-            <div className="mt-5 flex items-center gap-x-1 text-gray-500 text-xs">
-              <SparklesIcon className="size-3" />
-              <span>Upgrade to Pro to unlock advanced collect settings</span>
-            </div>
           </motion.div>
           <div className="divider" />
           <div className="m-5">
