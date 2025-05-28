@@ -19,7 +19,7 @@ const JoinWithRulesCheck = ({
   small
 }: JoinWithRulesCheckProps) => {
   const { setShowSuperJoinModal } = useSuperJoinModalStore();
-  const { assetContract: requiredSimplePayment } = getSimplePaymentDetails(
+  const { assetAddress: requiredSimplePayment } = getSimplePaymentDetails(
     group.rules as GroupRules
   );
   const requiresMembershipApproval = getMembershipApprovalDetails(

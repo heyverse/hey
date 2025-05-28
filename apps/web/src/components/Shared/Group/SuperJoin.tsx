@@ -21,7 +21,7 @@ import Join from "./Join";
 const SuperJoin = () => {
   const { currentAccount } = useAccountStore();
   const { superJoiningGroup, setShowSuperJoinModal } = useSuperJoinModalStore();
-  const { assetContract, assetSymbol, amount } = getSimplePaymentDetails(
+  const { assetAddress, assetSymbol, amount } = getSimplePaymentDetails(
     superJoiningGroup?.rules as GroupRules
   );
   const requiresMembershipApproval = getMembershipApprovalDetails(
@@ -31,13 +31,13 @@ const SuperJoin = () => {
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
   const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetContract] } },
+    variables: { request: { tokens: [assetAddress] } },
     pollInterval: 3000,
-    skip: !assetContract || !currentAccount?.address,
+    skip: !assetAddress || !currentAccount?.address,
     fetchPolicy: "no-cache"
   });
 
-  if (!assetContract || !assetSymbol || !amount) {
+  if (!assetAddress || !assetSymbol || !amount) {
     return null;
   }
 
@@ -93,7 +93,7 @@ const SuperJoin = () => {
           ) : (
             <TransferFundButton
               className="w-full"
-              token={{ contractAddress: assetContract, symbol: assetSymbol }}
+              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
             />
           )
         ) : (

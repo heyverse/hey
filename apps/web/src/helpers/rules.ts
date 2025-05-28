@@ -22,7 +22,7 @@ export const getMembershipApprovalDetails = (rules: GroupRules): boolean =>
   extractMembershipApproval(rules.anyOf);
 
 interface AssetDetails {
-  assetContract: Address | null;
+  assetAddress: Address | null;
   assetSymbol: string | null;
   amount: number | null;
 }
@@ -33,7 +33,7 @@ const extractPaymentDetails = (
   for (const rule of rules) {
     if (rule.type === "SIMPLE_PAYMENT") {
       return {
-        assetContract:
+        assetAddress:
           getAnyKeyValue(rule.config, "assetContract")?.address || null,
         assetSymbol: getAnyKeyValue(rule.config, "assetSymbol")?.string || null,
         amount:
@@ -42,7 +42,7 @@ const extractPaymentDetails = (
     }
   }
 
-  return { assetContract: null, assetSymbol: null, amount: null };
+  return { assetAddress: null, assetSymbol: null, amount: null };
 };
 
 export const getSimplePaymentDetails = (
