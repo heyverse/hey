@@ -66,7 +66,7 @@
     "virtua": "^0.41.2",
     "vite": "^6.3.5",
     "wagmi": "^2.15.4",
-    "zod": "^3.25.30",
+    "zod": "^3.25.32",
     "zustand": "^5.0.5"
   },
   "devDependencies": {
@@ -75,7 +75,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.10",
     "@types/hast": "^3.0.4",
-    "@types/node": "^22.15.21",
+    "@types/node": "^22.15.23",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.0",
