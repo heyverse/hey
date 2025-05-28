@@ -16,7 +16,7 @@ const Subscribe = () => {
     errorToast(error);
   };
 
-  const [dismissProBanner] = useAddPostNotInterestedMutation({
+  const [dismissProBanner, { loading }] = useAddPostNotInterestedMutation({
     onCompleted: () => {
       toast.success("Dismissed");
       setProBannerDismissed(true);
@@ -39,6 +39,7 @@ const Subscribe = () => {
         className="absolute top-3 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
         type="button"
         onClick={handleDismissProBanner}
+        disabled={loading}
       >
         <XCircleIcon className="size-5" />
       </button>
