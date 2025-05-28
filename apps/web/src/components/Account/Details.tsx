@@ -104,7 +104,7 @@ const Details = ({
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
           {hasSubscribed(account) && (
-            <Tooltip content="Subscriber" placement="right">
+            <Tooltip content="Verified" placement="right">
               <CheckBadgeIcon className="size-5 text-brand-500" />
             </Tooltip>
           )}
