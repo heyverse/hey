@@ -1,12 +1,14 @@
 import { Button, Card, H5 } from "@/components/Shared/UI";
 import hasSubscribed from "@/helpers/hasSubscribed";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useBannerStore } from "@/store/persisted/useBannerStore";
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
+  const { proBannerDismissed } = useBannerStore();
 
-  if (currentAccount && hasSubscribed(currentAccount)) {
+  if ((currentAccount && hasSubscribed(currentAccount)) || proBannerDismissed) {
     return null;
   }
 

@@ -66,3 +66,7 @@ export const NATIVE_TOKEN_SYMBOL = IS_MAINNET ? "GHO" : "GRASS";
 export const WRAPPED_NATIVE_TOKEN_SYMBOL = IS_MAINNET ? "WGHO" : "WGRASS";
 
 export const MAX_IMAGE_UPLOAD = 8;
+
+export const BANNER_IDS = {
+  PRO: "38fhy1km4n9850zxm68"
+};
