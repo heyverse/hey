@@ -42,10 +42,9 @@ const Layout = () => {
     variables: { proBannerId: BANNER_IDS.PRO },
     onCompleted: ({ me, proBanner }) => {
       setCurrentAccount(me.loggedInAs.account);
-      setProBannerDismissed(
-        proBanner?.__typename === "Post" &&
-          proBanner.operations?.dismissed === true
-      );
+      if (proBanner?.__typename === "Post") {
+        setProBannerDismissed(proBanner.operations?.dismissed ?? false);
+      }
     },
     onError,
     skip: !accessToken

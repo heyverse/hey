@@ -1,20 +1,47 @@
 import { Button, Card, H5 } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
 import hasSubscribed from "@/helpers/hasSubscribed";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useBannerStore } from "@/store/persisted/useBannerStore";
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { BANNER_IDS } from "@hey/data/constants";
+import { useAddPostNotInterestedMutation } from "@hey/indexer";
+import { toast } from "sonner";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
-  const { proBannerDismissed } = useBannerStore();
+  const { proBannerDismissed, setProBannerDismissed } = useBannerStore();
+
+  const onError = (error: Error) => {
+    errorToast(error);
+  };
+
+  const [dismissProBanner] = useAddPostNotInterestedMutation({
+    onCompleted: () => {
+      toast.success("Dismissed");
+      setProBannerDismissed(true);
+    },
+    onError,
+    variables: { request: { post: BANNER_IDS.PRO } }
+  });
 
   if ((currentAccount && hasSubscribed(currentAccount)) || proBannerDismissed) {
     return null;
   }
 
+  const handleDismissProBanner = async () => {
+    return await dismissProBanner();
+  };
+
   return (
     <Card className="relative space-y-2">
-      <XCircleIcon className="absolute top-3 right-3 size-5 cursor-pointer text-gray-400 hover:text-gray-600" />
+      <button
+        className="absolute top-3 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
+        type="button"
+        onClick={handleDismissProBanner}
+      >
+        <XCircleIcon className="size-5" />
+      </button>
       <div className="m-5">
         <div className="flex items-center gap-2">
           <CheckBadgeIcon className="size-5 text-brand-500" />
