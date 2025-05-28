@@ -18,5 +18,10 @@ fragment Account on Account {
   username(request: { autoResolve: true }) {
     ...Username
   }
+  subscription: username(
+    request: { namespace: "0x242861e7FA8704043035CD09F3d8798B1B1a1552" }
+  ) {
+    timestamp
+  }
   createdAt
 }

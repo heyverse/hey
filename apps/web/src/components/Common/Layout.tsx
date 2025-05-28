@@ -5,15 +5,14 @@ import GlobalShortcuts from "@/components/Shared/GlobalShortcuts";
 import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
-import checkSubscriptionStatus from "@/helpers/checkSubscriptionStatus";
+import hasSubscribed from "@/helpers/hasSubscribed";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useSubscriptionStore } from "@/store/persisted/useSubscriptionStore";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { SUBSCRIPTION_POST_ID } from "@hey/data/constants";
-import { type SubscriptionFragment, useMeQuery } from "@hey/indexer";
+import { useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
@@ -23,7 +22,7 @@ const Layout = () => {
   const { pathname } = useLocation();
   const { theme } = useTheme();
   const { currentAccount, setCurrentAccount } = useAccountStore();
-  const { setSubscriptionStatus } = useSubscriptionStore();
+  const { setHasSubscribed } = useSubscriptionStore();
   const { resetPreferences } = usePreferencesStore();
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
@@ -40,12 +39,9 @@ const Layout = () => {
   };
 
   const { loading } = useMeQuery({
-    variables: { subscriptionId: SUBSCRIPTION_POST_ID },
-    onCompleted: ({ me, subscription }) => {
+    onCompleted: ({ me }) => {
       setCurrentAccount(me.loggedInAs.account);
-      setSubscriptionStatus(
-        checkSubscriptionStatus(subscription as SubscriptionFragment)
-      );
+      setHasSubscribed(hasSubscribed(me.loggedInAs.account));
     },
     onError,
     skip: !accessToken

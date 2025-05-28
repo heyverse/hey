@@ -5,23 +5,15 @@ import { persist } from "zustand/middleware";
 
 interface State {
   hasSubscribed: boolean;
-  expiresAt?: Date;
-  setSubscriptionStatus: ({
-    hasSubscribed,
-    expiresAt
-  }: { hasSubscribed: boolean; expiresAt?: Date }) => void;
+  setHasSubscribed: (hasSubscribed: boolean) => void;
 }
 
 const store = create(
   persist<State>(
     (set) => ({
       hasSubscribed: false,
-      expiresAt: undefined,
-      setSubscriptionStatus: ({
-        hasSubscribed,
-        expiresAt
-      }: { hasSubscribed: boolean; expiresAt?: Date }) =>
-        set(() => ({ hasSubscribed, expiresAt }))
+      setHasSubscribed: (hasSubscribed: boolean) =>
+        set(() => ({ hasSubscribed }))
     }),
     { name: Localstorage.SubscriptionStore }
   )

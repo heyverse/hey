@@ -6,16 +6,15 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import {
-  NATIVE_TOKEN_SYMBOL,
+  DEFAULT_COLLECT_TOKEN,
   STATIC_IMAGES_URL,
   SUBSCRIPTION_AMOUNT,
-  SUBSCRIPTION_POST_ID
+  WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
 import {
   type AccountFragment,
-  type TippingAmountInput,
   useAccountBalancesQuery,
-  useExecutePostActionMutation
+  useCreateUsernameMutation
 } from "@hey/indexer";
 import { useState } from "react";
 import TransferFundButton from "../Account/Fund/FundButton";
@@ -62,14 +61,14 @@ const Subscribe = () => {
 
   const canSubscribe = Number(erc20Balance) >= SUBSCRIPTION_AMOUNT;
 
-  const [executeTipAction] = useExecutePostActionMutation({
-    onCompleted: async ({ executePostAction }) => {
-      if (executePostAction.__typename === "ExecutePostActionResponse") {
-        return onCompleted(executePostAction.hash);
+  const [createUsername] = useCreateUsernameMutation({
+    onCompleted: async ({ createUsername }) => {
+      if (createUsername.__typename === "CreateUsernameResponse") {
+        return onCompleted(createUsername.hash);
       }
 
       return await handleTransactionLifecycle({
-        transactionData: executePostAction,
+        transactionData: createUsername,
         onCompleted,
         onError
       });
@@ -80,13 +79,18 @@ const Subscribe = () => {
   const handleSubscribe = () => {
     setIsSubmitting(true);
 
-    const tipping: TippingAmountInput = {
-      native: SUBSCRIPTION_AMOUNT.toString()
-    };
-
-    return executeTipAction({
+    return createUsername({
       variables: {
-        request: { post: SUBSCRIPTION_POST_ID, action: { tipping } }
+        request: {
+          autoAssign: true,
+          username: {
+            localName: `${currentAccount?.address}-${new Date().toLocaleDateString(
+              "en-US",
+              { year: "numeric", month: "2-digit", day: "2-digit" }
+            )}`,
+            namespace: "0x242861e7FA8704043035CD09F3d8798B1B1a1552"
+          }
+        }
       }
     });
   };
@@ -112,6 +116,7 @@ const Subscribe = () => {
         account={currentAccount as AccountFragment}
         linkToAccount={false}
         showUserPreview={false}
+        isVerified
       />
       {canSubscribe ? (
         <Button
@@ -120,12 +125,16 @@ const Subscribe = () => {
           disabled={isSubmitting}
           loading={isSubmitting}
         >
-          Subscribe for {SUBSCRIPTION_AMOUNT} {NATIVE_TOKEN_SYMBOL}/year
+          Subscribe for {SUBSCRIPTION_AMOUNT} {WRAPPED_NATIVE_TOKEN_SYMBOL}/year
         </Button>
       ) : (
         <TransferFundButton
           className="w-sm"
-          label={`Transfer ${SUBSCRIPTION_AMOUNT} ${NATIVE_TOKEN_SYMBOL} to your account`}
+          label={`Transfer ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
+          token={{
+            contractAddress: DEFAULT_COLLECT_TOKEN,
+            symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
+          }}
           outline
         />
       )}

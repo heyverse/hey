@@ -1,14 +1,16 @@
 import FollowUnfollowButton from "@/components/Shared/Account/FollowUnfollowButton";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
-import { Button, H3, Image, LightBox } from "@/components/Shared/UI";
+import { Button, H3, Image, LightBox, Tooltip } from "@/components/Shared/UI";
 import formatDate from "@/helpers/datetime/formatDate";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
 import getFavicon from "@/helpers/getFavicon";
 import getMentions from "@/helpers/getMentions";
+import hasSubscribed from "@/helpers/hasSubscribed";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import {
   AVATAR_BIG,
   EXPANDED_AVATAR,
@@ -101,6 +103,11 @@ const Details = ({
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
+          {hasSubscribed(account) && (
+            <Tooltip content="Subscriber" placement="right">
+              <CheckBadgeIcon className="size-5 text-brand-500" />
+            </Tooltip>
+          )}
         </div>
         <div className="flex items-center space-x-3">
           <Slug

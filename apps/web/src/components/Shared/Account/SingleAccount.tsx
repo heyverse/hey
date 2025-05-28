@@ -1,6 +1,8 @@
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import getMentions from "@/helpers/getMentions";
+import hasSubscribed from "@/helpers/hasSubscribed";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
@@ -15,6 +17,7 @@ interface SingleAccountProps {
   hideFollowButton?: boolean;
   hideUnfollowButton?: boolean;
   isBig?: boolean;
+  isVerified?: boolean;
   linkToAccount?: boolean;
   account: AccountFragment;
   showBio?: boolean;
@@ -25,6 +28,7 @@ const SingleAccount = ({
   hideFollowButton = false,
   hideUnfollowButton = false,
   isBig = false,
+  isVerified = false,
   linkToAccount = true,
   account,
   showBio = false,
@@ -46,8 +50,16 @@ const SingleAccount = ({
 
   const UserName = () => (
     <>
-      <div className={cn({ "font-bold": isBig }, "grid max-w-sm")}>
+      <div
+        className={cn(
+          { "font-bold": isBig },
+          "flex max-w-sm items-center gap-x-1.5"
+        )}
+      >
         <div className="truncate font-semibold">{getAccount(account).name}</div>
+        {(isVerified || hasSubscribed(account)) && (
+          <CheckBadgeIcon className="size-4 text-brand-500" />
+        )}
       </div>
       <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
     </>
