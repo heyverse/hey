@@ -4,6 +4,6 @@ export const Localstorage = {
   AccountStore: "account.store",
   SearchStore: "search.store",
   HomeTabStore: "home-tab.store",
-  BannerStore: "banner.store",
+  ProStore: "pro.store",
   Theme: "theme"
 };

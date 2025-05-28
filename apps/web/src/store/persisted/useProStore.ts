@@ -15,8 +15,8 @@ const store = create(
       setProBannerDismissed: (proBannerDismissed: boolean) =>
         set(() => ({ proBannerDismissed }))
     }),
-    { name: Localstorage.BannerStore }
+    { name: Localstorage.ProStore }
   )
 );
 
-export const useBannerStore = createTrackedSelector(store);
+export const useProStore = createTrackedSelector(store);

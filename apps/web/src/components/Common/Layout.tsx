@@ -8,8 +8,8 @@ import { Spinner } from "@/components/Shared/UI";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
-import { useBannerStore } from "@/store/persisted/useBannerStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
+import { useProStore } from "@/store/persisted/useProStore";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { BANNER_IDS } from "@hey/data/constants";
 import { useMeQuery } from "@hey/indexer";
@@ -22,7 +22,7 @@ const Layout = () => {
   const { pathname } = useLocation();
   const { theme } = useTheme();
   const { currentAccount, setCurrentAccount } = useAccountStore();
-  const { setProBannerDismissed } = useBannerStore();
+  const { setProBannerDismissed } = useProStore();
   const { resetPreferences } = usePreferencesStore();
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();

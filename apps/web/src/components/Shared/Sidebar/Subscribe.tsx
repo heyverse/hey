@@ -2,7 +2,7 @@ import { Button, Card, H5 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import hasSubscribed from "@/helpers/hasSubscribed";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useBannerStore } from "@/store/persisted/useBannerStore";
+import { useProStore } from "@/store/persisted/useProStore";
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { BANNER_IDS } from "@hey/data/constants";
 import { useAddPostNotInterestedMutation } from "@hey/indexer";
@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
-  const { proBannerDismissed, setProBannerDismissed } = useBannerStore();
+  const { proBannerDismissed, setProBannerDismissed } = useProStore();
 
   const onError = (error: Error) => {
     errorToast(error);
