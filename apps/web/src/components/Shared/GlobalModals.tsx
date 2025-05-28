@@ -9,7 +9,6 @@ import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPo
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import TransferFund from "./Account/Fund/TransferFund";
 import SuperFollow from "./Account/SuperFollow";
 import SwitchAccounts from "./Account/SwitchAccounts";
@@ -17,10 +16,8 @@ import Auth from "./Auth";
 import { useSignupStore } from "./Auth/Signup";
 import SuperJoin from "./Group/SuperJoin";
 import ReportAccount from "./Modal/ReportAccount";
-import Subscribe from "./Modal/Subscribe";
 
 const GlobalModals = () => {
-  const { currentAccount } = useAccountStore();
   const { setShowSwitchAccountModal, showSwitchAccountModal } =
     useSwitchAccountModalStore();
   const { showNewPostModal, setShowNewPostModal } = useNewPostModalStore();
@@ -53,12 +50,6 @@ const GlobalModals = () => {
 
   return (
     <>
-      {currentAccount ? (
-        // <Modal show={!hasSubscribed(currentAccount)} size="md">
-        <Modal show={false} size="md">
-          <Subscribe />
-        </Modal>
-      ) : null}
       <Modal
         onClose={() => setShowReportPostModal(false, reportingPostId)}
         show={showReportPostModal}
