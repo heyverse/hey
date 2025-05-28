@@ -5,6 +5,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
   DEFAULT_COLLECT_TOKEN,
   STATIC_IMAGES_URL,
@@ -118,6 +119,26 @@ const Subscribe = () => {
         showUserPreview={false}
         isVerified
       />
+      <div className="flex flex-col items-center gap-y-2 text-gray-500">
+        <div className="flex items-center gap-x-1.5">
+          <CheckCircleIcon className="size-5" />
+          <span className="text-sm">
+            Get a badge that highlights your subscription
+          </span>
+        </div>
+        <div className="flex items-center gap-x-1.5">
+          <CheckCircleIcon className="size-5" />
+          <span className="text-sm">
+            Unlock all Hey features - no limits, no fuss
+          </span>
+        </div>
+        <div className="flex items-center gap-x-1.5">
+          <CheckCircleIcon className="size-5" />
+          <span className="text-sm">
+            Fuel the growth of the Hey team and platform
+          </span>
+        </div>
+      </div>
       {canSubscribe ? (
         <Button
           className="w-sm"
