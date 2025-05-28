@@ -64,10 +64,6 @@ const Subscribe = () => {
 
   const [createUsername] = useCreateUsernameMutation({
     onCompleted: async ({ createUsername }) => {
-      if (createUsername.__typename === "CreateUsernameResponse") {
-        return onCompleted(createUsername.hash);
-      }
-
       return await handleTransactionLifecycle({
         transactionData: createUsername,
         onCompleted,
@@ -85,13 +81,14 @@ const Subscribe = () => {
         request: {
           autoAssign: true,
           username: {
-            localName: `${currentAccount?.address}-${new Date()
+            localName: `${currentAccount?.address}${new Date()
               .toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "2-digit",
                 day: "2-digit"
               })
-              .replaceAll("/", "")}`,
+              .replaceAll("/", "")
+              .toLowerCase()}`,
             namespace: "0x242861e7FA8704043035CD09F3d8798B1B1a1552"
           }
         }
