@@ -1,4 +1,4 @@
-import { Button, Image } from "@/components/Shared/UI";
+import { Button, Image, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
@@ -20,7 +20,6 @@ import {
 import { useState } from "react";
 import TransferFundButton from "../Account/Fund/FundButton";
 import SingleAccount from "../Account/SingleAccount";
-import Loader from "../Loader";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
@@ -96,10 +95,6 @@ const Subscribe = () => {
     });
   };
 
-  if (balanceLoading) {
-    return <Loader className="my-10" />;
-  }
-
   return (
     <div className="mx-5 my-10 flex flex-col items-center gap-y-8">
       <Image
@@ -139,7 +134,13 @@ const Subscribe = () => {
           </span>
         </div>
       </div>
-      {canSubscribe ? (
+      {balanceLoading ? (
+        <Button
+          className="w-sm"
+          disabled
+          icon={<Spinner className="my-1" size="xs" />}
+        />
+      ) : canSubscribe ? (
         <Button
           className="w-sm"
           onClick={handleSubscribe}
