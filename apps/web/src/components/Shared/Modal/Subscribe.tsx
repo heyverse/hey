@@ -3,6 +3,8 @@ import errorToast from "@/helpers/errorToast";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { signOut } from "@/store/persisted/useAuthStore";
+import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import {
   NATIVE_TOKEN_SYMBOL,
   STATIC_IMAGES_URL,
@@ -10,19 +12,32 @@ import {
   SUBSCRIPTION_POST_ID
 } from "@hey/data/constants";
 import {
+  type AccountFragment,
   type TippingAmountInput,
   useAccountBalancesQuery,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import { useState } from "react";
 import TransferFundButton from "../Account/Fund/FundButton";
+import SingleAccount from "../Account/SingleAccount";
 import Loader from "../Loader";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
+  const { resetPreferences } = usePreferencesStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
+
+  const handleLogout = async () => {
+    try {
+      resetPreferences();
+      signOut();
+      location.reload();
+    } catch (error) {
+      errorToast(error);
+    }
+  };
 
   const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
     variables: { request: { includeNative: true } },
@@ -93,6 +108,11 @@ const Subscribe = () => {
         use any features and helps us keep building and improving the experience
         for everyone.
       </div>
+      <SingleAccount
+        account={currentAccount as AccountFragment}
+        linkToAccount={false}
+        showUserPreview={false}
+      />
       {canSubscribe ? (
         <Button
           className="w-sm"
@@ -109,8 +129,16 @@ const Subscribe = () => {
           outline
         />
       )}
-      <div className="-mt-1 text-gray-500 text-xs">
-        This is not recurring. You need to manually resubscribe every year.
+      <div className="-mt-1 space-y-2 text-center text-gray-500 text-xs">
+        <div>
+          This is not recurring. You need to manually resubscribe every year.
+        </div>
+        <div>
+          <button className="underline" type="button" onClick={handleLogout}>
+            Logout
+          </button>{" "}
+          and try with different account
+        </div>
       </div>
     </div>
   );
