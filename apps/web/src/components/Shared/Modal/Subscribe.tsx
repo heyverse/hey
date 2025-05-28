@@ -40,7 +40,7 @@ const Subscribe = () => {
   };
 
   const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { includeNative: true } },
+    variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
     pollInterval: 3000,
     skip: !currentAccount?.address,
     fetchPolicy: "no-cache"
@@ -56,7 +56,7 @@ const Subscribe = () => {
   };
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "NativeAmount"
+    balance?.accountBalances[0].__typename === "Erc20Amount"
       ? Number(balance.accountBalances[0].value).toFixed(2)
       : 0;
 
@@ -85,10 +85,13 @@ const Subscribe = () => {
         request: {
           autoAssign: true,
           username: {
-            localName: `${currentAccount?.address}-${new Date().toLocaleDateString(
-              "en-US",
-              { year: "numeric", month: "2-digit", day: "2-digit" }
-            )}`,
+            localName: `${currentAccount?.address}-${new Date()
+              .toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit"
+              })
+              .replaceAll("/", "")}`,
             namespace: "0x242861e7FA8704043035CD09F3d8798B1B1a1552"
           }
         }
