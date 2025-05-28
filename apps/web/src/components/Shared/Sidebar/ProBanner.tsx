@@ -1,6 +1,7 @@
 import { Button, Card, H5 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import hasSubscribed from "@/helpers/hasSubscribed";
+import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useProStore } from "@/store/persisted/useProStore";
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid";
@@ -8,9 +9,10 @@ import { BANNER_IDS } from "@hey/data/constants";
 import { useAddPostNotInterestedMutation } from "@hey/indexer";
 import { toast } from "sonner";
 
-const Subscribe = () => {
+const ProBanner = () => {
   const { currentAccount } = useAccountStore();
   const { proBannerDismissed, setProBannerDismissed } = useProStore();
+  const { setShowProModal } = useProModalStore();
 
   const onError = (error: Error) => {
     errorToast(error);
@@ -51,7 +53,11 @@ const Subscribe = () => {
         <div className="mb-5 text-sm">
           Get badge and access to exclusive features.
         </div>
-        <Button className="w-full" outline>
+        <Button
+          className="w-full"
+          outline
+          onClick={() => setShowProModal(true)}
+        >
           Subscribe now
         </Button>
       </div>
@@ -59,4 +65,4 @@ const Subscribe = () => {
   );
 };
 
-export default Subscribe;
+export default ProBanner;
