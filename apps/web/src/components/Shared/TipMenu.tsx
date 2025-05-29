@@ -7,12 +7,7 @@ import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
-import {
-  DEFAULT_COLLECT_TOKEN,
-  DEFAULT_TOKEN,
-  HEY_TREASURY,
-  WRAPPED_NATIVE_TOKEN_SYMBOL
-} from "@hey/data/constants";
+import { HEY_TREASURY, NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import {
   type AccountFragment,
   type PostFragment,
@@ -44,7 +39,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
   const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
+    variables: { request: { includeNative: true } },
     pollInterval: 3000,
     skip: !currentAccount?.address,
     fetchPolicy: "no-cache"
@@ -76,7 +71,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     setIsSubmitting(false);
     closePopover();
     updateCache();
-    toast.success(`Tipped ${amount} ${WRAPPED_NATIVE_TOKEN_SYMBOL}`);
+    toast.success(`Tipped ${amount} ${NATIVE_TOKEN_SYMBOL}`);
   };
 
   const onError = (error: Error) => {
@@ -87,7 +82,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const cryptoRate = Number(amount);
 
   const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
+    balance?.accountBalances[0].__typename === "NativeAmount"
       ? Number(balance.accountBalances[0].value).toFixed(2)
       : 0;
 
@@ -139,8 +134,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     const tipping: TippingAmountInput = {
       // 7.62 is a calculated value based on the referral pool of 20% and the lens fee of 1.5%
       referrals: [{ address: HEY_TREASURY, percent: 7.62 }],
-      currency: DEFAULT_COLLECT_TOKEN,
-      value: cryptoRate.toString()
+      native: cryptoRate.toString()
     };
 
     if (post) {
@@ -171,7 +165,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <span>Balance:</span>
           <span>
             {erc20Balance ? (
-              `${erc20Balance} ${WRAPPED_NATIVE_TOKEN_SYMBOL}`
+              `${erc20Balance} ${NATIVE_TOKEN_SYMBOL}`
             ) : (
               <div className="shimmer h-2.5 w-14 rounded-full" />
             )}
@@ -219,6 +213,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
         <div>
           <Input
             className="no-spinner"
+            min={0}
             max={1000}
             onChange={onOtherAmount}
             placeholder="300"
@@ -243,7 +238,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <b>Tip ${amount}</b>
         </Button>
       ) : (
-        <TransferFundButton className="w-full" token={DEFAULT_TOKEN} />
+        <TransferFundButton className="w-full" />
       )}
     </div>
   );

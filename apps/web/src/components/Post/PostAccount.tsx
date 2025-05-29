@@ -2,6 +2,7 @@ import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { AVATAR_TINY } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -50,7 +51,12 @@ const PostAccount = ({
     <div className="flex flex-col">
       <div className="flex flex-wrap items-baseline gap-x-1">
         <CustomLink>
-          <span className="font-semibold">{getAccount(account).name}</span>
+          <span className="flex items-center gap-x-1 font-semibold">
+            {getAccount(account).name}
+            {account.hasSubscribed && (
+              <CheckBadgeIcon className="size-4 text-brand-500" />
+            )}
+          </span>
         </CustomLink>
         <CustomLink>
           <Slug

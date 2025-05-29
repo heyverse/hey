@@ -4,24 +4,16 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface State {
-  isPro: boolean;
-  expiresAt?: Date;
-  setProStatus: ({
-    isPro,
-    expiresAt
-  }: { isPro: boolean; expiresAt?: Date }) => void;
+  proBannerDismissed: boolean;
+  setProBannerDismissed: (proBannerDismissed: boolean) => void;
 }
 
 const store = create(
   persist<State>(
     (set) => ({
-      isPro: false,
-      expiresAt: undefined,
-      setProStatus: ({
-        isPro,
-        expiresAt
-      }: { isPro: boolean; expiresAt?: Date }) =>
-        set(() => ({ isPro, expiresAt }))
+      proBannerDismissed: false,
+      setProBannerDismissed: (proBannerDismissed: boolean) =>
+        set(() => ({ proBannerDismissed }))
     }),
     { name: Localstorage.ProStore }
   )

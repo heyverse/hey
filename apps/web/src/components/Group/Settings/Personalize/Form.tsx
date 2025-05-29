@@ -26,8 +26,8 @@ const ValidationSchema = z.object({
   name: z
     .string()
     .max(100, { message: "Name should not exceed 100 characters" })
-    .regex(Regex.accountNameValidator, {
-      message: "Account name must not contain restricted symbols"
+    .regex(Regex.username, {
+      message: "Name must not contain spaces or special characters"
     }),
   description: z.string().max(260, {
     message: "Description should not exceed 260 characters"

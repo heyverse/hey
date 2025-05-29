@@ -8,6 +8,7 @@ import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import {
+  ManagedAccountsVisibility,
   useAccountsAvailableQuery,
   useSwitchAccountMutation
 } from "@hey/indexer";
@@ -30,7 +31,10 @@ const SwitchAccounts = () => {
   const { data, error, loading } = useAccountsAvailableQuery({
     variables: {
       lastLoggedInAccountRequest: { address: currentAccount?.owner },
-      accountsAvailableRequest: { managedBy: currentAccount?.owner }
+      accountsAvailableRequest: {
+        managedBy: currentAccount?.owner,
+        hiddenFilter: ManagedAccountsVisibility.NoneHidden
+      }
     }
   });
   const [switchAccount] = useSwitchAccountMutation();

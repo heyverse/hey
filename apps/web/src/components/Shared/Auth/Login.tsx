@@ -7,6 +7,7 @@ import { HEY_APP, IS_MAINNET } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import {
   type ChallengeRequest,
+  ManagedAccountsVisibility,
   useAccountsAvailableQuery,
   useAuthenticateMutation,
   useChallengeMutation
@@ -55,7 +56,10 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     },
     skip: !address,
     variables: {
-      accountsAvailableRequest: { managedBy: address },
+      accountsAvailableRequest: {
+        managedBy: address,
+        hiddenFilter: ManagedAccountsVisibility.NoneHidden
+      },
       lastLoggedInAccountRequest: { address }
     }
   });

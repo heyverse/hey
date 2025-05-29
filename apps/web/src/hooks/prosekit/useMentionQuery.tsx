@@ -11,6 +11,7 @@ export type MentionAccount = {
   username: string;
   name: string;
   picture: string;
+  subscribed: boolean;
 };
 
 const useMentionQuery = (query: string): MentionAccount[] => {
@@ -46,7 +47,8 @@ const useMentionQuery = (query: string): MentionAccount[] => {
             displayUsername: getAccount(account).usernameWithPrefix,
             username: getAccount(account).username,
             name: getAccount(account).name,
-            picture: getAvatar(account)
+            picture: getAvatar(account),
+            subscribed: account.hasSubscribed
           })
         );
 

@@ -1,7 +1,9 @@
 import { Errors } from "@hey/data/errors";
 import type { Context } from "hono";
 
-const getJumperTips = async (ctx: Context) => {
+const getJumperData = async (ctx: Context) => {
+  // const { address, id } = await ctx.req.json();
+
   try {
     return ctx.json({ success: true });
   } catch {
@@ -9,4 +11,4 @@ const getJumperTips = async (ctx: Context) => {
   }
 };
 
-export default getJumperTips;
+export default getJumperData;

@@ -5,7 +5,7 @@ import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 const GroupPageShimmer = () => {
   return (
     <PageLayout zeroTopMargin>
-      <div className="container mx-auto">
+      <div className="mx-auto">
         <div className="shimmer h-52 sm:h-64 md:rounded-xl" />
       </div>
       <div className="mb-4 space-y-8 px-5 md:px-0">

@@ -1,6 +1,7 @@
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import { Image } from "@/components/Shared/UI";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
@@ -44,11 +45,14 @@ export const NotificationAccountName = ({
       address={account.address}
     >
       <AccountLink
-        className="font-bold outline-hidden hover:underline focus:underline"
+        className="inline-flex items-center gap-1 font-bold outline-hidden hover:underline focus:underline"
         account={account}
         onClick={stopEventPropagation}
       >
-        {getAccount(account).name}
+        <span>{getAccount(account).name}</span>
+        {account.hasSubscribed && (
+          <CheckBadgeIcon className="size-4 text-brand-500" />
+        )}
       </AccountLink>
     </AccountPreview>
   );

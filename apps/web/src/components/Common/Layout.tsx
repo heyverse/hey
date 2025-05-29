@@ -5,17 +5,14 @@ import GlobalShortcuts from "@/components/Shared/GlobalShortcuts";
 import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
-import checkProStatus from "@/helpers/checkProStatus";
-import checkSubscriptionStatus from "@/helpers/checkSubscriptionStatus";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useProStore } from "@/store/persisted/useProStore";
-import { useSubscriptionStore } from "@/store/persisted/useSubscriptionStore";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { PRO_POST_ID, SUBSCRIPTION_POST_ID } from "@hey/data/constants";
-import { type PlatformFeesFragment, useMeQuery } from "@hey/indexer";
+import { BANNER_IDS } from "@hey/data/constants";
+import { useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
@@ -25,8 +22,7 @@ const Layout = () => {
   const { pathname } = useLocation();
   const { theme } = useTheme();
   const { currentAccount, setCurrentAccount } = useAccountStore();
-  const { setProStatus } = useProStore();
-  const { setSubscriptionStatus } = useSubscriptionStore();
+  const { setProBannerDismissed } = useProStore();
   const { resetPreferences } = usePreferencesStore();
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
@@ -43,16 +39,12 @@ const Layout = () => {
   };
 
   const { loading } = useMeQuery({
-    variables: {
-      proRequest: { post: PRO_POST_ID },
-      subscriptionRequest: { post: SUBSCRIPTION_POST_ID }
-    },
-    onCompleted: ({ me, pro, subscription }) => {
+    variables: { proBannerId: BANNER_IDS.PRO },
+    onCompleted: ({ me, proBanner }) => {
       setCurrentAccount(me.loggedInAs.account);
-      setProStatus(checkProStatus(pro as PlatformFeesFragment));
-      setSubscriptionStatus(
-        checkSubscriptionStatus(subscription as PlatformFeesFragment)
-      );
+      if (proBanner?.__typename === "Post") {
+        setProBannerDismissed(proBanner.operations?.dismissed ?? false);
+      }
     },
     onError,
     skip: !accessToken

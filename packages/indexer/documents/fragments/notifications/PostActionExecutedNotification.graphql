@@ -12,9 +12,6 @@ fragment PostActionExecutedNotification on PostActionExecutedNotification {
       }
     }
     ... on TippingPostActionExecuted {
-      amount {
-        ...Erc20Amount
-      }
       executedBy {
         ...Account
       }

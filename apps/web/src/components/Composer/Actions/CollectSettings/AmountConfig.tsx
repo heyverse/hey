@@ -17,7 +17,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
   const { currentAccount } = useAccountStore();
   const { collectAction } = useCollectActionStore((state) => state);
 
-  const enabled = Boolean(collectAction.payToCollect?.amount.value);
+  const enabled = Boolean(collectAction.payToCollect?.erc20?.value);
 
   return (
     <div>
@@ -31,7 +31,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
             payToCollect: enabled
               ? undefined
               : {
-                  amount: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
+                  erc20: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
                   referralShare: 2.5, // 2.5% for the Hey platform fees
                   recipients: [
                     { address: currentAccount?.address, percent: 100 }
@@ -40,7 +40,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
           });
         }}
       />
-      {collectAction.payToCollect?.amount.value ? (
+      {collectAction.payToCollect?.erc20?.value ? (
         <motion.div
           className="mt-4 ml-8"
           initial="hidden"
@@ -61,8 +61,8 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                 setCollectType({
                   payToCollect: {
                     ...collectAction.payToCollect,
-                    amount: {
-                      currency: collectAction.payToCollect?.amount.currency,
+                    erc20: {
+                      currency: collectAction.payToCollect?.erc20?.currency,
                       value: event.target.value ? event.target.value : "0"
                     }
                   }
@@ -70,9 +70,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
               }}
               placeholder="0.5"
               type="number"
-              value={Number.parseFloat(
-                collectAction.payToCollect?.amount.value
-              )}
+              value={Number.parseFloat(collectAction.payToCollect?.erc20.value)}
             />
             <div className="w-5/6">
               <div className="label">Select currency</div>
@@ -83,10 +81,10 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                   setCollectType({
                     payToCollect: {
                       ...collectAction.payToCollect,
-                      amount: {
+                      erc20: {
                         currency: value,
-                        value: collectAction.payToCollect?.amount
-                          .value as string
+                        value: collectAction.payToCollect?.erc20
+                          ?.value as string
                       }
                     }
                   });
@@ -96,7 +94,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                   label: token.name,
                   selected:
                     token.contractAddress ===
-                    collectAction.payToCollect?.amount.currency,
+                    collectAction.payToCollect?.erc20?.currency,
                   value: token.contractAddress
                 }))}
               />

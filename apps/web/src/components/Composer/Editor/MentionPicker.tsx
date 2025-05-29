@@ -3,6 +3,7 @@ import cn from "@/helpers/cn";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import type { MentionAccount } from "@/hooks/prosekit/useMentionQuery";
 import useMentionQuery from "@/hooks/prosekit/useMentionQuery";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { EditorRegex } from "@hey/data/regex";
 import { useEditor } from "prosekit/react";
 import {
@@ -32,7 +33,12 @@ const MentionItem = ({ onSelect, account }: MentionItemProps) => {
           width="28"
         />
         <div className="flex flex-col truncate">
-          <div>{account.name}</div>
+          <div className="flex items-center gap-1">
+            <div>{account.name}</div>
+            {account.subscribed && (
+              <CheckBadgeIcon className="size-4 text-brand-500" />
+            )}
+          </div>
           <span className="text-xs">{account.displayUsername}</span>
         </div>
       </AutocompleteItem>

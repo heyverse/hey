@@ -12,7 +12,7 @@ import {
   useUnhideManagedAccountMutation
 } from "@hey/indexer";
 import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
 import { useAccount } from "wagmi";
@@ -23,6 +23,7 @@ interface ListProps {
 
 const List = ({ managed = false }: ListProps) => {
   const { address } = useAccount();
+  const [updatingAccount, setUpdatingAccount] = useState<string | null>(null);
   const [ref, entry] = useIntersectionObserver({
     threshold: 0,
     root: null,
@@ -110,18 +111,22 @@ const List = ({ managed = false }: ListProps) => {
   }
 
   const handleToggleManagement = async (account: string) => {
+    setUpdatingAccount(account);
+
     try {
       if (managed) {
         await hideManagedAccount({ variables: { request: { account } } });
         toast.success("Account is now un-managed");
-        return refetch();
+        return setTimeout(() => refetch(), 500);
       }
 
       await unhideManagedAccount({ variables: { request: { account } } });
       toast.success("Account is now managed");
-      return refetch();
+      return setTimeout(() => refetch(), 500);
     } catch (error) {
       errorToast(error);
+    } finally {
+      setUpdatingAccount(null);
     }
   };
 
@@ -140,7 +145,10 @@ const List = ({ managed = false }: ListProps) => {
           {address !== accountAvailable.account.owner && (
             <Button
               disabled={hiding || unhiding}
-              loading={hiding || unhiding}
+              loading={
+                (hiding || unhiding) &&
+                updatingAccount === accountAvailable.account.address
+              }
               onClick={() =>
                 handleToggleManagement(accountAvailable.account.address)
               }

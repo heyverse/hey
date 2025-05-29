@@ -35,10 +35,12 @@ const FollowersYouKnowOverview = ({
   });
 
   const accounts =
-    (data?.followersYouKnow?.items.slice(0, 4) as Follower[]) || [];
+    (data?.followersYouKnow?.items.slice(0, 4) as unknown as Follower[]) || [];
 
   const renderAccountNames = () => {
-    const names = accounts.map((account) => getAccount(account.follower).name);
+    const names = accounts.map(
+      (account) => getAccount(account.follower as any).name
+    );
     const count = names.length - 3;
 
     if (!names.length) return null;

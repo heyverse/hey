@@ -21,8 +21,8 @@
     "editor.tabSize": 1
   },
   "editor.codeActionsOnSave": {
-    "quickfix.biome": true,
-    "source.organizeImports": true
+    "quickfix.biome": "explicit",
+    "source.organizeImports": "explicit"
   },
   "search.exclude": {
     "**/node_modules": true

@@ -2,9 +2,6 @@ fragment AccountActionExecutedNotification on AccountActionExecutedNotification 
   id
   actions {
     ... on TippingAccountActionExecuted {
-      amount {
-        ...Erc20Amount
-      }
       executedBy {
         ...Account
       }

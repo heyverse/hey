@@ -26,7 +26,6 @@ import {
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import type { PostFragment } from "@hey/indexer";
@@ -142,16 +141,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     setPostContentError("");
   }, [postContent]);
 
-  const getAnimationUrl = () => {
-    const fallback = `${STATIC_IMAGES_URL}/thumbnail.png`;
-
-    if (attachments.length > 0 || hasAudio || hasVideo) {
-      return attachments[0]?.uri || fallback;
-    }
-
-    return fallback;
-  };
-
   const getTitlePrefix = () => {
     if (hasVideo) {
       return "Video";
@@ -188,21 +177,11 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
       setPostContentError("");
 
-      const processedPostContent =
-        postContent.length > 0 ? postContent : undefined;
-      const title = hasAudio
-        ? audioPost.title
-        : `${getTitlePrefix()} by ${getAccount(currentAccount).usernameWithPrefix}`;
-
       const baseMetadata = {
-        content: processedPostContent,
-        title,
-        marketplace: {
-          name: title,
-          description: processedPostContent,
-          animation_url: getAnimationUrl(),
-          external_url: `https://hey.xyz${getAccount(currentAccount).link}`
-        }
+        content: postContent.length > 0 ? postContent : undefined,
+        title: hasAudio
+          ? audioPost.title
+          : `${getTitlePrefix()} by ${getAccount(currentAccount).usernameWithPrefix}`
       };
 
       const metadata = getMetadata({ baseMetadata });

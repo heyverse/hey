@@ -16,7 +16,7 @@ const FollowWithRulesCheck = ({
   small
 }: FollowWithRulesCheckProps) => {
   const { setShowSuperFollowModal } = useSuperFollowModalStore();
-  const { assetContract: requiredSimplePayment } = getSimplePaymentDetails(
+  const { assetAddress: requiredSimplePayment } = getSimplePaymentDetails(
     account.rules as AccountFollowRules
   );
 

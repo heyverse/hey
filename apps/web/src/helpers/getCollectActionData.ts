@@ -6,7 +6,7 @@ import type {
 const getCollectActionData = (
   collectAction: SimpleCollectActionFragment
 ): {
-  amount?: number;
+  price?: number;
   assetAddress?: string;
   assetSymbol?: string;
   collectLimit?: number;
@@ -16,12 +16,12 @@ const getCollectActionData = (
   switch (collectAction.__typename) {
     case "SimpleCollectAction":
       return {
-        amount: Number.parseFloat(
-          collectAction.payToCollect?.amount?.value || "0"
+        price: Number.parseFloat(
+          collectAction.payToCollect?.price?.value || "0"
         ),
         assetAddress:
-          collectAction.payToCollect?.amount?.asset?.contract?.address,
-        assetSymbol: collectAction.payToCollect?.amount?.asset?.symbol,
+          collectAction.payToCollect?.price?.asset?.contract?.address,
+        assetSymbol: collectAction.payToCollect?.price?.asset?.symbol,
         collectLimit: Number(collectAction.collectLimit),
         endsAt: collectAction.endsAt,
         recipients: collectAction.payToCollect?.recipients || []

@@ -45,7 +45,7 @@ export const PageLayout = ({
     <>
       <MetaTags title={title} />
       <div
-        className={cn("my-5 flex-1 space-y-5", {
+        className={cn("mt-5 mb-16 flex-1 space-y-5 md:mb-5", {
           "mt-0 md:mt-5": zeroTopMargin
         })}
       >

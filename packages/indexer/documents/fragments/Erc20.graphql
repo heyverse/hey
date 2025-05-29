@@ -1,8 +1,0 @@
-fragment Erc20 on Erc20 {
-  contract {
-    address
-  }
-  decimals
-  name
-  symbol
-}

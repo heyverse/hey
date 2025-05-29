@@ -1,12 +1,9 @@
-mutation CreateUsername($request: CreateUsernameRequest!) {
-  createUsername(request: $request) {
-    ... on CreateUsernameResponse {
+mutation RemoveGroupMembers($request: RemoveGroupMembersRequest!) {
+  removeGroupMembers(request: $request) {
+    ... on RemoveGroupMembersResponse {
       hash
     }
-    ... on NamespaceOperationValidationFailed {
-      reason
-    }
-    ... on UsernameTaken {
+    ... on GroupOperationValidationFailed {
       reason
     }
     ... on SelfFundedTransactionRequest {

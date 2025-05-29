@@ -75,9 +75,9 @@ const CollectActionBody = ({
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = Number(collectAction?.collectLimit);
   const amount = Number.parseFloat(
-    collectAction?.payToCollect?.amount?.value || "0"
+    collectAction?.payToCollect?.price?.value || "0"
   );
-  const currency = collectAction?.payToCollect?.amount?.asset?.symbol;
+  const currency = collectAction?.payToCollect?.price?.asset?.symbol;
   const recipients = collectAction?.payToCollect?.recipients || [];
   const percentageCollected = (collects / collectLimit) * 100;
   const enabledTokens = tokens.map((t) => t.symbol);

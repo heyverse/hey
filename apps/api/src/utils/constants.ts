@@ -1,6 +1,6 @@
 export const HEY_USER_AGENT = "HeyBot (like TwitterBot)";
 export const VERIFICATION_ENDPOINT = "https://api.hey.xyz/lens/verification";
-export const SITEMAP_BATCH_SIZE = 50000;
+export const SITEMAP_BATCH_SIZE = 25000;
 
 // Cache Settings
 // Cache settings for different durations

@@ -1,23 +1,25 @@
-import { Button, Image } from "@/components/Shared/UI";
+import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import getTokenImage from "@/helpers/getTokenImage";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
   DEFAULT_COLLECT_TOKEN,
-  DEFAULT_TOKEN,
   STATIC_IMAGES_URL,
   SUBSCRIPTION_AMOUNT,
-  SUBSCRIPTION_POST_ID
+  SUBSCRIPTION_GROUP,
+  WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
 import {
-  type TippingAmountInput,
+  type AccountFragment,
   useAccountBalancesQuery,
-  useExecutePostActionMutation
+  useJoinGroupMutation
 } from "@hey/indexer";
 import { useState } from "react";
 import TransferFundButton from "../Account/Fund/FundButton";
-import Loader from "../Loader";
+import SingleAccount from "../Account/SingleAccount";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
@@ -48,14 +50,10 @@ const Subscribe = () => {
 
   const canSubscribe = Number(erc20Balance) >= SUBSCRIPTION_AMOUNT;
 
-  const [executeTipAction] = useExecutePostActionMutation({
-    onCompleted: async ({ executePostAction }) => {
-      if (executePostAction.__typename === "ExecutePostActionResponse") {
-        return onCompleted(executePostAction.hash);
-      }
-
+  const [joinGroup] = useJoinGroupMutation({
+    onCompleted: async ({ joinGroup }) => {
       return await handleTransactionLifecycle({
-        transactionData: executePostAction,
+        transactionData: joinGroup,
         onCompleted,
         onError
       });
@@ -63,58 +61,112 @@ const Subscribe = () => {
     onError
   });
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async () => {
     setIsSubmitting(true);
 
-    const tipping: TippingAmountInput = {
-      currency: DEFAULT_COLLECT_TOKEN,
-      value: SUBSCRIPTION_AMOUNT.toString()
-    };
-
-    return executeTipAction({
-      variables: {
-        request: { post: SUBSCRIPTION_POST_ID, action: { tipping } }
-      }
+    return await joinGroup({
+      variables: { request: { group: SUBSCRIPTION_GROUP } }
     });
   };
 
-  if (balanceLoading) {
-    return <Loader className="my-10" />;
-  }
+  const hasSubscribed = currentAccount?.hasSubscribed;
 
   return (
     <div className="mx-5 my-10 flex flex-col items-center gap-y-8">
       <Image
         src={`${STATIC_IMAGES_URL}/pro.png`}
         alt="Pro"
-        width={112}
-        className="w-28"
+        width={128}
+        className="w-32"
       />
-      <div className="max-w-md text-center text-gray-500 text-sm">
-        Subscribe to Hey to access the platform. A subscription is required to
-        use any features and helps us keep building and improving the experience
-        for everyone.
+      <div className="max-w-md text-center text-gray-500">
+        {hasSubscribed ? (
+          <div className="text-gray-500">
+            Thanks for being a valuable <b>Hey Pro</b> member!
+          </div>
+        ) : (
+          <>
+            Get started with Hey Pro for{" "}
+            <b className="inline-flex items-center gap-x-1">
+              {SUBSCRIPTION_AMOUNT}{" "}
+              <Tooltip content={WRAPPED_NATIVE_TOKEN_SYMBOL} placement="top">
+                <img
+                  src={getTokenImage(WRAPPED_NATIVE_TOKEN_SYMBOL)}
+                  alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
+                  className="size-5"
+                />
+              </Tooltip>
+              /year
+            </b>
+            .
+          </>
+        )}
       </div>
-      {canSubscribe ? (
-        <Button
-          className="w-sm"
-          onClick={handleSubscribe}
-          disabled={isSubmitting}
-          loading={isSubmitting}
-        >
-          Subscribe for {SUBSCRIPTION_AMOUNT} WGHO/year
-        </Button>
-      ) : (
-        <TransferFundButton
-          className="w-sm"
-          token={DEFAULT_TOKEN}
-          label={`Transfer ${SUBSCRIPTION_AMOUNT} WGHO to your account`}
-          outline
-        />
+      <SingleAccount
+        account={currentAccount as AccountFragment}
+        linkToAccount={false}
+        showUserPreview={false}
+        isVerified
+      />
+      {hasSubscribed ? null : (
+        <>
+          <div className="flex flex-col items-center gap-y-2 text-gray-500">
+            <div className="flex items-center gap-x-1.5">
+              <CheckCircleIcon className="size-5" />
+              <span className="text-sm">
+                Get a badge that highlights your subscription
+              </span>
+            </div>
+            <div className="flex items-center gap-x-1.5">
+              <CheckCircleIcon className="size-5" />
+              <span className="text-sm">
+                Unlock exclusive Hey features - no limits, no fuss
+              </span>
+            </div>
+            <div className="flex items-center gap-x-1.5">
+              <CheckCircleIcon className="size-5" />
+              <span className="text-sm">
+                Fuel the growth of the Hey team and platform
+              </span>
+            </div>
+            <div className="flex items-center gap-x-1.5">
+              <CheckCircleIcon className="size-5" />
+              <span className="text-sm">
+                Exclusive NFT for founding members
+              </span>
+            </div>
+          </div>
+          {balanceLoading ? (
+            <Button
+              className="w-sm"
+              disabled
+              icon={<Spinner className="my-1" size="xs" />}
+            />
+          ) : canSubscribe ? (
+            <Button
+              className="w-sm"
+              onClick={handleSubscribe}
+              disabled={isSubmitting}
+              loading={isSubmitting}
+            >
+              Subscribe for ${SUBSCRIPTION_AMOUNT}/year
+            </Button>
+          ) : (
+            <TransferFundButton
+              className="w-sm"
+              label={`Transfer ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
+              token={{
+                contractAddress: DEFAULT_COLLECT_TOKEN,
+                symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
+              }}
+              outline
+            />
+          )}
+          <div className="-mt-1 text-center text-gray-500 text-xs">
+            One-time payment. Manual renewal required next year.
+          </div>
+        </>
       )}
-      <div className="-mt-1 text-gray-500 text-xs">
-        This is not recurring. You need to manually resubscribe every year.
-      </div>
     </div>
   );
 };

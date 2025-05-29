@@ -3,14 +3,14 @@ import type { Context } from "hono";
 import lensPg from "src/utils/lensPg";
 import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
 
-// Sync followers standing of accounts with 1000+ followers
-const syncFollowersStanding = async (ctx: Context) => {
+// Sync accounts with score > 90
+const syncHQScoreAccountsToGuild = async (ctx: Context) => {
   try {
     const accounts = await lensPg.query(
       `
-        SELECT account
-        FROM account.follower_summary
-        WHERE total_followers >= 1000;
+        SELECT DISTINCT account 
+        FROM ml.account_score
+        WHERE score > 90;
       `
     );
 
@@ -20,8 +20,8 @@ const syncFollowersStanding = async (ctx: Context) => {
 
     const data = await syncAddressesToGuild({
       addresses,
-      roleId: 173474,
-      requirementId: 471279
+      roleId: 173446,
+      requirementId: 471245
     });
 
     return ctx.json(data);
@@ -30,4 +30,4 @@ const syncFollowersStanding = async (ctx: Context) => {
   }
 };
 
-export default syncFollowersStanding;
+export default syncHQScoreAccountsToGuild;

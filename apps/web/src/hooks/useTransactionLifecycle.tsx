@@ -1,6 +1,6 @@
-import selfFundedTransactionData from "@/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@/helpers/sponsoredTransactionData";
 import { Errors } from "@hey/data/errors";
+import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
+import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";

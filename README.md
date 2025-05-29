@@ -70,6 +70,20 @@ To compile the application:
 pnpm build
 ```
 
+### Lint and Format Code
+
+Check code quality and formatting:
+
+```bash
+pnpm lint
+```
+
+Fix linting and formatting issues automatically:
+
+```bash
+pnpm lint:fix
+```
+
 ## License
 
 This project is licensed under the **AGPL-3.0** license. Please refer to the [LICENSE](./LICENSE) file for full terms and conditions.

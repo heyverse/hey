@@ -8,9 +8,8 @@ import getFavicon from "@/helpers/getFavicon";
 import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useProStore } from "@/store/persisted/useProStore";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import { SparklesIcon } from "@heroicons/react/24/solid";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import {
   AVATAR_BIG,
   EXPANDED_AVATAR,
@@ -22,6 +21,7 @@ import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 import TipButton from "../Shared/Account/TipButton";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
@@ -41,7 +41,7 @@ const Details = ({
 }: DetailsProps) => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
-  const { isPro } = useProStore();
+  // const { setShowProModal } = useProModalStore();
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const { theme } = useTheme();
 
@@ -104,10 +104,23 @@ const Details = ({
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
-          {currentAccount?.address === account.address && isPro ? (
-            <Tooltip content="Pro">
-              <SparklesIcon className="size-6" />
+          {account.hasSubscribed ? (
+            <Tooltip content="Verified" placement="right">
+              <CheckBadgeIcon className="size-5 text-brand-500" />
             </Tooltip>
+          ) : currentAccount?.address === account.address ? (
+            <button
+              className="ml-1 flex items-center gap-x-1 rounded-full border border-gray-200 px-2 py-0.5 font-semibold text-xs dark:border-gray-700"
+              onClick={() => {
+                // TODO: Remove this once pro is live
+                // setShowProModal(true);
+                toast.success("Coming soon");
+              }}
+              type="button"
+            >
+              <CheckBadgeIcon className="size-4 text-brand-500" />
+              Get Verified
+            </button>
           ) : null}
         </div>
         <div className="flex items-center space-x-3">
