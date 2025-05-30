@@ -1,6 +1,8 @@
+import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import { Image, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { hono } from "@/helpers/fetcher";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
 import { CheckCircleIcon as CheckCircleIconSolid } from "@heroicons/react/24/solid";
@@ -17,6 +19,7 @@ const icons = [
 ];
 
 const AppIcon = () => {
+  const { currentAccount } = useAccountStore();
   const { appIcon, setAppIcon } = usePreferencesStore();
 
   const { mutate, isPending } = useMutation({
@@ -28,6 +31,10 @@ const AppIcon = () => {
     },
     onError: errorToast
   });
+
+  if (!currentAccount?.hasSubscribed) {
+    return <ProFeatureNotice className="m-5" feature="custom app icons" />;
+  }
 
   return (
     <div className="m-5 flex flex-col gap-y-5">

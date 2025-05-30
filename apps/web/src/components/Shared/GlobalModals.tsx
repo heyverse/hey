@@ -10,7 +10,7 @@ import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPo
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
-import TransferFund from "./Account/Fund/TransferFund";
+import TopUp from "./Account/Fund/TopUp";
 import SuperFollow from "./Account/SuperFollow";
 import SwitchAccounts from "./Account/SwitchAccounts";
 import Auth from "./Auth";
@@ -93,9 +93,9 @@ const GlobalModals = () => {
       <Modal
         onClose={() => setShowFundModal(false)}
         show={showFundModal}
-        title="Transfer fund"
+        title="Top-up your account"
       >
-        <TransferFund />
+        <TopUp />
       </Modal>
       <Modal
         onClose={() => setShowSuperJoinModal(false, superJoiningGroup)}

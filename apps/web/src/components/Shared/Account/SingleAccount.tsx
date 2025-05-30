@@ -48,7 +48,7 @@ const SingleAccount = ({
   );
 
   const UserName = () => (
-    <>
+    <div>
       <div
         className={cn(
           { "font-bold": isBig },
@@ -61,7 +61,7 @@ const SingleAccount = ({
         )}
       </div>
       <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
-    </>
+    </div>
   );
 
   const AccountInfo = () => (
@@ -72,9 +72,7 @@ const SingleAccount = ({
     >
       <div className="mr-8 flex items-center gap-x-3">
         <UserAvatar />
-        <div>
-          <UserName />
-        </div>
+        <UserName />
       </div>
     </AccountPreview>
   );

@@ -1,4 +1,4 @@
-import TransferFundButton from "@/components/Shared/Account/Fund/FundButton";
+import TopUpButton from "@/components/Shared/Account/Fund/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -132,7 +132,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     setIsSubmitting(true);
 
     const tipping: TippingAmountInput = {
-      // 7.62 is a calculated value based on the referral pool of 20% and the lens fee of 1.5%
+      // 7.62 is a calculated value based on the referral pool of 20% and the Lens fee of 1.5%
       referrals: [{ address: HEY_TREASURY, percent: 7.62 }],
       native: cryptoRate.toString()
     };
@@ -238,7 +238,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <b>Tip ${amount}</b>
         </Button>
       ) : (
-        <TransferFundButton className="w-full" />
+        <TopUpButton className="w-full" />
       )}
     </div>
   );

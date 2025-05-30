@@ -1,4 +1,4 @@
-import TransferFundButton from "@/components/Shared/Account/Fund/FundButton";
+import TopUpButton from "@/components/Shared/Account/Fund/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -164,7 +164,7 @@ const CollectActionButton = ({
 
   if (!hasAmount) {
     return (
-      <TransferFundButton
+      <TopUpButton
         className="mt-5 w-full"
         token={{ contractAddress: assetAddress, symbol: assetSymbol }}
       />

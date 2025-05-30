@@ -13,7 +13,7 @@ import {
   type GroupRules,
   useAccountBalancesQuery
 } from "@hey/indexer";
-import TransferFundButton from "../Account/Fund/FundButton";
+import TopUpButton from "../Account/Fund/TopUp/Button";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
 import Join from "./Join";
@@ -91,7 +91,7 @@ const SuperJoin = () => {
               }
             />
           ) : (
-            <TransferFundButton
+            <TopUpButton
               className="w-full"
               token={{ contractAddress: assetAddress, symbol: assetSymbol }}
             />

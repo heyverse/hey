@@ -18,7 +18,7 @@ import {
   useJoinGroupMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import TransferFundButton from "../Account/Fund/FundButton";
+import TopUpButton from "../Account/Fund/TopUp/Button";
 import SingleAccount from "../Account/SingleAccount";
 
 const Subscribe = () => {
@@ -111,29 +111,27 @@ const Subscribe = () => {
       {hasSubscribed ? null : (
         <>
           <div className="flex flex-col items-center gap-y-2 text-gray-500">
-            <div className="flex items-center gap-x-1.5">
-              <CheckCircleIcon className="size-5" />
+            <div className="flex items-center gap-x-1">
+              <CheckCircleIcon className="size-4.5" />
               <span className="text-sm">
                 Get a badge that highlights your subscription
               </span>
             </div>
-            <div className="flex items-center gap-x-1.5">
-              <CheckCircleIcon className="size-5" />
+            <div className="flex items-center gap-x-1">
+              <CheckCircleIcon className="size-4.5" />
               <span className="text-sm">
                 Unlock exclusive Hey features - no limits, no fuss
               </span>
             </div>
-            <div className="flex items-center gap-x-1.5">
-              <CheckCircleIcon className="size-5" />
+            <div className="flex items-center gap-x-1">
+              <CheckCircleIcon className="size-4.5" />
               <span className="text-sm">
                 Fuel the growth of the Hey team and platform
               </span>
             </div>
-            <div className="flex items-center gap-x-1.5">
-              <CheckCircleIcon className="size-5" />
-              <span className="text-sm">
-                Exclusive NFT for founding members
-              </span>
+            <div className="flex items-center gap-x-1">
+              <CheckCircleIcon className="size-4.5" />
+              <span className="text-sm">Exclusive NFT for early members</span>
             </div>
           </div>
           {balanceLoading ? (
@@ -152,9 +150,9 @@ const Subscribe = () => {
               Subscribe for ${SUBSCRIPTION_AMOUNT}/year
             </Button>
           ) : (
-            <TransferFundButton
+            <TopUpButton
               className="w-sm"
-              label={`Transfer ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
+              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
               token={{
                 contractAddress: DEFAULT_COLLECT_TOKEN,
                 symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
