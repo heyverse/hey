@@ -10,13 +10,14 @@ export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK || "mainnet";
 
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
-export const HEY_APP = getEnvConfig().appAddress;
-export const HEY_SPONSOR = getEnvConfig().sponsorAddress;
-export const HEY_TREASURY = "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
+export const HEY_APP = process.env.HEY_APP || getEnvConfig().appAddress;
+export const HEY_SPONSOR = process.env.HEY_SPONSOR || getEnvConfig().sponsorAddress;
+export const HEY_TREASURY = process.env.HEY_TREASURY || "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
+
 export const HEY_API_PRODUCTION_URL = "https://api.hey.xyz";
 export const HEY_API_URL = IS_PRODUCTION
   ? HEY_API_PRODUCTION_URL
-  : "http://localhost:4784";
+  : process.env.HEY_API_LOCAL || "http://localhost:4784";
 
 export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
 export const CHAIN = IS_MAINNET ? chains.mainnet : chains.testnet;
@@ -24,12 +25,12 @@ export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 // Subscription
-export const SUBSCRIPTION_AMOUNT = 15;
-export const SUBSCRIPTION_DURATION_DAYS = 365;
-export const SUBSCRIPTION_GROUP = "0x4BE5b4519814A57E6f9AaFC6afBB37eAEeE35aA3";
+export const SUBSCRIPTION_AMOUNT = Number(process.env.SUBSCRIPTION_AMOUNT) || 15;
+export const SUBSCRIPTION_DURATION_DAYS = Number(process.env.SUBSCRIPTION_DURATION_DAYS) || 365;
+export const SUBSCRIPTION_GROUP = process.env.SUBSCRIPTION_GROUP || "0x4BE5b4519814A57E6f9AaFC6afBB37eAEeE35aA3";
 
 // Application
-export const BRAND_COLOR = "#FB3A5D";
+export const BRAND_COLOR = process.env.BRAND_COLOR || "#FB3A5D";
 
 // URLs
 export const STATIC_ASSETS_URL = "https://static.hey.xyz";
@@ -48,11 +49,11 @@ export const STORAGE_NODE_URL = "https://api.grove.storage";
 export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
 export const EVER_API = "https://endpoint.4everland.co";
 export const EVER_REGION = "4EVERLAND";
-export const EVER_BUCKET = "heyverse";
+export const EVER_BUCKET = process.env.EVER_BUCKET || "heyverse";
 
 // Tokens / Keys
-export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd";
-export const LIVEPEER_KEY = "70508bf8-2e16-4594-852d-5aed798f6403";
+export const GIPHY_KEY = process.env.GIPHY_KEY || "";
+export const LIVEPEER_KEY = process.env.LIVEPEER_KEY || "";
 
 // Named transforms for ImageKit
 export const AVATAR_BIG = "tr:w-350,h-350";
@@ -66,8 +67,8 @@ export const LENS_NAMESPACE = "lens/";
 export const NATIVE_TOKEN_SYMBOL = IS_MAINNET ? "GHO" : "GRASS";
 export const WRAPPED_NATIVE_TOKEN_SYMBOL = IS_MAINNET ? "WGHO" : "WGRASS";
 
-export const MAX_IMAGE_UPLOAD = 8;
+export const MAX_IMAGE_UPLOAD = Number(process.env.MAX_IMAGE_UPLOAD) || 8;
 
 export const BANNER_IDS = {
-  PRO: "108325599858337195593675454288445399104045325554183036578573525280972584660299"
+  PRO: process.env.BANNER_PRO_ID || "108325599858337195593675454288445399104045325554183036578573525280972584660299"
 };
