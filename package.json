@@ -1,9 +1,10 @@
 {
   "name": "hey",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
+    "setup": "cp .env.example .env && pnpm install",
     "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
     "build": "pnpm --recursive --parallel run build",
@@ -14,7 +15,9 @@
     "prepare": "husky install",
     "start": "pnpm --recursive --parallel run start",
     "test": "pnpm --recursive run test",
-    "typecheck": "pnpm --recursive --parallel run typecheck"
+    "test:watch": "pnpm --recursive run test --watch",
+    "typecheck": "pnpm --recursive --parallel run typecheck",
+    "precommit": "pnpm lint && pnpm test"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
