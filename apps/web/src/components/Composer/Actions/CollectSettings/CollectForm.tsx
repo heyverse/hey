@@ -1,8 +1,10 @@
 import LicensePicker from "@/components/Composer/LicensePicker";
+import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { EXPANSION_EASE } from "@/variants";
 import type { CollectActionType } from "@hey/types/hey";
 import { motion } from "motion/react";
@@ -19,6 +21,7 @@ interface CollectFormProps {
 }
 
 const CollectForm = ({ setShowModal }: CollectFormProps) => {
+  const { currentAccount } = useAccountStore();
   const { collectAction, setCollectAction, reset } = useCollectActionStore();
   const { setLicense } = usePostLicenseStore();
 
@@ -80,18 +83,35 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             transition={{ duration: 0.2, ease: EXPANSION_EASE }}
           >
             <AmountConfig setCollectType={setCollectType} />
-            <SplitConfig
-              isRecipientsDuplicated={validationChecks.isRecipientsDuplicated}
-              setCollectType={setCollectType}
-            />
-            <CollectLimitConfig setCollectType={setCollectType} />
-            <TimeLimitConfig setCollectType={setCollectType} />
-            <FollowersConfig setCollectType={setCollectType} />
+            {currentAccount?.hasSubscribed ? (
+              <>
+                {collectAction.payToCollect?.erc20?.value && (
+                  <SplitConfig
+                    isRecipientsDuplicated={
+                      validationChecks.isRecipientsDuplicated
+                    }
+                    setCollectType={setCollectType}
+                  />
+                )}
+                <CollectLimitConfig setCollectType={setCollectType} />
+                <TimeLimitConfig setCollectType={setCollectType} />
+                <FollowersConfig setCollectType={setCollectType} />
+              </>
+            ) : (
+              <ProFeatureNotice
+                className="mt-5"
+                feature="advanced collect settings"
+              />
+            )}
           </motion.div>
-          <div className="divider" />
-          <div className="m-5">
-            <LicensePicker />
-          </div>
+          {currentAccount?.hasSubscribed && (
+            <>
+              <div className="divider" />
+              <div className="m-5">
+                <LicensePicker />
+              </div>
+            </>
+          )}
           <div className="divider" />
         </>
       )}

@@ -1,4 +1,4 @@
-import TransferFundButton from "@/components/Shared/Account/Fund/FundButton";
+import TopUpButton from "@/components/Shared/Account/Fund/TopUp/Button";
 import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Image } from "@/components/Shared/UI";
 import getTokenImage from "@/helpers/getTokenImage";
@@ -48,9 +48,10 @@ const Balances = () => {
           {currency === DEFAULT_COLLECT_TOKEN && (
             <Unwrap value={value} refetch={refetch} />
           )}
-          <TransferFundButton
+          <TopUpButton
             size="sm"
             outline
+            label="Top-up"
             token={
               currency
                 ? { contractAddress: currency, symbol: symbol }
