@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.817.0",
+    "@aws-sdk/client-sts": "^3.821.0",
     "@guildxyz/sdk": "^2.6.9",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
@@ -42,7 +42,7 @@
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/cors": "^2.8.18",
-    "@types/node": "^22.15.27",
+    "@types/node": "^22.15.29",
     "prisma": "^6.8.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
