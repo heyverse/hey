@@ -22,9 +22,16 @@ interface PostAccountProps {
   group?: PostGroupInfoFragment;
   post: AnyPostFragment;
   timestamp: Date;
+  smartMediaCategoryFormatted?: string;
 }
 
-const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
+const PostAccount = ({
+  account,
+  group,
+  post,
+  timestamp,
+  smartMediaCategoryFormatted
+}: PostAccountProps) => {
   const CustomLink = ({ children }: { children: ReactNode }) => (
     <AccountLink
       className="outline-hidden hover:underline focus:underline"
@@ -42,7 +49,7 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-wrap items-center gap-x-1">
+      <div className="flex flex-wrap items-baseline gap-x-1">
         <CustomLink>
           <span className="flex items-center gap-x-1 font-semibold">
             {getAccount(account).name}
@@ -63,6 +70,12 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
             <PostLink className="text-xs hover:underline" post={post}>
               {formatRelativeOrAbsolute(timestamp)}
             </PostLink>
+          </span>
+        ) : null}
+        {smartMediaCategoryFormatted ? (
+          <span className="text-gray-500 dark:text-gray-200">
+            <span className="mr-1">·</span>
+            <span className="text-xs ">{smartMediaCategoryFormatted}</span>
           </span>
         ) : null}
       </div>
