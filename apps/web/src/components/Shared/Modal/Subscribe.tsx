@@ -117,13 +117,11 @@ const Subscribe = () => {
             </div>
             <div className="flex items-center gap-x-1">
               <CheckCircleIcon className="size-4.5" />
-              <span className="text-sm">
-                Exclusive Hey features including live streaming
-              </span>
+              <span className="text-sm">Exclusive Hey features</span>
             </div>
             <div className="flex items-center gap-x-1">
               <CheckCircleIcon className="size-4.5" />
-              <span className="text-sm">Exclusive NFT for early members</span>
+              <span className="text-sm">Special NFT for early members</span>
             </div>
             <div className="flex items-center gap-x-1">
               <CheckCircleIcon className="size-4.5" />
