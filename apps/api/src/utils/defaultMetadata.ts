@@ -1,4 +1,4 @@
-import { DEFAULT_OG } from "@hey/data/constants";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { html } from "hono/html";
 
 const defaultMetadata = html`
@@ -10,7 +10,7 @@ const defaultMetadata = html`
       <meta property="og:title" content="Hey" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Hey" />
-      <meta property="og:image" content="${DEFAULT_OG}" />
+      <meta property="og:image" content="${`${STATIC_IMAGES_URL}/og/cover.png`}" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@heydotxyz" />
       <title>Hey</title>
