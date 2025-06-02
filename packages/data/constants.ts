@@ -23,7 +23,7 @@ export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 // Subscription
-export const SUBSCRIPTION_AMOUNT = 15;
+export const SUBSCRIPTION_AMOUNT = 20;
 export const SUBSCRIPTION_DURATION_DAYS = 365;
 
 // Application
