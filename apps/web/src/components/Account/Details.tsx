@@ -7,6 +7,7 @@ import getAccountAttribute from "@/helpers/getAccountAttribute";
 import getFavicon from "@/helpers/getFavicon";
 import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
+import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
@@ -17,7 +18,6 @@ import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { toast } from "sonner";
 import TipButton from "../Shared/Account/TipButton";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
@@ -37,7 +37,7 @@ const Details = ({
 }: DetailsProps) => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
-  // const { setShowProModal } = useProModalStore();
+  const { setShowProModal } = useProModalStore();
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const { theme } = useTheme();
 
@@ -107,11 +107,7 @@ const Details = ({
           ) : currentAccount?.address === account.address ? (
             <button
               className="ml-1 flex items-center gap-x-1 rounded-full border border-gray-200 px-2 py-0.5 font-semibold text-xs dark:border-gray-700"
-              onClick={() => {
-                // TODO: Remove this once pro is live
-                // setShowProModal(true);
-                toast.success("Coming soon");
-              }}
+              onClick={() => setShowProModal(true)}
               type="button"
             >
               <CheckBadgeIcon className="size-4 text-brand-500" />
