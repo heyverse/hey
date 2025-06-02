@@ -11,11 +11,11 @@ const removeExpiredSubscribers = async (ctx: Context) => {
       `
         SELECT account
         FROM "group"."member"
-        WHERE "group"::TEXT LIKE $1
+        WHERE "group" = $1
         AND timestamp < NOW() - INTERVAL '365 days'
         LIMIT 1000;
       `,
-      [`%${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}%`]
+      [`\\x${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}`]
     );
 
     const addresses = accounts.map((account) =>
