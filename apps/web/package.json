@@ -40,11 +40,11 @@
     "motion-plus-react": "^0.1.9",
     "plur": "^5.1.0",
     "plyr-react": "^5.3.0",
-    "prosekit": "^0.13.3",
+    "prosekit": "^0.13.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-easy-crop": "^5.4.2",
-    "react-hook-form": "^7.56.4",
+    "react-hook-form": "^7.57.0",
     "react-hotkeys-hook": "^5.1.0",
     "react-markdown": "^10.1.0",
     "react-router": "^7.6.1",
@@ -66,7 +66,7 @@
     "virtua": "^0.41.3",
     "vite": "^6.3.5",
     "wagmi": "^2.15.4",
-    "zod": "^3.25.42",
+    "zod": "^3.25.47",
     "zustand": "^5.0.5"
   },
   "devDependencies": {
