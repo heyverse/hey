@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
 import infoLogger from "./middlewares/infoLogger";
+import aiRouter from "./routes/ai";
 import cronRouter from "./routes/cron";
 import lensRouter from "./routes/lens";
 import liveRouter from "./routes/live";
@@ -13,7 +14,6 @@ import ogRouter from "./routes/og";
 import ping from "./routes/ping";
 import preferencesRouter from "./routes/preferences";
 import sitemapRouter from "./routes/sitemap";
-import tempRouter from "./routes/temp";
 
 const app = new Hono();
 
@@ -32,7 +32,7 @@ app.route("/oembed", oembedRouter);
 app.route("/preferences", preferencesRouter);
 app.route("/sitemap", sitemapRouter);
 app.route("/og", ogRouter);
-app.route("/temp", tempRouter);
+app.route("/ai", aiRouter);
 
 serve({ fetch: app.fetch, port: 4784 }, (info) => {
   console.info(`Server running on port ${info.port}`);

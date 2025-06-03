@@ -40,8 +40,7 @@ const removeExpiredSubscribers = async (ctx: Context) => {
     });
 
     return ctx.json({ success: true, addresses, hash });
-  } catch (error) {
-    console.log(error);
+  } catch {
     return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
   }
 };

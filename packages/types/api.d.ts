@@ -20,3 +20,7 @@ export type Live = {
   playbackId: string;
   streamKey: string;
 };
+
+export type AiTranslate = {
+  text: string;
+};

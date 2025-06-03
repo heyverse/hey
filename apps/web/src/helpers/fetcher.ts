@@ -1,8 +1,12 @@
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { HEY_API_URL } from "@hey/data/constants";
-import type { Live, Oembed, Preferences, STS } from "@hey/types/api";
-
-type ApiResponse<T> = Promise<T>;
+import type {
+  AiTranslate,
+  Live,
+  Oembed,
+  Preferences,
+  STS
+} from "@hey/types/api";
 
 interface ApiConfig {
   baseUrl?: string;
@@ -19,7 +23,7 @@ const config: ApiConfig = {
 const fetchApi = async <T>(
   endpoint: string,
   options: RequestInit = {}
-): ApiResponse<T> => {
+): Promise<T> => {
   const response = await fetch(`${config.baseUrl}${endpoint}`, {
     ...options,
     credentials: "include",
@@ -43,8 +47,16 @@ const fetchApi = async <T>(
 };
 
 export const hono = {
+  ai: {
+    translate: (post: string): Promise<AiTranslate> => {
+      return fetchApi<AiTranslate>("/ai/translate", {
+        method: "POST",
+        body: JSON.stringify({ post })
+      });
+    }
+  },
   live: {
-    create: async ({ record }: { record: boolean }): ApiResponse<Live> => {
+    create: ({ record }: { record: boolean }): Promise<Live> => {
       return fetchApi<Live>("/live/create", {
         method: "POST",
         body: JSON.stringify({ record })
@@ -52,22 +64,20 @@ export const hono = {
     }
   },
   metadata: {
-    sts: async (): ApiResponse<STS> => {
+    sts: (): Promise<STS> => {
       return fetchApi<STS>("/metadata/sts", { method: "GET" });
     }
   },
   oembed: {
-    get: async (url: string): ApiResponse<Oembed> => {
+    get: (url: string): Promise<Oembed> => {
       return fetchApi<Oembed>(`/oembed/get?url=${url}`, { method: "GET" });
     }
   },
   preferences: {
-    get: async (): ApiResponse<Preferences> => {
+    get: (): Promise<Preferences> => {
       return fetchApi<Preferences>("/preferences/get", { method: "GET" });
     },
-    update: async (
-      preferences: Partial<Preferences>
-    ): ApiResponse<Preferences> => {
+    update: (preferences: Partial<Preferences>): Promise<Preferences> => {
       return fetchApi<Preferences>("/preferences/update", {
         method: "POST",
         body: JSON.stringify(preferences)

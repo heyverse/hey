@@ -31,6 +31,7 @@
     "hono-rate-limiter": "^0.4.2",
     "jose": "^6.0.11",
     "linkedom": "^0.18.10",
+    "openai": "^5.0.2",
     "pg-promise": "^11.13.0",
     "redis": "^5.1.1",
     "tsx": "^4.19.4",
