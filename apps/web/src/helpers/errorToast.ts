@@ -4,27 +4,30 @@ import { toast } from "sonner";
 const FORBIDDEN_ERROR =
   "Forbidden - Failed to generate source stamp: App rejected verification request:";
 
-const errorToast = (error?: any) => {
+const errorToast = (error?: any): void => {
   if (!error || error?.message?.includes("viem")) {
     return;
   }
 
   if (error?.message.includes(FORBIDDEN_ERROR)) {
-    return toast.error(error?.message.replace(FORBIDDEN_ERROR, ""), {
+    toast.error(error?.message.replace(FORBIDDEN_ERROR, ""), {
       id: "error"
     });
+    return;
   }
 
   if (error?.message.includes("Connector not connected")) {
-    return toast.error("Connect or switch to the correct wallet!", {
+    toast.error("Connect or switch to the correct wallet!", {
       id: "connector-error"
     });
+    return;
   }
 
   toast.error(
     error?.data?.message || error?.message || Errors.SomethingWentWrong,
     { id: "error" }
   );
+  return;
 };
 
 export default errorToast;
