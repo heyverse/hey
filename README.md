@@ -75,13 +75,13 @@ pnpm build
 Check code quality and formatting:
 
 ```bash
-pnpm lint
+pnpm biome:check
 ```
 
 Fix linting and formatting issues automatically:
 
 ```bash
-pnpm lint:fix
+pnpm biome:fix
 ```
 
 ## License
