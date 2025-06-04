@@ -23,9 +23,7 @@
     "@hono/node-server": "^1.14.3",
     "@hono/zod-validator": "^0.7.0",
     "@lens-chain/sdk": "^1.0.3",
-    "@lens-protocol/metadata": "^2.1.0",
     "@prisma/client": "^6.8.2",
-    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "hono": "^4.7.11",
     "hono-rate-limiter": "^0.4.2",
@@ -41,11 +39,8 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@hey/types": "workspace:*",
-    "@types/cors": "^2.8.18",
     "@types/node": "^22.15.29",
     "prisma": "^6.8.2",
-    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }

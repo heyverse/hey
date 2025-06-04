@@ -8,8 +8,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@hey/indexer": "workspace:*",
-    "@lens-protocol/metadata": "^2.1.0"
+    "@hey/indexer": "workspace:*"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
