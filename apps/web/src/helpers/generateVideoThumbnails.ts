@@ -30,7 +30,7 @@ export const generateVideoThumbnails = (
   return new Promise((resolve) => {
     try {
       if (!file.size) {
-        return [];
+        return resolve([]);
       }
       // creating video element to get duration
       const video = document.createElement("video");
