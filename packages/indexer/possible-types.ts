@@ -497,6 +497,7 @@ const result: PossibleTypesResultData = {
       "TransactionWillFail",
       "UnfollowResponse"
     ],
+    UnverifiedCredentialsResult: ["AuthenticationTokens", "ForbiddenError"],
     UnwrapTokensResult: [
       "InsufficientFunds",
       "SelfFundedTransactionRequest",
