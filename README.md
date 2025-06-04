@@ -72,13 +72,13 @@ pnpm build
 
 ### Lint and Format Code
 
-Check code quality and formatting:
+Use **Biome** to check code formatting and quality:
 
 ```bash
 pnpm biome:check
 ```
 
-Fix linting and formatting issues automatically:
+Automatically fix formatting and lint issues with **Biome**:
 
 ```bash
 pnpm biome:fix
