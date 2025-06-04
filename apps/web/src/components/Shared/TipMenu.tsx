@@ -10,15 +10,17 @@ import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY, NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import {
   type AccountFragment,
+  PaymentSource,
   type PostFragment,
   type TippingAmountInput,
-  useAccountBalancesQuery,
   useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import { formatEther } from "viem";
+import { useBalance } from "wagmi";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -38,11 +40,9 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { includeNative: true } },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useBalance({
+    address: currentAccount?.owner,
+    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.address) }
   });
 
   const updateCache = () => {
@@ -80,12 +80,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   };
 
   const cryptoRate = Number(amount);
-
-  const erc20Balance =
-    balance?.accountBalances[0].__typename === "NativeAmount"
-      ? Number(balance.accountBalances[0].value).toFixed(2)
-      : 0;
-
+  const erc20Balance = Number(formatEther(balance?.value ?? 0n)).toFixed(2);
   const canTip = Number(erc20Balance) >= cryptoRate;
 
   const [executeTipAction] = useExecutePostActionMutation({
@@ -134,7 +129,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     const tipping: TippingAmountInput = {
       // 11 is a calculated value based on the referral pool of 20% and the Lens fee of 2.1% after the 1.5% lens fees cut
       referrals: [{ address: HEY_TREASURY, percent: 11 }],
-      native: cryptoRate.toString()
+      native: cryptoRate.toString(),
+      paymentSource: PaymentSource.Signer
     };
 
     if (post) {

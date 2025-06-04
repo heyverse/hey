@@ -309,6 +309,7 @@ export type AccountManagerPermissions = {
   __typename?: 'AccountManagerPermissions';
   canExecuteTransactions: Scalars['Boolean']['output'];
   canSetMetadataUri: Scalars['Boolean']['output'];
+  /** @deprecated Use `canTransferTokens` instead. */
   canTransferNative: Scalars['Boolean']['output'];
   canTransferTokens: Scalars['Boolean']['output'];
 };
@@ -1471,7 +1472,7 @@ export type ExecuteAccountActionResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type ExecuteAccountActionResult = ExecuteAccountActionResponse | InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type ExecuteAccountActionResult = ExecuteAccountActionResponse | InsufficientFunds | SelfFundedTransactionRequest | SignerErc20ApprovalRequired | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ExecutePostActionRequest = {
   action: PostActionExecuteInput;
@@ -1483,7 +1484,7 @@ export type ExecutePostActionResponse = {
   hash: Scalars['TxHash']['output'];
 };
 
-export type ExecutePostActionResult = ExecutePostActionResponse | InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
+export type ExecutePostActionResult = ExecutePostActionResponse | InsufficientFunds | SelfFundedTransactionRequest | SignerErc20ApprovalRequired | SponsoredTransactionRequest | TransactionWillFail;
 
 export type ExecutedUnknownActionRequest = {
   address: Scalars['EvmAddress']['input'];
@@ -2770,6 +2771,7 @@ export type Mutation = {
   mute: Scalars['Void']['output'];
   pauseSponsorship: PausingResult;
   post: PostResult;
+  prepareSignerErc20Approval: PrepareSignerErc20ApprovalResult;
   recommendAccount: Scalars['Void']['output'];
   refresh: RefreshResult;
   refreshMetadata: RefreshMetadataResult;
@@ -3084,6 +3086,11 @@ export type MutationPauseSponsorshipArgs = {
 
 export type MutationPostArgs = {
   request: CreatePostRequest;
+};
+
+
+export type MutationPrepareSignerErc20ApprovalArgs = {
+  request: PrepareSignerErc20ApprovalRequest;
 };
 
 
@@ -3826,6 +3833,11 @@ export type PaymasterParams = {
   paymasterInput: Scalars['BlockchainData']['output'];
 };
 
+export enum PaymentSource {
+  Account = 'ACCOUNT',
+  Signer = 'SIGNER'
+}
+
 export type PendingTransactionStatus = {
   __typename?: 'PendingTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
@@ -4332,6 +4344,12 @@ export type PostsRequest = {
   filter?: InputMaybe<PostsFilter>;
   pageSize?: PageSize;
 };
+
+export type PrepareSignerErc20ApprovalRequest = {
+  approval: SignerErc20Approval;
+};
+
+export type PrepareSignerErc20ApprovalResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type PrimitiveData = AddressKeyValue | BigDecimalKeyValue | BooleanKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
 
@@ -5111,6 +5129,17 @@ export type SignedAuthChallenge = {
   signature: Scalars['AuthenticationSignature']['input'];
 };
 
+export type SignerErc20Approval = {
+  exact?: InputMaybe<Erc20AmountInput>;
+  infinite?: InputMaybe<Scalars['EvmAddress']['input']>;
+};
+
+export type SignerErc20ApprovalRequired = {
+  __typename?: 'SignerErc20ApprovalRequired';
+  amount: Erc20Amount;
+  reason: Scalars['String']['output'];
+};
+
 export type SimpleCollectAction = {
   __typename?: 'SimpleCollectAction';
   address: Scalars['EvmAddress']['output'];
@@ -5136,6 +5165,7 @@ export type SimpleCollectActionContract = {
 };
 
 export type SimpleCollectExecuteInput = {
+  paymentSource?: PaymentSource;
   referrals?: InputMaybe<Array<ReferralCut>>;
   selected: Scalars['AlwaysTrue']['input'];
 };
@@ -5158,7 +5188,6 @@ export enum SimpleCollectValidationFailedReason {
   LimitReached = 'LIMIT_REACHED',
   NotAFollower = 'NOT_A_FOLLOWER',
   NotEnabled = 'NOT_ENABLED',
-  NotEnoughBalance = 'NOT_ENOUGH_BALANCE',
   PostDeleted = 'POST_DELETED'
 }
 
@@ -6044,6 +6073,7 @@ export type TippingAmountInput = {
   currency?: InputMaybe<Scalars['EvmAddress']['input']>;
   erc20?: InputMaybe<Erc20AmountInput>;
   native?: InputMaybe<Scalars['BigDecimal']['input']>;
+  paymentSource?: PaymentSource;
   referrals?: InputMaybe<Array<ReferralCut>>;
   value?: InputMaybe<Scalars['BigDecimal']['input']>;
 };
@@ -7549,7 +7579,7 @@ export type ExecuteAccountActionMutationVariables = Exact<{
 export type ExecuteAccountActionMutation = { __typename?: 'Mutation', executeAccountAction: { __typename?: 'ExecuteAccountActionResponse', hash: any } | { __typename?: 'InsufficientFunds' } | (
     { __typename?: 'SelfFundedTransactionRequest' }
     & SelfFundedTransactionRequestFragment
-  ) | (
+  ) | { __typename?: 'SignerErc20ApprovalRequired' } | (
     { __typename?: 'SponsoredTransactionRequest' }
     & SponsoredTransactionRequestFragment
   ) | (
@@ -7999,7 +8029,7 @@ export type ExecutePostActionMutationVariables = Exact<{
 export type ExecutePostActionMutation = { __typename?: 'Mutation', executePostAction: { __typename?: 'ExecutePostActionResponse', hash: any } | { __typename?: 'InsufficientFunds' } | (
     { __typename?: 'SelfFundedTransactionRequest' }
     & SelfFundedTransactionRequestFragment
-  ) | (
+  ) | { __typename?: 'SignerErc20ApprovalRequired' } | (
     { __typename?: 'SponsoredTransactionRequest' }
     & SponsoredTransactionRequestFragment
   ) | (

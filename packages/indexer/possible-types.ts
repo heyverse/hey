@@ -220,6 +220,7 @@ const result: PossibleTypesResultData = {
       "ExecuteAccountActionResponse",
       "InsufficientFunds",
       "SelfFundedTransactionRequest",
+      "SignerErc20ApprovalRequired",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
     ],
@@ -227,6 +228,7 @@ const result: PossibleTypesResultData = {
       "ExecutePostActionResponse",
       "InsufficientFunds",
       "SelfFundedTransactionRequest",
+      "SignerErc20ApprovalRequired",
       "SponsoredTransactionRequest",
       "TransactionWillFail"
     ],
@@ -323,6 +325,11 @@ const result: PossibleTypesResultData = {
     PostResult: [
       "PostOperationValidationFailed",
       "PostResponse",
+      "SelfFundedTransactionRequest",
+      "SponsoredTransactionRequest",
+      "TransactionWillFail"
+    ],
+    PrepareSignerErc20ApprovalResult: [
       "SelfFundedTransactionRequest",
       "SponsoredTransactionRequest",
       "TransactionWillFail"

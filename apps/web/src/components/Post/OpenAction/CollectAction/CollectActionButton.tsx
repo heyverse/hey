@@ -8,6 +8,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY } from "@hey/data/constants";
 import {
+  PaymentSource,
   type PostActionFragment,
   type PostFragment,
   useAccountBalancesQuery,
@@ -127,7 +128,8 @@ const CollectActionButton = ({
           action: {
             simpleCollect: {
               selected: true,
-              referrals: [{ address: HEY_TREASURY, percent: 100 }]
+              referrals: [{ address: HEY_TREASURY, percent: 100 }],
+              paymentSource: PaymentSource.Signer
             }
           }
         }
