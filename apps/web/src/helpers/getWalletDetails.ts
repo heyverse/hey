@@ -1,27 +1,29 @@
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 
-interface WalletDetails {
+export interface WalletDetails {
   logo: string;
   name: string;
 }
 
-const getWalletDetails = (id: string): WalletDetails => {
-  const walletDetails: Record<string, WalletDetails> = {
-    familyAccountsProvider: {
-      logo: `${STATIC_IMAGES_URL}/wallets/family.png`,
-      name: "Login with Family"
-    },
-    walletConnect: {
-      logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`,
-      name: "Wallet Connect"
-    },
-    injected: {
-      logo: `${STATIC_IMAGES_URL}/wallets/wallet.svg`,
-      name: "Browser Wallet"
-    }
-  };
+const WALLETS = {
+  familyAccountsProvider: {
+    logo: `${STATIC_IMAGES_URL}/wallets/family.png`,
+    name: "Login with Family"
+  },
+  walletConnect: {
+    logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`,
+    name: "Wallet Connect"
+  },
+  injected: {
+    logo: `${STATIC_IMAGES_URL}/wallets/wallet.svg`,
+    name: "Browser Wallet"
+  }
+} as const;
 
-  return walletDetails[id];
+export type WalletId = keyof typeof WALLETS;
+
+const getWalletDetails = (id: WalletId): WalletDetails => {
+  return WALLETS[id];
 };
 
 export default getWalletDetails;
