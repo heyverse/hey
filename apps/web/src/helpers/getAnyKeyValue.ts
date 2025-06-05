@@ -1,41 +1,51 @@
 import type { AnyKeyValueFragment } from "@hey/indexer";
 import type { Address } from "viem";
 
-const isAddressKeyValue = (
-  kv: AnyKeyValueFragment
-): kv is { key: string; address: string; __typename: "AddressKeyValue" } =>
-  kv.__typename === "AddressKeyValue";
+interface AddressKeyValue {
+  __typename: "AddressKeyValue";
+  key: string;
+  address: string;
+}
 
-const isBigDecimalKeyValue = (
-  kv: AnyKeyValueFragment
-): kv is {
+interface BigDecimalKeyValue {
+  __typename: "BigDecimalKeyValue";
   key: string;
   bigDecimal: string;
-  __typename: "BigDecimalKeyValue";
-} => kv.__typename === "BigDecimalKeyValue";
+}
 
-const isStringKeyValue = (
-  kv: AnyKeyValueFragment
-): kv is { key: string; string: string; __typename: "StringKeyValue" } =>
+interface StringKeyValue {
+  __typename: "StringKeyValue";
+  key: string;
+  string: string;
+}
+
+type ValidKeyValue = AddressKeyValue | BigDecimalKeyValue | StringKeyValue;
+
+const isValidKeyValue = (kv: AnyKeyValueFragment): kv is ValidKeyValue =>
+  kv.__typename === "AddressKeyValue" ||
+  kv.__typename === "BigDecimalKeyValue" ||
   kv.__typename === "StringKeyValue";
 
 const getAnyKeyValue = (
   anyKeyValue: AnyKeyValueFragment[],
   key: string
 ): { address?: Address; bigDecimal?: string; string?: string } | null => {
-  for (const item of anyKeyValue) {
-    if (
-      (item.__typename === "AddressKeyValue" ||
-        item.__typename === "BigDecimalKeyValue" ||
-        item.__typename === "StringKeyValue") &&
-      item.key === key
-    ) {
-      if (isAddressKeyValue(item)) return { address: item.address as Address };
-      if (isBigDecimalKeyValue(item)) return { bigDecimal: item.bigDecimal };
-      if (isStringKeyValue(item)) return { string: item.string };
-    }
+  const item = anyKeyValue.find(
+    (kv): kv is ValidKeyValue => isValidKeyValue(kv) && kv.key === key
+  );
+
+  if (!item) return null;
+
+  switch (item.__typename) {
+    case "AddressKeyValue":
+      return { address: item.address as Address };
+    case "BigDecimalKeyValue":
+      return { bigDecimal: item.bigDecimal };
+    case "StringKeyValue":
+      return { string: item.string };
+    default:
+      return null;
   }
-  return null;
 };
 
 export default getAnyKeyValue;

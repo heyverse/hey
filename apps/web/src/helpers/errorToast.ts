@@ -1,33 +1,44 @@
 import { Errors } from "@hey/data/errors";
 import { toast } from "sonner";
 
-const FORBIDDEN_ERROR =
+const FORBIDDEN_ERROR_PREFIX =
   "Forbidden - Failed to generate source stamp: App rejected verification request:";
+const CONNECTOR_ERROR = "Connector not connected";
 
-const errorToast = (error?: any): void => {
-  if (!error || error?.message?.includes("viem")) {
+interface ErrorPayload {
+  message?: string;
+  data?: {
+    message?: string;
+  };
+}
+
+const getMessage = (err?: unknown): string | undefined => {
+  if (!err) return undefined;
+  if (typeof err === "string") return err;
+  if (err instanceof Error) return err.message;
+
+  const error = err as ErrorPayload;
+  return error.data?.message ?? error.message;
+};
+
+const errorToast = (error?: unknown): void => {
+  const message = getMessage(error);
+
+  if (!message || message.includes("viem")) return;
+
+  if (message.includes(FORBIDDEN_ERROR_PREFIX)) {
+    toast.error(message.replace(FORBIDDEN_ERROR_PREFIX, ""), { id: "error" });
     return;
   }
 
-  if (error?.message.includes(FORBIDDEN_ERROR)) {
-    toast.error(error?.message.replace(FORBIDDEN_ERROR, ""), {
-      id: "error"
-    });
-    return;
-  }
-
-  if (error?.message.includes("Connector not connected")) {
+  if (message.includes(CONNECTOR_ERROR)) {
     toast.error("Connect or switch to the correct wallet!", {
       id: "connector-error"
     });
     return;
   }
 
-  toast.error(
-    error?.data?.message || error?.message || Errors.SomethingWentWrong,
-    { id: "error" }
-  );
-  return;
+  toast.error(message || Errors.SomethingWentWrong, { id: "error" });
 };
 
 export default errorToast;

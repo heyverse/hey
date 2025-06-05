@@ -3,32 +3,32 @@ import type {
   SimpleCollectActionFragment
 } from "@hey/indexer";
 
-const getCollectActionData = (
-  collectAction: SimpleCollectActionFragment
-): {
+interface CollectActionData {
   price?: number;
   assetAddress?: string;
   assetSymbol?: string;
   collectLimit?: number;
   endsAt?: string;
   recipients?: RecipientPercent[];
-} | null => {
-  switch (collectAction.__typename) {
-    case "SimpleCollectAction":
-      return {
-        price: Number.parseFloat(
-          collectAction.payToCollect?.price?.value || "0"
-        ),
-        assetAddress:
-          collectAction.payToCollect?.price?.asset?.contract?.address,
-        assetSymbol: collectAction.payToCollect?.price?.asset?.symbol,
-        collectLimit: Number(collectAction.collectLimit),
-        endsAt: collectAction.endsAt,
-        recipients: collectAction.payToCollect?.recipients || []
-      };
-    default:
-      return null;
+}
+
+const getCollectActionData = (
+  collectAction: SimpleCollectActionFragment
+): CollectActionData | null => {
+  if (collectAction.__typename !== "SimpleCollectAction") {
+    return null;
   }
+
+  const { payToCollect, collectLimit, endsAt } = collectAction;
+
+  return {
+    price: Number.parseFloat(payToCollect?.price?.value ?? "0"),
+    assetAddress: payToCollect?.price?.asset?.contract?.address,
+    assetSymbol: payToCollect?.price?.asset?.symbol,
+    collectLimit: Number(collectLimit),
+    endsAt,
+    recipients: payToCollect?.recipients ?? []
+  };
 };
 
 export default getCollectActionData;

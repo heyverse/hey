@@ -5,6 +5,7 @@ import {
   useCreatePostMutation,
   usePostLazyQuery
 } from "@hey/indexer";
+import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import usePollTransactionStatus from "./usePollTransactionStatus";
@@ -28,35 +29,41 @@ const useCreatePost = ({
   const { cache } = useApolloClient();
   const isComment = Boolean(commentOn);
 
-  const updateCache = async (txHash: string, toastId: string | number) => {
-    const { data } = await getPost({ variables: { request: { txHash } } });
-    if (!data?.post) {
-      return;
-    }
-
-    toast.success(`${isComment ? "Comment" : "Post"} created successfully!`, {
-      id: toastId,
-      action: {
-        label: "View",
-        onClick: () => navigate(`/posts/${data.post?.slug}`)
+  const updateCache = useCallback(
+    async (txHash: string, toastId: string | number) => {
+      const { data } = await getPost({ variables: { request: { txHash } } });
+      if (!data?.post) {
+        return;
       }
-    });
-    cache.modify({
-      fields: {
-        [isComment ? "postReferences" : "posts"]: () => {
-          cache.writeQuery({ data: data.post, query: PostDocument });
+
+      toast.success(`${isComment ? "Comment" : "Post"} created successfully!`, {
+        id: toastId,
+        action: {
+          label: "View",
+          onClick: () => navigate(`/posts/${data.post?.slug}`)
         }
-      }
-    });
-  };
+      });
+      cache.modify({
+        fields: {
+          [isComment ? "postReferences" : "posts"]: () => {
+            cache.writeQuery({ data: data.post, query: PostDocument });
+          }
+        }
+      });
+    },
+    [getPost, cache, navigate, isComment]
+  );
 
-  const onCompletedWithTransaction = (hash: string) => {
-    const toastId = toast.loading(
-      `${isComment ? "Comment" : "Post"} processing...`
-    );
-    pollTransactionStatus(hash, () => updateCache(hash, toastId));
-    return onCompleted();
-  };
+  const onCompletedWithTransaction = useCallback(
+    (hash: string) => {
+      const toastId = toast.loading(
+        `${isComment ? "Comment" : "Post"} processing...`
+      );
+      pollTransactionStatus(hash, () => updateCache(hash, toastId));
+      return onCompleted();
+    },
+    [pollTransactionStatus, updateCache, onCompleted, isComment]
+  );
 
   // Onchain mutations
   const [createPost] = useCreatePostMutation({

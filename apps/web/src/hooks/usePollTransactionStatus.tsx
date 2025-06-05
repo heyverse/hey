@@ -10,23 +10,23 @@ const usePollTransactionStatus = () => {
   });
 
   const pollTransactionStatus = useCallback(
-    async (hash: string, onFinished: () => void, checkCount = 0) => {
-      if (checkCount >= MAX_CHECK_COUNT) {
-        return onFinished();
+    async (hash: string, onFinished: () => void) => {
+      for (let i = 0; i < MAX_CHECK_COUNT; i++) {
+        const { data } = await getTransactionStatus({
+          variables: { request: { txHash: hash } }
+        });
+
+        if (
+          data?.transactionStatus?.__typename === "FinishedTransactionStatus"
+        ) {
+          onFinished();
+          return;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, POLL_INTERVAL));
       }
 
-      const { data } = await getTransactionStatus({
-        variables: { request: { txHash: hash } }
-      });
-
-      if (data?.transactionStatus?.__typename === "FinishedTransactionStatus") {
-        onFinished();
-      } else {
-        setTimeout(
-          () => pollTransactionStatus(hash, onFinished, checkCount + 1),
-          POLL_INTERVAL
-        );
-      }
+      onFinished();
     },
     [getTransactionStatus]
   );

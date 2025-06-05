@@ -1,14 +1,17 @@
 import getAccount from "@hey/helpers/getAccount";
 import type { AccountFragment } from "@hey/indexer";
 
-export const getBlockedByMeMessage = (account: AccountFragment): string => {
+const formatMessage = (
+  account: AccountFragment,
+  formatter: (username: string) => string
+): string => {
   const { usernameWithPrefix } = getAccount(account);
 
-  return `You have blocked ${usernameWithPrefix}`;
+  return formatter(usernameWithPrefix);
 };
 
-export const getBlockedMeMessage = (account: AccountFragment): string => {
-  const { usernameWithPrefix } = getAccount(account);
+export const getBlockedByMeMessage = (account: AccountFragment): string =>
+  formatMessage(account, (username) => `You have blocked ${username}`);
 
-  return `${usernameWithPrefix} has blocked you`;
-};
+export const getBlockedMeMessage = (account: AccountFragment): string =>
+  formatMessage(account, (username) => `${username} has blocked you`);

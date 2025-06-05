@@ -2,15 +2,17 @@ import { LENS_MAINNET_RPCS, LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import type { FallbackTransport } from "viem";
 import { http, fallback } from "viem";
 
-const getRpc = ({ mainnet }: { mainnet: boolean }): FallbackTransport => {
-  if (mainnet) {
-    return fallback(
-      LENS_MAINNET_RPCS.map((rpc) => http(rpc, { batch: { batchSize: 10 } }))
-    );
-  }
+interface GetRpcOptions {
+  mainnet: boolean;
+}
+
+const BATCH_SIZE = 10;
+
+const getRpc = ({ mainnet }: GetRpcOptions): FallbackTransport => {
+  const rpcs = mainnet ? LENS_MAINNET_RPCS : LENS_TESTNET_RPCS;
 
   return fallback(
-    LENS_TESTNET_RPCS.map((rpc) => http(rpc, { batch: { batchSize: 10 } }))
+    rpcs.map((rpc) => http(rpc, { batch: { batchSize: BATCH_SIZE } }))
   );
 };
 

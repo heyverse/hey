@@ -75,21 +75,17 @@ pnpm build
 Check code quality and formatting:
 
 ```bash
-pnpm lint
+pnpm biome:check
 ```
 
 Fix linting and formatting issues automatically:
 
 ```bash
-pnpm lint:fix
+pnpm biome:fix
 ```
 
 ## License
 
 This project is licensed under the **AGPL-3.0** license. Please refer to the [LICENSE](./LICENSE) file for full terms and conditions.
-
-## P.S
-
-We 💖 you to the moon and back! Your support is like a never-ending supply of coffee for our code. Thank you for making Hey the most awesome place in the universe!
 
 🌸
