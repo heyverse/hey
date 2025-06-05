@@ -1,5 +1,5 @@
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
+import SwapButton from "@/components/Shared/SwapButton";
 import { Button, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getCollectActionData from "@/helpers/getCollectActionData";
@@ -11,11 +11,13 @@ import {
   PaymentSource,
   type PostActionFragment,
   type PostFragment,
-  useAccountBalancesQuery,
-  useExecutePostActionMutation
+  useExecutePostActionMutation,
+  usePrepareSignerErc20ApprovalMutation
 } from "@hey/indexer";
 import { useState } from "react";
 import { toast } from "sonner";
+import { erc20Abi, formatEther } from "viem";
+import { useReadContract } from "wagmi";
 
 interface CollectActionButtonProps {
   collects: number;
@@ -84,17 +86,18 @@ const CollectActionButton = ({
     errorToast(error);
   };
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetAddress] } },
-    pollInterval: 3000,
-    skip: !assetAddress || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+  const { data: balance, isLoading: balanceLoading } = useReadContract({
+    address: assetAddress,
+    abi: erc20Abi,
+    functionName: "balanceOf",
+    args: [currentAccount?.owner],
+    query: {
+      refetchInterval: 3000,
+      enabled: Boolean(currentAccount?.owner) && Boolean(assetAddress)
+    }
   });
 
-  const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
-      : 0;
+  const erc20Balance = Number(formatEther(balance ?? 0n)).toFixed(2);
 
   let hasAmount = false;
   if (Number.parseFloat(erc20Balance) < amount) {
@@ -103,10 +106,38 @@ const CollectActionButton = ({
     hasAmount = true;
   }
 
-  const [executeCollectAction] = useExecutePostActionMutation({
+  const [prepareSignerErc20Approval] = usePrepareSignerErc20ApprovalMutation({
+    onCompleted: async ({ prepareSignerErc20Approval }) => {
+      return await handleTransactionLifecycle({
+        transactionData: prepareSignerErc20Approval,
+        onCompleted: () => executePostAction(),
+        onError
+      });
+    }
+  });
+
+  const [executePostAction] = useExecutePostActionMutation({
+    variables: {
+      request: {
+        post: post.id,
+        action: {
+          simpleCollect: {
+            selected: true,
+            referrals: [{ address: HEY_TREASURY, percent: 100 }],
+            paymentSource: PaymentSource.Signer
+          }
+        }
+      }
+    },
     onCompleted: async ({ executePostAction }) => {
       if (executePostAction.__typename === "ExecutePostActionResponse") {
         return onCompleted();
+      }
+
+      if (executePostAction.__typename === "SignerErc20ApprovalRequired") {
+        return await prepareSignerErc20Approval({
+          variables: { request: { approval: { infinite: assetAddress } } }
+        });
       }
 
       return await handleTransactionLifecycle({
@@ -120,21 +151,7 @@ const CollectActionButton = ({
 
   const handleCreateCollect = async () => {
     setIsSubmitting(true);
-
-    return await executeCollectAction({
-      variables: {
-        request: {
-          post: post.id,
-          action: {
-            simpleCollect: {
-              selected: true,
-              referrals: [{ address: HEY_TREASURY, percent: 100 }],
-              paymentSource: PaymentSource.Signer
-            }
-          }
-        }
-      }
-    });
+    return await executePostAction();
   };
 
   if (!currentAccount) {
@@ -166,7 +183,7 @@ const CollectActionButton = ({
 
   if (!hasAmount) {
     return (
-      <TopUpButton
+      <SwapButton
         className="mt-5 w-full"
         token={{ contractAddress: assetAddress, symbol: assetSymbol }}
       />

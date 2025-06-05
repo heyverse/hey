@@ -83,7 +83,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const erc20Balance = Number(formatEther(balance?.value ?? 0n)).toFixed(2);
   const canTip = Number(erc20Balance) >= cryptoRate;
 
-  const [executeTipAction] = useExecutePostActionMutation({
+  const [executePostAction] = useExecutePostActionMutation({
     onCompleted: async ({ executePostAction }) => {
       if (executePostAction.__typename === "ExecutePostActionResponse") {
         return onCompleted();
@@ -134,7 +134,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     };
 
     if (post) {
-      return executeTipAction({
+      return executePostAction({
         variables: { request: { post: post.id, action: { tipping } } }
       });
     }
