@@ -1,4 +1,3 @@
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -21,6 +20,7 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { formatEther } from "viem";
 import { useBalance } from "wagmi";
+import SwapButton from "./SwapButton";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -234,7 +234,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <b>Tip ${amount}</b>
         </Button>
       ) : (
-        <TopUpButton className="w-full" />
+        <SwapButton className="w-full" />
       )}
     </div>
   );
