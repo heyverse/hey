@@ -10,7 +10,7 @@ import {
   type GroupRules,
   useAccountBalancesQuery
 } from "@hey/indexer";
-import TopUpButton from "../Account/Fund/TopUp/Button";
+import TopUpButton from "../Account/TopUp/Button";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
 import Join from "./Join";

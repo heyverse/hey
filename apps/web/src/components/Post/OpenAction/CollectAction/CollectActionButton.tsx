@@ -1,4 +1,4 @@
-import TopUpButton from "@/components/Shared/Account/Fund/TopUp/Button";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";

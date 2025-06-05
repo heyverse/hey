@@ -15,7 +15,7 @@ import Loader from "../Loader";
 import LoginButton from "../LoginButton";
 import Slug from "../Slug";
 import Follow from "./Follow";
-import TopUpButton from "./Fund/TopUp/Button";
+import TopUpButton from "./TopUp/Button";
 
 const SuperFollow = () => {
   const { currentAccount } = useAccountStore();

@@ -18,8 +18,8 @@ import {
   useJoinGroupMutation
 } from "@hey/indexer";
 import { useState } from "react";
-import TopUpButton from "../Account/Fund/TopUp/Button";
 import SingleAccount from "../Account/SingleAccount";
+import TopUpButton from "../Account/TopUp/Button";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
