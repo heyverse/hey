@@ -24,23 +24,20 @@ const usePostMetadata = () => {
   const { attachments } = usePostAttachmentStore((state) => state);
   const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
 
-  const processAttachments = () =>
-    attachments
-      .map((attachment) => ({
-        item: attachment.uri,
-        type: attachment.mimeType
-      }))
-      .slice(1);
+  const formatAttachments = () =>
+    attachments.slice(1).map(({ mimeType, uri }) => ({
+      item: uri,
+      type: mimeType
+    }));
 
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePostMetadataProps) => {
-      const hasAttachments = attachments.length > 0;
-      const isImage = attachments[0]?.type === "Image";
-      const isAudio = attachments[0]?.type === "Audio";
-      const isVideo = attachments[0]?.type === "Video";
+      const primaryAttachment = attachments[0];
+      const hasAttachments = Boolean(primaryAttachment);
+      const isImage = primaryAttachment?.type === "Image";
+      const isAudio = primaryAttachment?.type === "Audio";
+      const isVideo = primaryAttachment?.type === "Video";
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
-
-      const attachmentsToBeUploaded = processAttachments();
 
       if (isLiveStream) {
         return liveStream({
@@ -52,14 +49,12 @@ const usePostMetadata = () => {
       }
 
       if (!hasAttachments) {
-        const isArticle = baseMetadata.content?.length > 2000;
-
-        if (isArticle) {
-          return article(baseMetadata);
-        }
-
-        return textOnly(baseMetadata);
+        return baseMetadata.content?.length > 2000
+          ? article(baseMetadata)
+          : textOnly(baseMetadata);
       }
+
+      const attachmentsToBeUploaded = formatAttachments();
 
       if (isImage) {
         return image({
@@ -69,8 +64,8 @@ const usePostMetadata = () => {
           }),
           image: {
             ...(license && { license }),
-            item: attachments[0]?.uri,
-            type: attachments[0]?.mimeType
+            item: primaryAttachment.uri,
+            type: primaryAttachment.mimeType
           }
         });
       }
@@ -86,8 +81,8 @@ const usePostMetadata = () => {
               artist: audioPost.artist
             }),
             cover: audioPost.cover,
-            item: attachments[0]?.uri,
-            type: attachments[0]?.mimeType,
+            item: primaryAttachment.uri,
+            type: primaryAttachment.mimeType,
             ...(license && { license })
           }
         });
@@ -102,8 +97,8 @@ const usePostMetadata = () => {
           video: {
             cover: videoThumbnail.url,
             duration: Number.parseInt(videoDurationInSeconds),
-            item: attachments[0]?.uri,
-            type: attachments[0]?.mimeType,
+            item: primaryAttachment.uri,
+            type: primaryAttachment.mimeType,
             ...(license && { license })
           }
         });
