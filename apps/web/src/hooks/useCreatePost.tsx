@@ -60,7 +60,7 @@ const useCreatePost = ({
         `${isComment ? "Comment" : "Post"} processing...`
       );
       pollTransactionStatus(hash, () => updateCache(hash, toastId));
-      onCompleted();
+      return onCompleted();
     },
     [pollTransactionStatus, updateCache, onCompleted, isComment]
   );
