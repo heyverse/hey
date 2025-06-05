@@ -14,10 +14,10 @@ import {
   useExecutePostActionMutation,
   usePrepareSignerErc20ApprovalMutation
 } from "@hey/indexer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { erc20Abi, formatEther } from "viem";
-import { useReadContract } from "wagmi";
+import { type Hex, erc20Abi, formatEther } from "viem";
+import { useReadContract, useWaitForTransactionReceipt } from "wagmi";
 
 interface CollectActionButtonProps {
   collects: number;
@@ -34,6 +34,7 @@ const CollectActionButton = ({
 }: CollectActionButtonProps) => {
   const collectAction = getCollectActionData(postAction as any);
   const { currentAccount } = useAccountStore();
+  const [approvalHash, setApprovalHash] = useState<Hex | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
     collectAction?.price ? false : post.operations?.hasSimpleCollected
@@ -110,7 +111,7 @@ const CollectActionButton = ({
     onCompleted: async ({ prepareSignerErc20Approval }) => {
       return await handleTransactionLifecycle({
         transactionData: prepareSignerErc20Approval,
-        onCompleted: () => executePostAction(),
+        onCompleted: async (hash) => setApprovalHash(hash as Hex),
         onError
       });
     }
@@ -148,6 +149,18 @@ const CollectActionButton = ({
     },
     onError
   });
+
+  const { data: transactionReceipt } = useWaitForTransactionReceipt({
+    hash: approvalHash as Hex,
+    query: { enabled: Boolean(approvalHash) }
+  });
+
+  useEffect(() => {
+    if (transactionReceipt) {
+      setApprovalHash(null);
+      executePostAction();
+    }
+  }, [transactionReceipt]);
 
   const handleCreateCollect = async () => {
     setIsSubmitting(true);
