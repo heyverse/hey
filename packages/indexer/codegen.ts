@@ -27,9 +27,7 @@ const config: CodegenConfig = {
       }
     }
   },
-  hooks: {
-    afterAllFileWrite: ["biome format --write ."]
-  },
+  hooks: { afterAllFileWrite: ["biome format --write ."] },
   overwrite: true,
   schema: LensEndpoint.Mainnet
 };
