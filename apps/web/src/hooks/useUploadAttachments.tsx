@@ -86,6 +86,9 @@ const useUploadAttachments = () => {
 
       const compressedFiles = await compressFiles(files);
       const previewAttachments = createPreviewAttachments(compressedFiles);
+      for (const { id } of previewAttachments) {
+        attachmentIds.push(id as string);
+      }
 
       if (compressedFiles.every((file) => validateFileSize(file))) {
         addAttachments(previewAttachments);
