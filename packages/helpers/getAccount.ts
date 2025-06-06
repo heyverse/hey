@@ -4,6 +4,13 @@ import type { AccountFragment } from "@hey/indexer";
 import formatAddress from "./formatAddress";
 import isAccountDeleted from "./isAccountDeleted";
 
+interface AccountInfo {
+  name: string;
+  link: string;
+  username: string;
+  usernameWithPrefix: string;
+}
+
 const sanitizeDisplayName = (name?: null | string): null | string => {
   if (!name) {
     return null;
@@ -12,30 +19,27 @@ const sanitizeDisplayName = (name?: null | string): null | string => {
   return name.replace(Regex.accountNameFilter, " ").trim().replace(/\s+/g, " ");
 };
 
-const getAccount = (
-  account?: AccountFragment
-): {
-  name: string;
-  link: string;
-  username: string;
-  usernameWithPrefix: string;
-} => {
+const UNKNOWN_ACCOUNT: AccountInfo = {
+  name: "...",
+  link: "",
+  username: "...",
+  usernameWithPrefix: "..."
+};
+
+const DELETED_ACCOUNT: AccountInfo = {
+  name: "Deleted Account",
+  link: "",
+  username: "deleted",
+  usernameWithPrefix: "@deleted"
+};
+
+const getAccount = (account?: AccountFragment): AccountInfo => {
   if (!account) {
-    return {
-      name: "...",
-      link: "",
-      username: "...",
-      usernameWithPrefix: "..."
-    };
+    return UNKNOWN_ACCOUNT;
   }
 
   if (isAccountDeleted(account)) {
-    return {
-      name: "Deleted Account",
-      link: "",
-      username: "deleted",
-      usernameWithPrefix: "@deleted"
-    };
+    return DELETED_ACCOUNT;
   }
 
   const { username, address } = account;
