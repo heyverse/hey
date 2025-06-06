@@ -1,35 +1,49 @@
 import type { AnyMediaFragment, Maybe } from "@hey/indexer";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
-const getAttachmentsData = (attachments?: Maybe<AnyMediaFragment[]>): any => {
+interface AttachmentData {
+  artist?: string;
+  coverUri?: string;
+  type: "Audio" | "Image" | "Video";
+  uri: string;
+}
+
+const getAttachmentsData = (
+  attachments?: Maybe<AnyMediaFragment[]>
+): AttachmentData[] => {
   if (!attachments) {
     return [];
   }
 
-  return attachments.map((attachment) => {
+  return attachments.reduce<AttachmentData[]>((acc, attachment) => {
     switch (attachment.__typename) {
       case "MediaImage":
-        return {
+        acc.push({
           type: "Image",
           uri: sanitizeDStorageUrl(attachment.item)
-        };
+        });
+        break;
       case "MediaVideo":
-        return {
+        acc.push({
           coverUri: sanitizeDStorageUrl(attachment.cover),
           type: "Video",
           uri: sanitizeDStorageUrl(attachment.item)
-        };
+        });
+        break;
       case "MediaAudio":
-        return {
-          artist: attachment.artist,
+        acc.push({
+          artist: attachment.artist ?? undefined,
           coverUri: sanitizeDStorageUrl(attachment.cover),
           type: "Audio",
           uri: sanitizeDStorageUrl(attachment.item)
-        };
+        });
+        break;
       default:
-        return [];
+        break;
     }
-  });
+
+    return acc;
+  }, []);
 };
 
 export default getAttachmentsData;
