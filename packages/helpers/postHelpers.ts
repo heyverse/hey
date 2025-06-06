@@ -11,8 +11,8 @@ type PickByTypename<
   ? T
   : never;
 
-export function isRepost<T extends AnyPostFragment>(
+export const isRepost = <T extends AnyPostFragment>(
   post: null | T
-): post is PickByTypename<T, "Repost"> {
+): post is PickByTypename<T, "Repost"> => {
   return post?.__typename === "Repost";
-}
+};
