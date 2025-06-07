@@ -26,21 +26,16 @@ const accountsSitemapIndex = async (ctx: Context) => {
       await setRedis(cacheKey, totalUsernames, hoursToSeconds(50 * 24));
     }
 
-    const sitemaps = Array.from({ length: totalUsernames }, (_, index) => ({
-      path: `/sitemap/accounts/${index + 1}.xml`,
-      priority: "1"
-    }));
-
     const sitemapIndex = create({ version: "1.0", encoding: "UTF-8" }).ele(
       "sitemapindex",
       { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" }
     );
 
-    for (const sitemap of sitemaps) {
+    for (let i = 0; i < totalUsernames; i++) {
       sitemapIndex
         .ele("sitemap")
         .ele("loc")
-        .txt(`https://hey.xyz${sitemap.path}`)
+        .txt(`https://hey.xyz/sitemap/accounts/${i + 1}.xml`)
         .up()
         .ele("lastmod")
         .txt(new Date().toISOString())

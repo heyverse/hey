@@ -20,12 +20,26 @@ const accountSitemap = async (ctx: Context) => {
   try {
     const cacheKey = `sitemap:accounts:${batch}`;
     const cachedData = await getRedis(cacheKey);
-    let usernames: string[];
+
+    const sitemap = create({ version: "1.0", encoding: "UTF-8" }).ele(
+      "urlset",
+      { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" }
+    );
 
     if (cachedData) {
-      usernames = JSON.parse(cachedData);
+      const usernames: string[] = JSON.parse(cachedData);
+      for (const username of usernames) {
+        sitemap
+          .ele("url")
+          .ele("loc")
+          .txt(`https://hey.xyz/u/${username}`)
+          .up()
+          .ele("lastmod")
+          .txt(new Date().toISOString())
+          .up();
+      }
     } else {
-      const newUsernames = await lensPg.query(
+      const dbUsernames = await lensPg.query(
         `
           SELECT local_name
           FROM account.username_assigned
@@ -36,24 +50,19 @@ const accountSitemap = async (ctx: Context) => {
         [(Number(batch) - 1) * SITEMAP_BATCH_SIZE, SITEMAP_BATCH_SIZE]
       );
 
-      usernames = newUsernames.map((username) => username.local_name);
-      await setRedis(cacheKey, usernames, hoursToSeconds(50 * 24));
-    }
-
-    const sitemap = create({ version: "1.0", encoding: "UTF-8" }).ele(
-      "urlset",
-      { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" }
-    );
-
-    for (const username of usernames) {
-      sitemap
-        .ele("url")
-        .ele("loc")
-        .txt(`https://hey.xyz/u/${username}`)
-        .up()
-        .ele("lastmod")
-        .txt(new Date().toISOString())
-        .up();
+      const usernamesToCache: string[] = [];
+      for (const { local_name } of dbUsernames) {
+        usernamesToCache.push(local_name);
+        sitemap
+          .ele("url")
+          .ele("loc")
+          .txt(`https://hey.xyz/u/${local_name}`)
+          .up()
+          .ele("lastmod")
+          .txt(new Date().toISOString())
+          .up();
+      }
+      await setRedis(cacheKey, usernamesToCache, hoursToSeconds(50 * 24));
     }
 
     ctx.header("Content-Type", "application/xml");
