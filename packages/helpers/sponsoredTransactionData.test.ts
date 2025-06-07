@@ -1,4 +1,3 @@
-import type { Eip712TransactionRequest } from "@hey/indexer";
 import { describe, expect, it } from "vitest";
 import sponsoredTransactionData from "./sponsoredTransactionData";
 
@@ -15,7 +14,7 @@ describe("sponsoredTransactionData", () => {
       customData: {
         paymasterParams: { paymaster: "p", paymasterInput: "i" }
       }
-    } as unknown as Eip712TransactionRequest;
+    } as any;
     expect(sponsoredTransactionData(raw)).toEqual({
       data: "0x",
       gas: 1n,

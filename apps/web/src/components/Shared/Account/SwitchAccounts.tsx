@@ -23,7 +23,7 @@ const SwitchAccounts = () => {
   );
   const { address } = useAccount();
 
-  const onError = (error?: unknown) => {
+  const onError = (error?: any) => {
     setIsSubmitting(false);
     setLoggingInAccountId(null);
     errorToast(error);

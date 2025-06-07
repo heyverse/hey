@@ -1,5 +1,4 @@
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
-import type { PostMetadataFragment } from "@hey/indexer";
 import { describe, expect, it } from "vitest";
 import getPostData from "./getPostData";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
@@ -9,10 +8,7 @@ const sanitized = sanitizeDStorageUrl(ipfs);
 
 describe("getPostData", () => {
   it("handles text-only metadata", () => {
-    const meta = {
-      __typename: "TextOnlyMetadata",
-      content: "hi"
-    } as unknown as PostMetadataFragment;
+    const meta = { __typename: "TextOnlyMetadata", content: "hi" } as any;
     expect(getPostData(meta)).toEqual({ content: "hi" });
   });
 
@@ -22,7 +18,7 @@ describe("getPostData", () => {
       content: "img",
       image: { item: ipfs },
       attachments: [{ __typename: "MediaImage", item: ipfs }]
-    } as unknown as PostMetadataFragment;
+    } as any;
     expect(getPostData(meta)).toEqual({
       asset: { type: "Image", uri: sanitized },
       attachments: [{ type: "Image", uri: sanitized }],
@@ -37,7 +33,7 @@ describe("getPostData", () => {
       title: undefined,
       audio: { item: ipfs, cover: undefined, artist: undefined },
       attachments: []
-    } as unknown as PostMetadataFragment;
+    } as any;
     expect(getPostData(meta)).toEqual({
       asset: {
         artist: undefined,
@@ -51,8 +47,6 @@ describe("getPostData", () => {
   });
 
   it("returns null for unknown type", () => {
-    expect(
-      getPostData({ __typename: "Unknown" } as unknown as PostMetadataFragment)
-    ).toBeNull();
+    expect(getPostData({ __typename: "Unknown" } as any)).toBeNull();
   });
 });
