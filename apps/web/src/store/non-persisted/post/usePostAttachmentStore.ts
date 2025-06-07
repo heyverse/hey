@@ -4,6 +4,7 @@ import { create } from "zustand";
 interface State {
   addAttachments: (attachments: NewAttachment[]) => void;
   attachments: NewAttachment[];
+  attachmentsMap: Map<string, NewAttachment>;
   isUploading: boolean;
   removeAttachments: (ids: string[]) => void;
   setAttachments: (attachments: NewAttachment[]) => void;
@@ -14,33 +15,61 @@ interface State {
 const store = create<State>((set) => ({
   addAttachments: (newAttachments) =>
     set((state) => {
-      return { attachments: [...state.attachments, ...newAttachments] };
+      const attachmentsMap = new Map(state.attachmentsMap);
+      for (const attachment of newAttachments) {
+        if (attachment.id) {
+          attachmentsMap.set(attachment.id, attachment);
+        }
+      }
+
+      return {
+        attachments: Array.from(attachmentsMap.values()),
+        attachmentsMap
+      };
     }),
   attachments: [],
+  attachmentsMap: new Map<string, NewAttachment>(),
   isUploading: false,
   removeAttachments: (ids) =>
     set((state) => {
-      const attachments = [...state.attachments];
-      ids.map((id) => {
-        const index = attachments.findIndex((a) => a.id === id);
-        if (index !== -1) {
-          attachments.splice(index, 1);
-        }
-      });
-      return { attachments };
+      const attachmentsMap = new Map(state.attachmentsMap);
+      for (const id of ids) {
+        attachmentsMap.delete(id);
+      }
+
+      return {
+        attachments: Array.from(attachmentsMap.values()),
+        attachmentsMap
+      };
     }),
-  setAttachments: (attachments) => set(() => ({ attachments })),
-  setIsUploading: (isUploading) => set(() => ({ isUploading })),
-  updateAttachments: (updateAttachments) =>
-    set((state) => {
-      const attachments = [...state.attachments];
-      updateAttachments.map((attachment) => {
-        const index = attachments.findIndex((a) => a.id === attachment.id);
-        if (index !== -1) {
-          attachments[index] = attachment;
+  setAttachments: (attachments) =>
+    set(() => {
+      const attachmentsMap = new Map<string, NewAttachment>();
+      for (const attachment of attachments) {
+        if (attachment.id) {
+          attachmentsMap.set(attachment.id, attachment);
         }
-      });
-      return { attachments };
+      }
+
+      return {
+        attachments: Array.from(attachmentsMap.values()),
+        attachmentsMap
+      };
+    }),
+  setIsUploading: (isUploading) => set(() => ({ isUploading })),
+  updateAttachments: (updated) =>
+    set((state) => {
+      const attachmentsMap = new Map(state.attachmentsMap);
+      for (const attachment of updated) {
+        if (attachment.id && attachmentsMap.has(attachment.id)) {
+          attachmentsMap.set(attachment.id, attachment);
+        }
+      }
+
+      return {
+        attachments: Array.from(attachmentsMap.values()),
+        attachmentsMap
+      };
     })
 }));
 
