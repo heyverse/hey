@@ -1,4 +1,3 @@
-import type { Eip1559TransactionRequest } from "@hey/indexer";
 import { describe, expect, it } from "vitest";
 import selfFundedTransactionData from "./selfFundedTransactionData";
 
@@ -12,7 +11,7 @@ describe("selfFundedTransactionData", () => {
       nonce: 4,
       to: "0x1",
       value: 5
-    } as unknown as Eip1559TransactionRequest;
+    } as any;
     expect(selfFundedTransactionData(raw)).toEqual({
       data: "0x",
       gas: 1n,

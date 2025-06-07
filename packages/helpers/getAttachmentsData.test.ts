@@ -1,4 +1,3 @@
-import type { AnyMediaFragment } from "@hey/indexer";
 import { describe, expect, it } from "vitest";
 import getAttachmentsData from "./getAttachmentsData";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
@@ -16,8 +15,8 @@ describe("getAttachmentsData", () => {
       { __typename: "MediaImage", item: ipfs },
       { __typename: "MediaVideo", item: ipfs, cover: ipfs },
       { __typename: "MediaAudio", item: ipfs, cover: ipfs, artist: "a" }
-    ] as unknown as AnyMediaFragment[];
-    expect(getAttachmentsData(attachments)).toEqual([
+    ];
+    expect(getAttachmentsData(attachments as any)).toEqual([
       { type: "Image", uri: sanitized },
       { type: "Video", uri: sanitized, coverUri: sanitized },
       { type: "Audio", uri: sanitized, coverUri: sanitized, artist: "a" }

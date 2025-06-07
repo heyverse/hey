@@ -56,7 +56,7 @@ const ChooseUsername = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const form = useZodForm({ mode: "onChange", schema: ValidationSchema });
 
-  const onError = (error?: unknown) => {
+  const onError = (error?: any) => {
     setIsSubmitting(false);
     errorToast(error);
   };

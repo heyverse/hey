@@ -18,7 +18,7 @@ const WalletSelector: FC = () => {
   ];
 
   const filteredConnectors = connectors
-    .filter((connector) => allowedConnectors.includes(connector.id))
+    .filter((connector: any) => allowedConnectors.includes(connector.id))
     .sort(
       (a: Connector, b: Connector) =>
         allowedConnectors.indexOf(a.id) - allowedConnectors.indexOf(b.id)
@@ -43,7 +43,7 @@ const WalletSelector: FC = () => {
     </div>
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
-      {filteredConnectors.map((connector) => {
+      {filteredConnectors.map((connector: any) => {
         return (
           <button
             className={cn(

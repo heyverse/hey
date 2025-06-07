@@ -33,7 +33,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
   );
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const onError = (error?: unknown) => {
+  const onError = (error?: any) => {
     setIsSubmitting(false);
     setLoggingInAccountId(null);
     errorToast(error);

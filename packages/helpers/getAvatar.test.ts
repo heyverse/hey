@@ -10,7 +10,7 @@ const ipfs = "ipfs://avatarHash";
 
 describe("getAvatar", () => {
   it("returns default when entity missing", () => {
-    expect(getAvatar(undefined)).toBe(DEFAULT_AVATAR);
+    expect(getAvatar(undefined as any)).toBe(DEFAULT_AVATAR);
   });
 
   it("sanitizes ipfs avatar", () => {
