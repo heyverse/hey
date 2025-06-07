@@ -39,7 +39,7 @@ const accountSitemap = async (ctx: Context) => {
           .up();
       }
     } else {
-      const dbUsernames = await lensPg.query(
+      const dbUsernames = (await lensPg.query(
         `
           SELECT local_name
           FROM account.username_assigned
@@ -48,7 +48,7 @@ const accountSitemap = async (ctx: Context) => {
           LIMIT $2;
         `,
         [(Number(batch) - 1) * SITEMAP_BATCH_SIZE, SITEMAP_BATCH_SIZE]
-      );
+      )) as Array<{ local_name: string }>;
 
       const usernamesToCache: string[] = [];
       for (const { local_name } of dbUsernames) {
