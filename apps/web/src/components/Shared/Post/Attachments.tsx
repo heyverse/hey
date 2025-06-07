@@ -102,9 +102,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
       )}
       {displayDecision === "displayVideoAsset" && (
         <Video
-          src={
-            getSrc(asset?.uri) || [{ src: asset?.uri, type: "video" } as any]
-          }
+          src={getSrc(asset?.uri) || [{ src: asset?.uri, type: "video" }]}
           poster={asset?.cover as string}
         />
       )}

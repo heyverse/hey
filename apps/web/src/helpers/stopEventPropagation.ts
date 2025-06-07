@@ -1,3 +1,5 @@
-const stopEventPropagation = (event: any) => event.stopPropagation();
+import type { SyntheticEvent } from "react";
+
+const stopEventPropagation = (event: SyntheticEvent) => event.stopPropagation();
 
 export default stopEventPropagation;

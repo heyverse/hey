@@ -30,7 +30,7 @@ const CollectActionButton = ({
   postAction,
   post
 }: CollectActionButtonProps) => {
-  const collectAction = getCollectActionData(postAction as any);
+  const collectAction = getCollectActionData(postAction);
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
@@ -42,7 +42,7 @@ const CollectActionButton = ({
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = collectAction?.collectLimit;
   const amount = collectAction?.price as number;
-  const assetAddress = collectAction?.assetAddress as any;
+  const assetAddress = collectAction?.assetAddress as string | undefined;
   const assetSymbol = collectAction?.assetSymbol as string;
   const isAllCollected = collectLimit ? collects >= collectLimit : false;
   const isSaleEnded = endTimestamp

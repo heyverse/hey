@@ -133,7 +133,9 @@ const PersonalizeSettingsForm = () => {
         )
         .map(({ key, type, value }) => ({
           key,
-          type: MetadataAttributeType[type] as any,
+          type: MetadataAttributeType[
+            type as keyof typeof MetadataAttributeType
+          ],
           value
         })) || [];
 

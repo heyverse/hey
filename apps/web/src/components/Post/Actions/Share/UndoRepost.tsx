@@ -42,7 +42,7 @@ const UndoRepost = ({
     toast.success("Undone repost");
   };
 
-  const onError = (error?: any) => {
+  const onError = (error?: unknown) => {
     setIsSubmitting(false);
     errorToast(error);
   };

@@ -14,7 +14,7 @@ import { useCallback } from "react";
 import { usePostAudioStore } from "../store/non-persisted/post/usePostAudioStore";
 
 interface UsePostMetadataProps {
-  baseMetadata: any;
+  baseMetadata: Record<string, unknown>;
 }
 
 const usePostMetadata = () => {

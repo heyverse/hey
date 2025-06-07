@@ -1,4 +1,5 @@
 import { LENS_NAMESPACE, NULL_ADDRESS } from "@hey/data/constants";
+import type { AccountFragment } from "@hey/indexer";
 import { describe, expect, it } from "vitest";
 import formatAddress from "./formatAddress";
 import getAccount from "./getAccount";
@@ -25,7 +26,7 @@ describe("getAccount", () => {
 
   it("returns deleted account", () => {
     const account: Account = { owner: NULL_ADDRESS, address };
-    expect(getAccount(account as any)).toEqual({
+    expect(getAccount(account as unknown as AccountFragment)).toEqual({
       name: "Deleted Account",
       link: "",
       username: "deleted",
@@ -40,7 +41,7 @@ describe("getAccount", () => {
       metadata: { name: "Alice✓" },
       username: { value: `${LENS_NAMESPACE}alice`, localName: "alice" }
     };
-    expect(getAccount(account as any)).toEqual({
+    expect(getAccount(account as unknown as AccountFragment)).toEqual({
       name: "Alice",
       link: "/u/alice",
       username: "alice",
@@ -51,7 +52,7 @@ describe("getAccount", () => {
   it("uses address when username missing", () => {
     const account: Account = { owner: "0x1", address };
     const formatted = formatAddress(address);
-    expect(getAccount(account as any)).toEqual({
+    expect(getAccount(account as unknown as AccountFragment)).toEqual({
       name: formatted,
       link: `/account/${address}`,
       username: formatted,
