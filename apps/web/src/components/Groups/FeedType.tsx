@@ -2,12 +2,12 @@ import { Tabs } from "@/components/Shared/UI";
 import { GroupsFeedType } from "@hey/data/enums";
 import type { Dispatch, SetStateAction } from "react";
 
-interface FocusTypeProps {
+interface FeedTypeProps {
   feedType: GroupsFeedType;
   setFeedType: Dispatch<SetStateAction<GroupsFeedType>>;
 }
 
-const FeedType = ({ feedType, setFeedType }: FocusTypeProps) => {
+const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
   const tabs = [
     { name: "Managed groups", type: GroupsFeedType.Managed },
     { name: "Your groups", type: GroupsFeedType.Member }
