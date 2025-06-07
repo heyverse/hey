@@ -32,7 +32,7 @@ import StaffAccountOverview from "@/components/Staff/Account";
 import StaffOverview from "@/components/Staff/Overview";
 import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 
-export const Routes = () => {
+const Routes = () => {
   return (
     <BrowserRouter>
       <RouterRoutes>
@@ -91,3 +91,5 @@ export const Routes = () => {
     </BrowserRouter>
   );
 };
+
+export default Routes;
