@@ -17,4 +17,22 @@ describe("parseJwt", () => {
       act: { sub: "" }
     });
   });
+
+  it("handles token with missing sections", () => {
+    expect(parseJwt("onlytwo.sections")).toEqual({
+      sub: "",
+      exp: 0,
+      sid: "",
+      act: { sub: "" }
+    });
+  });
+
+  it("handles malformed base64", () => {
+    expect(parseJwt("a.!!!.b")).toEqual({
+      sub: "",
+      exp: 0,
+      sid: "",
+      act: { sub: "" }
+    });
+  });
 });
