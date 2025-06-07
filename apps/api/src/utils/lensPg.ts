@@ -19,7 +19,7 @@ type DatabaseQuery = string;
 class Database {
   private _connectionBase: IConnectionParameters = {
     idleTimeoutMillis: 50000,
-    max: 15000,
+    max: 50,
     connectionString: process.env.LENS_DATABASE_URL
   };
 
