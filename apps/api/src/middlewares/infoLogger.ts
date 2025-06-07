@@ -1,9 +1,5 @@
 import type { Context, Next } from "hono";
 
-/**
- * Logs request method, path, user agent, timing and memory usage.
- */
-
 const getReadableUserAgent = (ua: string) => {
   switch (true) {
     case ua.includes("GPTBot"):
