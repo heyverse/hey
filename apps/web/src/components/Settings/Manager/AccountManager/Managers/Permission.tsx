@@ -10,13 +10,13 @@ import {
 } from "@hey/indexer";
 import { useState } from "react";
 
-interface PermissionsProps {
+interface PermissionProps {
   title: string;
   enabled: boolean;
   manager: AccountManagerFragment;
 }
 
-const Permission = ({ title, enabled, manager }: PermissionsProps) => {
+const Permission = ({ title, enabled, manager }: PermissionProps) => {
   const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useAuthModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
