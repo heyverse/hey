@@ -13,7 +13,6 @@ const getPost = async (ctx: Context) => {
   try {
     const { slug } = ctx.req.param();
 
-    // TODO: Remove this after some time till all search engines have updated
     // INFO: In Lens v2, the post slug is prefixed with 0x
     if (slug.startsWith("0x")) {
       return ctx.html(defaultMetadata, 404);
