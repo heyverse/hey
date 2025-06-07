@@ -1,7 +1,7 @@
 import authLink from "@/helpers/authLink";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { ApolloProvider } from "@apollo/client";
-import apolloClient from "@hey/indexer/apollo/client";
+import { createApolloClient } from "@hey/indexer/apollo/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import ErrorBoundary from "../ErrorBoundary";
@@ -12,7 +12,7 @@ export const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
 
-const lensApolloClient = apolloClient(authLink);
+const lensApolloClient = createApolloClient(authLink);
 
 interface ProvidersProps {
   children: ReactNode;

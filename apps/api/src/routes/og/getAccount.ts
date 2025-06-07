@@ -19,7 +19,7 @@ const getAccount = async (ctx: Context) => {
       return ctx.html(cachedAccount, 200);
     }
 
-    const { data } = await apolloClient().query({
+    const { data } = await apolloClient.query({
       query: AccountDocument,
       variables: { request: { username: { localName: username } } },
       fetchPolicy: "no-cache"

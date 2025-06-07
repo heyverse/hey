@@ -4,7 +4,7 @@ import cache from "./cache";
 import httpLink from "./httpLink";
 import retryLink from "./retryLink";
 
-const apolloClient = (authLink?: ApolloLink) =>
+export const createApolloClient = (authLink?: ApolloLink) =>
   new ApolloClient({
     cache,
     connectToDevTools: true,
@@ -12,5 +12,7 @@ const apolloClient = (authLink?: ApolloLink) =>
       ? from([authLink, retryLink, httpLink])
       : from([retryLink, httpLink])
   });
+
+const apolloClient = createApolloClient();
 
 export default apolloClient;

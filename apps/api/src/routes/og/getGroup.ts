@@ -18,7 +18,7 @@ const getGroup = async (ctx: Context) => {
       return ctx.html(cachedGroup, 200);
     }
 
-    const { data } = await apolloClient().query({
+    const { data } = await apolloClient.query({
       query: GroupDocument,
       variables: { request: { group: address } },
       fetchPolicy: "no-cache"
