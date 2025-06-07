@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 import EnvironmentPlugin from "vite-plugin-environment";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-const dependenciesToChunk = {
+const dependenciesToChunk: Record<string, string[]> = {
   wevm: ["wagmi", "family", "viem", "viem/zksync"],
   indexer: ["@hey/indexer"],
   react: [
@@ -63,7 +63,7 @@ export default defineConfig({
     cssMinify: "lightningcss",
     rollupOptions: {
       output: {
-        assetFileNames: (assetInfo) => {
+        assetFileNames: (assetInfo: { name: string | undefined }): string => {
           if (/\.woff2$/.test(assetInfo.name ?? "")) {
             return "assets/fonts/[name][extname]";
           }

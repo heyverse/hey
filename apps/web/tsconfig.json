@@ -5,5 +5,5 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["**/*.ts", "**/*.tsx", "vite.config.mjs"]
+  "include": ["**/*.ts", "**/*.tsx", "vite.config.ts"]
 }
