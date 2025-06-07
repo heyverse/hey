@@ -66,13 +66,12 @@ const PersonalizeSettingsForm = () => {
     fetchPolicy: "no-cache"
   });
 
-  const onCompleted = (hash: string) => {
-    pollTransactionStatus(hash, async () => {
-      const accountData = await getCurrentAccountDetails();
-      setCurrentAccount(accountData?.data?.me.loggedInAs.account);
-      setIsSubmitting(false);
-      toast.success("Account updated");
-    });
+  const onCompleted = async (hash: string) => {
+    await pollTransactionStatus(hash);
+    const accountData = await getCurrentAccountDetails();
+    setCurrentAccount(accountData?.data?.me.loggedInAs.account);
+    setIsSubmitting(false);
+    toast.success("Account updated");
   };
 
   const onError = (error: ApolloClientError) => {

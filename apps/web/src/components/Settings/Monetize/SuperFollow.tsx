@@ -54,12 +54,11 @@ const SuperFollow = () => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
-  const onCompleted = (hash: string) => {
-    pollTransactionStatus(hash, async () => {
-      const accountData = await getCurrentAccountDetails();
-      setCurrentAccount(accountData?.data?.me.loggedInAs.account);
-      location.reload();
-    });
+  const onCompleted = async (hash: string) => {
+    await pollTransactionStatus(hash);
+    const accountData = await getCurrentAccountDetails();
+    setCurrentAccount(accountData?.data?.me.loggedInAs.account);
+    location.reload();
   };
 
   const onError = (error: ApolloClientError) => {

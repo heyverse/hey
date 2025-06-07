@@ -20,13 +20,12 @@ const Unwrap = ({ value, refetch }: UnwrapProps) => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = async (hash: string) => {
     setShowModal(false);
-    pollTransactionStatus(hash, () => {
-      setIsSubmitting(false);
-      refetch();
-      toast.success("Unwrap Successful");
-    });
+    await pollTransactionStatus(hash);
+    setIsSubmitting(false);
+    refetch();
+    toast.success("Unwrap Successful");
   };
 
   const onError = (error: ApolloClientError) => {

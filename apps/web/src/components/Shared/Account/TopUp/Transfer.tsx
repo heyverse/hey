@@ -37,14 +37,13 @@ const Transfer = ({ token }: TransferProps) => {
     query: { refetchInterval: 2000 }
   });
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = async (hash: string) => {
     setAmount(2);
     setOther(false);
-    pollTransactionStatus(hash, () => {
-      setIsSubmitting(false);
-      setShowFundModal(false);
-      toast.success("Transferred successfully");
-    });
+    await pollTransactionStatus(hash);
+    setIsSubmitting(false);
+    setShowFundModal(false);
+    toast.success("Transferred successfully");
   };
 
   const onError = (error: ApolloClientError) => {

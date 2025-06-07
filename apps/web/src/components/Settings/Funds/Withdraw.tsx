@@ -21,13 +21,12 @@ const Withdraw = ({ currency, value, refetch }: WithdrawProps) => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = async (hash: string) => {
     setShowModal(false);
-    pollTransactionStatus(hash, () => {
-      setIsSubmitting(false);
-      refetch();
-      toast.success("Withdrawal Successful");
-    });
+    await pollTransactionStatus(hash);
+    setIsSubmitting(false);
+    refetch();
+    toast.success("Withdrawal Successful");
   };
 
   const onError = (error: ApolloClientError) => {

@@ -51,8 +51,9 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
     setAmount(simplePaymentAmount || 0);
   }, [simplePaymentAmount]);
 
-  const onCompleted = (hash: string) => {
-    pollTransactionStatus(hash, () => location.reload());
+  const onCompleted = async (hash: string) => {
+    await pollTransactionStatus(hash);
+    location.reload();
   };
 
   const onError = (error: ApolloClientError) => {

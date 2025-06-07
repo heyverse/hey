@@ -26,14 +26,13 @@ const AddAccountManager = ({
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = async (hash: string) => {
     setIsSubmitting(false);
     setShowAddManagerModal(false);
     const toastId = toast.loading("Adding manager...");
-    pollTransactionStatus(hash, () => {
-      toast.success("Manager added successfully", { id: toastId });
-      location.reload();
-    });
+    await pollTransactionStatus(hash);
+    toast.success("Manager added successfully", { id: toastId });
+    location.reload();
   };
 
   const onError = (error: ApolloClientError) => {

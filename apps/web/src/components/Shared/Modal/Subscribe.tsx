@@ -35,8 +35,9 @@ const Subscribe = () => {
     fetchPolicy: "no-cache"
   });
 
-  const onCompleted = (hash: string) => {
-    pollTransactionStatus(hash, () => location.reload());
+  const onCompleted = async (hash: string) => {
+    await pollTransactionStatus(hash);
+    location.reload();
   };
 
   const onError = (error: ApolloClientError) => {

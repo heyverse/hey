@@ -20,13 +20,12 @@ const Wrap = ({ value, refetch }: WrapProps) => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const pollTransactionStatus = usePollTransactionStatus();
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = async (hash: string) => {
     setShowModal(false);
-    pollTransactionStatus(hash, () => {
-      setIsSubmitting(false);
-      refetch();
-      toast.success("Wrap Successful");
-    });
+    await pollTransactionStatus(hash);
+    setIsSubmitting(false);
+    refetch();
+    toast.success("Wrap Successful");
   };
 
   const onError = (error: ApolloClientError) => {
