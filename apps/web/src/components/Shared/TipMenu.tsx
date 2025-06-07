@@ -9,18 +9,16 @@ import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY, NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import {
   type AccountFragment,
-  PaymentSource,
   type PostFragment,
   type TippingAmountInput,
+  useAccountBalancesQuery,
   useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import { formatEther } from "viem";
-import { useBalance } from "wagmi";
-import SwapButton from "./SwapButton";
+import TopUpButton from "./Account/TopUp/Button";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -40,9 +38,11 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
-  const { data: balance, isLoading: balanceLoading } = useBalance({
-    address: currentAccount?.owner,
-    query: { refetchInterval: 3000, enabled: Boolean(currentAccount?.address) }
+  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
+    variables: { request: { includeNative: true } },
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
+    fetchPolicy: "no-cache"
   });
 
   const updateCache = () => {
@@ -80,8 +80,11 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   };
 
   const cryptoRate = Number(amount);
-  const erc20Balance = Number(formatEther(balance?.value ?? 0n)).toFixed(2);
-  const canTip = Number(erc20Balance) >= cryptoRate;
+  const nativeBalance =
+    balance?.accountBalances[0].__typename === "NativeAmount"
+      ? Number(balance.accountBalances[0].value).toFixed(2)
+      : 0;
+  const canTip = Number(nativeBalance) >= cryptoRate;
 
   const [executePostAction] = useExecutePostActionMutation({
     onCompleted: async ({ executePostAction }) => {
@@ -129,8 +132,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     const tipping: TippingAmountInput = {
       // 11 is a calculated value based on the referral pool of 20% and the Lens fee of 2.1% after the 1.5% lens fees cut
       referrals: [{ address: HEY_TREASURY, percent: 11 }],
-      native: cryptoRate.toString(),
-      paymentSource: PaymentSource.Signer
+      native: cryptoRate.toString()
     };
 
     if (post) {
@@ -160,8 +162,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
         <div className="flex items-center space-x-1 text-gray-500 text-xs dark:text-gray-200">
           <span>Balance:</span>
           <span>
-            {erc20Balance ? (
-              `${erc20Balance} ${NATIVE_TOKEN_SYMBOL}`
+            {nativeBalance ? (
+              `${nativeBalance} ${NATIVE_TOKEN_SYMBOL}`
             ) : (
               <div className="shimmer h-2.5 w-14 rounded-full" />
             )}
@@ -234,7 +236,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           <b>Tip ${amount}</b>
         </Button>
       ) : (
-        <SwapButton className="w-full" />
+        <TopUpButton className="w-full" />
       )}
     </div>
   );

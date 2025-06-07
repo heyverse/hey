@@ -1,5 +1,5 @@
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
-import SwapButton from "@/components/Shared/SwapButton";
 import { Button, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getCollectActionData from "@/helpers/getCollectActionData";
@@ -8,16 +8,13 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY } from "@hey/data/constants";
 import {
-  PaymentSource,
   type PostActionFragment,
   type PostFragment,
-  useExecutePostActionMutation,
-  usePrepareSignerErc20ApprovalMutation
+  useAccountBalancesQuery,
+  useExecutePostActionMutation
 } from "@hey/indexer";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
-import { type Hex, erc20Abi, formatEther } from "viem";
-import { useReadContract, useWaitForTransactionReceipt } from "wagmi";
 
 interface CollectActionButtonProps {
   collects: number;
@@ -34,7 +31,6 @@ const CollectActionButton = ({
 }: CollectActionButtonProps) => {
   const collectAction = getCollectActionData(postAction as any);
   const { currentAccount } = useAccountStore();
-  const [approvalHash, setApprovalHash] = useState<Hex | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
     collectAction?.price ? false : post.operations?.hasSimpleCollected
@@ -87,18 +83,17 @@ const CollectActionButton = ({
     errorToast(error);
   };
 
-  const { data: balance, isLoading: balanceLoading } = useReadContract({
-    address: assetAddress,
-    abi: erc20Abi,
-    functionName: "balanceOf",
-    args: [currentAccount?.owner],
-    query: {
-      refetchInterval: 3000,
-      enabled: Boolean(currentAccount?.owner) && Boolean(assetAddress)
-    }
+  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
+    variables: { request: { tokens: [assetAddress] } },
+    pollInterval: 3000,
+    skip: !assetAddress || !currentAccount?.address,
+    fetchPolicy: "no-cache"
   });
 
-  const erc20Balance = Number(formatEther(balance ?? 0n)).toFixed(2);
+  const erc20Balance =
+    balance?.accountBalances[0].__typename === "Erc20Amount"
+      ? balance.accountBalances[0].value
+      : 0;
 
   let hasAmount = false;
   if (Number.parseFloat(erc20Balance) < amount) {
@@ -107,38 +102,10 @@ const CollectActionButton = ({
     hasAmount = true;
   }
 
-  const [prepareSignerErc20Approval] = usePrepareSignerErc20ApprovalMutation({
-    onCompleted: async ({ prepareSignerErc20Approval }) => {
-      return await handleTransactionLifecycle({
-        transactionData: prepareSignerErc20Approval,
-        onCompleted: async (hash) => setApprovalHash(hash as Hex),
-        onError
-      });
-    }
-  });
-
   const [executePostAction] = useExecutePostActionMutation({
-    variables: {
-      request: {
-        post: post.id,
-        action: {
-          simpleCollect: {
-            selected: true,
-            referrals: [{ address: HEY_TREASURY, percent: 100 }],
-            paymentSource: PaymentSource.Signer
-          }
-        }
-      }
-    },
     onCompleted: async ({ executePostAction }) => {
       if (executePostAction.__typename === "ExecutePostActionResponse") {
         return onCompleted();
-      }
-
-      if (executePostAction.__typename === "SignerErc20ApprovalRequired") {
-        return await prepareSignerErc20Approval({
-          variables: { request: { approval: { infinite: assetAddress } } }
-        });
       }
 
       return await handleTransactionLifecycle({
@@ -150,21 +117,22 @@ const CollectActionButton = ({
     onError
   });
 
-  const { data: transactionReceipt } = useWaitForTransactionReceipt({
-    hash: approvalHash as Hex,
-    query: { enabled: Boolean(approvalHash) }
-  });
-
-  useEffect(() => {
-    if (transactionReceipt) {
-      setApprovalHash(null);
-      executePostAction();
-    }
-  }, [transactionReceipt]);
-
   const handleCreateCollect = async () => {
     setIsSubmitting(true);
-    return await executePostAction();
+
+    return await executePostAction({
+      variables: {
+        request: {
+          post: post.id,
+          action: {
+            simpleCollect: {
+              selected: true,
+              referrals: [{ address: HEY_TREASURY, percent: 100 }]
+            }
+          }
+        }
+      }
+    });
   };
 
   if (!currentAccount) {
@@ -196,7 +164,7 @@ const CollectActionButton = ({
 
   if (!hasAmount) {
     return (
-      <SwapButton
+      <TopUpButton
         className="mt-5 w-full"
         token={{ contractAddress: assetAddress, symbol: assetSymbol }}
       />
