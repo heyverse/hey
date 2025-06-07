@@ -1,6 +1,6 @@
 import ThumbnailsShimmer from "@/components/Shared/Shimmer/ThumbnailsShimmer";
 import { Spinner } from "@/components/Shared/UI";
-import { generateVideoThumbnails } from "@/helpers/generateVideoThumbnails";
+import generateVideoThumbnails from "@/helpers/generateVideoThumbnails";
 import getFileFromDataURL from "@/helpers/getFileFromDataURL";
 import { uploadFileToIPFS } from "@/helpers/uploadToIPFS";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";

@@ -1,54 +1,56 @@
-const canvasImageFromVideo = (
-  file: File,
-  currentTime: number
-): Promise<string> => {
-  return new Promise((resolve) => {
-    const video = document.createElement("video");
-    const canvas = document.createElement("canvas");
-    video.autoplay = true;
-    video.muted = true;
-    video.src = URL.createObjectURL(file);
-    video.onloadedmetadata = () => {
-      video.currentTime = currentTime;
-    };
-    video.oncanplay = () => {
-      setTimeout(() => {
-        const ctx = canvas.getContext("2d");
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-        return resolve(canvas.toDataURL("image/png"));
-      }, 100);
-    };
-  });
-};
-
-export const generateVideoThumbnails = (
+const generateVideoThumbnails = async (
   file: File,
   count: number
 ): Promise<string[]> => {
-  return new Promise((resolve) => {
-    try {
-      if (!file.size) {
-        return [];
-      }
-      // creating video element to get duration
-      const video = document.createElement("video");
-      video.autoplay = true;
-      video.muted = true;
-      video.src = URL.createObjectURL(file);
-      video.onloadeddata = async () => {
-        const thumbnailArray: string[] = [];
-        const averageSplitTime = Math.floor(video.duration / count);
-        for (let i = 0; i < count; i++) {
-          const currentTime = averageSplitTime * i;
-          const thumbnail = await canvasImageFromVideo(file, currentTime);
-          thumbnailArray.push(thumbnail);
-        }
-        resolve(thumbnailArray);
+  if (!file.size) {
+    return [];
+  }
+
+  const url = URL.createObjectURL(file);
+  const video = document.createElement("video");
+  const canvas = document.createElement("canvas");
+  video.muted = true;
+  video.src = url;
+
+  try {
+    await new Promise<void>((resolve, reject) => {
+      video.onloadeddata = () => {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        resolve();
       };
-    } catch {
-      resolve([]);
-    }
-  });
+      video.onerror = () => reject();
+    });
+
+    let queue: Promise<void> = Promise.resolve();
+    const seekAndCapture = (time: number): Promise<string> => {
+      const result = queue.then(
+        () =>
+          new Promise<string>((resolve) => {
+            const handleSeeked = () => {
+              const ctx = canvas.getContext("2d");
+              ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+              resolve(canvas.toDataURL("image/png"));
+            };
+            video.addEventListener("seeked", handleSeeked, { once: true });
+            video.currentTime = time;
+          })
+      );
+      queue = result.then(() => undefined);
+      return result;
+    };
+
+    const step = video.duration / count;
+    return await Promise.all(
+      Array.from({ length: count }).map((_, i) => seekAndCapture(step * i))
+    );
+  } catch {
+    return [];
+  } finally {
+    video.remove();
+    canvas.remove();
+    URL.revokeObjectURL(url);
+  }
 };
+
+export default generateVideoThumbnails;
