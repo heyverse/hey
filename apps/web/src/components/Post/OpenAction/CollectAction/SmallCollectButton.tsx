@@ -1,7 +1,7 @@
 import { Button, Modal } from "@/components/Shared/UI";
 import type { PostFragment } from "@hey/indexer";
 import { useState } from "react";
-import CollectActionBody from "./CollectActionBody";
+import CollectActionData from "./CollectActionData";
 
 interface SmallCollectButtonProps {
   post: PostFragment;
@@ -25,7 +25,7 @@ const SmallCollectButton = ({ post }: SmallCollectButtonProps) => {
         show={showCollectModal}
         title="Collect"
       >
-        <CollectActionBody
+        <CollectActionData
           post={post}
           setShowCollectModal={setShowCollectModal}
         />

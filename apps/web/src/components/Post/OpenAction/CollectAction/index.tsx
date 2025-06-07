@@ -5,7 +5,7 @@ import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
 import { useState } from "react";
-import CollectActionBody from "./CollectActionBody";
+import CollectActionData from "./CollectActionData";
 
 interface CollectActionProps {
   post: PostFragment;
@@ -46,7 +46,7 @@ const CollectAction = ({ post }: CollectActionProps) => {
         show={showCollectModal}
         title="Collect"
       >
-        <CollectActionBody
+        <CollectActionData
           post={post}
           setShowCollectModal={setShowCollectModal}
         />

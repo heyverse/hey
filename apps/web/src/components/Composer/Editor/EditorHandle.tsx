@@ -4,7 +4,7 @@ import type { Editor } from "prosekit/core";
 import type { FC, ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 
-interface EditorHandle {
+export interface EditorHandle {
   insertText: (text: string) => void;
   setMarkdown: (markdown: string) => void;
 }
