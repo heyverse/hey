@@ -112,7 +112,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     reset();
   };
 
-  const onError = (error?: unknown) => {
+  const onError = (error?: any) => {
     setIsSubmitting(false);
     errorToast(error);
   };

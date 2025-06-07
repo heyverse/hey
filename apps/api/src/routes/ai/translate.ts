@@ -19,14 +19,14 @@ const translate = async (ctx: Context) => {
       return ctx.json({ success: true, data: { text: cachedData } });
     }
 
-    const metadata = await lensPg.query(
+    const metadata = (await lensPg.query(
       `
         SELECT content, language
         FROM post.metadata
         WHERE post = $1;
       `,
       [getDbPostId(post)]
-    );
+    )) as Array<{ content?: string }>;
 
     const text = metadata[0]?.content;
 

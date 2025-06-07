@@ -6,13 +6,13 @@ import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
 // Sync accounts with score > 90
 const syncHQScoreAccountsToGuild = async (ctx: Context) => {
   try {
-    const accounts = await lensPg.query(
+    const accounts = (await lensPg.query(
       `
-        SELECT DISTINCT account 
+        SELECT DISTINCT account
         FROM ml.account_score
         WHERE score > 90;
       `
-    );
+    )) as Array<{ account: Buffer }>;
 
     const addresses = accounts.map((account) =>
       `0x${account.account.toString("hex")}`.toLowerCase()

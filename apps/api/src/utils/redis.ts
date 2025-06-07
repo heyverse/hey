@@ -52,7 +52,7 @@ export const generateExtraLongExpiry = (): number => {
 
 export const setRedis = async (
   key: string,
-  value: boolean | number | string | Record<string, unknown> | unknown[],
+  value: boolean | number | Record<string, any> | string,
   expiry = generateSmallExpiry()
 ) => {
   if (!redisClient) {

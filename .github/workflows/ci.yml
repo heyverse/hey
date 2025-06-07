@@ -6,8 +6,8 @@ on:
     branches: [main]
 
 jobs:
-  test:
-    name: Test
+  ci:
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,3 +18,4 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install
       - run: pnpm test
+      - run: pnpm build

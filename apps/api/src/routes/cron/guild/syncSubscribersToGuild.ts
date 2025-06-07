@@ -7,14 +7,14 @@ import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
 // Sync accounts that has current subscriber status
 const syncSubscribersToGuild = async (ctx: Context) => {
   try {
-    const accounts = await lensPg.query(
+    const accounts = (await lensPg.query(
       `
         SELECT account
         FROM "group"."member"
         WHERE "group"::TEXT LIKE $1;
       `,
       [`%${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}%`]
-    );
+    )) as Array<{ account: Buffer }>;
 
     const addresses = accounts.map((account) =>
       `0x${account.account.toString("hex")}`.toLowerCase()

@@ -3,9 +3,7 @@ import { Errors } from "@hey/data/errors";
 import { immutable } from "@lens-chain/storage-client";
 import { storageClient } from "./storageClient";
 
-const uploadMetadata = async (
-  data: Record<string, unknown>
-): Promise<string> => {
+const uploadMetadata = async (data: any): Promise<string> => {
   try {
     const { uri } = await storageClient.uploadAsJson(data, {
       acl: immutable(CHAIN.id)

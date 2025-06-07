@@ -7,17 +7,13 @@ import { Link } from "react-router";
 const LicensePicker = () => {
   const { license, setLicense } = usePostLicenseStore();
 
-  const otherOptions: {
-    label: string;
-    selected: boolean;
-    value: MetadataLicenseType;
-  }[] = Object.values(MetadataLicenseType)
+  const otherOptions = Object.values(MetadataLicenseType)
     .filter((type) => getAssetLicense(type))
     .map((type) => ({
       label: getAssetLicense(type)?.label as string,
       selected: license === type,
       value: type
-    }));
+    })) as any;
 
   const options = [
     {

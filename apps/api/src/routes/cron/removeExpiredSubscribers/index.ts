@@ -7,7 +7,7 @@ import ABI from "./ABI";
 
 const removeExpiredSubscribers = async (ctx: Context) => {
   try {
-    const accounts = await lensPg.query(
+    const accounts = (await lensPg.query(
       `
         SELECT account
         FROM "group"."member"
@@ -16,7 +16,7 @@ const removeExpiredSubscribers = async (ctx: Context) => {
         LIMIT 1000;
       `,
       [`\\x${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}`]
-    );
+    )) as Array<{ account: Buffer }>;
 
     const addresses = accounts.map((account) =>
       `0x${account.account.toString("hex")}`.toLowerCase()

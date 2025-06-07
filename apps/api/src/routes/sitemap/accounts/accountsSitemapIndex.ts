@@ -14,13 +14,13 @@ const accountsSitemapIndex = async (ctx: Context) => {
     if (cachedData) {
       totalUsernames = Number(cachedData);
     } else {
-      const usernames = await lensPg.query(
+      const usernames = (await lensPg.query(
         `
           SELECT CEIL(COUNT(*) / $1) AS count
           FROM account.username_assigned;
         `,
         [SITEMAP_BATCH_SIZE]
-      );
+      )) as Array<{ count: number }>;
 
       totalUsernames = Number(usernames[0]?.count) || 0;
       await setRedis(cacheKey, totalUsernames, hoursToSeconds(50 * 24));

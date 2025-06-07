@@ -39,7 +39,7 @@ const FollowersYouKnowOverview = ({
 
   const renderAccountNames = () => {
     const names = accounts.map(
-      (account) => getAccount(account.follower as Follower).name
+      (account) => getAccount(account.follower as any).name
     );
     const count = names.length - 3;
 

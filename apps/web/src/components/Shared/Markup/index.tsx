@@ -30,7 +30,7 @@ const Markup = ({ children, className = "", mentions = [] }: MarkupProps) => {
   }
 
   const components = {
-    a: (props: React.HTMLProps<HTMLAnchorElement>) => {
+    a: (props: any) => {
       return <MarkupLink mentions={mentions} title={props.title} />;
     },
     code: Code

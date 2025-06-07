@@ -12,6 +12,7 @@
     "prisma:format": "prisma format --schema ./src/prisma/schema.prisma",
     "prisma:migrate": "prisma migrate dev --schema ./src/prisma/schema.prisma",
     "start": "tsx watch src/index.ts",
+    "test": "vitest",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
     "@hey/config": "workspace:*",
     "@types/node": "^22.15.30",
     "prisma": "^6.9.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
   }
 }

@@ -48,10 +48,10 @@ const NewAttachments = ({
     }
   }, [videoRef, attachments]);
 
-  const handleRemoveAttachment = (attachment: NewAttachment) => {
+  const handleRemoveAttachment = (attachment: any) => {
     const arr = attachments;
     setAttachments(
-      arr.filter((element: NewAttachment) => {
+      arr.filter((element: any) => {
         return element !== attachment;
       })
     );

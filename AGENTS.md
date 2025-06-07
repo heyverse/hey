@@ -40,3 +40,12 @@ This repository follows coding and collaboration conventions summarized from `.c
 
 - [Lens Protocol Docs](https://lens.xyz/docs/protocol)
 - [Grove Storage Docs](https://lens.xyz/docs/storage)
+
+## Note
+
+Make sure to run all the following commands before committing:
+
+- pnpm test
+- pnpm biome:check
+- pnpm typecheck
+- pnpm build
