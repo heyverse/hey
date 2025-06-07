@@ -6,6 +6,7 @@ import {
   type GroupFragment,
   useCancelGroupMembershipRequestMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -39,7 +40,7 @@ const CancelGroupMembershipRequest = ({
     toast.success("Request cancelled");
   };
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

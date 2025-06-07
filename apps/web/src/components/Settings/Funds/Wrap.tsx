@@ -4,6 +4,7 @@ import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { WRAPPED_NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useWrapTokensMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -28,7 +29,7 @@ const Wrap = ({ value, refetch }: WrapProps) => {
     });
   };
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

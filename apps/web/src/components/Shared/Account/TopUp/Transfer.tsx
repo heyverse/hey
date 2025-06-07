@@ -9,6 +9,7 @@ import {
 } from "@/store/non-persisted/modal/useFundModalStore";
 import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useDepositMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { type ChangeEvent, type RefObject, useRef, useState } from "react";
 import { toast } from "sonner";
 import { formatUnits } from "viem";
@@ -46,7 +47,7 @@ const Transfer = ({ token }: TransferProps) => {
     });
   };
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

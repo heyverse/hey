@@ -3,6 +3,7 @@ import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useApolloClient } from "@apollo/client";
 import { type GroupFragment, useLeaveGroupMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -33,7 +34,7 @@ const Leave = ({ group, small }: LeaveProps) => {
     toast.success("Left group");
   };
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

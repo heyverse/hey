@@ -1,6 +1,7 @@
 import { Errors } from "@hey/data/errors";
 import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
 import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
+import type { ApolloClientError } from "@hey/types/errors";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";
@@ -44,7 +45,7 @@ const useTransactionLifecycle = () => {
   }: {
     transactionData: any;
     onCompleted: (hash: string) => void;
-    onError: (error: any) => void;
+    onError: (error: ApolloClientError) => void;
   }) => {
     try {
       switch (transactionData.__typename) {

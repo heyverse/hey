@@ -8,6 +8,7 @@ import {
   type AccountManagerFragment,
   useUpdateAccountManagerMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 
 interface PermissionsProps {
@@ -41,7 +42,7 @@ const Permission = ({ title, enabled, manager }: PermissionsProps) => {
     setIsSubmitting(false);
   };
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

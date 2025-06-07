@@ -6,6 +6,7 @@ import { PhotoIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@hey/data/constants";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, Ref } from "react";
 import { useState } from "react";
 
@@ -24,7 +25,7 @@ const CoverImage = ({
 }: CoverImageProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

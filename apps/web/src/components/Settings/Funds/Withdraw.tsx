@@ -3,6 +3,7 @@ import errorToast from "@/helpers/errorToast";
 import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useWithdrawMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 import type { Address } from "viem";
@@ -29,7 +30,7 @@ const Withdraw = ({ currency, value, refetch }: WithdrawProps) => {
     });
   };
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

@@ -4,13 +4,14 @@ import { signIn } from "@/store/persisted/useAuthStore";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { useSwitchAccountMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useEffect } from "react";
 import { useSignupStore } from ".";
 
 const Success = () => {
   const { accountAddress, onboardingToken } = useSignupStore();
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     errorToast(error);
   };
 

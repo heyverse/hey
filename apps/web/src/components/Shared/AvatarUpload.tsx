@@ -8,6 +8,7 @@ import { DEFAULT_AVATAR, TRANSFORMS } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, SyntheticEvent } from "react";
 import { useState } from "react";
 import Cropper, { type Area } from "react-easy-crop";
@@ -29,7 +30,7 @@ const AvatarUpload = ({ src, setSrc, isSmall = false }: AvatarUploadProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

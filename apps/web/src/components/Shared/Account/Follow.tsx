@@ -5,6 +5,7 @@ import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { type AccountFragment, useFollowMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 
 interface FollowProps {
@@ -45,7 +46,7 @@ const Follow = ({
     onFollow?.();
   };
 
-  const onError = (error: any) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };
