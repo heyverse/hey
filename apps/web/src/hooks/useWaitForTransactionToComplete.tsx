@@ -5,12 +5,12 @@ const INITIAL_DELAY = 1000;
 const MAX_DELAY = 10000;
 const MAX_TIMEOUT = 60000;
 
-const usePollTransactionStatus = () => {
+const useWaitForTransactionToComplete = () => {
   const [getTransactionStatus] = useTransactionStatusLazyQuery({
     fetchPolicy: "no-cache"
   });
 
-  const pollTransactionStatus = useCallback(
+  const waitForTransactionToComplete = useCallback(
     async (hash: string, timeout = MAX_TIMEOUT) => {
       let delay = INITIAL_DELAY;
       const startTime = Date.now();
@@ -33,7 +33,7 @@ const usePollTransactionStatus = () => {
     [getTransactionStatus]
   );
 
-  return pollTransactionStatus;
+  return waitForTransactionToComplete;
 };
 
-export default usePollTransactionStatus;
+export default useWaitForTransactionToComplete;

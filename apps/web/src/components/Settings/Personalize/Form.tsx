@@ -14,8 +14,8 @@ import errorToast from "@/helpers/errorToast";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
 import trimify from "@/helpers/trimify";
 import uploadMetadata from "@/helpers/uploadMetadata";
-import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
@@ -61,13 +61,13 @@ const PersonalizeSettingsForm = () => {
     currentAccount?.metadata?.coverPicture
   );
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const pollTransactionStatus = usePollTransactionStatus();
+  const waitForTransactionToComplete = useWaitForTransactionToComplete();
   const [getCurrentAccountDetails] = useMeLazyQuery({
     fetchPolicy: "no-cache"
   });
 
   const onCompleted = async (hash: string) => {
-    await pollTransactionStatus(hash);
+    await waitForTransactionToComplete(hash);
     const accountData = await getCurrentAccountDetails();
     setCurrentAccount(accountData?.data?.me.loggedInAs.account);
     setIsSubmitting(false);

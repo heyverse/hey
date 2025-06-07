@@ -9,8 +9,8 @@ import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import usePollTransactionStatus from "./usePollTransactionStatus";
 import useTransactionLifecycle from "./useTransactionLifecycle";
+import useWaitForTransactionToComplete from "./useWaitForTransactionToComplete";
 
 interface CreatePostProps {
   commentOn?: PostFragment;
@@ -25,7 +25,7 @@ const useCreatePost = ({
 }: CreatePostProps) => {
   const navigate = useNavigate();
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const pollTransactionStatus = usePollTransactionStatus();
+  const waitForTransactionToComplete = useWaitForTransactionToComplete();
   const [getPost] = usePostLazyQuery();
   const { cache } = useApolloClient();
   const isComment = Boolean(commentOn);
@@ -60,10 +60,10 @@ const useCreatePost = ({
       const toastId = toast.loading(
         `${isComment ? "Comment" : "Post"} processing...`
       );
-      pollTransactionStatus(hash).then(() => updateCache(hash, toastId));
+      waitForTransactionToComplete(hash).then(() => updateCache(hash, toastId));
       return onCompleted();
     },
-    [pollTransactionStatus, updateCache, onCompleted, isComment]
+    [waitForTransactionToComplete, updateCache, onCompleted, isComment]
   );
 
   // Onchain mutations

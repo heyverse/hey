@@ -1,7 +1,7 @@
 import { Button, Input, Modal } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useUnwrapTokensMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -18,11 +18,11 @@ const Unwrap = ({ value, refetch }: UnwrapProps) => {
   const [showModal, setShowModal] = useState(false);
   const [valueToUnwrap, setValueToUnwrap] = useState(value);
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const pollTransactionStatus = usePollTransactionStatus();
+  const waitForTransactionToComplete = useWaitForTransactionToComplete();
 
   const onCompleted = async (hash: string) => {
     setShowModal(false);
-    await pollTransactionStatus(hash);
+    await waitForTransactionToComplete(hash);
     setIsSubmitting(false);
     refetch();
     toast.success("Unwrap Successful");

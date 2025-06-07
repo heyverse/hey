@@ -1,7 +1,7 @@
 import { Button, Input, Modal } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { WRAPPED_NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useWrapTokensMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -18,11 +18,11 @@ const Wrap = ({ value, refetch }: WrapProps) => {
   const [showModal, setShowModal] = useState(false);
   const [valueToWrap, setValueToWrap] = useState(value);
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const pollTransactionStatus = usePollTransactionStatus();
+  const waitForTransactionToComplete = useWaitForTransactionToComplete();
 
   const onCompleted = async (hash: string) => {
     setShowModal(false);
-    await pollTransactionStatus(hash);
+    await waitForTransactionToComplete(hash);
     setIsSubmitting(false);
     refetch();
     toast.success("Wrap Successful");

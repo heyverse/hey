@@ -1,8 +1,8 @@
 import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getTokenImage from "@/helpers/getTokenImage";
-import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
@@ -26,7 +26,7 @@ const Subscribe = () => {
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const pollTransactionStatus = usePollTransactionStatus();
+  const waitForTransactionToComplete = useWaitForTransactionToComplete();
 
   const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
     variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
@@ -36,7 +36,7 @@ const Subscribe = () => {
   });
 
   const onCompleted = async (hash: string) => {
-    await pollTransactionStatus(hash);
+    await waitForTransactionToComplete(hash);
     location.reload();
   };
 
