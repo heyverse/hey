@@ -10,26 +10,11 @@ import {
   TextArea,
   useZodForm
 } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
-import trimify from "@/helpers/trimify";
-import uploadMetadata from "@/helpers/uploadMetadata";
-import usePollTransactionStatus from "@/hooks/usePollTransactionStatus";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useUpdateAccountMetadata from "@/hooks/useUpdateAccountMetadata";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
-import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
-import type {
-  AccountOptions,
-  MetadataAttribute
-} from "@lens-protocol/metadata";
-import {
-  MetadataAttributeType,
-  account as accountMetadata
-} from "@lens-protocol/metadata";
 import { useState } from "react";
-import { toast } from "sonner";
 import { z } from "zod";
 
 const ValidationSchema = z.object({
@@ -51,48 +36,14 @@ const ValidationSchema = z.object({
 });
 
 const PersonalizeSettingsForm = () => {
-  const { currentAccount, setCurrentAccount } = useAccountStore();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { currentAccount } = useAccountStore();
   const [pfpUrl, setPfpUrl] = useState<string | undefined>(
     currentAccount?.metadata?.picture
   );
   const [coverUrl, setCoverUrl] = useState<string | undefined>(
     currentAccount?.metadata?.coverPicture
   );
-  const handleTransactionLifecycle = useTransactionLifecycle();
-  const pollTransactionStatus = usePollTransactionStatus();
-  const [getCurrentAccountDetails] = useMeLazyQuery({
-    fetchPolicy: "no-cache"
-  });
-
-  const onCompleted = (hash: string) => {
-    pollTransactionStatus(hash, async () => {
-      const accountData = await getCurrentAccountDetails();
-      setCurrentAccount(accountData?.data?.me.loggedInAs.account);
-      setIsSubmitting(false);
-      toast.success("Account updated");
-    });
-  };
-
-  const onError = (error: Error) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  };
-
-  const [setAccountMetadata] = useSetAccountMetadataMutation({
-    onCompleted: async ({ setAccountMetadata }) => {
-      if (setAccountMetadata.__typename === "SetAccountMetadataResponse") {
-        return onCompleted(setAccountMetadata.hash);
-      }
-
-      return await handleTransactionLifecycle({
-        transactionData: setAccountMetadata,
-        onCompleted,
-        onError
-      });
-    },
-    onError
-  });
+  const { updateAccount, isSubmitting } = useUpdateAccountMetadata();
 
   const form = useZodForm({
     defaultValues: {
@@ -113,66 +64,6 @@ const PersonalizeSettingsForm = () => {
     },
     schema: ValidationSchema
   });
-
-  const updateAccount = async (
-    data: z.infer<typeof ValidationSchema>,
-    pfpUrl: string | undefined,
-    coverUrl: string | undefined
-  ) => {
-    if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    setIsSubmitting(true);
-    const otherAttributes =
-      currentAccount.metadata?.attributes
-        ?.filter(
-          (attr) =>
-            !["app", "location", "timestamp", "website", "x"].includes(attr.key)
-        )
-        .map(({ key, type, value }) => ({
-          key,
-          type: MetadataAttributeType[type] as any,
-          value
-        })) || [];
-
-    const preparedAccountMetadata: AccountOptions = {
-      ...(data.name && { name: data.name }),
-      ...(data.bio && { bio: data.bio }),
-      attributes: [
-        ...(otherAttributes as MetadataAttribute[]),
-        {
-          key: "location",
-          type: MetadataAttributeType.STRING,
-          value: data.location
-        },
-        {
-          key: "website",
-          type: MetadataAttributeType.STRING,
-          value: data.website
-        },
-        { key: "x", type: MetadataAttributeType.STRING, value: data.x },
-        {
-          key: "timestamp",
-          type: MetadataAttributeType.STRING,
-          value: new Date().toISOString()
-        }
-      ],
-      coverPicture: coverUrl || undefined,
-      picture: pfpUrl || undefined
-    };
-    preparedAccountMetadata.attributes =
-      preparedAccountMetadata.attributes?.filter((m) => {
-        return m.key !== "" && Boolean(trimify(m.value));
-      });
-    const metadataUri = await uploadMetadata(
-      accountMetadata(preparedAccountMetadata)
-    );
-
-    return await setAccountMetadata({
-      variables: { request: { metadataUri } }
-    });
-  };
 
   const onSetAvatar = async (src: string | undefined) => {
     setPfpUrl(src);

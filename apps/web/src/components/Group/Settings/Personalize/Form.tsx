@@ -10,16 +10,10 @@ import {
   TextArea,
   useZodForm
 } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import uploadMetadata from "@/helpers/uploadMetadata";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { Errors } from "@hey/data/errors";
+import useUpdateGroupMetadata from "@/hooks/useUpdateGroupMetadata";
 import { Regex } from "@hey/data/regex";
-import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
-import { group as groupMetadata } from "@lens-protocol/metadata";
+import type { GroupFragment } from "@hey/indexer";
 import { useState } from "react";
-import { toast } from "sonner";
 import { z } from "zod";
 
 const ValidationSchema = z.object({
@@ -39,40 +33,13 @@ interface PersonalizeSettingsFormProps {
 }
 
 const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
-  const { currentAccount } = useAccountStore();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [pfpUrl, setPfpUrl] = useState<string | undefined>(
     group.metadata?.icon
   );
   const [coverUrl, setCoverUrl] = useState<string | undefined>(
     group.metadata?.coverPicture
   );
-  const handleTransactionLifecycle = useTransactionLifecycle();
-
-  const onCompleted = () => {
-    setIsSubmitting(false);
-    toast.success("Group updated");
-  };
-
-  const onError = (error: Error) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  };
-
-  const [setGroupMetadata] = useSetGroupMetadataMutation({
-    onCompleted: async ({ setGroupMetadata }) => {
-      if (setGroupMetadata.__typename === "SetGroupMetadataResponse") {
-        return onCompleted();
-      }
-
-      return await handleTransactionLifecycle({
-        transactionData: setGroupMetadata,
-        onCompleted,
-        onError
-      });
-    },
-    onError
-  });
+  const { updateGroup, isSubmitting } = useUpdateGroupMetadata(group);
 
   const form = useZodForm({
     defaultValues: {
@@ -81,31 +48,6 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
     },
     schema: ValidationSchema
   });
-
-  const updateGroup = async (
-    data: z.infer<typeof ValidationSchema>,
-    pfpUrl: string | undefined,
-    coverUrl: string | undefined
-  ) => {
-    if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    setIsSubmitting(true);
-
-    const metadataUri = await uploadMetadata(
-      groupMetadata({
-        name: data.name,
-        description: data.description,
-        icon: pfpUrl || undefined,
-        coverPicture: coverUrl || undefined
-      })
-    );
-
-    return await setGroupMetadata({
-      variables: { request: { group: group.address, metadataUri } }
-    });
-  };
 
   const onSetAvatar = async (src: string | undefined) => {
     setPfpUrl(src);

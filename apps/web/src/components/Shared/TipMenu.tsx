@@ -1,23 +1,17 @@
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useTip from "@/hooks/useTip";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useApolloClient } from "@apollo/client";
-import { HEY_TREASURY, NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
+import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import {
   type AccountFragment,
   type PostFragment,
-  type TippingAmountInput,
-  useAccountBalancesQuery,
-  useExecuteAccountActionMutation,
-  useExecutePostActionMutation
+  useAccountBalancesQuery
 } from "@hey/indexer";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
-import { toast } from "sonner";
 import TopUpButton from "./Account/TopUp/Button";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
@@ -30,11 +24,9 @@ interface TipMenuProps {
 
 const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const { currentAccount } = useAccountStore();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [amount, setAmount] = useState(1);
   const [other, setOther] = useState(false);
-  const handleTransactionLifecycle = useTransactionLifecycle();
-  const { cache } = useApolloClient();
+  const { tip, isSubmitting } = useTip({ closePopover, post, account });
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
@@ -45,76 +37,12 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     fetchPolicy: "no-cache"
   });
 
-  const updateCache = () => {
-    if (post) {
-      if (!post.operations) {
-        return;
-      }
-
-      cache.modify({
-        fields: { hasTipped: () => true },
-        id: cache.identify(post.operations)
-      });
-      cache.modify({
-        fields: {
-          stats: (existingData) => ({
-            ...existingData,
-            tips: existingData.tips + 1
-          })
-        },
-        id: cache.identify(post)
-      });
-    }
-  };
-
-  const onCompleted = () => {
-    setIsSubmitting(false);
-    closePopover();
-    updateCache();
-    toast.success(`Tipped ${amount} ${NATIVE_TOKEN_SYMBOL}`);
-  };
-
-  const onError = (error: Error) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  };
-
   const cryptoRate = Number(amount);
   const nativeBalance =
     balance?.accountBalances[0].__typename === "NativeAmount"
       ? Number(balance.accountBalances[0].value).toFixed(2)
       : 0;
   const canTip = Number(nativeBalance) >= cryptoRate;
-
-  const [executePostAction] = useExecutePostActionMutation({
-    onCompleted: async ({ executePostAction }) => {
-      if (executePostAction.__typename === "ExecutePostActionResponse") {
-        return onCompleted();
-      }
-
-      return await handleTransactionLifecycle({
-        transactionData: executePostAction,
-        onCompleted,
-        onError
-      });
-    },
-    onError
-  });
-
-  const [executeAccountAction] = useExecuteAccountActionMutation({
-    onCompleted: async ({ executeAccountAction }) => {
-      if (executeAccountAction.__typename === "ExecuteAccountActionResponse") {
-        return onCompleted();
-      }
-
-      return await handleTransactionLifecycle({
-        transactionData: executeAccountAction,
-        onCompleted,
-        onError
-      });
-    },
-    onError
-  });
 
   const handleSetAmount = (amount: number) => {
     setAmount(amount);
@@ -127,27 +55,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   };
 
   const handleTip = async () => {
-    setIsSubmitting(true);
-
-    const tipping: TippingAmountInput = {
-      // 11 is a calculated value based on the referral pool of 20% and the Lens fee of 2.1% after the 1.5% lens fees cut
-      referrals: [{ address: HEY_TREASURY, percent: 11 }],
-      native: cryptoRate.toString()
-    };
-
-    if (post) {
-      return executePostAction({
-        variables: { request: { post: post.id, action: { tipping } } }
-      });
-    }
-
-    if (account) {
-      return executeAccountAction({
-        variables: {
-          request: { account: account.address, action: { tipping } }
-        }
-      });
-    }
+    await tip(amount);
   };
 
   const amountDisabled = isSubmitting || !currentAccount;
