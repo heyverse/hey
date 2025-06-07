@@ -10,6 +10,5 @@ declare namespace NodeJS {
     SHARED_SECRET: string;
     LIVEPEER_KEY: string;
     OPENROUTER_API_KEY: string;
-    ENABLE_DETAILED_LOGGING: string;
   }
 }

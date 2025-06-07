@@ -1,11 +1,8 @@
 import type { Context, Next } from "hono";
 
 /**
- * Logs request method, path, user agent and timing. When the environment
- * variable `ENABLE_DETAILED_LOGGING` is set to `true`, the log also includes
- * memory usage.
+ * Logs request method, path, user agent, timing and memory usage.
  */
-const isDetailedLoggingEnabled = process.env.ENABLE_DETAILED_LOGGING === "true";
 
 const getReadableUserAgent = (ua: string) => {
   switch (true) {
@@ -25,23 +22,15 @@ const infoLogger = async (c: Context, next: Next) => {
   const ua = c.req.header("User-Agent") || "unknown";
   const readableUa = getReadableUserAgent(ua);
 
-  let startMem = 0;
-  if (isDetailedLoggingEnabled) {
-    startMem = process.memoryUsage().heapUsed;
-  }
+  const startMem = process.memoryUsage().heapUsed;
 
   await next();
 
   const end = performance.now();
-  let message = `[${c.req.method} ${c.req.path}] ➜ [${readableUa}] ➜ ${(
-    end - start
-  ).toFixed(2)}ms`;
-
-  if (isDetailedLoggingEnabled) {
-    const endMem = process.memoryUsage().heapUsed;
-    const memoryUsedMb = ((endMem - startMem) / 1024 / 1024).toFixed(2);
-    message += `, ${memoryUsedMb}mb`;
-  }
+  const endMem = process.memoryUsage().heapUsed;
+  const timeTakenMs = (end - start).toFixed(2);
+  const memoryUsedMb = ((endMem - startMem) / 1024 / 1024).toFixed(2);
+  const message = `[${c.req.method} ${c.req.path}] ➜ [${readableUa}] ➜ ${timeTakenMs}ms, ${memoryUsedMb}mb`;
 
   console.info(message);
 };
