@@ -45,7 +45,8 @@ const getSTS = async (ctx: Context) => {
       data: {
         accessKeyId: credentials?.AccessKeyId,
         secretAccessKey: credentials?.SecretAccessKey,
-        sessionToken: credentials?.SessionToken
+        sessionToken: credentials?.SessionToken,
+        expiration: credentials?.Expiration
       }
     });
   } catch {

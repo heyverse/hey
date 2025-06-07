@@ -1,3 +1,4 @@
+import { hydrateSts, setSts } from "@/store/persisted/useStsStore";
 import { S3 } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 import { CHAIN, EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
@@ -10,7 +11,19 @@ const FALLBACK_TYPE = "image/jpeg";
 const FILE_SIZE_LIMIT_MB = 8 * 1024 * 1024; // 8MB in bytes
 
 const getS3Client = async (): Promise<S3> => {
-  const data = await hono.metadata.sts();
+  let data = hydrateSts();
+  const isExpired = !data || Date.now() >= new Date(data.expiration).getTime();
+
+  if (isExpired) {
+    const fresh = await hono.metadata.sts();
+
+    if (!fresh) {
+      throw new Error("Failed to get S3 client");
+    }
+
+    setSts(fresh);
+    data = fresh;
+  }
 
   if (!data) {
     throw new Error("Failed to get S3 client");

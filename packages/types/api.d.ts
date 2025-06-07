@@ -13,6 +13,7 @@ export type STS = {
   accessKeyId: string;
   secretAccessKey: string;
   sessionToken: string;
+  expiration: string;
 };
 
 export type Live = {

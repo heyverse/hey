@@ -5,5 +5,6 @@ export const Localstorage = {
   SearchStore: "search.store",
   HomeTabStore: "home-tab.store",
   ProStore: "pro.store",
+  StsStore: "sts.store",
   Theme: "theme"
 };
