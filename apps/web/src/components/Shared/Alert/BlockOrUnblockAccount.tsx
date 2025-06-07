@@ -7,6 +7,7 @@ import { useApolloClient } from "@apollo/client";
 import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -47,7 +48,7 @@ const BlockOrUnblockAccount = () => {
     );
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

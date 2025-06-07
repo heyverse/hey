@@ -12,6 +12,7 @@ import {
   useAddReactionMutation,
   useUndoReactionMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { AnimateNumber } from "motion-plus-react";
 import { toast } from "sonner";
@@ -50,7 +51,7 @@ const Like = ({ post, showCount }: LikeProps) => {
     });
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     errorToast(error);
   };
 

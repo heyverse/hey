@@ -4,6 +4,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAccount from "@hey/helpers/getAccount";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -17,7 +18,7 @@ const UnlinkUsername = () => {
     toast.success("Unlinked");
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setUnlinking(false);
     errorToast(error);
   };

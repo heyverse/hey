@@ -7,6 +7,7 @@ import { MenuItem } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { Errors } from "@hey/data/errors";
 import { type PostFragment, useRepostMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
@@ -59,7 +60,7 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
     toast.success("Post has been reposted!");
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

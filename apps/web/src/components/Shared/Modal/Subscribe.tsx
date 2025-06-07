@@ -17,6 +17,7 @@ import {
   useAccountBalancesQuery,
   useJoinGroupMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import SingleAccount from "../Account/SingleAccount";
 import TopUpButton from "../Account/TopUp/Button";
@@ -38,7 +39,7 @@ const Subscribe = () => {
     pollTransactionStatus(hash, () => location.reload());
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

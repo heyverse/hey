@@ -11,6 +11,7 @@ import {
   useHideReplyMutation,
   useUnhideReplyMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { toast } from "sonner";
 
 interface HideCommentProps {
@@ -25,7 +26,7 @@ const HideComment = ({ post }: HideCommentProps) => {
     cache.evict({ id: cache.identify(post) });
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     errorToast(error);
   };
 

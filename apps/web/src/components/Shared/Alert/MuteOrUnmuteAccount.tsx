@@ -6,6 +6,7 @@ import { useApolloClient } from "@apollo/client";
 import { Errors } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import { useMuteMutation, useUnmuteMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -42,7 +43,7 @@ const MuteOrUnmuteAccount = () => {
     toast.success(hasMuted ? "Unmuted successfully" : "Muted successfully");
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

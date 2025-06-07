@@ -5,6 +5,7 @@ import {
   useCreatePostMutation,
   usePostLazyQuery
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
@@ -14,7 +15,7 @@ import useTransactionLifecycle from "./useTransactionLifecycle";
 interface CreatePostProps {
   commentOn?: PostFragment;
   onCompleted: () => void;
-  onError: (error: Error) => void;
+  onError: (error: ApolloClientError) => void;
 }
 
 const useCreatePost = ({

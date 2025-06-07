@@ -5,6 +5,7 @@ import { useProStore } from "@/store/persisted/useProStore";
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { BANNER_IDS } from "@hey/data/constants";
 import { useAddPostNotInterestedMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { toast } from "sonner";
 
 const ProBanner = () => {
@@ -12,7 +13,7 @@ const ProBanner = () => {
   const { proBannerDismissed, setProBannerDismissed } = useProStore();
   // const { setShowProModal } = useProModalStore();
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     errorToast(error);
   };
 

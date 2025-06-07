@@ -4,6 +4,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useDeletePostAlertStore } from "@/store/non-persisted/alert/useDeletePostAlertStore";
 import { useApolloClient } from "@apollo/client";
 import { useDeletePostMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { toast } from "sonner";
 
 const DeletePost = () => {
@@ -24,7 +25,7 @@ const DeletePost = () => {
     toast.success("Post deleted");
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     errorToast(error);
   };
 

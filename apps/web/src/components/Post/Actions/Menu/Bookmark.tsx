@@ -10,6 +10,7 @@ import {
   useBookmarkPostMutation,
   useUndoBookmarkPostMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useLocation } from "react-router";
 import { toast } from "sonner";
 
@@ -49,7 +50,7 @@ const Bookmark = ({ post }: BookmarkProps) => {
     }
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     errorToast(error);
   };
 

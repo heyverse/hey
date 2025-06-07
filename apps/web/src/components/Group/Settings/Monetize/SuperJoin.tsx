@@ -24,6 +24,7 @@ import {
   type GroupRules,
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { type RefObject, useEffect, useRef, useState } from "react";
 
 interface SuperJoinProps {
@@ -54,7 +55,7 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
     pollTransactionStatus(hash, () => location.reload());
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

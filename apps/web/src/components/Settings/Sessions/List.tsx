@@ -10,6 +10,7 @@ import {
   useAuthenticatedSessionsQuery,
   useRevokeAuthenticationMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -27,7 +28,7 @@ const List = () => {
     rootMargin: "0px"
   });
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setRevoking(false);
     setRevokeingSessionId(null);
     errorToast(error);

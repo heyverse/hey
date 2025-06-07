@@ -15,6 +15,7 @@ import {
   useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
@@ -74,7 +75,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     toast.success(`Tipped ${amount} ${NATIVE_TOKEN_SYMBOL}`);
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

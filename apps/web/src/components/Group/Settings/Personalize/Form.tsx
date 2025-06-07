@@ -17,6 +17,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { group as groupMetadata } from "@lens-protocol/metadata";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -54,7 +55,7 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
     toast.success("Group updated");
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

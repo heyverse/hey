@@ -10,6 +10,7 @@ import {
   useAssignUsernameToAccountMutation,
   useUsernamesQuery
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -23,7 +24,7 @@ const LinkUsername = () => {
     toast.success("Linked");
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setLinkingUsername(null);
     errorToast(error);
   };

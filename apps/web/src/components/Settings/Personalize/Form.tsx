@@ -20,6 +20,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Errors } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import type {
   AccountOptions,
   MetadataAttribute
@@ -74,7 +75,7 @@ const PersonalizeSettingsForm = () => {
     });
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

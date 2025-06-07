@@ -7,6 +7,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import { Errors } from "@hey/data/errors";
 import { useAddAccountManagerMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -35,7 +36,7 @@ const AddAccountManager = ({
     });
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

@@ -26,6 +26,7 @@ import {
   useMeLazyQuery,
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { type RefObject, useEffect, useRef, useState } from "react";
 
 const SuperFollow = () => {
@@ -61,7 +62,7 @@ const SuperFollow = () => {
     });
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

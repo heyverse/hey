@@ -11,6 +11,7 @@ import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { Regex } from "@hey/data/regex";
 import { useCreateGroupMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { group } from "@lens-protocol/metadata";
 import { useState } from "react";
 import { z } from "zod";
@@ -44,7 +45,7 @@ const CreateGroupModal = () => {
     setScreen("minting");
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

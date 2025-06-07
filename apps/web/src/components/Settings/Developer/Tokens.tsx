@@ -5,6 +5,7 @@ import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { Errors } from "@hey/data/errors";
 import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useSignMessage } from "wagmi";
@@ -17,7 +18,7 @@ const Tokens = () => {
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

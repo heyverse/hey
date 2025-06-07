@@ -10,6 +10,7 @@ import {
   useAddPostNotInterestedMutation,
   useUndoPostNotInterestedMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { toast } from "sonner";
 
 interface NotInterestedProps {
@@ -34,7 +35,7 @@ const NotInterested = ({ post }: NotInterestedProps) => {
     });
   };
 
-  const onError = (error: Error) => {
+  const onError = (error: ApolloClientError) => {
     errorToast(error);
   };
 
