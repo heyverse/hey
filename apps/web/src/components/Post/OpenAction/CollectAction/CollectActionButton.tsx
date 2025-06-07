@@ -96,12 +96,7 @@ const CollectActionButton = ({
       ? balance.accountBalances[0].value
       : 0;
 
-  let hasAmount = false;
-  if (Number.parseFloat(erc20Balance) < amount) {
-    hasAmount = false;
-  } else {
-    hasAmount = true;
-  }
+  const hasAmount = Number.parseFloat(erc20Balance) >= amount;
 
   const [executePostAction] = useExecutePostActionMutation({
     onCompleted: async ({ executePostAction }) => {

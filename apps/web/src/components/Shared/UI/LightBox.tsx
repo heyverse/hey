@@ -38,10 +38,16 @@ const LightBox = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
-      } else if (e.key === "ArrowRight") {
+        return;
+      }
+
+      if (e.key === "ArrowRight") {
         setCurrentIndex((prev) => Math.min(prev + 1, images.length - 1));
         setIsLoading(true);
-      } else if (e.key === "ArrowLeft") {
+        return;
+      }
+
+      if (e.key === "ArrowLeft") {
         setCurrentIndex((prev) => Math.max(prev - 1, 0));
         setIsLoading(true);
       }

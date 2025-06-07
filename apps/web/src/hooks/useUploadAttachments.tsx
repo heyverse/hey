@@ -90,31 +90,32 @@ const useUploadAttachments = () => {
         attachmentIds.push(id as string);
       }
 
-      if (compressedFiles.every((file) => validateFileSize(file))) {
-        addAttachments(previewAttachments);
-
-        try {
-          const attachmentsUploaded = await uploadToIPFS(compressedFiles);
-          const attachments = attachmentsUploaded.map((uploaded, index) => ({
-            ...previewAttachments[index],
-            mimeType: uploaded.mimeType,
-            uri: uploaded.uri
-          }));
-
-          updateAttachments(attachments);
-          setIsUploading(false);
-
-          return attachments;
-        } catch {
-          toast.error("Something went wrong while uploading!");
-          removeAttachments(attachmentIds);
-        }
-      } else {
+      if (!compressedFiles.every((file) => validateFileSize(file))) {
         removeAttachments(attachmentIds);
+        setIsUploading(false);
+        return [];
       }
 
-      setIsUploading(false);
-      return [];
+      addAttachments(previewAttachments);
+
+      try {
+        const attachmentsUploaded = await uploadToIPFS(compressedFiles);
+        const attachments = attachmentsUploaded.map((uploaded, index) => ({
+          ...previewAttachments[index],
+          mimeType: uploaded.mimeType,
+          uri: uploaded.uri
+        }));
+
+        updateAttachments(attachments);
+        setIsUploading(false);
+
+        return attachments;
+      } catch {
+        toast.error("Something went wrong while uploading!");
+        removeAttachments(attachmentIds);
+        setIsUploading(false);
+        return [];
+      }
     },
     [addAttachments, removeAttachments, updateAttachments, setIsUploading]
   );
