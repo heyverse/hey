@@ -18,6 +18,18 @@ describe("sanitizeDStorageUrl", () => {
     );
   });
 
+  it("converts ipfs://ipfs/", () => {
+    expect(sanitizeDStorageUrl(`ipfs://ipfs/${hash}`)).toBe(
+      `${IPFS_GATEWAY}/${hash}`
+    );
+  });
+
+  it("converts ipfs.io gateway", () => {
+    expect(sanitizeDStorageUrl(`https://ipfs.io/ipfs/${hash}`)).toBe(
+      `${IPFS_GATEWAY}/${hash}`
+    );
+  });
+
   it("converts lens://", () => {
     expect(sanitizeDStorageUrl(`lens://${hash}`)).toBe(
       `${STORAGE_NODE_URL}/${hash}`

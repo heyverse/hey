@@ -13,6 +13,16 @@ describe("getAvatar", () => {
     expect(getAvatar(undefined as any)).toBe(DEFAULT_AVATAR);
   });
 
+  it("uses icon when picture missing", () => {
+    const icon = "ipfs://iconHash";
+    const avatar = getAvatar({ metadata: { picture: null, icon } });
+    expect(avatar).toContain("iconHash");
+  });
+
+  it("falls back to default when both missing", () => {
+    expect(getAvatar({ metadata: {} })).toBe(DEFAULT_AVATAR);
+  });
+
   it("sanitizes ipfs avatar", () => {
     const avatar = getAvatar({ metadata: { picture: ipfs } });
     expect(avatar).toContain("gw.ipfs-lens.dev/ipfs/avatarHash");
