@@ -1,4 +1,5 @@
 import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
+import escapeHtml from "@hey/helpers/escapeHtml";
 import { default as getAccountData } from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { AccountDocument } from "@hey/indexer";
@@ -35,6 +36,11 @@ const getAccount = async (ctx: Context) => {
     const description = (account?.metadata?.bio || title).slice(0, 155);
     const avatar = getAvatar(account, TRANSFORMS.AVATAR_BIG);
 
+    const escTitle = escapeHtml(title);
+    const escDescription = escapeHtml(description);
+    const escName = escapeHtml(name);
+    const escUsernameWithPrefix = escapeHtml(usernameWithPrefix);
+
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -57,28 +63,28 @@ const getAccount = async (ctx: Context) => {
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width" />
-          <title>${title}</title>
-          <meta name="description" content="${description}" />
-          <meta property="og:title" content="${title}" />
-          <meta property="og:description" content="${description}" />
+          <title>${escTitle}</title>
+          <meta name="description" content="${escDescription}" />
+          <meta property="og:title" content="${escTitle}" />
+          <meta property="og:description" content="${escDescription}" />
           <meta property="og:type" content="profile" />
           <meta property="og:site_name" content="Hey" />
           <meta property="og:url" content="https://hey.xyz${link}" />
           <meta property="og:image" content="${avatar}" />
           <meta property="og:logo" content="${STATIC_IMAGES_URL}/app-icon/0.png" />
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content="${title}" />
-          <meta name="twitter:description" content="${description}" />
+          <meta name="twitter:title" content="${escTitle}" />
+          <meta name="twitter:description" content="${escDescription}" />
           <meta property="twitter:image" content="${avatar}" />
           <meta name="twitter:site" content="@heydotxyz" />
           <link rel="canonical" href="https://hey.xyz${link}" />
         </head>
         <body>
           <script type="application/ld+json">${raw(escapedJsonLd)}</script>
-          <img src="${avatar}" alt="${name}" height="100" width="100" />
-          <h1>${name || username}</h1>
-          <h2>${usernameWithPrefix}</h2>
-          <h3>${description}</h3>
+          <img src="${avatar}" alt="${escName}" height="100" width="100" />
+          <h1>${escName || username}</h1>
+          <h2>${escUsernameWithPrefix}</h2>
+          <h3>${escDescription}</h3>
         </body>
       </html>
     `;

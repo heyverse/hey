@@ -1,4 +1,5 @@
 import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
+import escapeHtml from "@hey/helpers/escapeHtml";
 import getAvatar from "@hey/helpers/getAvatar";
 import { GroupDocument, type GroupFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
@@ -34,6 +35,10 @@ const getGroup = async (ctx: Context) => {
     const description = (group?.metadata?.description || title).slice(0, 155);
     const avatar = getAvatar(group, TRANSFORMS.AVATAR_BIG);
 
+    const escTitle = escapeHtml(title);
+    const escDescription = escapeHtml(description);
+    const escName = escapeHtml(name);
+
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -56,27 +61,27 @@ const getGroup = async (ctx: Context) => {
         <head>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width" />
-          <title>${title}</title>
-          <meta name="description" content="${description}" />
-          <meta property="og:title" content="${title}" />
-          <meta property="og:description" content="${description}" />
+          <title>${escTitle}</title>
+          <meta name="description" content="${escDescription}" />
+          <meta property="og:title" content="${escTitle}" />
+          <meta property="og:description" content="${escDescription}" />
           <meta property="og:type" content="profile" />
           <meta property="og:site_name" content="Hey" />
           <meta property="og:url" content="https://hey.xyz/g/${group.address}" />
           <meta property="og:image" content="${avatar}" />
           <meta property="og:logo" content="${STATIC_IMAGES_URL}/app-icon/0.png" />
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content="${title}" />
-          <meta name="twitter:description" content="${description}" />
+          <meta name="twitter:title" content="${escTitle}" />
+          <meta name="twitter:description" content="${escDescription}" />
           <meta property="twitter:image" content="${avatar}" />
           <meta name="twitter:site" content="@heydotxyz" />
           <link rel="canonical" href="https://hey.xyz/g/${group.address}" />
         </head>
         <body>
           <script type="application/ld+json">${raw(escapedJsonLd)}</script>
-          <img src="${avatar}" alt="${title}" height="100" width="100" />
-          <h1>${name}</h1>
-          <h2>${description}</h2>
+          <img src="${avatar}" alt="${escTitle}" height="100" width="100" />
+          <h1>${escName}</h1>
+          <h2>${escDescription}</h2>
         </body>
       </html>
     `;
