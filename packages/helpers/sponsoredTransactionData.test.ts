@@ -1,3 +1,4 @@
+import type { Eip712TransactionRequest } from "@hey/indexer";
 import { describe, expect, it } from "vitest";
 import sponsoredTransactionData from "./sponsoredTransactionData";
 

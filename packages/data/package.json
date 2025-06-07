@@ -4,7 +4,8 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "typecheck": "tsc --pretty"
+    "typecheck": "tsc --pretty",
+    "test": "vitest"
   },
   "dependencies": {
     "@lens-chain/sdk": "^1.0.3"
@@ -12,6 +13,7 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@types/node": "^22.15.30",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.2"
   }
 }
