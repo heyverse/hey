@@ -12,7 +12,6 @@ import Delete from "./Delete";
 import Edit from "./Edit";
 import HideComment from "./HideComment";
 import NotInterested from "./NotInterested";
-import RefreshMetadata from "./RefreshMetadata";
 import Report from "./Report";
 import Share from "./Share";
 
@@ -57,8 +56,7 @@ const PostMenu = ({ post }: PostMenuProps) => {
           <div className="divider" />
           {currentAccount?.address === post?.author?.address ? (
             <>
-              <Edit post={post} />
-              <RefreshMetadata post={post} />
+              {currentAccount?.hasSubscribed ? <Edit post={post} /> : null}
               <Delete post={post} />
             </>
           ) : (

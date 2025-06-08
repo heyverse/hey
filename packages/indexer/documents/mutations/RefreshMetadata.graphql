@@ -1,5 +1,0 @@
-mutation RefreshMetadata($request: RefreshMetadataRequest!) {
-  refreshMetadata(request: $request) {
-    id
-  }
-}
