@@ -13,6 +13,7 @@ import oembedRouter from "./routes/oembed";
 import ogRouter from "./routes/og";
 import ping from "./routes/ping";
 import preferencesRouter from "./routes/preferences";
+import uploadRouter from "./routes/upload";
 
 const app = new Hono();
 
@@ -28,6 +29,7 @@ app.route("/cron", cronRouter);
 app.route("/live", liveRouter);
 app.route("/metadata", metadataRouter);
 app.route("/oembed", oembedRouter);
+app.route("/upload", uploadRouter);
 app.route("/preferences", preferencesRouter);
 // app.route("/sitemap", sitemapRouter);
 app.route("/og", ogRouter);

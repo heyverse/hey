@@ -11,7 +11,7 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import type { TypeOf, ZodSchema } from "zod";
 import { H6 } from "./Typography";
 
-interface UseZodFormProps<T extends ZodSchema<FieldValues>>
+interface UseZodFormProps<T extends ZodSchema<any>>
   extends UseFormProps<TypeOf<T>> {
   schema: T;
 }
@@ -20,9 +20,9 @@ export const useZodForm = <T extends ZodSchema<any>>({
   schema,
   ...formConfig
 }: UseZodFormProps<T>) => {
-  return useForm({
+  return useForm<TypeOf<T>>({
     ...formConfig,
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema as any) as never
   });
 };
 
