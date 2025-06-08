@@ -1,6 +1,7 @@
 import {
   DEFAULT_AVATAR,
   LENS_MEDIA_SNAPSHOT_URL,
+  STORAGE_NODE_URL,
   TRANSFORMS
 } from "@hey/data/constants";
 import { describe, expect, it } from "vitest";
@@ -37,5 +38,16 @@ describe("getAvatar", () => {
     expect(result).toBe(
       `${LENS_MEDIA_SNAPSHOT_URL}/${TRANSFORMS.AVATAR_TINY}/file.png`
     );
+  });
+
+  it("returns default for malformed url", () => {
+    const avatar = getAvatar({ metadata: { picture: "ftp://bad" } });
+    expect(avatar).toBe(DEFAULT_AVATAR);
+  });
+
+  it("sanitizes lens uri avatar", () => {
+    const lensUri = "lens://abcdef";
+    const avatar = getAvatar({ metadata: { picture: lensUri } });
+    expect(avatar).toBe(`${STORAGE_NODE_URL}/abcdef`);
   });
 });
