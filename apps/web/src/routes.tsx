@@ -10,6 +10,7 @@ import RulesSettings from "@/components/Group/Settings/Rules";
 import Groups from "@/components/Groups";
 import Home from "@/components/Home";
 import Notification from "@/components/Notification";
+import About from "@/components/Pages/About";
 import Copyright from "@/components/Pages/Copyright";
 import Guidelines from "@/components/Pages/Guidelines";
 import Privacy from "@/components/Pages/Privacy";
@@ -81,6 +82,7 @@ const Routes = () => {
             <Route path="account/:address" element={<StaffAccountOverview />} />
           </Route>
           <Route path="support" element={<Support />} />
+          <Route path="about" element={<About />} />
           <Route path="terms" element={<Terms />} />
           <Route path="privacy" element={<Privacy />} />
           <Route path="guidelines" element={<Guidelines />} />

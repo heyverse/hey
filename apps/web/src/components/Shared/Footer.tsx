@@ -2,6 +2,7 @@ import { Link } from "react-router";
 const currentYear = new Date().getFullYear();
 
 const links = [
+  { href: "/about", label: "About" },
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
   { href: "/guidelines", label: "Guidelines" },
