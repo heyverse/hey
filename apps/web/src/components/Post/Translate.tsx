@@ -4,7 +4,7 @@ import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { useMutation } from "@tanstack/react-query";
-import { franc } from "franc";
+import langdetect from "langdetect";
 import { useState } from "react";
 import Markup from "../Shared/Markup";
 import { Spinner } from "../Shared/UI";
@@ -19,7 +19,8 @@ const Translate = ({ post }: TranslateProps) => {
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const { metadata } = targetPost;
   const filteredContent = getPostData(metadata)?.content;
-  const isEnglish = franc(filteredContent) === "eng";
+  const detected = langdetect.detectOne(filteredContent || "");
+  const isEnglish = detected === "en";
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ post }: { post: string }) => hono.ai.translate(post),
