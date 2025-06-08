@@ -25,9 +25,7 @@ const fetchApi = async <T>(
   if (token && refreshToken && isTokenExpiringSoon(token)) {
     try {
       token = await refreshTokens(refreshToken);
-    } catch {
-      // ignore refresh errors and use existing token
-    }
+    } catch {}
   }
 
   const response = await fetch(`${config.baseUrl}${endpoint}`, {
