@@ -1,6 +1,7 @@
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { HEY_API_URL } from "@hey/data/constants";
 import type { Live, Oembed, Preferences, STS } from "@hey/types/api";
+import { isTokenExpiringSoon, refreshTokens } from "./tokenManager";
 
 interface ApiConfig {
   baseUrl?: string;
@@ -18,11 +19,22 @@ const fetchApi = async <T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> => {
+  const { accessToken, refreshToken } = hydrateAuthTokens();
+  let token = accessToken;
+
+  if (token && refreshToken && isTokenExpiringSoon(token)) {
+    try {
+      token = await refreshTokens(refreshToken);
+    } catch {
+      // ignore refresh errors and use existing token
+    }
+  }
+
   const response = await fetch(`${config.baseUrl}${endpoint}`, {
     ...options,
     credentials: "include",
     headers: {
-      ...{ "X-Access-Token": hydrateAuthTokens().accessToken || "" },
+      ...{ "X-Access-Token": token || "" },
       ...config.headers
     }
   });
