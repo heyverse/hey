@@ -8,7 +8,7 @@ import "@hey/helpers/getPostData";
 import { getRedis, setRedis } from "src/utils/redis";
 
 vi.mock("@hey/indexer/apollo/client", () => ({
-  default: vi.fn(() => ({
+  default: {
     query: vi.fn(async () => ({
       data: {
         post: {
@@ -27,7 +27,7 @@ vi.mock("@hey/indexer/apollo/client", () => ({
         }
       }
     }))
-  }))
+  }
 }));
 vi.mock("@hey/helpers/getAccount", () => ({
   default: vi.fn(() => ({ usernameWithPrefix: "@alice" }))

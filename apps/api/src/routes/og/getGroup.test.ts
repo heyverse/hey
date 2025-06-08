@@ -6,7 +6,7 @@ import "@hey/helpers/getAvatar";
 import { getRedis, setRedis } from "src/utils/redis";
 
 vi.mock("@hey/indexer/apollo/client", () => ({
-  default: vi.fn(() => ({
+  default: {
     query: vi.fn(async () => ({
       data: {
         group: {
@@ -15,7 +15,7 @@ vi.mock("@hey/indexer/apollo/client", () => ({
         }
       }
     }))
-  }))
+  }
 }));
 vi.mock("@hey/helpers/getAvatar", () => ({ default: vi.fn(() => "avatar") }));
 vi.mock("src/utils/redis", () => ({ getRedis: vi.fn(), setRedis: vi.fn() }));

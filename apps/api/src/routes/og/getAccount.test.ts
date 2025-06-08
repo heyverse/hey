@@ -7,11 +7,11 @@ import "@hey/helpers/getAvatar";
 import { getRedis, setRedis } from "src/utils/redis";
 
 vi.mock("@hey/indexer/apollo/client", () => ({
-  default: vi.fn(() => ({
+  default: {
     query: vi.fn(async () => ({
       data: { account: { metadata: { bio: "bio" } } }
     }))
-  }))
+  }
 }));
 vi.mock("@hey/helpers/getAccount", () => ({
   default: vi.fn(() => ({
