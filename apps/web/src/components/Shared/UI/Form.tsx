@@ -11,7 +11,7 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import type { TypeOf, ZodSchema } from "zod";
 import { H6 } from "./Typography";
 
-interface UseZodFormProps<T extends ZodSchema<any>>
+interface UseZodFormProps<T extends ZodSchema<FieldValues>>
   extends UseFormProps<TypeOf<T>> {
   schema: T;
 }
