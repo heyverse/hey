@@ -32,7 +32,11 @@ const useCreatePost = ({
 
   const updateCache = useCallback(
     async (txHash: string, toastId: string | number) => {
-      const { data } = await getPost({ variables: { request: { txHash } } });
+      const { data } = await getPost({
+        variables: { request: { txHash } },
+        fetchPolicy: "cache-and-network"
+      });
+
       if (!data?.post) {
         return;
       }
