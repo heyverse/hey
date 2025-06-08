@@ -19,4 +19,18 @@ describe("formatAddress", () => {
   it("lowercases invalid address", () => {
     expect(formatAddress("NOTanADDRESS")).toBe("notanaddress");
   });
+
+  it("handles slice size exceeding address length", () => {
+    expect(formatAddress(address, 100)).toBe(`${address}…${address}`);
+  });
+
+  it("handles negative slice size", () => {
+    expect(formatAddress(address, -1)).toBe(
+      "0x1234567890abcdef1234567890abcdef1234567…"
+    );
+  });
+
+  it("handles short ENS name gracefully", () => {
+    expect(formatAddress("A.ETH")).toBe("a.eth");
+  });
 });
