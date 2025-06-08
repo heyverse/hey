@@ -47,4 +47,16 @@ describe("removeExpiredSubscribers", () => {
       hash: "hash"
     });
   });
+
+  it("returns success when no accounts are expired", async () => {
+    (lensPg.query as unknown as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    const ctx = { json: vi.fn((b: unknown) => b) } as unknown as Context;
+
+    const result = await removeExpiredSubscribers(ctx);
+
+    expect(result).toEqual({
+      success: true,
+      message: "No expired subscribers"
+    });
+  });
 });

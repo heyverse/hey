@@ -31,4 +31,18 @@ describe("syncSubscribersToGuild", () => {
     });
     expect(result).toEqual({ success: true });
   });
+
+  it("returns success when no accounts are found", async () => {
+    (lensPg.query as unknown as ReturnType<typeof vi.fn>).mockResolvedValue([]);
+    const ctx = { json: vi.fn((b: unknown) => b) } as unknown as Context;
+
+    const result = await syncSubscribersToGuild(ctx);
+
+    expect(syncAddressesToGuild).toHaveBeenCalledWith({
+      addresses: [],
+      roleId: 173026,
+      requirementId: 470539
+    });
+    expect(result).toEqual({ success: true });
+  });
 });
