@@ -8,8 +8,7 @@ import {
   type PostsRequest,
   usePostsQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { WindowVirtualizer } from "virtua";
 
 interface GroupFeedProps {
@@ -17,11 +16,6 @@ interface GroupFeedProps {
 }
 
 const GroupFeed = ({ feed }: GroupFeedProps) => {
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const request: PostsRequest = {
     filter: { feeds: [{ feed }] },
@@ -44,12 +38,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
       });
     }
   };
-
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <PostsShimmer />;
@@ -81,7 +70,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
         {filteredPosts.map((post) => (
           <SinglePost key={post.id} post={post} />
         ))}
-        {hasMore && <span ref={ref} />}
+        {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>
     </Card>
   );

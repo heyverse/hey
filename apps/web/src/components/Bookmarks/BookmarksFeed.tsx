@@ -8,8 +8,7 @@ import {
   type PostBookmarksRequest,
   usePostBookmarksQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { WindowVirtualizer } from "virtua";
 
 interface BookmarksFeedProps {
@@ -17,11 +16,6 @@ interface BookmarksFeedProps {
 }
 
 const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const request: PostBookmarksRequest = {
     pageSize: PageSize.Fifty,
@@ -43,12 +37,7 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
       });
     }
   };
-
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <PostsShimmer />;
@@ -73,7 +62,7 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
         {posts.map((post) => (
           <SinglePost key={post.id} post={post} />
         ))}
-        {hasMore && <span ref={ref} />}
+        {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>
     </Card>
   );
