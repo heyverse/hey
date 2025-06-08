@@ -37,6 +37,7 @@ const dependenciesToChunk = {
     "motion",
     "motion-plus-react"
   ],
+  aws: ["@aws-sdk/client-s3", "@aws-sdk/lib-storage"],
   media: ["plyr-react", "@livepeer/react", "browser-image-compression"],
   misc: [
     "@lens-chain/storage-client",

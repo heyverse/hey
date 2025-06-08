@@ -24,16 +24,3 @@ export type Live = {
 export type AiTranslate = {
   text: string;
 };
-
-export type InitUpload = {
-  uploadId: string;
-  key: string;
-};
-
-export type UploadPart = {
-  etag: string;
-};
-
-export type CompleteUpload = {
-  uri: string;
-};
