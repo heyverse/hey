@@ -1,6 +1,7 @@
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
 import { Card, StackedAvatars } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -13,7 +14,6 @@ import {
   type ReferencedPostFragment,
   usePostReferencesQuery
 } from "@hey/indexer";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useState } from "react";
 import { WindowVirtualizer } from "virtua";
 

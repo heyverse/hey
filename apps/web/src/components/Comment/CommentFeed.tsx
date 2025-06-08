@@ -2,6 +2,7 @@ import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
@@ -12,7 +13,6 @@ import {
   type ReferencedPostFragment,
   usePostReferencesQuery
 } from "@hey/indexer";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { WindowVirtualizer } from "virtua";
 
 interface CommentFeedProps {

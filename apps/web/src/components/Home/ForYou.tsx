@@ -1,6 +1,7 @@
 import SinglePost from "@/components/Post/SinglePost";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
@@ -8,7 +9,6 @@ import {
   type PostsForYouRequest,
   usePostsForYouQuery
 } from "@hey/indexer";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { WindowVirtualizer } from "virtua";
 
 const ForYou = () => {

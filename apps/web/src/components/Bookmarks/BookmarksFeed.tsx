@@ -1,6 +1,7 @@
 import SinglePost from "@/components/Post/SinglePost";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 import {
   type MainContentFocus,
@@ -8,7 +9,6 @@ import {
   type PostBookmarksRequest,
   usePostBookmarksQuery
 } from "@hey/indexer";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { WindowVirtualizer } from "virtua";
 
 interface BookmarksFeedProps {
@@ -16,7 +16,6 @@ interface BookmarksFeedProps {
 }
 
 const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
-
   const request: PostBookmarksRequest = {
     pageSize: PageSize.Fifty,
     ...(focus && { filter: { metadata: { mainContentFocus: [focus] } } })

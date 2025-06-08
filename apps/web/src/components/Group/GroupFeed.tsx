@@ -1,6 +1,7 @@
 import SinglePost from "@/components/Post/SinglePost";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
@@ -8,7 +9,6 @@ import {
   type PostsRequest,
   usePostsQuery
 } from "@hey/indexer";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { WindowVirtualizer } from "virtua";
 
 interface GroupFeedProps {
@@ -16,7 +16,6 @@ interface GroupFeedProps {
 }
 
 const GroupFeed = ({ feed }: GroupFeedProps) => {
-
   const request: PostsRequest = {
     filter: { feeds: [{ feed }] },
     pageSize: PageSize.Fifty
