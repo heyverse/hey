@@ -13,7 +13,13 @@ const getAvatar = (
   const avatarUrl =
     entity?.metadata?.picture || entity?.metadata?.icon || DEFAULT_AVATAR;
 
-  return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
+  const sanitized = sanitizeDStorageUrl(avatarUrl);
+
+  if (!sanitized || !/^https?:\/\//.test(sanitized)) {
+    return DEFAULT_AVATAR;
+  }
+
+  return imageKit(sanitized, namedTransform);
 };
 
 export default getAvatar;

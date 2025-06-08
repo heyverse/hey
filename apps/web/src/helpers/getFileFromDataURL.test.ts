@@ -21,10 +21,10 @@ class MockImage {
   onerror: (() => void) | null = null;
   set src(value: string) {
     setTimeout(() => {
-      if (value === "error") {
-        this.onerror?.();
-      } else {
+      if (value.startsWith("data:")) {
         this.onload?.();
+      } else {
+        this.onerror?.();
       }
     }, 0);
   }
@@ -60,6 +60,17 @@ describe("getFileFromDataURL", () => {
     const cb = vi.fn();
     await new Promise<void>((resolve) => {
       getFileFromDataURL("error", "test.png", (file) => {
+        cb(file);
+        resolve();
+      });
+    });
+    expect(cb).toHaveBeenCalledWith(null);
+  });
+
+  it("returns null for empty data url", async () => {
+    const cb = vi.fn();
+    await new Promise<void>((resolve) => {
+      getFileFromDataURL("", "test.png", (file) => {
         cb(file);
         resolve();
       });

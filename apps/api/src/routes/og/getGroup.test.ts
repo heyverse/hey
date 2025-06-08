@@ -1,8 +1,9 @@
+import apolloClient from "@hey/indexer/apollo/client";
 import type { Context } from "hono";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import getGroup from "./getGroup";
-import "@hey/indexer/apollo/client";
 import "@hey/helpers/getAvatar";
+import defaultMetadata from "src/utils/defaultMetadata";
 import { getRedis, setRedis } from "src/utils/redis";
 
 vi.mock("@hey/indexer/apollo/client", () => ({
@@ -54,5 +55,38 @@ describe("og getGroup route", () => {
 
     expect(result).toBe("cached");
     expect(setRedis).not.toHaveBeenCalled();
+  });
+
+  it("returns default metadata when apollo query fails", async () => {
+    (getRedis as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    (
+      apolloClient.query as unknown as ReturnType<typeof vi.fn>
+    ).mockRejectedValue(new Error("fail"));
+    const html = vi.fn((b: string) => b);
+    const ctx = {
+      req: { param: vi.fn(() => ({ address: "0x1" })) },
+      html
+    } as unknown as Context;
+
+    const result = await getGroup(ctx);
+
+    expect(html).toHaveBeenCalledWith(defaultMetadata, 500);
+    expect(result).toBe(defaultMetadata);
+  });
+
+  it("handles redis errors gracefully", async () => {
+    (getRedis as unknown as ReturnType<typeof vi.fn>).mockRejectedValue(
+      new Error("fail")
+    );
+    const html = vi.fn((b: string) => b);
+    const ctx = {
+      req: { param: vi.fn(() => ({ address: "0x1" })) },
+      html
+    } as unknown as Context;
+
+    const result = await getGroup(ctx);
+
+    expect(html).toHaveBeenCalledWith(defaultMetadata, 500);
+    expect(result).toBe(defaultMetadata);
   });
 });

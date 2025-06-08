@@ -35,4 +35,14 @@ describe("parseJwt", () => {
       act: { sub: "" }
     });
   });
+
+  it("returns defaults for non-json payload", () => {
+    const encoded = Buffer.from("plain text").toString("base64");
+    expect(parseJwt(`a.${encoded}.b`)).toEqual({
+      sub: "",
+      exp: 0,
+      sid: "",
+      act: { sub: "" }
+    });
+  });
 });

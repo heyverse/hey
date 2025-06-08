@@ -22,7 +22,7 @@ export const useZodForm = <T extends ZodSchema<any>>({
 }: UseZodFormProps<T>) => {
   return useForm<TypeOf<T>>({
     ...formConfig,
-    resolver: zodResolver(schema as any) as never
+    resolver: zodResolver(schema as any)
   });
 };
 

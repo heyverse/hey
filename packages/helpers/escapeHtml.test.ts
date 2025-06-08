@@ -10,6 +10,10 @@ describe("escapeHtml", () => {
     expect(escapeHtml('"Tom & Jerry"')).toBe("&quot;Tom &amp; Jerry&quot;");
   });
 
+  it("escapes single quotes", () => {
+    expect(escapeHtml("Tom's post")).toBe("Tom&#39;s post");
+  });
+
   it("handles null or undefined", () => {
     expect(escapeHtml(undefined)).toBe("");
     expect(escapeHtml(null)).toBe("");

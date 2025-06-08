@@ -58,4 +58,34 @@ describe("getAccount", () => {
       usernameWithPrefix: `#${formatted}`
     });
   });
+
+  it("handles username without lens namespace", () => {
+    const account: Account = {
+      owner: "0x1",
+      address,
+      metadata: { name: "Bob" },
+      username: { value: "bob", localName: "bob" }
+    };
+    expect(getAccount(account as any)).toEqual({
+      name: "Bob",
+      link: `/account/${address}`,
+      username: "bob",
+      usernameWithPrefix: "@bob"
+    });
+  });
+
+  it("falls back to username when sanitized name is empty", () => {
+    const account: Account = {
+      owner: "0x1",
+      address,
+      metadata: { name: "✓" },
+      username: { value: `${LENS_NAMESPACE}charlie`, localName: "charlie" }
+    };
+    expect(getAccount(account as any)).toEqual({
+      name: "charlie",
+      link: "/u/charlie",
+      username: "charlie",
+      usernameWithPrefix: "@charlie"
+    });
+  });
 });

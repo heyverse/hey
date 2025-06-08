@@ -10,4 +10,9 @@ describe("getURLs", () => {
     const urls = getURLs("visit https://a.com and http://b.com");
     expect(urls).toEqual(["https://a.com", "http://b.com"]);
   });
+
+  it("strips trailing punctuation", () => {
+    const urls = getURLs("go to https://foo.com.");
+    expect(urls).toEqual(["https://foo.com"]);
+  });
 });
