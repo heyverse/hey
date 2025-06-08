@@ -13,4 +13,12 @@ describe("nFormatter", () => {
   it("formats large numbers", () => {
     expect(nFormatter(1500)).toBe("1.5k");
   });
+
+  it("handles negative numbers", () => {
+    expect(nFormatter(-1500)).toBe("-1,500");
+  });
+
+  it("formats extremely large numbers", () => {
+    expect(nFormatter(1e12)).toBe("1T");
+  });
 });

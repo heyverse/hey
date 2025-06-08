@@ -13,6 +13,18 @@ describe("injectReferrerToUrl", () => {
     expect(url).toContain("referrer=");
   });
 
+  it("appends referrer when query params exist", () => {
+    const url = injectReferrerToUrl("https://zora.co/collect?foo=bar");
+    const parsed = new URL(url);
+    expect(parsed.searchParams.get("foo")).toBe("bar");
+    expect(parsed.searchParams.get("referrer")).not.toBeNull();
+  });
+
+  it("adds referrer for highlight.xyz", () => {
+    const url = injectReferrerToUrl("https://highlight.xyz/mint");
+    expect(url).toContain("referrer=");
+  });
+
   it("leaves other domains unchanged", () => {
     const url = `${BASE}/path`;
     expect(injectReferrerToUrl(url)).toBe(url);
