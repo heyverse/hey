@@ -1,12 +1,31 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { storageClient } from "./storageClient";
 import uploadMetadata from "./uploadMetadata";
 
-// This test uses the real Grove storage service to upload metadata
-// and verifies that a valid lens:// URI is returned.
+vi.mock("./storageClient", () => ({
+  storageClient: { uploadAsJson: vi.fn() }
+}));
+
+const originalFetch = global.fetch;
+
+beforeEach(() => {
+  global.fetch = vi.fn();
+  (storageClient.uploadAsJson as any).mockResolvedValue({
+    uri: "lens://abcdef"
+  });
+});
+
+afterEach(() => {
+  global.fetch = originalFetch;
+  vi.clearAllMocks();
+});
 
 describe("uploadMetadata", () => {
-  it("uploads metadata and returns a lens URI", async () => {
+  it("returns mocked URI without network calls", async () => {
     const uri = await uploadMetadata({ hello: "world" });
-    expect(uri).toMatch(/^lens:\/\/[0-9a-f]{64}$/);
+
+    expect(uri).toBe("lens://abcdef");
+    expect(storageClient.uploadAsJson).toHaveBeenCalled();
+    expect(global.fetch).not.toHaveBeenCalled();
   });
 });
