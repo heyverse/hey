@@ -127,8 +127,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/indexer
       '@hookform/resolvers':
-        specifier: ^5.0.1
-        version: 5.0.1(react-hook-form@7.57.0(react@19.1.0))
+        specifier: ^5.1.0
+        version: 5.1.0(react-hook-form@7.57.0(react@19.1.0))
       '@lens-chain/storage-client':
         specifier: ^1.0.4
         version: 1.0.4
@@ -1536,8 +1536,8 @@ packages:
       hono: '>=3.9.0'
       zod: ^3.25.0
 
-  '@hookform/resolvers@5.0.1':
-    resolution: {integrity: sha512-u/+Jp83luQNx9AdyW2fIPGY6Y7NG68eN2ZW8FOJYL+M0i4s49+refdJdOp/A9n9HFQtQs3HIDHQvX3ZET2o7YA==}
+  '@hookform/resolvers@5.1.0':
+    resolution: {integrity: sha512-A5tY8gxqvvR0lFfropqpy/gUDOxjwT7LZCxJ8lNA9puK7nFNRl/O0egGKxzdF4JSz/pnnT1O8g76P/YMyTBEFw==}
     peerDependencies:
       react-hook-form: ^7.55.0
 
@@ -8108,7 +8108,7 @@ snapshots:
       hono: 4.7.11
       zod: 3.25.56
 
-  '@hookform/resolvers@5.0.1(react-hook-form@7.57.0(react@19.1.0))':
+  '@hookform/resolvers@5.1.0(react-hook-form@7.57.0(react@19.1.0))':
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.57.0(react@19.1.0)

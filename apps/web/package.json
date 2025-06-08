@@ -19,7 +19,7 @@
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hey/indexer": "workspace:*",
-    "@hookform/resolvers": "^5.0.1",
+    "@hookform/resolvers": "^5.1.0",
     "@lens-chain/storage-client": "^1.0.4",
     "@lens-protocol/metadata": "^2.1.0",
     "@livepeer/react": "^4.3.5",
