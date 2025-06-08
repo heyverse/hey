@@ -30,7 +30,6 @@ const Quote = ({ post }: QuoteProps) => {
         if (!currentAccount) {
           return toast.error(Errors.SignWallet);
         }
-
         setQuotedPost(post);
         setShowNewPostModal(true);
       }}

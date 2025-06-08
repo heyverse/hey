@@ -10,6 +10,7 @@ import getMentions from "@/helpers/getMentions";
 import KeyboardShortcuts from "@/helpers/shortcuts";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useCreatePost from "@/hooks/useCreatePost";
+import useEditPost from "@/hooks/useEditPost";
 import usePostMetadata from "@/hooks/usePostMetadata";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
@@ -55,8 +56,13 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   const { setShowNewPostModal } = useNewPostModalStore();
 
   // Post store
-  const { postContent, quotedPost, setPostContent, setQuotedPost } =
-    usePostStore();
+  const {
+    postContent,
+    editingPost,
+    quotedPost,
+    setPostContent,
+    setQuotedPost
+  } = usePostStore();
 
   // Audio store
   const { audioPost, setAudioPost } = usePostAudioStore();
@@ -119,6 +125,11 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
   const { createPost } = useCreatePost({
     commentOn: post,
+    onCompleted,
+    onError
+  });
+
+  const { editPost } = useEditPost({
     onCompleted,
     onError
   });
@@ -186,6 +197,12 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
       const metadata = getMetadata({ baseMetadata });
       const contentUri = await uploadMetadata(metadata);
+
+      if (editingPost) {
+        return await editPost({
+          variables: { request: { post: editingPost?.id, contentUri } }
+        });
+      }
 
       return await createPost({
         variables: {
@@ -261,7 +278,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
             loading={isSubmitting}
             onClick={handleCreatePost}
           >
-            {isComment ? "Comment" : "Post"}
+            {editingPost ? "Edit" : isComment ? "Comment" : "Post"}
           </Button>
         </div>
       </div>

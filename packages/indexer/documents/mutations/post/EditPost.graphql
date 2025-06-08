@@ -1,0 +1,16 @@
+mutation EditPost($request: EditPostRequest!) {
+  editPost(request: $request) {
+    ... on PostResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

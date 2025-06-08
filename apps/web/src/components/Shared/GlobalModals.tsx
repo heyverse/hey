@@ -10,6 +10,7 @@ import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPo
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import SuperFollow from "./Account/SuperFollow";
 import SwitchAccounts from "./Account/SwitchAccounts";
 import TopUp from "./Account/TopUp";
@@ -23,6 +24,7 @@ const GlobalModals = () => {
   const { setShowSwitchAccountModal, showSwitchAccountModal } =
     useSwitchAccountModalStore();
   const { showNewPostModal, setShowNewPostModal } = useNewPostModalStore();
+  const { editingPost } = usePostStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
     useAuthModalStore();
   const {
@@ -86,7 +88,7 @@ const GlobalModals = () => {
         onClose={() => setShowNewPostModal(false)}
         show={showNewPostModal}
         size="md"
-        title="Create post"
+        title={editingPost ? "Edit post" : "Create post"}
       >
         <NewPublication className="!rounded-b-xl !rounded-t-none border-none" />
       </Modal>

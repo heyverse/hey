@@ -16,12 +16,13 @@ interface EditProps {
 
 const Edit = ({ post }: EditProps) => {
   const { setShowNewPostModal } = useNewPostModalStore();
-  const { setPostContent } = usePostStore();
+  const { setPostContent, setEditingPost } = usePostStore();
   const { setAttachments } = usePostAttachmentStore((state) => state);
 
   const handleEdit = () => {
     const data = getPostData(post.metadata);
     setPostContent(data?.content || "");
+    setEditingPost(post);
 
     const attachments = [] as any[];
     if (data?.asset) {
@@ -38,6 +39,7 @@ const Edit = ({ post }: EditProps) => {
               : "audio/mpeg"
       });
     }
+
     if (data?.attachments) {
       for (const a of data.attachments) {
         attachments.push({
