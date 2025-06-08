@@ -4,7 +4,7 @@ import getPostData from "@hey/helpers/getPostData";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { useMutation } from "@tanstack/react-query";
-import { franc } from "franc";
+import { franc } from "franc-min";
 import { useState } from "react";
 import Markup from "../Shared/Markup";
 import { Spinner } from "../Shared/UI";
