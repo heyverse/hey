@@ -58,6 +58,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
               />
               <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
                 {formatDate(timestamp, "hh:mm A · MMM D, YYYY")}
+                {targetPost.isEdited ? " · Edited" : null}
                 {targetPost.app?.metadata?.name
                   ? ` · ${targetPost.app?.metadata?.name}`
                   : null}
