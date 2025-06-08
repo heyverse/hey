@@ -30,8 +30,12 @@ const UndoRepost = ({
 
   const updateCache = () => {
     cache.modify({
-      fields: { reposts: () => targetPost.stats.reposts - 1 },
-      id: cache.identify(targetPost.stats)
+      id: cache.identify(targetPost),
+      fields: {
+        stats(existing = {}) {
+          return { ...existing, reposts: existing.reposts - 1 };
+        }
+      }
     });
     cache.evict({ id: cache.identify(post) });
   };
