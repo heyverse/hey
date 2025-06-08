@@ -16,7 +16,6 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.826.0",
     "@aws-lite/client": "^0.23.2",
     "@aws-lite/s3": "^0.2.6",
     "@guildxyz/sdk": "^2.6.9",

@@ -7,7 +7,6 @@ import type {
   Live,
   Oembed,
   Preferences,
-  STS,
   UploadPart
 } from "@hey/types/api";
 
@@ -68,11 +67,6 @@ export const hono = {
       });
     }
   },
-  metadata: {
-    sts: (): Promise<STS> => {
-      return fetchApi<STS>("/metadata/sts", { method: "GET" });
-    }
-  },
   oembed: {
     get: (url: string): Promise<Oembed> => {
       return fetchApi<Oembed>(`/oembed/get?url=${url}`, { method: "GET" });
@@ -98,9 +92,9 @@ export const hono = {
         method: "PUT",
         headers: {
           "Content-Type": "application/octet-stream",
-          "upload-id": uploadId,
-          key,
-          "part-number": partNumber.toString()
+          "Upload-Id": uploadId,
+          Key: key,
+          "Part-Number": partNumber.toString()
         },
         body: chunk
       });

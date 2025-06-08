@@ -15,9 +15,7 @@ app.post(
   ),
   initUpload
 );
-
 app.put("/part", uploadPart);
-
 app.post(
   "/complete",
   zValidator(
