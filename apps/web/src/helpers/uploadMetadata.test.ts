@@ -1,17 +1,29 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { storageClient } from "./storageClient";
 import uploadMetadata from "./uploadMetadata";
 
-// This test mocks the Grove storage client to avoid network calls
-// and verifies that a valid lens:// URI is returned.
+vi.mock("./storageClient", () => ({
+  storageClient: {
+    uploadAsJson: vi.fn().mockResolvedValue({ uri: "lens://abcdef" })
+  }
+}));
 
 describe("uploadMetadata", () => {
-  it("uploads metadata and returns a lens URI", async () => {
-    const mockedUri = `lens://${"a".repeat(64)}`;
-    vi.spyOn(storageClient, "uploadAsJson").mockResolvedValue({
-      uri: mockedUri
-    } as any);
+  const fetchSpy = vi.spyOn(global, "fetch");
+
+  afterEach(() => {
+    fetchSpy.mockClear();
+    vi.clearAllMocks();
+  });
+
+  afterAll(() => {
+    fetchSpy.mockRestore();
+  });
+  it("returns mocked URI without network calls", async () => {
     const uri = await uploadMetadata({ hello: "world" });
-    expect(uri).toBe(mockedUri);
+
+    expect(uri).toBe("lens://abcdef");
+    expect(storageClient.uploadAsJson).toHaveBeenCalled();
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });
