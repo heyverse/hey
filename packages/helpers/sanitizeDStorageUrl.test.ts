@@ -30,6 +30,18 @@ describe("sanitizeDStorageUrl", () => {
     );
   });
 
+  it("converts ipfs.fleek.co gateway", () => {
+    expect(sanitizeDStorageUrl(`https://ipfs.fleek.co/ipfs/${hash}`)).toBe(
+      `${IPFS_GATEWAY}/${hash}`
+    );
+  });
+
+  it("doesn't modify ipfs-lens gateway", () => {
+    expect(sanitizeDStorageUrl(`${IPFS_GATEWAY}/${hash}`)).toBe(
+      `${IPFS_GATEWAY}/${hash}`
+    );
+  });
+
   it("converts lens://", () => {
     expect(sanitizeDStorageUrl(`lens://${hash}`)).toBe(
       `${STORAGE_NODE_URL}/${hash}`

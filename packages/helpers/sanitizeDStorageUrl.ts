@@ -13,6 +13,7 @@ const sanitizeDStorageUrl = (url?: string): string => {
 
   return url
     .replace("https://ipfs.io/ipfs/", ipfsGateway)
+    .replace("https://ipfs.fleek.co/ipfs/", ipfsGateway)
     .replace("ipfs://ipfs/", ipfsGateway)
     .replace("ipfs://", ipfsGateway)
     .replace("lens://", `${STORAGE_NODE_URL}/`)

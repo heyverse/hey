@@ -8,15 +8,15 @@ import type {
   UseFormReturn
 } from "react-hook-form";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import type { TypeOf, ZodSchema } from "zod";
+import type { TypeOf, ZodTypeAny } from "zod";
 import { H6 } from "./Typography";
 
-interface UseZodFormProps<T extends ZodSchema<FieldValues>>
+interface UseZodFormProps<T extends ZodTypeAny>
   extends UseFormProps<TypeOf<T>> {
   schema: T;
 }
 
-export const useZodForm = <T extends ZodSchema<any>>({
+export const useZodForm = <T extends ZodTypeAny>({
   schema,
   ...formConfig
 }: UseZodFormProps<T>) => {
