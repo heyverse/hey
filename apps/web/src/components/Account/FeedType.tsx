@@ -17,14 +17,16 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
   ];
 
   return (
-    <Tabs
-      key={generateUUID()}
-      tabs={tabs}
-      active={feedType}
-      setActive={(type) => setFeedType(type as AccountFeedType)}
-      className="mx-5 mb-5 md:mx-0"
-      layoutId="account_tab"
-    />
+    <div className="sticky top-0 z-10 bg-white/70 backdrop-blur md:static dark:bg-black/70">
+      <Tabs
+        key={generateUUID()}
+        tabs={tabs}
+        active={feedType}
+        setActive={(type) => setFeedType(type as AccountFeedType)}
+        className="mx-5 mb-5 md:mx-0"
+        layoutId="account_tab"
+      />
+    </div>
   );
 };
 
