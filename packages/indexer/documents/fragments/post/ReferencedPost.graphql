@@ -2,6 +2,7 @@ fragment ReferencedPost on Post {
   id
   slug
   isDeleted
+  isEdited
   feed {
     ...PostFeedInfo
   }

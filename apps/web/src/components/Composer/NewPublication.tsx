@@ -278,7 +278,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
             loading={isSubmitting}
             onClick={handleCreatePost}
           >
-            {editingPost ? "Edit" : isComment ? "Comment" : "Post"}
+            {editingPost ? "Update" : isComment ? "Comment" : "Post"}
           </Button>
         </div>
       </div>

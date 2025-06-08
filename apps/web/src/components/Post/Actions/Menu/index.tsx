@@ -21,6 +21,8 @@ interface PostMenuProps {
 
 const PostMenu = ({ post }: PostMenuProps) => {
   const { currentAccount } = useAccountStore();
+  const canEdit =
+    post.operations?.canEdit.__typename === "PostOperationValidationPassed";
   const iconClassName = "w-[15px] sm:w-[18px]";
 
   return (
@@ -56,7 +58,9 @@ const PostMenu = ({ post }: PostMenuProps) => {
           <div className="divider" />
           {currentAccount?.address === post?.author?.address ? (
             <>
-              {currentAccount?.hasSubscribed ? <Edit post={post} /> : null}
+              {canEdit && currentAccount?.hasSubscribed ? (
+                <Edit post={post} />
+              ) : null}
               <Delete post={post} />
             </>
           ) : (

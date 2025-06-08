@@ -12,6 +12,9 @@ fragment LoggedInPostOperations on LoggedInPostOperations {
   hasReposted {
     ...BooleanValue
   }
+  canEdit {
+    __typename
+  }
   canRepost {
     __typename
   }
