@@ -46,7 +46,6 @@ const PostMenu = ({ post }: PostMenuProps) => {
           {currentAccount ? (
             <>
               <NotInterested post={post} />
-              <RefreshMetadata post={post} />
               <HideComment post={post} />
               <Bookmark post={post} />
               <div className="divider" />
@@ -56,7 +55,10 @@ const PostMenu = ({ post }: PostMenuProps) => {
           <CopyPostText post={post} />
           <div className="divider" />
           {currentAccount?.address === post?.author?.address ? (
-            <Delete post={post} />
+            <>
+              <RefreshMetadata post={post} />
+              <Delete post={post} />
+            </>
           ) : (
             <Report post={post} />
           )}
