@@ -20,7 +20,7 @@ export const useZodForm = <T extends ZodSchema<any>>({
   schema,
   ...formConfig
 }: UseZodFormProps<T>) => {
-  return useForm<TypeOf<T>>({
+  return useForm({
     ...formConfig,
     resolver: zodResolver(schema as any)
   });
