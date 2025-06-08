@@ -46,6 +46,46 @@ describe("getPostData", () => {
     });
   });
 
+  it("handles video metadata", () => {
+    const meta = {
+      __typename: "VideoMetadata",
+      content: "video",
+      video: { item: ipfs, cover: ipfs },
+      attachments: []
+    } as any;
+
+    expect(getPostData(meta)).toEqual({
+      asset: { cover: sanitized, type: "Video", uri: sanitized },
+      content: "video"
+    });
+  });
+
+  it("handles article metadata", () => {
+    const meta = {
+      __typename: "ArticleMetadata",
+      content: "article",
+      attachments: [{ __typename: "MediaImage", item: ipfs }]
+    } as any;
+
+    expect(getPostData(meta)).toEqual({
+      attachments: [{ type: "Image", uri: sanitized }],
+      content: "article"
+    });
+  });
+
+  it("handles undefined attachments", () => {
+    const meta = {
+      __typename: "ArticleMetadata",
+      content: "attachments none",
+      attachments: undefined
+    } as any;
+
+    expect(getPostData(meta)).toEqual({
+      attachments: [],
+      content: "attachments none"
+    });
+  });
+
   it("returns null for unknown type", () => {
     expect(getPostData({ __typename: "Unknown" } as any)).toBeNull();
   });
