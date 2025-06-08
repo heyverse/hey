@@ -9,6 +9,7 @@ import { Fragment } from "react";
 import Bookmark from "./Bookmark";
 import CopyPostText from "./CopyPostText";
 import Delete from "./Delete";
+import Edit from "./Edit";
 import HideComment from "./HideComment";
 import NotInterested from "./NotInterested";
 import RefreshMetadata from "./RefreshMetadata";
@@ -56,6 +57,7 @@ const PostMenu = ({ post }: PostMenuProps) => {
           <div className="divider" />
           {currentAccount?.address === post?.author?.address ? (
             <>
+              <Edit post={post} />
               <RefreshMetadata post={post} />
               <Delete post={post} />
             </>
