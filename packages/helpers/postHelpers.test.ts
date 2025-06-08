@@ -8,4 +8,10 @@ describe("isRepost", () => {
   it("returns false otherwise", () => {
     expect(isRepost({ __typename: "Post" } as any)).toBe(false);
   });
+  it("returns false when argument is null", () => {
+    expect(isRepost(null)).toBe(false);
+  });
+  it("returns false for other typenames", () => {
+    expect(isRepost({ __typename: "Mirror" } as any)).toBe(false);
+  });
 });
