@@ -41,4 +41,11 @@ describe("markdownContent", () => {
     expect(replaceWith).toHaveBeenCalledWith(0, state.doc.content.size, "node");
     expect(dispatch).toHaveBeenCalledWith("tr");
   });
+
+  it("does nothing when not mounted", () => {
+    const spy = vi.spyOn(markdown, "htmlFromMarkdown");
+    const editor = { mounted: false } as any;
+    setMarkdownContent(editor, "md");
+    expect(spy).not.toHaveBeenCalled();
+  });
 });

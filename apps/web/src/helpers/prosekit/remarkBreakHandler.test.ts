@@ -20,4 +20,11 @@ describe("customBreakHandler", () => {
       customBreakHandler({} as any, null as any, null as any, null as any)
     ).toBe("x");
   });
+
+  it("does not alter regular breaks", () => {
+    (defaultHandlers.break as any).mockReturnValue("x\n");
+    expect(
+      customBreakHandler({} as any, null as any, null as any, null as any)
+    ).toBe("x\n");
+  });
 });

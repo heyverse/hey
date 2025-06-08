@@ -24,4 +24,15 @@ describe("rehypeJoinParagraph", () => {
     const result = processor.runSync(root) as any;
     expect(result.children).toHaveLength(3);
   });
+
+  it("joins paragraphs inside container", () => {
+    const processor = unified()
+      .use(rehypeParse, { fragment: true })
+      .use(rehypeJoinParagraph);
+    const root = processor.parse("<div><p>A</p><p>B</p></div>");
+    const result = processor.runSync(root) as any;
+    const div = result.children[0] as any;
+    expect(div.children).toHaveLength(1);
+    expect(div.children[0].children[1].tagName).toBe("br");
+  });
 });

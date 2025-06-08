@@ -24,4 +24,24 @@ describe("remarkLinkProtocol", () => {
       .toString();
     expect(result).toBe("[link](http://example.com)\n");
   });
+
+  it("converts bare links with path", () => {
+    const result = unified()
+      .use(remarkParse)
+      .use(remarkLinkProtocol)
+      .use(remarkStringify)
+      .processSync("[example.com/foo](example.com/foo)")
+      .toString();
+    expect(result).toBe("<https://example.com/foo>\n");
+  });
+
+  it("leaves differing text intact", () => {
+    const result = unified()
+      .use(remarkParse)
+      .use(remarkLinkProtocol)
+      .use(remarkStringify)
+      .processSync("[click](example.com)")
+      .toString();
+    expect(result).toBe("[click](example.com)\n");
+  });
 });
