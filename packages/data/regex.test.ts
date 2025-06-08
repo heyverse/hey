@@ -56,6 +56,12 @@ describe("Regex", () => {
 
   it("matches urls", () => {
     expect(newRegex(Regex.url).test("https://example.com/path?x=1")).toBe(true);
+    expect(
+      newRegex(Regex.url).test("https://example.com/path/?q=1#section")
+    ).toBe(true);
+    expect(newRegex(Regex.url).test("https://xn--fsqu00a.xn--0zwm56d")).toBe(
+      true
+    );
     expect(newRegex(Regex.url).test("https://例子.测试")).toBe(true);
     expect(newRegex(Regex.url).test("ftp://example.com")).toBe(false);
     expect(newRegex(Regex.url).test("example.com")).toBe(false);
