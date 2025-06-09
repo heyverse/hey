@@ -12,7 +12,7 @@ const CollectSettings = () => {
 
   return (
     <>
-      <Tooltip content="Collect" placement="top">
+      <Tooltip content="Collect" placement="top" withDelay>
         <button
           aria-label="Collect Module"
           className="rounded-full outline-offset-8"

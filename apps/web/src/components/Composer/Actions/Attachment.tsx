@@ -108,7 +108,7 @@ const Attachment = () => {
   );
 
   return (
-    <Tooltip content="Media" placement="top">
+    <Tooltip content="Media" placement="top" withDelay>
       <Menu as="div">
         <MenuButton
           aria-label="More"

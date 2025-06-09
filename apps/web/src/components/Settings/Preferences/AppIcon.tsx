@@ -56,7 +56,7 @@ const AppIcon = () => {
                 width={40}
               />
               {icon.id === appIcon ? (
-                <CheckCircleIconSolid className="size-5 text-green-500" />
+                <CheckCircleIconSolid className="size-5 text-green-600" />
               ) : (
                 <CheckCircleIconOutline className="size-5 text-gray-500 dark:text-gray-200" />
               )}

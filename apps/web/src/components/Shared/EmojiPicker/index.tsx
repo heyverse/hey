@@ -23,7 +23,7 @@ const EmojiPicker = ({
   }) as MutableRefObject<HTMLDivElement>;
 
   return (
-    <Tooltip content="Emoji" placement="top">
+    <Tooltip content="Emoji" placement="top" withDelay>
       <div className="relative" ref={listRef}>
         <button
           aria-label="Emoji"

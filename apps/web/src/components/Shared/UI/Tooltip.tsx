@@ -18,7 +18,10 @@ const Tooltip = ({
   withDelay = false
 }: TooltipProps) => {
   return (
-    <RadixTooltip.Provider delayDuration={withDelay ? 400 : 0}>
+    <RadixTooltip.Provider
+      delayDuration={withDelay ? 600 : 0}
+      skipDelayDuration={withDelay ? 0 : 600}
+    >
       <RadixTooltip.Root>
         <RadixTooltip.Trigger asChild>
           <span className={className}>{children}</span>

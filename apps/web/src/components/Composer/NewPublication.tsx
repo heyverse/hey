@@ -21,6 +21,7 @@ import {
 } from "@/store/non-persisted/post/usePostAudioStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
+import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import {
   DEFAULT_VIDEO_THUMBNAIL,
@@ -40,6 +41,7 @@ import CollectSettings from "./Actions/CollectSettings";
 import Gif from "./Actions/Gif";
 import LivestreamSettings from "./Actions/LivestreamSettings";
 import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
+import RulesSettings from "./Actions/RulesSettings";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
 
@@ -87,6 +89,8 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     (state) => state
   );
 
+  const { rules, setRules } = usePostRulesStore();
+
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
@@ -109,6 +113,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     setAttachments([]);
     setQuotedPost(undefined);
     setEditingPost(undefined);
+    setRules(undefined);
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setAudioPost(DEFAULT_AUDIO_POST);
     setLicense(null);
@@ -215,6 +220,9 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
             ...(collectAction.enabled && {
               actions: [{ ...collectActionParams(collectAction) }]
+            }),
+            ...(rules && {
+              rules: { required: [{ followersOnlyRule: rules }] }
             })
           }
         }
@@ -252,6 +260,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
           <QuotedPost isNew post={quotedPost} />
         </Wrapper>
       ) : null}
+      <RulesSettings />
       <div className="divider mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
         <div className="flex items-center space-x-4">
@@ -267,7 +276,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           {editingPost ? null : <CollectSettings />}
           {!isComment && !editingPost ? <LivestreamSettings /> : null}
-          {/* <GroupSettings /> */}
         </div>
         <div className="mt-2 ml-auto sm:mt-0">
           <Button

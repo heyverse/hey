@@ -11,7 +11,7 @@ const LivestreamSettings = () => {
   const disable = attachments.length > 0;
 
   return (
-    <Tooltip content="Go Live" placement="top">
+    <Tooltip content="Go Live" placement="top" withDelay>
       <button
         aria-label="Go Live"
         className={cn("rounded-full outline-offset-8", {
