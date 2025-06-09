@@ -59,7 +59,7 @@ const LivestreamEditor = () => {
             <b>Go Live</b>
           </div>
         ) : (
-          <ProFeatureNotice feature="go live settings" />
+          <ProFeatureNotice feature="live settings" />
         )}
         <div className="flex items-center space-x-3">
           <Tooltip content="Delete" placement="top">

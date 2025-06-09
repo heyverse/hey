@@ -1,6 +1,8 @@
+import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button } from "@/components/Shared/UI";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { FollowersOnlyPostRuleConfig } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -9,6 +11,7 @@ interface RulesProps {
 }
 
 const Rules = ({ setShowModal }: RulesProps) => {
+  const { currentAccount } = useAccountStore();
   const { rules = {}, setRules } = usePostRulesStore();
 
   const handleToggle = (key: keyof FollowersOnlyPostRuleConfig) => {
@@ -26,7 +29,9 @@ const Rules = ({ setShowModal }: RulesProps) => {
 
   return (
     <>
-      <div className="space-y-5 p-5">
+      <ProFeatureNotice className="m-5" feature="post rules settings" />
+      <div className="divider" />
+      <div className="m-5 space-y-5">
         <ToggleWithHelper
           heading={
             <span className="font-semibold">
@@ -36,6 +41,7 @@ const Rules = ({ setShowModal }: RulesProps) => {
           description="Only people who follow you can reply"
           on={!!rules.repliesRestricted}
           setOn={() => handleToggle("repliesRestricted")}
+          disabled={!currentAccount?.hasSubscribed}
         />
         <ToggleWithHelper
           heading={
@@ -46,6 +52,7 @@ const Rules = ({ setShowModal }: RulesProps) => {
           description="Only people who follow you can quote this post"
           on={!!rules.quotesRestricted}
           setOn={() => handleToggle("quotesRestricted")}
+          disabled={!currentAccount?.hasSubscribed}
         />
         <ToggleWithHelper
           heading={
@@ -56,6 +63,7 @@ const Rules = ({ setShowModal }: RulesProps) => {
           description="Only people who follow you can repost this"
           on={!!rules.repostRestricted}
           setOn={() => handleToggle("repostRestricted")}
+          disabled={!currentAccount?.hasSubscribed}
         />
       </div>
       <div className="divider" />
@@ -70,7 +78,9 @@ const Rules = ({ setShowModal }: RulesProps) => {
         >
           Cancel
         </Button>
-        <Button onClick={() => setShowModal(false)}>Save</Button>
+        {currentAccount?.hasSubscribed ? (
+          <Button onClick={() => setShowModal(false)}>Save</Button>
+        ) : null}
       </div>
     </>
   );
