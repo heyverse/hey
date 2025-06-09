@@ -1,5 +1,5 @@
 import { Modal, Tooltip } from "@/components/Shared/UI";
-import { GlobeAmericasIcon } from "@heroicons/react/24/outline";
+import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import Rules from "./Rules";
 
@@ -15,7 +15,7 @@ const RulesSettings = () => {
           onClick={() => setShowModal(!showModal)}
           type="button"
         >
-          <GlobeAmericasIcon className="size-5" />
+          <AdjustmentsHorizontalIcon className="size-5" />
         </button>
       </Tooltip>
       <Modal onClose={() => setShowModal(false)} show={showModal} title="Rules">

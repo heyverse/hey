@@ -28,19 +28,31 @@ const Rules = ({ setShowModal }: RulesProps) => {
     <>
       <div className="space-y-5 p-5">
         <ToggleWithHelper
-          heading="Restrict replies to followers"
+          heading={
+            <span className="font-semibold">
+              Restrict <b>replies</b> to followers
+            </span>
+          }
           description="Only people who follow you can reply"
           on={!!rules.repliesRestricted}
           setOn={() => handleToggle("repliesRestricted")}
         />
         <ToggleWithHelper
-          heading="Restrict quotes to followers"
+          heading={
+            <span className="font-semibold">
+              Restrict <b>quotes</b> to followers
+            </span>
+          }
           description="Only people who follow you can quote this post"
           on={!!rules.quotesRestricted}
           setOn={() => handleToggle("quotesRestricted")}
         />
         <ToggleWithHelper
-          heading="Restrict reposts to followers"
+          heading={
+            <span className="font-semibold">
+              Restrict <b>reposts</b> to followers
+            </span>
+          }
           description="Only people who follow you can repost this"
           on={!!rules.repostRestricted}
           setOn={() => handleToggle("repostRestricted")}
