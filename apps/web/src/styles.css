@@ -6,6 +6,7 @@
 @theme {
   --font-sofia-pro: "Sofia Pro", sans-serif;
   --animate-shimmer: shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-gradient: gradient-shift 6s ease-in-out infinite;
 
   /* Brand Colors */
   --color-brand-50: #fff0f2;
@@ -21,6 +22,16 @@
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 }
 
@@ -42,6 +53,11 @@
     @apply animate-shimmer;
     @apply bg-gray-300;
     @apply dark:bg-gray-600;
+  }
+
+  .gradient-animation {
+    background-size: 200% 200%;
+    @apply animate-gradient;
   }
 
   .menu-item {
