@@ -260,7 +260,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
           <QuotedPost isNew post={quotedPost} />
         </Wrapper>
       ) : null}
-      {editingPost ? null : <RulesSettings />}
       <div className="divider mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
         <div className="flex items-center space-x-4">
@@ -274,8 +273,13 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
             showEmojiPicker={showEmojiPicker}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {editingPost ? null : <CollectSettings />}
-          {!isComment && !editingPost ? <LivestreamSettings /> : null}
+          {editingPost ? null : (
+            <>
+              <CollectSettings />
+              <RulesSettings />
+              {isComment ? null : <LivestreamSettings />}
+            </>
+          )}
         </div>
         <div className="mt-2 ml-auto sm:mt-0">
           <Button
