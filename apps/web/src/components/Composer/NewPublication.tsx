@@ -260,7 +260,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
           <QuotedPost isNew post={quotedPost} />
         </Wrapper>
       ) : null}
-      <RulesSettings />
+      {editingPost ? null : <RulesSettings />}
       <div className="divider mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
         <div className="flex items-center space-x-4">
