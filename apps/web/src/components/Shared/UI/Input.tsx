@@ -65,7 +65,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             className={cn(
               { "placeholder:text-red-500": error },
               prefix ? "rounded-r-xl" : "rounded-xl",
-              "peer w-full border-none bg-transparent outline-hidden focus:ring-0",
+              "peer w-full border-none bg-transparent outline-none focus:ring-0",
               className
             )}
             id={id}

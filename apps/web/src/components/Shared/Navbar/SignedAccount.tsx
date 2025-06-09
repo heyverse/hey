@@ -32,7 +32,7 @@ const SignedAccount = () => {
       </MenuButton>
       <MenuTransition>
         <MenuItems
-          className="z-[5] mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-black"
+          className="z-[5] mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-none dark:border-gray-700 dark:bg-black"
           static
           anchor="bottom start"
         >

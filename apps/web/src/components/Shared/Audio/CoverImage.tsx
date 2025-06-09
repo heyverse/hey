@@ -49,7 +49,7 @@ const CoverImage = ({
 
   return (
     <div className="group relative flex-none overflow-hidden">
-      <button className="flex focus:outline-hidden" type="button">
+      <button className="flex focus:outline-none" type="button">
         <Image
           alt={`attachment-audio-cover-${cover}`}
           className="size-24 rounded-xl object-cover md:size-40 md:rounded-none"

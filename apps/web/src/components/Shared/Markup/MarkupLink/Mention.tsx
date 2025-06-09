@@ -46,7 +46,7 @@ const Mention = ({ mentions, title }: MarkupLinkProps) => {
   if (canShowUserPreview(username)) {
     return (
       <Link
-        className="outline-hidden focus:underline"
+        className="outline-none focus:underline"
         to={`/u/${getNameFromMention(username)}`}
         onClick={stopEventPropagation}
       >

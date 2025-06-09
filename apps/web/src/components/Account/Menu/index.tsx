@@ -32,7 +32,7 @@ const AccountMenu = ({ account }: AccountMenuProps) => {
       </MenuButton>
       <MenuTransition>
         <MenuItems
-          className="mt-2 w-48 origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
+          className="mt-2 w-48 origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           static
           anchor="bottom end"
         >

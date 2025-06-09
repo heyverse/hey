@@ -95,7 +95,7 @@ const Video = ({ src, poster }: VideoProps) => {
                 <Player.Track className="relative h-1 grow rounded-full bg-white/30">
                   <Player.Range className="absolute h-full rounded-full bg-white" />
                 </Player.Track>
-                <Player.Thumb className="block size-2.5 rounded-full bg-white outline-hidden" />
+                <Player.Thumb className="block size-2.5 rounded-full bg-white outline-none" />
               </Player.Volume>
             </div>
             <div className="flex items-center justify-end gap-2.5 sm:flex-1 md:flex-[1.5]">
@@ -114,7 +114,7 @@ const Video = ({ src, poster }: VideoProps) => {
               <Player.SeekBuffer className="absolute h-full rounded-full bg-white/60" />
               <Player.Range className="absolute h-full rounded-full bg-white" />
             </Player.Track>
-            <Player.Thumb className="block size-2.5 rounded-full bg-white outline-hidden" />
+            <Player.Thumb className="block size-2.5 rounded-full bg-white outline-none" />
           </Player.Seek>
         </Player.Controls>
       </Player.Container>

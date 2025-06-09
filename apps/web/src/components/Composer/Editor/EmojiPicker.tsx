@@ -19,7 +19,7 @@ interface EmojiItemProps {
 const EmojiItem = ({ emoji, onSelect }: EmojiItemProps) => {
   return (
     <AutocompleteItem
-      className="focusable-dropdown-item m-1 block cursor-pointer rounded-lg p-2 outline-hidden"
+      className="focusable-dropdown-item m-1 block cursor-pointer rounded-lg p-2 outline-none"
       onSelect={onSelect}
     >
       <div className="flex items-center space-x-2">

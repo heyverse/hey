@@ -22,7 +22,7 @@ const AggregatedNotificationTitle = ({
       <span> {text} </span>
       {type && (
         <Link
-          className="outline-hidden hover:underline focus:underline"
+          className="outline-none hover:underline focus:underline"
           to={linkToType}
           onClick={stopEventPropagation}
         >

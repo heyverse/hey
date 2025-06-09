@@ -27,7 +27,7 @@ interface PostAccountProps {
 const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
   const CustomLink = ({ children }: { children: ReactNode }) => (
     <AccountLink
-      className="outline-hidden hover:underline focus:underline"
+      className="outline-none hover:underline focus:underline"
       account={account}
     >
       <AccountPreview

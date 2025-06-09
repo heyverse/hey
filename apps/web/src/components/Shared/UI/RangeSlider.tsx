@@ -33,7 +33,7 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
             showValueInThumb
               ? "rounded-lg px-2 py-1 font-bold text-white text-xs"
               : "size-5 rounded-full",
-            "block bg-gray-900 focus:outline-hidden active:scale-110"
+            "block bg-gray-900 focus:outline-none active:scale-110"
           )}
         >
           {showValueInThumb ? displayValue || rest.value : null}

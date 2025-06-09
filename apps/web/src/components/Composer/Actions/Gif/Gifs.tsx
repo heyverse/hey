@@ -64,7 +64,7 @@ const Gifs = ({
     <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
       {gifs?.map((gif: IGif) => (
         <button
-          className="relative flex outline-hidden"
+          className="relative flex outline-none"
           key={gif.id}
           onClick={() => handleSelectGif(gif)}
           type="button"

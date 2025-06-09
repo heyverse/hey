@@ -45,7 +45,7 @@ export const NotificationAccountName = ({
       address={account.address}
     >
       <AccountLink
-        className="inline-flex items-center gap-1 font-bold outline-hidden hover:underline focus:underline"
+        className="inline-flex items-center gap-1 font-bold outline-none hover:underline focus:underline"
         account={account}
         onClick={stopEventPropagation}
       >
