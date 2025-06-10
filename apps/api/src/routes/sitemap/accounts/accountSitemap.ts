@@ -1,24 +1,28 @@
 import { Errors } from "@hey/data/errors";
 import type { Context } from "hono";
-import { SITEMAP_BATCH_SIZE } from "src/utils/constants";
+import {
+  SITEMAP_BATCH_SIZE,
+  SITEMAP_INDEX_BATCH_SIZE
+} from "src/utils/constants";
 import lensPg from "src/utils/lensPg";
 import { getRedis, hoursToSeconds, setRedis } from "src/utils/redis";
 import { create } from "xmlbuilder2";
 
 const accountSitemap = async (ctx: Context) => {
   const params = ctx.req.param();
+  const group = params["group"];
   const batch = params["batch.xml"].replace(".xml", "");
 
-  if (Number.isNaN(Number(batch))) {
+  if (Number.isNaN(Number(group)) || Number.isNaN(Number(batch))) {
     return ctx.body(Errors.SomethingWentWrong);
   }
 
-  if (Number(batch) === 0) {
+  if (Number(group) === 0 || Number(batch) === 0) {
     return ctx.body(Errors.SomethingWentWrong);
   }
 
   try {
-    const cacheKey = `sitemap:accounts:${batch}`;
+    const cacheKey = `sitemap:accounts:${group}-${batch}`;
     const cachedData = await getRedis(cacheKey);
 
     const sitemap = create({ version: "1.0", encoding: "UTF-8" }).ele(
@@ -39,6 +43,8 @@ const accountSitemap = async (ctx: Context) => {
           .up();
       }
     } else {
+      const globalBatch =
+        (Number(group) - 1) * SITEMAP_INDEX_BATCH_SIZE + (Number(batch) - 1);
       const dbUsernames = (await lensPg.query(
         `
           SELECT local_name
@@ -47,7 +53,7 @@ const accountSitemap = async (ctx: Context) => {
           ORDER BY id
           LIMIT $2;
         `,
-        [(Number(batch) - 1) * SITEMAP_BATCH_SIZE, SITEMAP_BATCH_SIZE]
+        [globalBatch * SITEMAP_BATCH_SIZE, SITEMAP_BATCH_SIZE]
       )) as Array<{ local_name: string }>;
 
       const usernamesToCache: string[] = [];
