@@ -2,6 +2,7 @@
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
+  Cache-Control: no-store
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
