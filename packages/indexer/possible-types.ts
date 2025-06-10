@@ -49,6 +49,12 @@ const result: PossibleTypesResultData = {
       "NativeAmount",
       "NativeBalanceError"
     ],
+    AnyBalance: [
+      "Erc20Amount",
+      "Erc20BalanceError",
+      "NativeAmount",
+      "NativeBalanceError"
+    ],
     AnyKeyValue: [
       "AddressKeyValue",
       "ArrayKeyValue",

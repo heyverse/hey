@@ -9,7 +9,7 @@ import getAccount from "@hey/helpers/getAccount";
 import {
   type AccountFollowRules,
   type AccountFragment,
-  useAccountBalancesQuery
+  useBalancesBulkQuery
 } from "@hey/indexer";
 import Loader from "../Loader";
 import LoginButton from "../LoginButton";
@@ -27,8 +27,10 @@ const SuperFollow = () => {
   const enabledTokens = tokens.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetAddress] } },
+  const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    variables: {
+      request: { address: currentAccount?.address, tokens: [assetAddress] }
+    },
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
     fetchPolicy: "no-cache"
@@ -42,12 +44,12 @@ const SuperFollow = () => {
     return <Loader message="Loading Super follow" className="my-10" />;
   }
 
-  const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+  const tokenBalance =
+    balance?.balancesBulk[0].__typename === "Erc20Amount"
+      ? balance.balancesBulk[0].value
       : 0;
 
-  const hasEnoughBalance = Number(erc20Balance) >= Number(amount || 0);
+  const hasEnoughBalance = Number(tokenBalance) >= Number(amount || 0);
 
   return (
     <div className="p-5">

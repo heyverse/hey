@@ -617,6 +617,8 @@ export type AdminsForRequest = {
 
 export type AnyAccountBalance = Erc20Amount | Erc20BalanceError | NativeAmount | NativeBalanceError;
 
+export type AnyBalance = Erc20Amount | Erc20BalanceError | NativeAmount | NativeBalanceError;
+
 export type AnyKeyValue = AddressKeyValue | ArrayKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
 
 export type AnyKeyValueInput = {
@@ -863,6 +865,12 @@ export type AuthenticationTokens = {
   accessToken: Scalars['AccessToken']['output'];
   idToken: Scalars['IdToken']['output'];
   refreshToken: Scalars['RefreshToken']['output'];
+};
+
+export type BalancesBulkRequest = {
+  address: Scalars['EvmAddress']['input'];
+  includeNative?: Scalars['Boolean']['input'];
+  tokens?: Array<Scalars['EvmAddress']['input']>;
 };
 
 export type BanGroupAccountsRequest = {
@@ -1165,6 +1173,7 @@ export type CreateUnfollowRequest = {
 export type CreateUsernameNamespaceRequest = {
   admins?: InputMaybe<Array<Scalars['EvmAddress']['input']>>;
   metadataUri?: InputMaybe<Scalars['URI']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
   namespace: Scalars['String']['input'];
   rules?: InputMaybe<NamespaceRulesConfigInput>;
   symbol: Scalars['String']['input'];
@@ -1173,6 +1182,7 @@ export type CreateUsernameNamespaceRequest = {
 export type CreateUsernameNamespaceResult = CreateNamespaceResponse | SelfFundedTransactionRequest | TransactionWillFail;
 
 export type CreateUsernameRequest = {
+  account?: InputMaybe<Scalars['EvmAddress']['input']>;
   assignAccountNamespaceRulesProcessingParams?: InputMaybe<Array<NamespaceRulesProcessingParams>>;
   autoAssign?: InputMaybe<Scalars['Boolean']['input']>;
   createUsernameRulesProcessingParams?: InputMaybe<Array<CreateUsernameRulesProcessingParams>>;
@@ -3887,6 +3897,11 @@ export type PostContentUriArgs = {
   request?: PostContentUriRequest;
 };
 
+
+export type PostStatsArgs = {
+  request?: PostStatsParams;
+};
+
 export type PostAccountPair = {
   account: Scalars['EvmAddress']['input'];
   post: Scalars['PostId']['input'];
@@ -4251,6 +4266,10 @@ export type PostStatsReactionsArgs = {
   request?: StatsReactionRequest;
 };
 
+export type PostStatsParams = {
+  includeModeratorFlagged: Scalars['Boolean']['input'];
+};
+
 export type PostTag = {
   __typename?: 'PostTag';
   total: Scalars['Int']['output'];
@@ -4383,6 +4402,7 @@ export type Query = {
   _service: _Service;
   accessControl?: Maybe<AccessControlResult>;
   account?: Maybe<Account>;
+  /** @deprecated Use `balancesBulk` query */
   accountBalances: Array<AnyAccountBalance>;
   accountFeedsStats: AccountFeedsStats;
   accountGraphsStats: AccountGraphsFollowStats;
@@ -4401,6 +4421,7 @@ export type Query = {
   appUsers: PaginatedAppUsersResult;
   apps: AppsResult;
   authenticatedSessions: PaginatedActiveAuthenticationsResult;
+  balancesBulk: Array<AnyBalance>;
   canCreateUsername: CanCreateUsernameResult;
   createFrameTypedData: CreateFrameEip712TypedData;
   currentSession: AuthenticatedSession;
@@ -4555,6 +4576,11 @@ export type QueryAppsArgs = {
 
 export type QueryAuthenticatedSessionsArgs = {
   request: AuthenticatedSessionsRequest;
+};
+
+
+export type QueryBalancesBulkArgs = {
+  request: BalancesBulkRequest;
 };
 
 
@@ -8128,19 +8154,6 @@ export type AccountQuery = { __typename?: 'Query', account?: (
     & AccountFragment
   ) | null };
 
-export type AccountBalancesQueryVariables = Exact<{
-  request: AccountBalancesRequest;
-}>;
-
-
-export type AccountBalancesQuery = { __typename?: 'Query', accountBalances: Array<(
-    { __typename?: 'Erc20Amount' }
-    & Erc20AmountFragment
-  ) | { __typename?: 'Erc20BalanceError' } | (
-    { __typename?: 'NativeAmount' }
-    & NativeAmountFragment
-  ) | { __typename?: 'NativeBalanceError' }> };
-
 export type AccountManagersQueryVariables = Exact<{
   request: AccountManagersRequest;
 }>;
@@ -8216,6 +8229,19 @@ export type AccountsBulkQuery = { __typename?: 'Query', accountsBulk: Array<(
     { __typename?: 'Account' }
     & AccountFragment
   )> };
+
+export type BalancesBulkQueryVariables = Exact<{
+  request: BalancesBulkRequest;
+}>;
+
+
+export type BalancesBulkQuery = { __typename?: 'Query', balancesBulk: Array<(
+    { __typename?: 'Erc20Amount' }
+    & Erc20AmountFragment
+  ) | { __typename?: 'Erc20BalanceError' } | (
+    { __typename?: 'NativeAmount' }
+    & NativeAmountFragment
+  ) | { __typename?: 'NativeBalanceError' }> };
 
 export type FollowersQueryVariables = Exact<{
   request: FollowersRequest;
@@ -8977,22 +9003,6 @@ export function useAccountSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.
 export type AccountQueryHookResult = ReturnType<typeof useAccountQuery>;
 export type AccountLazyQueryHookResult = ReturnType<typeof useAccountLazyQuery>;
 export type AccountSuspenseQueryHookResult = ReturnType<typeof useAccountSuspenseQuery>;
-export const AccountBalancesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountBalances"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AccountBalancesRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accountBalances"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NativeAmount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"NativeAmount"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NativeAmount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NativeAmount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
-export function useAccountBalancesQuery(baseOptions: Apollo.QueryHookOptions<AccountBalancesQuery, AccountBalancesQueryVariables> & ({ variables: AccountBalancesQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AccountBalancesQuery, AccountBalancesQueryVariables>(AccountBalancesDocument, options);
-      }
-export function useAccountBalancesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AccountBalancesQuery, AccountBalancesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AccountBalancesQuery, AccountBalancesQueryVariables>(AccountBalancesDocument, options);
-        }
-export function useAccountBalancesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<AccountBalancesQuery, AccountBalancesQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<AccountBalancesQuery, AccountBalancesQueryVariables>(AccountBalancesDocument, options);
-        }
-export type AccountBalancesQueryHookResult = ReturnType<typeof useAccountBalancesQuery>;
-export type AccountBalancesLazyQueryHookResult = ReturnType<typeof useAccountBalancesLazyQuery>;
-export type AccountBalancesSuspenseQueryHookResult = ReturnType<typeof useAccountBalancesSuspenseQuery>;
 export const AccountManagersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AccountManagers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AccountManagersRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accountManagers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountManager"}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginatedResultInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginatedResultInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PaginatedResultInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"prev"}},{"kind":"Field","name":{"kind":"Name","value":"next"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountManager"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountManager"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"manager"}},{"kind":"Field","name":{"kind":"Name","value":"isLensManager"}},{"kind":"Field","name":{"kind":"Name","value":"permissions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"canExecuteTransactions"}},{"kind":"Field","name":{"kind":"Name","value":"canTransferNative"}},{"kind":"Field","name":{"kind":"Name","value":"canTransferTokens"}}]}}]}}]} as unknown as DocumentNode;
 export function useAccountManagersQuery(baseOptions: Apollo.QueryHookOptions<AccountManagersQuery, AccountManagersQueryVariables> & ({ variables: AccountManagersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
@@ -9089,6 +9099,22 @@ export function useAccountsBulkSuspenseQuery(baseOptions?: Apollo.SkipToken | Ap
 export type AccountsBulkQueryHookResult = ReturnType<typeof useAccountsBulkQuery>;
 export type AccountsBulkLazyQueryHookResult = ReturnType<typeof useAccountsBulkLazyQuery>;
 export type AccountsBulkSuspenseQueryHookResult = ReturnType<typeof useAccountsBulkSuspenseQuery>;
+export const BalancesBulkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"BalancesBulk"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"BalancesBulkRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"balancesBulk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NativeAmount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"NativeAmount"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Erc20Amount"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Erc20Amount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Erc20Amount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"NativeAmount"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NativeAmount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"asset"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"contract"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
+export function useBalancesBulkQuery(baseOptions: Apollo.QueryHookOptions<BalancesBulkQuery, BalancesBulkQueryVariables> & ({ variables: BalancesBulkQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BalancesBulkQuery, BalancesBulkQueryVariables>(BalancesBulkDocument, options);
+      }
+export function useBalancesBulkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BalancesBulkQuery, BalancesBulkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BalancesBulkQuery, BalancesBulkQueryVariables>(BalancesBulkDocument, options);
+        }
+export function useBalancesBulkSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<BalancesBulkQuery, BalancesBulkQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<BalancesBulkQuery, BalancesBulkQueryVariables>(BalancesBulkDocument, options);
+        }
+export type BalancesBulkQueryHookResult = ReturnType<typeof useBalancesBulkQuery>;
+export type BalancesBulkLazyQueryHookResult = ReturnType<typeof useBalancesBulkLazyQuery>;
+export type BalancesBulkSuspenseQueryHookResult = ReturnType<typeof useBalancesBulkSuspenseQuery>;
 export const FollowersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Followers"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"request"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"FollowersRequest"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"followers"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"Variable","name":{"kind":"Name","value":"request"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"follower"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Account"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PaginatedResultInfo"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AnyKeyValue"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AnyKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AddressKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BigDecimalKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"bigDecimal"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StringKeyValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"string"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PaginatedResultInfo"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PaginatedResultInfo"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"prev"}},{"kind":"Field","name":{"kind":"Name","value":"next"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Account"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"owner"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"rules"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"anyOf"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFollowRule"}}]}},{"kind":"Field","name":{"kind":"Name","value":"required"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountFollowRule"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"operations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"LoggedInAccountOperations"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AccountMetadata"}}]}},{"kind":"Field","name":{"kind":"Name","value":"username"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"autoResolve"},"value":{"kind":"BooleanValue","value":true}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Username"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Permissions"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountFollowRule"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountFollowRule"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"config"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"AnyKeyValue"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"AccountMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"AccountMetadata"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"picture"}},{"kind":"Field","name":{"kind":"Name","value":"coverPicture"}},{"kind":"Field","name":{"kind":"Name","value":"attributes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MetadataAttribute"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LoggedInAccountOperations"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"LoggedInAccountOperations"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isFollowingMe"}},{"kind":"Field","name":{"kind":"Name","value":"isMutedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"isBlockedByMe"}},{"kind":"Field","name":{"kind":"Name","value":"hasBlockedMe"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Permissions"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"hasSubscribed"},"name":{"kind":"Name","value":"isMemberOf"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"group"},"value":{"kind":"StringValue","value":"0x4BE5b4519814A57E6f9AaFC6afBB37eAEeE35aA3","block":false}}]}}]},{"kind":"Field","alias":{"kind":"Name","value":"isStaff"},"name":{"kind":"Name","value":"isMemberOf"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"request"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"group"},"value":{"kind":"StringValue","value":"0xA7f2835e54998c6d7d4A0126eC0ebE91b5E43c69","block":false}}]}}]}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Username"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Username"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"namespace"}},{"kind":"Field","name":{"kind":"Name","value":"localName"}},{"kind":"Field","name":{"kind":"Name","value":"linkedTo"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MetadataAttribute"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MetadataAttribute"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]} as unknown as DocumentNode;
 export function useFollowersQuery(baseOptions: Apollo.QueryHookOptions<FollowersQuery, FollowersQueryVariables> & ({ variables: FollowersQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}

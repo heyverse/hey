@@ -8,12 +8,11 @@ import {
   useFundModalStore
 } from "@/store/non-persisted/modal/useFundModalStore";
 import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
-import { useDepositMutation } from "@hey/indexer";
+import { useBalancesBulkQuery, useDepositMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { type ChangeEvent, type RefObject, useRef, useState } from "react";
 import { toast } from "sonner";
-import { formatUnits } from "viem";
-import { useAccount, useBalance } from "wagmi";
+import { useAccount } from "wagmi";
 
 interface TransferProps {
   token?: FundingToken;
@@ -31,10 +30,18 @@ const Transfer = ({ token }: TransferProps) => {
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
   const symbol = token?.symbol ?? NATIVE_TOKEN_SYMBOL;
 
-  const { data: balance, isLoading: balanceLoading } = useBalance({
-    address,
-    token: token?.contractAddress,
-    query: { refetchInterval: 2000 }
+  const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    variables: {
+      request: {
+        address,
+        ...(token
+          ? { tokens: [token?.contractAddress] }
+          : { includeNative: true })
+      }
+    },
+    pollInterval: 3000,
+    skip: !address,
+    fetchPolicy: "no-cache"
   });
 
   const onCompleted = async (hash: string) => {
@@ -66,9 +73,12 @@ const Transfer = ({ token }: TransferProps) => {
     onError
   });
 
-  const walletBalance = balance
-    ? Number.parseFloat(formatUnits(balance.value, balance.decimals)).toFixed(2)
-    : 0;
+  const tokenBalance =
+    balance?.balancesBulk[0].__typename === "Erc20Amount"
+      ? Number(balance.balancesBulk[0].value).toFixed(2)
+      : balance?.balancesBulk[0].__typename === "NativeAmount"
+        ? Number(balance.balancesBulk[0].value).toFixed(2)
+        : 0;
 
   const onOtherAmount = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value as unknown as number;
@@ -108,7 +118,7 @@ const Transfer = ({ token }: TransferProps) => {
           <span className="shimmer h-2.5 w-20 rounded-full" />
         ) : (
           <span className="text-gray-500 text-sm dark:text-gray-200">
-            Balance: {walletBalance} {symbol}
+            Balance: {tokenBalance} {symbol}
           </span>
         )}
       </div>
@@ -167,7 +177,7 @@ const Transfer = ({ token }: TransferProps) => {
             disabled
             icon={<Spinner className="my-1" size="xs" />}
           />
-        ) : Number(walletBalance) < amount ? (
+        ) : Number(tokenBalance) < amount ? (
           <Button disabled className="w-full">
             Insufficient balance
           </Button>

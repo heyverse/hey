@@ -2,25 +2,29 @@ import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Image } from "@/components/Shared/UI";
 import getTokenImage from "@/helpers/getTokenImage";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   DEFAULT_COLLECT_TOKEN,
   NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
 import { tokens } from "@hey/data/tokens";
-import { useAccountBalancesQuery } from "@hey/indexer";
+import { useBalancesBulkQuery } from "@hey/indexer";
 import type { Address } from "viem";
 import Unwrap from "./Unwrap";
 import Withdraw from "./Withdraw";
 import Wrap from "./Wrap";
 
 const Balances = () => {
-  const { data, loading, error, refetch } = useAccountBalancesQuery({
+  const { currentAccount } = useAccountStore();
+  const { data, loading, error, refetch } = useBalancesBulkQuery({
     variables: {
       request: {
+        address: currentAccount?.address,
         includeNative: true,
         tokens: tokens.map((token) => token.contractAddress)
       }
     },
+    skip: !currentAccount?.address,
     pollInterval: 5000
   });
 
@@ -79,7 +83,7 @@ const Balances = () => {
 
   return (
     <div className="m-5 space-y-7">
-      {data?.accountBalances.map((balance, index) => (
+      {data?.balancesBulk.map((balance, index) => (
         <div key={index}>
           {balance.__typename === "NativeAmount" && (
             <TokenBalance value={balance.value} symbol={NATIVE_TOKEN_SYMBOL} />

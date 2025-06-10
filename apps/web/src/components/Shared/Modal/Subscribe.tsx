@@ -14,7 +14,7 @@ import {
 } from "@hey/data/constants";
 import {
   type AccountFragment,
-  useAccountBalancesQuery,
+  useBalancesBulkQuery,
   useJoinGroupMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -28,8 +28,13 @@ const Subscribe = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [DEFAULT_COLLECT_TOKEN] } },
+  const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    variables: {
+      request: {
+        address: currentAccount?.address,
+        tokens: [DEFAULT_COLLECT_TOKEN]
+      }
+    },
     pollInterval: 3000,
     skip: !currentAccount?.address,
     fetchPolicy: "no-cache"
@@ -45,12 +50,12 @@ const Subscribe = () => {
     errorToast(error);
   };
 
-  const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? Number(balance.accountBalances[0].value).toFixed(2)
+  const tokenBalance =
+    balance?.balancesBulk[0].__typename === "Erc20Amount"
+      ? Number(balance.balancesBulk[0].value).toFixed(2)
       : 0;
 
-  const canSubscribe = Number(erc20Balance) >= SUBSCRIPTION_AMOUNT;
+  const canSubscribe = Number(tokenBalance) >= SUBSCRIPTION_AMOUNT;
 
   const [joinGroup] = useJoinGroupMutation({
     onCompleted: async ({ joinGroup }) => {

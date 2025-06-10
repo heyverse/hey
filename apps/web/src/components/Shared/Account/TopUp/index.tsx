@@ -4,15 +4,16 @@ import getTokenImage from "@/helpers/getTokenImage";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
-import { useAccountBalancesQuery } from "@hey/indexer";
+import { useBalancesBulkQuery } from "@hey/indexer";
 import Transfer from "./Transfer";
 
 const TopUp = () => {
   const { currentAccount } = useAccountStore();
   const { token } = useFundModalStore();
-  const { data: balance, loading } = useAccountBalancesQuery({
+  const { data: balance, loading } = useBalancesBulkQuery({
     variables: {
       request: {
+        address: currentAccount?.address,
         ...(token
           ? { tokens: [token?.contractAddress] }
           : { includeNative: true })
@@ -28,10 +29,10 @@ const TopUp = () => {
   }
 
   const tokenBalance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? Number(balance.accountBalances[0].value).toFixed(2)
-      : balance?.accountBalances[0].__typename === "NativeAmount"
-        ? Number(balance.accountBalances[0].value).toFixed(2)
+    balance?.balancesBulk[0].__typename === "Erc20Amount"
+      ? Number(balance.balancesBulk[0].value).toFixed(2)
+      : balance?.balancesBulk[0].__typename === "NativeAmount"
+        ? Number(balance.balancesBulk[0].value).toFixed(2)
         : 0;
 
   return (

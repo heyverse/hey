@@ -8,7 +8,7 @@ import { tokens } from "@hey/data/tokens";
 import {
   type GroupFragment,
   type GroupRules,
-  useAccountBalancesQuery
+  useBalancesBulkQuery
 } from "@hey/indexer";
 import TopUpButton from "../Account/TopUp/Button";
 import Loader from "../Loader";
@@ -24,8 +24,10 @@ const SuperJoin = () => {
   const enabledTokens = tokens.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetAddress] } },
+  const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    variables: {
+      request: { address: currentAccount?.address, tokens: [assetAddress] }
+    },
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
     fetchPolicy: "no-cache"
@@ -39,12 +41,12 @@ const SuperJoin = () => {
     return <Loader message="Loading Super join" className="my-10" />;
   }
 
-  const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+  const tokenBalance =
+    balance?.balancesBulk[0].__typename === "Erc20Amount"
+      ? balance.balancesBulk[0].value
       : 0;
 
-  const hasEnoughBalance = Number(erc20Balance) >= Number(amount || 0);
+  const hasEnoughBalance = Number(tokenBalance) >= Number(amount || 0);
 
   return (
     <div className="p-5">

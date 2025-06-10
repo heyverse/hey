@@ -10,7 +10,7 @@ import { HEY_TREASURY } from "@hey/data/constants";
 import {
   type PostActionFragment,
   type PostFragment,
-  useAccountBalancesQuery,
+  useBalancesBulkQuery,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -84,20 +84,22 @@ const CollectActionButton = ({
     errorToast(error);
   };
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { tokens: [assetAddress] } },
+  const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    variables: {
+      request: { address: currentAccount?.address, tokens: [assetAddress] }
+    },
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
     fetchPolicy: "no-cache"
   });
 
-  const erc20Balance =
-    balance?.accountBalances[0].__typename === "Erc20Amount"
-      ? balance.accountBalances[0].value
+  const tokenBalance =
+    balance?.balancesBulk[0].__typename === "Erc20Amount"
+      ? balance.balancesBulk[0].value
       : 0;
 
   let hasAmount = false;
-  if (Number.parseFloat(erc20Balance) < amount) {
+  if (Number.parseFloat(tokenBalance) < amount) {
     hasAmount = false;
   } else {
     hasAmount = true;

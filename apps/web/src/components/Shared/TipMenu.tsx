@@ -11,7 +11,7 @@ import {
   type AccountFragment,
   type PostFragment,
   type TippingAmountInput,
-  useAccountBalancesQuery,
+  useBalancesBulkQuery,
   useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@hey/indexer";
@@ -39,8 +39,10 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
-  const { data: balance, loading: balanceLoading } = useAccountBalancesQuery({
-    variables: { request: { includeNative: true } },
+  const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    variables: {
+      request: { address: currentAccount?.address, includeNative: true }
+    },
     pollInterval: 3000,
     skip: !currentAccount?.address,
     fetchPolicy: "no-cache"
@@ -82,8 +84,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
 
   const cryptoRate = Number(amount);
   const nativeBalance =
-    balance?.accountBalances[0].__typename === "NativeAmount"
-      ? Number(balance.accountBalances[0].value).toFixed(2)
+    balance?.balancesBulk[0].__typename === "NativeAmount"
+      ? Number(balance.balancesBulk[0].value).toFixed(2)
       : 0;
   const canTip = Number(nativeBalance) >= cryptoRate;
 

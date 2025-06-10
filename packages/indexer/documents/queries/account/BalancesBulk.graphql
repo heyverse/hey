@@ -1,5 +1,5 @@
-query AccountBalances($request: AccountBalancesRequest!) {
-  accountBalances(request: $request) {
+query BalancesBulk($request: BalancesBulkRequest!) {
+  balancesBulk(request: $request) {
     ... on NativeAmount {
       ...NativeAmount
     }
