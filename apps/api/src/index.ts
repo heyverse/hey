@@ -5,6 +5,7 @@ import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
 import infoLogger from "./middlewares/infoLogger";
 import cronRouter from "./routes/cron";
+import echo from "./routes/echo";
 import jumperRouter from "./routes/jumper";
 import lensRouter from "./routes/lens";
 import liveRouter from "./routes/live";
@@ -24,6 +25,7 @@ app.use(infoLogger);
 
 // Routes
 app.get("/ping", ping);
+app.post("/echo", echo);
 app.route("/lens", lensRouter);
 app.route("/cron", cronRouter);
 app.route("/live", liveRouter);

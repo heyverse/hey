@@ -11,12 +11,12 @@
     "@hey/data": "workspace:*",
     "@hey/indexer": "workspace:*",
     "@hey/types": "workspace:*",
-    "viem": "^2.30.6"
+    "viem": "^2.31.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^22.15.30",
+    "@types/node": "^24.0.0",
     "typescript": "^5.8.3",
-    "vitest": "^3.2.2"
+    "vitest": "^3.2.3"
   }
 }
