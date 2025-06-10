@@ -18,9 +18,7 @@ describe("infoLogger", () => {
 
     await infoLogger(ctx, next);
 
-    expect(info).toHaveBeenCalledWith(
-      "[GET /a] \u279c [GPTBot] \u279c 50.00ms, 0.00mb"
-    );
+    expect(info).toHaveBeenCalledWith("[GET /a] \u279c 50.00ms, 0.00mb");
     expect(next).toHaveBeenCalled();
 
     now.mockRestore();
