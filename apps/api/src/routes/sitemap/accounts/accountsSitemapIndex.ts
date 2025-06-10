@@ -40,7 +40,7 @@ const accountsSitemapIndex = async (ctx: Context) => {
       sitemapIndex
         .ele("sitemap")
         .ele("loc")
-        .txt(`https://hey.xyz/sitemap/accounts-${i + 1}.xml`)
+        .txt(`https://hey.xyz/sitemap/accounts/${i + 1}.xml`)
         .up()
         .ele("lastmod")
         .txt(new Date().toISOString())

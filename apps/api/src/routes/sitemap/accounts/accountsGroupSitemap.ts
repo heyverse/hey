@@ -54,7 +54,7 @@ const accountsGroupSitemap = async (ctx: Context) => {
         .ele("sitemap")
         .ele("loc")
         .txt(
-          `https://hey.xyz/sitemap/accounts-${group}/${i - startBatch + 1}.xml`
+          `https://hey.xyz/sitemap/accounts/${group}/${i - startBatch + 1}.xml`
         )
         .up()
         .ele("lastmod")

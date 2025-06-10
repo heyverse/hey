@@ -10,7 +10,7 @@ const app = new Hono();
 app.get("/all.xml", sitemapIndex);
 app.get("/pages.xml", pagesSitemap);
 app.get("/accounts.xml", accountsSitemapIndex);
-app.get("/accounts-:group.xml", accountsGroupSitemap);
-app.get("/accounts-:group/:batch.xml", accountSitemap);
+app.get("/accounts/:group.xml", accountsGroupSitemap);
+app.get("/accounts/:group/:batch.xml", accountSitemap);
 
 export default app;
