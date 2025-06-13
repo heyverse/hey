@@ -1,7 +1,5 @@
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { PostFeed } from "@/components/Shared/Feed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
@@ -9,7 +7,6 @@ import {
   type PostsRequest,
   usePostsQuery
 } from "@hey/indexer";
-import { WindowVirtualizer } from "virtua";
 
 interface GroupFeedProps {
   feed: string;
@@ -37,24 +34,6 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
       });
     }
   };
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
-
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (!posts?.length) {
-    return (
-      <EmptyState
-        icon={<ChatBubbleBottomCenterIcon className="size-8" />}
-        message="Group has no posts yet!"
-      />
-    );
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load group feed" />;
-  }
 
   const filteredPosts = posts.filter(
     (post) =>
@@ -64,14 +43,17 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
   );
 
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {filteredPosts.map((post) => (
-          <SinglePost key={post.id} post={post} />
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={filteredPosts}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
+      emptyMessage="Group has no posts yet!"
+      errorTitle="Failed to load group feed"
+      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+    />
   );
 };
 

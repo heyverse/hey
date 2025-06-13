@@ -1,8 +1,6 @@
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { PostFeed } from "@/components/Shared/Feed";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
@@ -13,7 +11,6 @@ import {
   type ReferencedPostFragment,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { WindowVirtualizer } from "virtua";
 
 interface CommentFeedProps {
   postId: string;
@@ -49,24 +46,6 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
       });
     }
   };
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
-
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load comment feed" />;
-  }
-
-  if (!comments?.length) {
-    return (
-      <EmptyState
-        icon={<ChatBubbleLeftIcon className="size-8" />}
-        message="Be the first one to comment!"
-      />
-    );
-  }
 
   const filteredComments = comments.filter(
     (comment) =>
@@ -77,14 +56,19 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
   );
 
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {filteredComments.map((comment) => (
-          <SinglePost key={comment.id} post={comment} showType={false} />
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={filteredComments}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<ChatBubbleLeftIcon className="size-8" />}
+      emptyMessage="Be the first one to comment!"
+      errorTitle="Failed to load comment feed"
+      renderItem={(comment) => (
+        <SinglePost key={comment.id} post={comment} showType={false} />
+      )}
+    />
   );
 };
 

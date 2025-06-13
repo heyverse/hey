@@ -1,6 +1,5 @@
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { PostFeed } from "@/components/Shared/Feed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
 import {
@@ -10,9 +9,6 @@ import {
   type PostsRequest,
   usePostsQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
-import { WindowVirtualizer } from "virtua";
 
 interface AccountFeedProps {
   username: string;
@@ -25,12 +21,6 @@ interface AccountFeedProps {
 }
 
 const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
-
   const getPostTypes = () => {
     switch (type) {
       case AccountFeedType.Feed:
@@ -99,43 +89,23 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
-
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (!posts?.length) {
-    return (
-      <EmptyState
-        icon={<ChatBubbleBottomCenterIcon className="size-8" />}
-        message={
-          <div>
-            <b className="mr-1">{username}</b>
-            <span>{getEmptyMessage()}</span>
-          </div>
-        }
-      />
-    );
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load account feed" />;
-  }
-
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {posts.map((post) => (
-          <SinglePost key={post.id} post={post} />
-        ))}
-        {hasMore && <span ref={ref} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={posts ?? []}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
+      emptyMessage={
+        <div>
+          <b className="mr-1">{username}</b>
+          <span>{getEmptyMessage()}</span>
+        </div>
+      }
+      errorTitle="Failed to load account feed"
+      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+    />
   );
 };
 
