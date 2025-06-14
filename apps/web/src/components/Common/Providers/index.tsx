@@ -24,8 +24,9 @@ const Providers = ({ children }: ProvidersProps) => {
       <QueryClientProvider client={queryClient}>
         <Web3Provider>
           <ApolloProvider client={lensApolloClient}>
-            <PreferencesProvider />
-            <ThemeProvider>{children}</ThemeProvider>
+            <PreferencesProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </PreferencesProvider>
           </ApolloProvider>
         </Web3Provider>
       </QueryClientProvider>

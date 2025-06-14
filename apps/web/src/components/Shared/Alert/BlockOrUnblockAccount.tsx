@@ -4,7 +4,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -85,7 +85,7 @@ const BlockOrUnblockAccount = () => {
 
   const blockOrUnblock = async () => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     setIsSubmitting(true);

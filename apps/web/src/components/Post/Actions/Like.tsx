@@ -5,7 +5,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { ApolloCache } from "@apollo/client";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import {
   type PostFragment,
   PostReactionType,
@@ -75,7 +75,7 @@ const Like = ({ post, showCount }: LikeProps) => {
 
   const handleCreateLike = async () => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     toggleReact();

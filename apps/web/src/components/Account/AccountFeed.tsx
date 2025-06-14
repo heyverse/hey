@@ -20,6 +20,13 @@ interface AccountFeedProps {
     | AccountFeedType.Replies;
 }
 
+const EMPTY_MESSAGES: Record<AccountFeedType, string> = {
+  [AccountFeedType.Feed]: "has nothing in their feed yet!",
+  [AccountFeedType.Media]: "has no media yet!",
+  [AccountFeedType.Replies]: "hasn't replied yet!",
+  [AccountFeedType.Collects]: "hasn't collected anything yet!"
+};
+
 const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   const getPostTypes = () => {
     switch (type) {
@@ -40,14 +47,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   };
 
   const getEmptyMessage = () => {
-    const messages = {
-      [AccountFeedType.Feed]: "has nothing in their feed yet!",
-      [AccountFeedType.Media]: "has no media yet!",
-      [AccountFeedType.Replies]: "hasn't replied yet!",
-      [AccountFeedType.Collects]: "hasn't collected anything yet!"
-    };
-
-    return messages[type] || "";
+    return EMPTY_MESSAGES[type] || "";
   };
 
   const postTypes = getPostTypes();

@@ -6,6 +6,11 @@ import { immutable } from "@lens-chain/storage-client";
 import { hono } from "./fetcher";
 import { storageClient } from "./storageClient";
 
+interface UploadResult {
+  mimeType: string;
+  uri: string;
+}
+
 const FALLBACK_TYPE = "image/jpeg";
 const FILE_SIZE_LIMIT_MB = 8 * 1024 * 1024; // 8MB in bytes
 
@@ -32,7 +37,7 @@ const getS3Client = async (): Promise<S3> => {
 
 const uploadToIPFS = async (
   data: FileList | File[]
-): Promise<{ mimeType: string; uri: string }[]> => {
+): Promise<UploadResult[]> => {
   try {
     const files = Array.from(data) as File[];
     const s3Files = files.filter(
@@ -85,9 +90,7 @@ const uploadToIPFS = async (
   }
 };
 
-export const uploadFileToIPFS = async (
-  file: File
-): Promise<{ mimeType: string; uri: string }> => {
+export const uploadFileToIPFS = async (file: File): Promise<UploadResult> => {
   try {
     const ipfsResponse = await uploadToIPFS([file]);
     const metadata = ipfsResponse[0];

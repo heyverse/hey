@@ -2,9 +2,14 @@ import { hono } from "@/helpers/fetcher";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useQuery } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 import { useEffect } from "react";
 
-const PreferencesProvider = () => {
+interface PreferencesProviderProps {
+  children: ReactNode;
+}
+
+const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
   const { currentAccount } = useAccountStore();
   const { setAppIcon, setIncludeLowScore } = usePreferencesStore();
 
@@ -21,7 +26,7 @@ const PreferencesProvider = () => {
     }
   }, [preferences]);
 
-  return null;
+  return <>{children}</>;
 };
 
 export default PreferencesProvider;

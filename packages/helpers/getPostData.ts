@@ -1,6 +1,6 @@
 import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
 import type { PostMetadataFragment } from "@hey/indexer";
-import type { MetadataAsset } from "@hey/types/misc";
+import type { AttachmentData, MetadataAsset } from "@hey/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
@@ -8,10 +8,7 @@ const getPostData = (
   metadata: PostMetadataFragment
 ): {
   asset?: MetadataAsset;
-  attachments?: {
-    type: "Audio" | "Image" | "Video";
-    uri: string;
-  }[];
+  attachments?: AttachmentData[];
   content?: string;
 } | null => {
   switch (metadata.__typename) {
@@ -46,7 +43,8 @@ const getPostData = (
 
       return {
         asset: {
-          artist: metadata.audio.artist || audioAttachments?.artist,
+          artist:
+            metadata.audio.artist ?? audioAttachments?.artist ?? undefined,
           cover: sanitizeDStorageUrl(
             metadata.audio.cover ||
               audioAttachments?.coverUri ||

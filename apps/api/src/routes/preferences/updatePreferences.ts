@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import prisma from "src/prisma/client";
 import { delRedis } from "src/utils/redis";
@@ -24,7 +24,7 @@ const updatePreferences = async (ctx: Context) => {
       }
     });
   } catch {
-    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
   }
 };
 

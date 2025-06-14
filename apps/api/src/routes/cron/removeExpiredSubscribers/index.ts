@@ -1,5 +1,5 @@
 import { PERMISSIONS } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import lensPg from "src/utils/lensPg";
 import signer from "src/utils/signer";
@@ -41,7 +41,7 @@ const removeExpiredSubscribers = async (ctx: Context) => {
 
     return ctx.json({ success: true, addresses, hash });
   } catch {
-    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
   }
 };
 

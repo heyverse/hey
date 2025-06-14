@@ -7,7 +7,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import {
   type AccountManagerFragment,
   type AccountManagersRequest,
@@ -65,7 +65,7 @@ const List = () => {
 
   const handleRemoveManager = async (manager: AccountManagerFragment) => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     setRemovingManager(manager);

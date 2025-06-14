@@ -28,7 +28,7 @@ import {
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import type { PostFragment } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
@@ -169,7 +169,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
   const handleCreatePost = async () => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     try {

@@ -5,7 +5,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { type PostFragment, useRepostMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCounter } from "@uidotdev/usehooks";
@@ -82,7 +82,7 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
 
   const handleCreateRepost = async () => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     setIsSubmitting(true);

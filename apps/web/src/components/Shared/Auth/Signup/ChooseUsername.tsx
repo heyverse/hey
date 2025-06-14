@@ -9,7 +9,7 @@ import {
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
 import { HEY_APP, IS_MAINNET } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import {
   useAccountQuery,
@@ -100,7 +100,7 @@ const ChooseUsername = () => {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(Errors.SomethingWentWrong);
+        return toast.error(ERRORS.SomethingWentWrong);
       }
 
       // Get signature
@@ -140,7 +140,7 @@ const ChooseUsername = () => {
         });
       }
 
-      return onError({ message: Errors.SomethingWentWrong });
+      return onError({ message: ERRORS.SomethingWentWrong });
     } catch {
       onError();
     } finally {

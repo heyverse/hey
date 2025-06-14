@@ -9,10 +9,10 @@ interface RangeSliderProps extends SliderPrimitive.SliderProps {
 }
 
 const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
-  function RangeSlider(
+  (
     { className = "", displayValue, showValueInThumb = false, ...rest },
     ref
-  ) {
+  ) => {
     return (
       <SliderPrimitive.Root
         className={cn(

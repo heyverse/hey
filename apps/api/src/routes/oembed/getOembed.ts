@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import { CACHE_AGE_1_DAY } from "src/utils/constants";
 import { generateExtraLongExpiry, getRedis, setRedis } from "src/utils/redis";
@@ -26,7 +26,7 @@ const getOembed = async (ctx: Context) => {
 
     return ctx.json({ success: true, data: oembed });
   } catch {
-    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
   }
 };
 

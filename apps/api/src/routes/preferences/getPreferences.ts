@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import prisma from "src/prisma/client";
 import { getRedis, setRedis } from "src/utils/redis";
@@ -31,7 +31,7 @@ const getPreferences = async (ctx: Context) => {
 
     return ctx.json({ success: true, data });
   } catch {
-    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
   }
 };
 

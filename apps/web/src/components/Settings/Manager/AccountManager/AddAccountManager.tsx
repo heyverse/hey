@@ -5,7 +5,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { useAddAccountManagerMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import type { Dispatch, SetStateAction } from "react";
@@ -53,7 +53,7 @@ const AddAccountManager = ({
 
   const handleAddManager = async () => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     setIsSubmitting(true);

@@ -4,7 +4,7 @@ import { signIn } from "@/store/persisted/useAuthStore";
 import { EXPANSION_EASE } from "@/variants";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { HEY_APP, IS_MAINNET } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import {
   type ChallengeRequest,
   ManagedAccountsVisibility,
@@ -97,7 +97,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(Errors.SomethingWentWrong);
+        return toast.error(ERRORS.SomethingWentWrong);
       }
 
       // Get signature
@@ -117,7 +117,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         return location.reload();
       }
 
-      return onError({ message: Errors.SomethingWentWrong });
+      return onError({ message: ERRORS.SomethingWentWrong });
     } catch {
       onError();
     }
@@ -129,7 +129,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         {errorChallenge || errorAuthenticate ? (
           <ErrorMessage
             className="text-red-500"
-            title={Errors.SomethingWentWrong}
+            title={ERRORS.SomethingWentWrong}
             error={errorChallenge || errorAuthenticate}
           />
         ) : null}

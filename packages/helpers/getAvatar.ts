@@ -11,7 +11,7 @@ interface EntityWithAvatar {
 
 const getAvatar = (
   entity: EntityWithAvatar | null | undefined,
-  namedTransform = TRANSFORMS.AVATAR_SMALL
+  namedTransform: (typeof TRANSFORMS)[keyof typeof TRANSFORMS] = TRANSFORMS.AVATAR_SMALL
 ): string => {
   if (!entity) {
     return DEFAULT_AVATAR;

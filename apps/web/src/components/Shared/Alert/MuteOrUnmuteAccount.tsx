@@ -3,7 +3,7 @@ import errorToast from "@/helpers/errorToast";
 import { useMuteAlertStore } from "@/store/non-persisted/alert/useMuteAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import { useMuteMutation, useUnmuteMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -60,7 +60,7 @@ const MuteOrUnmuteAccount = () => {
 
   const muteOrUnmute = async () => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     setIsSubmitting(true);
