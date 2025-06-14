@@ -4,7 +4,7 @@ import { PageLayout } from "./PageLayout";
 
 const Custom404 = () => {
   return (
-    <PageLayout title="400">
+    <PageLayout title="404">
       <div className="p-10 text-center">
         <H3 className="mb-4">Oops, Lost‽</H3>
         <div className="mb-4">This page could not be found.</div>
