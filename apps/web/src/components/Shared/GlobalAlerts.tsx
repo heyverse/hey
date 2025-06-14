@@ -6,12 +6,12 @@ import MuteOrUnmuteAccount from "./Alert/MuteOrUnmuteAccount";
 
 const GlobalAlerts = () => {
   const { mutingOrUnmutingAccount } = useMuteAlertStore();
-  const { blockingorUnblockingAccount } = useBlockAlertStore();
+  const { blockingOrUnblockingAccount } = useBlockAlertStore();
 
   return (
     <>
       <DeletePost />
-      {blockingorUnblockingAccount && <BlockOrUnblockAccount />}
+      {blockingOrUnblockingAccount && <BlockOrUnblockAccount />}
       {mutingOrUnmutingAccount && <MuteOrUnmuteAccount />}
     </>
   );

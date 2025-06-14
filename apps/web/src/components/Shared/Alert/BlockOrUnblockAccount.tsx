@@ -14,28 +14,28 @@ import { toast } from "sonner";
 const BlockOrUnblockAccount = () => {
   const { currentAccount } = useAccountStore();
   const {
-    blockingorUnblockingAccount,
+    blockingOrUnblockingAccount,
     setShowBlockOrUnblockAlert,
     showBlockOrUnblockAlert
   } = useBlockAlertStore();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasBlocked, setHasBlocked] = useState(
-    blockingorUnblockingAccount?.operations?.isBlockedByMe
+    blockingOrUnblockingAccount?.operations?.isBlockedByMe
   );
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const updateCache = () => {
-    if (!blockingorUnblockingAccount?.operations) {
+    if (!blockingOrUnblockingAccount?.operations) {
       return;
     }
 
     cache.modify({
       fields: { isBlockedByMe: () => !hasBlocked },
-      id: cache.identify(blockingorUnblockingAccount?.operations)
+      id: cache.identify(blockingOrUnblockingAccount?.operations)
     });
-    cache.evict({ id: cache.identify(blockingorUnblockingAccount) });
+    cache.evict({ id: cache.identify(blockingOrUnblockingAccount) });
   };
 
   const onCompleted = () => {
@@ -94,7 +94,7 @@ const BlockOrUnblockAccount = () => {
     if (hasBlocked) {
       return await unblock({
         variables: {
-          request: { account: blockingorUnblockingAccount?.address }
+          request: { account: blockingOrUnblockingAccount?.address }
         }
       });
     }
@@ -102,7 +102,7 @@ const BlockOrUnblockAccount = () => {
     // Block
     return await block({
       variables: {
-        request: { account: blockingorUnblockingAccount?.address }
+        request: { account: blockingOrUnblockingAccount?.address }
       }
     });
   };
@@ -112,7 +112,7 @@ const BlockOrUnblockAccount = () => {
       confirmText={hasBlocked ? "Unblock" : "Block"}
       description={`Are you sure you want to ${
         hasBlocked ? "un-block" : "block"
-      } ${getAccount(blockingorUnblockingAccount).usernameWithPrefix}?`}
+      } ${getAccount(blockingOrUnblockingAccount).usernameWithPrefix}?`}
       isPerformingAction={isSubmitting}
       onClose={() => setShowBlockOrUnblockAlert(false)}
       onConfirm={blockOrUnblock}

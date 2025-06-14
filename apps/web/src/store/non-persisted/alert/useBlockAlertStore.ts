@@ -3,21 +3,21 @@ import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
 
 interface State {
-  blockingorUnblockingAccount?: AccountFragment;
+  blockingOrUnblockingAccount?: AccountFragment;
   showBlockOrUnblockAlert: boolean;
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert: boolean,
-    blockingorUnblockingAccount?: AccountFragment
+    blockingOrUnblockingAccount?: AccountFragment
   ) => void;
 }
 
 const store = create<State>((set) => ({
-  blockingorUnblockingAccount: undefined,
+  blockingOrUnblockingAccount: undefined,
   showBlockOrUnblockAlert: false,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,
-    blockingorUnblockingAccount
-  ) => set(() => ({ blockingorUnblockingAccount, showBlockOrUnblockAlert }))
+    blockingOrUnblockingAccount
+  ) => set(() => ({ blockingOrUnblockingAccount, showBlockOrUnblockAlert }))
 }));
 
 export const useBlockAlertStore = createTrackedSelector(store);
