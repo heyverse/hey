@@ -4,7 +4,6 @@ query PostsForYou($request: PostsForYouRequest!) {
       post {
         ...Post
       }
-      source
     }
     pageInfo {
       ...PaginatedResultInfo

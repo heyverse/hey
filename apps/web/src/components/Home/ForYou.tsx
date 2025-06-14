@@ -1,15 +1,14 @@
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
+  type PostFragment,
   type PostsForYouRequest,
   usePostsForYouQuery
 } from "@hey/indexer";
-import { WindowVirtualizer } from "virtua";
+import PostFeed from "../Shared/Post/PostFeed";
 
 const ForYou = () => {
   const { currentAccount } = useAccountStore();
@@ -35,41 +34,28 @@ const ForYou = () => {
       });
     }
   };
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (!posts?.length) {
-    return (
-      <EmptyState
-        icon={<LightBulbIcon className="size-8" />}
-        message="No posts yet!"
-      />
+  const filteredPosts = posts
+    ?.map((item) => item.post)
+    .filter(
+      (post) =>
+        !post.author.operations?.hasBlockedMe &&
+        !post.author.operations?.isBlockedByMe &&
+        !post.operations?.hasReported
     );
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load highlights" />;
-  }
-
-  const filteredPosts = posts.filter(
-    (item) =>
-      !item.post.author.operations?.hasBlockedMe &&
-      !item.post.author.operations?.isBlockedByMe &&
-      !item.post.operations?.hasReported
-  );
 
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {filteredPosts.map((item) => (
-          <SinglePost key={item.post.id} post={item.post} />
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={filteredPosts as PostFragment[]}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<LightBulbIcon className="size-8" />}
+      emptyMessage="No posts yet!"
+      errorTitle="Failed to load for you"
+      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+    />
   );
 };
 

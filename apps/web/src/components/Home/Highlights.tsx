@@ -1,24 +1,17 @@
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
+  type PostFragment,
   type TimelineHighlightsRequest,
   useTimelineHighlightsQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
-import { WindowVirtualizer } from "virtua";
+import PostFeed from "../Shared/Post/PostFeed";
 
 const Highlights = () => {
   const { currentAccount } = useAccountStore();
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const request: TimelineHighlightsRequest = {
     pageSize: PageSize.Fifty,
@@ -29,7 +22,7 @@ const Highlights = () => {
     variables: { request }
   });
 
-  const posts = data?.timelineHighlights.items;
+  const posts = data?.timelineHighlights.items as PostFragment[];
   const pageInfo = data?.timelineHighlights.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -41,29 +34,6 @@ const Highlights = () => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
-
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (!posts?.length) {
-    return (
-      <EmptyState
-        icon={<LightBulbIcon className="size-8" />}
-        message="No posts yet!"
-      />
-    );
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load highlights" />;
-  }
-
   const filteredPosts = posts.filter(
     (post) =>
       !post.author.operations?.hasBlockedMe &&
@@ -72,14 +42,17 @@ const Highlights = () => {
   );
 
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {filteredPosts.map((post) => (
-          <SinglePost key={post.id} post={post} />
-        ))}
-        {hasMore && <span ref={ref} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={filteredPosts}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<LightBulbIcon className="size-8" />}
+      emptyMessage="No posts yet!"
+      errorTitle="Failed to load highlights"
+      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+    />
   );
 };
 
