@@ -1,6 +1,6 @@
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
-import { PostFeed } from "@/components/Shared/Feed";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 import { Card, StackedAvatars } from "@/components/Shared/UI";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@hey/data/constants";

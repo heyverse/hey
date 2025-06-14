@@ -1,6 +1,6 @@
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
-import { PostFeed } from "@/components/Shared/Feed";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,

@@ -1,5 +1,5 @@
 import SinglePost from "@/components/Post/SinglePost";
-import { PostFeed } from "@/components/Shared/Feed";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 import {
   type MainContentFocus,
