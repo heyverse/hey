@@ -6,7 +6,7 @@ import { immutable } from "@lens-chain/storage-client";
 import { hono } from "./fetcher";
 import { storageClient } from "./storageClient";
 
-export interface UploadResult {
+interface UploadResult {
   mimeType: string;
   uri: string;
 }
