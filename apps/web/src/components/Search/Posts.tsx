@@ -1,23 +1,18 @@
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
-import { WindowVirtualizer } from "virtua";
+import {
+  PageSize,
+  type PostFragment,
+  type PostsRequest,
+  usePostsQuery
+} from "@hey/indexer";
+import PostFeed from "../Shared/Post/PostFeed";
 
 interface PostsProps {
   query: string;
 }
 
 const Posts = ({ query }: PostsProps) => {
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
-
   const request: PostsRequest = {
     pageSize: PageSize.Fifty,
     filter: { searchQuery: query }
@@ -27,7 +22,7 @@ const Posts = ({ query }: PostsProps) => {
     variables: { request }
   });
 
-  const posts = data?.posts?.items;
+  const posts = data?.posts?.items as PostFragment[];
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -39,42 +34,22 @@ const Posts = ({ query }: PostsProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
-
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (!posts?.length) {
-    return (
-      <EmptyState
-        icon={<ChatBubbleBottomCenterIcon className="size-8" />}
-        message={
-          <span>
-            No posts for <b>&ldquo;{query}&rdquo;</b>
-          </span>
-        }
-      />
-    );
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load posts" />;
-  }
-
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {posts.map((post) => (
-          <SinglePost key={post.id} post={post} />
-        ))}
-        {hasMore && <span ref={ref} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={posts}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
+      emptyMessage={
+        <span>
+          No posts for <b>&ldquo;{query}&rdquo;</b>
+        </span>
+      }
+      errorTitle="Failed to load posts"
+      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+    />
   );
 };
 

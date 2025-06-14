@@ -1,5 +1,4 @@
 import SinglePost from "@/components/Post/SinglePost";
-import {} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
