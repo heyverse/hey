@@ -1,18 +1,11 @@
 import ChooseFile from "@/components/Shared/ChooseFile";
 import { Button, Image, Modal } from "@/components/Shared/UI";
-import uploadCroppedImage, { readFile } from "@/helpers/accountPictureUtils";
-import getCroppedImg from "@/helpers/cropUtils";
-import errorToast from "@/helpers/errorToast";
+import useImageCropUpload from "@/hooks/useImageCropUpload";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
-import imageKit from "@hey/helpers/imageKit";
+import { TRANSFORMS } from "@hey/data/constants";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
-import type { ApolloClientError } from "@hey/types/errors";
-import type { ChangeEvent, SyntheticEvent } from "react";
-import { useState } from "react";
-import Cropper, { type Area } from "react-easy-crop";
-import { toast } from "sonner";
+import type { SyntheticEvent } from "react";
+import Cropper from "react-easy-crop";
 
 interface CoverUploadProps {
   src: string;
@@ -20,61 +13,27 @@ interface CoverUploadProps {
 }
 
 const CoverUpload = ({ src, setSrc }: CoverUploadProps) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [pictureSrc, setPictureSrc] = useState(src);
-  const [showModal, setShowModal] = useState(false);
-  const [uploadedPicture, setUploadedPicture] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [area, setArea] = useState<Area | null>(null);
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
-
-  const onError = (error: ApolloClientError) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  };
-
-  const handleUploadAndSave = async () => {
-    try {
-      setUploading(true);
-      const croppedImage = await getCroppedImg(pictureSrc, area);
-
-      if (!croppedImage) {
-        return toast.error(Errors.SomethingWentWrong);
-      }
-
-      const decentralizedUrl = await uploadCroppedImage(croppedImage);
-      const dataUrl = croppedImage.toDataURL("image/png");
-
-      setSrc(decentralizedUrl);
-      setUploadedPicture(dataUrl);
-    } catch (error) {
-      onError(error);
-    } finally {
-      setArea(null);
-      setCrop({ x: 0, y: 0 });
-      setZoom(1);
-      setShowModal(false);
-      setUploading(false);
-    }
-  };
-
-  const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
-    const file = evt.target.files?.[0];
-    if (file) {
-      setPictureSrc(await readFile(file));
-      setShowModal(true);
-    }
-  };
-
-  const onCropComplete = (_: Area, croppedAreaPixels: Area) => {
-    setArea(croppedAreaPixels);
-  };
-
-  const pictureUrl = pictureSrc || `${STATIC_IMAGES_URL}/patterns/2.svg`;
-  const renderPictureUrl = pictureUrl
-    ? imageKit(sanitizeDStorageUrl(pictureUrl), TRANSFORMS.COVER)
-    : "";
+  const {
+    pictureSrc,
+    crop,
+    setCrop,
+    zoom,
+    setZoom,
+    showModal,
+    uploading,
+    uploadedPicture,
+    renderPictureUrl,
+    onFileChange,
+    onCropComplete,
+    handleUploadAndSave,
+    handleModalClose
+  } = useImageCropUpload({
+    src,
+    setSrc,
+    aspect: 1350 / 350,
+    transform: TRANSFORMS.COVER,
+    label: "cover"
+  });
 
   return (
     <>
@@ -96,14 +55,7 @@ const CoverUpload = ({ src, setSrc }: CoverUploadProps) => {
         </div>
       </div>
       <Modal
-        onClose={
-          isSubmitting
-            ? undefined
-            : () => {
-                setPictureSrc("");
-                setShowModal(false);
-              }
-        }
+        onClose={handleModalClose}
         show={showModal}
         size="lg"
         title="Crop cover picture"
