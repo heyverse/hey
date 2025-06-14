@@ -2,6 +2,7 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   type AccountsAvailableRequest,
@@ -11,7 +12,6 @@ import {
   useHideManagedAccountMutation,
   useUnhideManagedAccountMutation
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
@@ -24,11 +24,6 @@ interface ListProps {
 const List = ({ managed = false }: ListProps) => {
   const { address } = useAccount();
   const [updatingAccount, setUpdatingAccount] = useState<string | null>(null);
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const lastLoggedInAccountRequest: LastLoggedInAccountRequest = { address };
   const accountsAvailableRequest: AccountsAvailableRequest = {
@@ -73,11 +68,7 @@ const List = ({ managed = false }: ListProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <Loader className="my-10" />;
@@ -160,7 +151,7 @@ const List = ({ managed = false }: ListProps) => {
           )}
         </div>
       ))}
-      {hasMore && <span ref={ref} />}
+      {hasMore && <span ref={loadMoreRef} />}
     </WindowVirtualizer>
   );
 };

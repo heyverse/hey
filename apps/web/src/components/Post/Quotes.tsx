@@ -5,6 +5,7 @@ import {
   EmptyState,
   ErrorMessage
 } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
@@ -13,8 +14,6 @@ import {
   type PostReferencesRequest,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
 import { WindowVirtualizer } from "virtua";
 import PostsShimmer from "../Shared/Shimmer/PostsShimmer";
 import SinglePost from "./SinglePost";
@@ -24,12 +23,6 @@ interface QuotesProps {
 }
 
 const Quotes = ({ post }: QuotesProps) => {
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
-
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
     referenceTypes: [PostReferenceType.QuoteOf],
@@ -53,11 +46,7 @@ const Quotes = ({ post }: QuotesProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (error) {
     return <ErrorMessage error={error} title="Failed to load comment feed" />;
@@ -76,7 +65,7 @@ const Quotes = ({ post }: QuotesProps) => {
             {quotes.map((quote) => (
               <SinglePost key={quote.id} post={quote} showType={false} />
             ))}
-            {hasMore && <span ref={ref} />}
+            {hasMore && <span ref={loadMoreRef} />}
           </WindowVirtualizer>
         </div>
       ) : (

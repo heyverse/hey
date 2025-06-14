@@ -2,6 +2,7 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
 import { HeartIcon } from "@heroicons/react/24/outline";
@@ -10,9 +11,7 @@ import {
   type PostReactionsRequest,
   usePostReactionsQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
-import { useEffect } from "react";
 import { Virtualizer } from "virtua";
 
 interface LikesProps {
@@ -21,11 +20,6 @@ interface LikesProps {
 
 const Likes = ({ postId }: LikesProps) => {
   const { currentAccount } = useAccountStore();
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const request: PostReactionsRequest = {
     post: postId,
@@ -49,11 +43,7 @@ const Likes = ({ postId }: LikesProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <AccountListShimmer />;
@@ -108,7 +98,7 @@ const Likes = ({ postId }: LikesProps) => {
             />
           </motion.div>
         ))}
-        {hasMore && <span ref={ref} />}
+        {hasMore && <span ref={loadMoreRef} />}
       </Virtualizer>
     </div>
   );

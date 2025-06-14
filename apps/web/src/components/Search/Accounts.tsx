@@ -1,6 +1,7 @@
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import SingleAccountsShimmer from "@/components/Shared/Shimmer/SingleAccountsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   AccountsOrderBy,
@@ -8,8 +9,6 @@ import {
   PageSize,
   useAccountsQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
 import { WindowVirtualizer } from "virtua";
 
 interface AccountsProps {
@@ -17,12 +16,6 @@ interface AccountsProps {
 }
 
 const Accounts = ({ query }: AccountsProps) => {
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
-
   const request: AccountsRequest = {
     pageSize: PageSize.Fifty,
     orderBy: AccountsOrderBy.BestMatch,
@@ -46,11 +39,7 @@ const Accounts = ({ query }: AccountsProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <SingleAccountsShimmer isBig />;
@@ -80,7 +69,7 @@ const Accounts = ({ query }: AccountsProps) => {
           <SingleAccount isBig account={account} showBio />
         </Card>
       ))}
-      {hasMore && <span ref={ref} />}
+      {hasMore && <span ref={loadMoreRef} />}
     </WindowVirtualizer>
   );
 };

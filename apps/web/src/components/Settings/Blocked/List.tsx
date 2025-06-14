@@ -1,6 +1,7 @@
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
@@ -9,18 +10,11 @@ import {
   PageSize,
   useAccountsBlockedQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
 import { WindowVirtualizer } from "virtua";
 
 const List = () => {
   const { currentAccount } = useAccountStore();
   const { setShowBlockOrUnblockAlert } = useBlockAlertStore();
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const request: AccountsBlockedRequest = { pageSize: PageSize.Fifty };
   const { data, error, fetchMore, loading } = useAccountsBlockedQuery({
@@ -40,11 +34,7 @@ const List = () => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <Loader className="my-10" />;
@@ -88,7 +78,7 @@ const List = () => {
             </Button>
           </div>
         ))}
-        {hasMore && <span ref={ref} />}
+        {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>
     </div>
   );

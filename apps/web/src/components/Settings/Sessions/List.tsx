@@ -2,6 +2,7 @@ import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import formatDate from "@/helpers/datetime/formatDate";
 import errorToast from "@/helpers/errorToast";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { ComputerDesktopIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 import {
@@ -11,8 +12,7 @@ import {
   useRevokeAuthenticationMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
 
@@ -22,11 +22,6 @@ const List = () => {
   const [revokeingSessionId, setRevokeingSessionId] = useState<null | string>(
     null
   );
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const onError = (error: ApolloClientError) => {
     setRevoking(false);
@@ -75,11 +70,7 @@ const List = () => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <Loader className="my-10" />;
@@ -154,7 +145,7 @@ const List = () => {
             </Button>
           </div>
         ))}
-        {hasMore && <span ref={ref} />}
+        {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>
     </div>
   );

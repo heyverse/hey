@@ -1,6 +1,7 @@
 import SingleGroup from "@/components/Shared/Group/SingleGroup";
 import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { GroupsFeedType } from "@hey/data/enums";
@@ -10,8 +11,6 @@ import {
   PageSize,
   useGroupsQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
 import { WindowVirtualizer } from "virtua";
 
 interface ListProps {
@@ -20,11 +19,6 @@ interface ListProps {
 
 const List = ({ feedType }: ListProps) => {
   const { currentAccount } = useAccountStore();
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const request: GroupsRequest = {
     filter: {
@@ -55,11 +49,7 @@ const List = ({ feedType }: ListProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <GroupListShimmer />;
@@ -93,7 +83,7 @@ const List = ({ feedType }: ListProps) => {
             <SingleGroup group={group} showDescription isBig />
           </div>
         ))}
-        {hasMore && <span ref={ref} />}
+        {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>
     </div>
   );

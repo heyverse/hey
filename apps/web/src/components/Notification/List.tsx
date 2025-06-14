@@ -1,5 +1,6 @@
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { NotificationFeedType } from "@hey/data/enums";
@@ -8,8 +9,6 @@ import {
   NotificationType,
   useNotificationsQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
 import { WindowVirtualizer } from "virtua";
 import NotificationShimmer from "./Shimmer";
 import AccountActionExecutedNotification from "./Type/AccountActionExecutedNotification";
@@ -27,11 +26,6 @@ interface ListProps {
 
 const List = ({ feedType }: ListProps) => {
   const { includeLowScore } = usePreferencesStore();
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -73,11 +67,7 @@ const List = ({ feedType }: ListProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return (
@@ -140,7 +130,7 @@ const List = ({ feedType }: ListProps) => {
             )}
           </div>
         ))}
-        {hasMore && <span ref={ref} />}
+        {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>
     </Card>
   );

@@ -2,14 +2,13 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { FollowersRequest } from "@hey/indexer";
 import { PageSize, useFollowersQuery } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
-import { useEffect } from "react";
 import { Virtualizer } from "virtua";
 
 interface FollowersProps {
@@ -19,11 +18,6 @@ interface FollowersProps {
 
 const Followers = ({ username, address }: FollowersProps) => {
   const { currentAccount } = useAccountStore();
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
 
   const request: FollowersRequest = {
     pageSize: PageSize.Fifty,
@@ -47,11 +41,7 @@ const Followers = ({ username, address }: FollowersProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
+  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (loading) {
     return <AccountListShimmer />;
@@ -109,7 +99,7 @@ const Followers = ({ username, address }: FollowersProps) => {
             />
           </motion.div>
         ))}
-        {hasMore && <span ref={ref} />}
+        {hasMore && <span ref={loadMoreRef} />}
       </Virtualizer>
     </div>
   );
