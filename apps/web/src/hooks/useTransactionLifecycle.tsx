@@ -1,6 +1,5 @@
 import { Errors } from "@hey/data/errors";
-import selfFundedTransactionData from "@hey/helpers/selfFundedTransactionData";
-import sponsoredTransactionData from "@hey/helpers/sponsoredTransactionData";
+import getTransactionData from "@hey/helpers/getTransactionData";
 import type { ApolloClientError } from "@hey/types/errors";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
@@ -19,7 +18,7 @@ const useTransactionLifecycle = () => {
     return onCompleted(
       await sendEip712Transaction(data, {
         account: data.account,
-        ...sponsoredTransactionData(transactionData.raw)
+        ...getTransactionData(transactionData.raw, { sponsored: true })
       })
     );
   };
@@ -33,7 +32,7 @@ const useTransactionLifecycle = () => {
     return onCompleted(
       await sendTransaction(data, {
         account: data.account,
-        ...selfFundedTransactionData(transactionData.raw)
+        ...getTransactionData(transactionData.raw)
       })
     );
   };
