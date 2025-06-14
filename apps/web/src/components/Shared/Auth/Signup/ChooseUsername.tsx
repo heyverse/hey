@@ -187,7 +187,7 @@ const ChooseUsername = () => {
           ) : (
             <div className="mt-2 flex items-center space-x-1 text-gray-500 text-sm dark:text-gray-200">
               <FaceSmileIcon className="size-4" />
-              <b>Hope you will get a good one!</b>
+              <b>Hope you get a good one!</b>
             </div>
           )}
         </div>
