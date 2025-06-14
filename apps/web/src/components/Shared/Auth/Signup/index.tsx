@@ -7,12 +7,12 @@ import Minting from "./Minting";
 import Success from "./Success";
 
 interface SignupState {
-  choosedUsername: string;
+  chosenUsername: string;
   accountAddress: string;
   screen: "choose" | "minting" | "success";
   transactionHash: string;
   onboardingToken: string;
-  setChoosedUsername: (username: string) => void;
+  setChosenUsername: (username: string) => void;
   setAccountAddress: (accountAddress: string) => void;
   setScreen: (screen: "choose" | "minting" | "success") => void;
   setTransactionHash: (hash: string) => void;
@@ -20,12 +20,12 @@ interface SignupState {
 }
 
 const store = create<SignupState>((set) => ({
-  choosedUsername: "",
+  chosenUsername: "",
   accountAddress: "",
   screen: "choose",
   transactionHash: "",
   onboardingToken: "",
-  setChoosedUsername: (username) => set({ choosedUsername: username }),
+  setChosenUsername: (username) => set({ chosenUsername: username }),
   setAccountAddress: (accountAddress) => set({ accountAddress }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),

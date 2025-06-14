@@ -3,7 +3,7 @@ import { useAccountQuery } from "@hey/indexer";
 import { useSignupStore } from ".";
 
 const Minting = () => {
-  const { choosedUsername, setAccountAddress, setScreen, transactionHash } =
+  const { chosenUsername, setAccountAddress, setScreen, transactionHash } =
     useSignupStore();
 
   useAccountQuery({
@@ -16,7 +16,7 @@ const Minting = () => {
     },
     pollInterval: 1500,
     skip: !transactionHash,
-    variables: { request: { username: { localName: choosedUsername } } }
+    variables: { request: { username: { localName: chosenUsername } } }
   });
 
   return (

@@ -112,7 +112,7 @@ const BlockOrUnblockAccount = () => {
       confirmText={hasBlocked ? "Unblock" : "Block"}
       description={`Are you sure you want to ${
         hasBlocked ? "unblock" : "block"
-      } ${getAccount(blockingorUnblockingAccount).usernameWithPrefix}?`}
+      } ${getAccount(blockingOrUnblockingAccount).usernameWithPrefix}?`}
       isPerformingAction={isSubmitting}
       onClose={() => setShowBlockOrUnblockAlert(false)}
       onConfirm={blockOrUnblock}

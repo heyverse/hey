@@ -45,7 +45,7 @@ const ValidationSchema = z.object({
 
 const ChooseUsername = () => {
   const {
-    setChoosedUsername,
+    setChosenUsername,
     setScreen,
     setTransactionHash,
     setOnboardingToken
@@ -133,7 +133,7 @@ const ChooseUsername = () => {
               createAccountWithUsername.__typename === "CreateAccountResponse"
             ) {
               setTransactionHash(createAccountWithUsername.hash);
-              setChoosedUsername(username);
+              setChosenUsername(username);
               setScreen("minting");
             }
           }
