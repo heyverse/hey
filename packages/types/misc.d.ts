@@ -34,3 +34,10 @@ export interface MetadataAsset {
   type: "Audio" | "Image" | "Video";
   uri: string;
 }
+
+export interface AttachmentData {
+  artist?: string | null;
+  coverUri?: string;
+  type: "Audio" | "Image" | "Video";
+  uri: string;
+}
