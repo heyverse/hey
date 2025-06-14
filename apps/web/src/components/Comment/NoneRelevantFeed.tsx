@@ -1,7 +1,7 @@
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
+import { PostFeed } from "@/components/Shared/Feed";
 import { Card, StackedAvatars } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -15,7 +15,6 @@ import {
   usePostReferencesQuery
 } from "@hey/indexer";
 import { useState } from "react";
-import { WindowVirtualizer } from "virtua";
 
 interface NoneRelevantFeedProps {
   postId: string;
@@ -53,7 +52,6 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
       });
     }
   };
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
 
   if (totalComments === 0) {
     return null;
@@ -87,14 +85,17 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
         )}
       </Card>
       {showMore ? (
-        <Card className="virtual-divider-list-window">
-          <WindowVirtualizer>
-            {filteredComments.map((comment) => (
-              <SinglePost key={comment.id} post={comment} showType={false} />
-            ))}
-            {hasMore && <span ref={loadMoreRef} />}
-          </WindowVirtualizer>
-        </Card>
+        <PostFeed
+          items={filteredComments}
+          hasMore={hasMore}
+          onEndReached={onEndReached}
+          emptyIcon={null}
+          emptyMessage=""
+          errorTitle="Failed to load comments"
+          renderItem={(comment) => (
+            <SinglePost key={comment.id} post={comment} showType={false} />
+          )}
+        />
       ) : null}
     </>
   );

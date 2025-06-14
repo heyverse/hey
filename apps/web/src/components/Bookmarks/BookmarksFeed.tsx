@@ -1,7 +1,5 @@
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { PostFeed } from "@/components/Shared/Feed";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 import {
   type MainContentFocus,
@@ -9,7 +7,6 @@ import {
   type PostBookmarksRequest,
   usePostBookmarksQuery
 } from "@hey/indexer";
-import { WindowVirtualizer } from "virtua";
 
 interface BookmarksFeedProps {
   focus?: MainContentFocus;
@@ -25,7 +22,7 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
     variables: { request }
   });
 
-  const posts = data?.postBookmarks?.items;
+  const posts = data?.postBookmarks?.items ?? [];
   const pageInfo = data?.postBookmarks?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -36,34 +33,18 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
       });
     }
   };
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
-
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (!posts?.length) {
-    return (
-      <EmptyState
-        icon={<BookmarkIcon className="size-8" />}
-        message="No bookmarks yet!"
-      />
-    );
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load bookmark feed" />;
-  }
-
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {posts.map((post) => (
-          <SinglePost key={post.id} post={post} />
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={posts}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<BookmarkIcon className="size-8" />}
+      emptyMessage="No bookmarks yet!"
+      errorTitle="Failed to load bookmark feed"
+      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+    />
   );
 };
 

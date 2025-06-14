@@ -1,6 +1,5 @@
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { PostFeed } from "@/components/Shared/Feed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   type MainContentFocus,
@@ -8,21 +7,12 @@ import {
   type PostsExploreRequest,
   usePostsExploreQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
-import { WindowVirtualizer } from "virtua";
 
 interface ExploreFeedProps {
   focus?: MainContentFocus;
 }
 
 const ExploreFeed = ({ focus }: ExploreFeedProps) => {
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
-
   const request: PostsExploreRequest = {
     pageSize: PageSize.Fifty,
     filter: {
@@ -46,30 +36,7 @@ const ExploreFeed = ({ focus }: ExploreFeedProps) => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
-
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (!posts?.length) {
-    return (
-      <EmptyState
-        icon={<ChatBubbleBottomCenterIcon className="size-8" />}
-        message="No posts yet!"
-      />
-    );
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load explore feed" />;
-  }
-
-  const filteredPosts = posts.filter(
+  const filteredPosts = (posts ?? []).filter(
     (post) =>
       !post.author.operations?.hasBlockedMe &&
       !post.author.operations?.isBlockedByMe &&
@@ -77,14 +44,17 @@ const ExploreFeed = ({ focus }: ExploreFeedProps) => {
   );
 
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {filteredPosts.map((post) => (
-          <SinglePost key={post.id} post={post} />
-        ))}
-        {hasMore && <span ref={ref} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={filteredPosts}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
+      emptyMessage="No posts yet!"
+      errorTitle="Failed to load explore feed"
+      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+    />
   );
 };
 
