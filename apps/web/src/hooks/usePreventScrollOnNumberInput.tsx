@@ -1,7 +1,9 @@
 import type { RefObject } from "react";
 import { useEffect } from "react";
 
-const usePreventScrollOnNumberInput = (ref: RefObject<HTMLInputElement>) => {
+const usePreventScrollOnNumberInput = (
+  ref: RefObject<HTMLInputElement>
+): void => {
   useEffect(() => {
     const input = ref.current;
 
