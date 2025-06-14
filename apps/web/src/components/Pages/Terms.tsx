@@ -88,7 +88,7 @@ const Terms = () => {
                 </p>
                 <ul className="list-inside list-disc space-y-3">
                   <li className="leading-7">
-                    Your account your responsibility.
+                    Your account is your responsibility.
                   </li>
                   <li className="leading-7">
                     You are responsible for securing the wallet that contains
