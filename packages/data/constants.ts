@@ -57,20 +57,26 @@ export const WRAPPED_NATIVE_TOKEN_SYMBOL = IS_MAINNET ? "WGHO" : "WGRASS";
 export const MAX_IMAGE_UPLOAD = 8;
 
 // Named transforms for ImageKit
-export enum TRANSFORMS {
-  AVATAR_BIG = "tr:w-350,h-350",
-  AVATAR_SMALL = "tr:w-100,h-100",
-  AVATAR_TINY = "tr:w-50,h-50",
-  EXPANDED_AVATAR = "tr:w-1000,h-1000",
-  COVER = "tr:w-1350,h-350",
-  ATTACHMENT = "tr:w-1000"
-}
+export const TRANSFORMS = {
+  AVATAR_BIG: "tr:w-350,h-350",
+  AVATAR_SMALL: "tr:w-100,h-100",
+  AVATAR_TINY: "tr:w-50,h-50",
+  EXPANDED_AVATAR: "tr:w-1000,h-1000",
+  COVER: "tr:w-1350,h-350",
+  ATTACHMENT: "tr:w-1000"
+} as const;
 
-export enum BANNER_IDS {
-  PRO = "108325599858337195593675454288445399104045325554183036578573525280972584660299"
-}
+export type Transform = (typeof TRANSFORMS)[keyof typeof TRANSFORMS];
 
-export enum PERMISSIONS {
-  SUBSCRIPTION = "0x4BE5b4519814A57E6f9AaFC6afBB37eAEeE35aA3",
-  STAFF = "0xA7f2835e54998c6d7d4A0126eC0ebE91b5E43c69"
-}
+export const BANNER_IDS = {
+  PRO: "108325599858337195593675454288445399104045325554183036578573525280972584660299"
+} as const;
+
+export type BannerId = (typeof BANNER_IDS)[keyof typeof BANNER_IDS];
+
+export const PERMISSIONS = {
+  SUBSCRIPTION: "0x4BE5b4519814A57E6f9AaFC6afBB37eAEeE35aA3",
+  STAFF: "0xA7f2835e54998c6d7d4A0126eC0ebE91b5E43c69"
+} as const;
+
+export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
