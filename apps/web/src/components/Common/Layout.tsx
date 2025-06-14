@@ -6,6 +6,7 @@ import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
 import { useTheme } from "@/hooks/useTheme";
+import { useFeedCacheStore } from "@/store/non-persisted/feed/useFeedCacheStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
@@ -26,11 +27,14 @@ const Layout = () => {
   const { resetPreferences } = usePreferencesStore();
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
+  const { getCache } = useFeedCacheStore();
 
   // Disable scroll restoration on route change
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (!getCache(pathname)) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, getCache]);
 
   const onError = () => {
     resetPreferences();

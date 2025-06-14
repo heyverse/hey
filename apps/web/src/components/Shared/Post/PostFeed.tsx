@@ -1,8 +1,11 @@
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useFeedCacheStore } from "@/store/non-persisted/feed/useFeedCacheStore";
 import type { ReactNode } from "react";
-import { WindowVirtualizer } from "virtua";
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router";
+import { WindowVirtualizer, type WindowVirtualizerHandle } from "virtua";
 
 interface PostFeedProps<T extends { id: string }> {
   items: T[];
@@ -28,6 +31,18 @@ const PostFeed = <T extends { id: string }>({
   renderItem
 }: PostFeedProps<T>) => {
   const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
+  const { pathname } = useLocation();
+  const { getCache, setCache } = useFeedCacheStore();
+  const cache = getCache(pathname);
+  const virtualizerRef = useRef<WindowVirtualizerHandle>(null);
+
+  useEffect(() => {
+    return () => {
+      if (virtualizerRef.current) {
+        setCache(pathname, virtualizerRef.current.cache);
+      }
+    };
+  }, [pathname, setCache]);
 
   if (loading) {
     return <PostsShimmer />;
@@ -43,7 +58,7 @@ const PostFeed = <T extends { id: string }>({
 
   return (
     <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
+      <WindowVirtualizer ref={virtualizerRef} cache={cache}>
         {items.map((item) => renderItem(item))}
         {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>
