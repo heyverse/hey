@@ -1,4 +1,4 @@
-interface Context {
+export interface Context {
   request: Request;
   next: () => Promise<Response>;
 }
