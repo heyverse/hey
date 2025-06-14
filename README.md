@@ -42,7 +42,7 @@ Navigate to the root of the repository and install all dependencies using pnpm:
 pnpm install
 ```
 
-### Setup Environment Variables
+### Set Up Environment Variables
 
 Copy the `.env.example` file to create a new `.env` file for each package or app that requires environment configuration:
 
