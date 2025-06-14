@@ -1,11 +1,6 @@
 import SinglePost from "@/components/Post/SinglePost";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import {
-  PageSize,
-  type PostFragment,
-  type PostsRequest,
-  usePostsQuery
-} from "@hey/indexer";
+import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
 import PostFeed from "../Shared/Post/PostFeed";
 
 interface PostsProps {
@@ -22,7 +17,7 @@ const Posts = ({ query }: PostsProps) => {
     variables: { request }
   });
 
-  const posts = data?.posts?.items as PostFragment[];
+  const posts = data?.posts?.items;
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -36,7 +31,7 @@ const Posts = ({ query }: PostsProps) => {
 
   return (
     <PostFeed
-      items={posts}
+      items={posts ?? []}
       loading={loading}
       error={error}
       hasMore={hasMore}

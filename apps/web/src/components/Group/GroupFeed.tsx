@@ -1,12 +1,7 @@
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import {
-  PageSize,
-  type PostFragment,
-  type PostsRequest,
-  usePostsQuery
-} from "@hey/indexer";
+import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
 
 interface GroupFeedProps {
   feed: string;
@@ -23,7 +18,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
     variables: { request }
   });
 
-  const posts = data?.posts?.items as PostFragment[];
+  const posts = data?.posts?.items;
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -35,11 +30,10 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
     }
   };
 
-  const filteredPosts = posts.filter(
+  const filteredPosts = (posts ?? []).filter(
     (post) =>
       !post.author.operations?.hasBlockedMe &&
-      !post.author.operations?.isBlockedByMe &&
-      !post.operations?.hasReported
+      !post.author.operations?.isBlockedByMe
   );
 
   return (

@@ -3,7 +3,6 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
-  type PostFragment,
   type TimelineHighlightsRequest,
   useTimelineHighlightsQuery
 } from "@hey/indexer";
@@ -21,7 +20,7 @@ const Highlights = () => {
     variables: { request }
   });
 
-  const posts = data?.timelineHighlights.items as PostFragment[];
+  const posts = data?.timelineHighlights.items;
   const pageInfo = data?.timelineHighlights.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -33,7 +32,7 @@ const Highlights = () => {
     }
   };
 
-  const filteredPosts = posts.filter(
+  const filteredPosts = (posts ?? []).filter(
     (post) =>
       !post.author.operations?.hasBlockedMe &&
       !post.author.operations?.isBlockedByMe &&
