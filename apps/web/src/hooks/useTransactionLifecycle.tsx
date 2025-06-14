@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import getTransactionData from "@hey/helpers/getTransactionData";
 import type { ApolloClientError } from "@hey/types/errors";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
@@ -58,7 +58,7 @@ const useTransactionLifecycle = () => {
         case "TransactionWillFail":
           return onError({ message: transactionData.reason });
         default:
-          throw onError({ message: Errors.SomethingWentWrong });
+          throw onError({ message: ERRORS.SomethingWentWrong });
       }
     } catch (error) {
       return onError(error);

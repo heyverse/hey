@@ -4,7 +4,7 @@ import errorToast from "@/helpers/errorToast";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signIn, signOut } from "@/store/persisted/useAuthStore";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import {
   ManagedAccountsVisibility,
   useAccountsAvailableQuery,
@@ -72,7 +72,7 @@ const SwitchAccounts = () => {
         return location.reload();
       }
 
-      return onError({ message: Errors.SomethingWentWrong });
+      return onError({ message: ERRORS.SomethingWentWrong });
     } catch {
       onError();
     }

@@ -4,7 +4,7 @@ import errorToast from "@/helpers/errorToast";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
@@ -51,7 +51,7 @@ const Tokens = () => {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(Errors.SomethingWentWrong);
+        return toast.error(ERRORS.SomethingWentWrong);
       }
 
       // Get signature

@@ -5,7 +5,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { isRepost } from "@hey/helpers/postHelpers";
 import { type AnyPostFragment, useDeletePostMutation } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
@@ -67,7 +67,7 @@ const UndoRepost = ({
 
   const handleUndoRepost = async () => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     setIsSubmitting(true);

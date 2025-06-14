@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import { SITEMAP_BATCH_SIZE } from "src/utils/constants";
 import lensPg from "src/utils/lensPg";
@@ -47,7 +47,7 @@ const accountsSitemapIndex = async (ctx: Context) => {
     ctx.header("Content-Type", "application/xml");
     return ctx.body(sitemapIndex.end({ prettyPrint: true }));
   } catch {
-    return ctx.body(Errors.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong);
   }
 };
 

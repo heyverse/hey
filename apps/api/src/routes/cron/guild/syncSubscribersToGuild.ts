@@ -1,5 +1,5 @@
 import { PERMISSIONS } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import lensPg from "src/utils/lensPg";
 import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
@@ -32,7 +32,7 @@ const syncSubscribersToGuild = async (ctx: Context) => {
 
     return ctx.json(data);
   } catch {
-    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
   }
 };
 

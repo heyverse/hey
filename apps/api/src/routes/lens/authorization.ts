@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 
 const authorization = async (ctx: Context) => {
@@ -21,7 +21,7 @@ const authorization = async (ctx: Context) => {
       signingKey: process.env.PRIVATE_KEY
     });
   } catch {
-    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
   }
 };
 

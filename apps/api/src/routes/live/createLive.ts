@@ -1,5 +1,5 @@
 import { LIVEPEER_KEY } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import generateUUID from "@hey/helpers/generateUUID";
 import type { Context } from "hono";
 
@@ -45,7 +45,7 @@ const createLive = async (ctx: Context) => {
       }
     });
   } catch {
-    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
   }
 };
 

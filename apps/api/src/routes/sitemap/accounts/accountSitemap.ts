@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import { SITEMAP_BATCH_SIZE } from "src/utils/constants";
 import lensPg from "src/utils/lensPg";
@@ -11,11 +11,11 @@ const accountSitemap = async (ctx: Context) => {
   const batch = params["batch.xml"].replace(".xml", "");
 
   if (Number.isNaN(Number(group)) || Number.isNaN(Number(batch))) {
-    return ctx.body(Errors.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong);
   }
 
   if (Number(group) === 0 || Number(batch) === 0) {
-    return ctx.body(Errors.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong);
   }
 
   try {
@@ -71,7 +71,7 @@ const accountSitemap = async (ctx: Context) => {
     ctx.header("Content-Type", "application/xml");
     return ctx.body(sitemap.end({ prettyPrint: true }));
   } catch {
-    return ctx.body(Errors.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong);
   }
 };
 

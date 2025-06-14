@@ -3,7 +3,7 @@ import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useEmojis from "@/hooks/prosekit/useEmojis";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Emoji } from "@hey/types/misc";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -42,9 +42,9 @@ const List = ({ setEmoji }: ListProps) => {
         className="m-5"
         error={{
           message: "Error while loading emojis",
-          name: Errors.SomethingWentWrong
+          name: ERRORS.SomethingWentWrong
         }}
-        title={Errors.SomethingWentWrong}
+        title={ERRORS.SomethingWentWrong}
       />
     );
   }

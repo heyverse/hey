@@ -4,7 +4,7 @@ import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { MenuItem } from "@headlessui/react";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { PostFragment } from "@hey/indexer";
 import { toast } from "sonner";
 
@@ -28,7 +28,7 @@ const Quote = ({ post }: QuoteProps) => {
       }
       onClick={() => {
         if (!currentAccount) {
-          return toast.error(Errors.SignWallet);
+          return toast.error(ERRORS.SignWallet);
         }
         setQuotedPost(post);
         setShowNewPostModal(true);

@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { toast } from "sonner";
 
 const FORBIDDEN_ERROR_PREFIX =
@@ -38,7 +38,7 @@ const errorToast = (error?: unknown): void => {
     return;
   }
 
-  toast.error(message || Errors.SomethingWentWrong, { id: "error" });
+  toast.error(message || ERRORS.SomethingWentWrong, { id: "error" });
 };
 
 export default errorToast;

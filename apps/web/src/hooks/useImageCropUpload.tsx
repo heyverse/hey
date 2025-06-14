@@ -6,7 +6,7 @@ import {
   STATIC_IMAGES_URL,
   type TRANSFORMS
 } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -48,7 +48,7 @@ const useImageCropUpload = ({
       const croppedImage = await getCroppedImg(pictureSrc, area);
 
       if (!croppedImage) {
-        return toast.error(Errors.SomethingWentWrong);
+        return toast.error(ERRORS.SomethingWentWrong);
       }
 
       const decentralizedUrl = await uploadCroppedImage(croppedImage);

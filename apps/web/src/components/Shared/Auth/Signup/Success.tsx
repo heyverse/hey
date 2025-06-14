@@ -2,7 +2,7 @@ import { H4, Image } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { signIn } from "@/store/persisted/useAuthStore";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { useSwitchAccountMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useEffect } from "react";
@@ -31,9 +31,9 @@ const Success = () => {
         return location.reload();
       }
 
-      return onError({ message: Errors.SomethingWentWrong });
+      return onError({ message: ERRORS.SomethingWentWrong });
     } catch {
-      onError({ message: Errors.SomethingWentWrong });
+      onError({ message: ERRORS.SomethingWentWrong });
     }
   };
 

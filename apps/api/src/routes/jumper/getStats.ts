@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import getDbPostId from "src/utils/getDbPostId";
 import lensPg from "src/utils/lensPg";
@@ -60,7 +60,7 @@ const getStats = async (ctx: Context) => {
       comments: Number(result[2].count)
     });
   } catch {
-    return ctx.json({ success: false, error: Errors.SomethingWentWrong }, 500);
+    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
   }
 };
 

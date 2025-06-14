@@ -1,5 +1,5 @@
 import { CHAIN } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { immutable } from "@lens-chain/storage-client";
 import { storageClient } from "./storageClient";
 
@@ -17,7 +17,7 @@ const uploadMetadata = async (
 
     return uri;
   } catch {
-    throw new Error(Errors.SomethingWentWrong);
+    throw new Error(ERRORS.SomethingWentWrong);
   }
 };
 

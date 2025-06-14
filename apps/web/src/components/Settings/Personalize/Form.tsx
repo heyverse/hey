@@ -18,7 +18,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { BANNER_IDS } from "@hey/data/constants";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -122,7 +122,7 @@ const PersonalizeSettingsForm = () => {
     coverUrl: string | undefined
   ) => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     setIsSubmitting(true);

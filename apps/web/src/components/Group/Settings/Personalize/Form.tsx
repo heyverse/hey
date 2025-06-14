@@ -14,7 +14,7 @@ import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -89,7 +89,7 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
     coverUrl: string | undefined
   ) => {
     if (!currentAccount) {
-      return toast.error(Errors.SignWallet);
+      return toast.error(ERRORS.SignWallet);
     }
 
     setIsSubmitting(true);

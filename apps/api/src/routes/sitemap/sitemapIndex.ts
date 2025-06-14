@@ -1,4 +1,4 @@
-import { Errors } from "@hey/data/errors";
+import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import { create } from "xmlbuilder2";
 
@@ -28,7 +28,7 @@ const sitemapIndex = async (ctx: Context) => {
     ctx.header("Content-Type", "application/xml");
     return ctx.body(sitemapIndex.end({ prettyPrint: true }));
   } catch {
-    return ctx.body(Errors.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong);
   }
 };
 
