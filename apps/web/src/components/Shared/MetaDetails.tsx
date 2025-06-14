@@ -1,7 +1,7 @@
 import { H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import type { ReactNode } from "react";
-import { toast } from "sonner";
 
 interface MetaDetailsProps {
   children: ReactNode;
@@ -18,12 +18,7 @@ const MetaDetails = ({
   title,
   value
 }: MetaDetailsProps) => {
-  const handleClick = async () => {
-    if (value) {
-      await navigator.clipboard.writeText(value);
-      toast.success("Copied to clipboard!");
-    }
-  };
+  const handleClick = useCopyToClipboard(value ?? "", "Copied to clipboard!");
 
   return (
     <div

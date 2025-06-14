@@ -1,10 +1,10 @@
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import { MenuItem } from "@headlessui/react";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
 import type { PostFragment } from "@hey/indexer";
-import { toast } from "sonner";
 
 interface CopyPostTextProps {
   post: PostFragment;
@@ -12,6 +12,11 @@ interface CopyPostTextProps {
 
 const CopyPostText = ({ post }: CopyPostTextProps) => {
   const filteredContent = getPostData(post.metadata)?.content || "";
+
+  const copyContent = useCopyToClipboard(
+    filteredContent || "",
+    "Content copied to clipboard!"
+  );
 
   return (
     <MenuItem
@@ -22,10 +27,9 @@ const CopyPostText = ({ post }: CopyPostTextProps) => {
           "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm"
         )
       }
-      onClick={async (event) => {
+      onClick={(event) => {
         stopEventPropagation(event);
-        await navigator.clipboard.writeText(filteredContent || "");
-        toast.success("Content copied to clipboard!");
+        copyContent();
       }}
     >
       <div className="flex items-center space-x-2">

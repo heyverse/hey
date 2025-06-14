@@ -3,6 +3,7 @@ import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import { Card, Spinner, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { hono } from "@/helpers/fetcher";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
@@ -16,7 +17,6 @@ import { getSrc } from "@livepeer/react/external";
 import { useMutation } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { toast } from "sonner";
 
 interface WrapperProps {
   children: ReactNode;
@@ -43,6 +43,14 @@ const LivestreamEditor = () => {
   } = usePostLiveStore();
 
   const [screen, setScreen] = useState<"create" | "record">("create");
+  const copyStreamUrl = useCopyToClipboard(
+    "rtmp://rtmp.hey.xyz/live",
+    "Copied to clipboard!"
+  );
+  const copyStreamKey = useCopyToClipboard(
+    liveVideoConfig.streamKey,
+    "Copied to clipboard!"
+  );
   const { mutate, isPending } = useMutation({
     mutationFn: ({ record }: { record: boolean }) =>
       hono.live.create({ record }),
@@ -89,30 +97,14 @@ const LivestreamEditor = () => {
                 <div className="flex items-center space-x-1">
                   <b>Stream URL:</b>
                   <div className="">rtmp://rtmp.hey.xyz/live</div>
-                  <button
-                    onClick={async () => {
-                      await navigator.clipboard.writeText(
-                        "rtmp://rtmp.hey.xyz/live"
-                      );
-                      toast.success("Copied to clipboard!");
-                    }}
-                    type="button"
-                  >
+                  <button onClick={copyStreamUrl} type="button">
                     <ClipboardDocumentIcon className="size-4 text-gray-400" />
                   </button>
                 </div>
                 <div className="flex items-center space-x-1">
                   <b>Stream Key:</b>
                   <div className="">{liveVideoConfig.streamKey}</div>
-                  <button
-                    onClick={async () => {
-                      await navigator.clipboard.writeText(
-                        liveVideoConfig.streamKey
-                      );
-                      toast.success("Copied to clipboard!");
-                    }}
-                    type="button"
-                  >
+                  <button onClick={copyStreamKey} type="button">
                     <ClipboardDocumentIcon className="size-4 text-gray-400" />
                   </button>
                 </div>
