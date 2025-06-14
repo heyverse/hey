@@ -2,8 +2,8 @@ import regexLookbehindAvailable from "./utils/regexLookbehindAvailable";
 
 const RESTRICTED_SYMBOLS = "☑️✓✔✅";
 
-// We only want to match mention when the `@` character is at the start of the
-// line or right after a whitespace.
+// We only want to match a mention when the `@` character is at the start of the
+// line or immediately after whitespace.
 const MATCH_BEHIND = regexLookbehindAvailable ? "(?<=^|\\s)" : "";
 
 const MENTION_NAMESPACE = "\\w+\\/";
