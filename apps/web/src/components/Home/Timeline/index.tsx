@@ -1,6 +1,5 @@
 import SinglePost from "@/components/Post/SinglePost";
-import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import {
@@ -8,18 +7,10 @@ import {
   type TimelineRequest,
   useTimelineQuery
 } from "@hey/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { memo, useEffect } from "react";
-import { WindowVirtualizer } from "virtua";
+import { memo } from "react";
 
 const Timeline = () => {
   const { currentAccount } = useAccountStore();
-  const [ref, entry] = useIntersectionObserver({
-    threshold: 0,
-    root: null,
-    rootMargin: "0px"
-  });
-
   const request: TimelineRequest = {
     account: currentAccount?.address,
     filter: {
@@ -47,30 +38,7 @@ const Timeline = () => {
     }
   };
 
-  useEffect(() => {
-    if (entry?.isIntersecting) {
-      onEndReached();
-    }
-  }, [entry?.isIntersecting]);
-
-  if (loading) {
-    return <PostsShimmer />;
-  }
-
-  if (!feed?.length) {
-    return (
-      <EmptyState
-        icon={<UserGroupIcon className="size-8" />}
-        message="No posts yet!"
-      />
-    );
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} title="Failed to load timeline" />;
-  }
-
-  const filteredPosts = feed.filter(
+  const filteredPosts = (feed ?? []).filter(
     (timelineItem) =>
       !timelineItem.primary.author.operations?.hasBlockedMe &&
       !timelineItem.primary.author.operations?.isBlockedByMe &&
@@ -78,18 +46,23 @@ const Timeline = () => {
   );
 
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {filteredPosts.map((timelineItem) => (
-          <SinglePost
-            key={timelineItem.id}
-            timelineItem={timelineItem}
-            post={timelineItem.primary}
-          />
-        ))}
-        {hasMore && <span ref={ref} />}
-      </WindowVirtualizer>
-    </Card>
+    <PostFeed
+      items={filteredPosts}
+      loading={loading}
+      error={error}
+      hasMore={hasMore}
+      onEndReached={onEndReached}
+      emptyIcon={<UserGroupIcon className="size-8" />}
+      emptyMessage="No posts yet!"
+      errorTitle="Failed to load timeline"
+      renderItem={(timelineItem) => (
+        <SinglePost
+          key={timelineItem.id}
+          timelineItem={timelineItem}
+          post={timelineItem.primary}
+        />
+      )}
+    />
   );
 };
 
