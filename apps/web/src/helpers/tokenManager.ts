@@ -1,19 +1,7 @@
 import { signIn, signOut } from "@/store/persisted/useAuthStore";
-import { LENS_API_URL } from "@hey/data/constants";
 import parseJwt from "@hey/helpers/parseJwt";
-import type { RefreshResult } from "@hey/indexer";
-
-const REFRESH_AUTHENTICATION_MUTATION = `
-  mutation Refresh($request: RefreshRequest!) {
-    refresh(request: $request) {
-      ... on AuthenticationTokens {
-        accessToken
-        refreshToken
-      }
-      __typename
-    }
-  }
-`;
+import { RefreshDocument, type RefreshMutation } from "@hey/indexer";
+import apolloClient from "@hey/indexer/apollo/client";
 
 let refreshPromise: Promise<string> | null = null;
 const MAX_RETRIES = 5;
@@ -23,30 +11,18 @@ const executeTokenRefresh = async (
   attempt = 0
 ): Promise<string> => {
   try {
-    const response = await fetch(LENS_API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        operationName: "Refresh",
-        query: REFRESH_AUTHENTICATION_MUTATION,
-        variables: { request: { refreshToken } }
-      })
+    const { data } = await apolloClient.mutate<RefreshMutation>({
+      mutation: RefreshDocument,
+      variables: { request: { refreshToken } }
     });
 
-    if (!response.ok) {
-      return await executeTokenRefresh(refreshToken, attempt + 1);
-    }
-
-    const { data } = await response.json();
-    const refreshResult = data?.refresh as RefreshResult;
+    const refreshResult = data?.refresh;
 
     if (!refreshResult) {
       throw new Error("No response from refresh");
     }
 
-    const { __typename } = refreshResult;
-
-    if (__typename === "AuthenticationTokens") {
+    if (refreshResult.__typename === "AuthenticationTokens") {
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
         refreshResult;
 
@@ -62,7 +38,7 @@ const executeTokenRefresh = async (
       return newAccessToken;
     }
 
-    if (__typename === "ForbiddenError") {
+    if (refreshResult.__typename === "ForbiddenError") {
       signOut();
       throw new Error("Refresh token is invalid or expired");
     }
