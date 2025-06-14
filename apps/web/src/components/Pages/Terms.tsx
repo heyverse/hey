@@ -274,8 +274,8 @@ const Terms = () => {
               {/* 11. Disclaimer of Warranties begins */}
               <H4 className="mt-8 mb-5">11. Disclaimer of Warranties</H4>
               <p className="leading-7">
-                The Site are provided to you completely as they are, and could
-                function differently than you expected. You agree to accept the
+                The Site is provided to you completely as it is, and could
+                function differently than you expect. You agree to accept the
                 Site as is. You expressly agree that your use of, or inability
                 to use, the Site is at your sole risk. Our liability shall be
                 limited entirely or to the maximum extent permitted by law.
