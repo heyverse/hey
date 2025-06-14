@@ -9,21 +9,25 @@ const syncSubscribersToGuild = async (ctx: Context) => {
   try {
     const accounts = (await lensPg.query(
       `
-        SELECT account
-        FROM "group"."member"
-        WHERE "group"::TEXT LIKE $1;
+        SELECT DISTINCT ksw.owned_by
+        FROM account.known_smart_wallet ksw
+        WHERE ksw.address IN (
+          SELECT member.account
+          FROM "group"."member" AS member
+          WHERE member."group" = $1
+        );
       `,
-      [`%${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}%`]
-    )) as Array<{ account: Buffer }>;
+      [`\\x${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}`]
+    )) as Array<{ owned_by: Buffer }>;
 
     const addresses = accounts.map((account) =>
-      `0x${account.account.toString("hex")}`.toLowerCase()
+      `0x${account.owned_by.toString("hex")}`.toLowerCase()
     );
 
     const data = await syncAddressesToGuild({
       addresses,
-      roleId: 173026,
-      requirementId: 470539
+      roleId: 174659,
+      requirementId: 473346
     });
 
     return ctx.json(data);

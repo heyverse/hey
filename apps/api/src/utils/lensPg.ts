@@ -28,13 +28,13 @@ class Database {
   public helpers: IHelpers;
 
   constructor() {
-    const readDb = this._initializateDb();
+    const readDb = this._initializeDb();
     this._readDb = readDb.instance;
     this.helpers = readDb.pg.helpers;
     this.as = readDb.pg.as;
   }
 
-  private _initializateDb(): InitializeDbResult {
+  private _initializeDb(): InitializeDbResult {
     return this._initializationDb(this._connectionBase);
   }
 

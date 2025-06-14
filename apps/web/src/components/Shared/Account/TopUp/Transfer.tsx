@@ -7,7 +7,8 @@ import {
   type FundingToken,
   useFundModalStore
 } from "@/store/non-persisted/modal/useFundModalStore";
-import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
+import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
+import { NATIVE_TOKEN_SYMBOL, NULL_ADDRESS } from "@hey/data/constants";
 import { useBalancesBulkQuery, useDepositMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { type ChangeEvent, type RefObject, useRef, useState } from "react";
@@ -178,8 +179,22 @@ const Transfer = ({ token }: TransferProps) => {
             icon={<Spinner className="my-1" size="xs" />}
           />
         ) : Number(tokenBalance) < amount ? (
-          <Button disabled className="w-full">
-            Insufficient balance
+          <Button
+            onClick={() => {
+              const params = new URLSearchParams({
+                utm_source: "hey.xyz",
+                utm_medium: "sites",
+                isExactOut: "false",
+                inputChain: "lens",
+                outToken: token?.contractAddress ?? NULL_ADDRESS
+              });
+
+              window.open(`https://oku.trade/?${params.toString()}`, "_blank");
+            }}
+            className="w-full"
+          >
+            <span>Buy on Oku.trade</span>
+            <ArrowUpRightIcon className="size-4" />
           </Button>
         ) : (
           <Button

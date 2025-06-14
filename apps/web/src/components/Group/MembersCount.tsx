@@ -2,6 +2,7 @@ import Members from "@/components/Shared/Modal/Members";
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
 import { Modal } from "@/components/Shared/UI";
 import humanize from "@/helpers/humanize";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { PERMISSIONS } from "@hey/data/constants";
 import { type GroupFragment, useGroupStatsQuery } from "@hey/indexer";
 import { useState } from "react";
@@ -11,8 +12,11 @@ interface MembersCountProps {
 }
 
 const MembersCount = ({ group }: MembersCountProps) => {
+  const { currentAccount } = useAccountStore();
   const [showMembersModal, setShowMembersModal] = useState(false);
-  const hideCount = Object.values(PERMISSIONS).includes(group.address);
+  const hideCount = Object.values(
+    currentAccount?.isStaff ? [] : PERMISSIONS
+  ).includes(group.address);
 
   const { data, loading } = useGroupStatsQuery({
     variables: { request: { group: group.address } },

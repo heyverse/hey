@@ -1,0 +1,13 @@
+query ProStats(
+  $groupStatsRequest: GroupStatsRequest!
+  $balancesBulkRequest: BalancesBulkRequest!
+) {
+  groupStats(request: $groupStatsRequest) {
+    totalMembers
+  }
+  balancesBulk(request: $balancesBulkRequest) {
+    ... on Erc20Amount {
+      value
+    }
+  }
+}
