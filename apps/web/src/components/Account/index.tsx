@@ -70,6 +70,8 @@ const ViewAccount = () => {
   const isBlockedByMe = account?.operations?.isBlockedByMe;
   const hasBlockedMe = account?.operations?.hasBlockedMe;
 
+  const accountInfo = getAccount(account);
+
   const renderAccountDetails = () => {
     if (isDeleted) return <DeletedDetails account={account} />;
 
@@ -101,7 +103,7 @@ const ViewAccount = () => {
 
   return (
     <PageLayout
-      title={`${getAccount(account).name} (${getAccount(account).usernameWithPrefix}) • Hey`}
+      title={`${accountInfo.name} (${accountInfo.usernameWithPrefix}) • Hey`}
       zeroTopMargin
     >
       <Cover
@@ -122,7 +124,7 @@ const ViewAccount = () => {
             feedType === AccountFeedType.Media ||
             feedType === AccountFeedType.Collects) && (
             <AccountFeed
-              username={getAccount(account).usernameWithPrefix}
+              username={accountInfo.usernameWithPrefix}
               address={account.address}
               type={feedType}
             />
