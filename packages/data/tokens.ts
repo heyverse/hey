@@ -1,12 +1,12 @@
 import { IS_MAINNET } from "./constants";
-import { MainnetContracts, TestnetContracts } from "./contracts";
+import { MAINNET_CONTRACTS, TESTNET_CONTRACTS } from "./contracts";
 
 const mainnetTokens = [
   {
     name: "Wrapped GHO",
     symbol: "WGHO",
     decimals: 18,
-    contractAddress: MainnetContracts.DefaultToken
+    contractAddress: MAINNET_CONTRACTS.defaultToken
   },
   {
     name: "Bonsai",
@@ -21,7 +21,7 @@ const testnetTokens = [
     name: "Wrapped Grass",
     symbol: "WGRASS",
     decimals: 18,
-    contractAddress: TestnetContracts.DefaultToken
+    contractAddress: TESTNET_CONTRACTS.defaultToken
   }
 ];
 

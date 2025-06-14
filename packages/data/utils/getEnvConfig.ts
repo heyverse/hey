@@ -1,5 +1,5 @@
 import { LENS_NETWORK } from "../constants";
-import { MainnetContracts, TestnetContracts } from "../contracts";
+import { MAINNET_CONTRACTS, TESTNET_CONTRACTS } from "../contracts";
 import LensEndpoint from "../lens-endpoints";
 
 const getEnvConfig = (): {
@@ -8,8 +8,8 @@ const getEnvConfig = (): {
   appAddress: `0x${string}`;
 } => {
   const testnetContracts = {
-    defaultCollectToken: TestnetContracts.DefaultToken,
-    appAddress: TestnetContracts.App
+    defaultCollectToken: TESTNET_CONTRACTS.defaultToken,
+    appAddress: TESTNET_CONTRACTS.app
   };
 
   switch (LENS_NETWORK) {
@@ -26,8 +26,8 @@ const getEnvConfig = (): {
     default:
       return {
         lensApiEndpoint: LensEndpoint.Mainnet,
-        defaultCollectToken: MainnetContracts.DefaultToken,
-        appAddress: MainnetContracts.App
+        defaultCollectToken: MAINNET_CONTRACTS.defaultToken,
+        appAddress: MAINNET_CONTRACTS.app
       };
   }
 };
