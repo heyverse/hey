@@ -1,5 +1,5 @@
 import { chains } from "@lens-chain/sdk/viem";
-import LensEndpoint from "./lens-endpoints";
+import { LENS_ENDPOINT } from "./lens-endpoints";
 import getEnvConfig from "./utils/getEnvConfig";
 
 // Environments
@@ -17,7 +17,7 @@ export const HEY_API_URL = IS_PRODUCTION
   ? HEY_API_PRODUCTION_URL
   : "http://localhost:4784";
 
-export const IS_MAINNET = LENS_API_URL === LensEndpoint.Mainnet;
+export const IS_MAINNET = LENS_API_URL === LENS_ENDPOINT.Mainnet;
 export const CHAIN = IS_MAINNET ? chains.mainnet : chains.testnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";

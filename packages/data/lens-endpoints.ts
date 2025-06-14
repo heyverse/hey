@@ -1,7 +1,7 @@
-enum LensEndpoint {
-  Mainnet = "https://api.lens.xyz/graphql",
-  Testnet = "https://api.testnet.lens.xyz/graphql",
-  Staging = "https://api.staging.lens.xyz/graphql"
-}
+export const LENS_ENDPOINT = {
+  Mainnet: "https://api.lens.xyz/graphql",
+  Testnet: "https://api.testnet.lens.xyz/graphql",
+  Staging: "https://api.staging.lens.xyz/graphql"
+} as const;
 
-export default LensEndpoint;
+export type LensEndpoint = (typeof LENS_ENDPOINT)[keyof typeof LENS_ENDPOINT];

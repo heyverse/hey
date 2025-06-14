@@ -1,6 +1,6 @@
 import { LENS_NETWORK } from "../constants";
 import { MainnetContracts, TestnetContracts } from "../contracts";
-import LensEndpoint from "../lens-endpoints";
+import { LENS_ENDPOINT } from "../lens-endpoints";
 
 const getEnvConfig = (): {
   lensApiEndpoint: string;
@@ -15,17 +15,17 @@ const getEnvConfig = (): {
   switch (LENS_NETWORK) {
     case "testnet":
       return {
-        lensApiEndpoint: LensEndpoint.Testnet,
+        lensApiEndpoint: LENS_ENDPOINT.Testnet,
         ...testnetContracts
       };
     case "staging":
       return {
-        lensApiEndpoint: LensEndpoint.Staging,
+        lensApiEndpoint: LENS_ENDPOINT.Staging,
         ...testnetContracts
       };
     default:
       return {
-        lensApiEndpoint: LensEndpoint.Mainnet,
+        lensApiEndpoint: LENS_ENDPOINT.Mainnet,
         defaultCollectToken: MainnetContracts.DefaultToken,
         appAddress: MainnetContracts.App
       };
