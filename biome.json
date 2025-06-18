@@ -1,19 +1,5 @@
 {
   "$schema": "https://biomejs.dev/schemas/latest/schema.json",
-  "organizeImports": { "enabled": true },
-  "files": {
-    "ignore": [
-      ".pnpm-store/*",
-      "**/.expo/**",
-      "**/dist/**",
-      "**/artifacts/**",
-      "**/node_modules/**",
-      "**/.git/**",
-      "**/cache/**",
-      "generated.ts",
-      "expo-env.d.ts"
-    ]
-  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -46,7 +32,6 @@
         "noNegationElse": "error"
       },
       "nursery": {
-        "noDuplicatedFields": "error",
         "useSortedClasses": {
           "fix": "safe",
           "level": "error",
