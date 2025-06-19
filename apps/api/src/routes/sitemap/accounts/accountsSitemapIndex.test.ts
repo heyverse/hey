@@ -17,7 +17,9 @@ beforeEach(() => {
 
 describe("accountsSitemapIndex", () => {
   it("returns cached value when available", async () => {
-    (getRedis as unknown as ReturnType<typeof vi.fn>).mockResolvedValue("2");
+    (getRedis as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(
+      "cached"
+    );
     const header = vi.fn();
     const body = vi.fn((c: unknown) => c);
     const ctx = { header, body } as unknown as Context;
@@ -25,13 +27,15 @@ describe("accountsSitemapIndex", () => {
     const result = await accountsSitemapIndex(ctx);
 
     expect(header).toHaveBeenCalledWith("Content-Type", "application/xml");
-    expect(result).toContain("<sitemapindex");
+    expect(result).toBe("cached");
     expect(lensPg.query).not.toHaveBeenCalled();
     expect(setRedis).not.toHaveBeenCalled();
   });
 
   it("queries db and caches when not cached", async () => {
-    (getRedis as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    (getRedis as unknown as ReturnType<typeof vi.fn>)
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce(null);
     (lensPg.query as unknown as ReturnType<typeof vi.fn>).mockResolvedValue([
       { count: 2 }
     ]);
@@ -41,6 +45,7 @@ describe("accountsSitemapIndex", () => {
 
     const result = await accountsSitemapIndex(ctx);
 
+    expect(header).toHaveBeenCalledWith("Content-Type", "application/xml");
     expect(lensPg.query).toHaveBeenCalled();
     expect(setRedis).toHaveBeenCalled();
     expect(result).toContain("<sitemapindex");

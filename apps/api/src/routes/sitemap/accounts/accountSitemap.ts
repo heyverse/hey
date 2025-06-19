@@ -2,8 +2,8 @@ import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import { SITEMAP_BATCH_SIZE } from "src/utils/constants";
 import lensPg from "src/utils/lensPg";
-import { getRedis, hoursToSeconds, setRedis } from "src/utils/redis";
-import { create } from "xmlbuilder2";
+import { hoursToSeconds } from "src/utils/redis";
+import buildSitemap from "../common";
 
 const accountSitemap = async (ctx: Context) => {
   const params = ctx.req.param();
@@ -18,28 +18,13 @@ const accountSitemap = async (ctx: Context) => {
     return ctx.body(ERRORS.SomethingWentWrong);
   }
 
-  try {
-    const cacheKey = `sitemap:accounts:${group}-${batch}`;
-    const cachedData = await getRedis(cacheKey);
+  const cacheKey = `sitemap:accounts:${group}-${batch}`;
 
-    const sitemap = create({ version: "1.0", encoding: "UTF-8" }).ele(
-      "urlset",
-      { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" }
-    );
-
-    if (cachedData) {
-      const usernames: string[] = JSON.parse(cachedData);
-      for (const username of usernames) {
-        sitemap
-          .ele("url")
-          .ele("loc")
-          .txt(`https://hey.xyz/u/${username}`)
-          .up()
-          .ele("lastmod")
-          .txt(new Date().toISOString())
-          .up();
-      }
-    } else {
+  return buildSitemap({
+    ctx,
+    cacheKey,
+    rootName: "urlset",
+    getItems: async () => {
       const globalBatch =
         (Number(group) - 1) * SITEMAP_BATCH_SIZE + (Number(batch) - 1);
       const dbUsernames = (await lensPg.query(
@@ -53,26 +38,20 @@ const accountSitemap = async (ctx: Context) => {
         [globalBatch * SITEMAP_BATCH_SIZE, SITEMAP_BATCH_SIZE]
       )) as Array<{ local_name: string }>;
 
-      const usernamesToCache: string[] = [];
-      for (const { local_name } of dbUsernames) {
-        usernamesToCache.push(local_name);
-        sitemap
-          .ele("url")
-          .ele("loc")
-          .txt(`https://hey.xyz/u/${local_name}`)
-          .up()
-          .ele("lastmod")
-          .txt(new Date().toISOString())
-          .up();
-      }
-      await setRedis(cacheKey, usernamesToCache, hoursToSeconds(50 * 24));
-    }
-
-    ctx.header("Content-Type", "application/xml");
-    return ctx.body(sitemap.end({ prettyPrint: true }));
-  } catch {
-    return ctx.body(ERRORS.SomethingWentWrong);
-  }
+      return dbUsernames.map(({ local_name }) => local_name);
+    },
+    buildItem: (sitemap, username: string) => {
+      sitemap
+        .ele("url")
+        .ele("loc")
+        .txt(`https://hey.xyz/u/${username}`)
+        .up()
+        .ele("lastmod")
+        .txt(new Date().toISOString())
+        .up();
+    },
+    expiry: hoursToSeconds(50 * 24)
+  });
 };
 
 export default accountSitemap;
