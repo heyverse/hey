@@ -1,6 +1,6 @@
 import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
-import { SITEMAP_BATCH_SIZE } from "src/utils/constants";
+import { SITEMAP_BATCH_SIZE, SITEMAP_CACHE_DAYS } from "src/utils/constants";
 import lensPg from "src/utils/lensPg";
 import { getRedis, hoursToSeconds, setRedis } from "src/utils/redis";
 import { create } from "xmlbuilder2";
@@ -23,7 +23,11 @@ const accountsSitemapIndex = async (ctx: Context) => {
       )) as Array<{ count: number }>;
 
       totalBatches = Number(usernames[0]?.count) || 0;
-      await setRedis(cacheKey, totalBatches, hoursToSeconds(50 * 24));
+      await setRedis(
+        cacheKey,
+        totalBatches,
+        hoursToSeconds(SITEMAP_CACHE_DAYS * 24)
+      );
     }
 
     const totalGroups = Math.ceil(totalBatches / SITEMAP_BATCH_SIZE);

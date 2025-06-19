@@ -1,6 +1,6 @@
 import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
-import { SITEMAP_BATCH_SIZE } from "src/utils/constants";
+import { SITEMAP_BATCH_SIZE, SITEMAP_CACHE_DAYS } from "src/utils/constants";
 import lensPg from "src/utils/lensPg";
 import { getRedis, hoursToSeconds, setRedis } from "src/utils/redis";
 import { create } from "xmlbuilder2";
@@ -65,7 +65,11 @@ const accountSitemap = async (ctx: Context) => {
           .txt(new Date().toISOString())
           .up();
       }
-      await setRedis(cacheKey, usernamesToCache, hoursToSeconds(50 * 24));
+      await setRedis(
+        cacheKey,
+        usernamesToCache,
+        hoursToSeconds(SITEMAP_CACHE_DAYS * 24)
+      );
     }
 
     ctx.header("Content-Type", "application/xml");

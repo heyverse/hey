@@ -1,8 +1,6 @@
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
+import dayjs from "./dayjs";
 
-dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
 const getTimeAddedNDay = (day: number) => {

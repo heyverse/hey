@@ -13,6 +13,8 @@ vi.mock("src/utils/redis", () => ({ getRedis: vi.fn(), setRedis: vi.fn() }));
 
 const template = (_: any, jsonLd: string) =>
   html`<html><script>${raw(jsonLd)}</script><body>bar</body></html>`;
+const asyncTemplate = async (...args: Parameters<typeof template>) =>
+  template(...args);
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -54,6 +56,26 @@ describe("generateOg", () => {
       extractData: (d) => d,
       buildJsonLd: () => ({}),
       buildHtml: template
+    });
+
+    expect(apolloClient.query).toHaveBeenCalled();
+    expect(setRedis).toHaveBeenCalled();
+    expect(String(result)).toContain("bar");
+  });
+
+  it("supports async buildHtml", async () => {
+    (getRedis as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(null);
+    const htmlFn = vi.fn((v: string) => v);
+    const ctx = { html: htmlFn } as unknown as Context;
+
+    const result = await generateOg({
+      ctx,
+      cacheKey: "k",
+      query: {} as any,
+      variables: {},
+      extractData: (d) => d,
+      buildJsonLd: () => ({}),
+      buildHtml: asyncTemplate
     });
 
     expect(apolloClient.query).toHaveBeenCalled();

@@ -49,7 +49,7 @@ const generateOg = async <T>({
       .replace(/>/g, "\\u003e")
       .replace(/&/g, "\\u0026");
 
-    const ogHtml = buildHtml(parsed, escapedJsonLd);
+    const ogHtml = await buildHtml(parsed, escapedJsonLd);
     const cleanHtml = ogHtml.toString().replace(/\n\s+/g, "").trim();
 
     await setRedis(cacheKey, cleanHtml);
