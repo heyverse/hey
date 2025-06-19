@@ -1,6 +1,5 @@
+import { createTrackedStore } from "@/store/createTrackedStore";
 import type { AccountFragment } from "@hey/indexer";
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
 
 interface State {
   showSuperFollowModal: boolean;
@@ -11,11 +10,13 @@ interface State {
   ) => void;
 }
 
-const store = create<State>((set) => ({
-  showSuperFollowModal: false,
-  superFollowingAccount: undefined,
-  setShowSuperFollowModal: (showSuperFollowModal, superFollowingAccount) =>
-    set(() => ({ showSuperFollowModal, superFollowingAccount }))
-}));
+const { useStore: useSuperFollowModalStore } = createTrackedStore<State>(
+  (set) => ({
+    showSuperFollowModal: false,
+    superFollowingAccount: undefined,
+    setShowSuperFollowModal: (showSuperFollowModal, superFollowingAccount) =>
+      set(() => ({ showSuperFollowModal, superFollowingAccount }))
+  })
+);
 
-export const useSuperFollowModalStore = createTrackedSelector(store);
+export { useSuperFollowModalStore };

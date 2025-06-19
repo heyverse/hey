@@ -1,6 +1,5 @@
-import { createTrackedSelector } from "react-tracked";
+import { createTrackedStore } from "@/store/createTrackedStore";
 import type { Address } from "viem";
-import { create } from "zustand";
 
 export interface FundingToken {
   contractAddress: Address;
@@ -24,7 +23,7 @@ interface State {
   }: TopUpAmount) => void;
 }
 
-const store = create<State>((set) => ({
+const { useStore: useFundModalStore } = createTrackedStore<State>((set) => ({
   showFundModal: false,
   token: undefined,
   amountToTopUp: undefined,
@@ -32,4 +31,4 @@ const store = create<State>((set) => ({
     set(() => ({ showFundModal, token, amountToTopUp }))
 }));
 
-export const useFundModalStore = createTrackedSelector(store);
+export { useFundModalStore };

@@ -1,5 +1,4 @@
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface VideoThumbnail {
   mimeType: string;
@@ -20,7 +19,7 @@ interface State {
   videoThumbnail: VideoThumbnail;
 }
 
-const store = create<State>((set) => ({
+const { useStore: usePostVideoStore } = createTrackedStore<State>((set) => ({
   setVideoDurationInSeconds: (videoDurationInSeconds) =>
     set(() => ({ videoDurationInSeconds })),
   setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
@@ -28,4 +27,4 @@ const store = create<State>((set) => ({
   videoThumbnail: DEFAULT_VIDEO_THUMBNAIL
 }));
 
-export const usePostVideoStore = createTrackedSelector(store);
+export { usePostVideoStore };

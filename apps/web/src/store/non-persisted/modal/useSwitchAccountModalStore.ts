@@ -1,15 +1,16 @@
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   showSwitchAccountModal: boolean;
   setShowSwitchAccountModal: (showSwitchAccountModal: boolean) => void;
 }
 
-const store = create<State>((set) => ({
-  showSwitchAccountModal: false,
-  setShowSwitchAccountModal: (showSwitchAccountModal) =>
-    set(() => ({ showSwitchAccountModal }))
-}));
+const { useStore: useSwitchAccountModalStore } = createTrackedStore<State>(
+  (set) => ({
+    showSwitchAccountModal: false,
+    setShowSwitchAccountModal: (showSwitchAccountModal) =>
+      set(() => ({ showSwitchAccountModal }))
+  })
+);
 
-export const useSwitchAccountModalStore = createTrackedSelector(store);
+export { useSwitchAccountModalStore };

@@ -1,14 +1,15 @@
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   showMobileDrawer: boolean;
   setShowMobileDrawer: (showMobileDrawer: boolean) => void;
 }
 
-const store = create<State>((set) => ({
-  showMobileDrawer: false,
-  setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer }))
-}));
+const { useStore: useMobileDrawerModalStore } = createTrackedStore<State>(
+  (set) => ({
+    showMobileDrawer: false,
+    setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer }))
+  })
+);
 
-export const useMobileDrawerModalStore = createTrackedSelector(store);
+export { useMobileDrawerModalStore };

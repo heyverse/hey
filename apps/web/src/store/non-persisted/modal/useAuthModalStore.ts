@@ -1,5 +1,4 @@
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 type AuthModalType = "login" | "signup";
 
@@ -12,11 +11,11 @@ interface State {
   ) => void;
 }
 
-const store = create<State>((set) => ({
+const { useStore: useAuthModalStore } = createTrackedStore<State>((set) => ({
   showAuthModal: false,
   authModalType: "login",
   setShowAuthModal: (showAuthModal, authModalType) =>
     set(() => ({ showAuthModal, authModalType }))
 }));
 
-export const useAuthModalStore = createTrackedSelector(store);
+export { useAuthModalStore };

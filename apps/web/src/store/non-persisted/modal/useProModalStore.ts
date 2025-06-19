@@ -1,14 +1,13 @@
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   showProModal: boolean;
   setShowProModal: (showProModal: boolean) => void;
 }
 
-const store = create<State>((set) => ({
+const { useStore: useProModalStore } = createTrackedStore<State>((set) => ({
   showProModal: false,
   setShowProModal: (showProModal) => set(() => ({ showProModal }))
 }));
 
-export const useProModalStore = createTrackedSelector(store);
+export { useProModalStore };

@@ -1,6 +1,5 @@
+import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 import { Localstorage } from "@hey/data/storage";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface Tokens {
   accessToken: null | string;
@@ -18,29 +17,27 @@ interface State {
   signOut: () => void;
 }
 
-const store = create(
-  persist<State>(
-    (set, get) => ({
-      accessToken: null,
-      hydrateAuthTokens: () => {
-        const { accessToken, refreshToken } = get();
-        return { accessToken, refreshToken };
-      },
-      refreshToken: null,
-      signIn: ({ accessToken, refreshToken }) =>
-        set({ accessToken, refreshToken }),
-      signOut: async () => {
-        // Clear Localstorage
-        const allLocalstorageStores = Object.values(Localstorage).filter(
-          (value) => value !== Localstorage.SearchStore
-        );
-        for (const store of allLocalstorageStores) {
-          localStorage.removeItem(store);
-        }
+const { store } = createPersistedTrackedStore<State>(
+  (set, get) => ({
+    accessToken: null,
+    hydrateAuthTokens: () => {
+      const { accessToken, refreshToken } = get();
+      return { accessToken, refreshToken };
+    },
+    refreshToken: null,
+    signIn: ({ accessToken, refreshToken }) =>
+      set({ accessToken, refreshToken }),
+    signOut: async () => {
+      // Clear Localstorage
+      const allLocalstorageStores = Object.values(Localstorage).filter(
+        (value) => value !== Localstorage.SearchStore
+      );
+      for (const store of allLocalstorageStores) {
+        localStorage.removeItem(store);
       }
-    }),
-    { name: Localstorage.AuthStore }
-  )
+    }
+  }),
+  { name: Localstorage.AuthStore }
 );
 
 export const signIn = (tokens: {

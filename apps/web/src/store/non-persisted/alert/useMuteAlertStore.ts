@@ -1,6 +1,5 @@
+import { createTrackedStore } from "@/store/createTrackedStore";
 import type { AccountFragment } from "@hey/indexer";
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
 
 interface State {
   mutingOrUnmutingAccount?: AccountFragment;
@@ -11,11 +10,11 @@ interface State {
   ) => void;
 }
 
-const store = create<State>((set) => ({
+const { useStore: useMuteAlertStore } = createTrackedStore<State>((set) => ({
   mutingOrUnmutingAccount: undefined,
   showMuteOrUnmuteAlert: false,
   setShowMuteOrUnmuteAlert: (showMuteOrUnmuteAlert, mutingOrUnmutingAccount) =>
     set(() => ({ mutingOrUnmutingAccount, showMuteOrUnmuteAlert }))
 }));
 
-export const useMuteAlertStore = createTrackedSelector(store);
+export { useMuteAlertStore };

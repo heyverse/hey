@@ -1,6 +1,5 @@
+import { createTrackedStore } from "@/store/createTrackedStore";
 import type { AccountFragment } from "@hey/indexer";
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
 
 interface State {
   blockingOrUnblockingAccount?: AccountFragment;
@@ -11,7 +10,7 @@ interface State {
   ) => void;
 }
 
-const store = create<State>((set) => ({
+const { useStore: useBlockAlertStore } = createTrackedStore<State>((set) => ({
   blockingOrUnblockingAccount: undefined,
   showBlockOrUnblockAlert: false,
   setShowBlockOrUnblockAlert: (
@@ -20,4 +19,4 @@ const store = create<State>((set) => ({
   ) => set(() => ({ blockingOrUnblockingAccount, showBlockOrUnblockAlert }))
 }));
 
-export const useBlockAlertStore = createTrackedSelector(store);
+export { useBlockAlertStore };

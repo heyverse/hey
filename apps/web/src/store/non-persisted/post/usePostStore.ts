@@ -1,6 +1,5 @@
+import { createTrackedStore } from "@/store/createTrackedStore";
 import type { PostFragment } from "@hey/indexer";
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
 
 interface State {
   postContent: string;
@@ -11,7 +10,7 @@ interface State {
   setEditingPost: (editingPost?: PostFragment) => void;
 }
 
-const store = create<State>((set) => ({
+const { useStore: usePostStore } = createTrackedStore<State>((set) => ({
   postContent: "",
   quotedPost: undefined,
   editingPost: undefined,
@@ -20,4 +19,4 @@ const store = create<State>((set) => ({
   setEditingPost: (editingPost) => set(() => ({ editingPost }))
 }));
 
-export const usePostStore = createTrackedSelector(store);
+export { usePostStore };

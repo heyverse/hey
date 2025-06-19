@@ -1,5 +1,4 @@
-import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface AudioPost {
   artist: string;
@@ -20,9 +19,9 @@ interface State {
   setAudioPost: (audioPost: AudioPost) => void;
 }
 
-const store = create<State>((set) => ({
+const { useStore: usePostAudioStore } = createTrackedStore<State>((set) => ({
   audioPost: DEFAULT_AUDIO_POST,
   setAudioPost: (audioPost) => set(() => ({ audioPost }))
 }));
 
-export const usePostAudioStore = createTrackedSelector(store);
+export { usePostAudioStore };
