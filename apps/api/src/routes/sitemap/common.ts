@@ -3,7 +3,7 @@ import type { Context } from "hono";
 import { getRedis, setRedis } from "src/utils/redis";
 import { create } from "xmlbuilder2";
 
-export interface SitemapHelperOptions<T> {
+interface SitemapHelperOptions<T> {
   ctx: Context;
   cacheKey: string;
   rootName: "urlset" | "sitemapindex";
