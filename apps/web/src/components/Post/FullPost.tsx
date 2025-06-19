@@ -5,6 +5,7 @@ import {
   getBlockedByMeMessage,
   getBlockedMeMessage
 } from "@/helpers/getBlockedMessage";
+import type { SmartMedia, SmartMediaLight } from "@/types/smart-media";
 import { QueueListIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
@@ -21,9 +22,10 @@ import PostType from "./Type";
 interface FullPostProps {
   hasHiddenComments: boolean;
   post: AnyPostFragment;
+  smartMedia?: SmartMedia | SmartMediaLight | null;
 }
 
-const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
+const FullPost = ({ hasHiddenComments, post, smartMedia }: FullPostProps) => {
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
 
@@ -47,7 +49,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
       <div className="flex items-start gap-x-3">
         <PostAvatar post={post} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader post={targetPost} />
+          <PostHeader post={targetPost} smartMedia={smartMedia} />
           {targetPost.isDeleted ? (
             <HiddenPost type={targetPost.__typename} />
           ) : (
