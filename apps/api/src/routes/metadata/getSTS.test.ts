@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import { describe, expect, it, vi } from "vitest";
 import getSTS from "./getSTS";
@@ -26,7 +27,7 @@ describe("metadata getSTS route", () => {
     const result = await getSTS(ctx);
 
     expect(ctx.json).toHaveBeenCalledWith({
-      status: "success",
+      status: Status.Success,
       data: {
         accessKeyId: "AK",
         secretAccessKey: "SK",
@@ -34,7 +35,7 @@ describe("metadata getSTS route", () => {
       }
     });
     expect(result).toEqual({
-      status: "success",
+      status: Status.Success,
       data: { accessKeyId: "AK", secretAccessKey: "SK", sessionToken: "ST" }
     });
   });

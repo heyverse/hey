@@ -1,4 +1,5 @@
 import { LIVEPEER_KEY } from "@hey/data/constants";
+import { Status } from "@hey/data/enums";
 import generateUUID from "@hey/helpers/generateUUID";
 import type { Context } from "hono";
 import handleApiError from "src/utils/handleApiError";
@@ -37,7 +38,7 @@ const createLive = async (ctx: Context) => {
     });
 
     return ctx.json({
-      status: "success",
+      status: Status.Success,
       data: (await response.json()) as {
         id: string;
         playbackId: string;

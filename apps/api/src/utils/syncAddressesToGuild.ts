@@ -1,6 +1,7 @@
 import { createSigner } from "@guildxyz/sdk";
 
 import { createGuildClient } from "@guildxyz/sdk";
+import { Status } from "@hey/data/enums";
 import signer from "./signer";
 
 const guildClient = createGuildClient("heyxyz");
@@ -32,7 +33,7 @@ const syncAddressesToGuild = async ({
   );
 
   return {
-    status: "success",
+    status: Status.Success,
     total: addresses.length,
     updatedAt: updatedRequirement.updatedAt
   };

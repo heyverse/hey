@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import prisma from "src/prisma/client";
 import { delRedis } from "src/utils/redis";
@@ -33,11 +34,11 @@ describe("updatePreferences route", () => {
     });
     expect(delRedis).toHaveBeenCalledWith("preferences:0x1");
     expect(ctx.json).toHaveBeenCalledWith({
-      status: "success",
+      status: Status.Success,
       data: { appIcon: 3, includeLowScore: true }
     });
     expect(result).toEqual({
-      status: "success",
+      status: Status.Success,
       data: { appIcon: 3, includeLowScore: true }
     });
   });

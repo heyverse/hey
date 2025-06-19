@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import prisma from "src/prisma/client";
 import handleApiError from "src/utils/handleApiError";
@@ -17,7 +18,7 @@ const updatePreferences = async (ctx: Context) => {
     await delRedis(`preferences:${account}`);
 
     return ctx.json({
-      status: "success",
+      status: Status.Success,
       data: {
         appIcon: preference.appIcon ?? 0,
         includeLowScore: preference.includeLowScore ?? false

@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import authorization from "./authorization";
@@ -23,11 +24,11 @@ describe("lens authorization route", () => {
     const ctx = createCtx();
     const result = await authorization(ctx);
     expect(ctx.json).toHaveBeenCalledWith(
-      { status: "error", error: "Unauthorized" },
+      { status: Status.Error, error: "Unauthorized" },
       401
     );
     expect(result).toEqual({
-      body: { status: "error", error: "Unauthorized" },
+      body: { status: Status.Error, error: "Unauthorized" },
       status: 401
     });
   });
@@ -36,11 +37,11 @@ describe("lens authorization route", () => {
     const ctx = createCtx("Bearer wrong");
     const result = await authorization(ctx);
     expect(ctx.json).toHaveBeenCalledWith(
-      { status: "error", error: "Invalid shared secret" },
+      { status: Status.Error, error: "Invalid shared secret" },
       401
     );
     expect(result).toEqual({
-      body: { status: "error", error: "Invalid shared secret" },
+      body: { status: Status.Error, error: "Invalid shared secret" },
       status: 401
     });
   });

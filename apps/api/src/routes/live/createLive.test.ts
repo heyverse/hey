@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import { describe, expect, it, vi } from "vitest";
 import createLive from "./createLive";
@@ -18,10 +19,10 @@ describe("live create route", () => {
 
     expect(fetchMock).toHaveBeenCalled();
     expect(ctx.json).toHaveBeenCalledWith({
-      status: "success",
+      status: Status.Success,
       data: { id: "1" }
     });
-    expect(result).toEqual({ status: "success", data: { id: "1" } });
+    expect(result).toEqual({ status: Status.Success, data: { id: "1" } });
 
     vi.unstubAllGlobals();
   });

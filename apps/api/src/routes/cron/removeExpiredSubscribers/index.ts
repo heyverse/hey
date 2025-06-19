@@ -1,4 +1,5 @@
 import { PERMISSIONS } from "@hey/data/constants";
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import handleApiError from "src/utils/handleApiError";
 import lensPg from "src/utils/lensPg";
@@ -23,7 +24,10 @@ const removeExpiredSubscribers = async (ctx: Context) => {
     );
 
     if (addresses.length === 0) {
-      return ctx.json({ status: "success", message: "No expired subscribers" });
+      return ctx.json({
+        status: Status.Success,
+        message: "No expired subscribers"
+      });
     }
 
     const membersToRemove = addresses.map((addr) => ({
@@ -39,7 +43,7 @@ const removeExpiredSubscribers = async (ctx: Context) => {
       args: [membersToRemove, []]
     });
 
-    return ctx.json({ status: "success", addresses, hash });
+    return ctx.json({ status: Status.Success, addresses, hash });
   } catch {
     return handleApiError(ctx);
   }

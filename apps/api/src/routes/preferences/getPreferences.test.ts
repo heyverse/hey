@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import prisma from "src/prisma/client";
 import { getRedis, setRedis } from "src/utils/redis";
@@ -26,12 +27,12 @@ describe("getPreferences route", () => {
     const result = await getPreferences(ctx);
 
     expect(ctx.json).toHaveBeenCalledWith({
-      status: "success",
+      status: Status.Success,
       cached: true,
       data: { appIcon: 1, includeLowScore: true }
     });
     expect(result).toEqual({
-      status: "success",
+      status: Status.Success,
       cached: true,
       data: { appIcon: 1, includeLowScore: true }
     });
@@ -55,11 +56,11 @@ describe("getPreferences route", () => {
     });
     expect(setRedis).toHaveBeenCalled();
     expect(ctx.json).toHaveBeenCalledWith({
-      status: "success",
+      status: Status.Success,
       data: { appIcon: 2, includeLowScore: false }
     });
     expect(result).toEqual({
-      status: "success",
+      status: Status.Success,
       data: { appIcon: 2, includeLowScore: false }
     });
   });

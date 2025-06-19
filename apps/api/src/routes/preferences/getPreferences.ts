@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import prisma from "src/prisma/client";
 import handleApiError from "src/utils/handleApiError";
@@ -12,7 +13,7 @@ const getPreferences = async (ctx: Context) => {
 
     if (cachedValue) {
       return ctx.json({
-        status: "success",
+        status: Status.Success,
         cached: true,
         data: JSON.parse(cachedValue)
       });
@@ -29,7 +30,7 @@ const getPreferences = async (ctx: Context) => {
 
     await setRedis(cacheKey, data);
 
-    return ctx.json({ status: "success", data });
+    return ctx.json({ status: Status.Success, data });
   } catch {
     return handleApiError(ctx);
   }

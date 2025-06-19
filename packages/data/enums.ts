@@ -23,3 +23,8 @@ export enum GroupsFeedType {
   Managed = "MANAGED",
   Member = "MEMBER"
 }
+
+export enum Status {
+  Success = "success",
+  Error = "error"
+}

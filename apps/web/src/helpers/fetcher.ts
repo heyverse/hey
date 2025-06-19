@@ -1,5 +1,6 @@
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { HEY_API_URL } from "@hey/data/constants";
+import { Status } from "@hey/data/enums";
 import type { Live, Oembed, Preferences, STS } from "@hey/types/api";
 import { isTokenExpiringSoon, refreshTokens } from "./tokenManager";
 
@@ -43,7 +44,7 @@ const fetchApi = async <T>(
 
   const result = await response.json();
 
-  if (result.status === "success") {
+  if (result.status === Status.Success) {
     return result.data;
   }
 

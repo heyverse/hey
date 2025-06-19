@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import { CACHE_AGE_1_DAY } from "src/utils/constants";
 import { getRedis, setRedis } from "src/utils/redis";
@@ -40,12 +41,12 @@ describe("oembed getOembed route", () => {
 
     expect(header).toHaveBeenCalledWith("Cache-Control", CACHE_AGE_1_DAY);
     expect(json).toHaveBeenCalledWith({
-      status: "success",
+      status: Status.Success,
       cached: true,
       data: { foo: "bar" }
     });
     expect(result).toEqual({
-      status: "success",
+      status: Status.Success,
       cached: true,
       data: { foo: "bar" }
     });
@@ -66,11 +67,11 @@ describe("oembed getOembed route", () => {
     expect(getMetadata).toHaveBeenCalledWith("https://x");
     expect(setRedis).toHaveBeenCalled();
     expect(json).toHaveBeenCalledWith({
-      status: "success",
+      status: Status.Success,
       data: { title: "Title", description: "Desc", url: "https://x" }
     });
     expect(result).toEqual({
-      status: "success",
+      status: Status.Success,
       data: { title: "Title", description: "Desc", url: "https://x" }
     });
   });

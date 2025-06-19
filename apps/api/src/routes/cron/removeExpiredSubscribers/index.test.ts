@@ -1,4 +1,5 @@
 import { PERMISSIONS } from "@hey/data/constants";
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import lensPg from "src/utils/lensPg";
 import signer from "src/utils/signer";
@@ -42,7 +43,7 @@ describe("removeExpiredSubscribers", () => {
       ]
     });
     expect(result).toEqual({
-      status: "success",
+      status: Status.Success,
       addresses: [`0x${buf.toString("hex")}`],
       hash: "hash"
     });
@@ -55,7 +56,7 @@ describe("removeExpiredSubscribers", () => {
     const result = await removeExpiredSubscribers(ctx);
 
     expect(result).toEqual({
-      status: "success",
+      status: Status.Success,
       message: "No expired subscribers"
     });
   });

@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import { CACHE_AGE_1_DAY } from "src/utils/constants";
 import handleApiError from "src/utils/handleApiError";
@@ -15,7 +16,7 @@ const getOembed = async (ctx: Context) => {
 
     if (cachedValue) {
       return ctx.json({
-        status: "success",
+        status: Status.Success,
         cached: true,
         data: JSON.parse(cachedValue)
       });
@@ -24,7 +25,7 @@ const getOembed = async (ctx: Context) => {
     const oembed = await getMetadata(url);
     await setRedis(cacheKey, oembed, generateExtraLongExpiry());
 
-    return ctx.json({ status: "success", data: oembed });
+    return ctx.json({ status: Status.Success, data: oembed });
   } catch {
     return handleApiError(ctx);
   }

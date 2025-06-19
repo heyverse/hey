@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import getDbPostId from "src/utils/getDbPostId";
 import handleApiError from "src/utils/handleApiError";
@@ -8,7 +9,10 @@ const getStats = async (ctx: Context) => {
     const { address, post } = await ctx.req.json();
 
     if (!address) {
-      return ctx.json({ status: "error", error: "Address is required" }, 400);
+      return ctx.json(
+        { status: Status.Error, error: "Address is required" },
+        400
+      );
     }
 
     const accounts = (await lensPg.query(
@@ -54,7 +58,7 @@ const getStats = async (ctx: Context) => {
     );
 
     return ctx.json({
-      status: "success",
+      status: Status.Success,
       tips: Number(result[0].count),
       quotes: Number(result[1].count),
       comments: Number(result[2].count)

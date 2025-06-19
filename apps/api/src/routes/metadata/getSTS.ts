@@ -1,5 +1,6 @@
 import { AssumeRoleCommand } from "@aws-sdk/client-sts";
 import { EVER_BUCKET } from "@hey/data/constants";
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import handleApiError from "src/utils/handleApiError";
 import stsClient from "src/utils/stsClient";
@@ -34,7 +35,7 @@ const getSTS = async (ctx: Context) => {
     const { Credentials: credentials } = await stsClient.send(command);
 
     return ctx.json({
-      status: "success",
+      status: Status.Success,
       data: {
         accessKeyId: credentials?.AccessKeyId,
         secretAccessKey: credentials?.SecretAccessKey,
