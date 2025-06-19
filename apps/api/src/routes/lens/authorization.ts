@@ -1,5 +1,5 @@
-import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
+import handleApiError from "src/utils/handleApiError";
 
 const authorization = async (ctx: Context) => {
   try {
@@ -21,7 +21,7 @@ const authorization = async (ctx: Context) => {
       signingKey: process.env.PRIVATE_KEY
     });
   } catch {
-    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
+    return handleApiError(ctx);
   }
 };
 

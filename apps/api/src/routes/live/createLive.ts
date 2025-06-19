@@ -1,7 +1,7 @@
 import { LIVEPEER_KEY } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
 import generateUUID from "@hey/helpers/generateUUID";
 import type { Context } from "hono";
+import handleApiError from "src/utils/handleApiError";
 
 const createLive = async (ctx: Context) => {
   try {
@@ -45,7 +45,7 @@ const createLive = async (ctx: Context) => {
       }
     });
   } catch {
-    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
+    return handleApiError(ctx);
   }
 };
 

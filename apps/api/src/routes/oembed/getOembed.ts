@@ -1,6 +1,6 @@
-import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import { CACHE_AGE_1_DAY } from "src/utils/constants";
+import handleApiError from "src/utils/handleApiError";
 import { generateExtraLongExpiry, getRedis, setRedis } from "src/utils/redis";
 import sha256 from "src/utils/sha256";
 import getMetadata from "./helpers/getMetadata";
@@ -26,7 +26,7 @@ const getOembed = async (ctx: Context) => {
 
     return ctx.json({ success: true, data: oembed });
   } catch {
-    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
+    return handleApiError(ctx);
   }
 };
 

@@ -1,6 +1,6 @@
 import { PERMISSIONS } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
+import handleApiError from "src/utils/handleApiError";
 import lensPg from "src/utils/lensPg";
 import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
 
@@ -32,7 +32,7 @@ const syncSubscribersToGuild = async (ctx: Context) => {
 
     return ctx.json(data);
   } catch {
-    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
+    return handleApiError(ctx);
   }
 };
 

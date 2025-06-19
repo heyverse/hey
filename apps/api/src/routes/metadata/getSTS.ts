@@ -1,7 +1,7 @@
 import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
 import { EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
+import handleApiError from "src/utils/handleApiError";
 
 const params = {
   DurationSeconds: 900,
@@ -49,7 +49,7 @@ const getSTS = async (ctx: Context) => {
       }
     });
   } catch {
-    return ctx.json({ success: false, error: ERRORS.SomethingWentWrong }, 500);
+    return handleApiError(ctx);
   }
 };
 
