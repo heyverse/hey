@@ -1,7 +1,8 @@
-import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
-import { EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
+import { AssumeRoleCommand } from "@aws-sdk/client-sts";
+import { EVER_BUCKET } from "@hey/data/constants";
 import type { Context } from "hono";
 import handleApiError from "src/utils/handleApiError";
+import stsClient from "src/utils/stsClient";
 
 const params = {
   DurationSeconds: 900,
@@ -25,14 +26,6 @@ const params = {
 
 const getSTS = async (ctx: Context) => {
   try {
-    const stsClient = new STSClient({
-      credentials: {
-        accessKeyId: process.env.EVER_ACCESS_KEY as string,
-        secretAccessKey: process.env.EVER_ACCESS_SECRET as string
-      },
-      endpoint: EVER_API,
-      region: EVER_REGION
-    });
     const command = new AssumeRoleCommand({
       ...params,
       RoleArn: undefined,
