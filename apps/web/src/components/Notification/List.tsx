@@ -20,6 +20,17 @@ import QuoteNotification from "./Type/QuoteNotification";
 import ReactionNotification from "./Type/ReactionNotification";
 import RepostNotification from "./Type/RepostNotification";
 
+const notificationComponentMap = {
+  FollowNotification,
+  MentionNotification,
+  ReactionNotification,
+  CommentNotification,
+  RepostNotification,
+  QuoteNotification,
+  PostActionExecutedNotification,
+  AccountActionExecutedNotification
+} as const;
+
 interface ListProps {
   feedType: string;
 }
@@ -96,40 +107,23 @@ const List = ({ feedType }: ListProps) => {
   return (
     <Card className="virtual-divider-list-window">
       <WindowVirtualizer>
-        {notifications.map((notification, index) => (
-          <div
-            key={index}
-            className={cn({
-              "p-5": notification.__typename !== "FollowNotification"
-            })}
-          >
-            {notification.__typename === "FollowNotification" && (
-              <FollowNotification notification={notification} />
-            )}
-            {notification.__typename === "MentionNotification" && (
-              <MentionNotification notification={notification} />
-            )}
-            {notification.__typename === "ReactionNotification" && (
-              <ReactionNotification notification={notification} />
-            )}
-            {notification.__typename === "CommentNotification" && (
-              <CommentNotification notification={notification} />
-            )}
-            {notification.__typename === "RepostNotification" && (
-              <RepostNotification notification={notification} />
-            )}
-            {notification.__typename === "QuoteNotification" && (
-              <QuoteNotification notification={notification} />
-            )}
-            {notification.__typename === "PostActionExecutedNotification" && (
-              <PostActionExecutedNotification notification={notification} />
-            )}
-            {notification.__typename ===
-              "AccountActionExecutedNotification" && (
-              <AccountActionExecutedNotification notification={notification} />
-            )}
-          </div>
-        ))}
+        {notifications.map((notification, index) => {
+          const Component =
+            notificationComponentMap[
+              notification.__typename as keyof typeof notificationComponentMap
+            ];
+
+          return (
+            <div
+              key={index}
+              className={cn({
+                "p-5": notification.__typename !== "FollowNotification"
+              })}
+            >
+              {Component && <Component notification={notification as never} />}
+            </div>
+          );
+        })}
         {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>
     </Card>
