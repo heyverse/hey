@@ -1,3 +1,4 @@
+import Skeleton from "@/components/Shared/Skeleton";
 import { GIPHY_KEY } from "@hey/data/constants";
 import type { IGif } from "@hey/types/giphy";
 import { useQuery } from "@tanstack/react-query";
@@ -51,8 +52,8 @@ const Gifs = ({
     return (
       <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
         {Array.from(Array(12).keys()).map((key) => (
-          <div
-            className="shimmer h-32 w-full cursor-pointer object-cover"
+          <Skeleton
+            className="h-32 w-full cursor-pointer object-cover"
             key={key}
           />
         ))}

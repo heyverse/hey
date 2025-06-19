@@ -1,4 +1,5 @@
 import AccountLink from "@/components/Shared/Account/AccountLink";
+import Skeleton from "@/components/Shared/Skeleton";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
 import { BLOCK_EXPLORER_URL, TRANSFORMS } from "@hey/data/constants";
@@ -46,8 +47,8 @@ const Splits = ({ recipients }: SplitsProps) => {
             <div className="flex w-full items-center space-x-2">
               {loading ? (
                 <>
-                  <div className="shimmer size-5 rounded-full" />
-                  <div className="shimmer h-3 w-1/4 rounded-full" />
+                  <Skeleton className="size-5 rounded-full" />
+                  <Skeleton className="h-3 w-1/4 rounded-full" />
                 </>
               ) : (
                 <>

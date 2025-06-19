@@ -1,4 +1,5 @@
 import cn from "@/helpers/cn";
+import Skeleton from "../Skeleton";
 
 interface SmallSingleAccountShimmerProps {
   hideSlug?: boolean;
@@ -11,14 +12,11 @@ const SmallSingleAccountShimmer = ({
 }: SmallSingleAccountShimmerProps) => {
   return (
     <div className="flex items-center space-x-3">
-      <div
-        className={cn(
-          smallAvatar ? "size-4" : "size-6",
-          "shimmer rounded-full"
-        )}
+      <Skeleton
+        className={cn(smallAvatar ? "size-4" : "size-6", "rounded-full")}
       />
-      <div className="shimmer h-3 w-28 rounded-lg" />
-      {!hideSlug && <div className="shimmer h-3 w-20 rounded-lg" />}
+      <Skeleton className="h-3 w-28 rounded-lg" />
+      {!hideSlug && <Skeleton className="h-3 w-20 rounded-lg" />}
     </div>
   );
 };

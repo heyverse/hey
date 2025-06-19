@@ -1,3 +1,4 @@
+import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
@@ -133,7 +134,7 @@ const Transfer = ({ token }: TransferProps) => {
       <div className="mx-5 my-3 flex items-center justify-between">
         <b>Purchase</b>
         {balanceLoading ? (
-          <span className="shimmer h-2.5 w-20 rounded-full" />
+          <Skeleton className="h-2.5 w-20 rounded-full" />
         ) : (
           <span className="text-gray-500 text-sm dark:text-gray-200">
             Balance: {tokenBalance} {symbol}

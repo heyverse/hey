@@ -1,4 +1,5 @@
 import LoginButton from "@/components/Shared/LoginButton";
+import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -168,7 +169,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             {nativeBalance ? (
               `${nativeBalance} ${NATIVE_TOKEN_SYMBOL}`
             ) : (
-              <div className="shimmer h-2.5 w-14 rounded-full" />
+              <Skeleton className="h-2.5 w-14 rounded-full" />
             )}
           </span>
         </div>

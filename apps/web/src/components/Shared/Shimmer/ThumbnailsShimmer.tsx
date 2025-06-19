@@ -1,5 +1,6 @@
 import { THUMBNAIL_GENERATE_COUNT } from "@/components/Composer/ChooseThumbnail";
 import { useMemo } from "react";
+import Skeleton from "../Skeleton";
 
 const ThumbnailsShimmer = () => {
   const thumbnails = useMemo(() => Array(THUMBNAIL_GENERATE_COUNT).fill(1), []);
@@ -7,7 +8,7 @@ const ThumbnailsShimmer = () => {
   return (
     <>
       {thumbnails.map((e, i) => (
-        <div className="shimmer rounded-lg" key={`${e}_${i}`} />
+        <Skeleton className="rounded-lg" key={`${e}_${i}`} />
       ))}
     </>
   );

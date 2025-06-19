@@ -1,5 +1,6 @@
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
+import Skeleton from "@/components/Shared/Skeleton";
 import { Card, ErrorMessage, Modal } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
@@ -42,7 +43,7 @@ const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
         <SingleAccountShimmer showFollowUnfollowButton />
         <SingleAccountShimmer showFollowUnfollowButton />
         <div className="pt-2 pb-1">
-          <div className="shimmer h-3 w-5/12 rounded-full" />
+          <Skeleton className="h-3 w-5/12 rounded-full" />
         </div>
       </Card>
     );
