@@ -32,6 +32,10 @@ const AppIcon = () => {
     onError: errorToast
   });
 
+  const handleSelectIcon = (iconId: number) => {
+    mutate({ appIcon: iconId });
+  };
+
   if (!currentAccount?.hasSubscribed) {
     return <ProFeatureNotice className="m-5" feature="custom app icons" />;
   }
@@ -45,7 +49,7 @@ const AppIcon = () => {
             <button
               className="flex flex-col items-center space-y-2"
               disabled={isPending}
-              onClick={() => mutate({ appIcon: icon.id })}
+              onClick={() => handleSelectIcon(icon.id)}
               type="button"
             >
               <Image
