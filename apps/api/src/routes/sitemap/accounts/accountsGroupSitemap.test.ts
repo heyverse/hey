@@ -17,7 +17,9 @@ beforeEach(() => {
 
 describe("accountsGroupSitemap", () => {
   it("returns cached value when available", async () => {
-    (getRedis as unknown as ReturnType<typeof vi.fn>).mockResolvedValue("2");
+    (getRedis as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(
+      "<sitemapindex/>"
+    );
     const header = vi.fn();
     const body = vi.fn((c: unknown) => c);
     const ctx = {

@@ -16,9 +16,9 @@ beforeEach(() => {
 });
 
 describe("accountSitemap", () => {
-  it("returns cached usernames when available", async () => {
+  it("returns cached xml when available", async () => {
     (getRedis as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(
-      '["bob"]'
+      "<xml/>"
     );
     const header = vi.fn();
     const body = vi.fn((c: unknown) => c);
@@ -31,7 +31,7 @@ describe("accountSitemap", () => {
     const result = await accountSitemap(ctx);
 
     expect(body).toHaveBeenCalled();
-    expect(result).toContain("https://hey.xyz/u/bob");
+    expect(result).toBe("<xml/>");
     expect(lensPg.query).not.toHaveBeenCalled();
     expect(setRedis).not.toHaveBeenCalled();
   });
