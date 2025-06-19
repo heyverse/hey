@@ -34,7 +34,7 @@ const getSTS = async (ctx: Context) => {
     const { Credentials: credentials } = await stsClient.send(command);
 
     return ctx.json({
-      success: true,
+      status: "success",
       data: {
         accessKeyId: credentials?.AccessKeyId,
         secretAccessKey: credentials?.SecretAccessKey,

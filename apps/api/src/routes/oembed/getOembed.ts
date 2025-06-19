@@ -15,7 +15,7 @@ const getOembed = async (ctx: Context) => {
 
     if (cachedValue) {
       return ctx.json({
-        success: true,
+        status: "success",
         cached: true,
         data: JSON.parse(cachedValue)
       });
@@ -24,7 +24,7 @@ const getOembed = async (ctx: Context) => {
     const oembed = await getMetadata(url);
     await setRedis(cacheKey, oembed, generateExtraLongExpiry());
 
-    return ctx.json({ success: true, data: oembed });
+    return ctx.json({ status: "success", data: oembed });
   } catch {
     return handleApiError(ctx);
   }

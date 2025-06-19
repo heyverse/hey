@@ -12,7 +12,7 @@ const getPreferences = async (ctx: Context) => {
 
     if (cachedValue) {
       return ctx.json({
-        success: true,
+        status: "success",
         cached: true,
         data: JSON.parse(cachedValue)
       });
@@ -29,7 +29,7 @@ const getPreferences = async (ctx: Context) => {
 
     await setRedis(cacheKey, data);
 
-    return ctx.json({ success: true, data });
+    return ctx.json({ status: "success", data });
   } catch {
     return handleApiError(ctx);
   }

@@ -32,7 +32,7 @@ const syncAddressesToGuild = async ({
   );
 
   return {
-    success: true,
+    status: "success",
     total: addresses.length,
     updatedAt: updatedRequirement.updatedAt
   };

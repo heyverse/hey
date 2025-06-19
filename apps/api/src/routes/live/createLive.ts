@@ -37,7 +37,7 @@ const createLive = async (ctx: Context) => {
     });
 
     return ctx.json({
-      success: true,
+      status: "success",
       data: (await response.json()) as {
         id: string;
         playbackId: string;

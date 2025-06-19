@@ -23,7 +23,7 @@ const removeExpiredSubscribers = async (ctx: Context) => {
     );
 
     if (addresses.length === 0) {
-      return ctx.json({ success: true, message: "No expired subscribers" });
+      return ctx.json({ status: "success", message: "No expired subscribers" });
     }
 
     const membersToRemove = addresses.map((addr) => ({
@@ -39,7 +39,7 @@ const removeExpiredSubscribers = async (ctx: Context) => {
       args: [membersToRemove, []]
     });
 
-    return ctx.json({ success: true, addresses, hash });
+    return ctx.json({ status: "success", addresses, hash });
   } catch {
     return handleApiError(ctx);
   }

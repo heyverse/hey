@@ -43,7 +43,7 @@ const fetchApi = async <T>(
 
   const result = await response.json();
 
-  if (result.success) {
+  if (result.status === "success") {
     return result.data;
   }
 

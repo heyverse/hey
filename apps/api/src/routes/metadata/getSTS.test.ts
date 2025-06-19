@@ -26,7 +26,7 @@ describe("metadata getSTS route", () => {
     const result = await getSTS(ctx);
 
     expect(ctx.json).toHaveBeenCalledWith({
-      success: true,
+      status: "success",
       data: {
         accessKeyId: "AK",
         secretAccessKey: "SK",
@@ -34,7 +34,7 @@ describe("metadata getSTS route", () => {
       }
     });
     expect(result).toEqual({
-      success: true,
+      status: "success",
       data: { accessKeyId: "AK", secretAccessKey: "SK", sessionToken: "ST" }
     });
   });

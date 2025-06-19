@@ -42,7 +42,7 @@ describe("removeExpiredSubscribers", () => {
       ]
     });
     expect(result).toEqual({
-      success: true,
+      status: "success",
       addresses: [`0x${buf.toString("hex")}`],
       hash: "hash"
     });
@@ -55,7 +55,7 @@ describe("removeExpiredSubscribers", () => {
     const result = await removeExpiredSubscribers(ctx);
 
     expect(result).toEqual({
-      success: true,
+      status: "success",
       message: "No expired subscribers"
     });
   });

@@ -23,11 +23,11 @@ describe("lens authorization route", () => {
     const ctx = createCtx();
     const result = await authorization(ctx);
     expect(ctx.json).toHaveBeenCalledWith(
-      { success: false, error: "Unauthorized" },
+      { status: "error", error: "Unauthorized" },
       401
     );
     expect(result).toEqual({
-      body: { success: false, error: "Unauthorized" },
+      body: { status: "error", error: "Unauthorized" },
       status: 401
     });
   });
@@ -36,11 +36,11 @@ describe("lens authorization route", () => {
     const ctx = createCtx("Bearer wrong");
     const result = await authorization(ctx);
     expect(ctx.json).toHaveBeenCalledWith(
-      { success: false, error: "Invalid shared secret" },
+      { status: "error", error: "Invalid shared secret" },
       401
     );
     expect(result).toEqual({
-      body: { success: false, error: "Invalid shared secret" },
+      body: { status: "error", error: "Invalid shared secret" },
       status: 401
     });
   });

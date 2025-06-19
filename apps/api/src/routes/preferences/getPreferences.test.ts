@@ -26,12 +26,12 @@ describe("getPreferences route", () => {
     const result = await getPreferences(ctx);
 
     expect(ctx.json).toHaveBeenCalledWith({
-      success: true,
+      status: "success",
       cached: true,
       data: { appIcon: 1, includeLowScore: true }
     });
     expect(result).toEqual({
-      success: true,
+      status: "success",
       cached: true,
       data: { appIcon: 1, includeLowScore: true }
     });
@@ -55,11 +55,11 @@ describe("getPreferences route", () => {
     });
     expect(setRedis).toHaveBeenCalled();
     expect(ctx.json).toHaveBeenCalledWith({
-      success: true,
+      status: "success",
       data: { appIcon: 2, includeLowScore: false }
     });
     expect(result).toEqual({
-      success: true,
+      status: "success",
       data: { appIcon: 2, includeLowScore: false }
     });
   });

@@ -17,8 +17,11 @@ describe("live create route", () => {
     const result = await createLive(ctx);
 
     expect(fetchMock).toHaveBeenCalled();
-    expect(ctx.json).toHaveBeenCalledWith({ success: true, data: { id: "1" } });
-    expect(result).toEqual({ success: true, data: { id: "1" } });
+    expect(ctx.json).toHaveBeenCalledWith({
+      status: "success",
+      data: { id: "1" }
+    });
+    expect(result).toEqual({ status: "success", data: { id: "1" } });
 
     vi.unstubAllGlobals();
   });

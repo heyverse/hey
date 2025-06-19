@@ -33,11 +33,11 @@ describe("updatePreferences route", () => {
     });
     expect(delRedis).toHaveBeenCalledWith("preferences:0x1");
     expect(ctx.json).toHaveBeenCalledWith({
-      success: true,
+      status: "success",
       data: { appIcon: 3, includeLowScore: true }
     });
     expect(result).toEqual({
-      success: true,
+      status: "success",
       data: { appIcon: 3, includeLowScore: true }
     });
   });

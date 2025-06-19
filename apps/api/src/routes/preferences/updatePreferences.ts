@@ -17,7 +17,7 @@ const updatePreferences = async (ctx: Context) => {
     await delRedis(`preferences:${account}`);
 
     return ctx.json({
-      success: true,
+      status: "success",
       data: {
         appIcon: preference.appIcon ?? 0,
         includeLowScore: preference.includeLowScore ?? false

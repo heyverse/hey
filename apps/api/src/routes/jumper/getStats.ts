@@ -8,7 +8,7 @@ const getStats = async (ctx: Context) => {
     const { address, post } = await ctx.req.json();
 
     if (!address) {
-      return ctx.json({ success: false, error: "Address is required" }, 400);
+      return ctx.json({ status: "error", error: "Address is required" }, 400);
     }
 
     const accounts = (await lensPg.query(
@@ -54,7 +54,7 @@ const getStats = async (ctx: Context) => {
     );
 
     return ctx.json({
-      success: true,
+      status: "success",
       tips: Number(result[0].count),
       quotes: Number(result[1].count),
       comments: Number(result[2].count)

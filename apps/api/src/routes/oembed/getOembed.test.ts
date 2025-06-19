@@ -40,12 +40,12 @@ describe("oembed getOembed route", () => {
 
     expect(header).toHaveBeenCalledWith("Cache-Control", CACHE_AGE_1_DAY);
     expect(json).toHaveBeenCalledWith({
-      success: true,
+      status: "success",
       cached: true,
       data: { foo: "bar" }
     });
     expect(result).toEqual({
-      success: true,
+      status: "success",
       cached: true,
       data: { foo: "bar" }
     });
@@ -66,11 +66,11 @@ describe("oembed getOembed route", () => {
     expect(getMetadata).toHaveBeenCalledWith("https://x");
     expect(setRedis).toHaveBeenCalled();
     expect(json).toHaveBeenCalledWith({
-      success: true,
+      status: "success",
       data: { title: "Title", description: "Desc", url: "https://x" }
     });
     expect(result).toEqual({
-      success: true,
+      status: "success",
       data: { title: "Title", description: "Desc", url: "https://x" }
     });
   });
