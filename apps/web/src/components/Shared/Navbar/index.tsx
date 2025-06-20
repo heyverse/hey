@@ -1,3 +1,4 @@
+import Pro from "@/components/Shared/Navbar/NavItems/Pro";
 import { Image, Tooltip } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -20,7 +21,6 @@ import {
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
-import Pro from "./NavItems/Pro";
 import SignedAccount from "./SignedAccount";
 
 const navigationItems = {

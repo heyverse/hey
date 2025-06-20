@@ -1,10 +1,10 @@
+import { NotificationAccountAvatar } from "@/components/Notification/Account";
+import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import type { FollowNotificationFragment } from "@hey/indexer";
 import plur from "plur";
-import { NotificationAccountAvatar } from "../Account";
-import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
 interface FollowNotificationProps {
   notification: FollowNotificationFragment;

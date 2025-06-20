@@ -1,8 +1,8 @@
+import Managed from "@/components/Settings/Manager/AccountManager/Management/Managed";
+import Unmanaged from "@/components/Settings/Manager/AccountManager/Management/Unmanaged";
 import { Button, Modal, Tabs } from "@/components/Shared/UI";
 import { useState } from "react";
 import AddAccountManager from "./AddAccountManager";
-import Managed from "./Management/Managed";
-import Unmanaged from "./Management/Unmanaged";
 import Managers from "./Managers";
 
 enum Type {

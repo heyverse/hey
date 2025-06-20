@@ -1,8 +1,8 @@
 import PageLayout from "@/components/Shared/PageLayout";
+import FollowersYouKnowShimmer from "@/components/Shared/Shimmer/FollowersYouKnowShimmer";
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import Skeleton from "@/components/Shared/Skeleton";
-import FollowersYouKnowShimmer from "../Shared/Shimmer/FollowersYouKnowShimmer";
 
 const AccountPageShimmer = () => {
   return (

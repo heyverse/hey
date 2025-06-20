@@ -1,9 +1,9 @@
 import PageLayout from "@/components/Shared/PageLayout";
 import { default as SearchInput } from "@/components/Shared/Search";
 import Sidebar from "@/components/Shared/Sidebar";
+import { EmptyState } from "@/components/Shared/UI";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useSearchParams } from "react-router";
-import { EmptyState } from "../Shared/UI";
 import Accounts from "./Accounts";
 import FeedType, { SearchTabFocus } from "./FeedType";
 import Posts from "./Posts";

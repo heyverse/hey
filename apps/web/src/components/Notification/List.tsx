@@ -1,3 +1,11 @@
+import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";
+import CommentNotification from "@/components/Notification/Type/CommentNotification";
+import FollowNotification from "@/components/Notification/Type/FollowNotification";
+import MentionNotification from "@/components/Notification/Type/MentionNotification";
+import PostActionExecutedNotification from "@/components/Notification/Type/PostActionExecutedNotification";
+import QuoteNotification from "@/components/Notification/Type/QuoteNotification";
+import ReactionNotification from "@/components/Notification/Type/ReactionNotification";
+import RepostNotification from "@/components/Notification/Type/RepostNotification";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
@@ -11,14 +19,6 @@ import {
 } from "@hey/indexer";
 import { WindowVirtualizer } from "virtua";
 import NotificationShimmer from "./Shimmer";
-import AccountActionExecutedNotification from "./Type/AccountActionExecutedNotification";
-import CommentNotification from "./Type/CommentNotification";
-import FollowNotification from "./Type/FollowNotification";
-import MentionNotification from "./Type/MentionNotification";
-import PostActionExecutedNotification from "./Type/PostActionExecutedNotification";
-import QuoteNotification from "./Type/QuoteNotification";
-import ReactionNotification from "./Type/ReactionNotification";
-import RepostNotification from "./Type/RepostNotification";
 
 const notificationComponentMap = {
   FollowNotification,

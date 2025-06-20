@@ -1,3 +1,6 @@
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import Loader from "@/components/Shared/Loader";
+import LoginButton from "@/components/Shared/LoginButton";
 import { H3, H5 } from "@/components/Shared/UI";
 import getTokenImage from "@/helpers/getTokenImage";
 import { getSimplePaymentDetails } from "@/helpers/rules";
@@ -10,9 +13,6 @@ import {
   type GroupRules,
   useBalancesBulkQuery
 } from "@hey/indexer";
-import TopUpButton from "../Account/TopUp/Button";
-import Loader from "../Loader";
-import LoginButton from "../LoginButton";
 import Join from "./Join";
 
 const SuperJoin = () => {

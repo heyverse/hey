@@ -1,4 +1,4 @@
-import { Card } from "../UI";
+import { Card } from "@/components/Shared/UI";
 
 interface PostWarningProps {
   message: string;

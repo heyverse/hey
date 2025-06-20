@@ -1,6 +1,6 @@
+import { useSignupStore } from "@/components/Shared/Auth/Signup";
 import { Button } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { useSignupStore } from "../Auth/Signup";
 
 interface SignupButtonProps {
   className?: string;

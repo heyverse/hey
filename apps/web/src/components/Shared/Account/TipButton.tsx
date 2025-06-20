@@ -1,11 +1,11 @@
+import { TipIcon } from "@/components/Shared/Icons/TipIcon";
+import MenuTransition from "@/components/Shared/MenuTransition";
+import TipMenu from "@/components/Shared/TipMenu";
+import { Button, Tooltip } from "@/components/Shared/UI";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import type { AccountFragment } from "@hey/indexer";
-import { TipIcon } from "../Icons/TipIcon";
-import MenuTransition from "../MenuTransition";
-import TipMenu from "../TipMenu";
-import { Button, Tooltip } from "../UI";
 
 interface TipButtonProps {
   account: AccountFragment;

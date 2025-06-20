@@ -1,5 +1,5 @@
+import SmallSingleAccountShimmer from "@/components/Shared/Shimmer/SmallSingleAccountShimmer";
 import { useAccountQuery } from "@hey/indexer";
-import SmallSingleAccountShimmer from "../Shimmer/SmallSingleAccountShimmer";
 import SmallSingleAccount from "./SmallSingleAccount";
 
 interface LazySmallSingleAccountProps {

@@ -2,6 +2,7 @@ import Quote from "@/components/Shared/Embed/Quote";
 import Markup from "@/components/Shared/Markup";
 import Attachments from "@/components/Shared/Post/Attachments";
 import Oembed from "@/components/Shared/Post/Oembed";
+import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
 import { H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -12,7 +13,6 @@ import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { getSrc } from "@livepeer/react/external";
 import { memo } from "react";
-import PostLink from "../Shared/Post/PostLink";
 
 interface PostBodyProps {
   contentClassName?: string;

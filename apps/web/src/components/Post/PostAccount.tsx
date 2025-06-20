@@ -1,4 +1,6 @@
+import AccountLink from "@/components/Shared/Account/AccountLink";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
+import PostLink from "@/components/Shared/Post/PostLink";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
@@ -14,8 +16,6 @@ import type {
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { Link } from "react-router";
-import AccountLink from "../Shared/Account/AccountLink";
-import PostLink from "../Shared/Post/PostLink";
 
 interface PostAccountProps {
   account: AccountFragment;

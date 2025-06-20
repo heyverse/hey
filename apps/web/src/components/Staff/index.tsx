@@ -1,6 +1,6 @@
+import Custom404 from "@/components/Shared/404";
 import PageLayout from "@/components/Shared/PageLayout";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import Custom404 from "../Shared/404";
 import Overview from "./Overview";
 
 const Staff = () => {

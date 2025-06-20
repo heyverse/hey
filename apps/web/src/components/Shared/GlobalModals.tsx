@@ -1,5 +1,12 @@
 import NewPublication from "@/components/Composer/NewPublication";
+import SuperFollow from "@/components/Shared/Account/SuperFollow";
+import SwitchAccounts from "@/components/Shared/Account/SwitchAccounts";
+import TopUp from "@/components/Shared/Account/TopUp";
+import { useSignupStore } from "@/components/Shared/Auth/Signup";
+import SuperJoin from "@/components/Shared/Group/SuperJoin";
+import ReportAccount from "@/components/Shared/Modal/ReportAccount";
 import ReportPost from "@/components/Shared/Modal/ReportPost";
+import Subscribe from "@/components/Shared/Modal/Subscribe";
 import { Modal } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
@@ -12,14 +19,7 @@ import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoin
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-import SuperFollow from "./Account/SuperFollow";
-import SwitchAccounts from "./Account/SwitchAccounts";
-import TopUp from "./Account/TopUp";
 import Auth from "./Auth";
-import { useSignupStore } from "./Auth/Signup";
-import SuperJoin from "./Group/SuperJoin";
-import ReportAccount from "./Modal/ReportAccount";
-import Subscribe from "./Modal/Subscribe";
 
 const GlobalModals = () => {
   const { setShowSwitchAccountModal, showSwitchAccountModal } =

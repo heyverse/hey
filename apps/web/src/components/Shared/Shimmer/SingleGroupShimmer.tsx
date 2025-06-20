@@ -1,5 +1,5 @@
+import Skeleton from "@/components/Shared/Skeleton";
 import cn from "@/helpers/cn";
-import Skeleton from "../Skeleton";
 
 interface SingleGroupShimmerProps {
   className?: string;

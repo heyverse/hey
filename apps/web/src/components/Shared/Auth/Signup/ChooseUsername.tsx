@@ -1,3 +1,4 @@
+import AuthMessage from "@/components/Shared/Auth/AuthMessage";
 import { Button, Form, Input, useZodForm } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
@@ -23,7 +24,6 @@ import { toast } from "sonner";
 import { useAccount, useSignMessage } from "wagmi";
 import { z } from "zod";
 import { useSignupStore } from ".";
-import AuthMessage from "../AuthMessage";
 
 export const SignupMessage = () => (
   <AuthMessage

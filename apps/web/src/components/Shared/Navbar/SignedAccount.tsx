@@ -1,3 +1,10 @@
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import MenuTransition from "@/components/Shared/MenuTransition";
+import Logout from "@/components/Shared/Navbar/NavItems/Logout";
+import Settings from "@/components/Shared/Navbar/NavItems/Settings";
+import SwitchAccount from "@/components/Shared/Navbar/NavItems/SwitchAccount";
+import ThemeSwitch from "@/components/Shared/Navbar/NavItems/ThemeSwitch";
+import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -5,13 +12,6 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
 import { Link } from "react-router";
-import AccountLink from "../Account/AccountLink";
-import MenuTransition from "../MenuTransition";
-import Logout from "./NavItems/Logout";
-import Settings from "./NavItems/Settings";
-import SwitchAccount from "./NavItems/SwitchAccount";
-import ThemeSwitch from "./NavItems/ThemeSwitch";
-import YourAccount from "./NavItems/YourAccount";
 
 const SignedAccount = () => {
   const { currentAccount } = useAccountStore();

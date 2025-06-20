@@ -1,3 +1,5 @@
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getTokenImage from "@/helpers/getTokenImage";
@@ -19,8 +21,6 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
-import SingleAccount from "../Account/SingleAccount";
-import TopUpButton from "../Account/TopUp/Button";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();

@@ -1,3 +1,4 @@
+import CreateGroup from "@/components/Groups/Sidebar/Create/CreateGroup";
 import Footer from "@/components/Shared/Footer";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
@@ -7,7 +8,6 @@ import { GroupsFeedType } from "@hey/data/enums";
 import { useState } from "react";
 import FeedType from "./FeedType";
 import List from "./List";
-import CreateGroup from "./Sidebar/Create/CreateGroup";
 
 const Groups = () => {
   const { currentAccount } = useAccountStore();

@@ -1,7 +1,7 @@
 import New from "@/components/Shared/Badges/New";
+import { Tabs } from "@/components/Shared/UI";
 import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 import { HomeFeedType } from "@hey/data/enums";
-import { Tabs } from "../Shared/UI";
 
 const FeedType = () => {
   const { feedType, setFeedType } = useHomeTabStore();

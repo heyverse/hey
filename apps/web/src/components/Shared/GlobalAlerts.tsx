@@ -1,8 +1,8 @@
+import BlockOrUnblockAccount from "@/components/Shared/Alert/BlockOrUnblockAccount";
+import DeletePost from "@/components/Shared/Alert/DeletePost";
+import MuteOrUnmuteAccount from "@/components/Shared/Alert/MuteOrUnmuteAccount";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
 import { useMuteAlertStore } from "@/store/non-persisted/alert/useMuteAlertStore";
-import BlockOrUnblockAccount from "./Alert/BlockOrUnblockAccount";
-import DeletePost from "./Alert/DeletePost";
-import MuteOrUnmuteAccount from "./Alert/MuteOrUnmuteAccount";
 
 const GlobalAlerts = () => {
   const { mutingOrUnmutingAccount } = useMuteAlertStore();

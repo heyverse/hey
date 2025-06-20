@@ -1,7 +1,7 @@
 import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
-import PostFeed from "../Shared/Post/PostFeed";
 
 interface PostsProps {
   query: string;

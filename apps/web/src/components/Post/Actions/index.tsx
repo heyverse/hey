@@ -1,10 +1,10 @@
+import CollectAction from "@/components/Post/OpenAction/CollectAction";
+import SmallCollectButton from "@/components/Post/OpenAction/CollectAction/SmallCollectButton";
+import TipAction from "@/components/Post/OpenAction/TipAction";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { memo } from "react";
-import CollectAction from "../OpenAction/CollectAction";
-import SmallCollectButton from "../OpenAction/CollectAction/SmallCollectButton";
-import TipAction from "../OpenAction/TipAction";
 import Comment from "./Comment";
 import Like from "./Like";
 import ShareMenu from "./Share";

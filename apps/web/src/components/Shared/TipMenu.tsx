@@ -1,3 +1,4 @@
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
@@ -20,7 +21,6 @@ import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
-import TopUpButton from "./Account/TopUp/Button";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 

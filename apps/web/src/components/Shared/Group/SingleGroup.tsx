@@ -1,3 +1,4 @@
+import Markup from "@/components/Shared/Markup";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import getMentions from "@/helpers/getMentions";
@@ -6,7 +7,6 @@ import getAvatar from "@hey/helpers/getAvatar";
 import type { GroupFragment } from "@hey/indexer";
 import { memo } from "react";
 import { Link } from "react-router";
-import Markup from "../Markup";
 import JoinLeaveButton from "./JoinLeaveButton";
 
 interface SingleGroupProps {
