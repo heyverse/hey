@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 
-const ping = async (ctx: Context) => {
+const ping = (ctx: Context) => {
   return ctx.json({ ping: "pong" });
 };
 
