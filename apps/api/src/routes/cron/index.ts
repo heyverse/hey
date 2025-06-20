@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import secretMiddleware from "src/middlewares/secretMiddleware";
+import secretMiddleware from "../../middlewares/secretMiddleware";
 import syncFollowersStandingToGuild from "./guild/syncFollowersStandingToGuild";
 import syncSubscribersToGuild from "./guild/syncSubscribersToGuild";
 import removeExpiredSubscribers from "./removeExpiredSubscribers";

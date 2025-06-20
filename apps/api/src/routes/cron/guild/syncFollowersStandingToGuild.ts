@@ -1,7 +1,7 @@
 import type { Context } from "hono";
-import handleApiError from "src/utils/handleApiError";
-import lensPg from "src/utils/lensPg";
-import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
+import handleApiError from "../../../utils/handleApiError";
+import lensPg from "../../../utils/lensPg";
+import syncAddressesToGuild from "../../../utils/syncAddressesToGuild";
 
 // Sync followers standing of accounts with 1000+ followers
 const syncFollowersStandingToGuild = async (ctx: Context) => {

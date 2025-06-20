@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import rateLimiter from "src/middlewares/rateLimiter";
 import { z } from "zod";
+import rateLimiter from "../../middlewares/rateLimiter";
 import getPreferences from "./getPreferences";
 import updatePreferences from "./updatePreferences";
 

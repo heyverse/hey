@@ -1,8 +1,8 @@
 import { PERMISSIONS } from "@hey/data/constants";
 import type { Context } from "hono";
-import handleApiError from "src/utils/handleApiError";
-import lensPg from "src/utils/lensPg";
-import syncAddressesToGuild from "src/utils/syncAddressesToGuild";
+import handleApiError from "../../../utils/handleApiError";
+import lensPg from "../../../utils/lensPg";
+import syncAddressesToGuild from "../../../utils/syncAddressesToGuild";
 
 // Sync accounts that has current subscriber status
 const syncSubscribersToGuild = async (ctx: Context) => {

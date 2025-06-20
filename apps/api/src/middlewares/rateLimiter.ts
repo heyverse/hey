@@ -1,5 +1,5 @@
 import { rateLimiter as rateLimit } from "hono-rate-limiter";
-import sha256 from "src/utils/sha256";
+import sha256 from "../utils/sha256";
 
 const getIp = (req: Request): string => {
   const ips = (

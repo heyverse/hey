@@ -2,7 +2,7 @@ import { LIVEPEER_KEY } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
 import generateUUID from "@hey/helpers/generateUUID";
 import type { Context } from "hono";
-import handleApiError from "src/utils/handleApiError";
+import handleApiError from "../../utils/handleApiError";
 
 const createLive = async (ctx: Context) => {
   try {

@@ -1,5 +1,5 @@
 import { parseHTML } from "linkedom";
-import { HEY_USER_AGENT } from "src/utils/constants";
+import { HEY_USER_AGENT } from "../../../utils/constants";
 import getDescription from "./meta/getDescription";
 import getTitle from "./meta/getTitle";
 

@@ -1,8 +1,11 @@
 import type { Context } from "hono";
-import { SITEMAP_BATCH_SIZE, SITEMAP_CACHE_DAYS } from "src/utils/constants";
-import lensPg from "src/utils/lensPg";
-import { getRedis, hoursToSeconds, setRedis } from "src/utils/redis";
 import { create } from "xmlbuilder2";
+import {
+  SITEMAP_BATCH_SIZE,
+  SITEMAP_CACHE_DAYS
+} from "../../../utils/constants";
+import lensPg from "../../../utils/lensPg";
+import { getRedis, hoursToSeconds, setRedis } from "../../../utils/redis";
 import generateSitemap from "../common";
 
 const accountsSitemapIndex = async (ctx: Context) =>

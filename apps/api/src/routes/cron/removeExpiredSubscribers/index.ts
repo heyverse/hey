@@ -1,9 +1,9 @@
 import { PERMISSIONS } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
-import handleApiError from "src/utils/handleApiError";
-import lensPg from "src/utils/lensPg";
-import signer from "src/utils/signer";
+import handleApiError from "../../../utils/handleApiError";
+import lensPg from "../../../utils/lensPg";
+import signer from "../../../utils/signer";
 import ABI from "./ABI";
 
 const removeExpiredSubscribers = async (ctx: Context) => {

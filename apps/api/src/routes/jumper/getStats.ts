@@ -1,8 +1,8 @@
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
-import getDbPostId from "src/utils/getDbPostId";
-import handleApiError from "src/utils/handleApiError";
-import lensPg from "src/utils/lensPg";
+import getDbPostId from "../../utils/getDbPostId";
+import handleApiError from "../../utils/handleApiError";
+import lensPg from "../../utils/lensPg";
 
 const getStats = async (ctx: Context) => {
   try {
