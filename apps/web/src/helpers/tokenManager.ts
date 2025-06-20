@@ -6,45 +6,44 @@ import apolloClient from "@hey/indexer/apollo/client";
 let refreshPromise: Promise<string> | null = null;
 const MAX_RETRIES = 5;
 
-const executeTokenRefresh = async (
-  refreshToken: string,
-  attempt = 0
-): Promise<string> => {
+const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
   try {
-    const { data } = await apolloClient.mutate<RefreshMutation>({
-      mutation: RefreshDocument,
-      variables: { request: { refreshToken } }
-    });
-
-    const refreshResult = data?.refresh;
-
-    if (!refreshResult) {
-      throw new Error("No response from refresh");
-    }
-
-    if (refreshResult.__typename === "AuthenticationTokens") {
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-        refreshResult;
-
-      if (!newAccessToken || !newRefreshToken) {
-        throw new Error("Missing tokens in refresh response");
-      }
-
-      signIn({
-        accessToken: newAccessToken,
-        refreshToken: newRefreshToken
+    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      const { data } = await apolloClient.mutate<RefreshMutation>({
+        mutation: RefreshDocument,
+        variables: { request: { refreshToken } }
       });
 
-      return newAccessToken;
-    }
+      const refreshResult = data?.refresh;
 
-    if (refreshResult.__typename === "ForbiddenError") {
-      signOut();
-      throw new Error("Refresh token is invalid or expired");
-    }
+      if (!refreshResult) {
+        throw new Error("No response from refresh");
+      }
 
-    if (attempt < MAX_RETRIES) {
-      return await executeTokenRefresh(refreshToken, attempt + 1);
+      if (refreshResult.__typename === "AuthenticationTokens") {
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+          refreshResult;
+
+        if (!newAccessToken || !newRefreshToken) {
+          throw new Error("Missing tokens in refresh response");
+        }
+
+        signIn({
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken
+        });
+
+        return newAccessToken;
+      }
+
+      if (refreshResult.__typename === "ForbiddenError") {
+        signOut();
+        throw new Error("Refresh token is invalid or expired");
+      }
+
+      if (attempt === MAX_RETRIES) {
+        throw new Error("Unknown error during token refresh");
+      }
     }
 
     throw new Error("Unknown error during token refresh");
