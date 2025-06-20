@@ -21,23 +21,33 @@ jobs:
             const codexLabels = labels.filter(name => name.toLowerCase().includes('codex'));
             core.info(`Codex labels detected: ${JSON.stringify(codexLabels)}`);
 
-            if (codexLabels.length === 0) {
-              core.info('No codex label found. Skipping removal.');
-              return;
-            }
-
-            for (const label of codexLabels) {
-              try {
-                await github.rest.issues.removeLabel({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: pr.number,
-                  name: label,
-                });
-                core.info(`✅ Removed label: ${label}`);
-              } catch (err) {
-                core.warning(`❌ Failed to remove label "${label}": ${err.message}`);
+            if (codexLabels.length > 0) {
+              for (const label of codexLabels) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: pr.number,
+                    name: label,
+                  });
+                  core.info(`✅ Removed label: ${label}`);
+                } catch (err) {
+                  core.warning(`❌ Failed to remove label "${label}": ${err.message}`);
+                }
               }
             }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            const originalBody = pr.body || '';
+            const cleanedBody = originalBody.replace(/.*codex.*\n?/gi, '').trim();
+
+            if (cleanedBody !== originalBody) {
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                body: cleanedBody,
+              });
+              core.info('🧹 Cleaned PR description from codex lines.');
+            } else {
+              core.info('No codex lines found in description.');
+            }
