@@ -12,9 +12,8 @@ export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const HEY_APP = getEnvConfig().appAddress;
 export const HEY_TREASURY = "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
-export const HEY_API_PRODUCTION_URL = "https://api.hey.xyz";
 export const HEY_API_URL = IS_PRODUCTION
-  ? HEY_API_PRODUCTION_URL
+  ? "https://api.hey.xyz"
   : "http://localhost:4784";
 
 export const IS_MAINNET = LENS_API_URL === LENS_ENDPOINT.Mainnet;
