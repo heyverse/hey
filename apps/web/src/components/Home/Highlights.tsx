@@ -24,7 +24,7 @@ const Highlights = () => {
   const pageInfo = data?.timelineHighlights.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -45,7 +45,7 @@ const Highlights = () => {
       loading={loading}
       error={error}
       hasMore={hasMore}
-      onEndReached={onEndReached}
+      onEndReached={handleEndReached}
       emptyIcon={<LightBulbIcon className="size-8" />}
       emptyMessage="No posts yet!"
       errorTitle="Failed to load highlights"

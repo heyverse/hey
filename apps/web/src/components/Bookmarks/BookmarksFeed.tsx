@@ -26,7 +26,7 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
   const pageInfo = data?.postBookmarks?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -39,7 +39,7 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
       loading={loading}
       error={error}
       hasMore={hasMore}
-      onEndReached={onEndReached}
+      onEndReached={handleEndReached}
       emptyIcon={<BookmarkIcon className="size-8" />}
       emptyMessage="No bookmarks yet!"
       errorTitle="Failed to load bookmark feed"

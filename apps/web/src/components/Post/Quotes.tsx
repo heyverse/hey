@@ -38,7 +38,7 @@ const Quotes = ({ post }: QuotesProps) => {
   const pageInfo = data?.postReferences?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -46,7 +46,7 @@ const Quotes = ({ post }: QuotesProps) => {
     }
   };
 
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
+  const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
   if (error) {
     return <ErrorMessage error={error} title="Failed to load comment feed" />;

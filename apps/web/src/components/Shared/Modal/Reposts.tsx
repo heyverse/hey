@@ -37,7 +37,7 @@ const Reposts = ({ postId }: RepostsProps) => {
   const pageInfo = data?.whoReferencedPost?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -45,7 +45,7 @@ const Reposts = ({ postId }: RepostsProps) => {
     }
   };
 
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
+  const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
   if (loading) {
     return <AccountListShimmer />;

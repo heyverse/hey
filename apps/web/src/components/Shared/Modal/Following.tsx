@@ -33,7 +33,7 @@ const Following = ({ username, address }: FollowingProps) => {
   const pageInfo = data?.following?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -41,7 +41,7 @@ const Following = ({ username, address }: FollowingProps) => {
     }
   };
 
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
+  const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
   if (loading) {
     return <AccountListShimmer />;

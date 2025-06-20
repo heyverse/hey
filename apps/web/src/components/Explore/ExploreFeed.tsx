@@ -28,7 +28,7 @@ const ExploreFeed = ({ focus }: ExploreFeedProps) => {
   const pageInfo = data?.mlPostsExplore?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -49,7 +49,7 @@ const ExploreFeed = ({ focus }: ExploreFeedProps) => {
       loading={loading}
       error={error}
       hasMore={hasMore}
-      onEndReached={onEndReached}
+      onEndReached={handleEndReached}
       emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
       emptyMessage="No posts yet!"
       errorTitle="Failed to load explore feed"

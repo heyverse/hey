@@ -35,7 +35,7 @@ const Likes = ({ postId }: LikesProps) => {
   const pageInfo = data?.postReactions?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -43,7 +43,7 @@ const Likes = ({ postId }: LikesProps) => {
     }
   };
 
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
+  const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
   if (loading) {
     return <AccountListShimmer />;

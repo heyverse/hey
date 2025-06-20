@@ -45,7 +45,7 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
   const hasMore = pageInfo?.next;
   const totalComments = comments?.length;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -88,7 +88,7 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
         <PostFeed
           items={filteredComments}
           hasMore={hasMore}
-          onEndReached={onEndReached}
+          onEndReached={handleEndReached}
           emptyIcon={null}
           emptyMessage=""
           errorTitle="Failed to load comments"

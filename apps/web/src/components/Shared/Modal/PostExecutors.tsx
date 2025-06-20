@@ -36,7 +36,7 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
   const pageInfo = data?.whoExecutedActionOnPost?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -44,7 +44,7 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
     }
   };
 
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
+  const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
   if (loading) {
     return <AccountListShimmer />;

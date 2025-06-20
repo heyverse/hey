@@ -81,7 +81,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
@@ -95,7 +95,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       loading={loading}
       error={error}
       hasMore={hasMore}
-      onEndReached={onEndReached}
+      onEndReached={handleEndReached}
       emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
       emptyMessage={
         <div>

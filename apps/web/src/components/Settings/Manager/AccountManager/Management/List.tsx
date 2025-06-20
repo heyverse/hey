@@ -54,7 +54,7 @@ const List = ({ managed = false }: ListProps) => {
   const pageInfo = data?.accountsAvailable?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
+  const handleEndReached = async () => {
     if (hasMore) {
       await fetchMore({
         variables: {
@@ -68,7 +68,7 @@ const List = ({ managed = false }: ListProps) => {
     }
   };
 
-  const loadMoreRef = useLoadMoreOnIntersect(onEndReached);
+  const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
   if (loading) {
     return <Loader className="my-10" />;
