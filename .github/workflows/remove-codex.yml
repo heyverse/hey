@@ -14,24 +14,26 @@ jobs:
       - uses: actions/github-script@v7
         with:
           script: |
-            const pr = context.payload.pull_request;
-            const labels = pr.labels.map(label => label.name);
-            const codexLabels = labels.filter(name => name.toLowerCase().includes('codex'));
-            if (codexLabels.length === 0) {
-              core.info('No codex label found.');
-              return;
-            }
-            for (const name of codexLabels) {
-              await github.issues.removeLabel({
+            async ({github, context, core}) => {
+              const pr = context.payload.pull_request;
+              const labels = pr.labels.map(label => label.name);
+              const codexLabels = labels.filter(name => name.toLowerCase().includes('codex'));
+              if (codexLabels.length === 0) {
+                core.info('No codex label found.');
+                return;
+              }
+              for (const name of codexLabels) {
+                await github.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  name,
+                }).catch(() => {});
+              }
+              await github.pulls.update({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: pr.number,
-                name,
-              }).catch(() => {});
+                pull_number: pr.number,
+                body: '',
+              });
             }
-            await github.pulls.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pr.number,
-              body: '',
-            });
