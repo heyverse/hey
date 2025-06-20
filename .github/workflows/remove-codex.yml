@@ -35,19 +35,18 @@ jobs:
                   core.warning(`❌ Failed to remove label "${label}": ${err.message}`);
                 }
               }
-            }
 
-            const originalBody = pr.body || '';
-            const cleanedBody = originalBody.replace(/.*codex.*\n?/gi, '').trim();
-
-            if (cleanedBody !== originalBody) {
-              await github.rest.pulls.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pr.number,
-                body: cleanedBody,
-              });
-              core.info('🧹 Cleaned PR description from codex lines.');
+              try {
+                await github.rest.pulls.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr.number,
+                  body: '',
+                });
+                core.info('🧹 Cleared PR description.');
+              } catch (err) {
+                core.warning(`❌ Failed to clear PR description: ${err.message}`);
+              }
             } else {
-              core.info('No codex lines found in description.');
+              core.info('No codex label found. Skipping description clear.');
             }
