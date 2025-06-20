@@ -1,11 +1,6 @@
 import { InMemoryCache } from '@apollo/client';
 import result from '../../possible-types';
-import createAccountRequestFieldPolicy from './createAccountRequestFieldPolicy';
-import createAccountsFieldPolicy from './createAccountsFieldPolicy';
-import createBasicFieldPolicy from './createBasicFieldPolicy';
-import createPostReactionsFieldPolicy from './createPostReactionsFieldPolicy';
-import createPostReferencesFieldPolicy from './createPostReferencesFieldPolicy';
-import createWhoReferencedPostFieldPolicy from './createWhoReferencedPostFieldPolicy';
+import createCursorFieldPolicy from './createCursorFieldPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -14,24 +9,27 @@ const cache = new InMemoryCache({
     Account: { keyFields: ["address"] },
     Query: {
       fields: {
-        timeline: createAccountRequestFieldPolicy(),
-        timelineHighlights: createAccountRequestFieldPolicy(),
-        following: createAccountRequestFieldPolicy(),
-        followers: createAccountRequestFieldPolicy(),
-        posts: createBasicFieldPolicy(),
-        postReferences: createPostReferencesFieldPolicy(),
-        postReactions: createPostReactionsFieldPolicy(),
-        whoReferencedPost: createWhoReferencedPostFieldPolicy(),
-        postBookmarks: createBasicFieldPolicy(),
-        groups: createBasicFieldPolicy(),
-        accounts: createAccountsFieldPolicy(),
-        accountsBlocked: createBasicFieldPolicy(),
-        accountManagers: createBasicFieldPolicy(),
-        authenticatedSessions: createBasicFieldPolicy(),
-        usernames: createBasicFieldPolicy(),
-        notifications: createBasicFieldPolicy(),
-        mlPostsExplore: createBasicFieldPolicy(),
-        mlPostsForYou: createBasicFieldPolicy(),
+        timeline: createCursorFieldPolicy(["request", ["account"]]),
+        timelineHighlights: createCursorFieldPolicy(["request", ["account"]]),
+        following: createCursorFieldPolicy(["request", ["account"]]),
+        followers: createCursorFieldPolicy(["request", ["account"]]),
+        posts: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        postReferences: createCursorFieldPolicy([
+          "request",
+          ["referencedPost", "referenceTypes", "relevancyFilter", "visibilityFilter"]
+        ]),
+        postReactions: createCursorFieldPolicy(["request", ["post"]]),
+        whoReferencedPost: createCursorFieldPolicy(["request", ["post", "referenceTypes"]]),
+        postBookmarks: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        groups: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        accounts: createCursorFieldPolicy(["request", ["filter", "orderBy"]]),
+        accountsBlocked: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        accountManagers: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        authenticatedSessions: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        usernames: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        notifications: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        mlPostsExplore: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
+        mlPostsForYou: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
       }
     }
   }
