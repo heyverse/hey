@@ -1,4 +1,5 @@
 import { Button, H3 } from "@/components/Shared/UI";
+import clearLocalStorage from "@/helpers/clearLocalStorage";
 
 interface SiteErrorProps {
   message?: string;
@@ -6,7 +7,7 @@ interface SiteErrorProps {
 
 const SiteError = ({ message }: SiteErrorProps) => {
   const clearLocalData = () => {
-    localStorage.clear();
+    clearLocalStorage();
     setTimeout(() => location.reload(), 200);
   };
 

@@ -1,5 +1,6 @@
 import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 import { Localstorage } from "@hey/data/storage";
+import clearLocalStorage from "@/helpers/clearLocalStorage";
 
 interface Tokens {
   accessToken: null | string;
@@ -28,13 +29,7 @@ const { store } = createPersistedTrackedStore<State>(
     signIn: ({ accessToken, refreshToken }) =>
       set({ accessToken, refreshToken }),
     signOut: async () => {
-      // Clear Localstorage
-      const allLocalstorageStores = Object.values(Localstorage).filter(
-        (value) => value !== Localstorage.SearchStore
-      );
-      for (const store of allLocalstorageStores) {
-        localStorage.removeItem(store);
-      }
+      clearLocalStorage();
     }
   }),
   { name: Localstorage.AuthStore }
