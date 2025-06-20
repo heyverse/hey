@@ -16,10 +16,13 @@ jobs:
           script: |
             const pr = context.payload.pull_request;
             const labels = pr.labels.map(label => label.name);
+            core.info(`Found labels on PR: ${JSON.stringify(labels)}`);
+
             const codexLabels = labels.filter(name => name.toLowerCase().includes('codex'));
+            core.info(`Codex labels detected: ${JSON.stringify(codexLabels)}`);
 
             if (codexLabels.length === 0) {
-              core.info('No codex label found.');
+              core.info('No codex label found. Skipping removal.');
               return;
             }
 
@@ -32,7 +35,7 @@ jobs:
                   name: label,
                 });
                 core.info(`Removed label: ${label}`);
-              } catch (error) {
-                core.warning(`Failed to remove label: ${label}`);
+              } catch (err) {
+                core.warning(`Failed to remove label "${label}": ${err.message}`);
               }
             }
