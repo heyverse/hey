@@ -1,8 +1,8 @@
+import compressImage from "@/helpers/compressImage";
 import uploadToIPFS from "@/helpers/uploadToIPFS";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import generateUUID from "@hey/helpers/generateUUID";
 import type { NewAttachment } from "@hey/types/misc";
-import imageCompression from "browser-image-compression";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
@@ -51,11 +51,9 @@ const useUploadAttachments = () => {
     return Promise.all(
       files.map(async (file: File) => {
         if (file.type.includes("image") && !file.type.includes("gif")) {
-          return await imageCompression(file, {
-            exifOrientation: 1,
+          return await compressImage(file, {
             maxSizeMB: 9,
-            maxWidthOrHeight: 6000,
-            useWebWorker: true
+            maxWidthOrHeight: 6000
           });
         }
         return file;

@@ -1,4 +1,4 @@
-import imageCompression from "browser-image-compression";
+import compressImage from "./compressImage";
 import { uploadFileToIPFS } from "./uploadToIPFS";
 
 export const readFile = (file: Blob): Promise<string> => {
@@ -20,11 +20,9 @@ const uploadCroppedImage = async (
   const file = new File([blob as Blob], "cropped_image.png", {
     type: (blob as Blob).type
   });
-  const cleanedFile = await imageCompression(file, {
-    exifOrientation: 1,
+  const cleanedFile = await compressImage(file, {
     maxSizeMB: 6,
-    maxWidthOrHeight: 3000,
-    useWebWorker: true
+    maxWidthOrHeight: 3000
   });
   const attachment = await uploadFileToIPFS(cleanedFile);
   const decentralizedUrl = attachment.uri;
