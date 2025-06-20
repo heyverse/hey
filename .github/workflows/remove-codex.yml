@@ -28,14 +28,16 @@ jobs:
 
             for (const label of codexLabels) {
               try {
-                await github.issues.removeLabel({
+                await github.rest.issues.removeLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: pr.number,
                   name: label,
                 });
-                core.info(`Removed label: ${label}`);
+                core.info(`✅ Removed label: ${label}`);
               } catch (err) {
-                core.warning(`Failed to remove label "${label}": ${err.message}`);
+                core.warning(`❌ Failed to remove label "${label}": ${err.message}`);
               }
             }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
