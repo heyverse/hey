@@ -1,5 +1,5 @@
+import WalletSelector from "@/components/Shared/Auth/WalletSelector";
 import { H5 } from "@/components/Shared/UI";
-import WalletSelector from "../Auth/WalletSelector";
 
 const WrongWallet = () => {
   return (

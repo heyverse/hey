@@ -1,4 +1,5 @@
 import FollowersYouKnow from "@/components/Shared/Modal/FollowersYouKnow";
+import FollowersYouKnowShimmer from "@/components/Shared/Shimmer/FollowersYouKnowShimmer";
 import { Modal, StackedAvatars } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { TRANSFORMS } from "@hey/data/constants";
@@ -7,7 +8,6 @@ import getAvatar from "@hey/helpers/getAvatar";
 import { type Follower, useFollowersYouKnowQuery } from "@hey/indexer";
 import { type ReactNode, useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import FollowersYouKnowShimmer from "../Shared/Shimmer/FollowersYouKnowShimmer";
 
 interface FollowersYouKnowOverviewProps {
   username: string;

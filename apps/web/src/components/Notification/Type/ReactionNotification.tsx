@@ -1,11 +1,11 @@
+import { NotificationAccountAvatar } from "@/components/Notification/Account";
+import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
 import type { ReactionNotificationFragment } from "@hey/indexer";
 import plur from "plur";
-import { NotificationAccountAvatar } from "../Account";
-import AggregatedNotificationTitle from "../AggregatedNotificationTitle";
 
 interface ReactionNotificationProps {
   notification: ReactionNotificationFragment;

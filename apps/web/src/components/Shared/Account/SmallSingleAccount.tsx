@@ -1,3 +1,4 @@
+import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
@@ -6,7 +7,6 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
 import { memo } from "react";
-import Slug from "../Slug";
 import AccountLink from "./AccountLink";
 
 interface SmallSingleAccountProps {

@@ -1,3 +1,4 @@
+import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import formatDate from "@/helpers/datetime/formatDate";
@@ -9,7 +10,6 @@ import { QueueListIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { useHiddenCommentFeedStore } from ".";
-import PostWarning from "../Shared/Post/PostWarning";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";

@@ -1,7 +1,7 @@
+import WalletSelector from "@/components/Shared/Auth/WalletSelector";
 import { createTrackedSelector } from "react-tracked";
 import { useAccount } from "wagmi";
 import { create } from "zustand";
-import WalletSelector from "../WalletSelector";
 import ChooseUsername from "./ChooseUsername";
 import Minting from "./Minting";
 import Success from "./Success";

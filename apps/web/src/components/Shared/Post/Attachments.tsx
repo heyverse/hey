@@ -1,3 +1,4 @@
+import Audio from "@/components/Shared/Audio";
 import { Image, LightBox } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
@@ -6,7 +7,6 @@ import imageKit from "@hey/helpers/imageKit";
 import type { MetadataAsset } from "@hey/types/misc";
 import { getSrc } from "@livepeer/react/external";
 import { memo, useState } from "react";
-import Audio from "../Audio";
 import Video from "./Video";
 
 const getClass = (attachments: number) => {

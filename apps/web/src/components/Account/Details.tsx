@@ -1,4 +1,5 @@
 import FollowUnfollowButton from "@/components/Shared/Account/FollowUnfollowButton";
+import TipButton from "@/components/Shared/Account/TipButton";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
 import { Button, H3, Image, LightBox, Tooltip } from "@/components/Shared/UI";
@@ -18,7 +19,6 @@ import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import TipButton from "../Shared/Account/TipButton";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import AccountMenu from "./Menu";

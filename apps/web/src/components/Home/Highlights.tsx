@@ -1,4 +1,5 @@
 import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
@@ -6,7 +7,6 @@ import {
   type TimelineHighlightsRequest,
   useTimelineHighlightsQuery
 } from "@hey/indexer";
-import PostFeed from "../Shared/Post/PostFeed";
 
 const Highlights = () => {
   const { currentAccount } = useAccountStore();

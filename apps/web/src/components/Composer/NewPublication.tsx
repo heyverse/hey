@@ -1,3 +1,9 @@
+import Attachment from "@/components/Composer/Actions/Attachment";
+import CollectSettings from "@/components/Composer/Actions/CollectSettings";
+import Gif from "@/components/Composer/Actions/Gif";
+import LivestreamSettings from "@/components/Composer/Actions/LivestreamSettings";
+import LivestreamEditor from "@/components/Composer/Actions/LivestreamSettings/LivestreamEditor";
+import RulesSettings from "@/components/Composer/Actions/RulesSettings";
 import NewAttachments from "@/components/Composer/NewAttachments";
 import QuotedPost from "@/components/Post/QuotedPost";
 import { AudioPostSchema } from "@/components/Shared/Audio";
@@ -36,12 +42,6 @@ import type { NewAttachment } from "@hey/types/misc";
 import { useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "sonner";
-import Attachment from "./Actions/Attachment";
-import CollectSettings from "./Actions/CollectSettings";
-import Gif from "./Actions/Gif";
-import LivestreamSettings from "./Actions/LivestreamSettings";
-import LivestreamEditor from "./Actions/LivestreamSettings/LivestreamEditor";
-import RulesSettings from "./Actions/RulesSettings";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
 

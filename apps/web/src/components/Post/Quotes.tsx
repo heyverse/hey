@@ -1,4 +1,5 @@
 import BackButton from "@/components/Shared/BackButton";
+import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import {
   Card,
   CardHeader,
@@ -15,7 +16,6 @@ import {
   usePostReferencesQuery
 } from "@hey/indexer";
 import { WindowVirtualizer } from "virtua";
-import PostsShimmer from "../Shared/Shimmer/PostsShimmer";
 import SinglePost from "./SinglePost";
 
 interface QuotesProps {

@@ -1,3 +1,4 @@
+import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Input } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
@@ -7,7 +8,6 @@ import { ERRORS } from "@hey/data/errors";
 import type { Emoji } from "@hey/types/misc";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
-import Loader from "../Loader";
 
 interface ListProps {
   setEmoji: (emoji: string) => void;

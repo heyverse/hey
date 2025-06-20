@@ -1,8 +1,8 @@
+import AccountLink from "@/components/Shared/Account/AccountLink";
 import cn from "@/helpers/cn";
 import getAccount from "@hey/helpers/getAccount";
 import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
-import AccountLink from "./Account/AccountLink";
 import Slug from "./Slug";
 
 interface FallbackAccountNameProps {

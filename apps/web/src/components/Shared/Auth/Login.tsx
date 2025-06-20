@@ -1,3 +1,5 @@
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import Loader from "@/components/Shared/Loader";
 import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { signIn } from "@/store/persisted/useAuthStore";
@@ -17,8 +19,6 @@ import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useDisconnect, useSignMessage } from "wagmi";
-import SingleAccount from "../Account/SingleAccount";
-import Loader from "../Loader";
 import SignupCard from "./SignupCard";
 import WalletSelector from "./WalletSelector";
 

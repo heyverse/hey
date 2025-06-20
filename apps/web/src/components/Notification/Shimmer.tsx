@@ -1,4 +1,4 @@
-import Skeleton from "../Shared/Skeleton";
+import Skeleton from "@/components/Shared/Skeleton";
 
 const NotificationShimmer = () => {
   return (

@@ -1,4 +1,4 @@
-import Skeleton from "../Skeleton";
+import Skeleton from "@/components/Shared/Skeleton";
 
 const PostShimmer = () => {
   return (

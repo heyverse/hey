@@ -1,3 +1,7 @@
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import Loader from "@/components/Shared/Loader";
+import LoginButton from "@/components/Shared/LoginButton";
+import Slug from "@/components/Shared/Slug";
 import { H3, H5 } from "@/components/Shared/UI";
 import getTokenImage from "@/helpers/getTokenImage";
 import { getSimplePaymentDetails } from "@/helpers/rules";
@@ -11,11 +15,7 @@ import {
   type AccountFragment,
   useBalancesBulkQuery
 } from "@hey/indexer";
-import Loader from "../Loader";
-import LoginButton from "../LoginButton";
-import Slug from "../Slug";
 import Follow from "./Follow";
-import TopUpButton from "./TopUp/Button";
 
 const SuperFollow = () => {
   const { currentAccount } = useAccountStore();

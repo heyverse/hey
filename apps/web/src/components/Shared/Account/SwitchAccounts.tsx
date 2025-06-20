@@ -1,3 +1,4 @@
+import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Spinner, WarningMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -12,7 +13,6 @@ import {
 } from "@hey/indexer";
 import { useState } from "react";
 import { useAccount } from "wagmi";
-import Loader from "../Loader";
 import SmallSingleAccount from "./SmallSingleAccount";
 
 const SwitchAccounts = () => {

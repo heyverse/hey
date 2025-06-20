@@ -1,6 +1,6 @@
 import { THUMBNAIL_GENERATE_COUNT } from "@/components/Composer/ChooseThumbnail";
+import Skeleton from "@/components/Shared/Skeleton";
 import { useMemo } from "react";
-import Skeleton from "../Skeleton";
 
 const ThumbnailsShimmer = () => {
   const thumbnails = useMemo(() => Array(THUMBNAIL_GENERATE_COUNT).fill(1), []);

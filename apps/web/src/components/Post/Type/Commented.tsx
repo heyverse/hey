@@ -1,5 +1,5 @@
+import ThreadBody from "@/components/Post/ThreadBody";
 import type { PostFragment } from "@hey/indexer";
-import ThreadBody from "../ThreadBody";
 
 interface CommentedProps {
   commentOn: PostFragment;

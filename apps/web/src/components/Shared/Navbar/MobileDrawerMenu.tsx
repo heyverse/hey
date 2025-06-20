@@ -1,19 +1,19 @@
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import Bookmarks from "@/components/Shared/Navbar/NavItems/Bookmarks";
+import Groups from "@/components/Shared/Navbar/NavItems/Groups";
+import Logout from "@/components/Shared/Navbar/NavItems/Logout";
+import Settings from "@/components/Shared/Navbar/NavItems/Settings";
+import Support from "@/components/Shared/Navbar/NavItems/Support";
+import SwitchAccount from "@/components/Shared/Navbar/NavItems/SwitchAccount";
+import ThemeSwitch from "@/components/Shared/Navbar/NavItems/ThemeSwitch";
+import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import cn from "@/helpers/cn";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@hey/indexer";
 import { Link } from "react-router";
-import AccountLink from "../Account/AccountLink";
-import SingleAccount from "../Account/SingleAccount";
-import Bookmarks from "./NavItems/Bookmarks";
-import Groups from "./NavItems/Groups";
-import Logout from "./NavItems/Logout";
-import Settings from "./NavItems/Settings";
-import Support from "./NavItems/Support";
-import SwitchAccount from "./NavItems/SwitchAccount";
-import ThemeSwitch from "./NavItems/ThemeSwitch";
-import YourAccount from "./NavItems/YourAccount";
 
 const MobileDrawerMenu = () => {
   const { currentAccount } = useAccountStore();

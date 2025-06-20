@@ -1,4 +1,5 @@
 import CommentFeed from "@/components/Comment/CommentFeed";
+import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
 import NewPublication from "@/components/Composer/NewPublication";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
@@ -21,7 +22,6 @@ import {
 import { useLocation, useParams } from "react-router";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
-import NoneRelevantFeed from "../Comment/NoneRelevantFeed";
 import FullPost from "./FullPost";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";

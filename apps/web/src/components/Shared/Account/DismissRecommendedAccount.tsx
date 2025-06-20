@@ -1,9 +1,9 @@
+import { Spinner } from "@/components/Shared/UI";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   type AccountFragment,
   useMlDismissRecommendedAccountsMutation
 } from "@hey/indexer";
-import { Spinner } from "../UI";
 
 interface DismissRecommendedAccountProps {
   account: AccountFragment;
