@@ -7,7 +7,6 @@
     "build": "vite build",
     "dev": "vite dev --port 4783",
     "start": "vite preview --port 4783",
-    "test": "vitest",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -83,7 +82,6 @@
     "autoprefixer": "^10.4.21",
     "typescript": "^5.8.3",
     "vite-plugin-environment": "^1.1.3",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.3"
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
