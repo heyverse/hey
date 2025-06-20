@@ -126,7 +126,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   };
 
   const onOtherAmount = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value as unknown as number;
+    const value = Number(event.target.value);
     setAmount(value);
   };
 

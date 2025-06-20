@@ -100,8 +100,8 @@ const Transfer = ({ token }: TransferProps) => {
         : 0;
 
   const onOtherAmount = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value as unknown as number;
-    setAmount(Number(value));
+    const value = Number(event.target.value);
+    setAmount(value);
   };
 
   const handleSetAmount = (amount: number) => {
