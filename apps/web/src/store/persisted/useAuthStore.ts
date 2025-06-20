@@ -1,6 +1,6 @@
+import clearLocalStorage from "@/helpers/clearLocalStorage";
 import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 import { Localstorage } from "@hey/data/storage";
-import clearLocalStorage from "@/helpers/clearLocalStorage";
 
 interface Tokens {
   accessToken: null | string;

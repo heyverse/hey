@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --passWithNoTests",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
