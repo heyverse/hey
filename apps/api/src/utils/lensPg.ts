@@ -35,10 +35,10 @@ class Database {
   }
 
   private _initializeDb(): InitializeDbResult {
-    return this._initializationDb(this._connectionBase);
+    return this._createDbInstance(this._connectionBase);
   }
 
-  private _initializationDb(
+  private _createDbInstance(
     connectionParameters: IConnectionParameters
   ): InitializeDbResult {
     const pgp = pgPromise({
