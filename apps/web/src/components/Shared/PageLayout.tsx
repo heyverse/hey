@@ -34,7 +34,7 @@ interface PageLayoutProps {
   zeroTopMargin?: boolean;
 }
 
-export const PageLayout = ({
+const PageLayout = ({
   title,
   children,
   sidebar = <Sidebar />,
@@ -66,3 +66,5 @@ export const PageLayout = ({
     </>
   );
 };
+
+export default PageLayout;

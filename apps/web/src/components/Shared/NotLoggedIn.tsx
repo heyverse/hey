@@ -1,7 +1,7 @@
 import LoginButton from "@/components/Shared/LoginButton";
 import { H3 } from "@/components/Shared/UI";
 import Footer from "./Footer";
-import { PageLayout } from "./PageLayout";
+import PageLayout from "./PageLayout";
 
 const NotLoggedIn = () => {
   return (

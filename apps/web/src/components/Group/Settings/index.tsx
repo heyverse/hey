@@ -1,5 +1,5 @@
 import BackButton from "@/components/Shared/BackButton";
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import {
   AdjustmentsHorizontalIcon,

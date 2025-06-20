@@ -1,5 +1,5 @@
 import Footer from "@/components/Shared/Footer";
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import ContentFeedType from "@/components/Shared/Post/ContentFeedType";
 import WhoToFollow from "@/components/Shared/Sidebar/WhoToFollow";
 import { useAccountStore } from "@/store/persisted/useAccountStore";

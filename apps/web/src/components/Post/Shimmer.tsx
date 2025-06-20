@@ -1,6 +1,6 @@
 import BackButton from "@/components/Shared/BackButton";
 import Footer from "@/components/Shared/Footer";
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import PostShimmer from "@/components/Shared/Shimmer/PostShimmer";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";

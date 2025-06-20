@@ -1,6 +1,6 @@
 import Footer from "@/components/Shared/Footer";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import { Card } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { GroupsFeedType } from "@hey/data/enums";

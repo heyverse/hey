@@ -1,4 +1,4 @@
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import { H2, H4 } from "@/components/Shared/UI";
 import { Link } from "react-router";
 

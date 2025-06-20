@@ -1,7 +1,7 @@
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useGroupQuery } from "@hey/indexer";
 import { useParams } from "react-router";

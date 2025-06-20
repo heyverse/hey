@@ -1,4 +1,4 @@
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import Skeleton from "@/components/Shared/Skeleton";

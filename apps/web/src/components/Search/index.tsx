@@ -1,4 +1,4 @@
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import { default as SearchInput } from "@/components/Shared/Search";
 import Sidebar from "@/components/Shared/Sidebar";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";

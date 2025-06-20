@@ -1,4 +1,4 @@
-import { PageLayout } from "@/components/Shared/PageLayout";
+import PageLayout from "@/components/Shared/PageLayout";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Custom404 from "../Shared/404";
 import Overview from "./Overview";
