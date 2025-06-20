@@ -24,9 +24,8 @@ const rateLimiter = ({ requests }: RateLimiterOptions) => {
     limit: requests,
     standardHeaders: "draft-6",
     keyGenerator: (c) => {
-      const key = `rate-limit:${sha256(c.req.url).slice(0, 25)}:${hashedIp(
-        c.req.raw
-      )}`;
+      const urlHash = sha256(c.req.url).slice(0, 25);
+      const key = `rate-limit:${urlHash}:${hashedIp(c.req.raw)}`;
       return key;
     }
   });
