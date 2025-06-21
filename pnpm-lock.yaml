@@ -5511,7 +5511,7 @@ packages:
   trim-trailing-lines@2.1.0:
     resolution: {integrity: sha512-5UR5Biq4VlVOtzqkm2AZlgvSlDJtME46uV0br0gENbwN4l5+mMKT4b9gJKqWtuL2zAIqajGJGuvbCbcAJUZqBg==}
 
-  trough@2.2.0:
+  through@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
 
   ts-invariant@0.10.3:
@@ -13282,7 +13282,7 @@ snapshots:
 
   trim-trailing-lines@2.1.0: {}
 
-  trough@2.2.0: {}
+  through@2.2.0: {}
 
   ts-invariant@0.10.3:
     dependencies:
@@ -13344,7 +13344,7 @@ snapshots:
       devlop: 1.1.0
       extend: 3.0.2
       is-plain-obj: 4.1.0
-      trough: 2.2.0
+      through: 2.2.0
       vfile: 6.0.3
 
   unist-util-find-after@5.0.0:
