@@ -15,7 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.828.0",
+    "@aws-sdk/client-sts": "^3.830.0",
     "@guildxyz/sdk": "^2.6.9",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
@@ -23,23 +23,23 @@
     "@hono/node-server": "^1.14.4",
     "@hono/zod-validator": "^0.7.0",
     "@lens-chain/sdk": "^1.0.3",
-    "@prisma/client": "^6.9.0",
+    "@prisma/client": "^6.10.1",
     "dotenv": "^16.5.0",
-    "hono": "^4.7.11",
+    "hono": "^4.8.2",
     "hono-rate-limiter": "^0.4.2",
     "jose": "^6.0.11",
     "linkedom": "^0.18.11",
     "pg-promise": "^11.14.0",
     "redis": "^5.5.6",
     "tsx": "^4.20.3",
-    "viem": "^2.31.2",
+    "viem": "^2.31.4",
     "xmlbuilder2": "^3.1.1",
-    "zod": "^3.25.64"
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^24.0.1",
-    "prisma": "^6.9.0",
+    "@types/node": "^24.0.3",
+    "prisma": "^6.10.1",
     "typescript": "^5.8.3"
   }
 }
