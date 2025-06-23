@@ -1,7 +1,10 @@
-import compressImage from "@/helpers/compressImage";
 import uploadToIPFS from "@/helpers/uploadToIPFS";
+import {
+  compressFiles,
+  createPreviewAttachments,
+  validateFileSize
+} from "@/helpers/attachmentUtils";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import generateUUID from "@hey/helpers/generateUUID";
 import type { NewAttachment } from "@hey/types/misc";
 import { useCallback } from "react";
 import { toast } from "sonner";
@@ -14,107 +17,44 @@ const useUploadAttachments = () => {
     updateAttachments
   } = usePostAttachmentStore((state) => state);
 
-  const validateFileSize = (file: File): boolean => {
-    const isImage = file.type.includes("image");
-    const isVideo = file.type.includes("video");
-    const isAudio = file.type.includes("audio");
-
-    const IMAGE_UPLOAD_LIMIT = 50000000;
-    const VIDEO_UPLOAD_LIMIT = 2000000000;
-    const AUDIO_UPLOAD_LIMIT = 600000000;
-
-    if (isImage && file.size > IMAGE_UPLOAD_LIMIT) {
-      toast.error(
-        `Image size should be less than ${IMAGE_UPLOAD_LIMIT / 1000000}MB`
-      );
-      return false;
-    }
-
-    if (isVideo && file.size > VIDEO_UPLOAD_LIMIT) {
-      toast.error(
-        `Video size should be less than ${VIDEO_UPLOAD_LIMIT / 1000000}MB`
-      );
-      return false;
-    }
-
-    if (isAudio && file.size > AUDIO_UPLOAD_LIMIT) {
-      toast.error(
-        `Audio size should be less than ${AUDIO_UPLOAD_LIMIT / 1000000}MB`
-      );
-      return false;
-    }
-
-    return true;
-  };
-
-  const compressFiles = async (files: File[]): Promise<File[]> => {
-    return Promise.all(
-      files.map(async (file: File) => {
-        if (file.type.includes("image") && !file.type.includes("gif")) {
-          return await compressImage(file, {
-            maxSizeMB: 9,
-            maxWidthOrHeight: 6000
-          });
-        }
-        return file;
-      })
-    );
-  };
-
-  const createPreviewAttachments = (files: File[]): NewAttachment[] => {
-    return files.map((file: File) => ({
-      file,
-      id: generateUUID(),
-      mimeType: file.type,
-      previewUri: URL.createObjectURL(file),
-      type: file.type.includes("image")
-        ? "Image"
-        : file.type.includes("video")
-          ? "Video"
-          : "Audio"
-    }));
-  };
 
   const handleUploadAttachments = useCallback(
     async (attachments: FileList): Promise<NewAttachment[]> => {
       setIsUploading(true);
 
       const files = Array.from(attachments);
-      const attachmentIds: string[] = [];
-
       const compressedFiles = await compressFiles(files);
+
+      if (!compressedFiles.every(validateFileSize)) {
+        setIsUploading(false);
+        return [];
+      }
+
       const previewAttachments = createPreviewAttachments(compressedFiles);
-      for (const { id } of previewAttachments) {
-        attachmentIds.push(id as string);
-      }
+      const attachmentIds = previewAttachments.map(({ id }) => id as string);
 
-      if (compressedFiles.every((file) => validateFileSize(file))) {
-        addAttachments(previewAttachments);
+      addAttachments(previewAttachments);
 
-        try {
-          const attachmentsUploaded = await uploadToIPFS(compressedFiles);
-          const attachments = attachmentsUploaded.map((uploaded, index) => ({
-            ...previewAttachments[index],
-            mimeType: uploaded.mimeType,
-            uri: uploaded.uri
-          }));
+      try {
+        const uploaded = await uploadToIPFS(compressedFiles);
+        const result = uploaded.map((file, index) => ({
+          ...previewAttachments[index],
+          mimeType: file.mimeType,
+          uri: file.uri
+        }));
 
-          updateAttachments(attachments);
-          setIsUploading(false);
+        updateAttachments(result);
+        setIsUploading(false);
 
-          return attachments;
-        } catch {
-          toast.error("Something went wrong while uploading!");
-          removeAttachments(attachmentIds);
-        }
-      } else {
+        return result;
+      } catch {
+        toast.error("Something went wrong while uploading!");
         removeAttachments(attachmentIds);
+        setIsUploading(false);
+        return [];
       }
-
-      setIsUploading(false);
-      return [];
     },
-    [addAttachments, removeAttachments, updateAttachments, setIsUploading]
+    [addAttachments, removeAttachments, setIsUploading, updateAttachments]
   );
 
   return { handleUploadAttachments };
