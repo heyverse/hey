@@ -7,7 +7,7 @@ import {
   useHideManagedAccountMutation,
   useUnhideManagedAccountMutation
 } from "@hey/indexer";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
 import { useAccount } from "wagmi";
@@ -54,7 +54,7 @@ const List = ({ managed = false }: ListProps) => {
   const pageInfo = data?.accountsAvailable?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: {
@@ -66,7 +66,13 @@ const List = ({ managed = false }: ListProps) => {
         }
       });
     }
-  };
+  }, [
+    fetchMore,
+    hasMore,
+    pageInfo?.next,
+    accountsAvailableRequest,
+    lastLoggedInAccountRequest
+  ]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

@@ -5,6 +5,7 @@ import {
   NotificationType,
   useNotificationsQuery
 } from "@hey/indexer";
+import { useCallback } from "react";
 import { WindowVirtualizer } from "virtua";
 import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";
 import CommentNotification from "@/components/Notification/Type/CommentNotification";
@@ -70,13 +71,13 @@ const List = ({ feedType }: ListProps) => {
   const pageInfo = data?.notifications?.pageInfo;
   const hasMore = !!pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo.next } }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

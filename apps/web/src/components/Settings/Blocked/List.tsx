@@ -4,6 +4,7 @@ import {
   PageSize,
   useAccountsBlockedQuery
 } from "@hey/indexer";
+import { useCallback } from "react";
 import { WindowVirtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
@@ -26,13 +27,13 @@ const List = () => {
   const pageInfo = data?.accountsBlocked?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

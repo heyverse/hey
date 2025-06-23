@@ -5,6 +5,7 @@ import {
   type PostBookmarksRequest,
   usePostBookmarksQuery
 } from "@hey/indexer";
+import { useCallback } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
 
@@ -26,13 +27,14 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
   const pageInfo = data?.postBookmarks?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
+
   return (
     <PostFeed
       emptyIcon={<BookmarkIcon className="size-8" />}

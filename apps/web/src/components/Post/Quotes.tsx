@@ -6,6 +6,7 @@ import {
   PostReferenceType,
   usePostReferencesQuery
 } from "@hey/indexer";
+import { useCallback } from "react";
 import { WindowVirtualizer } from "virtua";
 import BackButton from "@/components/Shared/BackButton";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
@@ -38,13 +39,13 @@ const Quotes = ({ post }: QuotesProps) => {
   const pageInfo = data?.postReferences?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

@@ -8,6 +8,7 @@ import {
   ReferenceRelevancyFilter,
   usePostReferencesQuery
 } from "@hey/indexer";
+import { useCallback } from "react";
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
@@ -39,13 +40,13 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
   const pageInfo = data?.postReferences?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   const filteredComments = comments.filter(
     (comment) =>

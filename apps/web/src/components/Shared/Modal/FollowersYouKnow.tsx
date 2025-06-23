@@ -4,6 +4,7 @@ import {
   useFollowersYouKnowQuery
 } from "@hey/indexer";
 import { motion } from "motion/react";
+import { useCallback } from "react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
@@ -35,13 +36,13 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
   const pageInfo = data?.followersYouKnow?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
