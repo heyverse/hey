@@ -3,6 +3,7 @@ import { WindowVirtualizer } from "virtua";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { POST_HEIGHT_ESTIMATE } from "./constants";
 
 interface PostFeedProps<T extends { id: string }> {
   items: T[];
@@ -43,7 +44,7 @@ const PostFeed = <T extends { id: string }>({
 
   return (
     <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
+      <WindowVirtualizer itemSize={POST_HEIGHT_ESTIMATE}>
         {items.map((item) => renderItem(item))}
         {hasMore && <span ref={loadMoreRef} />}
       </WindowVirtualizer>

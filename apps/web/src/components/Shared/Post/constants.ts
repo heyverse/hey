@@ -1,0 +1,1 @@
+export const POST_HEIGHT_ESTIMATE = 160;

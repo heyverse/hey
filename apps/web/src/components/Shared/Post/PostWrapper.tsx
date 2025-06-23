@@ -2,6 +2,7 @@ import type { AnyPostFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router";
 import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
+import { POST_HEIGHT_ESTIMATE } from "./constants";
 
 interface PostWrapperProps {
   children: ReactNode | ReactNode[];
@@ -22,7 +23,10 @@ const PostWrapper = ({ children, className = "", post }: PostWrapperProps) => {
   };
 
   return (
-    <article className={className} onClick={handleClick}>
+    <article
+      className={`min-h-[${POST_HEIGHT_ESTIMATE}px] ${className}`}
+      onClick={handleClick}
+    >
       {children}
     </article>
   );
