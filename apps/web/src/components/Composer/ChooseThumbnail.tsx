@@ -22,7 +22,7 @@ const ChooseThumbnail = () => {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
-  const { attachments } = usePostAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore();
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
   const { file } = attachments[0];
 

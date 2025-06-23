@@ -11,7 +11,7 @@ interface GifProps {
 }
 
 const Gif = ({ setGifAttachment }: GifProps) => {
-  const { attachments } = usePostAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore();
   const [showModal, setShowModal] = useState(false);
   const disable =
     attachments.length > 0 &&

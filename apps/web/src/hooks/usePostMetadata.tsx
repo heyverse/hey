@@ -21,7 +21,7 @@ const usePostMetadata = () => {
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPost } = usePostAudioStore();
   const { license } = usePostLicenseStore();
-  const { attachments } = usePostAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore();
   const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
 
   const formatAttachments = () =>

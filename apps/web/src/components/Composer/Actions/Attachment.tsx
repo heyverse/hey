@@ -30,7 +30,7 @@ const VideoMimeType = [
 ];
 
 const Attachment = () => {
-  const { attachments, isUploading } = usePostAttachmentStore((state) => state);
+  const { attachments, isUploading } = usePostAttachmentStore();
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();

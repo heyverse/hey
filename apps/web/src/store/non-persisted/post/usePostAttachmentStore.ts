@@ -1,5 +1,5 @@
 import type { NewAttachment } from "@hey/types/misc";
-import { create } from "zustand";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   addAttachments: (attachments: NewAttachment[]) => void;
@@ -11,7 +11,7 @@ interface State {
   updateAttachments: (attachments: NewAttachment[]) => void;
 }
 
-const store = create<State>((set) => ({
+const { useStore: usePostAttachmentStore } = createTrackedStore<State>((set) => ({
   addAttachments: (newAttachments) =>
     set((state) => {
       return { attachments: [...state.attachments, ...newAttachments] };
@@ -44,4 +44,4 @@ const store = create<State>((set) => ({
     })
 }));
 
-export const usePostAttachmentStore = store;
+export { usePostAttachmentStore };

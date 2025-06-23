@@ -39,7 +39,7 @@ const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
 };
 
 export const usePaste = (editor: Editor<EditorExtension>) => {
-  const { attachments } = usePostAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore();
   const { handleUploadAttachments } = useUploadAttachments();
 
   const handlePaste = useCallback(

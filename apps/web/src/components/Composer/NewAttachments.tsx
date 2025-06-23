@@ -29,7 +29,7 @@ const NewAttachments = ({
   attachments = [],
   hideDelete = false
 }: NewAttachmentsProps) => {
-  const { setAttachments } = usePostAttachmentStore((state) => state);
+  const { setAttachments } = usePostAttachmentStore();
   const { setVideoDurationInSeconds } = usePostVideoStore();
   const videoRef = useRef<HTMLVideoElement>(null);
 

@@ -12,7 +12,7 @@ const useUploadAttachments = () => {
     removeAttachments,
     setIsUploading,
     updateAttachments
-  } = usePostAttachmentStore((state) => state);
+  } = usePostAttachmentStore();
 
   const validateFileSize = (file: File): boolean => {
     const isImage = file.type.includes("image");

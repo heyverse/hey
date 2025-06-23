@@ -5,7 +5,7 @@ import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 
 const LinkPreviews = () => {
   const { postContent, quotedPost } = usePostStore();
-  const { attachments } = usePostAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore();
   const urls = getURLs(postContent);
 
   if (!urls.length || attachments.length || quotedPost) {

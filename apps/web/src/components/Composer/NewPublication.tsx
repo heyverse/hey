@@ -79,7 +79,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
   // Attachment store
   const { addAttachments, attachments, isUploading, setAttachments } =
-    usePostAttachmentStore((state) => state);
+    usePostAttachmentStore();
 
   // License store
   const { setLicense } = usePostLicenseStore();

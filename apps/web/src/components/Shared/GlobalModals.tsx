@@ -27,7 +27,7 @@ const GlobalModals = () => {
   const { showNewPostModal, setShowNewPostModal } = useNewPostModalStore();
   const { editingPost, setEditingPost, setQuotedPost, setPostContent } =
     usePostStore();
-  const { setAttachments } = usePostAttachmentStore((state) => state);
+  const { setAttachments } = usePostAttachmentStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
     useAuthModalStore();
   const {

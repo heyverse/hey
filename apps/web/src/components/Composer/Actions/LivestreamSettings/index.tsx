@@ -7,7 +7,7 @@ import { VideoCameraIcon } from "@heroicons/react/24/outline";
 const LivestreamSettings = () => {
   const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
     usePostLiveStore();
-  const { attachments } = usePostAttachmentStore((state) => state);
+  const { attachments } = usePostAttachmentStore();
   const disable = attachments.length > 0;
 
   return (
