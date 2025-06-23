@@ -1,6 +1,6 @@
+import type { AccountFragment } from "@hey/indexer";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import type { AccountFragment } from "@hey/indexer";
 import FollowWithRulesCheck from "./FollowWithRulesCheck";
 import Unfollow from "./Unfollow";
 
@@ -32,16 +32,16 @@ const FollowUnfollowButton = ({
       {!hideFollowButton &&
         (account.operations?.isFollowedByMe ? null : (
           <FollowWithRulesCheck
-            buttonClassName={buttonClassName}
             account={account}
+            buttonClassName={buttonClassName}
             small={small}
           />
         ))}
       {!hideUnfollowButton &&
         (account.operations?.isFollowedByMe ? (
           <Unfollow
-            buttonClassName={buttonClassName}
             account={account}
+            buttonClassName={buttonClassName}
             small={small}
             title={unfollowTitle}
           />

@@ -1,7 +1,7 @@
-import WalletSelector from "@/components/Shared/Auth/WalletSelector";
 import { createTrackedSelector } from "react-tracked";
 import { useAccount } from "wagmi";
 import { create } from "zustand";
+import WalletSelector from "@/components/Shared/Auth/WalletSelector";
 import ChooseUsername from "./ChooseUsername";
 import Minting from "./Minting";
 import Success from "./Success";
@@ -20,16 +20,16 @@ interface SignupState {
 }
 
 const store = create<SignupState>((set) => ({
-  chosenUsername: "",
   accountAddress: "",
-  screen: "choose",
-  transactionHash: "",
+  chosenUsername: "",
   onboardingToken: "",
-  setChosenUsername: (username) => set({ chosenUsername: username }),
+  screen: "choose",
   setAccountAddress: (accountAddress) => set({ accountAddress }),
+  setChosenUsername: (username) => set({ chosenUsername: username }),
+  setOnboardingToken: (token) => set({ onboardingToken: token }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
-  setOnboardingToken: (token) => set({ onboardingToken: token })
+  transactionHash: ""
 }));
 
 export const useSignupStore = createTrackedSelector(store);

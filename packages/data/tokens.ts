@@ -3,25 +3,25 @@ import { MAINNET_CONTRACTS, TESTNET_CONTRACTS } from "./contracts";
 
 const mainnetTokens = [
   {
-    name: "Wrapped GHO",
-    symbol: "WGHO",
+    contractAddress: MAINNET_CONTRACTS.defaultToken,
     decimals: 18,
-    contractAddress: MAINNET_CONTRACTS.defaultToken
+    name: "Wrapped GHO",
+    symbol: "WGHO"
   },
   {
-    name: "Bonsai",
-    symbol: "BONSAI",
+    contractAddress: "0xB0588f9A9cADe7CD5f194a5fe77AcD6A58250f82",
     decimals: 18,
-    contractAddress: "0xB0588f9A9cADe7CD5f194a5fe77AcD6A58250f82"
+    name: "Bonsai",
+    symbol: "BONSAI"
   }
 ];
 
 const testnetTokens = [
   {
-    name: "Wrapped Grass",
-    symbol: "WGRASS",
+    contractAddress: TESTNET_CONTRACTS.defaultToken,
     decimals: 18,
-    contractAddress: TESTNET_CONTRACTS.defaultToken
+    name: "Wrapped Grass",
+    symbol: "WGRASS"
   }
 ];
 

@@ -1,7 +1,7 @@
-import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
 import type { AnyPostFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router";
+import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
 
 interface PostWrapperProps {
   children: ReactNode | ReactNode[];

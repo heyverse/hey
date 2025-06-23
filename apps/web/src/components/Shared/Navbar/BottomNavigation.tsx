@@ -1,6 +1,3 @@
-import { Image } from "@/components/Shared/UI";
-import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   BellIcon,
   GlobeAltIcon as GlobeOutline,
@@ -15,6 +12,9 @@ import {
 import getAvatar from "@hey/helpers/getAvatar";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
+import { Image } from "@/components/Shared/UI";
+import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import MobileDrawerMenu from "./MobileDrawerMenu";
 
 interface NavigationItemProps {
@@ -34,7 +34,7 @@ const NavigationItem = ({
   isActive,
   onClick
 }: NavigationItemProps) => (
-  <Link aria-label={label} className="mx-auto my-3" to={path} onClick={onClick}>
+  <Link aria-label={label} className="mx-auto my-3" onClick={onClick} to={path}>
     {isActive ? solid : outline}
   </Link>
 );
@@ -55,27 +55,27 @@ const BottomNavigation = () => {
 
   const navigationItems = [
     {
-      path: "/",
       label: "Home",
       outline: <HomeIcon className="size-6" />,
+      path: "/",
       solid: <HomeIconSolid className="size-6" />
     },
     {
-      path: "/search",
       label: "Search",
       outline: <MagnifyingGlassIcon className="size-6" />,
+      path: "/search",
       solid: <MagnifyingGlassIcon className="size-6" />
     },
     {
-      path: "/explore",
       label: "Explore",
       outline: <GlobeOutline className="size-6" />,
+      path: "/explore",
       solid: <GlobeSolid className="size-6" />
     },
     {
-      path: "/notifications",
       label: "Notifications",
       outline: <BellIcon className="size-6" />,
+      path: "/notifications",
       solid: <BellIconSolid className="size-6" />
     }
   ];
@@ -86,13 +86,13 @@ const BottomNavigation = () => {
       <div className="flex justify-between">
         {navigationItems.map(({ path, label, outline, solid }) => (
           <NavigationItem
-            key={path}
-            path={path}
-            label={label}
-            outline={outline}
-            solid={solid}
             isActive={pathname === path}
+            key={path}
+            label={label}
             onClick={(e) => handleHomClick(path, e)}
+            outline={outline}
+            path={path}
+            solid={solid}
           />
         ))}
         {currentAccount && (

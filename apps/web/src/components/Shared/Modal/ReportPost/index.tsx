@@ -1,3 +1,7 @@
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { PostReportReason, useReportPostMutation } from "@hey/indexer";
+import { useState } from "react";
+import { z } from "zod";
 import {
   Button,
   EmptyState,
@@ -10,10 +14,6 @@ import {
 import convertToTitleCase from "@/helpers/convertToTitleCase";
 import errorToast from "@/helpers/errorToast";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { PostReportReason, useReportPostMutation } from "@hey/indexer";
-import { useState } from "react";
-import { z } from "zod";
 
 const ValidationSchema = z.object({
   additionalComment: z.string().max(260, {
@@ -76,8 +76,8 @@ const ReportPost = ({ postId }: ReportPostProps) => {
                   },
                   ...Object.entries(PostReportReason).map(([key, value]) => ({
                     label: convertToTitleCase(key),
-                    value,
-                    selected: reason === value
+                    selected: reason === value,
+                    value
                   }))
                 ]}
               />

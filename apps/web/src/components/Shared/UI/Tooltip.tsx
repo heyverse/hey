@@ -1,6 +1,6 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { motion } from "motion/react";
-import { type ReactNode, memo } from "react";
+import { memo, type ReactNode } from "react";
 
 interface TooltipProps {
   children: ReactNode;
@@ -28,15 +28,15 @@ const Tooltip = ({
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
+            asChild
             className="!rounded-lg !text-xs !leading-6 z-10 hidden bg-gray-700 px-3 py-0.5 text-white tracking-wide sm:block"
             side={placement}
             sideOffset={5}
-            asChild
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
             >
               <span>{content}</span>

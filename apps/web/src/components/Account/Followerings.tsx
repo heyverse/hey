@@ -1,13 +1,13 @@
-import Followers from "@/components/Shared/Modal/Followers";
-import Following from "@/components/Shared/Modal/Following";
-import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
-import { Modal } from "@/components/Shared/UI";
-import humanize from "@/helpers/humanize";
 import getAccount from "@hey/helpers/getAccount";
 import { type AccountFragment, useAccountStatsQuery } from "@hey/indexer";
 import plur from "plur";
 import { type FC, useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import Followers from "@/components/Shared/Modal/Followers";
+import Following from "@/components/Shared/Modal/Following";
+import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
+import { Modal } from "@/components/Shared/UI";
+import humanize from "@/helpers/humanize";
 
 interface FolloweringsProps {
   account: AccountFragment;
@@ -54,8 +54,8 @@ const Followerings = ({ account }: FolloweringsProps) => {
   ) => (
     <Modal onClose={() => setShow(false)} show={show} title={title}>
       <Content
-        username={getAccount(account).username}
         address={String(account.address)}
+        username={getAccount(account).username}
       />
     </Modal>
   );

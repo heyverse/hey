@@ -1,3 +1,11 @@
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { tokens } from "@hey/data/tokens";
+import getAccount from "@hey/helpers/getAccount";
+import {
+  type AccountFollowRules,
+  type AccountFragment,
+  useBalancesBulkQuery
+} from "@hey/indexer";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import Loader from "@/components/Shared/Loader";
 import LoginButton from "@/components/Shared/LoginButton";
@@ -7,14 +15,6 @@ import getTokenImage from "@/helpers/getTokenImage";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { tokens } from "@hey/data/tokens";
-import getAccount from "@hey/helpers/getAccount";
-import {
-  type AccountFollowRules,
-  type AccountFragment,
-  useBalancesBulkQuery
-} from "@hey/indexer";
 import Follow from "./Follow";
 
 const SuperFollow = () => {
@@ -28,12 +28,12 @@ const SuperFollow = () => {
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
-    variables: {
-      request: { address: currentAccount?.address, tokens: [assetAddress] }
-    },
+    fetchPolicy: "no-cache",
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    variables: {
+      request: { address: currentAccount?.address, tokens: [assetAddress] }
+    }
   });
 
   if (!assetAddress || !assetSymbol || !amount) {
@@ -41,7 +41,7 @@ const SuperFollow = () => {
   }
 
   if (balanceLoading) {
-    return <Loader message="Loading Super follow" className="my-10" />;
+    return <Loader className="my-10" message="Loading Super follow" />;
   }
 
   const tokenBalance =
@@ -86,19 +86,19 @@ const SuperFollow = () => {
             <Follow
               account={superFollowingAccount as AccountFragment}
               buttonClassName="w-full"
-              small={false}
-              title="Super Follow"
               onFollow={() =>
                 setShowSuperFollowModal(false, superFollowingAccount)
               }
+              small={false}
+              title="Super Follow"
             />
           ) : (
             <TopUpButton
-              className="w-full"
-              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
               amountToTopUp={
                 Math.ceil((amount - Number(tokenBalance)) * 20) / 20
               }
+              className="w-full"
+              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
             />
           )
         ) : (

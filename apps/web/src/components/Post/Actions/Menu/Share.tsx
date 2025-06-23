@@ -1,9 +1,9 @@
-import cn from "@/helpers/cn";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
-import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import { MenuItem } from "@headlessui/react";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@hey/indexer";
+import cn from "@/helpers/cn";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 
 interface ShareProps {
   post: PostFragment;

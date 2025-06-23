@@ -1,12 +1,12 @@
-import Audio from "@/components/Shared/Audio";
-import { Image, LightBox } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { TRANSFORMS } from "@hey/data/constants";
 import imageKit from "@hey/helpers/imageKit";
 import type { MetadataAsset } from "@hey/types/misc";
 import { getSrc } from "@livepeer/react/external";
 import { memo, useState } from "react";
+import Audio from "@/components/Shared/Audio";
+import { Image, LightBox } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Video from "./Video";
 
 const getClass = (attachments: number) => {
@@ -86,26 +86,26 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
               key={attachment}
               onClick={stopEventPropagation}
             >
-              <ImageComponent uri={attachment} index={index} />
+              <ImageComponent index={index} uri={attachment} />
             </div>
           ))}
           <LightBox
-            show={showLightBox}
+            images={displayDecision?.map((attachment) => attachment)}
+            initialIndex={expandedImageIndex}
             onClose={() => {
               setShowLightBox(false);
               setExpandedImageIndex(0);
             }}
-            initialIndex={expandedImageIndex}
-            images={displayDecision?.map((attachment) => attachment)}
+            show={showLightBox}
           />
         </div>
       )}
       {displayDecision === "displayVideoAsset" && (
         <Video
+          poster={asset?.cover as string}
           src={
             getSrc(asset?.uri) || [{ src: asset?.uri, type: "video" } as any]
           }
-          poster={asset?.cover as string}
         />
       )}
       {displayDecision === "displayAudioAsset" && (

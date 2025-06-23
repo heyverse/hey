@@ -1,14 +1,14 @@
+import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
+import { CheckCircleIcon as CheckCircleIconSolid } from "@heroicons/react/24/solid";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import { Image, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { hono } from "@/helpers/fetcher";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
-import { CheckCircleIcon as CheckCircleIconOutline } from "@heroicons/react/24/outline";
-import { CheckCircleIcon as CheckCircleIconSolid } from "@heroicons/react/24/solid";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 const icons = [
   { id: 0, name: "Default" },
@@ -25,11 +25,11 @@ const AppIcon = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ appIcon }: { appIcon: number }) =>
       hono.preferences.update({ appIcon }),
+    onError: errorToast,
     onSuccess: (data) => {
       setAppIcon(data.appIcon ?? 0);
       toast.success("App icon updated");
-    },
-    onError: errorToast
+    }
   });
 
   const handleSelectIcon = (iconId: number) => {
@@ -55,8 +55,8 @@ const AppIcon = () => {
               <Image
                 alt={icon.name}
                 className="size-10"
-                src={`${STATIC_IMAGES_URL}/app-icon/${icon.id}.png`}
                 height={40}
+                src={`${STATIC_IMAGES_URL}/app-icon/${icon.id}.png`}
                 width={40}
               />
               {icon.id === appIcon ? (

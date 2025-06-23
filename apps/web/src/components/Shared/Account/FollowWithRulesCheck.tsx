@@ -1,7 +1,7 @@
+import type { AccountFollowRules, AccountFragment } from "@hey/indexer";
 import { Button } from "@/components/Shared/UI";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
-import type { AccountFollowRules, AccountFragment } from "@hey/indexer";
 import Follow from "./Follow";
 
 interface FollowWithRulesCheckProps {
@@ -24,8 +24,8 @@ const FollowWithRulesCheck = ({
     return (
       <Button
         aria-label="Super Follow"
-        onClick={() => setShowSuperFollowModal(true, account)}
         className={buttonClassName}
+        onClick={() => setShowSuperFollowModal(true, account)}
         outline
         size={small ? "sm" : "md"}
       >

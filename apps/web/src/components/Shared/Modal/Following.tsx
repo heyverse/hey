@@ -1,3 +1,8 @@
+import { UsersIcon } from "@heroicons/react/24/outline";
+import type { FollowingRequest } from "@hey/indexer";
+import { PageSize, useFollowingQuery } from "@hey/indexer";
+import { motion } from "motion/react";
+import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -5,11 +10,6 @@ import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
-import { UsersIcon } from "@heroicons/react/24/outline";
-import type { FollowingRequest } from "@hey/indexer";
-import { PageSize, useFollowingQuery } from "@hey/indexer";
-import { motion } from "motion/react";
-import { Virtualizer } from "virtua";
 
 interface FollowingProps {
   username: string;
@@ -20,8 +20,8 @@ const Following = ({ username, address }: FollowingProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: FollowingRequest = {
-    pageSize: PageSize.Fifty,
-    account: address
+    account: address,
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = useFollowingQuery({
@@ -50,6 +50,7 @@ const Following = ({ username, address }: FollowingProps) => {
   if (!followings?.length) {
     return (
       <EmptyState
+        hideCard
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
@@ -57,7 +58,6 @@ const Following = ({ username, address }: FollowingProps) => {
             <span>doesn't follow anyone.</span>
           </div>
         }
-        hideCard
       />
     );
   }
@@ -77,23 +77,23 @@ const Following = ({ username, address }: FollowingProps) => {
       <Virtualizer>
         {followings.map((following, index) => (
           <motion.div
-            key={following.following.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === followings.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={following.following.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={following.following}
               hideFollowButton={
                 currentAccount?.address === following.following.address
               }
               hideUnfollowButton={
                 currentAccount?.address === following.following.address
               }
-              account={following.following}
               showBio
               showUserPreview={false}
             />

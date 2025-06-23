@@ -1,3 +1,11 @@
+import { BellIcon } from "@heroicons/react/24/outline";
+import { NotificationFeedType } from "@hey/data/enums";
+import {
+  type NotificationRequest,
+  NotificationType,
+  useNotificationsQuery
+} from "@hey/indexer";
+import { WindowVirtualizer } from "virtua";
 import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";
 import CommentNotification from "@/components/Notification/Type/CommentNotification";
 import FollowNotification from "@/components/Notification/Type/FollowNotification";
@@ -10,25 +18,17 @@ import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
-import { BellIcon } from "@heroicons/react/24/outline";
-import { NotificationFeedType } from "@hey/data/enums";
-import {
-  type NotificationRequest,
-  NotificationType,
-  useNotificationsQuery
-} from "@hey/indexer";
-import { WindowVirtualizer } from "virtua";
 import NotificationShimmer from "./Shimmer";
 
 const notificationComponentMap = {
+  AccountActionExecutedNotification,
+  CommentNotification,
   FollowNotification,
   MentionNotification,
-  ReactionNotification,
-  CommentNotification,
-  RepostNotification,
-  QuoteNotification,
   PostActionExecutedNotification,
-  AccountActionExecutedNotification
+  QuoteNotification,
+  ReactionNotification,
+  RepostNotification
 } as const;
 
 interface ListProps {
@@ -115,10 +115,10 @@ const List = ({ feedType }: ListProps) => {
 
           return (
             <div
-              key={index}
               className={cn({
                 "p-5": notification.__typename !== "FollowNotification"
               })}
+              key={index}
             >
               {Component && <Component notification={notification as never} />}
             </div>

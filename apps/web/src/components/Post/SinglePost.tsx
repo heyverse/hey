@@ -1,7 +1,7 @@
-import ActionType from "@/components/Home/Timeline/EventType";
-import PostWrapper from "@/components/Shared/Post/PostWrapper";
 import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import { memo } from "react";
+import ActionType from "@/components/Home/Timeline/EventType";
+import PostWrapper from "@/components/Shared/Post/PostWrapper";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
@@ -32,9 +32,9 @@ const SinglePost = ({
         <PostType post={post} showType={showType} />
       )}
       <div className="flex items-start gap-x-3">
-        <PostAvatar timelineItem={timelineItem} post={rootPost} />
+        <PostAvatar post={rootPost} timelineItem={timelineItem} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader timelineItem={timelineItem} post={rootPost} />
+          <PostHeader post={rootPost} timelineItem={timelineItem} />
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : (

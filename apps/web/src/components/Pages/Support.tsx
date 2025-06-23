@@ -1,6 +1,6 @@
+import { Link } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
 import { Card, H3 } from "@/components/Shared/UI";
-import { Link } from "react-router";
 
 const Support = () => {
   return (
@@ -17,7 +17,7 @@ const Support = () => {
             <Link to="/guidelines">Community Guidelines</Link>
             <Link to="/terms">Terms of Service</Link>
             <Link to="/privacy">Hey Privacy Policy</Link>
-            <Link to="https://www.lens.xyz/privacy" target="_blank">
+            <Link target="_blank" to="https://www.lens.xyz/privacy">
               Lens Privacy Policy
             </Link>
             <Link to="/copyright">Copyright Policy</Link>

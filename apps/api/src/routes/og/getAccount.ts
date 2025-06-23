@@ -2,7 +2,7 @@ import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
 import escapeHtml from "@hey/helpers/escapeHtml";
 import { default as getAccountData } from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import { AccountDocument } from "@hey/indexer";
+import { AccountDocument, type AccountFragment } from "@hey/indexer";
 import type { Context } from "hono";
 import { html, raw } from "hono/html";
 import generateOg from "./ogUtils";
@@ -12,29 +12,7 @@ const getAccount = async (ctx: Context) => {
   const cacheKey = `og:account:${username}`;
 
   return generateOg({
-    ctx,
-    cacheKey,
-    query: AccountDocument,
-    variables: { request: { username: { localName: username } } },
-    extractData: (data) => data.account,
-    buildJsonLd: (account) => {
-      const { name, usernameWithPrefix } = getAccountData(account);
-      const title = `${name} (${usernameWithPrefix}) on Hey`;
-      const description = (account?.metadata?.bio || title).slice(0, 155);
-
-      return {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "@id": `https://hey.xyz/u/${username}`,
-        name,
-        alternateName: username,
-        description,
-        image: getAvatar(account, TRANSFORMS.AVATAR_BIG),
-        url: `https://hey.xyz/u/${username}`,
-        memberOf: { "@type": "Organization", name: "Hey.xyz" }
-      };
-    },
-    buildHtml: (account, escapedJsonLd) => {
+    buildHtml: (account: AccountFragment, escapedJsonLd: string) => {
       const { name, link, usernameWithPrefix } = getAccountData(account);
       const title = `${name} (${usernameWithPrefix}) on Hey`;
       const description = (account?.metadata?.bio || title).slice(0, 155);
@@ -75,7 +53,29 @@ const getAccount = async (ctx: Context) => {
           </body>
         </html>
       `;
-    }
+    },
+    buildJsonLd: (account) => {
+      const { name, usernameWithPrefix } = getAccountData(account);
+      const title = `${name} (${usernameWithPrefix}) on Hey`;
+      const description = (account?.metadata?.bio || title).slice(0, 155);
+
+      return {
+        "@context": "https://schema.org",
+        "@id": `https://hey.xyz/u/${username}`,
+        "@type": "Person",
+        alternateName: username,
+        description,
+        image: getAvatar(account, TRANSFORMS.AVATAR_BIG),
+        memberOf: { "@type": "Organization", name: "Hey.xyz" },
+        name,
+        url: `https://hey.xyz/u/${username}`
+      };
+    },
+    cacheKey,
+    ctx,
+    extractData: (data) => data.account,
+    query: AccountDocument,
+    variables: { request: { username: { localName: username } } }
   });
 };
 

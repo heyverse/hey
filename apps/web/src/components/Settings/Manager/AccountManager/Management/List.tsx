@@ -1,8 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   type AccountsAvailableRequest,
@@ -16,6 +11,11 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
 import { useAccount } from "wagmi";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import Loader from "@/components/Shared/Loader";
+import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 interface ListProps {
   managed?: boolean;
@@ -27,17 +27,17 @@ const List = ({ managed = false }: ListProps) => {
 
   const lastLoggedInAccountRequest: LastLoggedInAccountRequest = { address };
   const accountsAvailableRequest: AccountsAvailableRequest = {
-    managedBy: address,
     hiddenFilter: managed
       ? ManagedAccountsVisibility.NoneHidden
-      : ManagedAccountsVisibility.HiddenOnly
+      : ManagedAccountsVisibility.HiddenOnly,
+    managedBy: address
   };
 
   const { data, error, fetchMore, loading, refetch } =
     useAccountsAvailableQuery({
       variables: {
-        lastLoggedInAccountRequest,
-        accountsAvailableRequest
+        accountsAvailableRequest,
+        lastLoggedInAccountRequest
       }
     });
 
@@ -58,11 +58,11 @@ const List = ({ managed = false }: ListProps) => {
     if (hasMore) {
       await fetchMore({
         variables: {
-          lastLoggedInAccountRequest,
           accountsAvailableRequest: {
             ...accountsAvailableRequest,
             cursor: pageInfo.next
-          }
+          },
+          lastLoggedInAccountRequest
         }
       });
     }
@@ -129,9 +129,9 @@ const List = ({ managed = false }: ListProps) => {
           key={accountAvailable.account.address}
         >
           <SingleAccount
+            account={accountAvailable.account}
             hideFollowButton
             hideUnfollowButton
-            account={accountAvailable.account}
           />
           {address !== accountAvailable.account.owner && (
             <Button

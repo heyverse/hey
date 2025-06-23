@@ -1,3 +1,7 @@
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import getAvatar from "@hey/helpers/getAvatar";
+import type { AccountFragment } from "@hey/indexer";
+import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import Logout from "@/components/Shared/Navbar/NavItems/Logout";
@@ -8,10 +12,6 @@ import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import getAvatar from "@hey/helpers/getAvatar";
-import type { AccountFragment } from "@hey/indexer";
-import { Link } from "react-router";
 
 const SignedAccount = () => {
   const { currentAccount } = useAccountStore();
@@ -31,16 +31,16 @@ const SignedAccount = () => {
       </MenuButton>
       <MenuTransition>
         <MenuItems
+          anchor="bottom start"
           className="z-[5] mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-black"
           static
-          anchor="bottom start"
         >
           <MenuItem
+            account={currentAccount as AccountFragment}
             as={AccountLink}
             className={({ focus }: { focus: boolean }) =>
               cn({ "dropdown-active": focus }, "menu-item")
             }
-            account={currentAccount as AccountFragment}
           >
             <YourAccount />
           </MenuItem>

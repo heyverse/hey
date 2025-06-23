@@ -1,10 +1,3 @@
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
-import LoginButton from "@/components/Shared/LoginButton";
-import { Button, Spinner } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import getCollectActionData from "@/helpers/getCollectActionData";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY } from "@hey/data/constants";
 import {
@@ -16,6 +9,13 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import LoginButton from "@/components/Shared/LoginButton";
+import { Button, Spinner } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import getCollectActionData from "@/helpers/getCollectActionData";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface CollectActionButtonProps {
   collects: number;
@@ -85,12 +85,12 @@ const CollectActionButton = ({
   };
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
-    variables: {
-      request: { address: currentAccount?.address, tokens: [assetAddress] }
-    },
+    fetchPolicy: "no-cache",
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    variables: {
+      request: { address: currentAccount?.address, tokens: [assetAddress] }
+    }
   });
 
   const tokenBalance =
@@ -112,9 +112,9 @@ const CollectActionButton = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: executePostAction,
         onCompleted,
-        onError
+        onError,
+        transactionData: executePostAction
       });
     },
     onError
@@ -126,13 +126,13 @@ const CollectActionButton = ({
     return await executePostAction({
       variables: {
         request: {
-          post: post.id,
           action: {
             simpleCollect: {
-              selected: true,
-              referrals: [{ address: HEY_TREASURY, percent: 100 }]
+              referrals: [{ address: HEY_TREASURY, percent: 100 }],
+              selected: true
             }
-          }
+          },
+          post: post.id
         }
       }
     });
@@ -168,9 +168,9 @@ const CollectActionButton = ({
   if (!hasAmount) {
     return (
       <TopUpButton
+        amountToTopUp={Math.ceil((amount - Number(tokenBalance)) * 20) / 20}
         className="mt-5 w-full"
         token={{ contractAddress: assetAddress, symbol: assetSymbol }}
-        amountToTopUp={Math.ceil((amount - Number(tokenBalance)) * 20) / 20}
       />
     );
   }

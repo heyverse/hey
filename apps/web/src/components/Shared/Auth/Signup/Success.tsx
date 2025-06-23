@@ -1,11 +1,11 @@
-import { H4, Image } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import { signIn } from "@/store/persisted/useAuthStore";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { ERRORS } from "@hey/data/errors";
 import { useSwitchAccountMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useEffect } from "react";
+import { H4, Image } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import { signIn } from "@/store/persisted/useAuthStore";
 import { useSignupStore } from ".";
 
 const Success = () => {
@@ -51,8 +51,8 @@ const Success = () => {
       <Image
         alt="Dizzy emoji"
         className="mx-auto mt-8 size-14"
-        src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
         height={56}
+        src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
         width={56}
       />
       <i className="mt-8 text-gray-500 dark:text-gray-200">

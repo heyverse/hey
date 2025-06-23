@@ -1,5 +1,5 @@
-import { hono } from "@/helpers/fetcher";
 import { useQuery } from "@tanstack/react-query";
+import { hono } from "@/helpers/fetcher";
 import Embed from "./Embed";
 import EmptyOembed from "./EmptyOembed";
 
@@ -9,9 +9,9 @@ interface OembedProps {
 
 const Oembed = ({ url }: OembedProps) => {
   const { data, error, isLoading } = useQuery({
+    enabled: Boolean(url),
     queryFn: () => hono.oembed.get(url),
-    queryKey: ["oembed", url],
-    enabled: Boolean(url)
+    queryKey: ["oembed", url]
   });
 
   if (isLoading || error || !data) {

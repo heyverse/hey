@@ -1,6 +1,6 @@
+import { Link } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
 import { H2, H4 } from "@/components/Shared/UI";
-import { Link } from "react-router";
 
 const Copyright = () => {
   const updatedAt = "October 22, 2024";
@@ -38,8 +38,8 @@ const Copyright = () => {
                   1998, the text of which may be found on the U.S. Copyright
                   Office website at{" "}
                   <Link
-                    to="http://www.copyright.gov/legislation/dmca.pdf"
                     target="_blank"
+                    to="http://www.copyright.gov/legislation/dmca.pdf"
                   >
                     http://www.copyright.gov/legislation/dmca.pdf
                   </Link>

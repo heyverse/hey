@@ -1,8 +1,8 @@
+import { useState } from "react";
+import { useAccount } from "wagmi";
 import Login from "@/components/Shared/Auth/Login";
 import { SignupMessage } from "@/components/Shared/Auth/Signup/ChooseUsername";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { useState } from "react";
-import { useAccount } from "wagmi";
 import AuthMessage from "./AuthMessage";
 import Signup from "./Signup";
 

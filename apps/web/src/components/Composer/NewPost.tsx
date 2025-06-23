@@ -1,9 +1,9 @@
-import { Card, Image } from "@/components/Shared/UI";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAvatar from "@hey/helpers/getAvatar";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
+import { Card, Image } from "@/components/Shared/UI";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import NewPublication from "./NewPublication";
 
 interface NewPostProps {

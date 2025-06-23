@@ -1,11 +1,11 @@
-import ChooseFile from "@/components/Shared/ChooseFile";
-import { Button, Image, Modal } from "@/components/Shared/UI";
-import useImageCropUpload from "@/hooks/useImageCropUpload";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@hey/data/constants";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { SyntheticEvent } from "react";
 import Cropper from "react-easy-crop";
+import ChooseFile from "@/components/Shared/ChooseFile";
+import { Button, Image, Modal } from "@/components/Shared/UI";
+import useImageCropUpload from "@/hooks/useImageCropUpload";
 
 interface CoverUploadProps {
   src: string;
@@ -28,11 +28,11 @@ const CoverUpload = ({ src, setSrc }: CoverUploadProps) => {
     handleUploadAndSave,
     handleModalClose
   } = useImageCropUpload({
-    src,
-    setSrc,
     aspect: 1350 / 350,
-    transform: TRANSFORMS.COVER,
-    label: "cover"
+    label: "cover",
+    setSrc,
+    src,
+    transform: TRANSFORMS.COVER
   });
 
   return (
@@ -63,13 +63,13 @@ const CoverUpload = ({ src, setSrc }: CoverUploadProps) => {
         <div className="space-y-5 p-5">
           <div className="relative flex size-64 w-full">
             <Cropper
-              image={pictureSrc}
-              crop={crop}
-              zoom={zoom}
               aspect={1350 / 350}
+              crop={crop}
+              image={pictureSrc}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}
+              zoom={zoom}
             />
           </div>
           <div className="flex w-full flex-wrap items-center justify-between gap-y-3">

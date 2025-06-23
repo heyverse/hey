@@ -65,10 +65,10 @@ const useEmojis = ({
   }, [query, allEmojis, limit, minQueryLength]);
 
   return {
+    allEmojis,
     emojis,
     error: error as Error | null,
-    isLoading,
-    allEmojis
+    isLoading
   };
 };
 

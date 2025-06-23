@@ -1,11 +1,11 @@
-import ChooseFile from "@/components/Shared/ChooseFile";
-import { Button, Image, Modal } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import useImageCropUpload from "@/hooks/useImageCropUpload";
 import { TRANSFORMS } from "@hey/data/constants";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { SyntheticEvent } from "react";
 import Cropper from "react-easy-crop";
+import ChooseFile from "@/components/Shared/ChooseFile";
+import { Button, Image, Modal } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import useImageCropUpload from "@/hooks/useImageCropUpload";
 
 interface AvatarUploadProps {
   src: string;
@@ -29,11 +29,11 @@ const AvatarUpload = ({ src, setSrc, isSmall = false }: AvatarUploadProps) => {
     handleUploadAndSave,
     handleModalClose
   } = useImageCropUpload({
-    src,
-    setSrc,
     aspect: 1,
-    transform: TRANSFORMS.AVATAR_BIG,
-    label: "avatar"
+    label: "avatar",
+    setSrc,
+    src,
+    transform: TRANSFORMS.AVATAR_BIG
   });
 
   return (
@@ -62,14 +62,14 @@ const AvatarUpload = ({ src, setSrc, isSmall = false }: AvatarUploadProps) => {
         <div className="space-y-5 p-5">
           <div className="relative flex size-64 w-full">
             <Cropper
+              aspect={1}
+              crop={crop}
               cropShape="round"
               image={pictureSrc}
-              crop={crop}
-              zoom={zoom}
-              aspect={1}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}
+              zoom={zoom}
             />
           </div>
           <Button

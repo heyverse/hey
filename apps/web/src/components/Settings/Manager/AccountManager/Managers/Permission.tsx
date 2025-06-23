@@ -1,8 +1,3 @@
-import { Checkbox } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import {
   type AccountManagerFragment,
@@ -10,6 +5,11 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
+import { Checkbox } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface PermissionProps {
   title: string;
@@ -26,14 +26,14 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
 
   const updateCache = () => {
     cache.modify({
-      id: cache.identify(manager),
       fields: {
         permissions: (existingData) => ({
           ...existingData,
           canTransferNative: !enabled,
           canTransferTokens: !enabled
         })
-      }
+      },
+      id: cache.identify(manager)
     });
   };
 
@@ -50,9 +50,9 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
   const [updateAccountManager] = useUpdateAccountManagerMutation({
     onCompleted: async ({ updateAccountManager }) => {
       return await handleTransactionLifecycle({
-        transactionData: updateAccountManager,
         onCompleted,
-        onError
+        onError,
+        transactionData: updateAccountManager
       });
     },
     onError
@@ -70,10 +70,10 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
         request: {
           manager: manager.manager,
           permissions: {
-            canTransferNative: !enabled,
-            canTransferTokens: !enabled,
             canExecuteTransactions: true,
-            canSetMetadataUri: true
+            canSetMetadataUri: true,
+            canTransferNative: !enabled,
+            canTransferTokens: !enabled
           }
         }
       }
@@ -83,10 +83,10 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
   return (
     <div className="text-gray-500 text-sm">
       <Checkbox
-        label={title}
         checked={enabled}
-        onChange={handleUpdateManager}
         disabled={isSubmitting}
+        label={title}
+        onChange={handleUpdateManager}
       />
     </div>
   );

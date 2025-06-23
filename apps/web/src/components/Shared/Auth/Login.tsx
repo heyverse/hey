@@ -1,10 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import Loader from "@/components/Shared/Loader";
-import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import { signIn } from "@/store/persisted/useAuthStore";
-import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { EXPANSION_EASE } from "@/variants";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { HEY_APP, IS_MAINNET } from "@hey/data/constants";
 import { ERRORS } from "@hey/data/errors";
@@ -20,6 +13,13 @@ import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useDisconnect, useSignMessage } from "wagmi";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import Loader from "@/components/Shared/Loader";
+import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
+import { signIn } from "@/store/persisted/useAuthStore";
+import { EXPANSION_EASE } from "@/variants";
 import SignupCard from "./SignupCard";
 import WalletSelector from "./WalletSelector";
 
@@ -59,8 +59,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     skip: !address,
     variables: {
       accountsAvailableRequest: {
-        managedBy: address,
-        hiddenFilter: ManagedAccountsVisibility.NoneHidden
+        hiddenFilter: ManagedAccountsVisibility.NoneHidden,
+        managedBy: address
       },
       lastLoggedInAccountRequest: { address }
     }
@@ -85,7 +85,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         __typename === "AccountManaged" && a.address === account
     );
 
-    const meta = { app: IS_MAINNET ? HEY_APP : undefined, account };
+    const meta = { account, app: IS_MAINNET ? HEY_APP : undefined };
     const request: ChallengeRequest = isManager
       ? { accountManager: { manager: address, ...meta } }
       : { accountOwner: { owner: address, ...meta } };
@@ -132,8 +132,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         {errorChallenge || errorAuthenticate ? (
           <ErrorMessage
             className="text-red-500"
-            title={ERRORS.SomethingWentWrong}
             error={errorChallenge || errorAuthenticate}
+            title={ERRORS.SomethingWentWrong}
           />
         ) : null}
         {loading ? (
@@ -148,13 +148,13 @@ const Login = ({ setHasAccounts }: LoginProps) => {
           <AnimatePresence mode="popLayout">
             {isExpanded && (
               <motion.div
-                initial="hidden"
                 animate="visible"
+                initial="hidden"
                 variants={{
-                  hidden: { opacity: 0, height: 0, overflow: "hidden" },
+                  hidden: { height: 0, opacity: 0, overflow: "hidden" },
                   visible: {
-                    opacity: 1,
                     height: "auto",
+                    opacity: 1,
                     transition: { duration: 0.2, ease: EXPANSION_EASE }
                   }
                 }}
@@ -165,27 +165,27 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                 >
                   {accounts.map((account, index) => (
                     <motion.div
+                      className="flex items-center justify-between p-3"
+                      custom={index}
                       key={account.address}
                       variants={{
                         hidden: { opacity: 0, y: 20 },
                         visible: {
                           opacity: 1,
-                          y: 0,
-                          transition: { duration: 0.1 }
+                          transition: { duration: 0.1 },
+                          y: 0
                         }
                       }}
-                      custom={index}
-                      className="flex items-center justify-between p-3"
                       whileHover={{
                         backgroundColor: "rgba(0, 0, 0, 0.05)",
                         transition: { duration: 0.2 }
                       }}
                     >
                       <SingleAccount
+                        account={account}
                         hideFollowButton
                         hideUnfollowButton
                         linkToAccount={false}
-                        account={account}
                         showUserPreview={false}
                       />
                       <Button

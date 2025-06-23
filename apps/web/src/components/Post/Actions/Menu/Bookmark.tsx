@@ -1,6 +1,3 @@
-import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import type { ApolloCache } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { BookmarkIcon as BookmarkIconOutline } from "@heroicons/react/24/outline";
@@ -13,6 +10,9 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useLocation } from "react-router";
 import { toast } from "sonner";
+import cn from "@/helpers/cn";
+import errorToast from "@/helpers/errorToast";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface BookmarkProps {
   post: PostFragment;

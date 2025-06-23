@@ -1,8 +1,8 @@
+import type { AccountActionExecutedNotificationFragment } from "@hey/indexer";
+import plur from "plur";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
-import type { AccountActionExecutedNotificationFragment } from "@hey/indexer";
-import plur from "plur";
 
 interface AccountActionExecutedNotificationProps {
   notification: AccountActionExecutedNotificationFragment;

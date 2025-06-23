@@ -1,5 +1,5 @@
-import { Badge } from "@/components/Shared/UI";
 import { SparklesIcon } from "@heroicons/react/24/solid";
+import { Badge } from "@/components/Shared/UI";
 
 const New = () => {
   return (

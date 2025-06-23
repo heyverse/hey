@@ -6,8 +6,8 @@ interface State {
 }
 
 const { useStore: useProModalStore } = createTrackedStore<State>((set) => ({
-  showProModal: false,
-  setShowProModal: (showProModal) => set(() => ({ showProModal }))
+  setShowProModal: (showProModal) => set(() => ({ showProModal })),
+  showProModal: false
 }));
 
 export { useProModalStore };

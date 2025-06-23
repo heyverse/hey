@@ -1,12 +1,3 @@
-import Skeleton from "@/components/Shared/Skeleton";
-import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import {
-  type FundingToken,
-  useFundModalStore
-} from "@/store/non-persisted/modal/useFundModalStore";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { NATIVE_TOKEN_SYMBOL, NULL_ADDRESS } from "@hey/data/constants";
 import { useBalancesBulkQuery, useDepositMutation } from "@hey/indexer";
@@ -21,6 +12,15 @@ import {
 import { toast } from "sonner";
 import type { Hex } from "viem";
 import { useAccount, useWaitForTransactionReceipt } from "wagmi";
+import Skeleton from "@/components/Shared/Skeleton";
+import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import {
+  type FundingToken,
+  useFundModalStore
+} from "@/store/non-persisted/modal/useFundModalStore";
 
 interface TransferProps {
   token?: FundingToken;
@@ -39,6 +39,9 @@ const Transfer = ({ token }: TransferProps) => {
   const symbol = token?.symbol ?? NATIVE_TOKEN_SYMBOL;
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 3000,
+    skip: !address,
     variables: {
       request: {
         address,
@@ -46,10 +49,7 @@ const Transfer = ({ token }: TransferProps) => {
           ? { tokens: [token?.contractAddress] }
           : { includeNative: true })
       }
-    },
-    pollInterval: 3000,
-    skip: !address,
-    fetchPolicy: "no-cache"
+    }
   });
 
   const onCompleted = async () => {
@@ -84,9 +84,9 @@ const Transfer = ({ token }: TransferProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: deposit,
         onCompleted: (hash) => setTxHash(hash as Hex),
-        onError
+        onError,
+        transactionData: deposit
       });
     },
     onError
@@ -109,10 +109,7 @@ const Transfer = ({ token }: TransferProps) => {
     setOther(false);
   };
 
-  const buildDepositRequest = (
-    amount: number,
-    token?: FundingToken
-  ) => {
+  const buildDepositRequest = (amount: number, token?: FundingToken) => {
     if (!token) {
       return { native: amount.toString() };
     }
@@ -185,8 +182,8 @@ const Transfer = ({ token }: TransferProps) => {
               className="no-spinner"
               max={1000}
               onChange={onOtherAmount}
-              prefix={symbol}
               placeholder="300"
+              prefix={symbol}
               ref={inputRef}
               type="number"
               value={amount}
@@ -201,27 +198,27 @@ const Transfer = ({ token }: TransferProps) => {
           />
         ) : Number(tokenBalance) < amount ? (
           <Button
+            className="w-full"
             onClick={() => {
               const params = new URLSearchParams({
-                utm_source: "hey.xyz",
-                utm_medium: "sites",
-                isExactOut: "false",
                 inputChain: "lens",
-                outToken: token?.contractAddress ?? NULL_ADDRESS
+                isExactOut: "false",
+                outToken: token?.contractAddress ?? NULL_ADDRESS,
+                utm_medium: "sites",
+                utm_source: "hey.xyz"
               });
 
               window.open(`https://oku.trade/?${params.toString()}`, "_blank");
             }}
-            className="w-full"
           >
             <span>Buy on Oku.trade</span>
             <ArrowUpRightIcon className="size-4" />
           </Button>
         ) : (
           <Button
+            className="w-full"
             disabled={isSubmitting || amount === 0}
             loading={isSubmitting}
-            className="w-full"
             onClick={handleDeposit}
           >
             Purchase {amount} {symbol}

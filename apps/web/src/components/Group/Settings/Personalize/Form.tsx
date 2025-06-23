@@ -1,3 +1,11 @@
+import { ERRORS } from "@hey/data/errors";
+import { Regex } from "@hey/data/regex";
+import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import { group as groupMetadata } from "@lens-protocol/metadata";
+import { useState } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
 import BackButton from "@/components/Shared/BackButton";
 import CoverUpload from "@/components/Shared/CoverUpload";
@@ -14,25 +22,17 @@ import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { ERRORS } from "@hey/data/errors";
-import { Regex } from "@hey/data/regex";
-import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
-import { group as groupMetadata } from "@lens-protocol/metadata";
-import { useState } from "react";
-import { toast } from "sonner";
-import { z } from "zod";
 
 const ValidationSchema = z.object({
+  description: z.string().max(260, {
+    message: "Description should not exceed 260 characters"
+  }),
   name: z
     .string()
     .max(100, { message: "Name should not exceed 100 characters" })
     .regex(Regex.username, {
       message: "Name must not contain spaces or special characters"
-    }),
-  description: z.string().max(260, {
-    message: "Description should not exceed 260 characters"
-  })
+    })
 });
 
 interface PersonalizeSettingsFormProps {
@@ -67,9 +67,9 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: setGroupMetadata,
         onCompleted,
-        onError
+        onError,
+        transactionData: setGroupMetadata
       });
     },
     onError
@@ -77,8 +77,8 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
 
   const form = useZodForm({
     defaultValues: {
-      name: group?.metadata?.name || "",
-      description: group?.metadata?.description || ""
+      description: group?.metadata?.description || "",
+      name: group?.metadata?.name || ""
     },
     schema: ValidationSchema
   });
@@ -96,10 +96,10 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
 
     const metadataUri = await uploadMetadata(
       groupMetadata({
-        name: data.name,
+        coverPicture: coverUrl || undefined,
         description: data.description,
         icon: pfpUrl || undefined,
-        coverPicture: coverUrl || undefined
+        name: data.name
       })
     );
 
@@ -146,8 +146,8 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
           placeholder="Tell us something about your group!"
           {...form.register("description")}
         />
-        <AvatarUpload src={pfpUrl || ""} setSrc={onSetAvatar} />
-        <CoverUpload src={coverUrl || ""} setSrc={onSetCover} />
+        <AvatarUpload setSrc={onSetAvatar} src={pfpUrl || ""} />
+        <CoverUpload setSrc={onSetCover} src={coverUrl || ""} />
         <Button
           className="ml-auto"
           disabled={

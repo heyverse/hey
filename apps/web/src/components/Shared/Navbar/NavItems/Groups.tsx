@@ -1,5 +1,5 @@
-import cn from "@/helpers/cn";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
+import cn from "@/helpers/cn";
 
 interface GroupsProps {
   className?: string;

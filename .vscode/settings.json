@@ -1,13 +1,5 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "biomejs.biome",
   "[javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[json]": {
@@ -20,19 +12,26 @@
     "editor.defaultFormatter": "NomicFoundation.hardhat-solidity",
     "editor.tabSize": 1
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
   "editor.codeActionsOnSave": {
-    "quickfix.biome": "explicit",
-    "source.organizeImports": "explicit"
+    "source.fixAll.biome": "explicit"
   },
-  "search.exclude": {
-    "**/node_modules": true
-  },
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.fontFamily": "MonoLisa, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 12,
+  "editor.formatOnSave": true,
+  "editor.insertSpaces": true,
+  "editor.lineHeight": 2.3,
+  "editor.tabSize": 2,
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
-  "editor.fontSize": 12,
-  "editor.lineHeight": 2.3,
-  "editor.insertSpaces": true,
-  "editor.tabSize": 2,
-  "editor.fontFamily": "MonoLisa, Menlo, Monaco, 'Courier New', monospace"
+  "search.exclude": {
+    "**/node_modules": true
+  }
 }

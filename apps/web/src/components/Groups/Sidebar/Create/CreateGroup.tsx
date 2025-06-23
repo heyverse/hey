@@ -1,7 +1,7 @@
-import { Button, Card, H5, Modal } from "@/components/Shared/UI";
 import { useState } from "react";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
+import { Button, Card, H5, Modal } from "@/components/Shared/UI";
 import CreateGroupModal from "./CreateGroupModal";
 import Minting from "./Minting";
 import Success from "./Success";
@@ -16,12 +16,12 @@ interface CreateGroupState {
 }
 
 const store = create<CreateGroupState>((set) => ({
-  screen: "details",
-  transactionHash: "",
   groupAddress: "",
+  screen: "details",
+  setGroupAddress: (address) => set({ groupAddress: address }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
-  setGroupAddress: (address) => set({ groupAddress: address })
+  transactionHash: ""
 }));
 
 export const useCreateGroupStore = createTrackedSelector(store);

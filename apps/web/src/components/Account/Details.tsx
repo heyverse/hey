@@ -1,3 +1,12 @@
+import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
+import getAccount from "@hey/helpers/getAccount";
+import getAvatar from "@hey/helpers/getAvatar";
+import type { AccountFragment } from "@hey/indexer";
+import type { ReactNode } from "react";
+import { useCallback, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import FollowUnfollowButton from "@/components/Shared/Account/FollowUnfollowButton";
 import TipButton from "@/components/Shared/Account/TipButton";
 import Markup from "@/components/Shared/Markup";
@@ -10,15 +19,6 @@ import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
-import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
-import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
-import type { AccountFragment } from "@hey/indexer";
-import type { ReactNode } from "react";
-import { useState, useCallback } from "react";
-import { Link, useNavigate } from "react-router";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import AccountMenu from "./Menu";
@@ -61,13 +61,13 @@ const Details = ({
     return (
       <MetaDetails icon={icon}>
         <Link
+          rel="noreferrer noopener"
+          target="_blank"
           to={
             attribute === "website"
               ? `https://${value.replace(/https?:\/\//, "")}`
               : `https://x.com/${value.replace("https://x.com/", "")}`
           }
-          rel="noreferrer noopener"
-          target="_blank"
         >
           {value.replace(/https?:\/\//, "")}
         </Link>
@@ -88,9 +88,9 @@ const Details = ({
             width={128}
           />
           <LightBox
+            images={[getAvatar(account, TRANSFORMS.EXPANDED_AVATAR)]}
             onClose={handleCloseLightBox}
             show={showLightBox}
-            images={[getAvatar(account, TRANSFORMS.EXPANDED_AVATAR)]}
           />
         </div>
         <div className="flex items-center gap-x-2">
@@ -148,8 +148,8 @@ const Details = ({
         !hasBlockedMe &&
         currentAccount?.address !== account.address ? (
           <FollowersYouKnowOverview
-            username={getAccount(account).username}
             address={account.address}
+            username={getAccount(account).username}
           />
         ) : null}
         <div className="flex flex-wrap gap-x-5 gap-y-2">

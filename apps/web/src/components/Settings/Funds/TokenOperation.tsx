@@ -1,10 +1,10 @@
+import type { ApolloClientError } from "@hey/types/errors";
+import { useState } from "react";
+import { toast } from "sonner";
 import { Button, Input, Modal } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
-import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
-import { toast } from "sonner";
 
 interface TokenOperationProps {
   useMutationHook: any;
@@ -54,9 +54,9 @@ const TokenOperation = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: result,
         onCompleted,
-        onError
+        onError,
+        transactionData: result
       });
     },
     onError
@@ -71,32 +71,32 @@ const TokenOperation = ({
   return (
     <>
       <Button
-        size="sm"
-        outline
-        onClick={() => setShowModal(true)}
         disabled={isSubmitting || inputValue === "0"}
         loading={isSubmitting}
+        onClick={() => setShowModal(true)}
+        outline
+        size="sm"
       >
         {buttonLabel}
       </Button>
-      <Modal title={title} show={showModal} onClose={() => setShowModal(false)}>
+      <Modal onClose={() => setShowModal(false)} show={showModal} title={title}>
         <div className="p-5">
           <div className="mb-5 flex items-center gap-2">
             <Input
+              onChange={(e) => setInputValue(e.target.value)}
               type="number"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
             />
-            <Button size="lg" onClick={() => setInputValue(value)}>
+            <Button onClick={() => setInputValue(value)} size="lg">
               Max
             </Button>
           </div>
           <Button
             className="w-full"
-            size="lg"
-            onClick={handleSubmit}
             disabled={isSubmitting || !inputValue || inputValue === "0"}
             loading={isSubmitting}
+            onClick={handleSubmit}
+            size="lg"
           >
             {title}
           </Button>

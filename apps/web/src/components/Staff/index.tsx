@@ -11,7 +11,7 @@ const Staff = () => {
   }
 
   return (
-    <PageLayout title="Staff" sidebar={null}>
+    <PageLayout sidebar={null} title="Staff">
       <Overview />
     </PageLayout>
   );

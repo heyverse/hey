@@ -1,16 +1,19 @@
+import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
+import { useBalancesBulkQuery } from "@hey/indexer";
 import Loader from "@/components/Shared/Loader";
 import { Image } from "@/components/Shared/UI";
 import getTokenImage from "@/helpers/getTokenImage";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
-import { useBalancesBulkQuery } from "@hey/indexer";
 import Transfer from "./Transfer";
 
 const TopUp = () => {
   const { currentAccount } = useAccountStore();
   const { token } = useFundModalStore();
   const { data: balance, loading } = useBalancesBulkQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
     variables: {
       request: {
         address: currentAccount?.address,
@@ -18,14 +21,11 @@ const TopUp = () => {
           ? { tokens: [token?.contractAddress] }
           : { includeNative: true })
       }
-    },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    }
   });
 
   if (loading) {
-    return <Loader message="Loading balance..." className="my-10" />;
+    return <Loader className="my-10" message="Loading balance..." />;
   }
 
   const tokenBalance =
@@ -39,9 +39,9 @@ const TopUp = () => {
     <div className="m-5">
       <div className="flex flex-col items-center gap-2 text-center">
         <Image
+          alt={token?.symbol}
           className="size-12 rounded-full"
           src={getTokenImage(token?.symbol)}
-          alt={token?.symbol}
         />
         <div className="font-bold text-2xl">
           {tokenBalance} {token?.symbol ?? NATIVE_TOKEN_SYMBOL}

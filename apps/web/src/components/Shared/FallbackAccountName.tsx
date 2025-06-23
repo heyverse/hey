@@ -1,8 +1,8 @@
-import AccountLink from "@/components/Shared/Account/AccountLink";
-import cn from "@/helpers/cn";
 import getAccount from "@hey/helpers/getAccount";
 import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import cn from "@/helpers/cn";
 import Slug from "./Slug";
 
 interface FallbackAccountNameProps {
@@ -28,12 +28,12 @@ const FallbackAccountName = ({
   return (
     <>
       <AccountLink
+        account={account}
         aria-label={`Account of ${name || usernameWithPrefix}`}
         className={cn(
           "max-w-sm truncate outline-hidden hover:underline focus:underline",
           className
         )}
-        account={account}
       >
         <b className="whitespace-nowrap">{accountName}</b>
       </AccountLink>

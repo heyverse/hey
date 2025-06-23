@@ -1,6 +1,6 @@
-import { Modal, Tooltip } from "@/components/Shared/UI";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { Modal, Tooltip } from "@/components/Shared/UI";
 import Rules from "./Rules";
 
 const RulesSettings = () => {

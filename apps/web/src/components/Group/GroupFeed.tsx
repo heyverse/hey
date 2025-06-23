@@ -1,7 +1,7 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 
 interface GroupFeedProps {
   feed: string;
@@ -38,14 +38,14 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
 
   return (
     <PostFeed
-      items={filteredPosts}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
       emptyMessage="Group has no posts yet!"
+      error={error}
       errorTitle="Failed to load group feed"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={filteredPosts}
+      loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

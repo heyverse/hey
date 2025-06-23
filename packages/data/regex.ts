@@ -11,18 +11,18 @@ const MENTION_BODY = "([\\dA-Za-z]\\w{1,25})";
 const EDITOR_MENTION = "([\\dA-Za-z]\\w*)"; // This will start searching for mentions after the first character
 
 export const Regex = {
+  // Match string like @someone.
+  accountNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, "gu"),
+  accountNameValidator: new RegExp(`^[^${RESTRICTED_SYMBOLS}]+$`),
   evmAddress: /^(0x)?[\da-f]{40}$/i,
-  username: /^[\dA-Za-z]\w{1,25}$/g,
   // Match string like @lens/someone.
   mention: new RegExp(
     `${MATCH_BEHIND}@${MENTION_NAMESPACE}${MENTION_BODY}`,
     "g"
   ),
-  // Match string like @someone.
-  accountNameFilter: new RegExp(`[${RESTRICTED_SYMBOLS}]`, "gu"),
-  accountNameValidator: new RegExp(`^[^${RESTRICTED_SYMBOLS}]+$`),
   // modified version of https://stackoverflow.com/a/6041965/961254 to support unicode international characters
-  url: /\b(http|https):\/\/([\p{L}\p{N}_-]+(?:(?:\.[\p{L}\p{N}_-]+)+))([\p{L}\p{N}_.,@?^=%&:\/~+#-]*[\p{L}\p{N}_@?^=%&\/~+#-])/gu
+  url: /\b(http|https):\/\/([\p{L}\p{N}_-]+(?:(?:\.[\p{L}\p{N}_-]+)+))([\p{L}\p{N}_.,@?^=%&:/~+#-]*[\p{L}\p{N}_@?^=%&/~+#-])/gu,
+  username: /^[\dA-Za-z]\w{1,25}$/g
 };
 
 export const EditorRegex = {

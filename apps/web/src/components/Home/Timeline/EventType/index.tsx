@@ -1,5 +1,5 @@
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import type { TimelineItemFragment } from "@hey/indexer";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Combined from "./Combined";
 import Reposted from "./Reposted";
 

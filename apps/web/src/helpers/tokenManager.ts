@@ -1,7 +1,7 @@
-import { signIn, signOut } from "@/store/persisted/useAuthStore";
 import parseJwt from "@hey/helpers/parseJwt";
 import { RefreshDocument, type RefreshMutation } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
+import { signIn, signOut } from "@/store/persisted/useAuthStore";
 
 let refreshPromise: Promise<string> | null = null;
 const MAX_RETRIES = 5;

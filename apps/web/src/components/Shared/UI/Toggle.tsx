@@ -1,6 +1,6 @@
-import cn from "@/helpers/cn";
 import { Switch } from "@headlessui/react";
 import { memo } from "react";
+import cn from "@/helpers/cn";
 
 interface ToggleProps {
   disabled?: boolean;
@@ -12,8 +12,6 @@ const Toggle = ({ disabled = false, on, setOn }: ToggleProps) => {
   return (
     <Switch
       checked={on}
-      onChange={setOn}
-      disabled={disabled}
       className={({ checked }) =>
         cn(
           checked ? "bg-black dark:bg-white" : "bg-gray-200 dark:bg-gray-500",
@@ -21,6 +19,8 @@ const Toggle = ({ disabled = false, on, setOn }: ToggleProps) => {
           "inline-flex h-[22px] w-[42.5px] min-w-[42.5px] items-center rounded-full border-2 border-transparent outline-hidden duration-200 ease-in-out"
         )
       }
+      disabled={disabled}
+      onChange={setOn}
     >
       <span
         className={cn(

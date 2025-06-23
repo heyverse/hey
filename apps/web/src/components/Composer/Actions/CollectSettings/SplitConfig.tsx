@@ -1,10 +1,3 @@
-import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
-import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
-import { Button, H6, Input } from "@/components/Shared/UI";
-import splitNumber from "@/helpers/splitNumber";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { EXPANSION_EASE } from "@/variants";
 import {
   ArrowsRightLeftIcon,
   PlusIcon,
@@ -16,6 +9,13 @@ import type { CollectActionType } from "@hey/types/hey";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { isAddress } from "viem";
+import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
+import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
+import { Button, H6, Input } from "@/components/Shared/UI";
+import splitNumber from "@/helpers/splitNumber";
+import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { EXPANSION_EASE } from "@/variants";
 
 interface SplitConfigProps {
   isRecipientsDuplicated: boolean;
@@ -128,14 +128,14 @@ const SplitConfig = ({
       />
       {isToggleOn ? (
         <motion.div
+          animate="visible"
           className="mt-4 ml-8 space-y-3"
           initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0, height: 0, y: -20 },
-            visible: { opacity: 1, height: "auto", y: 0 }
-          }}
           transition={{ duration: 0.2, ease: EXPANSION_EASE }}
+          variants={{
+            hidden: { height: 0, opacity: 0, y: -20 },
+            visible: { height: "auto", opacity: 1, y: 0 }
+          }}
         >
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
@@ -149,11 +149,11 @@ const SplitConfig = ({
                     !isAddress(recipient.address)
                   }
                   hideDropdown={isAddress(recipient.address)}
-                  onChange={(event) =>
-                    updateRecipient(index, event.target.value)
-                  }
                   onAccountSelected={(account) =>
                     updateRecipient(index, account.owner)
+                  }
+                  onChange={(event) =>
+                    updateRecipient(index, event.target.value)
                   }
                   placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
                   value={recipient.address}

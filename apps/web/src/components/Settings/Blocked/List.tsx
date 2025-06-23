@@ -1,9 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
-import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   type AccountsBlockedRequest,
@@ -11,6 +5,12 @@ import {
   useAccountsBlockedQuery
 } from "@hey/indexer";
 import { WindowVirtualizer } from "virtua";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import Loader from "@/components/Shared/Loader";
+import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const List = () => {
   const { currentAccount } = useAccountStore();
@@ -65,9 +65,9 @@ const List = () => {
             key={accountBlocked.account.address}
           >
             <SingleAccount
+              account={accountBlocked.account}
               hideFollowButton
               hideUnfollowButton
-              account={accountBlocked.account}
             />
             <Button
               onClick={() =>

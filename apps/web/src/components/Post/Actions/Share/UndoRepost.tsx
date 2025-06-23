@@ -1,7 +1,3 @@
-import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
@@ -10,6 +6,10 @@ import { isRepost } from "@hey/helpers/postHelpers";
 import { type AnyPostFragment, useDeletePostMutation } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
+import cn from "@/helpers/cn";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface UndoRepostProps {
   post: AnyPostFragment;
@@ -30,12 +30,12 @@ const UndoRepost = ({
 
   const updateCache = () => {
     cache.modify({
-      id: cache.identify(targetPost),
       fields: {
         stats(existing = {}) {
           return { ...existing, reposts: existing.reposts - 1 };
         }
-      }
+      },
+      id: cache.identify(targetPost)
     });
     cache.evict({ id: cache.identify(post) });
   };
@@ -58,9 +58,9 @@ const UndoRepost = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: deletePost,
         onCompleted,
-        onError
+        onError,
+        transactionData: deletePost
       });
     }
   });

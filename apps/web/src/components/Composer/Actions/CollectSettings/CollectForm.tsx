@@ -1,3 +1,7 @@
+import type { CollectActionType } from "@hey/types/hey";
+import { motion } from "motion/react";
+import type { Dispatch, SetStateAction } from "react";
+import { isAddress } from "viem";
 import LicensePicker from "@/components/Composer/LicensePicker";
 import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
@@ -6,10 +10,6 @@ import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActi
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { EXPANSION_EASE } from "@/variants";
-import type { CollectActionType } from "@hey/types/hey";
-import { motion } from "motion/react";
-import type { Dispatch, SetStateAction } from "react";
-import { isAddress } from "viem";
 import AmountConfig from "./AmountConfig";
 import CollectLimitConfig from "./CollectLimitConfig";
 import FollowersConfig from "./FollowersConfig";
@@ -30,11 +30,11 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
 
   const validationChecks = {
     hasEmptyRecipients: recipients.some(({ address }) => !address),
+    hasImproperSplits: recipients.length > 1 && splitTotal !== 100,
     hasInvalidEthAddress: recipients.some(
       ({ address }) => address && !isAddress(address)
     ),
     hasZeroSplits: recipients.some(({ percent }) => percent === 0),
-    hasImproperSplits: recipients.length > 1 && splitTotal !== 100,
     isRecipientsDuplicated:
       new Set(recipients.map(({ address }) => address)).size !==
       recipients.length
@@ -73,14 +73,14 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
       {collectAction.enabled && (
         <>
           <motion.div
+            animate="visible"
             className="m-5 overflow-hidden"
             initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0, height: 0, y: -20 },
-              visible: { opacity: 1, height: "auto", y: 0 }
-            }}
             transition={{ duration: 0.2, ease: EXPANSION_EASE }}
+            variants={{
+              hidden: { height: 0, opacity: 0, y: -20 },
+              visible: { height: "auto", opacity: 1, y: 0 }
+            }}
           >
             <AmountConfig setCollectType={setCollectType} />
             {currentAccount?.hasSubscribed ? (

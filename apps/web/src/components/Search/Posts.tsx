@@ -1,7 +1,7 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 
 interface PostsProps {
   query: string;
@@ -9,8 +9,8 @@ interface PostsProps {
 
 const Posts = ({ query }: PostsProps) => {
   const request: PostsRequest = {
-    pageSize: PageSize.Fifty,
-    filter: { searchQuery: query }
+    filter: { searchQuery: query },
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = usePostsQuery({
@@ -31,18 +31,18 @@ const Posts = ({ query }: PostsProps) => {
 
   return (
     <PostFeed
-      items={posts ?? []}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
       emptyMessage={
         <span>
           No posts for <b>&ldquo;{query}&rdquo;</b>
         </span>
       }
+      error={error}
       errorTitle="Failed to load posts"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={posts ?? []}
+      loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

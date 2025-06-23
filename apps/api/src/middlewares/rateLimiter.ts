@@ -20,14 +20,14 @@ interface RateLimiterOptions {
 
 const rateLimiter = ({ requests }: RateLimiterOptions) => {
   return rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
-    limit: requests,
-    standardHeaders: "draft-6",
     keyGenerator: (c) => {
       const urlHash = sha256(c.req.url).slice(0, 25);
       const key = `rate-limit:${urlHash}:${hashedIp(c.req.raw)}`;
       return key;
-    }
+    }, // 1 minute
+    limit: requests,
+    standardHeaders: "draft-6",
+    windowMs: 1 * 60 * 1000
   });
 };
 

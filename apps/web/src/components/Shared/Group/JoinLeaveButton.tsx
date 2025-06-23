@@ -1,7 +1,7 @@
-import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { PERMISSIONS } from "@hey/data/constants";
 import type { GroupFragment } from "@hey/indexer";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import CancelGroupMembershipRequest from "./CancelGroupMembershipRequest";
 import JoinWithRulesCheck from "./JoinWithRulesCheck";
 import Leave from "./Leave";

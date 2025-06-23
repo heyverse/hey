@@ -1,6 +1,6 @@
+import { Link } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
 import { H2, H4 } from "@/components/Shared/UI";
-import { Link } from "react-router";
 
 const Terms = () => {
   const updatedAt = "March 21, 2025";

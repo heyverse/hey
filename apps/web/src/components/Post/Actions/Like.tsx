@@ -1,7 +1,3 @@
-import { Tooltip } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { ApolloCache } from "@apollo/client";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
@@ -16,6 +12,10 @@ import type { ApolloClientError } from "@hey/types/errors";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { AnimateNumber } from "motion-plus-react";
 import { toast } from "sonner";
+import { Tooltip } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import errorToast from "@/helpers/errorToast";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface LikeProps {
   post: PostFragment;
@@ -131,10 +131,10 @@ const Like = ({ post, showCount }: LikeProps) => {
       </button>
       {reactions > 0 && !showCount ? (
         <AnimateNumber
-          key={`like-count-${post.id}`}
-          format={{ notation: "compact" }}
-          transition={{ type: "tween" }}
           className="w-3 text-[11px] sm:text-xs"
+          format={{ notation: "compact" }}
+          key={`like-count-${post.id}`}
+          transition={{ type: "tween" }}
         >
           {reactions}
         </AnimateNumber>

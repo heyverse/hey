@@ -1,10 +1,3 @@
-import LazySmallSingleAccount from "@/components/Shared/Account/LazySmallSingleAccount";
-import Loader from "@/components/Shared/Loader";
-import Slug from "@/components/Shared/Slug";
-import { Button, EmptyState, H6 } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import {
   useAssignUsernameToAccountMutation,
@@ -13,6 +6,13 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import LazySmallSingleAccount from "@/components/Shared/Account/LazySmallSingleAccount";
+import Loader from "@/components/Shared/Loader";
+import Slug from "@/components/Shared/Slug";
+import { Button, EmptyState, H6 } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const LinkUsername = () => {
   const { currentAccount } = useAccountStore();
@@ -33,8 +33,8 @@ const LinkUsername = () => {
     variables: {
       request: {
         filter: {
-          owner: currentAccount?.address,
-          namespace: "0x1aA55B9042f08f45825dC4b651B64c9F98Af4615"
+          namespace: "0x1aA55B9042f08f45825dC4b651B64c9F98Af4615",
+          owner: currentAccount?.address
         }
       }
     }
@@ -47,9 +47,9 @@ const LinkUsername = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: assignUsernameToAccount,
         onCompleted,
-        onError
+        onError,
+        transactionData: assignUsernameToAccount
       });
     },
     onError

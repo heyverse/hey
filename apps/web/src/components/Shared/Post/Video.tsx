@@ -1,4 +1,3 @@
-import { Spinner } from "@/components/Shared/UI";
 import { LockClosedIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   ArrowsPointingInIcon,
@@ -10,7 +9,8 @@ import {
 } from "@heroicons/react/24/solid";
 import type { Src } from "@livepeer/react";
 import * as Player from "@livepeer/react/player";
-import { type ReactNode, memo } from "react";
+import { memo, type ReactNode } from "react";
+import { Spinner } from "@/components/Shared/UI";
 
 const PlayerLoading = () => (
   <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -27,8 +27,8 @@ interface PlayerErrorProps {
 const PlayerError = ({ matcher, icon, title }: PlayerErrorProps) => {
   return (
     <Player.ErrorIndicator
-      matcher={matcher}
       className="absolute inset-0 flex flex-col items-center justify-center bg-black"
+      matcher={matcher}
     >
       <div className="flex flex-col items-center space-y-2 text-lg text-white">
         {icon}
@@ -51,18 +51,18 @@ const Video = ({ src, poster }: VideoProps) => {
   return (
     <Player.Root src={src}>
       <Player.Container className="size-full overflow-hidden rounded-xl bg-black">
-        <Player.Video poster={poster} className="size-full" />
+        <Player.Video className="size-full" poster={poster} />
         <Player.LoadingIndicator>
           <PlayerLoading />
         </Player.LoadingIndicator>
         <PlayerError
-          matcher="offline"
           icon={<NoSymbolIcon className="size-8" />}
+          matcher="offline"
           title="Stream is offline"
         />
         <PlayerError
-          matcher="access-control"
           icon={<LockClosedIcon className="size-8" />}
+          matcher="access-control"
           title="Stream is private"
         />
         <Player.Controls className="flex flex-col-reverse gap-1 bg-gradient-to-b from-black/5 via-80% via-black/30 to-black/60 px-3 py-2 duration-1000 md:px-3">
@@ -80,7 +80,7 @@ const Video = ({ src, poster }: VideoProps) => {
                 <div className="size-1.5 rounded-full bg-red-500" />
                 <b className="text-white text-xs">LIVE</b>
               </Player.LiveIndicator>
-              <Player.LiveIndicator matcher={false} className="flex">
+              <Player.LiveIndicator className="flex" matcher={false}>
                 <Player.Time className="text-white text-xs" />
               </Player.LiveIndicator>
               <Player.MuteTrigger className="size-6 flex-shrink-0 transition hover:scale-110">
@@ -103,7 +103,7 @@ const Video = ({ src, poster }: VideoProps) => {
                 <Player.FullscreenIndicator asChild>
                   <ArrowsPointingInIcon className="size-5 text-white" />
                 </Player.FullscreenIndicator>
-                <Player.FullscreenIndicator matcher={false} asChild>
+                <Player.FullscreenIndicator asChild matcher={false}>
                   <ArrowsPointingOutIcon className="size-5 text-white" />
                 </Player.FullscreenIndicator>
               </Player.FullscreenTrigger>

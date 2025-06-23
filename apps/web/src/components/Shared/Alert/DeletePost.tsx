@@ -1,11 +1,11 @@
-import { Alert } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useDeletePostAlertStore } from "@/store/non-persisted/alert/useDeletePostAlertStore";
 import { useApolloClient } from "@apollo/client";
 import { useDeletePostMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { toast } from "sonner";
+import { Alert } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useDeletePostAlertStore } from "@/store/non-persisted/alert/useDeletePostAlertStore";
 
 const DeletePost = () => {
   const { deletingPost, setShowPostDeleteAlert, showPostDeleteAlert } =
@@ -36,9 +36,9 @@ const DeletePost = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: deletePost,
         onCompleted,
-        onError
+        onError,
+        transactionData: deletePost
       });
     }
   });

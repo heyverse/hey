@@ -7,8 +7,9 @@ interface State {
 
 const { useStore: useMobileDrawerModalStore } = createTrackedStore<State>(
   (set) => ({
-    showMobileDrawer: false,
-    setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer }))
+    setShowMobileDrawer: (showMobileDrawer) =>
+      set(() => ({ showMobileDrawer })),
+    showMobileDrawer: false
   })
 );
 

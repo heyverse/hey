@@ -1,15 +1,15 @@
-import BackButton from "@/components/Shared/BackButton";
-import { Button, Card, CardHeader, H6 } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useCopyToClipboard from "@/hooks/useCopyToClipboard";
-import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
-import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { ERRORS } from "@hey/data/errors";
 import { useAuthenticateMutation, useChallengeMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useSignMessage } from "wagmi";
+import BackButton from "@/components/Shared/BackButton";
+import { Button, Card, CardHeader, H6 } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 
 const Tokens = () => {
   const { accessToken, refreshToken } = hydrateAuthTokens();
@@ -113,8 +113,8 @@ const Tokens = () => {
           {builderToken && (
             <button
               className="mt-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
-              type="button"
               onClick={copyBuilderToken}
+              type="button"
             >
               <H6>{builderToken}</H6>
             </button>

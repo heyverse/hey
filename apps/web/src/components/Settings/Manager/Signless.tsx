@@ -1,10 +1,10 @@
-import { Button, H6 } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useEnableSignlessMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Button, H6 } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 const Signless = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,9 +23,9 @@ const Signless = () => {
   const [enableSignless] = useEnableSignlessMutation({
     onCompleted: async ({ enableSignless }) => {
       return await handleTransactionLifecycle({
-        transactionData: enableSignless,
         onCompleted,
-        onError
+        onError,
+        transactionData: enableSignless
       });
     },
     onError

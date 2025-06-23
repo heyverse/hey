@@ -1,11 +1,11 @@
-import MenuTransition from "@/components/Shared/MenuTransition";
-import cn from "@/helpers/cn";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@hey/indexer";
 import { Fragment } from "react";
+import MenuTransition from "@/components/Shared/MenuTransition";
+import cn from "@/helpers/cn";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Bookmark from "./Bookmark";
 import CopyPostText from "./CopyPostText";
 import Delete from "./Delete";
@@ -41,9 +41,9 @@ const PostMenu = ({ post }: PostMenuProps) => {
       </MenuButton>
       <MenuTransition>
         <MenuItems
+          anchor="bottom end"
           className="z-[5] mt-2 w-max origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
           static
-          anchor="bottom end"
         >
           {currentAccount ? (
             <>

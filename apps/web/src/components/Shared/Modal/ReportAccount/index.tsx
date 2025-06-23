@@ -1,3 +1,11 @@
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import {
+  type AccountFragment,
+  AccountReportReason,
+  useReportAccountMutation
+} from "@hey/indexer";
+import { useState } from "react";
+import { z } from "zod";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import {
   Button,
@@ -12,14 +20,6 @@ import {
 import convertToTitleCase from "@/helpers/convertToTitleCase";
 import errorToast from "@/helpers/errorToast";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import {
-  type AccountFragment,
-  AccountReportReason,
-  useReportAccountMutation
-} from "@hey/indexer";
-import { useState } from "react";
-import { z } from "zod";
 
 const ValidationSchema = z.object({
   additionalComment: z.string().max(260, {
@@ -48,8 +48,8 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
     return await createReport({
       variables: {
         request: {
-          additionalComment,
           account: account?.address,
+          additionalComment,
           reason: reason as AccountReportReason
         }
       }
@@ -68,9 +68,9 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
         <div className="p-5">
           <Card className="p-3">
             <SingleAccount
+              account={account}
               hideFollowButton
               hideUnfollowButton
-              account={account}
               showUserPreview={false}
             />
           </Card>
@@ -92,8 +92,8 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
                   ...Object.entries(AccountReportReason).map(
                     ([key, value]) => ({
                       label: convertToTitleCase(key),
-                      value,
-                      selected: reason === value
+                      selected: reason === value,
+                      value
                     })
                   )
                 ]}

@@ -1,12 +1,12 @@
-import Likes from "@/components/Shared/Modal/Likes";
-import PostExecutors from "@/components/Shared/Modal/PostExecutors";
-import Reposts from "@/components/Shared/Modal/Reposts";
-import { Modal } from "@/components/Shared/UI";
 import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
 import { memo, useState } from "react";
 import { Link } from "react-router";
+import Likes from "@/components/Shared/Modal/Likes";
+import PostExecutors from "@/components/Shared/Modal/PostExecutors";
+import Reposts from "@/components/Shared/Modal/Reposts";
+import { Modal } from "@/components/Shared/UI";
 
 const AnimatedNumber = ({
   key,
@@ -20,10 +20,10 @@ const AnimatedNumber = ({
   return (
     <span className="flex items-center gap-x-1">
       <AnimateNumber
-        key={key}
-        format={{ notation: "compact" }}
-        transition={{ type: "tween" }}
         className="font-bold text-black dark:text-white"
+        format={{ notation: "compact" }}
+        key={key}
+        transition={{ type: "tween" }}
       >
         {value}
       </AnimateNumber>
@@ -160,12 +160,12 @@ const PostStats = ({ post }: PostStatsProps) => {
         title={showPostExecutorsModal === "Tippers" ? "Tippers" : "Collectors"}
       >
         <PostExecutors
-          postId={post.id}
           filter={
             showPostExecutorsModal === "Tippers"
               ? { tipping: true }
               : { simpleCollect: true }
           }
+          postId={post.id}
         />
       </Modal>
     </>

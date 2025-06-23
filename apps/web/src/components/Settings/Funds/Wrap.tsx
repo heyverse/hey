@@ -10,14 +10,14 @@ interface WrapProps {
 const Wrap = ({ value, refetch }: WrapProps) => {
   return (
     <TokenOperation
-      useMutationHook={useWrapTokensMutation}
       buildRequest={(amount) => ({ amount })}
-      resultKey="wrapTokens"
       buttonLabel={`Wrap to ${WRAPPED_NATIVE_TOKEN_SYMBOL}`}
-      title="Wrap"
-      successMessage="Wrap Successful"
-      value={value}
       refetch={refetch}
+      resultKey="wrapTokens"
+      successMessage="Wrap Successful"
+      title="Wrap"
+      useMutationHook={useWrapTokensMutation}
+      value={value}
     />
   );
 };

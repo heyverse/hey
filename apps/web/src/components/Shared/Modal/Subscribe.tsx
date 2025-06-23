@@ -1,11 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
-import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import getTokenImage from "@/helpers/getTokenImage";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
   DEFAULT_COLLECT_TOKEN,
@@ -21,6 +13,14 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import getTokenImage from "@/helpers/getTokenImage";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
@@ -29,15 +29,15 @@ const Subscribe = () => {
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
     variables: {
       request: {
         address: currentAccount?.address,
         tokens: [DEFAULT_COLLECT_TOKEN]
       }
-    },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    }
   });
 
   const onCompleted = async (hash: string) => {
@@ -60,9 +60,9 @@ const Subscribe = () => {
   const [joinGroup] = useJoinGroupMutation({
     onCompleted: async ({ joinGroup }) => {
       return await handleTransactionLifecycle({
-        transactionData: joinGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: joinGroup
       });
     },
     onError
@@ -81,10 +81,10 @@ const Subscribe = () => {
   return (
     <div className="mx-5 my-10 flex flex-col items-center gap-y-8">
       <Image
-        src={`${STATIC_IMAGES_URL}/pro.png`}
         alt="Pro"
-        width={128}
         className="w-32"
+        src={`${STATIC_IMAGES_URL}/pro.png`}
+        width={128}
       />
       <div className="max-w-md text-center text-gray-500">
         {hasSubscribed ? (
@@ -98,9 +98,9 @@ const Subscribe = () => {
               {SUBSCRIPTION_AMOUNT}{" "}
               <Tooltip content={WRAPPED_NATIVE_TOKEN_SYMBOL} placement="top">
                 <img
-                  src={getTokenImage(WRAPPED_NATIVE_TOKEN_SYMBOL)}
                   alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
                   className="size-5"
+                  src={getTokenImage(WRAPPED_NATIVE_TOKEN_SYMBOL)}
                 />
               </Tooltip>
               /year
@@ -111,9 +111,9 @@ const Subscribe = () => {
       </div>
       <SingleAccount
         account={currentAccount as AccountFragment}
+        isVerified
         linkToAccount={false}
         showUserPreview={false}
-        isVerified
       />
       {hasSubscribed ? null : (
         <>
@@ -144,25 +144,25 @@ const Subscribe = () => {
           ) : canSubscribe ? (
             <Button
               className="w-sm"
-              onClick={handleSubscribe}
               disabled={isSubmitting}
               loading={isSubmitting}
+              onClick={handleSubscribe}
             >
               Subscribe for ${SUBSCRIPTION_AMOUNT}/year
             </Button>
           ) : (
             <TopUpButton
-              className="w-sm"
-              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
-              token={{
-                contractAddress: DEFAULT_COLLECT_TOKEN,
-                symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
-              }}
               amountToTopUp={
                 Math.ceil((SUBSCRIPTION_AMOUNT - Number(tokenBalance)) * 20) /
                 20
               }
+              className="w-sm"
+              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
               outline
+              token={{
+                contractAddress: DEFAULT_COLLECT_TOKEN,
+                symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
+              }}
             />
           )}
           <div className="-mt-1 text-center text-gray-500 text-xs">

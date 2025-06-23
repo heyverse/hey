@@ -1,5 +1,3 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
 import {
   type MainContentFocus,
@@ -7,6 +5,8 @@ import {
   type PostBookmarksRequest,
   usePostBookmarksQuery
 } from "@hey/indexer";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 
 interface BookmarksFeedProps {
   focus?: MainContentFocus;
@@ -35,14 +35,14 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
   };
   return (
     <PostFeed
-      items={posts}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<BookmarkIcon className="size-8" />}
       emptyMessage="No bookmarks yet!"
+      error={error}
       errorTitle="Failed to load bookmark feed"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={posts}
+      loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

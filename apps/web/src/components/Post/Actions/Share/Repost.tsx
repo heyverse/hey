@@ -1,7 +1,3 @@
-import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
@@ -11,6 +7,10 @@ import type { ApolloClientError } from "@hey/types/errors";
 import { useCounter } from "@uidotdev/usehooks";
 import type { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
+import cn from "@/helpers/cn";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface RepostProps {
   isSubmitting: boolean;
@@ -72,9 +72,9 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: repost,
         onCompleted,
-        onError
+        onError,
+        transactionData: repost
       });
     },
     onError

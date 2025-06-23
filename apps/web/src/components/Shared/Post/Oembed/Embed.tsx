@@ -1,9 +1,9 @@
+import type { Oembed } from "@hey/types/api";
+import { Link } from "react-router";
 import { Card } from "@/components/Shared/UI";
 import getFavicon from "@/helpers/getFavicon";
 import injectReferrerToUrl from "@/helpers/injectReferrerToUrl";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
-import type { Oembed } from "@hey/types/api";
-import { Link } from "react-router";
 
 interface EmbedProps {
   og: Oembed;
@@ -20,10 +20,10 @@ const Embed = ({ og }: EmbedProps) => {
   return (
     <div className="mt-4 w-full text-sm md:w-4/6">
       <Link
-        to={url}
         onClick={stopEventPropagation}
         rel="noreferrer noopener"
         target={url.includes(location.host) ? "_self" : "_blank"}
+        to={url}
       >
         <Card className="truncate p-5" forceRounded>
           <div className="flex flex-col gap-y-1">

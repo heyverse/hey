@@ -1,6 +1,6 @@
-import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 import { Localstorage } from "@hey/data/storage";
 import type { AccountFragment } from "@hey/indexer";
+import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   currentAccount?: AccountFragment;
@@ -11,9 +11,9 @@ interface State {
 const { useStore: useAccountStore, store } = createPersistedTrackedStore<State>(
   (set, get) => ({
     currentAccount: undefined,
+    hydrateAccount: () => get().currentAccount,
     setCurrentAccount: (currentAccount?: AccountFragment) =>
-      set(() => ({ currentAccount })),
-    hydrateAccount: () => get().currentAccount
+      set(() => ({ currentAccount }))
   }),
   { name: Localstorage.AccountStore }
 );

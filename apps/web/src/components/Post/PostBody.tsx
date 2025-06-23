@@ -1,3 +1,9 @@
+import { EyeIcon } from "@heroicons/react/24/outline";
+import getPostData from "@hey/helpers/getPostData";
+import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPostFragment } from "@hey/indexer";
+import { getSrc } from "@livepeer/react/external";
+import { memo } from "react";
 import Quote from "@/components/Shared/Embed/Quote";
 import Markup from "@/components/Shared/Markup";
 import Attachments from "@/components/Shared/Post/Attachments";
@@ -7,12 +13,6 @@ import Video from "@/components/Shared/Post/Video";
 import { H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import getURLs from "@/helpers/getURLs";
-import { EyeIcon } from "@heroicons/react/24/outline";
-import getPostData from "@hey/helpers/getPostData";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPostFragment } from "@hey/indexer";
-import { getSrc } from "@livepeer/react/external";
-import { memo } from "react";
 
 interface PostBodyProps {
   contentClassName?: string;

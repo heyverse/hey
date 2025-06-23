@@ -1,14 +1,14 @@
-import cn from "@/helpers/cn";
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes, ReactNode } from "react";
 import { forwardRef, memo } from "react";
+import cn from "@/helpers/cn";
 
 const badgeVariants = cva("rounded-md border text-white text-xs shadow-xs", {
+  defaultVariants: { size: "sm", variant: "primary" },
   variants: {
-    variant: { primary: "border-black bg-black" },
-    size: { sm: "px-2" }
-  },
-  defaultVariants: { variant: "primary", size: "sm" }
+    size: { sm: "px-2" },
+    variant: { primary: "border-black bg-black" }
+  }
 });
 
 interface BadgeProps
@@ -21,7 +21,7 @@ const Badge = forwardRef<HTMLDivElement, BadgeProps>(
   ({ children, className, variant, size, ...rest }, ref) => {
     return (
       <span
-        className={cn(badgeVariants({ variant, size }), className)}
+        className={cn(badgeVariants({ size, variant }), className)}
         ref={ref}
         {...rest}
       >

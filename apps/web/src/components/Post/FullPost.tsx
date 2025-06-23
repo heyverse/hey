@@ -1,3 +1,6 @@
+import { QueueListIcon } from "@heroicons/react/24/outline";
+import { isRepost } from "@hey/helpers/postHelpers";
+import type { AnyPostFragment } from "@hey/indexer";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -6,9 +9,6 @@ import {
   getBlockedByMeMessage,
   getBlockedMeMessage
 } from "@/helpers/getBlockedMessage";
-import { QueueListIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPostFragment } from "@hey/indexer";
 import { useHiddenCommentFeedStore } from ".";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";

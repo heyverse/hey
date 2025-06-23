@@ -1,9 +1,3 @@
-import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import formatDate from "@/helpers/datetime/formatDate";
-import errorToast from "@/helpers/errorToast";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { ComputerDesktopIcon, GlobeAltIcon } from "@heroicons/react/24/outline";
 import {
   type AuthenticatedSessionsRequest,
@@ -15,6 +9,12 @@ import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
+import Loader from "@/components/Shared/Loader";
+import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import formatDate from "@/helpers/datetime/formatDate";
+import errorToast from "@/helpers/errorToast";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const List = () => {
   const { currentAccount } = useAccountStore();

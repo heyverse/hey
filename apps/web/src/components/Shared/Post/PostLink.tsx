@@ -1,7 +1,7 @@
-import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
 import type { AnyPostFragment } from "@hey/indexer";
 import type { ComponentProps, ReactNode } from "react";
 import { Link } from "react-router";
+import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
 
 interface PostLinkProps extends Omit<ComponentProps<typeof Link>, "to"> {
   post: AnyPostFragment;

@@ -1,8 +1,8 @@
+import type { MarkupLinkProps } from "@hey/types/misc";
+import { Link } from "react-router";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import Slug from "@/components/Shared/Slug";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
-import type { MarkupLinkProps } from "@hey/types/misc";
-import { Link } from "react-router";
 
 const Mention = ({ mentions, title }: MarkupLinkProps) => {
   const username = title;
@@ -47,12 +47,12 @@ const Mention = ({ mentions, title }: MarkupLinkProps) => {
     return (
       <Link
         className="outline-hidden focus:underline"
-        to={`/u/${getNameFromMention(username)}`}
         onClick={stopEventPropagation}
+        to={`/u/${getNameFromMention(username)}`}
       >
         <AccountPreview
-          username={getNameFromMention(username)}
           address={getAddressFromMention(username)}
+          username={getNameFromMention(username)}
         >
           <Slug prefix="@" slug={getNameFromMention(username)} useBrandColor />
         </AccountPreview>

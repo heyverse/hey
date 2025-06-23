@@ -5,17 +5,7 @@ import EnvironmentPlugin from "vite-plugin-environment";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 const dependenciesToChunk = {
-  wevm: ["wagmi", "family", "viem", "viem/zksync"],
-  indexer: ["@hey/indexer"],
-  react: [
-    "react",
-    "react-dom",
-    "react-easy-crop",
-    "react-hook-form",
-    "react-router",
-    "react-tracked"
-  ],
-  prosekit: ["prosekit", "prosekit/core", "prosekit/react"],
+  aws: ["@aws-sdk/client-s3", "@aws-sdk/lib-storage"],
   editor: [
     "react-markdown",
     "unified",
@@ -27,6 +17,26 @@ const dependenciesToChunk = {
     "remark-stringify",
     "strip-markdown"
   ],
+  indexer: ["@hey/indexer"],
+  media: ["plyr-react", "@livepeer/react", "browser-image-compression"],
+  misc: [
+    "@lens-chain/storage-client",
+    "@lens-protocol/metadata",
+    "@apollo/client",
+    "zustand",
+    "tailwind-merge",
+    "virtua",
+    "zod"
+  ],
+  prosekit: ["prosekit", "prosekit/core", "prosekit/react"],
+  react: [
+    "react",
+    "react-dom",
+    "react-easy-crop",
+    "react-hook-form",
+    "react-router",
+    "react-tracked"
+  ],
   ui: [
     "@headlessui/react",
     "@radix-ui/react-hover-card",
@@ -37,29 +47,11 @@ const dependenciesToChunk = {
     "motion",
     "motion-plus-react"
   ],
-  aws: ["@aws-sdk/client-s3", "@aws-sdk/lib-storage"],
-  media: ["plyr-react", "@livepeer/react", "browser-image-compression"],
-  misc: [
-    "@lens-chain/storage-client",
-    "@lens-protocol/metadata",
-    "@apollo/client",
-    "zustand",
-    "tailwind-merge",
-    "virtua",
-    "zod"
-  ]
+  wevm: ["wagmi", "family", "viem", "viem/zksync"]
 };
 
 export default defineConfig({
-  plugins: [
-    tsconfigPaths(),
-    react(),
-    tailwindcss(),
-    EnvironmentPlugin(["VITE_IS_PRODUCTION", "NEXT_PUBLIC_LENS_NETWORK"])
-  ],
   build: {
-    sourcemap: true,
-    target: "esnext",
     cssMinify: "lightningcss",
     rollupOptions: {
       output: {
@@ -72,6 +64,14 @@ export default defineConfig({
         },
         manualChunks: dependenciesToChunk
       }
-    }
-  }
+    },
+    sourcemap: true,
+    target: "esnext"
+  },
+  plugins: [
+    tsconfigPaths(),
+    react(),
+    tailwindcss(),
+    EnvironmentPlugin(["VITE_IS_PRODUCTION", "NEXT_PUBLIC_LENS_NETWORK"])
+  ]
 });

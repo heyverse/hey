@@ -1,3 +1,9 @@
+import { Regex } from "@hey/data/regex";
+import { useCreateGroupMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import { group } from "@lens-protocol/metadata";
+import { useState } from "react";
+import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
 import {
   Button,
@@ -9,24 +15,18 @@ import {
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { Regex } from "@hey/data/regex";
-import { useCreateGroupMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
-import { group } from "@lens-protocol/metadata";
-import { useState } from "react";
-import { z } from "zod";
 import { useCreateGroupStore } from "./CreateGroup";
 
 const ValidationSchema = z.object({
+  description: z.string().max(260, {
+    message: "Description should not exceed 260 characters"
+  }),
   name: z
     .string()
     .max(100, { message: "Name should not exceed 100 characters" })
     .regex(Regex.accountNameValidator, {
       message: "Account name must not contain restricted symbols"
-    }),
-  description: z.string().max(260, {
-    message: "Description should not exceed 260 characters"
-  })
+    })
 });
 
 const CreateGroupModal = () => {
@@ -57,9 +57,9 @@ const CreateGroupModal = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: createGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: createGroup
       });
     },
     onError
@@ -70,9 +70,9 @@ const CreateGroupModal = () => {
 
     const metadataUri = await uploadMetadata(
       group({
-        name: data.name,
         description: data.description || undefined,
-        icon: pfpUrl
+        icon: pfpUrl,
+        name: data.name
       })
     );
 
@@ -88,9 +88,9 @@ const CreateGroupModal = () => {
         {...form.register("description")}
       />
       <AvatarUpload
-        src={pfpUrl || ""}
-        setSrc={(src) => setPfpUrl(src)}
         isSmall
+        setSrc={(src) => setPfpUrl(src)}
+        src={pfpUrl || ""}
       />
       <Button
         className="flex w-full justify-center"

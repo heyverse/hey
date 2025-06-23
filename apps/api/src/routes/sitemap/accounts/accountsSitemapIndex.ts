@@ -10,8 +10,6 @@ import generateSitemap from "../common";
 
 const accountsSitemapIndex = async (ctx: Context) =>
   generateSitemap({
-    ctx,
-    cacheKey: "sitemap:accounts:index",
     buildXml: async () => {
       const cacheKey = "sitemap:accounts:total";
       const cachedData = await getRedis(cacheKey);
@@ -38,7 +36,7 @@ const accountsSitemapIndex = async (ctx: Context) =>
 
       const totalGroups = Math.ceil(totalBatches / SITEMAP_BATCH_SIZE);
 
-      const sitemapIndex = create({ version: "1.0", encoding: "UTF-8" }).ele(
+      const sitemapIndex = create({ encoding: "UTF-8", version: "1.0" }).ele(
         "sitemapindex",
         { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" }
       );
@@ -55,7 +53,9 @@ const accountsSitemapIndex = async (ctx: Context) =>
       }
 
       return sitemapIndex.end({ prettyPrint: true });
-    }
+    },
+    cacheKey: "sitemap:accounts:index",
+    ctx
   });
 
 export default accountsSitemapIndex;

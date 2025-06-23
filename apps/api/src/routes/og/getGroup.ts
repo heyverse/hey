@@ -11,28 +11,6 @@ const getGroup = async (ctx: Context) => {
   const cacheKey = `og:group:${address}`;
 
   return generateOg({
-    ctx,
-    cacheKey,
-    query: GroupDocument,
-    variables: { request: { group: address } },
-    extractData: (data) => data.group as GroupFragment | null,
-    buildJsonLd: (group: GroupFragment) => {
-      const name = group.metadata?.name || "Group";
-      const title = `${name} on Hey`;
-      const description = (group?.metadata?.description || title).slice(0, 155);
-
-      return {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "@id": `https://hey.xyz/g/${address}`,
-        name,
-        alternateName: address,
-        description,
-        image: getAvatar(group, TRANSFORMS.AVATAR_BIG),
-        url: `https://hey.xyz/g/${address}`,
-        memberOf: { "@type": "Organization", name: "Hey.xyz" }
-      };
-    },
     buildHtml: (group: GroupFragment, escapedJsonLd) => {
       const name = group.metadata?.name || "Group";
       const title = `${name} on Hey`;
@@ -72,7 +50,29 @@ const getGroup = async (ctx: Context) => {
           </body>
         </html>
       `;
-    }
+    },
+    buildJsonLd: (group: GroupFragment) => {
+      const name = group.metadata?.name || "Group";
+      const title = `${name} on Hey`;
+      const description = (group?.metadata?.description || title).slice(0, 155);
+
+      return {
+        "@context": "https://schema.org",
+        "@id": `https://hey.xyz/g/${address}`,
+        "@type": "Organization",
+        alternateName: address,
+        description,
+        image: getAvatar(group, TRANSFORMS.AVATAR_BIG),
+        memberOf: { "@type": "Organization", name: "Hey.xyz" },
+        name,
+        url: `https://hey.xyz/g/${address}`
+      };
+    },
+    cacheKey,
+    ctx,
+    extractData: (data) => data.group as GroupFragment | null,
+    query: GroupDocument,
+    variables: { request: { group: address } }
   });
 };
 

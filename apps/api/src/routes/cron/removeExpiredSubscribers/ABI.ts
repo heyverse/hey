@@ -1,91 +1,91 @@
 const ABI = [
   {
-    type: "function",
-    name: "removeMembers",
     inputs: [
       {
-        name: "membersToRemove",
-        type: "tuple[]",
-        internalType: "struct Group.MemberBatchParams[]",
         components: [
           {
+            internalType: "address",
             name: "account",
-            type: "address",
-            internalType: "address"
+            type: "address"
           },
           {
-            name: "customParams",
-            type: "tuple[]",
-            internalType: "struct KeyValue[]",
             components: [
               {
+                internalType: "bytes32",
                 name: "key",
-                type: "bytes32",
-                internalType: "bytes32"
+                type: "bytes32"
               },
               {
+                internalType: "bytes",
                 name: "value",
-                type: "bytes",
-                internalType: "bytes"
+                type: "bytes"
               }
-            ]
+            ],
+            internalType: "struct KeyValue[]",
+            name: "customParams",
+            type: "tuple[]"
           },
           {
-            name: "ruleProcessingParams",
-            type: "tuple[]",
-            internalType: "struct RuleProcessingParams[]",
             components: [
               {
+                internalType: "address",
                 name: "ruleAddress",
-                type: "address",
-                internalType: "address"
+                type: "address"
               },
               {
+                internalType: "bytes32",
                 name: "configSalt",
-                type: "bytes32",
-                internalType: "bytes32"
+                type: "bytes32"
               },
               {
-                name: "ruleParams",
-                type: "tuple[]",
-                internalType: "struct KeyValue[]",
                 components: [
                   {
+                    internalType: "bytes32",
                     name: "key",
-                    type: "bytes32",
-                    internalType: "bytes32"
+                    type: "bytes32"
                   },
                   {
+                    internalType: "bytes",
                     name: "value",
-                    type: "bytes",
-                    internalType: "bytes"
+                    type: "bytes"
                   }
-                ]
+                ],
+                internalType: "struct KeyValue[]",
+                name: "ruleParams",
+                type: "tuple[]"
               }
-            ]
+            ],
+            internalType: "struct RuleProcessingParams[]",
+            name: "ruleProcessingParams",
+            type: "tuple[]"
           }
-        ]
+        ],
+        internalType: "struct Group.MemberBatchParams[]",
+        name: "membersToRemove",
+        type: "tuple[]"
       },
       {
-        name: "customParams",
-        type: "tuple[]",
-        internalType: "struct KeyValue[]",
         components: [
           {
+            internalType: "bytes32",
             name: "key",
-            type: "bytes32",
-            internalType: "bytes32"
+            type: "bytes32"
           },
           {
+            internalType: "bytes",
             name: "value",
-            type: "bytes",
-            internalType: "bytes"
+            type: "bytes"
           }
-        ]
+        ],
+        internalType: "struct KeyValue[]",
+        name: "customParams",
+        type: "tuple[]"
       }
     ],
+    name: "removeMembers",
     outputs: [],
-    stateMutability: "nonpayable"
+    stateMutability: "nonpayable",
+    type: "function"
   }
 ];
 

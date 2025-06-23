@@ -1,5 +1,5 @@
-import QuotedPost from "@/components/Post/QuotedPost";
 import type { PostFragment } from "@hey/indexer";
+import QuotedPost from "@/components/Post/QuotedPost";
 import Wrapper from "./Wrapper";
 
 interface QuoteProps {

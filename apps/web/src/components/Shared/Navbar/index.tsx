@@ -1,8 +1,3 @@
-import Pro from "@/components/Shared/Navbar/NavItems/Pro";
-import { Image, Tooltip } from "@/components/Shared/UI";
-import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import {
   BellIcon as BellOutline,
   BookmarkIcon as BookmarkOutline,
@@ -21,33 +16,38 @@ import {
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
+import Pro from "@/components/Shared/Navbar/NavItems/Pro";
+import { Image, Tooltip } from "@/components/Shared/UI";
+import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import SignedAccount from "./SignedAccount";
 
 const navigationItems = {
   "/": {
-    title: "Home",
+    outline: <HomeOutline className="size-6" />,
     solid: <HomeSolid className="size-6" />,
-    outline: <HomeOutline className="size-6" />
-  },
-  "/explore": {
-    title: "Explore",
-    solid: <GlobeSolid className="size-6" />,
-    outline: <GlobeOutline className="size-6" />
-  },
-  "/notifications": {
-    title: "Notifications",
-    solid: <BellSolid className="size-6" />,
-    outline: <BellOutline className="size-6" />
-  },
-  "/groups": {
-    title: "Groups",
-    solid: <UserGroupSolid className="size-6" />,
-    outline: <UserGroupOutline className="size-6" />
+    title: "Home"
   },
   "/bookmarks": {
-    title: "Bookmarks",
+    outline: <BookmarkOutline className="size-6" />,
     solid: <BookmarkSolid className="size-6" />,
-    outline: <BookmarkOutline className="size-6" />
+    title: "Bookmarks"
+  },
+  "/explore": {
+    outline: <GlobeOutline className="size-6" />,
+    solid: <GlobeSolid className="size-6" />,
+    title: "Explore"
+  },
+  "/groups": {
+    outline: <UserGroupOutline className="size-6" />,
+    solid: <UserGroupSolid className="size-6" />,
+    title: "Groups"
+  },
+  "/notifications": {
+    outline: <BellOutline className="size-6" />,
+    solid: <BellSolid className="size-6" />,
+    title: "Notifications"
   }
 };
 
@@ -69,13 +69,13 @@ const NavItems = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     <>
       {routes.map((route) => (
         <NavItem
-          key={route}
-          url={route}
           icon={
             pathname === route
               ? navigationItems[route as keyof typeof navigationItems].solid
               : navigationItems[route as keyof typeof navigationItems].outline
           }
+          key={route}
+          url={route}
         />
       ))}
     </>
@@ -97,12 +97,12 @@ const Navbar = () => {
 
   return (
     <aside className="sticky top-5 mt-5 hidden w-10 shrink-0 flex-col items-center gap-y-5 md:flex">
-      <Link to="/" onClick={handleLogoClick}>
+      <Link onClick={handleLogoClick} to="/">
         <Image
           alt="Logo"
           className="size-8"
-          src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
           height={32}
+          src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
           width={32}
         />
       </Link>

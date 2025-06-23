@@ -1,3 +1,12 @@
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import {
+  PageSize,
+  PostReferenceType,
+  useWhoReferencedPostQuery,
+  type WhoReferencedPostRequest
+} from "@hey/indexer";
+import { motion } from "motion/react";
+import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -5,15 +14,6 @@ import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import {
-  PageSize,
-  PostReferenceType,
-  type WhoReferencedPostRequest,
-  useWhoReferencedPostQuery
-} from "@hey/indexer";
-import { motion } from "motion/react";
-import { Virtualizer } from "virtua";
 
 interface RepostsProps {
   postId: string;
@@ -55,9 +55,9 @@ const Reposts = ({ postId }: RepostsProps) => {
     return (
       <div className="p-5">
         <EmptyState
+          hideCard
           icon={<ArrowsRightLeftIcon className="size-8" />}
           message="No reposts."
-          hideCard
         />
       </div>
     );
@@ -78,19 +78,19 @@ const Reposts = ({ postId }: RepostsProps) => {
       <Virtualizer>
         {accounts.map((account, index) => (
           <motion.div
-            key={account.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === accounts.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={account.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={account}
               hideFollowButton={currentAccount?.address === account.address}
               hideUnfollowButton={currentAccount?.address === account.address}
-              account={account}
               showBio
               showUserPreview={false}
             />

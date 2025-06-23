@@ -28,15 +28,15 @@ const Edit = ({ post }: EditProps) => {
     if (data?.asset) {
       attachments.push({
         id: generateUUID(),
-        type: data.asset.type,
-        previewUri: data.asset.uri,
-        uri: data.asset.uri,
         mimeType:
           data.asset.type === "Image"
             ? "image/jpeg"
             : data.asset.type === "Video"
               ? "video/mp4"
-              : "audio/mpeg"
+              : "audio/mpeg",
+        previewUri: data.asset.uri,
+        type: data.asset.type,
+        uri: data.asset.uri
       });
     }
 
@@ -44,15 +44,15 @@ const Edit = ({ post }: EditProps) => {
       for (const a of data.attachments) {
         attachments.push({
           id: generateUUID(),
-          type: a.type,
-          previewUri: a.uri,
-          uri: a.uri,
           mimeType:
             a.type === "Image"
               ? "image/jpeg"
               : a.type === "Video"
                 ? "video/mp4"
-                : "audio/mpeg"
+                : "audio/mpeg",
+          previewUri: a.uri,
+          type: a.type,
+          uri: a.uri
         });
       }
     }

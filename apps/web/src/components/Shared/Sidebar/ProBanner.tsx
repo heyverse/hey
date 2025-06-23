@@ -1,13 +1,13 @@
-import { Button, Card, H5 } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useProStore } from "@/store/persisted/useProStore";
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { BANNER_IDS } from "@hey/data/constants";
 import { useAddPostNotInterestedMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { toast } from "sonner";
+import { Button, Card, H5 } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useProStore } from "@/store/persisted/useProStore";
 
 const ProBanner = () => {
   const { currentAccount } = useAccountStore();
@@ -39,9 +39,9 @@ const ProBanner = () => {
     <Card className="relative space-y-2">
       <button
         className="absolute top-3 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
-        type="button"
-        onClick={handleDismissProBanner}
         disabled={loading}
+        onClick={handleDismissProBanner}
+        type="button"
       >
         <XCircleIcon className="size-5" />
       </button>
@@ -55,8 +55,8 @@ const ProBanner = () => {
         </div>
         <Button
           className="w-full"
-          outline
           onClick={() => setShowProModal(true)}
+          outline
         >
           Subscribe now
         </Button>

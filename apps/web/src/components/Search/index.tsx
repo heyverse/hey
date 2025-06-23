@@ -1,9 +1,9 @@
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useSearchParams } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
 import { default as SearchInput } from "@/components/Shared/Search";
 import Sidebar from "@/components/Shared/Sidebar";
 import { EmptyState } from "@/components/Shared/UI";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useSearchParams } from "react-router";
 import Accounts from "./Accounts";
 import FeedType, { SearchTabFocus } from "./FeedType";
 import Posts from "./Posts";
@@ -28,7 +28,7 @@ const Search = () => {
   const feedType = getFeedType(Array.isArray(type) ? type[0] : type);
 
   return (
-    <PageLayout title="Search" sidebar={<Sidebar />} hideSearch>
+    <PageLayout hideSearch sidebar={<Sidebar />} title="Search">
       <div className="px-5 md:px-0">
         <SearchInput />
       </div>

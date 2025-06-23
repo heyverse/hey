@@ -1,3 +1,19 @@
+import { BANNER_IDS } from "@hey/data/constants";
+import { ERRORS } from "@hey/data/errors";
+import { Regex } from "@hey/data/regex";
+import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import type {
+  AccountOptions,
+  MetadataAttribute
+} from "@lens-protocol/metadata";
+import {
+  account as accountMetadata,
+  MetadataAttributeType
+} from "@lens-protocol/metadata";
+import { useState } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
 import BackButton from "@/components/Shared/BackButton";
 import CoverUpload from "@/components/Shared/CoverUpload";
@@ -17,22 +33,6 @@ import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { BANNER_IDS } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
-import { Regex } from "@hey/data/regex";
-import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
-import type {
-  AccountOptions,
-  MetadataAttribute
-} from "@lens-protocol/metadata";
-import {
-  MetadataAttributeType,
-  account as accountMetadata
-} from "@lens-protocol/metadata";
-import { useState } from "react";
-import { toast } from "sonner";
-import { z } from "zod";
 
 const ValidationSchema = z.object({
   bio: z.string().max(260, { message: "Bio should not exceed 260 characters" }),
@@ -64,8 +64,8 @@ const PersonalizeSettingsForm = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
   const [getCurrentAccountDetails] = useMeLazyQuery({
-    variables: { proBannerId: BANNER_IDS.PRO },
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
+    variables: { proBannerId: BANNER_IDS.PRO }
   });
 
   const onCompleted = async (hash: string) => {
@@ -88,9 +88,9 @@ const PersonalizeSettingsForm = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: setAccountMetadata,
         onCompleted,
-        onError
+        onError,
+        transactionData: setAccountMetadata
       });
     },
     onError
@@ -230,8 +230,8 @@ const PersonalizeSettingsForm = () => {
           placeholder="Tell us something about you!"
           {...form.register("bio")}
         />
-        <AvatarUpload src={pfpUrl || ""} setSrc={onSetAvatar} />
-        <CoverUpload src={coverUrl || ""} setSrc={onSetCover} />
+        <AvatarUpload setSrc={onSetAvatar} src={pfpUrl || ""} />
+        <CoverUpload setSrc={onSetCover} src={coverUrl || ""} />
         <Button
           className="ml-auto"
           disabled={

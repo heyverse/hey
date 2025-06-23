@@ -6,8 +6,8 @@ interface DomainParamConfig {
 }
 
 const DOMAIN_PARAM_MAP: Record<string, DomainParamConfig> = {
-  "zora.co": { name: "referrer", value: HEY_TREASURY },
-  "highlight.xyz": { name: "referrer", value: HEY_TREASURY }
+  "highlight.xyz": { name: "referrer", value: HEY_TREASURY },
+  "zora.co": { name: "referrer", value: HEY_TREASURY }
 };
 
 const injectReferrerToUrl = (url: string): string => {

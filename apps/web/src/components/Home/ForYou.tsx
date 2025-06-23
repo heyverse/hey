@@ -1,6 +1,3 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
@@ -8,13 +5,16 @@ import {
   type PostsForYouRequest,
   usePostsForYouQuery
 } from "@hey/indexer";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const ForYou = () => {
   const { currentAccount } = useAccountStore();
 
   const request: PostsForYouRequest = {
-    pageSize: PageSize.Fifty,
     account: currentAccount?.address,
+    pageSize: PageSize.Fifty,
     shuffle: true
   };
 
@@ -45,14 +45,14 @@ const ForYou = () => {
 
   return (
     <PostFeed
-      items={filteredPosts as PostFragment[]}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<LightBulbIcon className="size-8" />}
       emptyMessage="No posts yet!"
+      error={error}
       errorTitle="Failed to load for you"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={filteredPosts as PostFragment[]}
+      loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

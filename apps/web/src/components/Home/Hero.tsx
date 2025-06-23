@@ -6,8 +6,8 @@ const Hero = () => {
       className="relative h-64 w-full gap-y-5 rounded-none bg-black md:rounded-xl"
       style={{
         backgroundImage: `url(${STATIC_IMAGES_URL}/hero.webp)`,
-        backgroundSize: "cover",
-        backgroundPosition: "center"
+        backgroundPosition: "center",
+        backgroundSize: "cover"
       }}
     >
       <div className="absolute bottom-5 left-5">

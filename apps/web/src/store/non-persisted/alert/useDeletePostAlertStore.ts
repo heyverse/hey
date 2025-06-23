@@ -1,5 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
 import type { PostFragment } from "@hey/indexer";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   deletingPost?: PostFragment;
@@ -13,9 +13,9 @@ interface State {
 const { useStore: useDeletePostAlertStore } = createTrackedStore<State>(
   (set) => ({
     deletingPost: undefined,
-    showPostDeleteAlert: false,
     setShowPostDeleteAlert: (showPostDeleteAlert, deletingPost) =>
-      set(() => ({ deletingPost, showPostDeleteAlert }))
+      set(() => ({ deletingPost, showPostDeleteAlert })),
+    showPostDeleteAlert: false
   })
 );
 

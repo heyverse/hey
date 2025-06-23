@@ -1,12 +1,3 @@
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
-import LoginButton from "@/components/Shared/LoginButton";
-import Skeleton from "@/components/Shared/Skeleton";
-import { Button, Input, Spinner } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
-import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY, NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import {
@@ -21,6 +12,15 @@ import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import LoginButton from "@/components/Shared/LoginButton";
+import Skeleton from "@/components/Shared/Skeleton";
+import { Button, Input, Spinner } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import errorToast from "@/helpers/errorToast";
+import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 
@@ -41,12 +41,12 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
-    variables: {
-      request: { address: currentAccount?.address, includeNative: true }
-    },
+    fetchPolicy: "no-cache",
     pollInterval: 3000,
     skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    variables: {
+      request: { address: currentAccount?.address, includeNative: true }
+    }
   });
 
   const updateCache = () => {
@@ -97,9 +97,9 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: executePostAction,
         onCompleted,
-        onError
+        onError,
+        transactionData: executePostAction
       });
     },
     onError
@@ -112,9 +112,9 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: executeAccountAction,
         onCompleted,
-        onError
+        onError,
+        transactionData: executeAccountAction
       });
     },
     onError
@@ -134,14 +134,14 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     setIsSubmitting(true);
 
     const tipping: TippingAmountInput = {
+      native: cryptoRate.toString(),
       // 11 is a calculated value based on the referral pool of 20% and the Lens fee of 2.1% after the 1.5% lens fees cut
-      referrals: [{ address: HEY_TREASURY, percent: 11 }],
-      native: cryptoRate.toString()
+      referrals: [{ address: HEY_TREASURY, percent: 11 }]
     };
 
     if (post) {
       return executePostAction({
-        variables: { request: { post: post.id, action: { tipping } } }
+        variables: { request: { action: { tipping }, post: post.id } }
       });
     }
 
@@ -215,8 +215,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
         <div>
           <Input
             className="no-spinner"
-            min={0}
             max={1000}
+            min={0}
             onChange={onOtherAmount}
             placeholder="300"
             ref={inputRef}
@@ -241,8 +241,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
         </Button>
       ) : (
         <TopUpButton
-          className="w-full"
           amountToTopUp={Math.ceil((amount - Number(nativeBalance)) * 20) / 20}
+          className="w-full"
         />
       )}
     </div>

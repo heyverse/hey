@@ -1,3 +1,11 @@
+import { ERRORS } from "@hey/data/errors";
+import getAccount from "@hey/helpers/getAccount";
+import type { PostFragment } from "@hey/indexer";
+import type { IGif } from "@hey/types/giphy";
+import type { NewAttachment } from "@hey/types/misc";
+import { useEffect, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
+import { toast } from "sonner";
 import Attachment from "@/components/Composer/Actions/Attachment";
 import CollectSettings from "@/components/Composer/Actions/CollectSettings";
 import Gif from "@/components/Composer/Actions/Gif";
@@ -34,14 +42,6 @@ import {
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { ERRORS } from "@hey/data/errors";
-import getAccount from "@hey/helpers/getAccount";
-import type { PostFragment } from "@hey/indexer";
-import type { IGif } from "@hey/types/giphy";
-import type { NewAttachment } from "@hey/types/misc";
-import { useEffect, useState } from "react";
-import { useHotkeys } from "react-hotkeys-hook";
-import { toast } from "sonner";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
 
@@ -207,7 +207,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
       if (editingPost) {
         return await editPost({
-          variables: { request: { post: editingPost?.id, contentUri } }
+          variables: { request: { contentUri, post: editingPost?.id } }
         });
       }
 

@@ -1,11 +1,11 @@
-import { Button } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useApolloClient } from "@apollo/client";
 import { type GroupFragment, useLeaveGroupMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface LeaveProps {
   group: GroupFragment;
@@ -50,9 +50,9 @@ const Leave = ({ group, small }: LeaveProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: leaveGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: leaveGroup
       });
     },
     onError

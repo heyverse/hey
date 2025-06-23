@@ -25,8 +25,8 @@ const removeExpiredSubscribers = async (ctx: Context) => {
 
     if (addresses.length === 0) {
       return ctx.json({
-        status: Status.Success,
-        message: "No expired subscribers"
+        message: "No expired subscribers",
+        status: Status.Success
       });
     }
 
@@ -39,11 +39,11 @@ const removeExpiredSubscribers = async (ctx: Context) => {
     const hash = await signer.writeContract({
       abi: ABI,
       address: PERMISSIONS.SUBSCRIPTION,
-      functionName: "removeMembers",
-      args: [membersToRemove, []]
+      args: [membersToRemove, []],
+      functionName: "removeMembers"
     });
 
-    return ctx.json({ status: Status.Success, addresses, hash });
+    return ctx.json({ addresses, hash, status: Status.Success });
   } catch {
     return handleApiError(ctx);
   }

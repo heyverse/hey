@@ -1,6 +1,4 @@
-import { createSigner } from "@guildxyz/sdk";
-
-import { createGuildClient } from "@guildxyz/sdk";
+import { createGuildClient, createSigner } from "@guildxyz/sdk";
 import { Status } from "@hey/data/enums";
 import signer from "./signer";
 

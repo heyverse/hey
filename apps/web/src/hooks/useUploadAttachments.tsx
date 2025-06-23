@@ -1,13 +1,13 @@
-import uploadToIPFS from "@/helpers/uploadToIPFS";
+import type { NewAttachment } from "@hey/types/misc";
+import { useCallback } from "react";
+import { toast } from "sonner";
 import {
   compressFiles,
   createPreviewAttachments,
   validateFileSize
 } from "@/helpers/attachmentUtils";
+import uploadToIPFS from "@/helpers/uploadToIPFS";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import type { NewAttachment } from "@hey/types/misc";
-import { useCallback } from "react";
-import { toast } from "sonner";
 
 const useUploadAttachments = () => {
   const {
@@ -16,7 +16,6 @@ const useUploadAttachments = () => {
     setIsUploading,
     updateAttachments
   } = usePostAttachmentStore();
-
 
   const handleUploadAttachments = useCallback(
     async (attachments: FileList): Promise<NewAttachment[]> => {

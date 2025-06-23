@@ -1,10 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
-import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { accountsList } from "@/variants";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   type GroupFragment,
@@ -14,6 +7,13 @@ import {
 } from "@hey/indexer";
 import { motion } from "motion/react";
 import { Virtualizer } from "virtua";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
+import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { accountsList } from "@/variants";
 
 interface MembersProps {
   group: GroupFragment;
@@ -23,8 +23,8 @@ const Members = ({ group }: MembersProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: GroupMembersRequest = {
-    pageSize: PageSize.Fifty,
-    group: group.address
+    group: group.address,
+    pageSize: PageSize.Fifty
   };
 
   const { data, loading, error, fetchMore } = useGroupMembersQuery({
@@ -53,9 +53,9 @@ const Members = ({ group }: MembersProps) => {
   if (!groupMembers?.length) {
     return (
       <EmptyState
+        hideCard
         icon={<UsersIcon className="size-8" />}
         message="Group doesn't have any members."
-        hideCard
       />
     );
   }
@@ -75,23 +75,23 @@ const Members = ({ group }: MembersProps) => {
       <Virtualizer>
         {groupMembers.map((member, index) => (
           <motion.div
-            key={member.account.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === groupMembers.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={member.account.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={member.account}
               hideFollowButton={
                 currentAccount?.address === member.account.address
               }
               hideUnfollowButton={
                 currentAccount?.address === member.account.address
               }
-              account={member.account}
               showBio
               showUserPreview={false}
             />

@@ -1,3 +1,10 @@
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { BANNER_IDS } from "@hey/data/constants";
+import { useMeQuery } from "@hey/indexer";
+import { useIsClient } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router";
+import { Toaster, type ToasterProps } from "sonner";
 import FullPageLoader from "@/components/Shared/FullPageLoader";
 import GlobalAlerts from "@/components/Shared/GlobalAlerts";
 import GlobalModals from "@/components/Shared/GlobalModals";
@@ -10,13 +17,6 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut, useAuthStore } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useProStore } from "@/store/persisted/useProStore";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { BANNER_IDS } from "@hey/data/constants";
-import { useMeQuery } from "@hey/indexer";
-import { useIsClient } from "@uidotdev/usehooks";
-import { useEffect } from "react";
-import { Outlet, useLocation } from "react-router";
-import { Toaster, type ToasterProps } from "sonner";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -39,7 +39,6 @@ const Layout = () => {
   };
 
   const { loading } = useMeQuery({
-    variables: { proBannerId: BANNER_IDS.PRO },
     onCompleted: ({ me, proBanner }) => {
       setCurrentAccount(me.loggedInAs.account);
       if (proBanner?.__typename === "Post") {
@@ -47,7 +46,8 @@ const Layout = () => {
       }
     },
     onError,
-    skip: !accessToken
+    skip: !accessToken,
+    variables: { proBannerId: BANNER_IDS.PRO }
   });
 
   const accountLoading = !currentAccount && loading;
@@ -59,16 +59,16 @@ const Layout = () => {
   return (
     <>
       <Toaster
+        icons={{
+          error: <XCircleIcon className="size-5" />,
+          loading: <Spinner size="xs" />,
+          success: <CheckCircleIcon className="size-5" />
+        }}
         position="bottom-right"
         theme={theme as ToasterProps["theme"]}
         toastOptions={{
           className: "font-sofia-pro",
           style: { boxShadow: "none", fontSize: "16px" }
-        }}
-        icons={{
-          success: <CheckCircleIcon className="size-5" />,
-          error: <XCircleIcon className="size-5" />,
-          loading: <Spinner size="xs" />
         }}
       />
       <GlobalShortcuts />

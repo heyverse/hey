@@ -1,10 +1,10 @@
+import { useGroupQuery } from "@hey/indexer";
+import { useParams } from "react-router";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useGroupQuery } from "@hey/indexer";
-import { useParams } from "react-router";
 import GroupSettingsForm from "./Form";
 
 const PersonalizeSettings = () => {
@@ -12,8 +12,8 @@ const PersonalizeSettings = () => {
   const { currentAccount } = useAccountStore();
 
   const { data, loading, error } = useGroupQuery({
-    variables: { request: { group: address } },
-    skip: !address
+    skip: !address,
+    variables: { request: { group: address } }
   });
 
   if (!address || loading) {

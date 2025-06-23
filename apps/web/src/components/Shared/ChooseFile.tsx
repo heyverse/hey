@@ -22,9 +22,9 @@ const ChooseFile = ({ onChange, disabled }: ChooseFileProps) => {
       <input
         accept=".png, .jpg, .jpeg, .gif"
         className="hidden"
+        disabled={disabled}
         id={id}
         onChange={onChange}
-        disabled={disabled}
         onClick={(event) => {
           (event.target as HTMLInputElement).value = "";
         }}

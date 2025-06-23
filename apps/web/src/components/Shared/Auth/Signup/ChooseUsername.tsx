@@ -1,8 +1,3 @@
-import AuthMessage from "@/components/Shared/Auth/AuthMessage";
-import { Button, Form, Input, useZodForm } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import uploadMetadata from "@/helpers/uploadMetadata";
-import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import {
   CheckIcon,
   ExclamationTriangleIcon,
@@ -23,6 +18,11 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useSignMessage } from "wagmi";
 import { z } from "zod";
+import AuthMessage from "@/components/Shared/Auth/AuthMessage";
+import { Button, Form, Input, useZodForm } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import uploadMetadata from "@/helpers/uploadMetadata";
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import { useSignupStore } from ".";
 
 export const SignupMessage = () => (
@@ -74,11 +74,11 @@ const ChooseUsername = () => {
 
   useAccountQuery({
     fetchPolicy: "no-cache",
+    onCompleted: (data) => setIsAvailable(!data.account),
+    skip: !canCheck,
     variables: {
       request: { username: { localName: username?.toLowerCase() } }
-    },
-    onCompleted: (data) => setIsAvailable(!data.account),
-    skip: !canCheck
+    }
   });
 
   const handleSignup = async ({
@@ -122,12 +122,6 @@ const ChooseUsername = () => {
         setOnboardingToken(accessToken);
         return await createAccountWithUsername({
           context: { headers: { "X-Access-Token": accessToken } },
-          variables: {
-            request: {
-              username: { localName: username.toLowerCase() },
-              metadataUri
-            }
-          },
           onCompleted: ({ createAccountWithUsername }) => {
             if (
               createAccountWithUsername.__typename === "CreateAccountResponse"
@@ -135,6 +129,12 @@ const ChooseUsername = () => {
               setTransactionHash(createAccountWithUsername.hash);
               setChosenUsername(username);
               setScreen("minting");
+            }
+          },
+          variables: {
+            request: {
+              metadataUri,
+              username: { localName: username.toLowerCase() }
             }
           }
         });

@@ -1,8 +1,8 @@
-import KeyboardShortcuts from "@/helpers/shortcuts";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAccount from "@hey/helpers/getAccount";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useNavigate } from "react-router";
+import KeyboardShortcuts from "@/helpers/shortcuts";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const GlobalShortcuts = () => {
   const navigate = useNavigate();

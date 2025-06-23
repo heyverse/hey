@@ -1,9 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import Loader from "@/components/Shared/Loader";
-import { Card, Input } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
-import { useSearchStore } from "@/store/persisted/useSearchStore";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import {
@@ -17,6 +11,12 @@ import { useClickAway, useDebounce } from "@uidotdev/usehooks";
 import type { ChangeEvent, MutableRefObject } from "react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import Loader from "@/components/Shared/Loader";
+import { Card, Input } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
+import { useSearchStore } from "@/store/persisted/useSearchStore";
 import RecentAccounts from "./RecentAccounts";
 
 interface SearchProps {
@@ -64,9 +64,9 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
   useEffect(() => {
     if (pathname !== "/search" && showDropdown && debouncedSearchText) {
       const request: AccountsRequest = {
-        pageSize: PageSize.Fifty,
+        filter: { searchBy: { localNameQuery: debouncedSearchText } },
         orderBy: AccountsOrderBy.BestMatch,
-        filter: { searchBy: { localNameQuery: debouncedSearchText } }
+        pageSize: PageSize.Fifty
       };
 
       searchAccounts({ variables: { request } }).then((res) => {
@@ -121,10 +121,10 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
                     }}
                   >
                     <SingleAccount
+                      account={account}
                       hideFollowButton
                       hideUnfollowButton
                       linkToAccount={false}
-                      account={account}
                       showUserPreview={false}
                     />
                   </div>

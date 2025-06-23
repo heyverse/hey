@@ -1,6 +1,3 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import {
   TimelineEventItemType,
@@ -8,6 +5,9 @@ import {
   useTimelineQuery
 } from "@hey/indexer";
 import { memo } from "react";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Timeline = () => {
   const { currentAccount } = useAccountStore();
@@ -47,19 +47,19 @@ const Timeline = () => {
 
   return (
     <PostFeed
-      items={filteredPosts}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<UserGroupIcon className="size-8" />}
       emptyMessage="No posts yet!"
+      error={error}
       errorTitle="Failed to load timeline"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={filteredPosts}
+      loading={loading}
       renderItem={(timelineItem) => (
         <SinglePost
           key={timelineItem.id}
-          timelineItem={timelineItem}
           post={timelineItem.primary}
+          timelineItem={timelineItem}
         />
       )}
     />

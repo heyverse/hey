@@ -1,11 +1,3 @@
-import Video from "@/components/Shared/Post/Video";
-import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
-import { Card, Spinner, Tooltip } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import { hono } from "@/helpers/fetcher";
-import useCopyToClipboard from "@/hooks/useCopyToClipboard";
-import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   ClipboardDocumentIcon,
   SignalIcon,
@@ -17,6 +9,14 @@ import { getSrc } from "@livepeer/react/external";
 import { useMutation } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import Video from "@/components/Shared/Post/Video";
+import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
+import { Card, Spinner, Tooltip } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import { hono } from "@/helpers/fetcher";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
+import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface WrapperProps {
   children: ReactNode;
@@ -54,8 +54,8 @@ const LivestreamEditor = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ record }: { record: boolean }) =>
       hono.live.create({ record }),
-    onSuccess: (data) => setLiveVideoConfig(data),
-    onError: errorToast
+    onError: errorToast,
+    onSuccess: (data) => setLiveVideoConfig(data)
   });
 
   return (

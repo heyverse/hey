@@ -19,16 +19,16 @@ const extractPaymentDetails = (
   for (const rule of rules) {
     if (rule.type === "SIMPLE_PAYMENT") {
       return {
+        amount:
+          Number(getAnyKeyValue(rule.config, "amount")?.bigDecimal) || null,
         assetAddress:
           getAnyKeyValue(rule.config, "assetContract")?.address || null,
-        assetSymbol: getAnyKeyValue(rule.config, "assetSymbol")?.string || null,
-        amount:
-          Number(getAnyKeyValue(rule.config, "amount")?.bigDecimal) || null
+        assetSymbol: getAnyKeyValue(rule.config, "assetSymbol")?.string || null
       };
     }
   }
 
-  return { assetAddress: null, assetSymbol: null, amount: null };
+  return { amount: null, assetAddress: null, assetSymbol: null };
 };
 
 export const getSimplePaymentDetails = (

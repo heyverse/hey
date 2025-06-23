@@ -12,13 +12,13 @@ const SignupButton = ({ className }: SignupButtonProps) => {
 
   return (
     <Button
+      className={className}
       onClick={() => {
         setScreen("choose");
         setShowAuthModal(true, "signup");
       }}
       outline
       size="md"
-      className={className}
     >
       Signup
     </Button>

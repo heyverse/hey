@@ -1,8 +1,8 @@
+import type { ReactNode } from "react";
 import MetaTags from "@/components/Common/MetaTags";
 import SignupButton from "@/components/Shared/Navbar/SignupButton";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import type { ReactNode } from "react";
 import LoginButton from "./LoginButton";
 import Search from "./Search";
 import Sidebar from "./Sidebar";

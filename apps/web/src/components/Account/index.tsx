@@ -1,3 +1,11 @@
+import { NoSymbolIcon } from "@heroicons/react/24/outline";
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { AccountFeedType } from "@hey/data/enums";
+import getAccount from "@hey/helpers/getAccount";
+import isAccountDeleted from "@hey/helpers/isAccountDeleted";
+import { useAccountQuery } from "@hey/indexer";
+import { useState } from "react";
+import { useParams } from "react-router";
 import NewPost from "@/components/Composer/NewPost";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
@@ -10,14 +18,6 @@ import {
 } from "@/helpers/getBlockedMessage";
 import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { AccountFeedType } from "@hey/data/enums";
-import getAccount from "@hey/helpers/getAccount";
-import isAccountDeleted from "@hey/helpers/isAccountDeleted";
-import { useAccountQuery } from "@hey/indexer";
-import { useState } from "react";
-import { useParams } from "react-router";
 import AccountFeed from "./AccountFeed";
 import DeletedDetails from "./DeletedDetails";
 import Details from "./Details";
@@ -37,17 +37,17 @@ const ViewAccount = () => {
   const { cachedAccount, setCachedAccount } = useAccountLinkStore();
 
   const { data, error, loading } = useAccountQuery({
+    onCompleted: (data) => {
+      if (data?.account) {
+        setCachedAccount(null);
+      }
+    },
     skip: address ? !address : !username,
     variables: {
       request: {
         ...(address
           ? { address }
           : { username: { localName: username as string } })
-      }
-    },
-    onCompleted: (data) => {
-      if (data?.account) {
-        setCachedAccount(null);
       }
     }
   });
@@ -77,9 +77,9 @@ const ViewAccount = () => {
 
     return (
       <Details
-        isBlockedByMe={account?.operations?.isBlockedByMe || false}
-        hasBlockedMe={account?.operations?.hasBlockedMe || false}
         account={account}
+        hasBlockedMe={account?.operations?.hasBlockedMe || false}
+        isBlockedByMe={account?.operations?.isBlockedByMe || false}
       />
     );
   };
@@ -124,9 +124,9 @@ const ViewAccount = () => {
             feedType === AccountFeedType.Media ||
             feedType === AccountFeedType.Collects) && (
             <AccountFeed
-              username={accountInfo.usernameWithPrefix}
               address={account.address}
               type={feedType}
+              username={accountInfo.usernameWithPrefix}
             />
           )}
         </>

@@ -1,8 +1,3 @@
-import MenuTransition from "@/components/Shared/MenuTransition";
-import { Spinner, Tooltip } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import useUploadAttachments from "@/hooks/useUploadAttachments";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   MusicalNoteIcon,
@@ -18,6 +13,11 @@ import { useClickAway } from "@uidotdev/usehooks";
 import type { ChangeEvent, JSX, MutableRefObject } from "react";
 import { useId, useState } from "react";
 import { toast } from "sonner";
+import MenuTransition from "@/components/Shared/MenuTransition";
+import { Spinner, Tooltip } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import useUploadAttachments from "@/hooks/useUploadAttachments";
+import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);

@@ -1,5 +1,5 @@
-import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 import { Localstorage } from "@hey/data/storage";
+import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   addAccount: (account: string) => void;
@@ -10,6 +10,7 @@ interface State {
 
 const { useStore: useSearchStore } = createPersistedTrackedStore<State>(
   (set) => ({
+    accounts: [],
     addAccount: (account) =>
       set((state) => {
         // Remove the account if it already exists
@@ -21,8 +22,7 @@ const { useStore: useSearchStore } = createPersistedTrackedStore<State>(
       set((state) => ({
         accounts: state.accounts.filter((a) => a !== account)
       })),
-    clearAccounts: () => set({ accounts: [] }),
-    accounts: []
+    clearAccounts: () => set({ accounts: [] })
   }),
   { name: Localstorage.SearchStore }
 );

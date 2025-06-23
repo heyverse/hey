@@ -1,6 +1,3 @@
-import uploadCroppedImage, { readFile } from "@/helpers/accountPictureUtils";
-import getCroppedImg from "@/helpers/cropUtils";
-import errorToast from "@/helpers/errorToast";
 import {
   DEFAULT_AVATAR,
   STATIC_IMAGES_URL,
@@ -14,6 +11,9 @@ import type { ChangeEvent } from "react";
 import { useState } from "react";
 import type { Area } from "react-easy-crop";
 import { toast } from "sonner";
+import uploadCroppedImage, { readFile } from "@/helpers/accountPictureUtils";
+import getCroppedImg from "@/helpers/cropUtils";
+import errorToast from "@/helpers/errorToast";
 
 interface UseImageCropUploadProps {
   src: string;
@@ -94,20 +94,20 @@ const useImageCropUpload = ({
   };
 
   return {
-    pictureSrc,
+    aspect,
     crop,
+    handleModalClose,
+    handleUploadAndSave,
+    onCropComplete,
+    onFileChange,
+    pictureSrc,
+    renderPictureUrl,
     setCrop,
-    zoom,
     setZoom,
     showModal,
-    uploading,
     uploadedPicture,
-    renderPictureUrl,
-    onFileChange,
-    onCropComplete,
-    handleUploadAndSave,
-    handleModalClose,
-    aspect
+    uploading,
+    zoom
   };
 };
 

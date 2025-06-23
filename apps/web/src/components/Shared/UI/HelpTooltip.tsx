@@ -1,6 +1,6 @@
-import { Tooltip } from "@/components/Shared/UI";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import type { ReactNode } from "react";
+import { Tooltip } from "@/components/Shared/UI";
 
 interface HelpTooltipProps {
   children: ReactNode;

@@ -1,6 +1,6 @@
-import { Tabs } from "@/components/Shared/UI";
 import { NotificationFeedType } from "@hey/data/enums";
 import type { Dispatch, SetStateAction } from "react";
+import { Tabs } from "@/components/Shared/UI";
 
 interface FeedTypeProps {
   feedType: NotificationFeedType;
@@ -18,11 +18,11 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
 
   return (
     <Tabs
-      tabs={tabs}
       active={feedType}
-      setActive={(type) => setFeedType(type as NotificationFeedType)}
       className="mx-5 mb-5 md:mx-0"
       layoutId="notification_tab"
+      setActive={(type) => setFeedType(type as NotificationFeedType)}
+      tabs={tabs}
     />
   );
 };

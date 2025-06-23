@@ -1,9 +1,3 @@
-import AccountLink from "@/components/Shared/Account/AccountLink";
-import AccountPreview from "@/components/Shared/Account/AccountPreview";
-import PostLink from "@/components/Shared/Post/PostLink";
-import Slug from "@/components/Shared/Slug";
-import { Image } from "@/components/Shared/UI";
-import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { TRANSFORMS } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
@@ -16,6 +10,12 @@ import type {
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { Link } from "react-router";
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import AccountPreview from "@/components/Shared/Account/AccountPreview";
+import PostLink from "@/components/Shared/Post/PostLink";
+import Slug from "@/components/Shared/Slug";
+import { Image } from "@/components/Shared/UI";
+import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 
 interface PostAccountProps {
   account: AccountFragment;
@@ -27,13 +27,13 @@ interface PostAccountProps {
 const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
   const CustomLink = ({ children }: { children: ReactNode }) => (
     <AccountLink
-      className="outline-hidden hover:underline focus:underline"
       account={account}
+      className="outline-hidden hover:underline focus:underline"
     >
       <AccountPreview
-        username={account.username?.localName}
         address={account.address}
         showUserPreview
+        username={account.username?.localName}
       >
         {children}
       </AccountPreview>
@@ -72,9 +72,9 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
           to={`/g/${group.address}`}
         >
           <Image
-            src={getAvatar(group, TRANSFORMS.AVATAR_TINY)}
             alt={group.metadata.name}
             className="size-4 rounded-sm"
+            src={getAvatar(group, TRANSFORMS.AVATAR_TINY)}
           />
           <span className="truncate text-gray-500 dark:text-gray-200">
             {group.metadata.name}

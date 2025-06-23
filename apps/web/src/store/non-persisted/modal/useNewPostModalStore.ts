@@ -6,8 +6,8 @@ interface State {
 }
 
 const { useStore: useNewPostModalStore } = createTrackedStore<State>((set) => ({
-  showNewPostModal: false,
-  setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal }))
+  setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
+  showNewPostModal: false
 }));
 
 export { useNewPostModalStore };

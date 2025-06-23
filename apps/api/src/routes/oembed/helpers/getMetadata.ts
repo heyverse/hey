@@ -17,8 +17,8 @@ const fetchData = async (url: string) => {
 
 const extractMetadata = (document: Document, url: string) => {
   return {
-    title: getTitle(document),
     description: getDescription(document),
+    title: getTitle(document),
     url
   };
 };
@@ -29,7 +29,7 @@ const getMetadata = async (url: string) => {
     const { document } = parseHTML(data);
     return extractMetadata(document, url);
   } catch {
-    return { title: null, description: null, url };
+    return { description: null, title: null, url };
   }
 };
 

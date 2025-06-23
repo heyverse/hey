@@ -1,5 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
 import type { GroupFragment } from "@hey/indexer";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   showSuperJoinModal: boolean;
@@ -12,10 +12,10 @@ interface State {
 
 const { useStore: useSuperJoinModalStore } = createTrackedStore<State>(
   (set) => ({
-    showSuperJoinModal: false,
-    superJoiningGroup: undefined,
     setShowSuperJoinModal: (showSuperJoinModal, superJoiningGroup) =>
-      set(() => ({ showSuperJoinModal, superJoiningGroup }))
+      set(() => ({ showSuperJoinModal, superJoiningGroup })),
+    showSuperJoinModal: false,
+    superJoiningGroup: undefined
   })
 );
 

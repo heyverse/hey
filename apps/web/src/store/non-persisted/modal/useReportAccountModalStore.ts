@@ -1,5 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
 import type { AccountFragment } from "@hey/indexer";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   showReportAccountModal: boolean;
@@ -12,10 +12,10 @@ interface State {
 
 const { useStore: useReportAccountModalStore } = createTrackedStore<State>(
   (set) => ({
-    showReportAccountModal: false,
     reportingAccount: undefined,
     setShowReportAccountModal: (showReportAccountModal, reportingAccount) =>
-      set(() => ({ showReportAccountModal, reportingAccount }))
+      set(() => ({ reportingAccount, showReportAccountModal })),
+    showReportAccountModal: false
   })
 );
 

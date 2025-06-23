@@ -1,15 +1,3 @@
-import CommentFeed from "@/components/Comment/CommentFeed";
-import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
-import NewPublication from "@/components/Composer/NewPublication";
-import Custom404 from "@/components/Shared/404";
-import Custom500 from "@/components/Shared/500";
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import BackButton from "@/components/Shared/BackButton";
-import Footer from "@/components/Shared/Footer";
-import PageLayout from "@/components/Shared/PageLayout";
-import { Card, CardHeader, WarningMessage } from "@/components/Shared/UI";
-import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAccount from "@hey/helpers/getAccount";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
@@ -22,6 +10,18 @@ import {
 import { useLocation, useParams } from "react-router";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
+import CommentFeed from "@/components/Comment/CommentFeed";
+import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
+import NewPublication from "@/components/Composer/NewPublication";
+import Custom404 from "@/components/Shared/404";
+import Custom500 from "@/components/Shared/500";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import BackButton from "@/components/Shared/BackButton";
+import Footer from "@/components/Shared/Footer";
+import PageLayout from "@/components/Shared/PageLayout";
+import { Card, CardHeader, WarningMessage } from "@/components/Shared/UI";
+import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import FullPost from "./FullPost";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";
@@ -48,13 +48,13 @@ const ViewPost = () => {
   const showQuotes = pathname === `/posts/${slug}/quotes`;
 
   const { data, error, loading } = usePostQuery({
-    skip: !slug,
-    variables: { request: { post: slug } },
     onCompleted: (data) => {
       if (data?.post) {
         setCachedPost(null);
       }
-    }
+    },
+    skip: !slug,
+    variables: { request: { post: slug } }
   });
 
   const { data: comments } = useHiddenCommentsQuery({
@@ -63,8 +63,8 @@ const ViewPost = () => {
       request: {
         pageSize: PageSize.Ten,
         referencedPost: slug,
-        visibilityFilter: PostVisibilityFilter.Hidden,
-        referenceTypes: [PostReferenceType.CommentOn]
+        referenceTypes: [PostReferenceType.CommentOn],
+        visibilityFilter: PostVisibilityFilter.Hidden
       }
     }
   });
@@ -91,20 +91,17 @@ const ViewPost = () => {
 
   return (
     <PageLayout
-      title={`${targetPost.__typename} by ${
-        getAccount(targetPost.author).usernameWithPrefix
-      } • Hey`}
       sidebar={
         <div className="space-y-5">
           <Card as="aside" className="p-5">
             <SingleAccount
+              account={targetPost.author}
               hideFollowButton={
                 currentAccount?.address === targetPost.author.address
               }
               hideUnfollowButton={
                 currentAccount?.address === targetPost.author.address
               }
-              account={targetPost.author}
               showBio
             />
           </Card>
@@ -112,6 +109,9 @@ const ViewPost = () => {
           <Footer />
         </div>
       }
+      title={`${targetPost.__typename} by ${
+        getAccount(targetPost.author).usernameWithPrefix
+      } • Hey`}
       zeroTopMargin
     >
       <div className="space-y-5">
@@ -129,8 +129,8 @@ const ViewPost = () => {
             </Card>
             {currentAccount && !canComment && (
               <WarningMessage
-                title="You cannot comment on this post"
                 message="You don't have permission to comment on this post."
+                title="You cannot comment on this post"
               />
             )}
             {currentAccount && !post.isDeleted && canComment ? (

@@ -22,11 +22,11 @@ const getCollectActionData = (
   const { payToCollect, collectLimit, endsAt } = collectAction;
 
   return {
-    price: Number.parseFloat(payToCollect?.price?.value ?? "0"),
     assetAddress: payToCollect?.price?.asset?.contract?.address,
     assetSymbol: payToCollect?.price?.asset?.symbol,
     collectLimit: Number(collectLimit),
     endsAt,
+    price: Number.parseFloat(payToCollect?.price?.value ?? "0"),
     recipients: payToCollect?.recipients ?? []
   };
 };

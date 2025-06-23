@@ -1,14 +1,14 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
-import Skeleton from "@/components/Shared/Skeleton";
-import { Card, ErrorMessage, Modal } from "@/components/Shared/UI";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   type AccountFragment,
   type PostMentionFragment,
   useAccountsBulkQuery
 } from "@hey/indexer";
 import { useState } from "react";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
+import Skeleton from "@/components/Shared/Skeleton";
+import { Card, ErrorMessage, Modal } from "@/components/Shared/UI";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {
@@ -62,9 +62,9 @@ const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
         {firstAccounts?.map((account) => (
           <div className="truncate" key={account?.address}>
             <SingleAccount
+              account={account}
               hideFollowButton={currentAccount?.address === account.address}
               hideUnfollowButton={currentAccount?.address === account.address}
-              account={account}
               showUserPreview={false}
             />
           </div>

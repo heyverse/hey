@@ -1,6 +1,6 @@
-import cn from "@/helpers/cn";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { forwardRef, memo } from "react";
+import cn from "@/helpers/cn";
 
 interface RangeSliderProps extends SliderPrimitive.SliderProps {
   className?: string;

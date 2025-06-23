@@ -1,8 +1,8 @@
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import { signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
-import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 
 interface LogoutProps {
   className?: string;

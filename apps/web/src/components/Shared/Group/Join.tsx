@@ -1,6 +1,3 @@
-import { Button } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useApolloClient } from "@apollo/client";
 import {
   type GroupFragment,
@@ -10,6 +7,9 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface JoinProps {
   group: GroupFragment;
@@ -36,8 +36,8 @@ const Join = ({
 
     cache.modify({
       fields: {
-        isMember: () => !group.membershipApprovalEnabled,
-        hasRequestedMembership: () => group.membershipApprovalEnabled
+        hasRequestedMembership: () => group.membershipApprovalEnabled,
+        isMember: () => !group.membershipApprovalEnabled
       },
       id: cache.identify(group.operations)
     });
@@ -68,9 +68,9 @@ const Join = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: joinGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: joinGroup
       });
     },
     onError
@@ -85,9 +85,9 @@ const Join = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: joinGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: joinGroup
       });
     },
     onError

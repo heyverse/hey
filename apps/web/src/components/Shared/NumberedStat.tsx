@@ -1,5 +1,5 @@
-import humanize from "@/helpers/humanize";
 import type { ReactNode } from "react";
+import humanize from "@/helpers/humanize";
 import { Card, H4 } from "./UI";
 
 interface NumberedStatsProps {

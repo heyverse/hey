@@ -1,11 +1,11 @@
-import AccountLink from "@/components/Shared/Account/AccountLink";
-import AccountPreview from "@/components/Shared/Account/AccountPreview";
-import { Image } from "@/components/Shared/UI";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import AccountPreview from "@/components/Shared/Account/AccountPreview";
+import { Image } from "@/components/Shared/UI";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface NotificationAccountProps {
   account: AccountFragment;
@@ -16,12 +16,12 @@ export const NotificationAccountAvatar = ({
 }: NotificationAccountProps) => {
   return (
     <AccountPreview
-      username={account.username?.localName}
       address={account.address}
+      username={account.username?.localName}
     >
       <AccountLink
-        className="rounded-full outline-offset-2"
         account={account}
+        className="rounded-full outline-offset-2"
         onClick={stopEventPropagation}
       >
         <Image
@@ -41,12 +41,12 @@ export const NotificationAccountName = ({
 }: NotificationAccountProps) => {
   return (
     <AccountPreview
-      username={account.username?.localName}
       address={account.address}
+      username={account.username?.localName}
     >
       <AccountLink
-        className="inline-flex items-center gap-1 font-bold outline-hidden hover:underline focus:underline"
         account={account}
+        className="inline-flex items-center gap-1 font-bold outline-hidden hover:underline focus:underline"
         onClick={stopEventPropagation}
       >
         <span>{getAccount(account).name}</span>

@@ -1,9 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import BackButton from "@/components/Shared/BackButton";
-import NotLoggedIn from "@/components/Shared/NotLoggedIn";
-import PageLayout from "@/components/Shared/PageLayout";
-import { Card, CardHeader } from "@/components/Shared/UI";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   AdjustmentsVerticalIcon,
   ArrowRightIcon,
@@ -18,6 +12,12 @@ import {
 } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@hey/indexer";
 import { Link } from "react-router";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import BackButton from "@/components/Shared/BackButton";
+import NotLoggedIn from "@/components/Shared/NotLoggedIn";
+import PageLayout from "@/components/Shared/PageLayout";
+import { Card, CardHeader } from "@/components/Shared/UI";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const AccountSettings = () => {
   const { currentAccount } = useAccountStore();

@@ -1,9 +1,9 @@
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { useApolloClient } from "@apollo/client";
 import { useEditPostMutation, usePostLazyQuery } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback } from "react";
 import { toast } from "sonner";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 import useWaitForTransactionToComplete from "./useWaitForTransactionToComplete";
 
@@ -22,8 +22,8 @@ const useEditPost = ({ onCompleted, onError }: EditPostProps) => {
   const updateCache = useCallback(
     async (toastId: string | number) => {
       const { data } = await getPost({
-        variables: { request: { post: editingPost?.id } },
-        fetchPolicy: "cache-and-network"
+        fetchPolicy: "cache-and-network",
+        variables: { request: { post: editingPost?.id } }
       });
 
       if (!data?.post) {
@@ -57,9 +57,9 @@ const useEditPost = ({ onCompleted, onError }: EditPostProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: editPost,
         onCompleted: onCompletedWithTransaction,
-        onError
+        onError,
+        transactionData: editPost
       });
     },
     onError

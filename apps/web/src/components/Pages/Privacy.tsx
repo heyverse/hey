@@ -1,6 +1,6 @@
+import { Link } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
 import { H2, H4 } from "@/components/Shared/UI";
-import { Link } from "react-router";
 
 const Privacy = () => {
   const updatedAt = "October 30, 2023";
@@ -156,9 +156,9 @@ const Privacy = () => {
                     or take action with respect to “Do Not Track” signals. For
                     more information on “Do Not Track,” visit{" "}
                     <Link
-                      to="https://allaboutdnt.com"
                       rel="noreferrer"
                       target="_blank"
+                      to="https://allaboutdnt.com"
                     >
                       https://allaboutdnt.com
                     </Link>

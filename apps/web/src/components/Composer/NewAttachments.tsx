@@ -1,3 +1,7 @@
+import { XMarkIcon } from "@heroicons/react/24/solid";
+import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
+import type { NewAttachment } from "@hey/types/misc";
+import { useEffect, useRef } from "react";
 import ChooseThumbnail from "@/components/Composer/ChooseThumbnail";
 import Audio from "@/components/Shared/Audio";
 import { Image } from "@/components/Shared/UI";
@@ -5,10 +9,6 @@ import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
-import { XMarkIcon } from "@heroicons/react/24/solid";
-import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
-import type { NewAttachment } from "@hey/types/misc";
-import { useEffect, useRef } from "react";
 
 const getClass = (attachments: number) => {
   const aspect = "aspect-w-16 aspect-h-12";

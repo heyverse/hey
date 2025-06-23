@@ -7,9 +7,9 @@ interface State {
 
 const { useStore: useSwitchAccountModalStore } = createTrackedStore<State>(
   (set) => ({
-    showSwitchAccountModal: false,
     setShowSwitchAccountModal: (showSwitchAccountModal) =>
-      set(() => ({ showSwitchAccountModal }))
+      set(() => ({ showSwitchAccountModal })),
+    showSwitchAccountModal: false
   })
 );
 

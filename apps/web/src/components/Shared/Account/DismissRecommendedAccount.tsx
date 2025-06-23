@@ -1,9 +1,9 @@
-import { Spinner } from "@/components/Shared/UI";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   type AccountFragment,
   useMlDismissRecommendedAccountsMutation
 } from "@hey/indexer";
+import { Spinner } from "@/components/Shared/UI";
 
 interface DismissRecommendedAccountProps {
   account: AccountFragment;
@@ -23,7 +23,7 @@ const DismissRecommendedAccount = ({
   };
 
   return (
-    <button onClick={handleDismiss} type="reset" disabled={loading}>
+    <button disabled={loading} onClick={handleDismiss} type="reset">
       {loading ? (
         <Spinner size="xs" />
       ) : (

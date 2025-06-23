@@ -1,8 +1,3 @@
-import SingleGroup from "@/components/Shared/Group/SingleGroup";
-import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
-import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { GroupsFeedType } from "@hey/data/enums";
 import {
@@ -12,6 +7,11 @@ import {
   useGroupsQuery
 } from "@hey/indexer";
 import { WindowVirtualizer } from "virtua";
+import SingleGroup from "@/components/Shared/Group/SingleGroup";
+import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
+import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface ListProps {
   feedType: GroupsFeedType;
@@ -58,9 +58,9 @@ const List = ({ feedType }: ListProps) => {
   if (!groups?.length) {
     return (
       <EmptyState
+        hideCard
         icon={<UserGroupIcon className="size-8" />}
         message="No groups."
-        hideCard
       />
     );
   }
@@ -80,7 +80,7 @@ const List = ({ feedType }: ListProps) => {
       <WindowVirtualizer>
         {groups.map((group) => (
           <div className="p-5" key={group.address}>
-            <SingleGroup group={group} showDescription isBig />
+            <SingleGroup group={group} isBig showDescription />
           </div>
         ))}
         {hasMore && <span ref={loadMoreRef} />}

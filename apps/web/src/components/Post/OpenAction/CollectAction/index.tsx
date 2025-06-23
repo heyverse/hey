@@ -1,10 +1,10 @@
-import { Modal, Tooltip } from "@/components/Shared/UI";
-import humanize from "@/helpers/humanize";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
 import { useState } from "react";
+import { Modal, Tooltip } from "@/components/Shared/UI";
+import humanize from "@/helpers/humanize";
 import CollectActionBody from "./CollectActionBody";
 
 interface CollectActionProps {
@@ -33,10 +33,10 @@ const CollectAction = ({ post }: CollectActionProps) => {
       </button>
       {collects > 0 ? (
         <AnimateNumber
-          key={`collect-count-${post.id}`}
-          format={{ notation: "compact" }}
-          transition={{ type: "tween" }}
           className="text-[11px] sm:text-xs"
+          format={{ notation: "compact" }}
+          key={`collect-count-${post.id}`}
+          transition={{ type: "tween" }}
         >
           {collects}
         </AnimateNumber>

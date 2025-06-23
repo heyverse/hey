@@ -1,10 +1,10 @@
+import { StarIcon } from "@heroicons/react/24/outline";
+import type { CollectActionType } from "@hey/types/hey";
+import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { EXPANSION_EASE } from "@/variants";
-import { StarIcon } from "@heroicons/react/24/outline";
-import type { CollectActionType } from "@hey/types/hey";
-import { motion } from "motion/react";
 
 interface CollectLimitConfigProps {
   setCollectType: (data: CollectActionType) => void;
@@ -28,14 +28,14 @@ const CollectLimitConfig = ({ setCollectType }: CollectLimitConfigProps) => {
       />
       {collectAction.collectLimit ? (
         <motion.div
+          animate="visible"
           className="mt-4 ml-8 text-sm"
           initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0, height: 0, y: -20 },
-            visible: { opacity: 1, height: "auto", y: 0 }
-          }}
           transition={{ duration: 0.2, ease: EXPANSION_EASE }}
+          variants={{
+            hidden: { height: 0, opacity: 0, y: -20 },
+            visible: { height: "auto", opacity: 1, y: 0 }
+          }}
         >
           <Input
             label="Collect limit"

@@ -1,7 +1,7 @@
-import { Tabs } from "@/components/Shared/UI";
 import { AccountFeedType } from "@hey/data/enums";
 import generateUUID from "@hey/helpers/generateUUID";
 import type { Dispatch, SetStateAction } from "react";
+import { Tabs } from "@/components/Shared/UI";
 
 interface FeedTypeProps {
   feedType: AccountFeedType;
@@ -18,12 +18,12 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
 
   return (
     <Tabs
-      key={generateUUID()}
-      tabs={tabs}
       active={feedType}
-      setActive={(type) => setFeedType(type as AccountFeedType)}
       className="mx-5 mb-5 md:mx-0"
+      key={generateUUID()}
       layoutId="account_tab"
+      setActive={(type) => setFeedType(type as AccountFeedType)}
+      tabs={tabs}
     />
   );
 };

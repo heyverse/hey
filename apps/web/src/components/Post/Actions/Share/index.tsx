@@ -1,14 +1,14 @@
-import MenuTransition from "@/components/Shared/MenuTransition";
-import { Spinner, Tooltip } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import humanize from "@/helpers/humanize";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import { useState } from "react";
+import MenuTransition from "@/components/Shared/MenuTransition";
+import { Spinner, Tooltip } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import humanize from "@/helpers/humanize";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Quote from "./Quote";
 import Repost from "./Repost";
 import UndoRepost from "./UndoRepost";
@@ -74,8 +74,8 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-            className="z-[5] mt-2 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
             anchor="bottom start"
+            className="z-[5] mt-2 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
             static
           >
             {canRepost && (
@@ -88,8 +88,8 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
             {canQuote && <Quote post={targetPost} />}
             {hasReposted && targetPost.id !== post.id && (
               <UndoRepost
-                post={post}
                 isSubmitting={isSubmitting}
+                post={post}
                 setIsSubmitting={setIsSubmitting}
               />
             )}
@@ -98,13 +98,13 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
       </Menu>
       {shares > 0 && !showCount ? (
         <AnimateNumber
-          key={`share-count-${post.id}`}
-          format={{ notation: "compact" }}
-          transition={{ type: "tween" }}
           className={cn(
             hasShared ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
             "w-3 text-[11px] sm:text-xs"
           )}
+          format={{ notation: "compact" }}
+          key={`share-count-${post.id}`}
+          transition={{ type: "tween" }}
         >
           {shares}
         </AnimateNumber>

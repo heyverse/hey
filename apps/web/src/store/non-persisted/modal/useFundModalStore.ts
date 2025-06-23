@@ -1,5 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
 import type { Address } from "viem";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 export interface FundingToken {
   contractAddress: Address;
@@ -24,11 +24,11 @@ interface State {
 }
 
 const { useStore: useFundModalStore } = createTrackedStore<State>((set) => ({
-  showFundModal: false,
-  token: undefined,
   amountToTopUp: undefined,
   setShowFundModal: ({ showFundModal, token, amountToTopUp }) =>
-    set(() => ({ showFundModal, token, amountToTopUp }))
+    set(() => ({ amountToTopUp, showFundModal, token })),
+  showFundModal: false,
+  token: undefined
 }));
 
 export { useFundModalStore };

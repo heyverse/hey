@@ -1,3 +1,7 @@
+import { CheckCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
+import type { ChangeEvent } from "react";
+import { useEffect, useId, useState } from "react";
+import { toast } from "sonner";
 import ThumbnailsShimmer from "@/components/Shared/Shimmer/ThumbnailsShimmer";
 import { Spinner } from "@/components/Shared/UI";
 import generateVideoThumbnails from "@/helpers/generateVideoThumbnails";
@@ -5,10 +9,6 @@ import getFileFromDataURL from "@/helpers/getFileFromDataURL";
 import { uploadFileToIPFS } from "@/helpers/uploadToIPFS";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
-import { CheckCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
-import type { ChangeEvent } from "react";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;
@@ -19,6 +19,7 @@ interface Thumbnail {
 }
 
 const ChooseThumbnail = () => {
+  const inputId = useId();
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
@@ -135,7 +136,7 @@ const ChooseThumbnail = () => {
           <input
             accept=".png, .jpg, .jpeg"
             className="hidden w-full"
-            id="chooseThumbnail"
+            id={inputId}
             onChange={handleUpload}
             type="file"
           />

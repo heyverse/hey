@@ -1,10 +1,10 @@
-import MenuTransition from "@/components/Shared/MenuTransition";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@hey/indexer";
 import { Fragment } from "react";
+import MenuTransition from "@/components/Shared/MenuTransition";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Block from "./Block";
 import CopyLink from "./CopyLink";
 import Mute from "./Mute";
@@ -31,9 +31,9 @@ const AccountMenu = ({ account }: AccountMenuProps) => {
       </MenuButton>
       <MenuTransition>
         <MenuItems
+          anchor="bottom end"
           className="mt-2 w-48 origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
           static
-          anchor="bottom end"
         >
           <CopyLink account={account} />
           {currentAccount && currentAccount?.address !== account.address ? (

@@ -1,5 +1,5 @@
-import SmallSingleAccountShimmer from "@/components/Shared/Shimmer/SmallSingleAccountShimmer";
 import { useAccountQuery } from "@hey/indexer";
+import SmallSingleAccountShimmer from "@/components/Shared/Shimmer/SmallSingleAccountShimmer";
 import SmallSingleAccount from "./SmallSingleAccount";
 
 interface LazySmallSingleAccountProps {
@@ -27,9 +27,9 @@ const LazySmallSingleAccount = ({
 
   return (
     <SmallSingleAccount
+      account={data.account}
       hideSlug={hideSlug}
       linkToAccount={linkToAccount}
-      account={data.account}
       smallAvatar
     />
   );

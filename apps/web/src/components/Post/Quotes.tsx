@@ -1,3 +1,12 @@
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
+import {
+  PageSize,
+  type PostFragment,
+  type PostReferencesRequest,
+  PostReferenceType,
+  usePostReferencesQuery
+} from "@hey/indexer";
+import { WindowVirtualizer } from "virtua";
 import BackButton from "@/components/Shared/BackButton";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import {
@@ -7,15 +16,6 @@ import {
   ErrorMessage
 } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
-import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
-import {
-  PageSize,
-  type PostFragment,
-  PostReferenceType,
-  type PostReferencesRequest,
-  usePostReferencesQuery
-} from "@hey/indexer";
-import { WindowVirtualizer } from "virtua";
 import SinglePost from "./SinglePost";
 
 interface QuotesProps {
@@ -25,8 +25,8 @@ interface QuotesProps {
 const Quotes = ({ post }: QuotesProps) => {
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
-    referenceTypes: [PostReferenceType.QuoteOf],
-    referencedPost: post.id
+    referencedPost: post.id,
+    referenceTypes: [PostReferenceType.QuoteOf]
   };
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({
@@ -70,9 +70,9 @@ const Quotes = ({ post }: QuotesProps) => {
         </div>
       ) : (
         <EmptyState
+          hideCard
           icon={<ChatBubbleBottomCenterTextIcon className="size-8" />}
           message="Be the first one to quote!"
-          hideCard
         />
       )}
     </Card>

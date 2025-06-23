@@ -1,5 +1,5 @@
-import { Tabs } from "@/components/Shared/UI";
 import { useSearchParams } from "react-router";
+import { Tabs } from "@/components/Shared/UI";
 
 export enum SearchTabFocus {
   Accounts = "ACCOUNTS",
@@ -29,11 +29,11 @@ const FeedType = ({ feedType }: FeedTypeProps) => {
 
   return (
     <Tabs
-      tabs={tabs}
       active={feedType}
-      setActive={updateQuery}
       className="mx-5 mb-5 md:mx-0"
       layoutId="search_tab"
+      setActive={updateQuery}
+      tabs={tabs}
     />
   );
 };

@@ -1,6 +1,3 @@
-import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import {
   type GroupFragment,
@@ -10,6 +7,9 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface ApprovalRuleProps {
   group: GroupFragment;
@@ -44,9 +44,9 @@ const ApprovalRule = ({ group }: ApprovalRuleProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: updateGroupRules,
         onCompleted,
-        onError
+        onError,
+        transactionData: updateGroupRules
       });
     },
     onError
@@ -74,9 +74,9 @@ const ApprovalRule = ({ group }: ApprovalRuleProps) => {
   return (
     <div className="m-5">
       <ToggleWithHelper
-        heading="Enable Membership Approval"
         description="Toggle to require approval for new members"
         disabled={isSubmitting}
+        heading="Enable Membership Approval"
         icon={<PlusCircleIcon className="size-5" />}
         on={isApprovalRuleEnabled}
         setOn={handleUpdateRule}

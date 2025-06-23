@@ -1,3 +1,19 @@
+import {
+  BANNER_IDS,
+  DEFAULT_COLLECT_TOKEN,
+  IS_MAINNET,
+  STATIC_IMAGES_URL,
+  WRAPPED_NATIVE_TOKEN_SYMBOL
+} from "@hey/data/constants";
+import {
+  type AccountFollowRules,
+  AccountFollowRuleType,
+  type AccountFragment,
+  useMeLazyQuery,
+  useUpdateAccountFollowRulesMutation
+} from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import { type RefObject, useEffect, useRef, useState } from "react";
 import BackButton from "@/components/Shared/BackButton";
 import {
   Button,
@@ -13,22 +29,6 @@ import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import {
-  BANNER_IDS,
-  DEFAULT_COLLECT_TOKEN,
-  IS_MAINNET,
-  STATIC_IMAGES_URL,
-  WRAPPED_NATIVE_TOKEN_SYMBOL
-} from "@hey/data/constants";
-import {
-  AccountFollowRuleType,
-  type AccountFollowRules,
-  type AccountFragment,
-  useMeLazyQuery,
-  useUpdateAccountFollowRulesMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
-import { type RefObject, useEffect, useRef, useState } from "react";
 
 const SuperFollow = () => {
   const { currentAccount, setCurrentAccount } = useAccountStore();
@@ -39,8 +39,8 @@ const SuperFollow = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const [getCurrentAccountDetails] = useMeLazyQuery({
-    variables: { proBannerId: BANNER_IDS.PRO },
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
+    variables: { proBannerId: BANNER_IDS.PRO }
   });
 
   const account = currentAccount as AccountFragment;
@@ -78,9 +78,9 @@ const SuperFollow = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: updateAccountFollowRules,
         onCompleted,
-        onError
+        onError,
+        transactionData: updateAccountFollowRules
       });
     },
     onError
@@ -122,7 +122,9 @@ const SuperFollow = () => {
       <CardHeader icon={<BackButton path="/settings" />} title="Super follow" />
       <div className="m-5 flex flex-col gap-y-4">
         <Input
+          className="no-spinner"
           label="Amount"
+          onChange={(e) => setAmount(Number(e.target.value))}
           placeholder="1"
           prefix={
             <Tooltip
@@ -130,19 +132,17 @@ const SuperFollow = () => {
               placement="top"
             >
               <Image
+                alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
                 className="size-5 rounded-full"
                 src={`${STATIC_IMAGES_URL}/tokens/${
                   IS_MAINNET ? "gho.svg" : "grass.svg"
                 }`}
-                alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
               />
             </Tooltip>
           }
-          className="no-spinner"
           ref={inputRef}
           type="number"
           value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
         />
         <div className="flex justify-end space-x-2">
           {simplePaymentRule && (

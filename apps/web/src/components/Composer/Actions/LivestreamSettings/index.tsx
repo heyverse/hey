@@ -1,8 +1,8 @@
+import { VideoCameraIcon } from "@heroicons/react/24/outline";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
-import { VideoCameraIcon } from "@heroicons/react/24/outline";
 
 const LivestreamSettings = () => {
   const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =

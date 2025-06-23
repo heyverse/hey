@@ -4,7 +4,7 @@ const GroupListShimmer = () => {
   return (
     <div className="divide-y divide-gray-200 dark:divide-gray-700">
       {Array.from({ length: 5 }).map((_, index) => (
-        <SingleGroupShimmer key={index} className="p-5" showJoinLeaveButton />
+        <SingleGroupShimmer className="p-5" key={index} showJoinLeaveButton />
       ))}
     </div>
   );

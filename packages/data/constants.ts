@@ -57,12 +57,12 @@ export const MAX_IMAGE_UPLOAD = 8;
 
 // Named transforms for ImageKit
 export const TRANSFORMS = {
+  ATTACHMENT: "tr:w-1000",
   AVATAR_BIG: "tr:w-350,h-350",
   AVATAR_SMALL: "tr:w-100,h-100",
   AVATAR_TINY: "tr:w-50,h-50",
-  EXPANDED_AVATAR: "tr:w-1000,h-1000",
   COVER: "tr:w-1350,h-350",
-  ATTACHMENT: "tr:w-1000"
+  EXPANDED_AVATAR: "tr:w-1000,h-1000"
 } as const;
 
 export const BANNER_IDS = {
@@ -70,6 +70,6 @@ export const BANNER_IDS = {
 } as const;
 
 export const PERMISSIONS = {
-  SUBSCRIPTION: "0x4BE5b4519814A57E6f9AaFC6afBB37eAEeE35aA3",
-  STAFF: "0xA7f2835e54998c6d7d4A0126eC0ebE91b5E43c69"
+  STAFF: "0xA7f2835e54998c6d7d4A0126eC0ebE91b5E43c69",
+  SUBSCRIPTION: "0x4BE5b4519814A57E6f9AaFC6afBB37eAEeE35aA3"
 } as const;

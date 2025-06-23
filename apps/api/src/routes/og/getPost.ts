@@ -13,30 +13,6 @@ const getPost = async (ctx: Context) => {
   const cacheKey = `og:post:${slug}`;
 
   return generateOg({
-    ctx,
-    cacheKey,
-    query: PostDocument,
-    variables: { request: { post: slug } },
-    extractData: (data) => data.post as PostFragment | null,
-    buildJsonLd: (post: PostFragment) => {
-      const { author, metadata } = post;
-      const { usernameWithPrefix } = getAccount(author);
-      const filteredContent = getPostData(metadata)?.content || "";
-      const title = `${post.__typename} by ${usernameWithPrefix} on Hey`;
-      const description = (filteredContent || title).slice(0, 155);
-
-      return {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "@id": `https://hey.xyz/posts/${post.slug}`,
-        headline: title,
-        description,
-        author: usernameWithPrefix,
-        image: getAvatar(author, TRANSFORMS.AVATAR_BIG),
-        url: `https://hey.xyz/posts/${post.slug}`,
-        publisher: { "@type": "Organization", name: "Hey.xyz" }
-      };
-    },
     buildHtml: (post: PostFragment, _jsonLd) => {
       const { author, metadata } = post;
       const { usernameWithPrefix } = getAccount(author);
@@ -86,7 +62,31 @@ const getPost = async (ctx: Context) => {
           </body>
         </html>
       `;
-    }
+    },
+    buildJsonLd: (post: PostFragment) => {
+      const { author, metadata } = post;
+      const { usernameWithPrefix } = getAccount(author);
+      const filteredContent = getPostData(metadata)?.content || "";
+      const title = `${post.__typename} by ${usernameWithPrefix} on Hey`;
+      const description = (filteredContent || title).slice(0, 155);
+
+      return {
+        "@context": "https://schema.org",
+        "@id": `https://hey.xyz/posts/${post.slug}`,
+        "@type": "Article",
+        author: usernameWithPrefix,
+        description,
+        headline: title,
+        image: getAvatar(author, TRANSFORMS.AVATAR_BIG),
+        publisher: { "@type": "Organization", name: "Hey.xyz" },
+        url: `https://hey.xyz/posts/${post.slug}`
+      };
+    },
+    cacheKey,
+    ctx,
+    extractData: (data) => data.post as PostFragment | null,
+    query: PostDocument,
+    variables: { request: { post: slug } }
   });
 };
 

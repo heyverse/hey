@@ -1,7 +1,7 @@
+import type { GroupFragment, GroupRules } from "@hey/indexer";
 import { Button } from "@/components/Shared/UI";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
-import type { GroupFragment, GroupRules } from "@hey/indexer";
 import Join from "./Join";
 
 interface JoinWithRulesCheckProps {

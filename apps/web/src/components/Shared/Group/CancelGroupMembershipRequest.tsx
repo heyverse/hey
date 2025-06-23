@@ -1,6 +1,3 @@
-import { Button } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useApolloClient } from "@apollo/client";
 import {
   type GroupFragment,
@@ -9,6 +6,9 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface CancelGroupMembershipRequestProps {
   group: GroupFragment;
@@ -56,9 +56,9 @@ const CancelGroupMembershipRequest = ({
         }
 
         return await handleTransactionLifecycle({
-          transactionData: cancelGroupMembershipRequest,
           onCompleted,
-          onError
+          onError,
+          transactionData: cancelGroupMembershipRequest
         });
       },
       onError
@@ -78,8 +78,8 @@ const CancelGroupMembershipRequest = ({
       disabled={isSubmitting}
       loading={isSubmitting}
       onClick={handleCancelGroupMembershipRequest}
-      size={small ? "sm" : "md"}
       outline
+      size={small ? "sm" : "md"}
     >
       Cancel Request
     </Button>

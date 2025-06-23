@@ -1,3 +1,4 @@
+import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 import ViewAccount from "@/components/Account";
 import Bookmarks from "@/components/Bookmarks";
 import Layout from "@/components/Common/Layout";
@@ -28,62 +29,61 @@ import PreferencesSettings from "@/components/Settings/Preferences";
 import SessionsSettings from "@/components/Settings/Sessions";
 import UsernameSettings from "@/components/Settings/Username";
 import Custom404 from "@/components/Shared/404";
-import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 import Staff from "./components/Staff";
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <RouterRoutes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="explore" element={<Explore />} />
-          <Route path="search" element={<Search />} />
-          <Route path="groups" element={<Groups />} />
-          <Route path="bookmarks" element={<Bookmarks />} />
-          <Route path="notifications" element={<Notification />} />
-          <Route path="account/:address" element={<ViewAccount />} />
-          <Route path="u/:username" element={<ViewAccount />} />
+        <Route element={<Layout />} path="/">
+          <Route element={<Home />} index />
+          <Route element={<Explore />} path="explore" />
+          <Route element={<Search />} path="search" />
+          <Route element={<Groups />} path="groups" />
+          <Route element={<Bookmarks />} path="bookmarks" />
+          <Route element={<Notification />} path="notifications" />
+          <Route element={<ViewAccount />} path="account/:address" />
+          <Route element={<ViewAccount />} path="u/:username" />
           <Route path="g/:address">
-            <Route index element={<ViewGroup />} />
+            <Route element={<ViewGroup />} index />
             <Route path="settings">
-              <Route index element={<GroupSettings />} />
+              <Route element={<GroupSettings />} index />
               <Route
-                path="personalize"
                 element={<GroupPersonalizeSettings />}
+                path="personalize"
               />
-              <Route path="monetize" element={<GroupMonetizeSettings />} />
-              <Route path="rules" element={<RulesSettings />} />
+              <Route element={<GroupMonetizeSettings />} path="monetize" />
+              <Route element={<RulesSettings />} path="rules" />
             </Route>
           </Route>
           <Route path="posts/:slug">
-            <Route index element={<ViewPost />} />
-            <Route path="quotes" element={<ViewPost />} />
+            <Route element={<ViewPost />} index />
+            <Route element={<ViewPost />} path="quotes" />
           </Route>
           <Route path="settings">
-            <Route index element={<AccountSettings />} />
+            <Route element={<AccountSettings />} index />
             <Route
-              path="personalize"
               element={<AccountPersonalizeSettings />}
+              path="personalize"
             />
-            <Route path="monetize" element={<AccountMonetizeSettings />} />
-            <Route path="blocked" element={<BlockedSettings />} />
-            <Route path="developer" element={<DeveloperSettings />} />
-            <Route path="funds" element={<FundsSettings />} />
-            <Route path="manager" element={<ManagerSettings />} />
-            <Route path="preferences" element={<PreferencesSettings />} />
-            <Route path="sessions" element={<SessionsSettings />} />
-            <Route path="username" element={<UsernameSettings />} />
+            <Route element={<AccountMonetizeSettings />} path="monetize" />
+            <Route element={<BlockedSettings />} path="blocked" />
+            <Route element={<DeveloperSettings />} path="developer" />
+            <Route element={<FundsSettings />} path="funds" />
+            <Route element={<ManagerSettings />} path="manager" />
+            <Route element={<PreferencesSettings />} path="preferences" />
+            <Route element={<SessionsSettings />} path="sessions" />
+            <Route element={<UsernameSettings />} path="username" />
           </Route>
           <Route path="staff">
-            <Route index element={<Staff />} />
+            <Route element={<Staff />} index />
           </Route>
-          <Route path="support" element={<Support />} />
-          <Route path="terms" element={<Terms />} />
-          <Route path="privacy" element={<Privacy />} />
-          <Route path="guidelines" element={<Guidelines />} />
-          <Route path="copyright" element={<Copyright />} />
-          <Route path="*" element={<Custom404 />} />
+          <Route element={<Support />} path="support" />
+          <Route element={<Terms />} path="terms" />
+          <Route element={<Privacy />} path="privacy" />
+          <Route element={<Guidelines />} path="guidelines" />
+          <Route element={<Copyright />} path="copyright" />
+          <Route element={<Custom404 />} path="*" />
         </Route>
       </RouterRoutes>
     </BrowserRouter>

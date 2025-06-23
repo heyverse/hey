@@ -1,4 +1,3 @@
-import trimify from "@/helpers/trimify";
 import { Regex } from "@hey/data/regex";
 import type { PostMentionFragment } from "@hey/indexer";
 import { memo } from "react";
@@ -7,6 +6,7 @@ import remarkBreaks from "remark-breaks";
 // @ts-expect-error
 import linkifyRegex from "remark-linkify-regex";
 import stripMarkdown from "strip-markdown";
+import trimify from "@/helpers/trimify";
 import MarkupLink from "./MarkupLink";
 
 const plugins = [

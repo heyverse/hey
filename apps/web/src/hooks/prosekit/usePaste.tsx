@@ -1,11 +1,11 @@
-import type { EditorExtension } from "@/helpers/prosekit/extension";
-import useUploadAttachments from "@/hooks/useUploadAttachments";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
-import { type Editor, defineDOMEventHandler, union } from "prosekit/core";
+import { defineDOMEventHandler, type Editor, union } from "prosekit/core";
 import { useExtension } from "prosekit/react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { toast } from "sonner";
+import type { EditorExtension } from "@/helpers/prosekit/extension";
+import useUploadAttachments from "@/hooks/useUploadAttachments";
+import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 
 const handleFiles = (
   event: Event,

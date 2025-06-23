@@ -1,8 +1,8 @@
+import type { ReactNode } from "react";
+import { WindowVirtualizer } from "virtua";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
-import type { ReactNode } from "react";
-import { WindowVirtualizer } from "virtua";
 
 interface PostFeedProps<T extends { id: string }> {
   items: T[];

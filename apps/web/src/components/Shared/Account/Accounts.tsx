@@ -1,6 +1,6 @@
-import FallbackAccountName from "@/components/Shared/FallbackAccountName";
 import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
+import FallbackAccountName from "@/components/Shared/FallbackAccountName";
 
 interface AccountsProps {
   context?: string;

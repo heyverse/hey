@@ -1,6 +1,6 @@
-import cn from "@/helpers/cn";
 import type { ComponentProps } from "react";
 import { forwardRef, memo, useId } from "react";
+import cn from "@/helpers/cn";
 
 interface CheckboxProps extends Omit<ComponentProps<"input">, "prefix"> {
   className?: string;

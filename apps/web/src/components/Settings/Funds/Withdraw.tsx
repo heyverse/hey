@@ -11,16 +11,16 @@ interface WithdrawProps {
 const Withdraw = ({ currency, value, refetch }: WithdrawProps) => {
   return (
     <TokenOperation
-      useMutationHook={useWithdrawMutation}
       buildRequest={(amount) =>
         currency ? { erc20: { currency, value: amount } } : { native: amount }
       }
-      resultKey="withdraw"
       buttonLabel="Withdraw"
-      title="Withdraw"
-      successMessage="Withdrawal Successful"
-      value={value}
       refetch={refetch}
+      resultKey="withdraw"
+      successMessage="Withdrawal Successful"
+      title="Withdraw"
+      useMutationHook={useWithdrawMutation}
+      value={value}
     />
   );
 };

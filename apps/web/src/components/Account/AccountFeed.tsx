@@ -1,14 +1,14 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
 import {
   MainContentFocus,
   PageSize,
-  PostType,
   type PostsRequest,
+  PostType,
   usePostsQuery
 } from "@hey/indexer";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 
 interface AccountFeedProps {
   username: string;
@@ -53,7 +53,6 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   const postTypes = getPostTypes();
 
   const request: PostsRequest = {
-    pageSize: PageSize.Fifty,
     filter: {
       postTypes,
       ...(type === AccountFeedType.Media && {
@@ -69,7 +68,8 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       ...(type === AccountFeedType.Collects
         ? { collectedBy: { account: address } }
         : { authors: [address] })
-    }
+    },
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = usePostsQuery({
@@ -91,11 +91,6 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
 
   return (
     <PostFeed
-      items={posts ?? []}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
       emptyMessage={
         <div>
@@ -103,7 +98,12 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
           <span>{getEmptyMessage()}</span>
         </div>
       }
+      error={error}
       errorTitle="Failed to load account feed"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={posts ?? []}
+      loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

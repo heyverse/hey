@@ -1,12 +1,12 @@
+import { useApolloClient } from "@apollo/client";
+import { type AccountFragment, useFollowMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import { useState } from "react";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useApolloClient } from "@apollo/client";
-import { type AccountFragment, useFollowMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
 
 interface FollowProps {
   onFollow?: () => void;
@@ -62,9 +62,9 @@ const Follow = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: follow,
         onCompleted,
-        onError
+        onError,
+        transactionData: follow
       });
     },
     onError

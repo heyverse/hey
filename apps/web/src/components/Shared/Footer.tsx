@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+
 const currentYear = new Date().getFullYear();
 
 const links = [
@@ -21,10 +22,10 @@ const Footer = () => {
       {links.map(({ href, label }) => (
         <Link
           className="outline-offset-4"
-          to={href}
           key={href}
           rel="noreferrer noopener"
           target={href.startsWith("http") ? "_blank" : undefined}
+          to={href}
         >
           {label}
         </Link>

@@ -1,5 +1,3 @@
-import { Input } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
 import {
   Listbox,
   ListboxButton,
@@ -9,7 +7,9 @@ import {
 } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
-import { Fragment, type ReactNode, forwardRef, memo, useState } from "react";
+import { Fragment, forwardRef, memo, type ReactNode, useState } from "react";
+import { Input } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
 
 interface SelectProps {
   className?: string;
@@ -55,9 +55,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             <span className="flex items-center space-x-2">
               {selected?.icon && (
                 <img
+                  alt={selected?.label}
                   className={iconClassName}
                   src={selected?.icon}
-                  alt={selected?.label}
                 />
               )}
               <span>{selected?.htmlLabel || selected?.label}</span>
@@ -110,9 +110,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                           <span className="flex items-center space-x-2">
                             {option.icon && (
                               <img
+                                alt={option.label}
                                 className={iconClassName}
                                 src={option.icon}
-                                alt={option.label}
                               />
                             )}
                             <span className="block truncate">

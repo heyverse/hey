@@ -1,10 +1,10 @@
+import type { PostFragment } from "@hey/indexer";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
 import {
   getBlockedByMeMessage,
   getBlockedMeMessage
 } from "@/helpers/getBlockedMessage";
-import type { PostFragment } from "@hey/indexer";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";

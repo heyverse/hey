@@ -38,12 +38,12 @@ const createLive = async (ctx: Context) => {
     });
 
     return ctx.json({
-      status: Status.Success,
       data: (await response.json()) as {
         id: string;
         playbackId: string;
         streamKey: string;
-      }
+      },
+      status: Status.Success
     });
   } catch {
     return handleApiError(ctx);

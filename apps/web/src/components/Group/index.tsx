@@ -1,3 +1,6 @@
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { useGroupQuery } from "@hey/indexer";
+import { useParams } from "react-router";
 import NewPost from "@/components/Composer/NewPost";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
@@ -5,9 +8,6 @@ import Cover from "@/components/Shared/Cover";
 import PageLayout from "@/components/Shared/PageLayout";
 import { WarningMessage } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { useGroupQuery } from "@hey/indexer";
-import { useParams } from "react-router";
 import Details from "./Details";
 import GroupFeed from "./GroupFeed";
 import GroupPageShimmer from "./Shimmer";
@@ -17,8 +17,8 @@ const ViewGroup = () => {
   const { currentAccount } = useAccountStore();
 
   const { data, loading, error } = useGroupQuery({
-    variables: { request: { group: address } },
-    skip: !address
+    skip: !address,
+    variables: { request: { group: address } }
   });
 
   if (!address || loading) {
@@ -47,8 +47,8 @@ const ViewGroup = () => {
       <Details group={group} />
       {isBanned && (
         <WarningMessage
-          title="You are banned from this group"
           message="Please contact the group owner to unban yourself."
+          title="You are banned from this group"
         />
       )}
       {currentAccount && isMember && !isBanned && (

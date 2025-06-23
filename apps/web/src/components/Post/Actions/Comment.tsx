@@ -1,9 +1,9 @@
-import { Tooltip } from "@/components/Shared/UI";
-import humanize from "@/helpers/humanize";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import { useNavigate } from "react-router";
+import { Tooltip } from "@/components/Shared/UI";
+import humanize from "@/helpers/humanize";
 
 interface CommentProps {
   post: PostFragment;
@@ -35,10 +35,10 @@ const Comment = ({ post, showCount }: CommentProps) => {
       </button>
       {count > 0 && !showCount ? (
         <AnimateNumber
-          key={`comment-count-${post.id}`}
-          format={{ notation: "compact" }}
-          transition={{ type: "tween" }}
           className="w-3 text-[11px] sm:text-xs"
+          format={{ notation: "compact" }}
+          key={`comment-count-${post.id}`}
+          transition={{ type: "tween" }}
         >
           {count}
         </AnimateNumber>

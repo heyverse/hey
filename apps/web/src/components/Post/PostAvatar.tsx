@@ -1,11 +1,11 @@
-import AccountLink from "@/components/Shared/Account/AccountLink";
-import { Image } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import getAvatar from "@hey/helpers/getAvatar";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import { memo } from "react";
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import { Image } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface PostAvatarProps {
   timelineItem?: TimelineItemFragment;
@@ -24,8 +24,8 @@ const PostAvatar = ({
 
   return (
     <AccountLink
-      className="contents"
       account={account}
+      className="contents"
       onClick={stopEventPropagation}
     >
       <Image
