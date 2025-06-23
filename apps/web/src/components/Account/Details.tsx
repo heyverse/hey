@@ -17,7 +17,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
@@ -40,6 +40,14 @@ const Details = ({
   const { setShowProModal } = useProModalStore();
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const { theme } = useTheme();
+
+  const handleShowLightBox = useCallback(() => {
+    setShowLightBox(true);
+  }, []);
+
+  const handleCloseLightBox = useCallback(() => {
+    setShowLightBox(false);
+  }, []);
 
   const renderAccountAttribute = (
     attribute: "location" | "website" | "x",
@@ -75,12 +83,12 @@ const Details = ({
             alt={account.address}
             className="size-20 cursor-pointer rounded-full bg-gray-200 ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
             height={128}
-            onClick={() => setShowLightBox(true)}
+            onClick={handleShowLightBox}
             src={getAvatar(account, TRANSFORMS.AVATAR_BIG)}
             width={128}
           />
           <LightBox
-            onClose={() => setShowLightBox(false)}
+            onClose={handleCloseLightBox}
             show={showLightBox}
             images={[getAvatar(account, TRANSFORMS.EXPANDED_AVATAR)]}
           />

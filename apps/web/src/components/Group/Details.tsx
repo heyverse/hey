@@ -6,7 +6,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { TRANSFORMS } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { GroupFragment } from "@hey/indexer";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router";
 import MembersCount from "./MembersCount";
 
@@ -19,6 +19,14 @@ const Details = ({ group }: DetailsProps) => {
   const { currentAccount } = useAccountStore();
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
 
+  const handleShowLightBox = useCallback(() => {
+    setShowLightBox(true);
+  }, []);
+
+  const handleCloseLightBox = useCallback(() => {
+    setShowLightBox(false);
+  }, []);
+
   return (
     <div className="mb-4 space-y-3 px-5 md:px-0">
       <div className="flex items-start justify-between">
@@ -27,12 +35,12 @@ const Details = ({ group }: DetailsProps) => {
             alt={group.address}
             className="size-32 cursor-pointer rounded-xl bg-gray-200 ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
             height={128}
-            onClick={() => setShowLightBox(true)}
+            onClick={handleShowLightBox}
             src={getAvatar(group, TRANSFORMS.AVATAR_BIG)}
             width={128}
           />
           <LightBox
-            onClose={() => setShowLightBox(false)}
+            onClose={handleCloseLightBox}
             show={showLightBox}
             images={[getAvatar(group, TRANSFORMS.EXPANDED_AVATAR)]}
           />
