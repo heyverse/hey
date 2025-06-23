@@ -4,10 +4,9 @@ import {
   type TimelineHighlightsRequest,
   useTimelineHighlightsQuery
 } from "@hey/indexer";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
-import { useCallback, useMemo } from "react";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Highlights = () => {
