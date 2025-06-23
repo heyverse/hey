@@ -3,6 +3,7 @@ import Loader from "@/components/Shared/Loader";
 import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { signIn } from "@/store/persisted/useAuthStore";
+import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { EXPANSION_EASE } from "@/variants";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import { HEY_APP, IS_MAINNET } from "@hey/data/constants";
@@ -32,6 +33,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     null
   );
   const [isExpanded, setIsExpanded] = useState(true);
+  const { setShowAuthModal } = useAuthModalStore();
 
   const onError = (error?: any) => {
     setIsSubmitting(false);
@@ -114,7 +116,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         const accessToken = auth.data?.authenticate.accessToken;
         const refreshToken = auth.data?.authenticate.refreshToken;
         signIn({ accessToken, refreshToken });
-        return location.reload();
+        setShowAuthModal(false);
+        return;
       }
 
       return onError({ message: ERRORS.SomethingWentWrong });

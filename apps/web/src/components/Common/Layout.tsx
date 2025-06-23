@@ -7,7 +7,7 @@ import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
+import { signOut, useAuthStore } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useProStore } from "@/store/persisted/useProStore";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
@@ -25,7 +25,7 @@ const Layout = () => {
   const { setProBannerDismissed } = useProStore();
   const { resetPreferences } = usePreferencesStore();
   const isMounted = useIsClient();
-  const { accessToken } = hydrateAuthTokens();
+  const { accessToken } = useAuthStore();
 
   // Disable scroll restoration on route change
   useEffect(() => {
