@@ -14,7 +14,7 @@ import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { signOut, useAuthStore } from "@/store/persisted/useAuthStore";
+import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useProStore } from "@/store/persisted/useProStore";
 
@@ -25,7 +25,7 @@ const Layout = () => {
   const { setProBannerDismissed } = useProStore();
   const { resetPreferences } = usePreferencesStore();
   const isMounted = useIsClient();
-  const { accessToken } = useAuthStore();
+  const { accessToken } = hydrateAuthTokens();
 
   // Disable scroll restoration on route change
   useEffect(() => {

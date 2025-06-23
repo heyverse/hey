@@ -17,7 +17,6 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { signIn } from "@/store/persisted/useAuthStore";
 import { EXPANSION_EASE } from "@/variants";
 import SignupCard from "./SignupCard";
@@ -33,7 +32,6 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     null
   );
   const [isExpanded, setIsExpanded] = useState(true);
-  const { setShowAuthModal } = useAuthModalStore();
 
   const onError = (error?: any) => {
     setIsSubmitting(false);
@@ -116,8 +114,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         const accessToken = auth.data?.authenticate.accessToken;
         const refreshToken = auth.data?.authenticate.refreshToken;
         signIn({ accessToken, refreshToken });
-        setShowAuthModal(false);
-        return;
+        return location.reload();
       }
 
       return onError({ message: ERRORS.SomethingWentWrong });
