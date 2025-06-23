@@ -14,7 +14,9 @@ interface TimeLimitConfigProps {
 }
 
 const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
-  const { collectAction } = useCollectActionStore((state) => state);
+  const { collectAction } = useCollectActionStore((s) => ({
+    collectAction: s.collectAction
+  }));
 
   return (
     <div className="mt-5">

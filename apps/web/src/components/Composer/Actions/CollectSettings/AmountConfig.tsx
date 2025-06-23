@@ -15,7 +15,9 @@ interface AmountConfigProps {
 
 const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
   const { currentAccount } = useAccountStore();
-  const { collectAction } = useCollectActionStore((state) => state);
+  const { collectAction } = useCollectActionStore((s) => ({
+    collectAction: s.collectAction
+  }));
 
   const enabled = Boolean(collectAction.payToCollect?.erc20?.value);
 

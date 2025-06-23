@@ -11,7 +11,9 @@ interface CollectLimitConfigProps {
 }
 
 const CollectLimitConfig = ({ setCollectType }: CollectLimitConfigProps) => {
-  const { collectAction } = useCollectActionStore((state) => state);
+  const { collectAction } = useCollectActionStore((s) => ({
+    collectAction: s.collectAction
+  }));
 
   return (
     <div className="mt-5">

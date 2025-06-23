@@ -86,7 +86,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
   // Collect module store
   const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
-    (state) => state
+    (s) => ({ collectAction: s.collectAction, reset: s.reset })
   );
 
   const { rules, setRules } = usePostRulesStore();

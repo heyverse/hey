@@ -27,7 +27,9 @@ const SplitConfig = ({
   setCollectType
 }: SplitConfigProps) => {
   const { currentAccount } = useAccountStore();
-  const { collectAction } = useCollectActionStore((state) => state);
+  const { collectAction } = useCollectActionStore((s) => ({
+    collectAction: s.collectAction
+  }));
 
   const currentAddress = currentAccount?.address || "";
   const recipients = collectAction.payToCollect?.recipients || [];
