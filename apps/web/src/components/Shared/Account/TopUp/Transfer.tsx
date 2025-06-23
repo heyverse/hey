@@ -109,23 +109,26 @@ const Transfer = ({ token }: TransferProps) => {
     setOther(false);
   };
 
-  const handleDeposit = async () => {
-    setIsSubmitting(true);
-
+  const buildDepositRequest = (
+    amount: number,
+    token?: FundingToken
+  ) => {
     if (!token) {
-      return await deposit({
-        variables: {
-          request: { native: amount.toString() }
-        }
-      });
+      return { native: amount.toString() };
     }
 
-    return await deposit({
-      variables: {
-        request: {
-          erc20: { currency: token.contractAddress, value: amount.toString() }
-        }
+    return {
+      erc20: {
+        currency: token.contractAddress,
+        value: amount.toString()
       }
+    };
+  };
+
+  const handleDeposit = async () => {
+    setIsSubmitting(true);
+    return await deposit({
+      variables: { request: buildDepositRequest(amount, token) }
     });
   };
 
