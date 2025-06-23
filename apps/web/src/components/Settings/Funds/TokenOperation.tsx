@@ -71,32 +71,32 @@ const TokenOperation = ({
   return (
     <>
       <Button
-        size="sm"
-        outline
-        onClick={() => setShowModal(true)}
         disabled={isSubmitting || inputValue === "0"}
         loading={isSubmitting}
+        onClick={() => setShowModal(true)}
+        outline
+        size="sm"
       >
         {buttonLabel}
       </Button>
-      <Modal title={title} show={showModal} onClose={() => setShowModal(false)}>
+      <Modal onClose={() => setShowModal(false)} show={showModal} title={title}>
         <div className="p-5">
           <div className="mb-5 flex items-center gap-2">
             <Input
+              onChange={(e) => setInputValue(e.target.value)}
               type="number"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
             />
-            <Button size="lg" onClick={() => setInputValue(value)}>
+            <Button onClick={() => setInputValue(value)} size="lg">
               Max
             </Button>
           </div>
           <Button
             className="w-full"
-            size="lg"
-            onClick={handleSubmit}
             disabled={isSubmitting || !inputValue || inputValue === "0"}
             loading={isSubmitting}
+            onClick={handleSubmit}
+            size="lg"
           >
             {title}
           </Button>

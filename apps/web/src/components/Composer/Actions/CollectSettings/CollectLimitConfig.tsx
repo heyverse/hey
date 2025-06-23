@@ -28,14 +28,14 @@ const CollectLimitConfig = ({ setCollectType }: CollectLimitConfigProps) => {
       />
       {collectAction.collectLimit ? (
         <motion.div
+          animate="visible"
           className="mt-4 ml-8 text-sm"
           initial="hidden"
-          animate="visible"
+          transition={{ duration: 0.2, ease: EXPANSION_EASE }}
           variants={{
             hidden: { opacity: 0, height: 0, y: -20 },
             visible: { opacity: 1, height: "auto", y: 0 }
           }}
-          transition={{ duration: 0.2, ease: EXPANSION_EASE }}
         >
           <Input
             label="Collect limit"

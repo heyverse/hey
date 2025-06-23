@@ -19,10 +19,10 @@ const ExternalLink = ({ title }: MarkupLinkProps) => {
 
   return (
     <Link
-      to={url}
       onClick={stopEventPropagation}
       rel="noopener"
       target={url.includes(location.host) ? "_self" : "_blank"}
+      to={url}
     >
       {title ? truncateUrl(title, 30) : title}
     </Link>

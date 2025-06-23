@@ -54,8 +54,8 @@ const Followerings = ({ account }: FolloweringsProps) => {
   ) => (
     <Modal onClose={() => setShow(false)} show={show} title={title}>
       <Content
-        username={getAccount(account).username}
         address={String(account.address)}
+        username={getAccount(account).username}
       />
     </Modal>
   );

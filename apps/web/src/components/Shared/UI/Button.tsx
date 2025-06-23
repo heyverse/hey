@@ -80,24 +80,24 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         <AnimatePresence mode="wait">
           <motion.div
+            animate={loading ? "loading" : "idle"}
             className="flex items-center gap-x-1.5"
             initial="idle"
-            animate={loading ? "loading" : "idle"}
+            transition={{ type: "spring", duration: 0.2, bounce: 0 }}
             variants={{
               idle: { opacity: 1, y: 0 },
               loading: { opacity: 0, y: -20 }
             }}
-            transition={{ type: "spring", duration: 0.2, bounce: 0 }}
           >
             {icon}
             {children}
           </motion.div>
           {loading && (
             <motion.div
-              className="absolute flex items-center justify-center"
-              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              className="absolute flex items-center justify-center"
               exit={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 20 }}
               transition={{ type: "spring", duration: 0.2, bounce: 0 }}
             >
               <Spinner size="xs" />

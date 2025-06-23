@@ -115,10 +115,10 @@ const List = ({ feedType }: ListProps) => {
 
           return (
             <div
-              key={index}
               className={cn({
                 "p-5": notification.__typename !== "FollowNotification"
               })}
+              key={index}
             >
               {Component && <Component notification={notification as never} />}
             </div>

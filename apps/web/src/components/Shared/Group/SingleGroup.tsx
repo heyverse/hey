@@ -69,9 +69,9 @@ const SingleGroup = ({
         <GroupInfo />
       )}
       <JoinLeaveButton
+        group={group}
         hideJoinButton={hideJoinButton}
         hideLeaveButton={hideLeaveButton}
-        group={group}
         small
       />
     </div>

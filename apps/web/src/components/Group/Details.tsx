@@ -40,20 +40,18 @@ const Details = ({ group }: DetailsProps) => {
             width={128}
           />
           <LightBox
+            images={[getAvatar(group, TRANSFORMS.EXPANDED_AVATAR)]}
             onClose={handleCloseLightBox}
             show={showLightBox}
-            images={[getAvatar(group, TRANSFORMS.EXPANDED_AVATAR)]}
           />
         </div>
         {currentAccount?.address === group.owner ? (
-          <>
-            <Button
-              onClick={() => navigate(`/g/${group.address}/settings`)}
-              outline
-            >
-              Edit Group
-            </Button>
-          </>
+          <Button
+            onClick={() => navigate(`/g/${group.address}/settings`)}
+            outline
+          >
+            Edit Group
+          </Button>
         ) : (
           <JoinLeaveButton group={group} />
         )}

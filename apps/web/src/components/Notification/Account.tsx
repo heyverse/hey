@@ -16,12 +16,12 @@ export const NotificationAccountAvatar = ({
 }: NotificationAccountProps) => {
   return (
     <AccountPreview
-      username={account.username?.localName}
       address={account.address}
+      username={account.username?.localName}
     >
       <AccountLink
-        className="rounded-full outline-offset-2"
         account={account}
+        className="rounded-full outline-offset-2"
         onClick={stopEventPropagation}
       >
         <Image
@@ -41,12 +41,12 @@ export const NotificationAccountName = ({
 }: NotificationAccountProps) => {
   return (
     <AccountPreview
-      username={account.username?.localName}
       address={account.address}
+      username={account.username?.localName}
     >
       <AccountLink
-        className="inline-flex items-center gap-1 font-bold outline-hidden hover:underline focus:underline"
         account={account}
+        className="inline-flex items-center gap-1 font-bold outline-hidden hover:underline focus:underline"
         onClick={stopEventPropagation}
       >
         <span>{getAccount(account).name}</span>

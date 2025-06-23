@@ -1,7 +1,12 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "assist": {
-    "actions": { "source": { "organizeImports": "on" } }
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedAttributes": { "level": "on" }
+      }
+    }
   },
   "files": {
     "includes": [
@@ -44,7 +49,9 @@
       },
       "complexity": {
         "noForEach": "warn",
-        "useLiteralKeys": "off"
+        "useLiteralKeys": "off",
+        "useDateNow": "off",
+        "noUselessFragments": "error"
       },
       "style": {
         "noNegationElse": "error",

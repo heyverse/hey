@@ -5,7 +5,7 @@ import PageLayout from "./PageLayout";
 
 const NotLoggedIn = () => {
   return (
-    <PageLayout title="Not logged in" sidebar={<Footer />}>
+    <PageLayout sidebar={<Footer />} title="Not logged in">
       <div className="p-10 text-center">
         <H3 className="mb-4">Not logged in!</H3>
         <div className="mb-4">Log in to continue</div>

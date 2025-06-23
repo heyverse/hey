@@ -182,8 +182,8 @@ const Transfer = ({ token }: TransferProps) => {
               className="no-spinner"
               max={1000}
               onChange={onOtherAmount}
-              prefix={symbol}
               placeholder="300"
+              prefix={symbol}
               ref={inputRef}
               type="number"
               value={amount}
@@ -198,6 +198,7 @@ const Transfer = ({ token }: TransferProps) => {
           />
         ) : Number(tokenBalance) < amount ? (
           <Button
+            className="w-full"
             onClick={() => {
               const params = new URLSearchParams({
                 utm_source: "hey.xyz",
@@ -209,16 +210,15 @@ const Transfer = ({ token }: TransferProps) => {
 
               window.open(`https://oku.trade/?${params.toString()}`, "_blank");
             }}
-            className="w-full"
           >
             <span>Buy on Oku.trade</span>
             <ArrowUpRightIcon className="size-4" />
           </Button>
         ) : (
           <Button
+            className="w-full"
             disabled={isSubmitting || amount === 0}
             loading={isSubmitting}
-            className="w-full"
             onClick={handleDeposit}
           >
             Purchase {amount} {symbol}

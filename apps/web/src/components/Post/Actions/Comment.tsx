@@ -35,10 +35,10 @@ const Comment = ({ post, showCount }: CommentProps) => {
       </button>
       {count > 0 && !showCount ? (
         <AnimateNumber
-          key={`comment-count-${post.id}`}
-          format={{ notation: "compact" }}
-          transition={{ type: "tween" }}
           className="w-3 text-[11px] sm:text-xs"
+          format={{ notation: "compact" }}
+          key={`comment-count-${post.id}`}
+          transition={{ type: "tween" }}
         >
           {count}
         </AnimateNumber>

@@ -73,7 +73,7 @@ const FollowersYouKnowOverview = ({
         show={showMutualFollowersModal}
         title="Mutual Followers"
       >
-        <FollowersYouKnow username={username} address={address} />
+        <FollowersYouKnow address={address} username={username} />
       </Modal>
     </button>
   );

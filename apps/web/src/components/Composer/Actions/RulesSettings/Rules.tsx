@@ -37,37 +37,37 @@ const Rules = ({ setShowModal }: RulesProps) => {
       )}
       <div className="m-5 space-y-5">
         <ToggleWithHelper
+          description="Only people who follow you can reply"
+          disabled={!currentAccount?.hasSubscribed}
           heading={
             <span className="font-semibold">
               Restrict <b>replies</b> to followers
             </span>
           }
-          description="Only people who follow you can reply"
           on={!!rules.repliesRestricted}
           setOn={() => handleToggle("repliesRestricted")}
-          disabled={!currentAccount?.hasSubscribed}
         />
         <ToggleWithHelper
+          description="Only people who follow you can quote this post"
+          disabled={!currentAccount?.hasSubscribed}
           heading={
             <span className="font-semibold">
               Restrict <b>quotes</b> to followers
             </span>
           }
-          description="Only people who follow you can quote this post"
           on={!!rules.quotesRestricted}
           setOn={() => handleToggle("quotesRestricted")}
-          disabled={!currentAccount?.hasSubscribed}
         />
         <ToggleWithHelper
+          description="Only people who follow you can repost this"
+          disabled={!currentAccount?.hasSubscribed}
           heading={
             <span className="font-semibold">
               Restrict <b>reposts</b> to followers
             </span>
           }
-          description="Only people who follow you can repost this"
           on={!!rules.repostRestricted}
           setOn={() => handleToggle("repostRestricted")}
-          disabled={!currentAccount?.hasSubscribed}
         />
       </div>
       <div className="divider" />

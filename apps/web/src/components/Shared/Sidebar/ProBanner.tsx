@@ -39,9 +39,9 @@ const ProBanner = () => {
     <Card className="relative space-y-2">
       <button
         className="absolute top-3 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
-        type="button"
-        onClick={handleDismissProBanner}
         disabled={loading}
+        onClick={handleDismissProBanner}
+        type="button"
       >
         <XCircleIcon className="size-5" />
       </button>
@@ -55,8 +55,8 @@ const ProBanner = () => {
         </div>
         <Button
           className="w-full"
-          outline
           onClick={() => setShowProModal(true)}
+          outline
         >
           Subscribe now
         </Button>

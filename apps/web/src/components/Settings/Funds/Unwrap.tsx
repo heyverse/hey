@@ -10,14 +10,14 @@ interface UnwrapProps {
 const Unwrap = ({ value, refetch }: UnwrapProps) => {
   return (
     <TokenOperation
-      useMutationHook={useUnwrapTokensMutation}
       buildRequest={(amount) => ({ amount })}
-      resultKey="unwrapTokens"
       buttonLabel={`Unwrap to ${NATIVE_TOKEN_SYMBOL}`}
-      title="Unwrap"
-      successMessage="Unwrap Successful"
-      value={value}
       refetch={refetch}
+      resultKey="unwrapTokens"
+      successMessage="Unwrap Successful"
+      title="Unwrap"
+      useMutationHook={useUnwrapTokensMutation}
+      value={value}
     />
   );
 };

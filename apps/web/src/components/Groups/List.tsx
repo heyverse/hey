@@ -58,9 +58,9 @@ const List = ({ feedType }: ListProps) => {
   if (!groups?.length) {
     return (
       <EmptyState
+        hideCard
         icon={<UserGroupIcon className="size-8" />}
         message="No groups."
-        hideCard
       />
     );
   }
@@ -80,7 +80,7 @@ const List = ({ feedType }: ListProps) => {
       <WindowVirtualizer>
         {groups.map((group) => (
           <div className="p-5" key={group.address}>
-            <SingleGroup group={group} showDescription isBig />
+            <SingleGroup group={group} isBig showDescription />
           </div>
         ))}
         {hasMore && <span ref={loadMoreRef} />}

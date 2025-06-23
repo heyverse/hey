@@ -31,14 +31,14 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
       />
       {collectAction.endsAt ? (
         <motion.div
+          animate="visible"
           className="mt-4 ml-8 space-y-2 text-sm"
           initial="hidden"
-          animate="visible"
+          transition={{ duration: 0.2, ease: EXPANSION_EASE }}
           variants={{
             hidden: { opacity: 0, height: 0, y: -20 },
             visible: { opacity: 1, height: "auto", y: 0 }
           }}
-          transition={{ duration: 0.2, ease: EXPANSION_EASE }}
         >
           <div>
             Number of days -{" "}
@@ -47,18 +47,18 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
             </b>
           </div>
           <RangeSlider
-            showValueInThumb
-            min={1}
-            max={100}
-            displayValue={getNumberOfDaysFromDate(
-              new Date(collectAction.endsAt)
-            ).toString()}
             defaultValue={[
               getNumberOfDaysFromDate(new Date(collectAction.endsAt))
             ]}
+            displayValue={getNumberOfDaysFromDate(
+              new Date(collectAction.endsAt)
+            ).toString()}
+            max={100}
+            min={1}
             onValueChange={(value) =>
               setCollectType({ endsAt: getTimeAddedNDay(Number(value[0])) })
             }
+            showValueInThumb
           />
         </motion.div>
       ) : null}

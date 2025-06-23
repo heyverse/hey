@@ -83,10 +83,10 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
   return (
     <div className="text-gray-500 text-sm">
       <Checkbox
-        label={title}
         checked={enabled}
-        onChange={handleUpdateManager}
         disabled={isSubmitting}
+        label={title}
+        onChange={handleUpdateManager}
       />
     </div>
   );

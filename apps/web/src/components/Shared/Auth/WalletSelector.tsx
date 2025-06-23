@@ -72,11 +72,11 @@ const WalletSelector: FC = () => {
       })}
       <div className="linkify text-gray-500 text-sm">
         By connecting wallet, you agree to our{" "}
-        <Link to="/terms" target="_blank">
+        <Link target="_blank" to="/terms">
           Terms
         </Link>{" "}
         and{" "}
-        <Link to="/privacy" target="_blank">
+        <Link target="_blank" to="/privacy">
           Policy
         </Link>
         .

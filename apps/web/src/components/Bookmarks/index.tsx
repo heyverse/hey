@@ -18,8 +18,8 @@ const Bookmarks = () => {
     <PageLayout title="Bookmarks">
       <ContentFeedType
         focus={focus}
-        setFocus={setFocus}
         layoutId="bookmarks_tab"
+        setFocus={setFocus}
       />
       <BookmarksFeed focus={focus} />
     </PageLayout>

@@ -125,13 +125,13 @@ const List = () => {
           <div className="flex flex-col gap-y-3">
             <WalletAccount address={accountManager.manager} />
             <Permission
-              title="Can spend funds"
               enabled={
                 accountManager.permissions.canExecuteTransactions &&
                 accountManager.permissions.canTransferNative &&
                 accountManager.permissions.canTransferTokens
               }
               manager={accountManager}
+              title="Can spend funds"
             />
           </div>
           <Button

@@ -57,14 +57,14 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
 
   return (
     <PostFeed
-      items={filteredComments}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<ChatBubbleLeftIcon className="size-8" />}
       emptyMessage="Be the first one to comment!"
+      error={error}
       errorTitle="Failed to load comment feed"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={filteredComments}
+      loading={loading}
       renderItem={(comment) => (
         <SinglePost key={comment.id} post={comment} showType={false} />
       )}

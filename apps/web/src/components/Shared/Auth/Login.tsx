@@ -129,8 +129,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         {errorChallenge || errorAuthenticate ? (
           <ErrorMessage
             className="text-red-500"
-            title={ERRORS.SomethingWentWrong}
             error={errorChallenge || errorAuthenticate}
+            title={ERRORS.SomethingWentWrong}
           />
         ) : null}
         {loading ? (
@@ -145,8 +145,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
           <AnimatePresence mode="popLayout">
             {isExpanded && (
               <motion.div
-                initial="hidden"
                 animate="visible"
+                initial="hidden"
                 variants={{
                   hidden: { opacity: 0, height: 0, overflow: "hidden" },
                   visible: {
@@ -162,6 +162,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                 >
                   {accounts.map((account, index) => (
                     <motion.div
+                      className="flex items-center justify-between p-3"
+                      custom={index}
                       key={account.address}
                       variants={{
                         hidden: { opacity: 0, y: 20 },
@@ -171,18 +173,16 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                           transition: { duration: 0.1 }
                         }
                       }}
-                      custom={index}
-                      className="flex items-center justify-between p-3"
                       whileHover={{
                         backgroundColor: "rgba(0, 0, 0, 0.05)",
                         transition: { duration: 0.2 }
                       }}
                     >
                       <SingleAccount
+                        account={account}
                         hideFollowButton
                         hideUnfollowButton
                         linkToAccount={false}
-                        account={account}
                         showUserPreview={false}
                       />
                       <Button

@@ -19,7 +19,7 @@ const Reposted = ({ reposts }: RepostedProps) => {
   return (
     <div className="mb-3 flex items-center space-x-1 text-[13px] text-gray-500 dark:text-gray-200">
       <ArrowsRightLeftIcon className="size-4" />
-      <Accounts context="reposted" accounts={getRepostedAccounts()} />
+      <Accounts accounts={getRepostedAccounts()} context="reposted" />
     </div>
   );
 };

@@ -33,10 +33,10 @@ const CollectAction = ({ post }: CollectActionProps) => {
       </button>
       {collects > 0 ? (
         <AnimateNumber
-          key={`collect-count-${post.id}`}
-          format={{ notation: "compact" }}
-          transition={{ type: "tween" }}
           className="text-[11px] sm:text-xs"
+          format={{ notation: "compact" }}
+          key={`collect-count-${post.id}`}
+          transition={{ type: "tween" }}
         >
           {collects}
         </AnimateNumber>

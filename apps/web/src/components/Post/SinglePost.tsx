@@ -32,9 +32,9 @@ const SinglePost = ({
         <PostType post={post} showType={showType} />
       )}
       <div className="flex items-start gap-x-3">
-        <PostAvatar timelineItem={timelineItem} post={rootPost} />
+        <PostAvatar post={rootPost} timelineItem={timelineItem} />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader timelineItem={timelineItem} post={rootPost} />
+          <PostHeader post={rootPost} timelineItem={timelineItem} />
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : (

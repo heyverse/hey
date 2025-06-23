@@ -62,9 +62,9 @@ const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
         {firstAccounts?.map((account) => (
           <div className="truncate" key={account?.address}>
             <SingleAccount
+              account={account}
               hideFollowButton={currentAccount?.address === account.address}
               hideUnfollowButton={currentAccount?.address === account.address}
-              account={account}
               showUserPreview={false}
             />
           </div>

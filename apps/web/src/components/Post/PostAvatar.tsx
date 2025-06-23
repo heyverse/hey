@@ -24,8 +24,8 @@ const PostAvatar = ({
 
   return (
     <AccountLink
-      className="contents"
       account={account}
+      className="contents"
       onClick={stopEventPropagation}
     >
       <Image

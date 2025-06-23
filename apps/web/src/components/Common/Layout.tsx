@@ -59,16 +59,16 @@ const Layout = () => {
   return (
     <>
       <Toaster
+        icons={{
+          success: <CheckCircleIcon className="size-5" />,
+          error: <XCircleIcon className="size-5" />,
+          loading: <Spinner size="xs" />
+        }}
         position="bottom-right"
         theme={theme as ToasterProps["theme"]}
         toastOptions={{
           className: "font-sofia-pro",
           style: { boxShadow: "none", fontSize: "16px" }
-        }}
-        icons={{
-          success: <CheckCircleIcon className="size-5" />,
-          error: <XCircleIcon className="size-5" />,
-          loading: <Spinner size="xs" />
         }}
       />
       <GlobalShortcuts />

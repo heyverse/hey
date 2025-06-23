@@ -70,9 +70,9 @@ const Quotes = ({ post }: QuotesProps) => {
         </div>
       ) : (
         <EmptyState
+          hideCard
           icon={<ChatBubbleBottomCenterTextIcon className="size-8" />}
           message="Be the first one to quote!"
-          hideCard
         />
       )}
     </Card>

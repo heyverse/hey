@@ -86,26 +86,26 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
               key={attachment}
               onClick={stopEventPropagation}
             >
-              <ImageComponent uri={attachment} index={index} />
+              <ImageComponent index={index} uri={attachment} />
             </div>
           ))}
           <LightBox
-            show={showLightBox}
+            images={displayDecision?.map((attachment) => attachment)}
+            initialIndex={expandedImageIndex}
             onClose={() => {
               setShowLightBox(false);
               setExpandedImageIndex(0);
             }}
-            initialIndex={expandedImageIndex}
-            images={displayDecision?.map((attachment) => attachment)}
+            show={showLightBox}
           />
         </div>
       )}
       {displayDecision === "displayVideoAsset" && (
         <Video
+          poster={asset?.cover as string}
           src={
             getSrc(asset?.uri) || [{ src: asset?.uri, type: "video" } as any]
           }
-          poster={asset?.cover as string}
         />
       )}
       {displayDecision === "displayAudioAsset" && (

@@ -31,9 +31,9 @@ const AccountMenu = ({ account }: AccountMenuProps) => {
       </MenuButton>
       <MenuTransition>
         <MenuItems
+          anchor="bottom end"
           className="mt-2 w-48 origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
           static
-          anchor="bottom end"
         >
           <CopyLink account={account} />
           {currentAccount && currentAccount?.address !== account.address ? (

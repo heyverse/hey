@@ -55,9 +55,9 @@ const Reposts = ({ postId }: RepostsProps) => {
     return (
       <div className="p-5">
         <EmptyState
+          hideCard
           icon={<ArrowsRightLeftIcon className="size-8" />}
           message="No reposts."
-          hideCard
         />
       </div>
     );
@@ -78,19 +78,19 @@ const Reposts = ({ postId }: RepostsProps) => {
       <Virtualizer>
         {accounts.map((account, index) => (
           <motion.div
-            key={account.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === accounts.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={account.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={account}
               hideFollowButton={currentAccount?.address === account.address}
               hideUnfollowButton={currentAccount?.address === account.address}
-              account={account}
               showBio
               showUserPreview={false}
             />

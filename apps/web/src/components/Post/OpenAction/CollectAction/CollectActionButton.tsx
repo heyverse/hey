@@ -168,9 +168,9 @@ const CollectActionButton = ({
   if (!hasAmount) {
     return (
       <TopUpButton
+        amountToTopUp={Math.ceil((amount - Number(tokenBalance)) * 20) / 20}
         className="mt-5 w-full"
         token={{ contractAddress: assetAddress, symbol: assetSymbol }}
-        amountToTopUp={Math.ceil((amount - Number(tokenBalance)) * 20) / 20}
       />
     );
   }

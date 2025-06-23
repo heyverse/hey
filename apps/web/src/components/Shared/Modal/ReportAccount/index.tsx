@@ -68,9 +68,9 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
         <div className="p-5">
           <Card className="p-3">
             <SingleAccount
+              account={account}
               hideFollowButton
               hideUnfollowButton
-              account={account}
               showUserPreview={false}
             />
           </Card>

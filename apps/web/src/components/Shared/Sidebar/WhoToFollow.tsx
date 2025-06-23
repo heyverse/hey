@@ -75,9 +75,9 @@ const WhoToFollow = () => {
           >
             <div className="w-full">
               <SingleAccount
+                account={account}
                 hideFollowButton={currentAccount?.address === account.address}
                 hideUnfollowButton={currentAccount?.address === account.address}
-                account={account}
               />
             </div>
             <DismissRecommendedAccount account={account} />

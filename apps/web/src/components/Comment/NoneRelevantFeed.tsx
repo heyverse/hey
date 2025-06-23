@@ -86,12 +86,12 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
       </Card>
       {showMore ? (
         <PostFeed
-          items={filteredComments}
-          hasMore={hasMore}
-          handleEndReached={handleEndReached}
           emptyIcon={null}
           emptyMessage=""
           errorTitle="Failed to load comments"
+          handleEndReached={handleEndReached}
+          hasMore={hasMore}
+          items={filteredComments}
           renderItem={(comment) => (
             <SinglePost key={comment.id} post={comment} showType={false} />
           )}

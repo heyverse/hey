@@ -215,8 +215,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
         <div>
           <Input
             className="no-spinner"
-            min={0}
             max={1000}
+            min={0}
             onChange={onOtherAmount}
             placeholder="300"
             ref={inputRef}
@@ -241,8 +241,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
         </Button>
       ) : (
         <TopUpButton
-          className="w-full"
           amountToTopUp={Math.ceil((amount - Number(nativeBalance)) * 20) / 20}
+          className="w-full"
         />
       )}
     </div>

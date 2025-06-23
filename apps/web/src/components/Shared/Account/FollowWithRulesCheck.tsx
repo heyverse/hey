@@ -24,8 +24,8 @@ const FollowWithRulesCheck = ({
     return (
       <Button
         aria-label="Super Follow"
-        onClick={() => setShowSuperFollowModal(true, account)}
         className={buttonClassName}
+        onClick={() => setShowSuperFollowModal(true, account)}
         outline
         size={small ? "sm" : "md"}
       >

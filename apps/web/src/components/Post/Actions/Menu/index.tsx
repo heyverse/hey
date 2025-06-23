@@ -41,9 +41,9 @@ const PostMenu = ({ post }: PostMenuProps) => {
       </MenuButton>
       <MenuTransition>
         <MenuItems
+          anchor="bottom end"
           className="z-[5] mt-2 w-max origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
           static
-          anchor="bottom end"
         >
           {currentAccount ? (
             <>

@@ -23,11 +23,11 @@ const ContentFeedType = ({
 
   return (
     <Tabs
-      tabs={tabs}
       active={focus || ""}
-      setActive={(type) => setFocus(type as MainContentFocus)}
       className="mx-5 mb-5 md:mx-0"
       layoutId={layoutId}
+      setActive={(type) => setFocus(type as MainContentFocus)}
+      tabs={tabs}
     />
   );
 };

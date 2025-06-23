@@ -31,16 +31,16 @@ const SignedAccount = () => {
       </MenuButton>
       <MenuTransition>
         <MenuItems
+          anchor="bottom start"
           className="z-[5] mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-black"
           static
-          anchor="bottom start"
         >
           <MenuItem
+            account={currentAccount as AccountFragment}
             as={AccountLink}
             className={({ focus }: { focus: boolean }) =>
               cn({ "dropdown-active": focus }, "menu-item")
             }
-            account={currentAccount as AccountFragment}
           >
             <YourAccount />
           </MenuItem>

@@ -81,10 +81,10 @@ const Subscribe = () => {
   return (
     <div className="mx-5 my-10 flex flex-col items-center gap-y-8">
       <Image
-        src={`${STATIC_IMAGES_URL}/pro.png`}
         alt="Pro"
-        width={128}
         className="w-32"
+        src={`${STATIC_IMAGES_URL}/pro.png`}
+        width={128}
       />
       <div className="max-w-md text-center text-gray-500">
         {hasSubscribed ? (
@@ -98,9 +98,9 @@ const Subscribe = () => {
               {SUBSCRIPTION_AMOUNT}{" "}
               <Tooltip content={WRAPPED_NATIVE_TOKEN_SYMBOL} placement="top">
                 <img
-                  src={getTokenImage(WRAPPED_NATIVE_TOKEN_SYMBOL)}
                   alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
                   className="size-5"
+                  src={getTokenImage(WRAPPED_NATIVE_TOKEN_SYMBOL)}
                 />
               </Tooltip>
               /year
@@ -111,9 +111,9 @@ const Subscribe = () => {
       </div>
       <SingleAccount
         account={currentAccount as AccountFragment}
+        isVerified
         linkToAccount={false}
         showUserPreview={false}
-        isVerified
       />
       {hasSubscribed ? null : (
         <>
@@ -144,25 +144,25 @@ const Subscribe = () => {
           ) : canSubscribe ? (
             <Button
               className="w-sm"
-              onClick={handleSubscribe}
               disabled={isSubmitting}
               loading={isSubmitting}
+              onClick={handleSubscribe}
             >
               Subscribe for ${SUBSCRIPTION_AMOUNT}/year
             </Button>
           ) : (
             <TopUpButton
-              className="w-sm"
-              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
-              token={{
-                contractAddress: DEFAULT_COLLECT_TOKEN,
-                symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
-              }}
               amountToTopUp={
                 Math.ceil((SUBSCRIPTION_AMOUNT - Number(tokenBalance)) * 20) /
                 20
               }
+              className="w-sm"
+              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
               outline
+              token={{
+                contractAddress: DEFAULT_COLLECT_TOKEN,
+                symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
+              }}
             />
           )}
           <div className="-mt-1 text-center text-gray-500 text-xs">

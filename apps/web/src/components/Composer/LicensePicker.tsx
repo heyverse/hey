@@ -54,8 +54,8 @@ const LicensePicker = () => {
           "You are not granting a license to the collector and retain all rights."}
         <Link
           className="ml-1.5"
-          to="https://yoginth.notion.site/60f9d82c5a274a88b8444611c7a8a94a"
           target="_blank"
+          to="https://yoginth.notion.site/60f9d82c5a274a88b8444611c7a8a94a"
         >
           Learn more.
         </Link>

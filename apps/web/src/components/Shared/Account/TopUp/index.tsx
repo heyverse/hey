@@ -25,7 +25,7 @@ const TopUp = () => {
   });
 
   if (loading) {
-    return <Loader message="Loading balance..." className="my-10" />;
+    return <Loader className="my-10" message="Loading balance..." />;
   }
 
   const tokenBalance =
@@ -39,9 +39,9 @@ const TopUp = () => {
     <div className="m-5">
       <div className="flex flex-col items-center gap-2 text-center">
         <Image
+          alt={token?.symbol}
           className="size-12 rounded-full"
           src={getTokenImage(token?.symbol)}
-          alt={token?.symbol}
         />
         <div className="font-bold text-2xl">
           {tokenBalance} {token?.symbol ?? NATIVE_TOKEN_SYMBOL}

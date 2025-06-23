@@ -31,18 +31,18 @@ const Posts = ({ query }: PostsProps) => {
 
   return (
     <PostFeed
-      items={posts ?? []}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
       emptyMessage={
         <span>
           No posts for <b>&ldquo;{query}&rdquo;</b>
         </span>
       }
+      error={error}
       errorTitle="Failed to load posts"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={posts ?? []}
+      loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

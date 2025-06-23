@@ -77,9 +77,9 @@ const ViewAccount = () => {
 
     return (
       <Details
-        isBlockedByMe={account?.operations?.isBlockedByMe || false}
-        hasBlockedMe={account?.operations?.hasBlockedMe || false}
         account={account}
+        hasBlockedMe={account?.operations?.hasBlockedMe || false}
+        isBlockedByMe={account?.operations?.isBlockedByMe || false}
       />
     );
   };
@@ -124,9 +124,9 @@ const ViewAccount = () => {
             feedType === AccountFeedType.Media ||
             feedType === AccountFeedType.Collects) && (
             <AccountFeed
-              username={accountInfo.usernameWithPrefix}
               address={account.address}
               type={feedType}
+              username={accountInfo.usernameWithPrefix}
             />
           )}
         </>

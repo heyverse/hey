@@ -41,7 +41,7 @@ const SuperFollow = () => {
   }
 
   if (balanceLoading) {
-    return <Loader message="Loading Super follow" className="my-10" />;
+    return <Loader className="my-10" message="Loading Super follow" />;
   }
 
   const tokenBalance =
@@ -86,19 +86,19 @@ const SuperFollow = () => {
             <Follow
               account={superFollowingAccount as AccountFragment}
               buttonClassName="w-full"
-              small={false}
-              title="Super Follow"
               onFollow={() =>
                 setShowSuperFollowModal(false, superFollowingAccount)
               }
+              small={false}
+              title="Super Follow"
             />
           ) : (
             <TopUpButton
-              className="w-full"
-              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
               amountToTopUp={
                 Math.ceil((amount - Number(tokenBalance)) * 20) / 20
               }
+              className="w-full"
+              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
             />
           )
         ) : (

@@ -45,14 +45,14 @@ const ForYou = () => {
 
   return (
     <PostFeed
-      items={filteredPosts as PostFragment[]}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<LightBulbIcon className="size-8" />}
       emptyMessage="No posts yet!"
+      error={error}
       errorTitle="Failed to load for you"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={filteredPosts as PostFragment[]}
+      loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

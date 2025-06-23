@@ -45,8 +45,8 @@ const SwitchAccounts = () => {
     return (
       <WarningMessage
         className="m-5"
-        title="No wallet connected"
         message="Connect your wallet to switch accounts"
+        title="No wallet connected"
       />
     );
   }

@@ -13,18 +13,18 @@ const Explore = () => {
 
   return (
     <PageLayout
-      title="Explore"
       sidebar={
         <>
           {currentAccount ? <WhoToFollow /> : null}
           <Footer />
         </>
       }
+      title="Explore"
     >
       <ContentFeedType
         focus={focus}
-        setFocus={setFocus}
         layoutId="explore_tab"
+        setFocus={setFocus}
       />
       <ExploreFeed focus={focus} />
     </PageLayout>

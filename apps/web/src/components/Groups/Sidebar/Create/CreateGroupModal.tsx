@@ -88,9 +88,9 @@ const CreateGroupModal = () => {
         {...form.register("description")}
       />
       <AvatarUpload
-        src={pfpUrl || ""}
-        setSrc={(src) => setPfpUrl(src)}
         isSmall
+        setSrc={(src) => setPfpUrl(src)}
+        src={pfpUrl || ""}
       />
       <Button
         className="flex w-full justify-center"

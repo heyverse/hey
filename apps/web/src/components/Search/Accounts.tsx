@@ -66,7 +66,7 @@ const Accounts = ({ query }: AccountsProps) => {
     <WindowVirtualizer>
       {accounts.map((account) => (
         <Card className="mb-5 p-5" key={account.address}>
-          <SingleAccount isBig account={account} showBio />
+          <SingleAccount account={account} isBig showBio />
         </Card>
       ))}
       {hasMore && <span ref={loadMoreRef} />}

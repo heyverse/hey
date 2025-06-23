@@ -21,13 +21,13 @@ const Groups = () => {
 
   return (
     <PageLayout
-      title="Groups"
       sidebar={
         <>
           <CreateGroup />
           <Footer />
         </>
       }
+      title="Groups"
     >
       <FeedType feedType={feedType} setFeedType={setFeedType} />
       <Card>

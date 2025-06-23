@@ -34,7 +34,7 @@ const NavigationItem = ({
   isActive,
   onClick
 }: NavigationItemProps) => (
-  <Link aria-label={label} className="mx-auto my-3" to={path} onClick={onClick}>
+  <Link aria-label={label} className="mx-auto my-3" onClick={onClick} to={path}>
     {isActive ? solid : outline}
   </Link>
 );
@@ -86,13 +86,13 @@ const BottomNavigation = () => {
       <div className="flex justify-between">
         {navigationItems.map(({ path, label, outline, solid }) => (
           <NavigationItem
-            key={path}
-            path={path}
-            label={label}
-            outline={outline}
-            solid={solid}
             isActive={pathname === path}
+            key={path}
+            label={label}
             onClick={(e) => handleHomClick(path, e)}
+            outline={outline}
+            path={path}
+            solid={solid}
           />
         ))}
         {currentAccount && (

@@ -128,14 +128,14 @@ const SplitConfig = ({
       />
       {isToggleOn ? (
         <motion.div
+          animate="visible"
           className="mt-4 ml-8 space-y-3"
           initial="hidden"
-          animate="visible"
+          transition={{ duration: 0.2, ease: EXPANSION_EASE }}
           variants={{
             hidden: { opacity: 0, height: 0, y: -20 },
             visible: { opacity: 1, height: "auto", y: 0 }
           }}
-          transition={{ duration: 0.2, ease: EXPANSION_EASE }}
         >
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
@@ -149,11 +149,11 @@ const SplitConfig = ({
                     !isAddress(recipient.address)
                   }
                   hideDropdown={isAddress(recipient.address)}
-                  onChange={(event) =>
-                    updateRecipient(index, event.target.value)
-                  }
                   onAccountSelected={(account) =>
                     updateRecipient(index, account.owner)
+                  }
+                  onChange={(event) =>
+                    updateRecipient(index, event.target.value)
                   }
                   placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
                   value={recipient.address}

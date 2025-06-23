@@ -42,14 +42,14 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
       />
       {collectAction.payToCollect?.erc20?.value ? (
         <motion.div
+          animate="visible"
           className="mt-4 ml-8"
           initial="hidden"
-          animate="visible"
+          transition={{ duration: 0.2, ease: EXPANSION_EASE }}
           variants={{
             hidden: { opacity: 0, height: 0, y: -20 },
             visible: { opacity: 1, height: "auto", y: 0 }
           }}
-          transition={{ duration: 0.2, ease: EXPANSION_EASE }}
         >
           <div className="flex space-x-2 text-sm">
             <Input

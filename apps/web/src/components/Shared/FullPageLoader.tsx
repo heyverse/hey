@@ -5,10 +5,10 @@ const FullPageLoader = () => {
   return (
     <div className="grid h-screen place-items-center">
       <Image
-        className="size-28"
-        src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
         alt="Logo"
+        className="size-28"
         height={112}
+        src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
         width={112}
       />
     </div>

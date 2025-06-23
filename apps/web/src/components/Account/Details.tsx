@@ -61,13 +61,13 @@ const Details = ({
     return (
       <MetaDetails icon={icon}>
         <Link
+          rel="noreferrer noopener"
+          target="_blank"
           to={
             attribute === "website"
               ? `https://${value.replace(/https?:\/\//, "")}`
               : `https://x.com/${value.replace("https://x.com/", "")}`
           }
-          rel="noreferrer noopener"
-          target="_blank"
         >
           {value.replace(/https?:\/\//, "")}
         </Link>
@@ -88,9 +88,9 @@ const Details = ({
             width={128}
           />
           <LightBox
+            images={[getAvatar(account, TRANSFORMS.EXPANDED_AVATAR)]}
             onClose={handleCloseLightBox}
             show={showLightBox}
-            images={[getAvatar(account, TRANSFORMS.EXPANDED_AVATAR)]}
           />
         </div>
         <div className="flex items-center gap-x-2">
@@ -148,8 +148,8 @@ const Details = ({
         !hasBlockedMe &&
         currentAccount?.address !== account.address ? (
           <FollowersYouKnowOverview
-            username={getAccount(account).username}
             address={account.address}
+            username={getAccount(account).username}
           />
         ) : null}
         <div className="flex flex-wrap gap-x-5 gap-y-2">

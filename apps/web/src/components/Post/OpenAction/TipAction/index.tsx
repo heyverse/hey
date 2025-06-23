@@ -42,8 +42,8 @@ const TipAction = ({ post, showCount }: TipActionProps) => {
         </MenuButton>
         <MenuTransition>
           <MenuItems
-            className="z-[5] mt-2 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
             anchor="bottom start"
+            className="z-[5] mt-2 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
             static
           >
             <MenuItem>
@@ -54,13 +54,13 @@ const TipAction = ({ post, showCount }: TipActionProps) => {
       </Menu>
       {(tips || 0) > 0 && !showCount && (
         <AnimateNumber
-          key={`tip-count-${post.id}`}
-          format={{ notation: "compact" }}
-          transition={{ type: "tween" }}
           className={cn(
             hasTipped ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
             "w-3 text-[11px] sm:text-xs"
           )}
+          format={{ notation: "compact" }}
+          key={`tip-count-${post.id}`}
+          transition={{ type: "tween" }}
         >
           {tips || 0}
         </AnimateNumber>

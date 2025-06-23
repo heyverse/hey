@@ -54,9 +54,9 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
     return (
       <div className="p-5">
         <EmptyState
+          hideCard
           icon={<ShoppingBagIcon className="size-8" />}
           message="No actions."
-          hideCard
         />
       </div>
     );
@@ -77,23 +77,23 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
       <Virtualizer>
         {accounts.map((action, index) => (
           <motion.div
-            key={action.account.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === accounts.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={action.account.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={action.account}
               hideFollowButton={
                 currentAccount?.address === action.account.address
               }
               hideUnfollowButton={
                 currentAccount?.address === action.account.address
               }
-              account={action.account}
               showBio
               showUserPreview={false}
             />

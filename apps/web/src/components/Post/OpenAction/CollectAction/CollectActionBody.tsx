@@ -205,9 +205,9 @@ const CollectActionBody = ({
                 <span>Token:</span>
                 <Link
                   className="font-bold text-gray-600"
-                  to={`${BLOCK_EXPLORER_URL}/address/${collectAction.address}`}
                   rel="noreferrer noopener"
                   target="_blank"
+                  to={`${BLOCK_EXPLORER_URL}/address/${collectAction.address}`}
                 >
                   {formatAddress(collectAction.address)}
                 </Link>
@@ -239,8 +239,8 @@ const CollectActionBody = ({
               increment();
               setShowCollectModal(false);
             }}
-            postAction={collectAction}
             post={targetPost}
+            postAction={collectAction}
           />
         </div>
       </div>
@@ -250,8 +250,8 @@ const CollectActionBody = ({
         title="Collectors"
       >
         <PostExecutors
-          postId={targetPost.id}
           filter={{ simpleCollect: true }}
+          postId={targetPost.id}
         />
       </Modal>
     </>

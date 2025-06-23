@@ -230,8 +230,8 @@ const PersonalizeSettingsForm = () => {
           placeholder="Tell us something about you!"
           {...form.register("bio")}
         />
-        <AvatarUpload src={pfpUrl || ""} setSrc={onSetAvatar} />
-        <CoverUpload src={coverUrl || ""} setSrc={onSetCover} />
+        <AvatarUpload setSrc={onSetAvatar} src={pfpUrl || ""} />
+        <CoverUpload setSrc={onSetCover} src={coverUrl || ""} />
         <Button
           className="ml-auto"
           disabled={

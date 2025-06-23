@@ -38,7 +38,7 @@ const SuperJoin = () => {
   }
 
   if (balanceLoading) {
-    return <Loader message="Loading Super join" className="my-10" />;
+    return <Loader className="my-10" message="Loading Super join" />;
   }
 
   const tokenBalance =
@@ -90,11 +90,11 @@ const SuperJoin = () => {
             />
           ) : (
             <TopUpButton
-              className="w-full"
-              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
               amountToTopUp={
                 Math.ceil((amount - Number(tokenBalance)) * 20) / 20
               }
+              className="w-full"
+              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
             />
           )
         ) : (

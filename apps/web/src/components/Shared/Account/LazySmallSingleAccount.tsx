@@ -27,9 +27,9 @@ const LazySmallSingleAccount = ({
 
   return (
     <SmallSingleAccount
+      account={data.account}
       hideSlug={hideSlug}
       linkToAccount={linkToAccount}
-      account={data.account}
       smallAvatar
     />
   );

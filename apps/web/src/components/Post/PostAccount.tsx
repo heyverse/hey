@@ -27,13 +27,13 @@ interface PostAccountProps {
 const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
   const CustomLink = ({ children }: { children: ReactNode }) => (
     <AccountLink
-      className="outline-hidden hover:underline focus:underline"
       account={account}
+      className="outline-hidden hover:underline focus:underline"
     >
       <AccountPreview
-        username={account.username?.localName}
         address={account.address}
         showUserPreview
+        username={account.username?.localName}
       >
         {children}
       </AccountPreview>
@@ -72,9 +72,9 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
           to={`/g/${group.address}`}
         >
           <Image
-            src={getAvatar(group, TRANSFORMS.AVATAR_TINY)}
             alt={group.metadata.name}
             className="size-4 rounded-sm"
+            src={getAvatar(group, TRANSFORMS.AVATAR_TINY)}
           />
           <span className="truncate text-gray-500 dark:text-gray-200">
             {group.metadata.name}

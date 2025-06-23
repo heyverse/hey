@@ -28,9 +28,9 @@ const WalletAccount = ({ address }: WalletAccountProps) => {
         width={40}
       />
       <Link
-        to={`${BLOCK_EXPLORER_URL}/address/${address}`}
         rel="noreferrer noopener"
         target="_blank"
+        to={`${BLOCK_EXPLORER_URL}/address/${address}`}
       >
         <div className="flex items-center gap-1.5">
           <div>{displayName}</div>

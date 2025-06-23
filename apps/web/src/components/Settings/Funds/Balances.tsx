@@ -39,23 +39,23 @@ const Balances = () => {
       <div className="flex flex-wrap items-center justify-between gap-5">
         <div className="flex items-center gap-2">
           <Image
-            src={getTokenImage(symbol)}
             alt={symbol}
             className="size-5 rounded-full"
+            src={getTokenImage(symbol)}
           />
           <b>{Number.parseFloat(value).toFixed(2)} </b>
           {symbol}
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Withdraw currency={currency} value={value} refetch={refetch} />
-          {!currency && <Wrap value={value} refetch={refetch} />}
+          <Withdraw currency={currency} refetch={refetch} value={value} />
+          {!currency && <Wrap refetch={refetch} value={value} />}
           {currency === DEFAULT_COLLECT_TOKEN && (
-            <Unwrap value={value} refetch={refetch} />
+            <Unwrap refetch={refetch} value={value} />
           )}
           <TopUpButton
-            size="sm"
-            outline
             label="Top-up"
+            outline
+            size="sm"
             token={
               currency
                 ? { contractAddress: currency, symbol: symbol }
@@ -86,13 +86,13 @@ const Balances = () => {
       {data?.balancesBulk.map((balance, index) => (
         <div key={index}>
           {balance.__typename === "NativeAmount" && (
-            <TokenBalance value={balance.value} symbol={NATIVE_TOKEN_SYMBOL} />
+            <TokenBalance symbol={NATIVE_TOKEN_SYMBOL} value={balance.value} />
           )}
           {balance.__typename === "Erc20Amount" && (
             <TokenBalance
-              value={balance.value}
-              symbol={balance.asset.symbol}
               currency={balance.asset.contract.address}
+              symbol={balance.asset.symbol}
+              value={balance.value}
             />
           )}
         </div>

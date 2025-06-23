@@ -62,14 +62,14 @@ const AvatarUpload = ({ src, setSrc, isSmall = false }: AvatarUploadProps) => {
         <div className="space-y-5 p-5">
           <div className="relative flex size-64 w-full">
             <Cropper
+              aspect={1}
+              crop={crop}
               cropShape="round"
               image={pictureSrc}
-              crop={crop}
-              zoom={zoom}
-              aspect={1}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}
+              zoom={zoom}
             />
           </div>
           <Button

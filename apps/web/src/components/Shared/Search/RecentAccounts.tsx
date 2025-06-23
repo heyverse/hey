@@ -59,10 +59,10 @@ const RecentAccounts = ({ onAccountClick }: RecentAccountsProps) => {
             >
               <div className="w-full">
                 <SingleAccount
+                  account={account}
                   hideFollowButton
                   hideUnfollowButton
                   linkToAccount={false}
-                  account={account}
                   showUserPreview={false}
                 />
               </div>

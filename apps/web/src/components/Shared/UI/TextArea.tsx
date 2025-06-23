@@ -12,7 +12,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     const id = useId();
 
     return (
-      <label htmlFor={id} className="w-full">
+      <label className="w-full" htmlFor={id}>
         {label ? <div className="label">{label}</div> : null}
         <textarea
           className={cn(

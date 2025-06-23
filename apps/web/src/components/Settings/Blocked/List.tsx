@@ -65,9 +65,9 @@ const List = () => {
             key={accountBlocked.account.address}
           >
             <SingleAccount
+              account={accountBlocked.account}
               hideFollowButton
               hideUnfollowButton
-              account={accountBlocked.account}
             />
             <Button
               onClick={() =>

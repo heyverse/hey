@@ -32,16 +32,16 @@ const FollowUnfollowButton = ({
       {!hideFollowButton &&
         (account.operations?.isFollowedByMe ? null : (
           <FollowWithRulesCheck
-            buttonClassName={buttonClassName}
             account={account}
+            buttonClassName={buttonClassName}
             small={small}
           />
         ))}
       {!hideUnfollowButton &&
         (account.operations?.isFollowedByMe ? (
           <Unfollow
-            buttonClassName={buttonClassName}
             account={account}
+            buttonClassName={buttonClassName}
             small={small}
             title={unfollowTitle}
           />

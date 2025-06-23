@@ -76,9 +76,9 @@ const MentionPicker = () => {
       >
         {results.map((account) => (
           <MentionItem
+            account={account}
             key={account.address}
             onSelect={() => handleAccountInsert(account)}
-            account={account}
           />
         ))}
       </AutocompleteList>

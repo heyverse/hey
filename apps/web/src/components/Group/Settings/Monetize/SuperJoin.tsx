@@ -116,7 +116,9 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
       />
       <div className="m-5 flex flex-col gap-y-4">
         <Input
+          className="no-spinner"
           label="Amount"
+          onChange={(e) => setAmount(Number(e.target.value))}
           placeholder="1"
           prefix={
             <Tooltip
@@ -124,19 +126,17 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
               placement="top"
             >
               <Image
+                alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
                 className="size-5 rounded-full"
                 src={`${STATIC_IMAGES_URL}/tokens/${
                   IS_MAINNET ? "gho.svg" : "grass.svg"
                 }`}
-                alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
               />
             </Tooltip>
           }
-          className="no-spinner"
           ref={inputRef}
           type="number"
           value={amount}
-          onChange={(e) => setAmount(Number(e.target.value))}
         />
         <div className="flex justify-end space-x-2">
           {simplePaymentRule && (

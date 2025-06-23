@@ -63,9 +63,9 @@ const Splits = ({ recipients }: SplitsProps) => {
                     </AccountLink>
                   ) : (
                     <Link
-                      to={`${BLOCK_EXPLORER_URL}/address/${address}`}
                       rel="noreferrer noopener"
                       target="_blank"
+                      to={`${BLOCK_EXPLORER_URL}/address/${address}`}
                     >
                       {formatAddress(address, 6)}
                     </Link>

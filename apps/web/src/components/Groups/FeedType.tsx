@@ -15,11 +15,11 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
 
   return (
     <Tabs
-      tabs={tabs}
       active={feedType}
-      setActive={(type) => setFeedType(type as GroupsFeedType)}
       className="mx-5 mb-5 md:mx-0"
       layoutId="groups_tab"
+      setActive={(type) => setFeedType(type as GroupsFeedType)}
+      tabs={tabs}
     />
   );
 };

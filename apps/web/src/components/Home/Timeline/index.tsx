@@ -47,19 +47,19 @@ const Timeline = () => {
 
   return (
     <PostFeed
-      items={filteredPosts}
-      loading={loading}
-      error={error}
-      hasMore={hasMore}
-      handleEndReached={handleEndReached}
       emptyIcon={<UserGroupIcon className="size-8" />}
       emptyMessage="No posts yet!"
+      error={error}
       errorTitle="Failed to load timeline"
+      handleEndReached={handleEndReached}
+      hasMore={hasMore}
+      items={filteredPosts}
+      loading={loading}
       renderItem={(timelineItem) => (
         <SinglePost
           key={timelineItem.id}
-          timelineItem={timelineItem}
           post={timelineItem.primary}
+          timelineItem={timelineItem}
         />
       )}
     />

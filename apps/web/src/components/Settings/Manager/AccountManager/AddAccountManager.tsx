@@ -78,8 +78,8 @@ const AddAccountManager = ({
       <SearchAccounts
         error={manager.length > 0 && !isAddress(manager)}
         hideDropdown={isAddress(manager)}
-        onChange={(event) => setManager(event.target.value)}
         onAccountSelected={(account) => setManager(account.owner)}
+        onChange={(event) => setManager(event.target.value)}
         placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
         value={manager}
       />

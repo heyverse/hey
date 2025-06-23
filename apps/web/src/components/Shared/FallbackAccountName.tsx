@@ -28,12 +28,12 @@ const FallbackAccountName = ({
   return (
     <>
       <AccountLink
+        account={account}
         aria-label={`Account of ${name || usernameWithPrefix}`}
         className={cn(
           "max-w-sm truncate outline-hidden hover:underline focus:underline",
           className
         )}
-        account={account}
       >
         <b className="whitespace-nowrap">{accountName}</b>
       </AccountLink>

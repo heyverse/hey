@@ -74,9 +74,9 @@ const ApprovalRule = ({ group }: ApprovalRuleProps) => {
   return (
     <div className="m-5">
       <ToggleWithHelper
-        heading="Enable Membership Approval"
         description="Toggle to require approval for new members"
         disabled={isSubmitting}
+        heading="Enable Membership Approval"
         icon={<PlusCircleIcon className="size-5" />}
         on={isApprovalRuleEnabled}
         setOn={handleUpdateRule}

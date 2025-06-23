@@ -55,8 +55,8 @@ const AppIcon = () => {
               <Image
                 alt={icon.name}
                 className="size-10"
-                src={`${STATIC_IMAGES_URL}/app-icon/${icon.id}.png`}
                 height={40}
+                src={`${STATIC_IMAGES_URL}/app-icon/${icon.id}.png`}
                 width={40}
               />
               {icon.id === appIcon ? (

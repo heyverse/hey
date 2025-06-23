@@ -30,8 +30,8 @@ const TopUpButton = ({
       onClick={() =>
         setShowFundModal({ showFundModal: true, token, amountToTopUp })
       }
-      size={size}
       outline={outline}
+      size={size}
     >
       {label}
     </Button>

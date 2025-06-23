@@ -51,8 +51,8 @@ const Success = () => {
       <Image
         alt="Dizzy emoji"
         className="mx-auto mt-8 size-14"
-        src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
         height={56}
+        src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
         width={56}
       />
       <i className="mt-8 text-gray-500 dark:text-gray-200">

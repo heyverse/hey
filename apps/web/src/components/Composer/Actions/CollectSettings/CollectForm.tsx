@@ -73,14 +73,14 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
       {collectAction.enabled && (
         <>
           <motion.div
+            animate="visible"
             className="m-5 overflow-hidden"
             initial="hidden"
-            animate="visible"
+            transition={{ duration: 0.2, ease: EXPANSION_EASE }}
             variants={{
               hidden: { opacity: 0, height: 0, y: -20 },
               visible: { opacity: 1, height: "auto", y: 0 }
             }}
-            transition={{ duration: 0.2, ease: EXPANSION_EASE }}
           >
             <AmountConfig setCollectType={setCollectType} />
             {currentAccount?.hasSubscribed ? (

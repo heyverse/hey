@@ -113,8 +113,8 @@ const Tokens = () => {
           {builderToken && (
             <button
               className="mt-5 cursor-pointer break-all rounded-md bg-gray-300 p-2 px-3 text-left dark:bg-gray-600"
-              type="button"
               onClick={copyBuilderToken}
+              type="button"
             >
               <H6>{builderToken}</H6>
             </button>

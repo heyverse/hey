@@ -121,10 +121,10 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
                     }}
                   >
                     <SingleAccount
+                      account={account}
                       hideFollowButton
                       hideUnfollowButton
                       linkToAccount={false}
-                      account={account}
                       showUserPreview={false}
                     />
                   </div>

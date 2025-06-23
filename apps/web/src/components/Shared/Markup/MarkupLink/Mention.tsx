@@ -47,12 +47,12 @@ const Mention = ({ mentions, title }: MarkupLinkProps) => {
     return (
       <Link
         className="outline-hidden focus:underline"
-        to={`/u/${getNameFromMention(username)}`}
         onClick={stopEventPropagation}
+        to={`/u/${getNameFromMention(username)}`}
       >
         <AccountPreview
-          username={getNameFromMention(username)}
           address={getAddressFromMention(username)}
+          username={getNameFromMention(username)}
         >
           <Slug prefix="@" slug={getNameFromMention(username)} useBrandColor />
         </AccountPreview>

@@ -69,13 +69,13 @@ const NavItems = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     <>
       {routes.map((route) => (
         <NavItem
-          key={route}
-          url={route}
           icon={
             pathname === route
               ? navigationItems[route as keyof typeof navigationItems].solid
               : navigationItems[route as keyof typeof navigationItems].outline
           }
+          key={route}
+          url={route}
         />
       ))}
     </>
@@ -97,12 +97,12 @@ const Navbar = () => {
 
   return (
     <aside className="sticky top-5 mt-5 hidden w-10 shrink-0 flex-col items-center gap-y-5 md:flex">
-      <Link to="/" onClick={handleLogoClick}>
+      <Link onClick={handleLogoClick} to="/">
         <Image
           alt="Logo"
           className="size-8"
-          src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
           height={32}
+          src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
           width={32}
         />
       </Link>

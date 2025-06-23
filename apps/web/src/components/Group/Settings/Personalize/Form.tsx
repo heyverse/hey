@@ -146,8 +146,8 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
           placeholder="Tell us something about your group!"
           {...form.register("description")}
         />
-        <AvatarUpload src={pfpUrl || ""} setSrc={onSetAvatar} />
-        <CoverUpload src={coverUrl || ""} setSrc={onSetCover} />
+        <AvatarUpload setSrc={onSetAvatar} src={pfpUrl || ""} />
+        <CoverUpload setSrc={onSetCover} src={coverUrl || ""} />
         <Button
           className="ml-auto"
           disabled={

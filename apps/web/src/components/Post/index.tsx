@@ -91,20 +91,17 @@ const ViewPost = () => {
 
   return (
     <PageLayout
-      title={`${targetPost.__typename} by ${
-        getAccount(targetPost.author).usernameWithPrefix
-      } • Hey`}
       sidebar={
         <div className="space-y-5">
           <Card as="aside" className="p-5">
             <SingleAccount
+              account={targetPost.author}
               hideFollowButton={
                 currentAccount?.address === targetPost.author.address
               }
               hideUnfollowButton={
                 currentAccount?.address === targetPost.author.address
               }
-              account={targetPost.author}
               showBio
             />
           </Card>
@@ -112,6 +109,9 @@ const ViewPost = () => {
           <Footer />
         </div>
       }
+      title={`${targetPost.__typename} by ${
+        getAccount(targetPost.author).usernameWithPrefix
+      } • Hey`}
       zeroTopMargin
     >
       <div className="space-y-5">
@@ -129,8 +129,8 @@ const ViewPost = () => {
             </Card>
             {currentAccount && !canComment && (
               <WarningMessage
-                title="You cannot comment on this post"
                 message="You don't have permission to comment on this post."
+                title="You cannot comment on this post"
               />
             )}
             {currentAccount && !post.isDeleted && canComment ? (

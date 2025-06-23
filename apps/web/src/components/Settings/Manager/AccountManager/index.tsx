@@ -25,10 +25,10 @@ const AccountManager = () => {
     <div className="linkify space-y-2">
       <div className="mx-5 mt-5 flex flex-wrap items-center justify-between gap-5">
         <Tabs
-          tabs={tabs}
           active={type}
-          setActive={(type) => setType(type as Type)}
           layoutId="account_manager_tab"
+          setActive={(type) => setType(type as Type)}
+          tabs={tabs}
         />
         {type === Type.MANAGERS && (
           <>

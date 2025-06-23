@@ -53,9 +53,9 @@ const Members = ({ group }: MembersProps) => {
   if (!groupMembers?.length) {
     return (
       <EmptyState
+        hideCard
         icon={<UsersIcon className="size-8" />}
         message="Group doesn't have any members."
-        hideCard
       />
     );
   }
@@ -75,23 +75,23 @@ const Members = ({ group }: MembersProps) => {
       <Virtualizer>
         {groupMembers.map((member, index) => (
           <motion.div
-            key={member.account.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === groupMembers.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={member.account.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={member.account}
               hideFollowButton={
                 currentAccount?.address === member.account.address
               }
               hideUnfollowButton={
                 currentAccount?.address === member.account.address
               }
-              account={member.account}
               showBio
               showUserPreview={false}
             />

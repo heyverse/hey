@@ -5,7 +5,7 @@ const FollowersYouKnowShimmer = () => {
     <div className="flex items-center gap-x-2">
       <div className="-space-x-2 flex">
         {Array.from({ length: 3 }).map((_, index) => (
-          <Skeleton key={index} className="size-5 rounded-full" />
+          <Skeleton className="size-5 rounded-full" key={index} />
         ))}
       </div>
       <Skeleton className="h-3 w-1/5 rounded-lg" />

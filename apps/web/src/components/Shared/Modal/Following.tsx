@@ -50,6 +50,7 @@ const Following = ({ username, address }: FollowingProps) => {
   if (!followings?.length) {
     return (
       <EmptyState
+        hideCard
         icon={<UsersIcon className="size-8" />}
         message={
           <div>
@@ -57,7 +58,6 @@ const Following = ({ username, address }: FollowingProps) => {
             <span>doesn't follow anyone.</span>
           </div>
         }
-        hideCard
       />
     );
   }
@@ -77,23 +77,23 @@ const Following = ({ username, address }: FollowingProps) => {
       <Virtualizer>
         {followings.map((following, index) => (
           <motion.div
-            key={following.following.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === followings.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={following.following.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={following.following}
               hideFollowButton={
                 currentAccount?.address === following.following.address
               }
               hideUnfollowButton={
                 currentAccount?.address === following.following.address
               }
-              account={following.following}
               showBio
               showUserPreview={false}
             />

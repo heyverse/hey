@@ -66,9 +66,9 @@ const SingleAccount = ({
 
   const AccountInfo = () => (
     <AccountPreview
-      username={account.username?.localName}
       address={account.address}
       showUserPreview={showUserPreview}
+      username={account.username?.localName}
     >
       <div className="mr-8 flex items-center gap-x-3">
         <UserAvatar />
@@ -88,9 +88,9 @@ const SingleAccount = ({
           <AccountInfo />
         )}
         <FollowUnfollowButton
+          account={account}
           hideFollowButton={hideFollowButton}
           hideUnfollowButton={hideUnfollowButton}
-          account={account}
           small
         />
       </div>

@@ -47,8 +47,8 @@ const ViewGroup = () => {
       <Details group={group} />
       {isBanned && (
         <WarningMessage
-          title="You are banned from this group"
           message="Please contact the group owner to unban yourself."
+          title="You are banned from this group"
         />
       )}
       {currentAccount && isMember && !isBanned && (

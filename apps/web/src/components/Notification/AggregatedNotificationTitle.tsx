@@ -23,8 +23,8 @@ const AggregatedNotificationTitle = ({
       {type && (
         <Link
           className="outline-hidden hover:underline focus:underline"
-          to={linkToType}
           onClick={stopEventPropagation}
+          to={linkToType}
         >
           {type.toLowerCase()}
         </Link>

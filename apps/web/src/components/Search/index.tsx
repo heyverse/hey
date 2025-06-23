@@ -28,7 +28,7 @@ const Search = () => {
   const feedType = getFeedType(Array.isArray(type) ? type[0] : type);
 
   return (
-    <PageLayout title="Search" sidebar={<Sidebar />} hideSearch>
+    <PageLayout hideSearch sidebar={<Sidebar />} title="Search">
       <div className="px-5 md:px-0">
         <SearchInput />
       </div>

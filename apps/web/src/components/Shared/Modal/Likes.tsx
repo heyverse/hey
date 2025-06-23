@@ -53,9 +53,9 @@ const Likes = ({ postId }: LikesProps) => {
     return (
       <div className="p-5">
         <EmptyState
+          hideCard
           icon={<HeartIcon className="size-8" />}
           message="No likes."
-          hideCard
         />
       </div>
     );
@@ -76,23 +76,23 @@ const Likes = ({ postId }: LikesProps) => {
       <Virtualizer>
         {accounts.map((like, index) => (
           <motion.div
-            key={like.account.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === accounts.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={like.account.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={like.account}
               hideFollowButton={
                 currentAccount?.address === like.account.address
               }
               hideUnfollowButton={
                 currentAccount?.address === like.account.address
               }
-              account={like.account}
               showBio
               showUserPreview={false}
             />

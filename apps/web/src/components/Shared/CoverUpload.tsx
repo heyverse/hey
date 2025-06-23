@@ -63,13 +63,13 @@ const CoverUpload = ({ src, setSrc }: CoverUploadProps) => {
         <div className="space-y-5 p-5">
           <div className="relative flex size-64 w-full">
             <Cropper
-              image={pictureSrc}
-              crop={crop}
-              zoom={zoom}
               aspect={1350 / 350}
+              crop={crop}
+              image={pictureSrc}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}
+              zoom={zoom}
             />
           </div>
           <div className="flex w-full flex-wrap items-center justify-between gap-y-3">

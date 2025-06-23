@@ -18,19 +18,19 @@ const MoreRelevantPeople = ({ accounts }: MoreRelevantPeopleProps) => {
       <Virtualizer>
         {accounts.slice(5).map((account, index) => (
           <motion.div
-            key={account.address}
+            animate="visible"
             className={cn(
               "divider p-5",
               index === accounts.slice(5).length - 1 && "border-b-0"
             )}
             initial="hidden"
-            animate="visible"
+            key={account.address}
             variants={accountsList}
           >
             <SingleAccount
+              account={account}
               hideFollowButton={currentAccount?.address === account.address}
               hideUnfollowButton={currentAccount?.address === account.address}
-              account={account}
               showBio
               showUserPreview={false}
             />

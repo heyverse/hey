@@ -129,9 +129,9 @@ const List = ({ managed = false }: ListProps) => {
           key={accountAvailable.account.address}
         >
           <SingleAccount
+            account={accountAvailable.account}
             hideFollowButton
             hideUnfollowButton
-            account={accountAvailable.account}
           />
           {address !== accountAvailable.account.owner && (
             <Button
