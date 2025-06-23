@@ -41,12 +41,12 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
-    variables: {
-      request: { address: currentAccount?.address, includeNative: true }
-    },
+    fetchPolicy: "no-cache",
     pollInterval: 3000,
     skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    variables: {
+      request: { address: currentAccount?.address, includeNative: true }
+    }
   });
 
   const updateCache = () => {
@@ -97,9 +97,9 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: executePostAction,
         onCompleted,
-        onError
+        onError,
+        transactionData: executePostAction
       });
     },
     onError
@@ -112,9 +112,9 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: executeAccountAction,
         onCompleted,
-        onError
+        onError,
+        transactionData: executeAccountAction
       });
     },
     onError
@@ -134,14 +134,14 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     setIsSubmitting(true);
 
     const tipping: TippingAmountInput = {
+      native: cryptoRate.toString(),
       // 11 is a calculated value based on the referral pool of 20% and the Lens fee of 2.1% after the 1.5% lens fees cut
-      referrals: [{ address: HEY_TREASURY, percent: 11 }],
-      native: cryptoRate.toString()
+      referrals: [{ address: HEY_TREASURY, percent: 11 }]
     };
 
     if (post) {
       return executePostAction({
-        variables: { request: { post: post.id, action: { tipping } } }
+        variables: { request: { action: { tipping }, post: post.id } }
       });
     }
 

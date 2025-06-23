@@ -55,9 +55,9 @@ const List = () => {
   const [removeAccountManager] = useRemoveAccountManagerMutation({
     onCompleted: async ({ removeAccountManager }) => {
       return await handleTransactionLifecycle({
-        transactionData: removeAccountManager,
         onCompleted,
-        onError
+        onError,
+        transactionData: removeAccountManager
       });
     },
     onError

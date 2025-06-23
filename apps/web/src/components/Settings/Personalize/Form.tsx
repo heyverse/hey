@@ -64,8 +64,8 @@ const PersonalizeSettingsForm = () => {
   const handleTransactionLifecycle = useTransactionLifecycle();
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
   const [getCurrentAccountDetails] = useMeLazyQuery({
-    variables: { proBannerId: BANNER_IDS.PRO },
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
+    variables: { proBannerId: BANNER_IDS.PRO }
   });
 
   const onCompleted = async (hash: string) => {
@@ -88,9 +88,9 @@ const PersonalizeSettingsForm = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: setAccountMetadata,
         onCompleted,
-        onError
+        onError,
+        transactionData: setAccountMetadata
       });
     },
     onError

@@ -50,9 +50,9 @@ const Leave = ({ group, small }: LeaveProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: leaveGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: leaveGroup
       });
     },
     onError

@@ -12,8 +12,8 @@ const Highlights = () => {
   const { currentAccount } = useAccountStore();
 
   const request: TimelineHighlightsRequest = {
-    pageSize: PageSize.Fifty,
-    account: currentAccount?.address
+    account: currentAccount?.address,
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = useTimelineHighlightsQuery({

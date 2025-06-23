@@ -12,10 +12,10 @@ const parseJwt = (
     return JSON.parse(decoded(token.split(".")[1]));
   } catch {
     return {
-      sub: "",
+      act: { sub: "" },
       exp: 0,
       sid: "",
-      act: { sub: "" }
+      sub: ""
     };
   }
 };

@@ -17,9 +17,9 @@ interface AccountsProps {
 
 const Accounts = ({ query }: AccountsProps) => {
   const request: AccountsRequest = {
-    pageSize: PageSize.Fifty,
+    filter: { searchBy: { localNameQuery: query } },
     orderBy: AccountsOrderBy.BestMatch,
-    filter: { searchBy: { localNameQuery: query } }
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = useAccountsQuery({

@@ -39,7 +39,6 @@ const Layout = () => {
   };
 
   const { loading } = useMeQuery({
-    variables: { proBannerId: BANNER_IDS.PRO },
     onCompleted: ({ me, proBanner }) => {
       setCurrentAccount(me.loggedInAs.account);
       if (proBanner?.__typename === "Post") {
@@ -47,7 +46,8 @@ const Layout = () => {
       }
     },
     onError,
-    skip: !accessToken
+    skip: !accessToken,
+    variables: { proBannerId: BANNER_IDS.PRO }
   });
 
   const accountLoading = !currentAccount && loading;
@@ -60,9 +60,9 @@ const Layout = () => {
     <>
       <Toaster
         icons={{
-          success: <CheckCircleIcon className="size-5" />,
           error: <XCircleIcon className="size-5" />,
-          loading: <Spinner size="xs" />
+          loading: <Spinner size="xs" />,
+          success: <CheckCircleIcon className="size-5" />
         }}
         position="bottom-right"
         theme={theme as ToasterProps["theme"]}

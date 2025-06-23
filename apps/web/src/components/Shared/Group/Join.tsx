@@ -36,8 +36,8 @@ const Join = ({
 
     cache.modify({
       fields: {
-        isMember: () => !group.membershipApprovalEnabled,
-        hasRequestedMembership: () => group.membershipApprovalEnabled
+        hasRequestedMembership: () => group.membershipApprovalEnabled,
+        isMember: () => !group.membershipApprovalEnabled
       },
       id: cache.identify(group.operations)
     });
@@ -68,9 +68,9 @@ const Join = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: joinGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: joinGroup
       });
     },
     onError
@@ -85,9 +85,9 @@ const Join = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: joinGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: joinGroup
       });
     },
     onError

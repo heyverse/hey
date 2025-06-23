@@ -23,8 +23,8 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: WhoExecutedActionOnPostRequest = {
-    post: postId,
-    filter: { anyOf: [filter] }
+    filter: { anyOf: [filter] },
+    post: postId
   };
 
   const { data, error, fetchMore, loading } = useWhoExecutedActionOnPostQuery({

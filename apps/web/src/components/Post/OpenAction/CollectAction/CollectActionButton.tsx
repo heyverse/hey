@@ -85,12 +85,12 @@ const CollectActionButton = ({
   };
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
-    variables: {
-      request: { address: currentAccount?.address, tokens: [assetAddress] }
-    },
+    fetchPolicy: "no-cache",
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    variables: {
+      request: { address: currentAccount?.address, tokens: [assetAddress] }
+    }
   });
 
   const tokenBalance =
@@ -112,9 +112,9 @@ const CollectActionButton = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: executePostAction,
         onCompleted,
-        onError
+        onError,
+        transactionData: executePostAction
       });
     },
     onError
@@ -126,13 +126,13 @@ const CollectActionButton = ({
     return await executePostAction({
       variables: {
         request: {
-          post: post.id,
           action: {
             simpleCollect: {
-              selected: true,
-              referrals: [{ address: HEY_TREASURY, percent: 100 }]
+              referrals: [{ address: HEY_TREASURY, percent: 100 }],
+              selected: true
             }
-          }
+          },
+          post: post.id
         }
       }
     });

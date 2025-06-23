@@ -55,27 +55,27 @@ const BottomNavigation = () => {
 
   const navigationItems = [
     {
-      path: "/",
       label: "Home",
       outline: <HomeIcon className="size-6" />,
+      path: "/",
       solid: <HomeIconSolid className="size-6" />
     },
     {
-      path: "/search",
       label: "Search",
       outline: <MagnifyingGlassIcon className="size-6" />,
+      path: "/search",
       solid: <MagnifyingGlassIcon className="size-6" />
     },
     {
-      path: "/explore",
       label: "Explore",
       outline: <GlobeOutline className="size-6" />,
+      path: "/explore",
       solid: <GlobeSolid className="size-6" />
     },
     {
-      path: "/notifications",
       label: "Notifications",
       outline: <BellIcon className="size-6" />,
+      path: "/notifications",
       solid: <BellIconSolid className="size-6" />
     }
   ];

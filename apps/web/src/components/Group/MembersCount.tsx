@@ -19,8 +19,8 @@ const MembersCount = ({ group }: MembersCountProps) => {
   ).includes(group.address);
 
   const { data, loading } = useGroupStatsQuery({
-    variables: { request: { group: group.address } },
-    skip: hideCount
+    skip: hideCount,
+    variables: { request: { group: group.address } }
   });
 
   if (hideCount) {

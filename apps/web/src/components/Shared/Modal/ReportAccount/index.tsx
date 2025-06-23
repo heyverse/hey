@@ -48,8 +48,8 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
     return await createReport({
       variables: {
         request: {
-          additionalComment,
           account: account?.address,
+          additionalComment,
           reason: reason as AccountReportReason
         }
       }
@@ -92,8 +92,8 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
                   ...Object.entries(AccountReportReason).map(
                     ([key, value]) => ({
                       label: convertToTitleCase(key),
-                      value,
-                      selected: reason === value
+                      selected: reason === value,
+                      value
                     })
                   )
                 ]}

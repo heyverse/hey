@@ -4,7 +4,8 @@
     "actions": {
       "source": {
         "organizeImports": "on",
-        "useSortedAttributes": { "level": "on" }
+        "useSortedAttributes": "on",
+        "useSortedKeys": "on"
       }
     }
   },
@@ -19,52 +20,39 @@
       "!**/.git/**",
       "!**/cache/**",
       "!**/generated.ts",
-      "!**/expo-env.d.ts"
+      "!**/expo-env.d.ts",
+      "!**/package.json"
     ]
+  },
+  "formatter": {
+    "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
   },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
       "a11y": {
+        "noStaticElementInteractions": "off",
         "useKeyWithClickEvents": "off",
-        "useMediaCaption": "off",
-        "noStaticElementInteractions": "off"
-      },
-      "security": {
-        "noDangerouslySetInnerHtml": "off"
-      },
-      "correctness": {
-        "noUnusedVariables": "error",
-        "useExhaustiveDependencies": "off",
-        "noUnusedImports": {
-          "fix": "safe",
-          "level": "error"
-        }
-      },
-      "suspicious": {
-        "noExplicitAny": "off",
-        "noAssignInExpressions": "off",
-        "noArrayIndexKey": "off"
+        "useMediaCaption": "off"
       },
       "complexity": {
         "noForEach": "warn",
-        "useLiteralKeys": "off",
+        "noUselessFragments": "error",
         "useDateNow": "off",
-        "noUselessFragments": "error"
+        "useLiteralKeys": "off"
       },
-      "style": {
-        "noNegationElse": "error",
-        "noParameterAssign": "error",
-        "useAsConstAssertion": "error",
-        "useDefaultParameterLast": "error",
-        "useEnumInitializers": "error",
-        "useSelfClosingElements": "error",
-        "useSingleVarDeclarator": "error",
-        "noUnusedTemplateLiteral": "error",
-        "useNumberNamespace": "error",
-        "noInferrableTypes": "error",
-        "noUselessElse": "error"
+      "correctness": {
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "error"
+        },
+        "noUnusedVariables": "error",
+        "useExhaustiveDependencies": "off"
       },
       "nursery": {
         "noNestedComponentDefinitions": "off",
@@ -73,15 +61,29 @@
           "level": "error",
           "options": {}
         }
+      },
+      "recommended": true,
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "style": {
+        "noInferrableTypes": "error",
+        "noNegationElse": "error",
+        "noParameterAssign": "error",
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useNumberNamespace": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noAssignInExpressions": "off",
+        "noExplicitAny": "off"
       }
     }
-  },
-  "javascript": {
-    "formatter": {
-      "trailingCommas": "none"
-    }
-  },
-  "formatter": {
-    "indentStyle": "space"
   }
 }

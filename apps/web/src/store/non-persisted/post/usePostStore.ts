@@ -11,12 +11,12 @@ interface State {
 }
 
 const { useStore: usePostStore } = createTrackedStore<State>((set) => ({
+  editingPost: undefined,
   postContent: "",
   quotedPost: undefined,
-  editingPost: undefined,
+  setEditingPost: (editingPost) => set(() => ({ editingPost })),
   setPostContent: (postContent) => set(() => ({ postContent })),
-  setQuotedPost: (quotedPost) => set(() => ({ quotedPost })),
-  setEditingPost: (editingPost) => set(() => ({ editingPost }))
+  setQuotedPost: (quotedPost) => set(() => ({ quotedPost }))
 }));
 
 export { usePostStore };

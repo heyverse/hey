@@ -25,17 +25,17 @@ const isParagraphEmpty = (node: Paragraph): boolean => {
 
 const joinParagraphs = (a: Paragraph, b: Paragraph): Paragraph => {
   const br: Element = {
-    type: "element",
-    tagName: "br",
+    children: [],
     properties: {},
-    children: []
+    tagName: "br",
+    type: "element"
   };
 
   return {
     ...a,
     ...b,
-    properties: { ...a.properties, ...b.properties },
-    children: [...a.children, br, ...b.children]
+    children: [...a.children, br, ...b.children],
+    properties: { ...a.properties, ...b.properties }
   };
 };
 

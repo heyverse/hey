@@ -44,9 +44,9 @@ const ApprovalRule = ({ group }: ApprovalRuleProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: updateGroupRules,
         onCompleted,
-        onError
+        onError,
+        transactionData: updateGroupRules
       });
     },
     onError

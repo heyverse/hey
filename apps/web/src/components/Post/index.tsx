@@ -48,13 +48,13 @@ const ViewPost = () => {
   const showQuotes = pathname === `/posts/${slug}/quotes`;
 
   const { data, error, loading } = usePostQuery({
-    skip: !slug,
-    variables: { request: { post: slug } },
     onCompleted: (data) => {
       if (data?.post) {
         setCachedPost(null);
       }
-    }
+    },
+    skip: !slug,
+    variables: { request: { post: slug } }
   });
 
   const { data: comments } = useHiddenCommentsQuery({
@@ -63,8 +63,8 @@ const ViewPost = () => {
       request: {
         pageSize: PageSize.Ten,
         referencedPost: slug,
-        visibilityFilter: PostVisibilityFilter.Hidden,
-        referenceTypes: [PostReferenceType.CommentOn]
+        referenceTypes: [PostReferenceType.CommentOn],
+        visibilityFilter: PostVisibilityFilter.Hidden
       }
     }
   });

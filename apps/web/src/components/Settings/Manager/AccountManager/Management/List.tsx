@@ -27,17 +27,17 @@ const List = ({ managed = false }: ListProps) => {
 
   const lastLoggedInAccountRequest: LastLoggedInAccountRequest = { address };
   const accountsAvailableRequest: AccountsAvailableRequest = {
-    managedBy: address,
     hiddenFilter: managed
       ? ManagedAccountsVisibility.NoneHidden
-      : ManagedAccountsVisibility.HiddenOnly
+      : ManagedAccountsVisibility.HiddenOnly,
+    managedBy: address
   };
 
   const { data, error, fetchMore, loading, refetch } =
     useAccountsAvailableQuery({
       variables: {
-        lastLoggedInAccountRequest,
-        accountsAvailableRequest
+        accountsAvailableRequest,
+        lastLoggedInAccountRequest
       }
     });
 
@@ -58,11 +58,11 @@ const List = ({ managed = false }: ListProps) => {
     if (hasMore) {
       await fetchMore({
         variables: {
-          lastLoggedInAccountRequest,
           accountsAvailableRequest: {
             ...accountsAvailableRequest,
             cursor: pageInfo.next
-          }
+          },
+          lastLoggedInAccountRequest
         }
       });
     }

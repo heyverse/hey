@@ -14,9 +14,9 @@ const PreferencesProvider = ({ children }: PreferencesProviderProps) => {
   const { setAppIcon, setIncludeLowScore } = usePreferencesStore();
 
   const { data: preferences } = useQuery({
+    enabled: Boolean(currentAccount?.address),
     queryFn: () => hono.preferences.get(),
-    queryKey: ["preferences", currentAccount?.address],
-    enabled: Boolean(currentAccount?.address)
+    queryKey: ["preferences", currentAccount?.address]
   });
 
   useEffect(() => {

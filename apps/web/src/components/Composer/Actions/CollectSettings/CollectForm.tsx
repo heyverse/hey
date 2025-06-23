@@ -30,11 +30,11 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
 
   const validationChecks = {
     hasEmptyRecipients: recipients.some(({ address }) => !address),
+    hasImproperSplits: recipients.length > 1 && splitTotal !== 100,
     hasInvalidEthAddress: recipients.some(
       ({ address }) => address && !isAddress(address)
     ),
     hasZeroSplits: recipients.some(({ percent }) => percent === 0),
-    hasImproperSplits: recipients.length > 1 && splitTotal !== 100,
     isRecipientsDuplicated:
       new Set(recipients.map(({ address }) => address)).size !==
       recipients.length
@@ -78,8 +78,8 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             initial="hidden"
             transition={{ duration: 0.2, ease: EXPANSION_EASE }}
             variants={{
-              hidden: { opacity: 0, height: 0, y: -20 },
-              visible: { opacity: 1, height: "auto", y: 0 }
+              hidden: { height: 0, opacity: 0, y: -20 },
+              visible: { height: "auto", opacity: 1, y: 0 }
             }}
           >
             <AmountConfig setCollectType={setCollectType} />

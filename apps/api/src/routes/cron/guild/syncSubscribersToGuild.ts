@@ -26,8 +26,8 @@ const syncSubscribersToGuild = async (ctx: Context) => {
 
     const data = await syncAddressesToGuild({
       addresses,
-      roleId: 174659,
-      requirementId: 473346
+      requirementId: 473346,
+      roleId: 174659
     });
 
     return ctx.json(data);

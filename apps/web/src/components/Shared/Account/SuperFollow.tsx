@@ -28,12 +28,12 @@ const SuperFollow = () => {
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
-    variables: {
-      request: { address: currentAccount?.address, tokens: [assetAddress] }
-    },
+    fetchPolicy: "no-cache",
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    variables: {
+      request: { address: currentAccount?.address, tokens: [assetAddress] }
+    }
   });
 
   if (!assetAddress || !assetSymbol || !amount) {

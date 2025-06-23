@@ -68,9 +68,9 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: updateGroupRules,
         onCompleted,
-        onError
+        onError,
+        transactionData: updateGroupRules
       });
     },
     onError

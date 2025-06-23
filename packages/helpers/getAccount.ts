@@ -20,15 +20,15 @@ const sanitizeDisplayName = (name?: null | string): null | string => {
 };
 
 const UNKNOWN_ACCOUNT: AccountInfo = {
-  name: "...",
   link: "",
+  name: "...",
   username: "...",
   usernameWithPrefix: "..."
 };
 
 const DELETED_ACCOUNT: AccountInfo = {
-  name: "Deleted Account",
   link: "",
+  name: "Deleted Account",
   username: "deleted",
   usernameWithPrefix: "@deleted"
 };
@@ -58,8 +58,8 @@ const getAccount = (account?: AccountFragment): AccountInfo => {
       : `/account/${address}`;
 
   return {
-    name: sanitizeDisplayName(account.metadata?.name) || usernameValueOrAddress,
     link,
+    name: sanitizeDisplayName(account.metadata?.name) || usernameValueOrAddress,
     username: usernameValueOrAddress,
     usernameWithPrefix: `${usernamePrefix}${usernameValueOrAddress}`
   };

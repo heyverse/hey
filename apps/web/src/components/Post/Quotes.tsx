@@ -25,8 +25,8 @@ interface QuotesProps {
 const Quotes = ({ post }: QuotesProps) => {
   const request: PostReferencesRequest = {
     pageSize: PageSize.Fifty,
-    referenceTypes: [PostReferenceType.QuoteOf],
-    referencedPost: post.id
+    referencedPost: post.id,
+    referenceTypes: [PostReferenceType.QuoteOf]
   };
 
   const { data, error, fetchMore, loading } = usePostReferencesQuery({

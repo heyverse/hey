@@ -1,7 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "React",
-  "extends": "./base.tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
@@ -9,5 +7,7 @@
     "jsx": "preserve",
     "lib": ["DOM", "DOM.Iterable", "ESNext"]
   },
-  "exclude": [".next"]
+  "display": "React",
+  "exclude": [".next"],
+  "extends": "./base.tsconfig.json"
 }

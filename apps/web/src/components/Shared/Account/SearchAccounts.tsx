@@ -34,9 +34,9 @@ const SearchAccounts = ({
 
     const keyword = event.target.value;
     const request: AccountsRequest = {
-      pageSize: PageSize.Fifty,
+      filter: { searchBy: { localNameQuery: keyword } },
       orderBy: AccountsOrderBy.BestMatch,
-      filter: { searchBy: { localNameQuery: keyword } }
+      pageSize: PageSize.Fifty
     };
 
     searchAccounts({ variables: { request } });

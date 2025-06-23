@@ -30,12 +30,12 @@ const UndoRepost = ({
 
   const updateCache = () => {
     cache.modify({
-      id: cache.identify(targetPost),
       fields: {
         stats(existing = {}) {
           return { ...existing, reposts: existing.reposts - 1 };
         }
-      }
+      },
+      id: cache.identify(targetPost)
     });
     cache.evict({ id: cache.identify(post) });
   };
@@ -58,9 +58,9 @@ const UndoRepost = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: deletePost,
         onCompleted,
-        onError
+        onError,
+        transactionData: deletePost
       });
     }
   });

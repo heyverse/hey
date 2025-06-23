@@ -20,8 +20,8 @@ const Followers = ({ username, address }: FollowersProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: FollowersRequest = {
-    pageSize: PageSize.Fifty,
-    account: address
+    account: address,
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = useFollowersQuery({

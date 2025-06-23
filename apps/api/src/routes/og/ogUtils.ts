@@ -33,9 +33,9 @@ const generateOg = async <T>({
     }
 
     const { data } = await apolloClient.query({
+      fetchPolicy: "no-cache",
       query,
-      variables,
-      fetchPolicy: "no-cache"
+      variables
     });
 
     const parsed = extractData(data);

@@ -72,9 +72,9 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: repost,
         onCompleted,
-        onError
+        onError,
+        transactionData: repost
       });
     },
     onError

@@ -17,15 +17,15 @@ import Wrap from "./Wrap";
 const Balances = () => {
   const { currentAccount } = useAccountStore();
   const { data, loading, error, refetch } = useBalancesBulkQuery({
+    pollInterval: 5000,
+    skip: !currentAccount?.address,
     variables: {
       request: {
         address: currentAccount?.address,
         includeNative: true,
         tokens: tokens.map((token) => token.contractAddress)
       }
-    },
-    skip: !currentAccount?.address,
-    pollInterval: 5000
+    }
   });
 
   interface TokenBalanceProps {

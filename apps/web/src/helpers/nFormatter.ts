@@ -1,13 +1,13 @@
 import humanize from "@/helpers/humanize";
 
 const LOOKUP = [
-  { value: 1e18, symbol: "E" },
-  { value: 1e15, symbol: "P" },
-  { value: 1e12, symbol: "T" },
-  { value: 1e9, symbol: "G" },
-  { value: 1e6, symbol: "M" },
-  { value: 1e3, symbol: "k" },
-  { value: 1, symbol: "" }
+  { symbol: "E", value: 1e18 },
+  { symbol: "P", value: 1e15 },
+  { symbol: "T", value: 1e12 },
+  { symbol: "G", value: 1e9 },
+  { symbol: "M", value: 1e6 },
+  { symbol: "k", value: 1e3 },
+  { symbol: "", value: 1 }
 ];
 
 const TRIM_ZEROES_REGEX = /\.0+$|(\.\d*[1-9])0+$/;

@@ -76,8 +76,8 @@ const ReportPost = ({ postId }: ReportPostProps) => {
                   },
                   ...Object.entries(PostReportReason).map(([key, value]) => ({
                     label: convertToTitleCase(key),
-                    value,
-                    selected: reason === value
+                    selected: reason === value,
+                    value
                   }))
                 ]}
               />

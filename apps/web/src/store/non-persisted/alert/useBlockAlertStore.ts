@@ -12,11 +12,11 @@ interface State {
 
 const { useStore: useBlockAlertStore } = createTrackedStore<State>((set) => ({
   blockingOrUnblockingAccount: undefined,
-  showBlockOrUnblockAlert: false,
   setShowBlockOrUnblockAlert: (
     showBlockOrUnblockAlert,
     blockingOrUnblockingAccount
-  ) => set(() => ({ blockingOrUnblockingAccount, showBlockOrUnblockAlert }))
+  ) => set(() => ({ blockingOrUnblockingAccount, showBlockOrUnblockAlert })),
+  showBlockOrUnblockAlert: false
 }));
 
 export { useBlockAlertStore };

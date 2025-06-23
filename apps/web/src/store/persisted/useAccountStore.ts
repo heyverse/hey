@@ -11,9 +11,9 @@ interface State {
 const { useStore: useAccountStore, store } = createPersistedTrackedStore<State>(
   (set, get) => ({
     currentAccount: undefined,
+    hydrateAccount: () => get().currentAccount,
     setCurrentAccount: (currentAccount?: AccountFragment) =>
-      set(() => ({ currentAccount })),
-    hydrateAccount: () => get().currentAccount
+      set(() => ({ currentAccount }))
   }),
   { name: Localstorage.AccountStore }
 );

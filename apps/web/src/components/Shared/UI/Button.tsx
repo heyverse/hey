@@ -8,16 +8,9 @@ import cn from "@/helpers/cn";
 const buttonVariants = cva(
   "rounded-full font-bold inline-flex items-center justify-center relative overflow-hidden",
   {
-    variants: {
-      variant: { primary: "" },
-      size: { sm: "px-3 py-0.5 text-sm", md: "px-4 py-1", lg: "px-5 py-1.5" },
-      outline: { true: "", false: "" }
-    },
     compoundVariants: [
       // Non-outline Primary
       {
-        variant: "primary",
-        outline: false,
         class: cn(
           "text-white hover:text-white active:text-gray-100",
           "bg-gray-950 hover:bg-gray-800 active:bg-gray-700",
@@ -25,24 +18,31 @@ const buttonVariants = cva(
           "dark:text-gray-950 dark:hover:text-gray-900 dark:active:text-gray-600",
           "dark:bg-white dark:hover:bg-gray-200 dark:active:bg-gray-200",
           "dark:border-white dark:hover:border-gray-100 dark:active:border-gray-200"
-        )
+        ),
+        outline: false,
+        variant: "primary"
       },
       // Outline Primary
       {
-        variant: "primary",
-        outline: true,
         class: cn(
           "text-gray-950 active:text-gray-500",
           "border border-gray-300 hover:border-gray-400",
           "dark:text-white dark:active:text-gray-700",
           "dark:border-gray-700 dark:hover:border-gray-600"
-        )
+        ),
+        outline: true,
+        variant: "primary"
       }
     ],
     defaultVariants: {
-      variant: "primary",
+      outline: false,
       size: "md",
-      outline: false
+      variant: "primary"
+    },
+    variants: {
+      outline: { false: "", true: "" },
+      size: { lg: "px-5 py-1.5", md: "px-4 py-1", sm: "px-3 py-0.5 text-sm" },
+      variant: { primary: "" }
     }
   }
 );
@@ -72,7 +72,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     return (
       <button
-        className={buttonVariants({ variant, size, outline, className })}
+        className={buttonVariants({ className, outline, size, variant })}
         disabled={disabled}
         ref={ref}
         type={rest.type}
@@ -83,7 +83,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             animate={loading ? "loading" : "idle"}
             className="flex items-center gap-x-1.5"
             initial="idle"
-            transition={{ type: "spring", duration: 0.2, bounce: 0 }}
+            transition={{ bounce: 0, duration: 0.2, type: "spring" }}
             variants={{
               idle: { opacity: 1, y: 0 },
               loading: { opacity: 0, y: -20 }
@@ -98,7 +98,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               className="absolute flex items-center justify-center"
               exit={{ opacity: 0, y: 20 }}
               initial={{ opacity: 0, y: 20 }}
-              transition={{ type: "spring", duration: 0.2, bounce: 0 }}
+              transition={{ bounce: 0, duration: 0.2, type: "spring" }}
             >
               <Spinner size="xs" />
             </motion.div>

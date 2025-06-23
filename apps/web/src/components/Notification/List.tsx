@@ -21,14 +21,14 @@ import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import NotificationShimmer from "./Shimmer";
 
 const notificationComponentMap = {
+  AccountActionExecutedNotification,
+  CommentNotification,
   FollowNotification,
   MentionNotification,
-  ReactionNotification,
-  CommentNotification,
-  RepostNotification,
-  QuoteNotification,
   PostActionExecutedNotification,
-  AccountActionExecutedNotification
+  QuoteNotification,
+  ReactionNotification,
+  RepostNotification
 } as const;
 
 interface ListProps {

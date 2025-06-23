@@ -12,11 +12,11 @@ const IncludeLowScore = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ includeLowScore }: { includeLowScore: boolean }) =>
       hono.preferences.update({ includeLowScore }),
+    onError: errorToast,
     onSuccess: (data) => {
       setIncludeLowScore(data.includeLowScore);
       toast.success("Notification preference updated");
-    },
-    onError: errorToast
+    }
   });
 
   return (

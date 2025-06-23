@@ -32,9 +32,9 @@ const UnlinkUsername = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: unassignUsernameFromAccount,
         onCompleted,
-        onError
+        onError,
+        transactionData: unassignUsernameFromAccount
       });
     },
     onError

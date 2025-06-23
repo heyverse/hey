@@ -13,14 +13,14 @@ const Overview = () => {
   const { currentAccount } = useAccountStore();
 
   const { data, error, loading } = useProStatsQuery({
+    pollInterval: 3000,
     variables: {
-      groupStatsRequest: { group: PERMISSIONS.SUBSCRIPTION },
       balancesBulkRequest: {
         address: currentAccount?.owner,
         tokens: [DEFAULT_COLLECT_TOKEN]
-      }
-    },
-    pollInterval: 3000
+      },
+      groupStatsRequest: { group: PERMISSIONS.SUBSCRIPTION }
+    }
   });
 
   if (loading) {

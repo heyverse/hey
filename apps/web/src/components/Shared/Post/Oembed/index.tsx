@@ -9,9 +9,9 @@ interface OembedProps {
 
 const Oembed = ({ url }: OembedProps) => {
   const { data, error, isLoading } = useQuery({
+    enabled: Boolean(url),
     queryFn: () => hono.oembed.get(url),
-    queryKey: ["oembed", url],
-    enabled: Boolean(url)
+    queryKey: ["oembed", url]
   });
 
   if (isLoading || error || !data) {

@@ -36,9 +36,9 @@ const DeletePost = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: deletePost,
         onCompleted,
-        onError
+        onError,
+        transactionData: deletePost
       });
     }
   });

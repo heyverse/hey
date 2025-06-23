@@ -20,16 +20,16 @@ interface SignupState {
 }
 
 const store = create<SignupState>((set) => ({
-  chosenUsername: "",
   accountAddress: "",
-  screen: "choose",
-  transactionHash: "",
+  chosenUsername: "",
   onboardingToken: "",
-  setChosenUsername: (username) => set({ chosenUsername: username }),
+  screen: "choose",
   setAccountAddress: (accountAddress) => set({ accountAddress }),
+  setChosenUsername: (username) => set({ chosenUsername: username }),
+  setOnboardingToken: (token) => set({ onboardingToken: token }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
-  setOnboardingToken: (token) => set({ onboardingToken: token })
+  transactionHash: ""
 }));
 
 export const useSignupStore = createTrackedSelector(store);

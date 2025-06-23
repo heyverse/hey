@@ -12,9 +12,9 @@ interface State {
 
 const { useStore: useMuteAlertStore } = createTrackedStore<State>((set) => ({
   mutingOrUnmutingAccount: undefined,
-  showMuteOrUnmuteAlert: false,
   setShowMuteOrUnmuteAlert: (showMuteOrUnmuteAlert, mutingOrUnmutingAccount) =>
-    set(() => ({ mutingOrUnmutingAccount, showMuteOrUnmuteAlert }))
+    set(() => ({ mutingOrUnmutingAccount, showMuteOrUnmuteAlert })),
+  showMuteOrUnmuteAlert: false
 }));
 
 export { useMuteAlertStore };

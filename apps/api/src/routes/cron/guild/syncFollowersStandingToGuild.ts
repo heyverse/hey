@@ -20,8 +20,8 @@ const syncFollowersStandingToGuild = async (ctx: Context) => {
 
     const data = await syncAddressesToGuild({
       addresses,
-      roleId: 173474,
-      requirementId: 471279
+      requirementId: 471279,
+      roleId: 173474
     });
 
     return ctx.json(data);

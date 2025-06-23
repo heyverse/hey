@@ -32,10 +32,10 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
               ? undefined
               : {
                   erc20: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
-                  referralShare: 3, // 2.45% for the Hey platform fees after the 1.5% lens fees cut
                   recipients: [
                     { address: currentAccount?.address, percent: 100 }
-                  ]
+                  ], // 2.45% for the Hey platform fees after the 1.5% lens fees cut
+                  referralShare: 3
                 }
           });
         }}
@@ -47,8 +47,8 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
           initial="hidden"
           transition={{ duration: 0.2, ease: EXPANSION_EASE }}
           variants={{
-            hidden: { opacity: 0, height: 0, y: -20 },
-            visible: { opacity: 1, height: "auto", y: 0 }
+            hidden: { height: 0, opacity: 0, y: -20 },
+            visible: { height: "auto", opacity: 1, y: 0 }
           }}
         >
           <div className="flex space-x-2 text-sm">

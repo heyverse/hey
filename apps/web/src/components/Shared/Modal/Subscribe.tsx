@@ -29,15 +29,15 @@ const Subscribe = () => {
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
     variables: {
       request: {
         address: currentAccount?.address,
         tokens: [DEFAULT_COLLECT_TOKEN]
       }
-    },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    }
   });
 
   const onCompleted = async (hash: string) => {
@@ -60,9 +60,9 @@ const Subscribe = () => {
   const [joinGroup] = useJoinGroupMutation({
     onCompleted: async ({ joinGroup }) => {
       return await handleTransactionLifecycle({
-        transactionData: joinGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: joinGroup
       });
     },
     onError

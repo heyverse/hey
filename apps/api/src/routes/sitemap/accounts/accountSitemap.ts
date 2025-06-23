@@ -19,10 +19,8 @@ const accountSitemap = async (ctx: Context) => {
   }
 
   return generateSitemap({
-    ctx,
-    cacheKey: `sitemap:accounts:${group}-${batch}`,
     buildXml: async () => {
-      const sitemap = create({ version: "1.0", encoding: "UTF-8" }).ele(
+      const sitemap = create({ encoding: "UTF-8", version: "1.0" }).ele(
         "urlset",
         { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" }
       );
@@ -52,7 +50,9 @@ const accountSitemap = async (ctx: Context) => {
       }
 
       return sitemap.end({ prettyPrint: true });
-    }
+    },
+    cacheKey: `sitemap:accounts:${group}-${batch}`,
+    ctx
   });
 };
 

@@ -16,9 +16,9 @@ export const onRequest = async (context: Context) => {
 
   const createNoCacheResponse = async (targetUrl: string) => {
     const upstreamResponse = await fetch(targetUrl, {
-      method: request.method,
-      headers: request.headers,
       body: ["GET", "HEAD"].includes(request.method) ? undefined : request.body,
+      headers: request.headers,
+      method: request.method,
       redirect: "follow"
     });
 
@@ -26,9 +26,9 @@ export const onRequest = async (context: Context) => {
     newHeaders.set("Cache-Control", "no-store, no-cache, must-revalidate");
 
     return new Response(upstreamResponse.body, {
+      headers: newHeaders,
       status: upstreamResponse.status,
-      statusText: upstreamResponse.statusText,
-      headers: newHeaders
+      statusText: upstreamResponse.statusText
     });
   };
 

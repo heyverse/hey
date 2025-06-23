@@ -12,10 +12,10 @@ interface State {
 
 const { useStore: useReportAccountModalStore } = createTrackedStore<State>(
   (set) => ({
-    showReportAccountModal: false,
     reportingAccount: undefined,
     setShowReportAccountModal: (showReportAccountModal, reportingAccount) =>
-      set(() => ({ showReportAccountModal, reportingAccount }))
+      set(() => ({ reportingAccount, showReportAccountModal })),
+    showReportAccountModal: false
   })
 );
 

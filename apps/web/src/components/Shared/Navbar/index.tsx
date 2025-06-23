@@ -25,29 +25,29 @@ import SignedAccount from "./SignedAccount";
 
 const navigationItems = {
   "/": {
-    title: "Home",
+    outline: <HomeOutline className="size-6" />,
     solid: <HomeSolid className="size-6" />,
-    outline: <HomeOutline className="size-6" />
-  },
-  "/explore": {
-    title: "Explore",
-    solid: <GlobeSolid className="size-6" />,
-    outline: <GlobeOutline className="size-6" />
-  },
-  "/notifications": {
-    title: "Notifications",
-    solid: <BellSolid className="size-6" />,
-    outline: <BellOutline className="size-6" />
-  },
-  "/groups": {
-    title: "Groups",
-    solid: <UserGroupSolid className="size-6" />,
-    outline: <UserGroupOutline className="size-6" />
+    title: "Home"
   },
   "/bookmarks": {
-    title: "Bookmarks",
+    outline: <BookmarkOutline className="size-6" />,
     solid: <BookmarkSolid className="size-6" />,
-    outline: <BookmarkOutline className="size-6" />
+    title: "Bookmarks"
+  },
+  "/explore": {
+    outline: <GlobeOutline className="size-6" />,
+    solid: <GlobeSolid className="size-6" />,
+    title: "Explore"
+  },
+  "/groups": {
+    outline: <UserGroupOutline className="size-6" />,
+    solid: <UserGroupSolid className="size-6" />,
+    title: "Groups"
+  },
+  "/notifications": {
+    outline: <BellOutline className="size-6" />,
+    solid: <BellSolid className="size-6" />,
+    title: "Notifications"
   }
 };
 

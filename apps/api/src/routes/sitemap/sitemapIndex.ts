@@ -9,7 +9,7 @@ const sitemaps = [
 
 const sitemapIndex = async (ctx: Context) => {
   try {
-    const sitemapIndex = create({ version: "1.0", encoding: "UTF-8" }).ele(
+    const sitemapIndex = create({ encoding: "UTF-8", version: "1.0" }).ele(
       "sitemapindex",
       { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" }
     );

@@ -55,8 +55,8 @@ export const hono = {
   live: {
     create: ({ record }: { record: boolean }): Promise<Live> => {
       return fetchApi<Live>("/live/create", {
-        method: "POST",
-        body: JSON.stringify({ record })
+        body: JSON.stringify({ record }),
+        method: "POST"
       });
     }
   },
@@ -76,8 +76,8 @@ export const hono = {
     },
     update: (preferences: Partial<Preferences>): Promise<Preferences> => {
       return fetchApi<Preferences>("/preferences/update", {
-        method: "POST",
-        body: JSON.stringify(preferences)
+        body: JSON.stringify(preferences),
+        method: "POST"
       });
     }
   }

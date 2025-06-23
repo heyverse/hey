@@ -3,10 +3,10 @@ import { create } from "zustand";
 
 const INITIAL_COLLECT_ACTION: CollectActionType = {
   collectLimit: null,
-  followerOnly: false,
-  payToCollect: undefined,
   enabled: false,
-  endsAt: null
+  endsAt: null,
+  followerOnly: false,
+  payToCollect: undefined
 };
 
 interface State {

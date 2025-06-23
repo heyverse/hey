@@ -28,11 +28,11 @@ const CoverUpload = ({ src, setSrc }: CoverUploadProps) => {
     handleUploadAndSave,
     handleModalClose
   } = useImageCropUpload({
-    src,
-    setSrc,
     aspect: 1350 / 350,
-    transform: TRANSFORMS.COVER,
-    label: "cover"
+    label: "cover",
+    setSrc,
+    src,
+    transform: TRANSFORMS.COVER
   });
 
   return (

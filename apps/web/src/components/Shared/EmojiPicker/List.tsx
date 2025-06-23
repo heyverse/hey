@@ -17,9 +17,9 @@ const List = ({ setEmoji }: ListProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState("");
   const { emojis, error, isLoading } = useEmojis({
-    query: searchText,
+    limit: 100, // Show more emojis in the picker
     minQueryLength: 2,
-    limit: 100 // Show more emojis in the picker
+    query: searchText
   });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

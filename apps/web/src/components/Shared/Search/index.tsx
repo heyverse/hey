@@ -64,9 +64,9 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
   useEffect(() => {
     if (pathname !== "/search" && showDropdown && debouncedSearchText) {
       const request: AccountsRequest = {
-        pageSize: PageSize.Fifty,
+        filter: { searchBy: { localNameQuery: debouncedSearchText } },
         orderBy: AccountsOrderBy.BestMatch,
-        filter: { searchBy: { localNameQuery: debouncedSearchText } }
+        pageSize: PageSize.Fifty
       };
 
       searchAccounts({ variables: { request } }).then((res) => {

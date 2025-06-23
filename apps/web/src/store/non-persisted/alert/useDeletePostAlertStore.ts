@@ -13,9 +13,9 @@ interface State {
 const { useStore: useDeletePostAlertStore } = createTrackedStore<State>(
   (set) => ({
     deletingPost: undefined,
-    showPostDeleteAlert: false,
     setShowPostDeleteAlert: (showPostDeleteAlert, deletingPost) =>
-      set(() => ({ deletingPost, showPostDeleteAlert }))
+      set(() => ({ deletingPost, showPostDeleteAlert })),
+    showPostDeleteAlert: false
   })
 );
 

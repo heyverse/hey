@@ -94,20 +94,20 @@ const useImageCropUpload = ({
   };
 
   return {
-    pictureSrc,
+    aspect,
     crop,
+    handleModalClose,
+    handleUploadAndSave,
+    onCropComplete,
+    onFileChange,
+    pictureSrc,
+    renderPictureUrl,
     setCrop,
-    zoom,
     setZoom,
     showModal,
-    uploading,
     uploadedPicture,
-    renderPictureUrl,
-    onFileChange,
-    onCropComplete,
-    handleUploadAndSave,
-    handleModalClose,
-    aspect
+    uploading,
+    zoom
   };
 };
 

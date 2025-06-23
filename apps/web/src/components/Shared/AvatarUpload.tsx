@@ -29,11 +29,11 @@ const AvatarUpload = ({ src, setSrc, isSmall = false }: AvatarUploadProps) => {
     handleUploadAndSave,
     handleModalClose
   } = useImageCropUpload({
-    src,
-    setSrc,
     aspect: 1,
-    transform: TRANSFORMS.AVATAR_BIG,
-    label: "avatar"
+    label: "avatar",
+    setSrc,
+    src,
+    transform: TRANSFORMS.AVATAR_BIG
   });
 
   return (

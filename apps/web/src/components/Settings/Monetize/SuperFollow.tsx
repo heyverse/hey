@@ -39,8 +39,8 @@ const SuperFollow = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const [getCurrentAccountDetails] = useMeLazyQuery({
-    variables: { proBannerId: BANNER_IDS.PRO },
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
+    variables: { proBannerId: BANNER_IDS.PRO }
   });
 
   const account = currentAccount as AccountFragment;
@@ -78,9 +78,9 @@ const SuperFollow = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: updateAccountFollowRules,
         onCompleted,
-        onError
+        onError,
+        transactionData: updateAccountFollowRules
       });
     },
     onError

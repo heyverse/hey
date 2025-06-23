@@ -62,9 +62,9 @@ const Follow = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: follow,
         onCompleted,
-        onError
+        onError,
+        transactionData: follow
       });
     },
     onError

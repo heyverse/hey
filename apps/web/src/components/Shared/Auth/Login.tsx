@@ -57,8 +57,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     skip: !address,
     variables: {
       accountsAvailableRequest: {
-        managedBy: address,
-        hiddenFilter: ManagedAccountsVisibility.NoneHidden
+        hiddenFilter: ManagedAccountsVisibility.NoneHidden,
+        managedBy: address
       },
       lastLoggedInAccountRequest: { address }
     }
@@ -83,7 +83,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         __typename === "AccountManaged" && a.address === account
     );
 
-    const meta = { app: IS_MAINNET ? HEY_APP : undefined, account };
+    const meta = { account, app: IS_MAINNET ? HEY_APP : undefined };
     const request: ChallengeRequest = isManager
       ? { accountManager: { manager: address, ...meta } }
       : { accountOwner: { owner: address, ...meta } };
@@ -148,10 +148,10 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                 animate="visible"
                 initial="hidden"
                 variants={{
-                  hidden: { opacity: 0, height: 0, overflow: "hidden" },
+                  hidden: { height: 0, opacity: 0, overflow: "hidden" },
                   visible: {
-                    opacity: 1,
                     height: "auto",
+                    opacity: 1,
                     transition: { duration: 0.2, ease: EXPANSION_EASE }
                   }
                 }}
@@ -169,8 +169,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                         hidden: { opacity: 0, y: 20 },
                         visible: {
                           opacity: 1,
-                          y: 0,
-                          transition: { duration: 0.1 }
+                          transition: { duration: 0.1 },
+                          y: 0
                         }
                       }}
                       whileHover={{

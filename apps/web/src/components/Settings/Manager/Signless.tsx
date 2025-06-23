@@ -23,9 +23,9 @@ const Signless = () => {
   const [enableSignless] = useEnableSignlessMutation({
     onCompleted: async ({ enableSignless }) => {
       return await handleTransactionLifecycle({
-        transactionData: enableSignless,
         onCompleted,
-        onError
+        onError,
+        transactionData: enableSignless
       });
     },
     onError

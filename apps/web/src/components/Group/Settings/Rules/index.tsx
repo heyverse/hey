@@ -14,8 +14,8 @@ const RulesSettings = () => {
   const { currentAccount } = useAccountStore();
 
   const { data, loading, error } = useGroupQuery({
-    variables: { request: { group: address } },
-    skip: !address
+    skip: !address,
+    variables: { request: { group: address } }
   });
 
   if (!address || loading) {

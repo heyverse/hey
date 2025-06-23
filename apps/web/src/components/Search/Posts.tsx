@@ -9,8 +9,8 @@ interface PostsProps {
 
 const Posts = ({ query }: PostsProps) => {
   const request: PostsRequest = {
-    pageSize: PageSize.Fifty,
-    filter: { searchQuery: query }
+    filter: { searchQuery: query },
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = usePostsQuery({

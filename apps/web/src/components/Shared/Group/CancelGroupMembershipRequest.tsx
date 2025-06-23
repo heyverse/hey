@@ -56,9 +56,9 @@ const CancelGroupMembershipRequest = ({
         }
 
         return await handleTransactionLifecycle({
-          transactionData: cancelGroupMembershipRequest,
           onCompleted,
-          onError
+          onError,
+          transactionData: cancelGroupMembershipRequest
         });
       },
       onError

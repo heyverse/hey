@@ -22,8 +22,8 @@ const WhoToFollow = () => {
   const { data, error, loading } = useAccountRecommendationsQuery({
     variables: {
       request: {
-        pageSize: PageSize.Fifty,
         account: currentAccount?.address,
+        pageSize: PageSize.Fifty,
         shuffle: true
       }
     }

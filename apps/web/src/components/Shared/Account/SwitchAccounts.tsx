@@ -30,14 +30,14 @@ const SwitchAccounts = () => {
   };
 
   const { data, error, loading } = useAccountsAvailableQuery({
+    skip: !address,
     variables: {
-      lastLoggedInAccountRequest: { address: address },
       accountsAvailableRequest: {
-        managedBy: address,
-        hiddenFilter: ManagedAccountsVisibility.NoneHidden
-      }
-    },
-    skip: !address
+        hiddenFilter: ManagedAccountsVisibility.NoneHidden,
+        managedBy: address
+      },
+      lastLoggedInAccountRequest: { address: address }
+    }
   });
   const [switchAccount] = useSwitchAccountMutation();
 

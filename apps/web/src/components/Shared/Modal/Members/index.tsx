@@ -23,8 +23,8 @@ const Members = ({ group }: MembersProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: GroupMembersRequest = {
-    pageSize: PageSize.Fifty,
-    group: group.address
+    group: group.address,
+    pageSize: PageSize.Fifty
   };
 
   const { data, loading, error, fetchMore } = useGroupMembersQuery({

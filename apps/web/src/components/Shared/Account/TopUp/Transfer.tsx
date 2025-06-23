@@ -39,6 +39,9 @@ const Transfer = ({ token }: TransferProps) => {
   const symbol = token?.symbol ?? NATIVE_TOKEN_SYMBOL;
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 3000,
+    skip: !address,
     variables: {
       request: {
         address,
@@ -46,10 +49,7 @@ const Transfer = ({ token }: TransferProps) => {
           ? { tokens: [token?.contractAddress] }
           : { includeNative: true })
       }
-    },
-    pollInterval: 3000,
-    skip: !address,
-    fetchPolicy: "no-cache"
+    }
   });
 
   const onCompleted = async () => {
@@ -84,9 +84,9 @@ const Transfer = ({ token }: TransferProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: deposit,
         onCompleted: (hash) => setTxHash(hash as Hex),
-        onError
+        onError,
+        transactionData: deposit
       });
     },
     onError
@@ -201,11 +201,11 @@ const Transfer = ({ token }: TransferProps) => {
             className="w-full"
             onClick={() => {
               const params = new URLSearchParams({
-                utm_source: "hey.xyz",
-                utm_medium: "sites",
-                isExactOut: "false",
                 inputChain: "lens",
-                outToken: token?.contractAddress ?? NULL_ADDRESS
+                isExactOut: "false",
+                outToken: token?.contractAddress ?? NULL_ADDRESS,
+                utm_medium: "sites",
+                utm_source: "hey.xyz"
               });
 
               window.open(`https://oku.trade/?${params.toString()}`, "_blank");

@@ -10,7 +10,7 @@ const updatePreferences = async (ctx: Context) => {
     const account = ctx.get("account");
 
     const preference = await prisma.preference.upsert({
-      create: { appIcon, includeLowScore, accountAddress: account as string },
+      create: { accountAddress: account as string, appIcon, includeLowScore },
       update: { appIcon, includeLowScore },
       where: { accountAddress: account as string }
     });
@@ -18,11 +18,11 @@ const updatePreferences = async (ctx: Context) => {
     await delRedis(`preferences:${account}`);
 
     return ctx.json({
-      status: Status.Success,
       data: {
         appIcon: preference.appIcon ?? 0,
         includeLowScore: preference.includeLowScore ?? false
-      }
+      },
+      status: Status.Success
     });
   } catch {
     return handleApiError(ctx);

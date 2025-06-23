@@ -16,12 +16,12 @@ interface CreateGroupState {
 }
 
 const store = create<CreateGroupState>((set) => ({
-  screen: "details",
-  transactionHash: "",
   groupAddress: "",
+  screen: "details",
+  setGroupAddress: (address) => set({ groupAddress: address }),
   setScreen: (screen) => set({ screen }),
   setTransactionHash: (hash) => set({ transactionHash: hash }),
-  setGroupAddress: (address) => set({ groupAddress: address })
+  transactionHash: ""
 }));
 
 export const useCreateGroupStore = createTrackedSelector(store);

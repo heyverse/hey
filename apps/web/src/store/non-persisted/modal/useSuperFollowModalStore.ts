@@ -12,10 +12,10 @@ interface State {
 
 const { useStore: useSuperFollowModalStore } = createTrackedStore<State>(
   (set) => ({
-    showSuperFollowModal: false,
-    superFollowingAccount: undefined,
     setShowSuperFollowModal: (showSuperFollowModal, superFollowingAccount) =>
-      set(() => ({ showSuperFollowModal, superFollowingAccount }))
+      set(() => ({ showSuperFollowModal, superFollowingAccount })),
+    showSuperFollowModal: false,
+    superFollowingAccount: undefined
   })
 );
 

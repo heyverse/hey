@@ -24,11 +24,11 @@ interface State {
 }
 
 const { useStore: useFundModalStore } = createTrackedStore<State>((set) => ({
-  showFundModal: false,
-  token: undefined,
   amountToTopUp: undefined,
   setShowFundModal: ({ showFundModal, token, amountToTopUp }) =>
-    set(() => ({ showFundModal, token, amountToTopUp }))
+    set(() => ({ amountToTopUp, showFundModal, token })),
+  showFundModal: false,
+  token: undefined
 }));
 
 export { useFundModalStore };

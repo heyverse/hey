@@ -4,19 +4,19 @@ import { LENS_ENDPOINT } from "../lens-endpoints";
 
 const config = {
   mainnet: {
-    lensApiEndpoint: LENS_ENDPOINT.Mainnet,
+    appAddress: MAINNET_CONTRACTS.app,
     defaultCollectToken: MAINNET_CONTRACTS.defaultToken,
-    appAddress: MAINNET_CONTRACTS.app
-  },
-  testnet: {
-    lensApiEndpoint: LENS_ENDPOINT.Testnet,
-    defaultCollectToken: TESTNET_CONTRACTS.defaultToken,
-    appAddress: TESTNET_CONTRACTS.app
+    lensApiEndpoint: LENS_ENDPOINT.Mainnet
   },
   staging: {
-    lensApiEndpoint: LENS_ENDPOINT.Staging,
+    appAddress: TESTNET_CONTRACTS.app,
     defaultCollectToken: TESTNET_CONTRACTS.defaultToken,
-    appAddress: TESTNET_CONTRACTS.app
+    lensApiEndpoint: LENS_ENDPOINT.Staging
+  },
+  testnet: {
+    appAddress: TESTNET_CONTRACTS.app,
+    defaultCollectToken: TESTNET_CONTRACTS.defaultToken,
+    lensApiEndpoint: LENS_ENDPOINT.Testnet
   }
 } as const;
 

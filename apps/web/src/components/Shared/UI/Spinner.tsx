@@ -7,7 +7,7 @@ interface SpinnerProps {
 }
 
 const Spinner = ({ className, size = "md" }: SpinnerProps) => {
-  const sizeClasses = { xs: "size-4", sm: "size-5", md: "size-7" };
+  const sizeClasses = { md: "size-7", sm: "size-5", xs: "size-4" };
 
   return (
     <svg

@@ -8,23 +8,23 @@ const config: CodegenConfig = {
   },
   documents: "./documents/**/*.graphql",
   generates: {
-    "possible-types.ts": {
-      plugins: ["fragment-matcher"]
-    },
     "generated.ts": {
+      config: {
+        addDocBlocks: false,
+        disableDescriptions: true,
+        useTypeImports: true,
+        withMutationFn: false,
+        withMutationOptionsType: false,
+        withResultType: false
+      },
       plugins: [
         "typescript",
         "typescript-operations",
         "typescript-react-apollo"
-      ],
-      config: {
-        withMutationFn: false,
-        disableDescriptions: true,
-        useTypeImports: true,
-        withResultType: false,
-        withMutationOptionsType: false,
-        addDocBlocks: false
-      }
+      ]
+    },
+    "possible-types.ts": {
+      plugins: ["fragment-matcher"]
     }
   },
   hooks: { afterAllFileWrite: ["biome format --write ."] },

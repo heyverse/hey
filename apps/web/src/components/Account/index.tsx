@@ -37,17 +37,17 @@ const ViewAccount = () => {
   const { cachedAccount, setCachedAccount } = useAccountLinkStore();
 
   const { data, error, loading } = useAccountQuery({
+    onCompleted: (data) => {
+      if (data?.account) {
+        setCachedAccount(null);
+      }
+    },
     skip: address ? !address : !username,
     variables: {
       request: {
         ...(address
           ? { address }
           : { username: { localName: username as string } })
-      }
-    },
-    onCompleted: (data) => {
-      if (data?.account) {
-        setCachedAccount(null);
       }
     }
   });

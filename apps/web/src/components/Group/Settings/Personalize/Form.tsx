@@ -24,15 +24,15 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const ValidationSchema = z.object({
+  description: z.string().max(260, {
+    message: "Description should not exceed 260 characters"
+  }),
   name: z
     .string()
     .max(100, { message: "Name should not exceed 100 characters" })
     .regex(Regex.username, {
       message: "Name must not contain spaces or special characters"
-    }),
-  description: z.string().max(260, {
-    message: "Description should not exceed 260 characters"
-  })
+    })
 });
 
 interface PersonalizeSettingsFormProps {
@@ -67,9 +67,9 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: setGroupMetadata,
         onCompleted,
-        onError
+        onError,
+        transactionData: setGroupMetadata
       });
     },
     onError
@@ -77,8 +77,8 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
 
   const form = useZodForm({
     defaultValues: {
-      name: group?.metadata?.name || "",
-      description: group?.metadata?.description || ""
+      description: group?.metadata?.description || "",
+      name: group?.metadata?.name || ""
     },
     schema: ValidationSchema
   });
@@ -96,10 +96,10 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
 
     const metadataUri = await uploadMetadata(
       groupMetadata({
-        name: data.name,
+        coverPicture: coverUrl || undefined,
         description: data.description,
         icon: pfpUrl || undefined,
-        coverPicture: coverUrl || undefined
+        name: data.name
       })
     );
 

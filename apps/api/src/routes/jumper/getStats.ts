@@ -10,7 +10,7 @@ const getStats = async (ctx: Context) => {
 
     if (!address) {
       return ctx.json(
-        { status: Status.Error, error: "Address is required" },
+        { error: "Address is required", status: Status.Error },
         400
       );
     }
@@ -58,10 +58,10 @@ const getStats = async (ctx: Context) => {
     );
 
     return ctx.json({
-      status: Status.Success,
-      tips: Number(result[0].count),
+      comments: Number(result[2].count),
       quotes: Number(result[1].count),
-      comments: Number(result[2].count)
+      status: Status.Success,
+      tips: Number(result[0].count)
     });
   } catch {
     return handleApiError(ctx);

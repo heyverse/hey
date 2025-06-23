@@ -54,9 +54,9 @@ const TokenOperation = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: result,
         onCompleted,
-        onError
+        onError,
+        transactionData: result
       });
     },
     onError

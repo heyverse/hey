@@ -12,10 +12,10 @@ interface State {
 }
 
 const { useStore: useAuthModalStore } = createTrackedStore<State>((set) => ({
-  showAuthModal: false,
   authModalType: "login",
   setShowAuthModal: (showAuthModal, authModalType) =>
-    set(() => ({ showAuthModal, authModalType }))
+    set(() => ({ authModalType, showAuthModal })),
+  showAuthModal: false
 }));
 
 export { useAuthModalStore };

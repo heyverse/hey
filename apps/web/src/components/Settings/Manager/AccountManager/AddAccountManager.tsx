@@ -43,9 +43,9 @@ const AddAccountManager = ({
   const [addAccountManager] = useAddAccountManagerMutation({
     onCompleted: async ({ addAccountManager }) => {
       return await handleTransactionLifecycle({
-        transactionData: addAccountManager,
         onCompleted,
-        onError
+        onError,
+        transactionData: addAccountManager
       });
     },
     onError

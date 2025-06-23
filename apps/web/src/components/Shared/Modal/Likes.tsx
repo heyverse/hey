@@ -22,8 +22,8 @@ const Likes = ({ postId }: LikesProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: PostReactionsRequest = {
-    post: postId,
-    pageSize: PageSize.Fifty
+    pageSize: PageSize.Fifty,
+    post: postId
   };
 
   const { data, error, fetchMore, loading } = usePostReactionsQuery({

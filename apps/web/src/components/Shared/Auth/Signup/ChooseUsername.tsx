@@ -74,11 +74,11 @@ const ChooseUsername = () => {
 
   useAccountQuery({
     fetchPolicy: "no-cache",
+    onCompleted: (data) => setIsAvailable(!data.account),
+    skip: !canCheck,
     variables: {
       request: { username: { localName: username?.toLowerCase() } }
-    },
-    onCompleted: (data) => setIsAvailable(!data.account),
-    skip: !canCheck
+    }
   });
 
   const handleSignup = async ({
@@ -122,12 +122,6 @@ const ChooseUsername = () => {
         setOnboardingToken(accessToken);
         return await createAccountWithUsername({
           context: { headers: { "X-Access-Token": accessToken } },
-          variables: {
-            request: {
-              username: { localName: username.toLowerCase() },
-              metadataUri
-            }
-          },
           onCompleted: ({ createAccountWithUsername }) => {
             if (
               createAccountWithUsername.__typename === "CreateAccountResponse"
@@ -135,6 +129,12 @@ const ChooseUsername = () => {
               setTransactionHash(createAccountWithUsername.hash);
               setChosenUsername(username);
               setScreen("minting");
+            }
+          },
+          variables: {
+            request: {
+              metadataUri,
+              username: { localName: username.toLowerCase() }
             }
           }
         });

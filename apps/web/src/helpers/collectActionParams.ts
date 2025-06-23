@@ -7,7 +7,7 @@ const collectActionParams = (
   const { payToCollect, collectLimit, endsAt } = collectAction;
 
   return {
-    simpleCollect: { payToCollect, collectLimit, endsAt }
+    simpleCollect: { collectLimit, endsAt, payToCollect }
   };
 };
 

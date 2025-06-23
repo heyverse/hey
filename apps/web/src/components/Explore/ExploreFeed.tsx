@@ -14,10 +14,10 @@ interface ExploreFeedProps {
 
 const ExploreFeed = ({ focus }: ExploreFeedProps) => {
   const request: PostsExploreRequest = {
-    pageSize: PageSize.Fifty,
     filter: {
       metadata: { ...(focus && { mainContentFocus: [focus] }) }
-    }
+    },
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = usePostsExploreQuery({

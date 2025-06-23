@@ -18,15 +18,15 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useCreateGroupStore } from "./CreateGroup";
 
 const ValidationSchema = z.object({
+  description: z.string().max(260, {
+    message: "Description should not exceed 260 characters"
+  }),
   name: z
     .string()
     .max(100, { message: "Name should not exceed 100 characters" })
     .regex(Regex.accountNameValidator, {
       message: "Account name must not contain restricted symbols"
-    }),
-  description: z.string().max(260, {
-    message: "Description should not exceed 260 characters"
-  })
+    })
 });
 
 const CreateGroupModal = () => {
@@ -57,9 +57,9 @@ const CreateGroupModal = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: createGroup,
         onCompleted,
-        onError
+        onError,
+        transactionData: createGroup
       });
     },
     onError
@@ -70,9 +70,9 @@ const CreateGroupModal = () => {
 
     const metadataUri = await uploadMetadata(
       group({
-        name: data.name,
         description: data.description || undefined,
-        icon: pfpUrl
+        icon: pfpUrl,
+        name: data.name
       })
     );
 

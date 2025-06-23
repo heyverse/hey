@@ -60,9 +60,9 @@ const BlockOrUnblockAccount = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: block,
         onCompleted,
-        onError
+        onError,
+        transactionData: block
       });
     },
     onError
@@ -75,9 +75,9 @@ const BlockOrUnblockAccount = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: unblock,
         onCompleted,
-        onError
+        onError,
+        transactionData: unblock
       });
     },
     onError

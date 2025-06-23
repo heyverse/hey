@@ -17,10 +17,10 @@ const connectors = [
 
 const config = createConfig({
   chains: [CHAIN],
+  connectors,
   transports: {
     [CHAIN.id]: getRpc({ mainnet: IS_MAINNET })
-  },
-  connectors
+  }
 });
 
 interface Web3ProviderProps {

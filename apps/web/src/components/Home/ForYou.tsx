@@ -13,8 +13,8 @@ const ForYou = () => {
   const { currentAccount } = useAccountStore();
 
   const request: PostsForYouRequest = {
-    pageSize: PageSize.Fifty,
     account: currentAccount?.address,
+    pageSize: PageSize.Fifty,
     shuffle: true
   };
 

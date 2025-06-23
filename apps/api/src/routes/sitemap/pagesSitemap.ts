@@ -12,7 +12,7 @@ const urls = [
 
 const pagesSitemap = async (ctx: Context) => {
   try {
-    const sitemap = create({ version: "1.0", encoding: "UTF-8" }).ele(
+    const sitemap = create({ encoding: "UTF-8", version: "1.0" }).ele(
       "urlset",
       { xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9" }
     );

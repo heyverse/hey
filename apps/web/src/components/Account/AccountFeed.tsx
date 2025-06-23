@@ -53,7 +53,6 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   const postTypes = getPostTypes();
 
   const request: PostsRequest = {
-    pageSize: PageSize.Fifty,
     filter: {
       postTypes,
       ...(type === AccountFeedType.Media && {
@@ -69,7 +68,8 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       ...(type === AccountFeedType.Collects
         ? { collectedBy: { account: address } }
         : { authors: [address] })
-    }
+    },
+    pageSize: PageSize.Fifty
   };
 
   const { data, error, fetchMore, loading } = usePostsQuery({

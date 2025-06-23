@@ -22,8 +22,8 @@ const useEditPost = ({ onCompleted, onError }: EditPostProps) => {
   const updateCache = useCallback(
     async (toastId: string | number) => {
       const { data } = await getPost({
-        variables: { request: { post: editingPost?.id } },
-        fetchPolicy: "cache-and-network"
+        fetchPolicy: "cache-and-network",
+        variables: { request: { post: editingPost?.id } }
       });
 
       if (!data?.post) {
@@ -57,9 +57,9 @@ const useEditPost = ({ onCompleted, onError }: EditPostProps) => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: editPost,
         onCompleted: onCompletedWithTransaction,
-        onError
+        onError,
+        transactionData: editPost
       });
     },
     onError

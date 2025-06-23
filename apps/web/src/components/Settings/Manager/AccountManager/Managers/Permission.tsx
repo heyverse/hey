@@ -26,14 +26,14 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
 
   const updateCache = () => {
     cache.modify({
-      id: cache.identify(manager),
       fields: {
         permissions: (existingData) => ({
           ...existingData,
           canTransferNative: !enabled,
           canTransferTokens: !enabled
         })
-      }
+      },
+      id: cache.identify(manager)
     });
   };
 
@@ -50,9 +50,9 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
   const [updateAccountManager] = useUpdateAccountManagerMutation({
     onCompleted: async ({ updateAccountManager }) => {
       return await handleTransactionLifecycle({
-        transactionData: updateAccountManager,
         onCompleted,
-        onError
+        onError,
+        transactionData: updateAccountManager
       });
     },
     onError
@@ -70,10 +70,10 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
         request: {
           manager: manager.manager,
           permissions: {
-            canTransferNative: !enabled,
-            canTransferTokens: !enabled,
             canExecuteTransactions: true,
-            canSetMetadataUri: true
+            canSetMetadataUri: true,
+            canTransferNative: !enabled,
+            canTransferTokens: !enabled
           }
         }
       }

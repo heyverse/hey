@@ -54,8 +54,8 @@ const LivestreamEditor = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ record }: { record: boolean }) =>
       hono.live.create({ record }),
-    onSuccess: (data) => setLiveVideoConfig(data),
-    onError: errorToast
+    onError: errorToast,
+    onSuccess: (data) => setLiveVideoConfig(data)
   });
 
   return (

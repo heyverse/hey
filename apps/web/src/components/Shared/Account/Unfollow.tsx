@@ -59,9 +59,9 @@ const Unfollow = ({
       }
 
       return await handleTransactionLifecycle({
-        transactionData: unfollow,
         onCompleted,
-        onError
+        onError,
+        transactionData: unfollow
       });
     },
     onError

@@ -11,6 +11,9 @@ const TopUp = () => {
   const { currentAccount } = useAccountStore();
   const { token } = useFundModalStore();
   const { data: balance, loading } = useBalancesBulkQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
     variables: {
       request: {
         address: currentAccount?.address,
@@ -18,10 +21,7 @@ const TopUp = () => {
           ? { tokens: [token?.contractAddress] }
           : { includeNative: true })
       }
-    },
-    pollInterval: 3000,
-    skip: !currentAccount?.address,
-    fetchPolicy: "no-cache"
+    }
   });
 
   if (loading) {

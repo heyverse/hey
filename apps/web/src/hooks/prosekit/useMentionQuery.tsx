@@ -27,8 +27,8 @@ const useMentionQuery = (query: string): MentionAccount[] => {
     searchAccounts({
       variables: {
         request: {
-          orderBy: AccountsOrderBy.BestMatch,
-          filter: { searchBy: { localNameQuery: query } }
+          filter: { searchBy: { localNameQuery: query } },
+          orderBy: AccountsOrderBy.BestMatch
         }
       }
     }).then(({ data }) => {
@@ -45,10 +45,10 @@ const useMentionQuery = (query: string): MentionAccount[] => {
           (account): MentionAccount => ({
             address: account.address,
             displayUsername: getAccount(account).usernameWithPrefix,
-            username: getAccount(account).username,
             name: getAccount(account).name,
             picture: getAvatar(account),
-            subscribed: account.hasSubscribed
+            subscribed: account.hasSubscribed,
+            username: getAccount(account).username
           })
         );
 

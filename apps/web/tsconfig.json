@@ -1,9 +1,9 @@
 {
-  "extends": "@hey/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
     "paths": { "@/*": ["./src/*"] }
   },
+  "extends": "@hey/config/react.tsconfig.json",
   "include": ["**/*.ts", "**/*.tsx", "vite.config.mjs"]
 }

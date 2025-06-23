@@ -33,8 +33,8 @@ const LinkUsername = () => {
     variables: {
       request: {
         filter: {
-          owner: currentAccount?.address,
-          namespace: "0x1aA55B9042f08f45825dC4b651B64c9F98Af4615"
+          namespace: "0x1aA55B9042f08f45825dC4b651B64c9F98Af4615",
+          owner: currentAccount?.address
         }
       }
     }
@@ -47,9 +47,9 @@ const LinkUsername = () => {
       }
 
       return await handleTransactionLifecycle({
-        transactionData: assignUsernameToAccount,
         onCompleted,
-        onError
+        onError,
+        transactionData: assignUsernameToAccount
       });
     },
     onError

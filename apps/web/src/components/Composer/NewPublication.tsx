@@ -207,7 +207,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
       if (editingPost) {
         return await editPost({
-          variables: { request: { post: editingPost?.id, contentUri } }
+          variables: { request: { contentUri, post: editingPost?.id } }
         });
       }
 

@@ -25,11 +25,11 @@ const AppIcon = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ appIcon }: { appIcon: number }) =>
       hono.preferences.update({ appIcon }),
+    onError: errorToast,
     onSuccess: (data) => {
       setAppIcon(data.appIcon ?? 0);
       toast.success("App icon updated");
-    },
-    onError: errorToast
+    }
   });
 
   const handleSelectIcon = (iconId: number) => {

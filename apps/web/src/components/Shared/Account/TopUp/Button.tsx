@@ -28,7 +28,7 @@ const TopUpButton = ({
       aria-label={label}
       className={className}
       onClick={() =>
-        setShowFundModal({ showFundModal: true, token, amountToTopUp })
+        setShowFundModal({ amountToTopUp, showFundModal: true, token })
       }
       outline={outline}
       size={size}

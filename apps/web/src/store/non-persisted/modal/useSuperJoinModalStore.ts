@@ -12,10 +12,10 @@ interface State {
 
 const { useStore: useSuperJoinModalStore } = createTrackedStore<State>(
   (set) => ({
-    showSuperJoinModal: false,
-    superJoiningGroup: undefined,
     setShowSuperJoinModal: (showSuperJoinModal, superJoiningGroup) =>
-      set(() => ({ showSuperJoinModal, superJoiningGroup }))
+      set(() => ({ showSuperJoinModal, superJoiningGroup })),
+    showSuperJoinModal: false,
+    superJoiningGroup: undefined
   })
 );
 
