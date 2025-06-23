@@ -4,9 +4,13 @@ import PostShimmer from "./PostShimmer";
 
 interface PostsShimmerProps {
   hideCard?: boolean;
+  withAttachment?: boolean;
 }
 
-const PostsShimmer = ({ hideCard = false }: PostsShimmerProps) => {
+const PostsShimmer = ({
+  hideCard = false,
+  withAttachment = false
+}: PostsShimmerProps) => {
   return (
     <Card
       className={cn(
@@ -15,7 +19,7 @@ const PostsShimmer = ({ hideCard = false }: PostsShimmerProps) => {
       )}
     >
       {Array.from({ length: 3 }).map((_, index) => (
-        <PostShimmer key={index} />
+        <PostShimmer key={index} withAttachment={withAttachment} />
       ))}
     </Card>
   );
