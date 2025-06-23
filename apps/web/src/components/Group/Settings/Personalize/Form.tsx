@@ -1,3 +1,11 @@
+import { ERRORS } from "@hey/data/errors";
+import { Regex } from "@hey/data/regex";
+import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import { group as groupMetadata } from "@lens-protocol/metadata";
+import { useState } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
 import BackButton from "@/components/Shared/BackButton";
 import CoverUpload from "@/components/Shared/CoverUpload";
@@ -14,14 +22,6 @@ import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { ERRORS } from "@hey/data/errors";
-import { Regex } from "@hey/data/regex";
-import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
-import { group as groupMetadata } from "@lens-protocol/metadata";
-import { useState } from "react";
-import { toast } from "sonner";
-import { z } from "zod";
 
 const ValidationSchema = z.object({
   name: z

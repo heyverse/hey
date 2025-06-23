@@ -1,6 +1,6 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { motion } from "motion/react";
-import { type ReactNode, memo } from "react";
+import { memo, type ReactNode } from "react";
 
 interface TooltipProps {
   children: ReactNode;

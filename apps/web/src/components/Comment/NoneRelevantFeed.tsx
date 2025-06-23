@@ -1,20 +1,20 @@
-import { useHiddenCommentFeedStore } from "@/components/Post";
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
-import { Card, StackedAvatars } from "@/components/Shared/UI";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
 import {
   PageSize,
-  PostReferenceType,
   type PostReferencesRequest,
+  PostReferenceType,
   PostVisibilityFilter,
-  ReferenceRelevancyFilter,
   type ReferencedPostFragment,
+  ReferenceRelevancyFilter,
   usePostReferencesQuery
 } from "@hey/indexer";
 import { useState } from "react";
+import { useHiddenCommentFeedStore } from "@/components/Post";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
+import { Card, StackedAvatars } from "@/components/Shared/UI";
 
 interface NoneRelevantFeedProps {
   postId: string;

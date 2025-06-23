@@ -1,7 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import SingleAccountsShimmer from "@/components/Shared/Shimmer/SingleAccountsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   AccountsOrderBy,
@@ -10,6 +6,10 @@ import {
   useAccountsQuery
 } from "@hey/indexer";
 import { WindowVirtualizer } from "virtua";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import SingleAccountsShimmer from "@/components/Shared/Shimmer/SingleAccountsShimmer";
+import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 interface AccountsProps {
   query: string;

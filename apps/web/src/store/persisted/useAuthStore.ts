@@ -1,6 +1,6 @@
+import { Localstorage } from "@hey/data/storage";
 import clearLocalStorage from "@/helpers/clearLocalStorage";
 import { createPersistedTrackedStore } from "@/store/createTrackedStore";
-import { Localstorage } from "@hey/data/storage";
 
 interface Tokens {
   accessToken: null | string;
@@ -11,10 +11,7 @@ interface State {
   accessToken: Tokens["accessToken"];
   hydrateAuthTokens: () => Tokens;
   refreshToken: Tokens["refreshToken"];
-  signIn: (tokens: {
-    accessToken: string;
-    refreshToken: string;
-  }) => void;
+  signIn: (tokens: { accessToken: string; refreshToken: string }) => void;
   signOut: () => void;
 }
 
@@ -35,9 +32,7 @@ const { store } = createPersistedTrackedStore<State>(
   { name: Localstorage.AuthStore }
 );
 
-export const signIn = (tokens: {
-  accessToken: string;
-  refreshToken: string;
-}) => store.getState().signIn(tokens);
+export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
+  store.getState().signIn(tokens);
 export const signOut = () => store.getState().signOut();
 export const hydrateAuthTokens = () => store.getState().hydrateAuthTokens();

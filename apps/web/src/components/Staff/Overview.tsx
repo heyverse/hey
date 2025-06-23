@@ -1,13 +1,13 @@
-import Loader from "@/components/Shared/Loader";
-import NumberedStat from "@/components/Shared/NumberedStat";
-import { Card, CardHeader, ErrorMessage } from "@/components/Shared/UI";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   DEFAULT_COLLECT_TOKEN,
   PERMISSIONS,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
 import { useProStatsQuery } from "@hey/indexer";
+import Loader from "@/components/Shared/Loader";
+import NumberedStat from "@/components/Shared/NumberedStat";
+import { Card, CardHeader, ErrorMessage } from "@/components/Shared/UI";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Overview = () => {
   const { currentAccount } = useAccountStore();

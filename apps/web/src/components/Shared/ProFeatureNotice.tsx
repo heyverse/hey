@@ -1,6 +1,6 @@
+import { SparklesIcon } from "@heroicons/react/24/outline";
 import cn from "@/helpers/cn";
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
-import { SparklesIcon } from "@heroicons/react/24/outline";
 
 interface ProFeatureNoticeProps {
   feature: string;

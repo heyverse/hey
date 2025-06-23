@@ -1,10 +1,10 @@
+import { StarIcon } from "@heroicons/react/24/outline";
+import type { CollectActionType } from "@hey/types/hey";
+import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { EXPANSION_EASE } from "@/variants";
-import { StarIcon } from "@heroicons/react/24/outline";
-import type { CollectActionType } from "@hey/types/hey";
-import { motion } from "motion/react";
 
 interface CollectLimitConfigProps {
   setCollectType: (data: CollectActionType) => void;

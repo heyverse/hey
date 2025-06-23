@@ -1,10 +1,3 @@
-import Suggested from "@/components/Home/Suggested";
-import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
-import Skeleton from "@/components/Shared/Skeleton";
-import { Card, ErrorMessage, H5, Modal } from "@/components/Shared/UI";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   type AccountFragment,
@@ -12,6 +5,13 @@ import {
   useAccountRecommendationsQuery
 } from "@hey/indexer";
 import { useState } from "react";
+import Suggested from "@/components/Home/Suggested";
+import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
+import Skeleton from "@/components/Shared/Skeleton";
+import { Card, ErrorMessage, H5, Modal } from "@/components/Shared/UI";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Title = () => <H5>Who to Follow</H5>;
 

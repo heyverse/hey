@@ -1,11 +1,11 @@
-import ChooseFile from "@/components/Shared/ChooseFile";
-import { Button, Image, Modal } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import useImageCropUpload from "@/hooks/useImageCropUpload";
 import { TRANSFORMS } from "@hey/data/constants";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { SyntheticEvent } from "react";
 import Cropper from "react-easy-crop";
+import ChooseFile from "@/components/Shared/ChooseFile";
+import { Button, Image, Modal } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import useImageCropUpload from "@/hooks/useImageCropUpload";
 
 interface AvatarUploadProps {
   src: string;

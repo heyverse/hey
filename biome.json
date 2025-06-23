@@ -1,17 +1,20 @@
 {
-  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
-  "organizeImports": { "enabled": true },
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "assist": {
+    "actions": { "source": { "organizeImports": "on" } }
+  },
   "files": {
-    "ignore": [
-      ".pnpm-store/*",
-      "**/.expo/**",
-      "**/dist/**",
-      "**/artifacts/**",
-      "**/node_modules/**",
-      "**/.git/**",
-      "**/cache/**",
-      "generated.ts",
-      "expo-env.d.ts"
+    "includes": [
+      "**",
+      "!**/.pnpm-store/**/*",
+      "!**/.expo/**",
+      "!**/dist/**",
+      "!**/artifacts/**",
+      "!**/node_modules/**",
+      "!**/.git/**",
+      "!**/cache/**",
+      "!**/generated.ts",
+      "!**/expo-env.d.ts"
     ]
   },
   "linter": {
@@ -20,7 +23,8 @@
       "recommended": true,
       "a11y": {
         "useKeyWithClickEvents": "off",
-        "useMediaCaption": "off"
+        "useMediaCaption": "off",
+        "noStaticElementInteractions": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
@@ -43,10 +47,20 @@
         "useLiteralKeys": "off"
       },
       "style": {
-        "noNegationElse": "error"
+        "noNegationElse": "error",
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
       },
       "nursery": {
-        "noDuplicatedFields": "error",
+        "noNestedComponentDefinitions": "off",
         "useSortedClasses": {
           "fix": "safe",
           "level": "error",

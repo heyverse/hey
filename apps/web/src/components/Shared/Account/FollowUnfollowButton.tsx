@@ -1,6 +1,6 @@
+import type { AccountFragment } from "@hey/indexer";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import type { AccountFragment } from "@hey/indexer";
 import FollowWithRulesCheck from "./FollowWithRulesCheck";
 import Unfollow from "./Unfollow";
 

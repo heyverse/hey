@@ -1,13 +1,13 @@
-import AccountLink from "@/components/Shared/Account/AccountLink";
-import Skeleton from "@/components/Shared/Skeleton";
-import Slug from "@/components/Shared/Slug";
-import { Image } from "@/components/Shared/UI";
 import { BLOCK_EXPLORER_URL, TRANSFORMS } from "@hey/data/constants";
 import formatAddress from "@hey/helpers/formatAddress";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { type RecipientPercent, useAccountsBulkQuery } from "@hey/indexer";
 import { Link } from "react-router";
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import Skeleton from "@/components/Shared/Skeleton";
+import Slug from "@/components/Shared/Slug";
+import { Image } from "@/components/Shared/UI";
 
 interface SplitsProps {
   recipients: RecipientPercent[];

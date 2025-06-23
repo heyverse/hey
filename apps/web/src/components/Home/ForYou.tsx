@@ -1,6 +1,3 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
@@ -8,6 +5,9 @@ import {
   type PostsForYouRequest,
   usePostsForYouQuery
 } from "@hey/indexer";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const ForYou = () => {
   const { currentAccount } = useAccountStore();

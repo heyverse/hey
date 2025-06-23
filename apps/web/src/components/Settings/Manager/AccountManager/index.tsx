@@ -1,7 +1,7 @@
+import { useState } from "react";
 import Managed from "@/components/Settings/Manager/AccountManager/Management/Managed";
 import Unmanaged from "@/components/Settings/Manager/AccountManager/Management/Unmanaged";
 import { Button, Modal, Tabs } from "@/components/Shared/UI";
-import { useState } from "react";
 import AddAccountManager from "./AddAccountManager";
 import Managers from "./Managers";
 

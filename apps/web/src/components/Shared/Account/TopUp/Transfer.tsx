@@ -1,12 +1,3 @@
-import Skeleton from "@/components/Shared/Skeleton";
-import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import {
-  type FundingToken,
-  useFundModalStore
-} from "@/store/non-persisted/modal/useFundModalStore";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { NATIVE_TOKEN_SYMBOL, NULL_ADDRESS } from "@hey/data/constants";
 import { useBalancesBulkQuery, useDepositMutation } from "@hey/indexer";
@@ -21,6 +12,15 @@ import {
 import { toast } from "sonner";
 import type { Hex } from "viem";
 import { useAccount, useWaitForTransactionReceipt } from "wagmi";
+import Skeleton from "@/components/Shared/Skeleton";
+import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import {
+  type FundingToken,
+  useFundModalStore
+} from "@/store/non-persisted/modal/useFundModalStore";
 
 interface TransferProps {
   token?: FundingToken;
@@ -109,10 +109,7 @@ const Transfer = ({ token }: TransferProps) => {
     setOther(false);
   };
 
-  const buildDepositRequest = (
-    amount: number,
-    token?: FundingToken
-  ) => {
+  const buildDepositRequest = (amount: number, token?: FundingToken) => {
     if (!token) {
       return { native: amount.toString() };
     }

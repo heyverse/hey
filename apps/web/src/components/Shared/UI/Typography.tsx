@@ -1,6 +1,6 @@
-import cn from "@/helpers/cn";
 import type { JSX, ReactNode } from "react";
 import { createElement, forwardRef } from "react";
+import cn from "@/helpers/cn";
 
 interface TypographyProps {
   as?: keyof JSX.IntrinsicElements;

@@ -1,8 +1,8 @@
+import { MetadataLicenseType } from "@hey/indexer";
+import { Link } from "react-router";
 import { Select, Tooltip } from "@/components/Shared/UI";
 import getAssetLicense from "@/helpers/getAssetLicense";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
-import { MetadataLicenseType } from "@hey/indexer";
-import { Link } from "react-router";
 
 const LicensePicker = () => {
   const { license, setLicense } = usePostLicenseStore();

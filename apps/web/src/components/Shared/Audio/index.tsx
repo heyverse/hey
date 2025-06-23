@@ -1,10 +1,10 @@
-import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
 import type { APITypes } from "plyr-react";
 import type { ChangeEvent } from "react";
 import { useRef, useState } from "react";
 import { z } from "zod";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
 import CoverImage from "./CoverImage";
 import Player from "./Player";
 

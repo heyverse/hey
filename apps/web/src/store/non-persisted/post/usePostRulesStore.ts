@@ -1,5 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
 import type { FollowersOnlyPostRuleConfig } from "@hey/indexer";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   rules?: FollowersOnlyPostRuleConfig;

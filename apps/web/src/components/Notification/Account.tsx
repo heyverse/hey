@@ -1,11 +1,11 @@
-import AccountLink from "@/components/Shared/Account/AccountLink";
-import AccountPreview from "@/components/Shared/Account/AccountPreview";
-import { Image } from "@/components/Shared/UI";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import AccountPreview from "@/components/Shared/Account/AccountPreview";
+import { Image } from "@/components/Shared/UI";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface NotificationAccountProps {
   account: AccountFragment;

@@ -1,8 +1,3 @@
-import { Checkbox } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import {
   type AccountManagerFragment,
@@ -10,6 +5,11 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
+import { Checkbox } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface PermissionProps {
   title: string;

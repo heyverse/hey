@@ -1,9 +1,9 @@
-import { Tooltip } from "@/components/Shared/UI";
-import humanize from "@/helpers/humanize";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import { useNavigate } from "react-router";
+import { Tooltip } from "@/components/Shared/UI";
+import humanize from "@/helpers/humanize";
 
 interface CommentProps {
   post: PostFragment;

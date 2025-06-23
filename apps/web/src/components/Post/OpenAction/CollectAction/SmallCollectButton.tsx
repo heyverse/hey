@@ -1,6 +1,6 @@
-import { Button, Modal } from "@/components/Shared/UI";
 import type { PostFragment } from "@hey/indexer";
 import { useState } from "react";
+import { Button, Modal } from "@/components/Shared/UI";
 import CollectActionBody from "./CollectActionBody";
 
 interface SmallCollectButtonProps {

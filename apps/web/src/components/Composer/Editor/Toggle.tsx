@@ -1,5 +1,5 @@
-import { Tooltip } from "@/components/Shared/UI";
 import type { ReactNode } from "react";
+import { Tooltip } from "@/components/Shared/UI";
 
 interface ToggleProps {
   children: ReactNode;

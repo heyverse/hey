@@ -1,3 +1,9 @@
+import { Regex } from "@hey/data/regex";
+import { useCreateGroupMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import { group } from "@lens-protocol/metadata";
+import { useState } from "react";
+import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
 import {
   Button,
@@ -9,12 +15,6 @@ import {
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { Regex } from "@hey/data/regex";
-import { useCreateGroupMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
-import { group } from "@lens-protocol/metadata";
-import { useState } from "react";
-import { z } from "zod";
 import { useCreateGroupStore } from "./CreateGroup";
 
 const ValidationSchema = z.object({

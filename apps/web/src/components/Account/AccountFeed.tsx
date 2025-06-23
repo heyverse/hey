@@ -1,14 +1,14 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
 import {
   MainContentFocus,
   PageSize,
-  PostType,
   type PostsRequest,
+  PostType,
   usePostsQuery
 } from "@hey/indexer";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 
 interface AccountFeedProps {
   username: string;

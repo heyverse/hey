@@ -1,6 +1,6 @@
 import { createTrackedSelector } from "react-tracked";
-import { create } from "zustand";
 import type { StateCreator, StoreApi } from "zustand";
+import { create } from "zustand";
 import { type PersistOptions, persist } from "zustand/middleware";
 
 interface TrackedStore<State> {

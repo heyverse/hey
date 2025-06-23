@@ -1,6 +1,6 @@
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { Button, Card, Image } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { useSignupStore } from "./Signup";
 
 const SignupCard = () => {

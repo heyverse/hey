@@ -1,5 +1,5 @@
-import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { ApolloLink, fromPromise, toPromise } from "@apollo/client";
+import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { isTokenExpiringSoon, refreshTokens } from "./tokenManager";
 
 const authLink = new ApolloLink((operation, forward) => {

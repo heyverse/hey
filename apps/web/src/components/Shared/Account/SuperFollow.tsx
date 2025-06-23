@@ -1,3 +1,11 @@
+import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { tokens } from "@hey/data/tokens";
+import getAccount from "@hey/helpers/getAccount";
+import {
+  type AccountFollowRules,
+  type AccountFragment,
+  useBalancesBulkQuery
+} from "@hey/indexer";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import Loader from "@/components/Shared/Loader";
 import LoginButton from "@/components/Shared/LoginButton";
@@ -7,14 +15,6 @@ import getTokenImage from "@/helpers/getTokenImage";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { tokens } from "@hey/data/tokens";
-import getAccount from "@hey/helpers/getAccount";
-import {
-  type AccountFollowRules,
-  type AccountFragment,
-  useBalancesBulkQuery
-} from "@hey/indexer";
 import Follow from "./Follow";
 
 const SuperFollow = () => {

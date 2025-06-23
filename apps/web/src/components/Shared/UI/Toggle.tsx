@@ -1,6 +1,6 @@
-import cn from "@/helpers/cn";
 import { Switch } from "@headlessui/react";
 import { memo } from "react";
+import cn from "@/helpers/cn";
 
 interface ToggleProps {
   disabled?: boolean;

@@ -1,10 +1,3 @@
-import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
-import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
-import { Button, H6, Input } from "@/components/Shared/UI";
-import splitNumber from "@/helpers/splitNumber";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { EXPANSION_EASE } from "@/variants";
 import {
   ArrowsRightLeftIcon,
   PlusIcon,
@@ -16,6 +9,13 @@ import type { CollectActionType } from "@hey/types/hey";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { isAddress } from "viem";
+import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
+import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
+import { Button, H6, Input } from "@/components/Shared/UI";
+import splitNumber from "@/helpers/splitNumber";
+import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { EXPANSION_EASE } from "@/variants";
 
 interface SplitConfigProps {
   isRecipientsDuplicated: boolean;

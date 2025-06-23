@@ -1,5 +1,5 @@
+import { memo, type ReactNode } from "react";
 import cn from "@/helpers/cn";
-import { type ReactNode, memo } from "react";
 import { H6 } from "./Typography";
 
 interface WarningMessageProps {

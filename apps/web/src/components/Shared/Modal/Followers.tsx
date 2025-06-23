@@ -1,3 +1,8 @@
+import { UsersIcon } from "@heroicons/react/24/outline";
+import type { FollowersRequest } from "@hey/indexer";
+import { PageSize, useFollowersQuery } from "@hey/indexer";
+import { motion } from "motion/react";
+import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -5,11 +10,6 @@ import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
-import { UsersIcon } from "@heroicons/react/24/outline";
-import type { FollowersRequest } from "@hey/indexer";
-import { PageSize, useFollowersQuery } from "@hey/indexer";
-import { motion } from "motion/react";
-import { Virtualizer } from "virtua";
 
 interface FollowersProps {
   username: string;

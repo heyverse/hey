@@ -1,9 +1,9 @@
+import type { Oembed } from "@hey/types/api";
+import { Link } from "react-router";
 import { Card } from "@/components/Shared/UI";
 import getFavicon from "@/helpers/getFavicon";
 import injectReferrerToUrl from "@/helpers/injectReferrerToUrl";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
-import type { Oembed } from "@hey/types/api";
-import { Link } from "react-router";
 
 interface EmbedProps {
   og: Oembed;

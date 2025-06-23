@@ -1,5 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
 import type { AnyPostFragment } from "@hey/indexer";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   cachedPost: AnyPostFragment | null;

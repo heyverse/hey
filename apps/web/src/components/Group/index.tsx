@@ -1,3 +1,6 @@
+import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { useGroupQuery } from "@hey/indexer";
+import { useParams } from "react-router";
 import NewPost from "@/components/Composer/NewPost";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
@@ -5,9 +8,6 @@ import Cover from "@/components/Shared/Cover";
 import PageLayout from "@/components/Shared/PageLayout";
 import { WarningMessage } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { useGroupQuery } from "@hey/indexer";
-import { useParams } from "react-router";
 import Details from "./Details";
 import GroupFeed from "./GroupFeed";
 import GroupPageShimmer from "./Shimmer";

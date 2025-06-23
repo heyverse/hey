@@ -1,4 +1,3 @@
-import { Button } from "@/components/Shared/UI";
 import {
   Dialog,
   DialogPanel,
@@ -8,6 +7,7 @@ import {
 } from "@headlessui/react";
 import type { ReactNode } from "react";
 import { Fragment, memo } from "react";
+import { Button } from "@/components/Shared/UI";
 import { H4 } from "./Typography";
 
 interface AlertProps {

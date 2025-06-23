@@ -1,12 +1,12 @@
-import Likes from "@/components/Shared/Modal/Likes";
-import PostExecutors from "@/components/Shared/Modal/PostExecutors";
-import Reposts from "@/components/Shared/Modal/Reposts";
-import { Modal } from "@/components/Shared/UI";
 import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
 import { memo, useState } from "react";
 import { Link } from "react-router";
+import Likes from "@/components/Shared/Modal/Likes";
+import PostExecutors from "@/components/Shared/Modal/PostExecutors";
+import Reposts from "@/components/Shared/Modal/Reposts";
+import { Modal } from "@/components/Shared/UI";
 
 const AnimatedNumber = ({
   key,

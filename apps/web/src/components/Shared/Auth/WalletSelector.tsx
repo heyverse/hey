@@ -1,10 +1,10 @@
-import cn from "@/helpers/cn";
-import getWalletDetails from "@/helpers/getWalletDetails";
 import { KeyIcon } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 import { Link } from "react-router";
 import type { Connector } from "wagmi";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
+import cn from "@/helpers/cn";
+import getWalletDetails from "@/helpers/getWalletDetails";
 
 const WalletSelector: FC = () => {
   const { connectAsync, connectors, isPending } = useConnect();

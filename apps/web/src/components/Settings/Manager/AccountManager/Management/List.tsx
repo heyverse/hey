@@ -1,8 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   type AccountsAvailableRequest,
@@ -16,6 +11,11 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
 import { useAccount } from "wagmi";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import Loader from "@/components/Shared/Loader";
+import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 interface ListProps {
   managed?: boolean;

@@ -1,6 +1,6 @@
-import cn from "@/helpers/cn";
 import { MotionConfig, motion } from "motion/react";
-import { type ReactNode, memo } from "react";
+import { memo, type ReactNode } from "react";
+import cn from "@/helpers/cn";
 
 interface TabsProps {
   tabs: { name: string; type: string; suffix?: ReactNode }[];

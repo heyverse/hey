@@ -1,5 +1,5 @@
-import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 import { Localstorage } from "@hey/data/storage";
+import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   proBannerDismissed: boolean;

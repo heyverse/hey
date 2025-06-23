@@ -1,5 +1,5 @@
-import { Tabs } from "@/components/Shared/UI";
 import { useSearchParams } from "react-router";
+import { Tabs } from "@/components/Shared/UI";
 
 export enum SearchTabFocus {
   Accounts = "ACCOUNTS",

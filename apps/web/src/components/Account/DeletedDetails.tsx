@@ -1,8 +1,8 @@
-import Slug from "@/components/Shared/Slug";
-import { H3, Image } from "@/components/Shared/UI";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import type { AccountFragment } from "@hey/indexer";
+import Slug from "@/components/Shared/Slug";
+import { H3, Image } from "@/components/Shared/UI";
 
 interface DeletedDetailsProps {
   account: AccountFragment;

@@ -1,9 +1,3 @@
-import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
-import { Button } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import { ERRORS } from "@hey/data/errors";
 import { useAddAccountManagerMutation } from "@hey/indexer";
@@ -12,6 +6,12 @@ import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { isAddress } from "viem";
+import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
+import { Button } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface AddAccountManagerProps {
   setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;

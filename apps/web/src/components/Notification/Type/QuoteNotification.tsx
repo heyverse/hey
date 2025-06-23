@@ -1,10 +1,10 @@
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
+import getPostData from "@hey/helpers/getPostData";
+import type { QuoteNotificationFragment } from "@hey/indexer";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
-import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
-import getPostData from "@hey/helpers/getPostData";
-import type { QuoteNotificationFragment } from "@hey/indexer";
 
 interface QuoteNotificationProps {
   notification: QuoteNotificationFragment;

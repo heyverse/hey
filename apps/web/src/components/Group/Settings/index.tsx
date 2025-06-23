@@ -1,6 +1,3 @@
-import BackButton from "@/components/Shared/BackButton";
-import PageLayout from "@/components/Shared/PageLayout";
-import { Card, CardHeader } from "@/components/Shared/UI";
 import {
   AdjustmentsHorizontalIcon,
   ArrowRightIcon,
@@ -8,6 +5,9 @@ import {
   PaintBrushIcon
 } from "@heroicons/react/24/outline";
 import { Link, useParams } from "react-router";
+import BackButton from "@/components/Shared/BackButton";
+import PageLayout from "@/components/Shared/PageLayout";
+import { Card, CardHeader } from "@/components/Shared/UI";
 
 const GroupSettings = () => {
   const { address } = useParams<{ address: string }>();

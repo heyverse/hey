@@ -1,13 +1,13 @@
+import { UsersIcon } from "@heroicons/react/24/outline";
+import type { AccountFragment } from "@hey/indexer";
+import { motion } from "motion/react";
+import { Virtualizer } from "virtua";
 import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import { EmptyState } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
-import { UsersIcon } from "@heroicons/react/24/outline";
-import type { AccountFragment } from "@hey/indexer";
-import { motion } from "motion/react";
-import { Virtualizer } from "virtua";
 
 interface SuggestedProps {
   accounts: AccountFragment[];

@@ -1,10 +1,10 @@
+import type { FollowersOnlyPostRuleConfig } from "@hey/indexer";
+import type { Dispatch, SetStateAction } from "react";
 import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button } from "@/components/Shared/UI";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import type { FollowersOnlyPostRuleConfig } from "@hey/indexer";
-import type { Dispatch, SetStateAction } from "react";
 
 interface RulesProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;

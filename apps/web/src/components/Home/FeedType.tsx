@@ -1,7 +1,7 @@
+import { HomeFeedType } from "@hey/data/enums";
 import New from "@/components/Shared/Badges/New";
 import { Tabs } from "@/components/Shared/UI";
 import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
-import { HomeFeedType } from "@hey/data/enums";
 
 const FeedType = () => {
   const { feedType, setFeedType } = useHomeTabStore();

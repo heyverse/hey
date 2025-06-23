@@ -1,6 +1,6 @@
+import { memo, type ReactNode } from "react";
 import { Card } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import { type ReactNode, memo } from "react";
 
 interface EmptyStateProps {
   hideCard?: boolean;

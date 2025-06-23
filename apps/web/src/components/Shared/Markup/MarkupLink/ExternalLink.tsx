@@ -1,8 +1,8 @@
+import type { MarkupLinkProps } from "@hey/types/misc";
+import { Link } from "react-router";
 import injectReferrerToUrl from "@/helpers/injectReferrerToUrl";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import truncateUrl from "@/helpers/truncateUrl";
-import type { MarkupLinkProps } from "@hey/types/misc";
-import { Link } from "react-router";
 
 const ExternalLink = ({ title }: MarkupLinkProps) => {
   let href = title;

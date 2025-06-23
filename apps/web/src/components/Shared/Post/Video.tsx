@@ -1,4 +1,3 @@
-import { Spinner } from "@/components/Shared/UI";
 import { LockClosedIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
   ArrowsPointingInIcon,
@@ -10,7 +9,8 @@ import {
 } from "@heroicons/react/24/solid";
 import type { Src } from "@livepeer/react";
 import * as Player from "@livepeer/react/player";
-import { type ReactNode, memo } from "react";
+import { memo, type ReactNode } from "react";
+import { Spinner } from "@/components/Shared/UI";
 
 const PlayerLoading = () => (
   <div className="absolute inset-0 flex flex-col items-center justify-center">

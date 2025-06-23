@@ -1,15 +1,3 @@
-import CommentFeed from "@/components/Comment/CommentFeed";
-import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
-import NewPublication from "@/components/Composer/NewPublication";
-import Custom404 from "@/components/Shared/404";
-import Custom500 from "@/components/Shared/500";
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import BackButton from "@/components/Shared/BackButton";
-import Footer from "@/components/Shared/Footer";
-import PageLayout from "@/components/Shared/PageLayout";
-import { Card, CardHeader, WarningMessage } from "@/components/Shared/UI";
-import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAccount from "@hey/helpers/getAccount";
 import { isRepost } from "@hey/helpers/postHelpers";
 import {
@@ -22,6 +10,18 @@ import {
 import { useLocation, useParams } from "react-router";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
+import CommentFeed from "@/components/Comment/CommentFeed";
+import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
+import NewPublication from "@/components/Composer/NewPublication";
+import Custom404 from "@/components/Shared/404";
+import Custom500 from "@/components/Shared/500";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import BackButton from "@/components/Shared/BackButton";
+import Footer from "@/components/Shared/Footer";
+import PageLayout from "@/components/Shared/PageLayout";
+import { Card, CardHeader, WarningMessage } from "@/components/Shared/UI";
+import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import FullPost from "./FullPost";
 import Quotes from "./Quotes";
 import RelevantPeople from "./RelevantPeople";

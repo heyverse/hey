@@ -1,6 +1,6 @@
+import { Link } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
 import { Card, H3 } from "@/components/Shared/UI";
-import { Link } from "react-router";
 
 const Support = () => {
   return (

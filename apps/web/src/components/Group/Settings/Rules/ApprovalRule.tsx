@@ -1,6 +1,3 @@
-import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import {
   type GroupFragment,
@@ -10,6 +7,9 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface ApprovalRuleProps {
   group: GroupFragment;

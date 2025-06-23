@@ -1,6 +1,3 @@
-import PostMenu from "@/components/Post/Actions/Menu";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type {
@@ -8,6 +5,9 @@ import type {
   PostGroupInfoFragment,
   TimelineItemFragment
 } from "@hey/indexer";
+import PostMenu from "@/components/Post/Actions/Menu";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import PostAccount from "./PostAccount";
 
 interface PostHeaderProps {

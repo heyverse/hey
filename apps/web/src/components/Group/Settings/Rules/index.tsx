@@ -1,3 +1,5 @@
+import { useGroupQuery } from "@hey/indexer";
+import { useParams } from "react-router";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import BackButton from "@/components/Shared/BackButton";
@@ -5,8 +7,6 @@ import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useGroupQuery } from "@hey/indexer";
-import { useParams } from "react-router";
 import ApprovalRule from "./ApprovalRule";
 
 const RulesSettings = () => {

@@ -1,6 +1,6 @@
-import { Tabs } from "@/components/Shared/UI";
 import { MainContentFocus } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
+import { Tabs } from "@/components/Shared/UI";
 
 interface ContentFeedTypeProps {
   focus?: MainContentFocus;

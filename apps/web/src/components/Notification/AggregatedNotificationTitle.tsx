@@ -1,6 +1,6 @@
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import type { AccountFragment } from "@hey/indexer";
 import { Link } from "react-router";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { NotificationAccountName } from "./Account";
 
 interface AggregatedNotificationTitleProps {

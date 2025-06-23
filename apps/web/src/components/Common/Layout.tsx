@@ -1,3 +1,10 @@
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { BANNER_IDS } from "@hey/data/constants";
+import { useMeQuery } from "@hey/indexer";
+import { useIsClient } from "@uidotdev/usehooks";
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router";
+import { Toaster, type ToasterProps } from "sonner";
 import FullPageLoader from "@/components/Shared/FullPageLoader";
 import GlobalAlerts from "@/components/Shared/GlobalAlerts";
 import GlobalModals from "@/components/Shared/GlobalModals";
@@ -10,13 +17,6 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useProStore } from "@/store/persisted/useProStore";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { BANNER_IDS } from "@hey/data/constants";
-import { useMeQuery } from "@hey/indexer";
-import { useIsClient } from "@uidotdev/usehooks";
-import { useEffect } from "react";
-import { Outlet, useLocation } from "react-router";
-import { Toaster, type ToasterProps } from "sonner";
 
 const Layout = () => {
   const { pathname } = useLocation();

@@ -1,3 +1,19 @@
+import {
+  BANNER_IDS,
+  DEFAULT_COLLECT_TOKEN,
+  IS_MAINNET,
+  STATIC_IMAGES_URL,
+  WRAPPED_NATIVE_TOKEN_SYMBOL
+} from "@hey/data/constants";
+import {
+  type AccountFollowRules,
+  AccountFollowRuleType,
+  type AccountFragment,
+  useMeLazyQuery,
+  useUpdateAccountFollowRulesMutation
+} from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import { type RefObject, useEffect, useRef, useState } from "react";
 import BackButton from "@/components/Shared/BackButton";
 import {
   Button,
@@ -13,22 +29,6 @@ import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import {
-  BANNER_IDS,
-  DEFAULT_COLLECT_TOKEN,
-  IS_MAINNET,
-  STATIC_IMAGES_URL,
-  WRAPPED_NATIVE_TOKEN_SYMBOL
-} from "@hey/data/constants";
-import {
-  AccountFollowRuleType,
-  type AccountFollowRules,
-  type AccountFragment,
-  useMeLazyQuery,
-  useUpdateAccountFollowRulesMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
-import { type RefObject, useEffect, useRef, useState } from "react";
 
 const SuperFollow = () => {
   const { currentAccount, setCurrentAccount } = useAccountStore();

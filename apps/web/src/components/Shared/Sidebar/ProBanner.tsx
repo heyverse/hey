@@ -1,13 +1,13 @@
-import { Button, Card, H5 } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useProStore } from "@/store/persisted/useProStore";
 import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { BANNER_IDS } from "@hey/data/constants";
 import { useAddPostNotInterestedMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { toast } from "sonner";
+import { Button, Card, H5 } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useProStore } from "@/store/persisted/useProStore";
 
 const ProBanner = () => {
   const { currentAccount } = useAccountStore();

@@ -1,13 +1,13 @@
+import { TRANSFORMS } from "@hey/data/constants";
+import getAvatar from "@hey/helpers/getAvatar";
+import type { GroupFragment } from "@hey/indexer";
+import { useCallback, useState } from "react";
+import { useNavigate } from "react-router";
 import JoinLeaveButton from "@/components/Shared/Group/JoinLeaveButton";
 import Markup from "@/components/Shared/Markup";
 import { Button, H3, Image, LightBox } from "@/components/Shared/UI";
 import getMentions from "@/helpers/getMentions";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { TRANSFORMS } from "@hey/data/constants";
-import getAvatar from "@hey/helpers/getAvatar";
-import type { GroupFragment } from "@hey/indexer";
-import { useState, useCallback } from "react";
-import { useNavigate } from "react-router";
 import MembersCount from "./MembersCount";
 
 interface DetailsProps {

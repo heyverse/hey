@@ -1,6 +1,6 @@
-import { Tabs } from "@/components/Shared/UI";
 import { GroupsFeedType } from "@hey/data/enums";
 import type { Dispatch, SetStateAction } from "react";
+import { Tabs } from "@/components/Shared/UI";
 
 interface FeedTypeProps {
   feedType: GroupsFeedType;

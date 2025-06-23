@@ -1,3 +1,6 @@
+import { ClockIcon } from "@heroicons/react/24/outline";
+import type { CollectActionType } from "@hey/types/hey";
+import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { RangeSlider } from "@/components/Shared/UI";
 import formatDate from "@/helpers/datetime/formatDate";
@@ -5,9 +8,6 @@ import getNumberOfDaysFromDate from "@/helpers/datetime/getNumberOfDaysFromDate"
 import getTimeAddedNDay from "@/helpers/datetime/getTimeAddedNDay";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { EXPANSION_EASE } from "@/variants";
-import { ClockIcon } from "@heroicons/react/24/outline";
-import type { CollectActionType } from "@hey/types/hey";
-import { motion } from "motion/react";
 
 interface TimeLimitConfigProps {
   setCollectType: (data: CollectActionType) => void;

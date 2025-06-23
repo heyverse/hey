@@ -1,6 +1,6 @@
-import { Tabs } from "@/components/Shared/UI";
 import { NotificationFeedType } from "@hey/data/enums";
 import type { Dispatch, SetStateAction } from "react";
+import { Tabs } from "@/components/Shared/UI";
 
 interface FeedTypeProps {
   feedType: NotificationFeedType;

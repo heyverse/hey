@@ -1,7 +1,7 @@
-import cn from "@/helpers/cn";
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes, ReactNode } from "react";
 import { forwardRef, memo } from "react";
+import cn from "@/helpers/cn";
 
 const badgeVariants = cva("rounded-md border text-white text-xs shadow-xs", {
   variants: {

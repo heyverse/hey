@@ -1,3 +1,12 @@
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
+import {
+  PageSize,
+  type PostFragment,
+  type PostReferencesRequest,
+  PostReferenceType,
+  usePostReferencesQuery
+} from "@hey/indexer";
+import { WindowVirtualizer } from "virtua";
 import BackButton from "@/components/Shared/BackButton";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import {
@@ -7,15 +16,6 @@ import {
   ErrorMessage
 } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
-import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
-import {
-  PageSize,
-  type PostFragment,
-  PostReferenceType,
-  type PostReferencesRequest,
-  usePostReferencesQuery
-} from "@hey/indexer";
-import { WindowVirtualizer } from "virtua";
 import SinglePost from "./SinglePost";
 
 interface QuotesProps {

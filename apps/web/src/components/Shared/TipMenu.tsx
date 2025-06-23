@@ -1,12 +1,3 @@
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
-import LoginButton from "@/components/Shared/LoginButton";
-import Skeleton from "@/components/Shared/Skeleton";
-import { Button, Input, Spinner } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
-import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY, NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import {
@@ -21,6 +12,15 @@ import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, RefObject } from "react";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import LoginButton from "@/components/Shared/LoginButton";
+import Skeleton from "@/components/Shared/Skeleton";
+import { Button, Input, Spinner } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import errorToast from "@/helpers/errorToast";
+import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 

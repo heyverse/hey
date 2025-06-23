@@ -1,8 +1,3 @@
-import { Image } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import type { EditorExtension } from "@/helpers/prosekit/extension";
-import type { MentionAccount } from "@/hooks/prosekit/useMentionQuery";
-import useMentionQuery from "@/hooks/prosekit/useMentionQuery";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { EditorRegex } from "@hey/data/regex";
 import { useEditor } from "prosekit/react";
@@ -12,6 +7,11 @@ import {
   AutocompletePopover
 } from "prosekit/react/autocomplete";
 import { useState } from "react";
+import { Image } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import type { EditorExtension } from "@/helpers/prosekit/extension";
+import type { MentionAccount } from "@/hooks/prosekit/useMentionQuery";
+import useMentionQuery from "@/hooks/prosekit/useMentionQuery";
 
 interface MentionItemProps {
   onSelect: VoidFunction;

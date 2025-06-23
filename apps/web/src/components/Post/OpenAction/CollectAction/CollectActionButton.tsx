@@ -1,10 +1,3 @@
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
-import LoginButton from "@/components/Shared/LoginButton";
-import { Button, Spinner } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import getCollectActionData from "@/helpers/getCollectActionData";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY } from "@hey/data/constants";
 import {
@@ -16,6 +9,13 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import LoginButton from "@/components/Shared/LoginButton";
+import { Button, Spinner } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import getCollectActionData from "@/helpers/getCollectActionData";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface CollectActionButtonProps {
   collects: number;

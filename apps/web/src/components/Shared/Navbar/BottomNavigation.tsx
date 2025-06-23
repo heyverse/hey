@@ -1,6 +1,3 @@
-import { Image } from "@/components/Shared/UI";
-import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   BellIcon,
   GlobeAltIcon as GlobeOutline,
@@ -15,6 +12,9 @@ import {
 import getAvatar from "@hey/helpers/getAvatar";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
+import { Image } from "@/components/Shared/UI";
+import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import MobileDrawerMenu from "./MobileDrawerMenu";
 
 interface NavigationItemProps {

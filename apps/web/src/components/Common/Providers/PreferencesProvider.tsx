@@ -1,9 +1,9 @@
-import { hono } from "@/helpers/fetcher";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
+import { hono } from "@/helpers/fetcher";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
 interface PreferencesProviderProps {
   children: ReactNode;

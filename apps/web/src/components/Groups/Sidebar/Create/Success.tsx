@@ -1,7 +1,7 @@
-import { H4, Image } from "@/components/Shared/UI";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { H4, Image } from "@/components/Shared/UI";
 import { useCreateGroupStore } from "./CreateGroup";
 
 const Success = () => {

@@ -1,19 +1,3 @@
-import CountdownTimer from "@/components/Shared/CountdownTimer";
-import Loader from "@/components/Shared/Loader";
-import PostExecutors from "@/components/Shared/Modal/PostExecutors";
-import Slug from "@/components/Shared/Slug";
-import {
-  H3,
-  H4,
-  HelpTooltip,
-  Modal,
-  Tooltip,
-  WarningMessage
-} from "@/components/Shared/UI";
-import formatDate from "@/helpers/datetime/formatDate";
-import getTokenImage from "@/helpers/getTokenImage";
-import humanize from "@/helpers/humanize";
-import nFormatter from "@/helpers/nFormatter";
 import {
   CheckCircleIcon,
   ClockIcon,
@@ -36,6 +20,22 @@ import { useCounter } from "@uidotdev/usehooks";
 import plur from "plur";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { Link } from "react-router";
+import CountdownTimer from "@/components/Shared/CountdownTimer";
+import Loader from "@/components/Shared/Loader";
+import PostExecutors from "@/components/Shared/Modal/PostExecutors";
+import Slug from "@/components/Shared/Slug";
+import {
+  H3,
+  H4,
+  HelpTooltip,
+  Modal,
+  Tooltip,
+  WarningMessage
+} from "@/components/Shared/UI";
+import formatDate from "@/helpers/datetime/formatDate";
+import getTokenImage from "@/helpers/getTokenImage";
+import humanize from "@/helpers/humanize";
+import nFormatter from "@/helpers/nFormatter";
 import CollectActionButton from "./CollectActionButton";
 import Splits from "./Splits";
 

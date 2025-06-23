@@ -1,3 +1,11 @@
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import {
+  type PostActionFilter,
+  useWhoExecutedActionOnPostQuery,
+  type WhoExecutedActionOnPostRequest
+} from "@hey/indexer";
+import { motion } from "motion/react";
+import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -5,14 +13,6 @@ import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import {
-  type PostActionFilter,
-  type WhoExecutedActionOnPostRequest,
-  useWhoExecutedActionOnPostQuery
-} from "@hey/indexer";
-import { motion } from "motion/react";
-import { Virtualizer } from "virtua";
 
 interface PostExecutorsProps {
   postId: string;

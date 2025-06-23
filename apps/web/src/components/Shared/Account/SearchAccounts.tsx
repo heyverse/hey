@@ -1,5 +1,3 @@
-import Loader from "@/components/Shared/Loader";
-import { Card, Input } from "@/components/Shared/UI";
 import {
   type AccountFragment,
   AccountsOrderBy,
@@ -8,6 +6,8 @@ import {
   useAccountsLazyQuery
 } from "@hey/indexer";
 import type { ChangeEvent } from "react";
+import Loader from "@/components/Shared/Loader";
+import { Card, Input } from "@/components/Shared/UI";
 import SmallSingleAccount from "./SmallSingleAccount";
 
 interface SearchAccountsProps {

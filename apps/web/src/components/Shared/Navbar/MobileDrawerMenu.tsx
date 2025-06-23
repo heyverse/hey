@@ -1,3 +1,6 @@
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import type { AccountFragment } from "@hey/indexer";
+import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Bookmarks from "@/components/Shared/Navbar/NavItems/Bookmarks";
@@ -11,9 +14,6 @@ import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import cn from "@/helpers/cn";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import type { AccountFragment } from "@hey/indexer";
-import { Link } from "react-router";
 
 const MobileDrawerMenu = () => {
   const { currentAccount } = useAccountStore();

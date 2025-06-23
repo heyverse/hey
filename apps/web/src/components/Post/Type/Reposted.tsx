@@ -1,6 +1,6 @@
-import Accounts from "@/components/Shared/Account/Accounts";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@hey/indexer";
+import Accounts from "@/components/Shared/Account/Accounts";
 
 interface RepostedProps {
   account: AccountFragment;

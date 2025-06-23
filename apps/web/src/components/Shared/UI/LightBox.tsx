@@ -1,8 +1,8 @@
-import { Spinner } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import { memo, useEffect, useMemo, useState } from "react";
+import { Spinner } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
 
 interface LightBoxProps {
   show: boolean;

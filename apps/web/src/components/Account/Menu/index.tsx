@@ -1,10 +1,10 @@
-import MenuTransition from "@/components/Shared/MenuTransition";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@hey/indexer";
 import { Fragment } from "react";
+import MenuTransition from "@/components/Shared/MenuTransition";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Block from "./Block";
 import CopyLink from "./CopyLink";
 import Mute from "./Mute";

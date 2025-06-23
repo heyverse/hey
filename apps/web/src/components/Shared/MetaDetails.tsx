@@ -1,7 +1,7 @@
+import type { ReactNode } from "react";
 import { H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
-import type { ReactNode } from "react";
 
 interface MetaDetailsProps {
   children: ReactNode;

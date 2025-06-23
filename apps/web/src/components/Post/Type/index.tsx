@@ -1,5 +1,5 @@
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import type { AnyPostFragment } from "@hey/indexer";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Commented from "./Commented";
 import Reposted from "./Reposted";
 

@@ -1,6 +1,3 @@
-import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import type { ApolloCache } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
@@ -12,6 +9,9 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { toast } from "sonner";
+import cn from "@/helpers/cn";
+import errorToast from "@/helpers/errorToast";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface NotInterestedProps {
   post: PostFragment;

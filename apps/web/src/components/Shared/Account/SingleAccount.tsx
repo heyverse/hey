@@ -1,13 +1,13 @@
-import Markup from "@/components/Shared/Markup";
-import Slug from "@/components/Shared/Slug";
-import { Image } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import getMentions from "@/helpers/getMentions";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
 import { memo } from "react";
+import Markup from "@/components/Shared/Markup";
+import Slug from "@/components/Shared/Slug";
+import { Image } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import getMentions from "@/helpers/getMentions";
 import AccountLink from "./AccountLink";
 import AccountPreview from "./AccountPreview";
 import FollowUnfollowButton from "./FollowUnfollowButton";

@@ -1,7 +1,7 @@
-import { Button, Card, H5, Modal } from "@/components/Shared/UI";
 import { useState } from "react";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
+import { Button, Card, H5, Modal } from "@/components/Shared/UI";
 import CreateGroupModal from "./CreateGroupModal";
 import Minting from "./Minting";
 import Success from "./Success";

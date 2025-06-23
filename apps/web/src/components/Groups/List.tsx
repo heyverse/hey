@@ -1,8 +1,3 @@
-import SingleGroup from "@/components/Shared/Group/SingleGroup";
-import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
-import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { GroupsFeedType } from "@hey/data/enums";
 import {
@@ -12,6 +7,11 @@ import {
   useGroupsQuery
 } from "@hey/indexer";
 import { WindowVirtualizer } from "virtua";
+import SingleGroup from "@/components/Shared/Group/SingleGroup";
+import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
+import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface ListProps {
   feedType: GroupsFeedType;

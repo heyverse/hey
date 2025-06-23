@@ -1,7 +1,7 @@
-import { Tabs } from "@/components/Shared/UI";
 import { AccountFeedType } from "@hey/data/enums";
 import generateUUID from "@hey/helpers/generateUUID";
 import type { Dispatch, SetStateAction } from "react";
+import { Tabs } from "@/components/Shared/UI";
 
 interface FeedTypeProps {
   feedType: AccountFeedType;

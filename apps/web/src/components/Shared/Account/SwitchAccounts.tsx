@@ -1,9 +1,3 @@
-import Loader from "@/components/Shared/Loader";
-import { ErrorMessage, Spinner, WarningMessage } from "@/components/Shared/UI";
-import cn from "@/helpers/cn";
-import errorToast from "@/helpers/errorToast";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { signIn, signOut } from "@/store/persisted/useAuthStore";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { ERRORS } from "@hey/data/errors";
 import {
@@ -13,6 +7,12 @@ import {
 } from "@hey/indexer";
 import { useState } from "react";
 import { useAccount } from "wagmi";
+import Loader from "@/components/Shared/Loader";
+import { ErrorMessage, Spinner, WarningMessage } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import errorToast from "@/helpers/errorToast";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { signIn, signOut } from "@/store/persisted/useAuthStore";
 import SmallSingleAccount from "./SmallSingleAccount";
 
 const SwitchAccounts = () => {

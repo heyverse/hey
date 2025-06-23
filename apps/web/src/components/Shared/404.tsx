@@ -1,5 +1,5 @@
-import { Button, H3 } from "@/components/Shared/UI";
 import { Link } from "react-router";
+import { Button, H3 } from "@/components/Shared/UI";
 import PageLayout from "./PageLayout";
 
 const Custom404 = () => {

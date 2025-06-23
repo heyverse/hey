@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+
 const currentYear = new Date().getFullYear();
 
 const links = [

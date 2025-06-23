@@ -1,10 +1,10 @@
+import { useAccount } from "wagmi";
 import BackButton from "@/components/Shared/BackButton";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
 import WrongWallet from "@/components/Shared/Settings/WrongWallet";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useAccount } from "wagmi";
 import AccountManager from "./AccountManager";
 
 const ManagerSettings = () => {

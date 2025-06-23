@@ -1,5 +1,5 @@
-import { H4, Spinner } from "@/components/Shared/UI";
 import { useAccountQuery } from "@hey/indexer";
+import { H4, Spinner } from "@/components/Shared/UI";
 import { useSignupStore } from ".";
 
 const Minting = () => {

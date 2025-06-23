@@ -1,6 +1,6 @@
 import { LENS_MAINNET_RPCS, LENS_TESTNET_RPCS } from "@hey/data/rpcs";
 import type { FallbackTransport } from "viem";
-import { http, fallback } from "viem";
+import { fallback, http } from "viem";
 
 interface GetRpcOptions {
   mainnet: boolean;

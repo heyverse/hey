@@ -1,5 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
 import type { Address } from "viem";
+import { createTrackedStore } from "@/store/createTrackedStore";
 
 export interface FundingToken {
   contractAddress: Address;

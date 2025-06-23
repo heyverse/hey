@@ -1,3 +1,7 @@
+import type { CollectActionType } from "@hey/types/hey";
+import { motion } from "motion/react";
+import type { Dispatch, SetStateAction } from "react";
+import { isAddress } from "viem";
 import LicensePicker from "@/components/Composer/LicensePicker";
 import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
@@ -6,10 +10,6 @@ import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActi
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { EXPANSION_EASE } from "@/variants";
-import type { CollectActionType } from "@hey/types/hey";
-import { motion } from "motion/react";
-import type { Dispatch, SetStateAction } from "react";
-import { isAddress } from "viem";
 import AmountConfig from "./AmountConfig";
 import CollectLimitConfig from "./CollectLimitConfig";
 import FollowersConfig from "./FollowersConfig";

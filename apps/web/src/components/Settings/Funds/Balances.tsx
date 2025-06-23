@@ -1,8 +1,3 @@
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
-import Loader from "@/components/Shared/Loader";
-import { ErrorMessage, Image } from "@/components/Shared/UI";
-import getTokenImage from "@/helpers/getTokenImage";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import {
   DEFAULT_COLLECT_TOKEN,
   NATIVE_TOKEN_SYMBOL
@@ -10,6 +5,11 @@ import {
 import { tokens } from "@hey/data/tokens";
 import { useBalancesBulkQuery } from "@hey/indexer";
 import type { Address } from "viem";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import Loader from "@/components/Shared/Loader";
+import { ErrorMessage, Image } from "@/components/Shared/UI";
+import getTokenImage from "@/helpers/getTokenImage";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Unwrap from "./Unwrap";
 import Withdraw from "./Withdraw";
 import Wrap from "./Wrap";

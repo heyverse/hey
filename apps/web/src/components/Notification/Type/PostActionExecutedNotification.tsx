@@ -1,12 +1,12 @@
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import getPostData from "@hey/helpers/getPostData";
+import type { PostActionExecutedNotificationFragment } from "@hey/indexer";
+import plur from "plur";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import getPostData from "@hey/helpers/getPostData";
-import type { PostActionExecutedNotificationFragment } from "@hey/indexer";
-import plur from "plur";
 
 interface PostActionExecutedNotificationProps {
   notification: PostActionExecutedNotificationFragment;

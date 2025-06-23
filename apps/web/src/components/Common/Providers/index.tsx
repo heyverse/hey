@@ -1,10 +1,10 @@
-import ErrorBoundary from "@/components/Common/ErrorBoundary";
-import authLink from "@/helpers/authLink";
-import { ThemeProvider } from "@/hooks/useTheme";
 import { ApolloProvider } from "@apollo/client";
 import { createApolloClient } from "@hey/indexer/apollo/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
+import ErrorBoundary from "@/components/Common/ErrorBoundary";
+import authLink from "@/helpers/authLink";
+import { ThemeProvider } from "@/hooks/useTheme";
 import PreferencesProvider from "./PreferencesProvider";
 import Web3Provider from "./Web3Provider";
 

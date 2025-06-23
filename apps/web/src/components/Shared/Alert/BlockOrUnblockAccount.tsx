@@ -1,8 +1,3 @@
-import { Alert } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useApolloClient } from "@apollo/client";
 import { ERRORS } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
@@ -10,6 +5,11 @@ import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Alert } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const BlockOrUnblockAccount = () => {
   const { currentAccount } = useAccountStore();

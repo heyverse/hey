@@ -1,3 +1,4 @@
+import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 import ViewAccount from "@/components/Account";
 import Bookmarks from "@/components/Bookmarks";
 import Layout from "@/components/Common/Layout";
@@ -28,7 +29,6 @@ import PreferencesSettings from "@/components/Settings/Preferences";
 import SessionsSettings from "@/components/Settings/Sessions";
 import UsernameSettings from "@/components/Settings/Username";
 import Custom404 from "@/components/Shared/404";
-import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 import Staff from "./components/Staff";
 
 const Routes = () => {

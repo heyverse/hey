@@ -1,3 +1,4 @@
+import getAvatar from "@hey/helpers/getAvatar";
 import { Image } from "@/components/Shared/UI";
 import { defineEditorExtension } from "@/helpers/prosekit/extension";
 import { htmlFromMarkdown } from "@/helpers/prosekit/markdown";
@@ -6,7 +7,6 @@ import useFocus from "@/hooks/prosekit/useFocus";
 import { usePaste } from "@/hooks/prosekit/usePaste";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import getAvatar from "@hey/helpers/getAvatar";
 import "prosekit/basic/style.css";
 import { createEditor } from "prosekit/core";
 import { ProseKit } from "prosekit/react";

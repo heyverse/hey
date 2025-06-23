@@ -1,10 +1,10 @@
-import cn from "@/helpers/cn";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { useMuteAlertStore } from "@/store/non-persisted/alert/useMuteAlertStore";
 import { MenuItem } from "@headlessui/react";
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import type { AccountFragment } from "@hey/indexer";
+import cn from "@/helpers/cn";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { useMuteAlertStore } from "@/store/non-persisted/alert/useMuteAlertStore";
 
 interface MuteProps {
   account: AccountFragment;

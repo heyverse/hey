@@ -1,10 +1,10 @@
+import type { AccountFragment } from "@hey/indexer";
+import { motion } from "motion/react";
+import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
-import type { AccountFragment } from "@hey/indexer";
-import { motion } from "motion/react";
-import { Virtualizer } from "virtua";
 
 interface MoreRelevantPeopleProps {
   accounts: AccountFragment[];

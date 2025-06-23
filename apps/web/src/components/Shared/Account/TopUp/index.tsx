@@ -1,10 +1,10 @@
+import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
+import { useBalancesBulkQuery } from "@hey/indexer";
 import Loader from "@/components/Shared/Loader";
 import { Image } from "@/components/Shared/UI";
 import getTokenImage from "@/helpers/getTokenImage";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
-import { useBalancesBulkQuery } from "@hey/indexer";
 import Transfer from "./Transfer";
 
 const TopUp = () => {

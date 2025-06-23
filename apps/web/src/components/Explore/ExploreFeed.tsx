@@ -1,5 +1,3 @@
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
   type MainContentFocus,
@@ -7,6 +5,8 @@ import {
   type PostsExploreRequest,
   usePostsExploreQuery
 } from "@hey/indexer";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 
 interface ExploreFeedProps {
   focus?: MainContentFocus;

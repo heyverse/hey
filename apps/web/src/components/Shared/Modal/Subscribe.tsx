@@ -1,11 +1,3 @@
-import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import TopUpButton from "@/components/Shared/Account/TopUp/Button";
-import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import getTokenImage from "@/helpers/getTokenImage";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
   DEFAULT_COLLECT_TOKEN,
@@ -21,6 +13,14 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
+import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import TopUpButton from "@/components/Shared/Account/TopUp/Button";
+import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import getTokenImage from "@/helpers/getTokenImage";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();

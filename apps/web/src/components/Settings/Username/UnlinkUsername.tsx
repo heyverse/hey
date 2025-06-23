@@ -1,12 +1,12 @@
-import { Button, H6 } from "@/components/Shared/UI";
-import errorToast from "@/helpers/errorToast";
-import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import getAccount from "@hey/helpers/getAccount";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Button, H6 } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const UnlinkUsername = () => {
   const { currentAccount } = useAccountStore();

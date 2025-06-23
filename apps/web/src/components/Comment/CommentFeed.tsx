@@ -1,16 +1,16 @@
-import { useHiddenCommentFeedStore } from "@/components/Post";
-import SinglePost from "@/components/Post/SinglePost";
-import PostFeed from "@/components/Shared/Post/PostFeed";
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
-  PostReferenceType,
   type PostReferencesRequest,
+  PostReferenceType,
   PostVisibilityFilter,
-  ReferenceRelevancyFilter,
   type ReferencedPostFragment,
+  ReferenceRelevancyFilter,
   usePostReferencesQuery
 } from "@hey/indexer";
+import { useHiddenCommentFeedStore } from "@/components/Post";
+import SinglePost from "@/components/Post/SinglePost";
+import PostFeed from "@/components/Shared/Post/PostFeed";
 
 interface CommentFeedProps {
   postId: string;
