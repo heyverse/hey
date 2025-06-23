@@ -2,6 +2,7 @@ import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { PageSize, type PostsRequest, usePostsQuery } from "@hey/indexer";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import { useCallback, useMemo } from "react";
 
 interface GroupFeedProps {
   feed: string;
@@ -22,18 +23,22 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
-  const filteredPosts = (posts ?? []).filter(
-    (post) =>
-      !post.author.operations?.hasBlockedMe &&
-      !post.author.operations?.isBlockedByMe
+  const filteredPosts = useMemo(
+    () =>
+      (posts ?? []).filter(
+        (post) =>
+          !post.author.operations?.hasBlockedMe &&
+          !post.author.operations?.isBlockedByMe
+      ),
+    [posts]
   );
 
   return (

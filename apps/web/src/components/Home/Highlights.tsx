@@ -6,6 +6,7 @@ import {
 } from "@hey/indexer";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import { useCallback, useMemo } from "react";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Highlights = () => {
@@ -24,19 +25,23 @@ const Highlights = () => {
   const pageInfo = data?.timelineHighlights.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
-  const filteredPosts = (posts ?? []).filter(
-    (post) =>
-      !post.author.operations?.hasBlockedMe &&
-      !post.author.operations?.isBlockedByMe &&
-      !post.operations?.hasReported
+  const filteredPosts = useMemo(
+    () =>
+      (posts ?? []).filter(
+        (post) =>
+          !post.author.operations?.hasBlockedMe &&
+          !post.author.operations?.isBlockedByMe &&
+          !post.operations?.hasReported
+      ),
+    [posts]
   );
 
   return (

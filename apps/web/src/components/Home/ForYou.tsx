@@ -7,6 +7,7 @@ import {
 } from "@hey/indexer";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import { useCallback, useMemo } from "react";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const ForYou = () => {
@@ -26,22 +27,26 @@ const ForYou = () => {
   const pageInfo = data?.mlPostsForYou.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
-  const filteredPosts = posts
-    ?.map((item) => item.post)
-    .filter(
-      (post) =>
-        !post.author.operations?.hasBlockedMe &&
-        !post.author.operations?.isBlockedByMe &&
-        !post.operations?.hasReported
-    );
+  const filteredPosts = useMemo(
+    () =>
+      posts
+        ?.map((item) => item.post)
+        .filter(
+          (post) =>
+            !post.author.operations?.hasBlockedMe &&
+            !post.author.operations?.isBlockedByMe &&
+            !post.operations?.hasReported
+        ),
+    [posts]
+  );
 
   return (
     <PostFeed
