@@ -3,6 +3,7 @@ import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useCallback } from "react";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
 import { UsersIcon } from "@heroicons/react/24/outline";
@@ -35,13 +36,13 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
   const pageInfo = data?.followersYouKnow?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [hasMore, fetchMore, pageInfo, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

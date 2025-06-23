@@ -2,6 +2,7 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useCallback } from "react";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
@@ -26,13 +27,13 @@ const List = () => {
   const pageInfo = data?.accountsBlocked?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [hasMore, fetchMore, pageInfo, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

@@ -12,7 +12,7 @@ import {
   useRevokeAuthenticationMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
 
@@ -62,13 +62,13 @@ const List = () => {
   const pageInfo = data?.authenticatedSessions?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [hasMore, fetchMore, pageInfo, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

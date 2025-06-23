@@ -2,6 +2,7 @@ import SingleGroup from "@/components/Shared/Group/SingleGroup";
 import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useCallback } from "react";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { GroupsFeedType } from "@hey/data/enums";
@@ -41,13 +42,13 @@ const List = ({ feedType }: ListProps) => {
   const pageInfo = data?.groups?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [hasMore, fetchMore, pageInfo, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

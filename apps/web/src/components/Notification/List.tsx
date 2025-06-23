@@ -9,6 +9,7 @@ import RepostNotification from "@/components/Notification/Type/RepostNotificatio
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useCallback } from "react";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { NotificationFeedType } from "@hey/data/enums";
@@ -70,13 +71,13 @@ const List = ({ feedType }: ListProps) => {
   const pageInfo = data?.notifications?.pageInfo;
   const hasMore = !!pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo.next } }
       });
     }
-  };
+  }, [hasMore, fetchMore, pageInfo, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

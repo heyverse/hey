@@ -7,6 +7,7 @@ import {
   ErrorMessage
 } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useCallback } from "react";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
@@ -38,13 +39,13 @@ const Quotes = ({ post }: QuotesProps) => {
   const pageInfo = data?.postReferences?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [hasMore, fetchMore, pageInfo, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
