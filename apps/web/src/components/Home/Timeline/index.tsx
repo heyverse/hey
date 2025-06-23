@@ -4,7 +4,7 @@ import {
   type TimelineRequest,
   useTimelineQuery
 } from "@hey/indexer";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -30,13 +30,13 @@ const Timeline = () => {
   const pageInfo = data?.timeline?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   const filteredPosts = (feed ?? []).filter(
     (timelineItem) =>

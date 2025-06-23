@@ -6,6 +6,7 @@ import {
   type WhoReferencedPostRequest
 } from "@hey/indexer";
 import { motion } from "motion/react";
+import { useCallback } from "react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
@@ -37,13 +38,13 @@ const Reposts = ({ postId }: RepostsProps) => {
   const pageInfo = data?.whoReferencedPost?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 

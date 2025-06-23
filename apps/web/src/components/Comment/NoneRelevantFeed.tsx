@@ -10,7 +10,7 @@ import {
   ReferenceRelevancyFilter,
   usePostReferencesQuery
 } from "@hey/indexer";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
@@ -45,13 +45,13 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
   const hasMore = pageInfo?.next;
   const totalComments = comments?.length;
 
-  const handleEndReached = async () => {
+  const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  };
+  }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   if (totalComments === 0) {
     return null;
