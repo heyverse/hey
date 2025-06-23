@@ -11,7 +11,7 @@ import {
 } from "@lens-protocol/metadata";
 import { useClickAway } from "@uidotdev/usehooks";
 import type { ChangeEvent, JSX, MutableRefObject } from "react";
-import { useId, useState } from "react";
+import { memo, useId, useState } from "react";
 import { toast } from "sonner";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Spinner, Tooltip } from "@/components/Shared/UI";
@@ -155,4 +155,4 @@ const Attachment = () => {
   );
 };
 
-export default Attachment;
+export default memo(Attachment);

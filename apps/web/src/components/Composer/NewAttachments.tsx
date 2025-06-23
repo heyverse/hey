@@ -1,7 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
 import type { NewAttachment } from "@hey/types/misc";
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import ChooseThumbnail from "@/components/Composer/ChooseThumbnail";
 import Audio from "@/components/Shared/Audio";
 import { Image } from "@/components/Shared/UI";
@@ -132,4 +132,4 @@ const NewAttachments = ({
   ) : null;
 };
 
-export default NewAttachments;
+export default memo(NewAttachments);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Oembed from "@/components/Shared/Post/Oembed";
 import getURLs from "@/helpers/getURLs";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
@@ -19,4 +20,4 @@ const LinkPreviews = () => {
   );
 };
 
-export default LinkPreviews;
+export default memo(LinkPreviews);

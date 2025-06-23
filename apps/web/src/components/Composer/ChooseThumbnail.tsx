@@ -1,6 +1,6 @@
 import { CheckCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import type { ChangeEvent } from "react";
-import { useEffect, useId, useState } from "react";
+import { memo, useEffect, useId, useState } from "react";
 import { toast } from "sonner";
 import ThumbnailsShimmer from "@/components/Shared/Shimmer/ThumbnailsShimmer";
 import { Spinner } from "@/components/Shared/UI";
@@ -186,4 +186,4 @@ const ChooseThumbnail = () => {
   );
 };
 
-export default ChooseThumbnail;
+export default memo(ChooseThumbnail);
