@@ -1,5 +1,5 @@
 import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const useLoadMoreOnIntersect = (onLoadMore: () => void) => {
   const [ref, entry] = useIntersectionObserver({
@@ -8,10 +8,16 @@ const useLoadMoreOnIntersect = (onLoadMore: () => void) => {
     threshold: 0
   });
 
+  const wasIntersecting = useRef(false);
+
   useEffect(() => {
-    if (entry?.isIntersecting) {
+    const isIntersecting = entry?.isIntersecting ?? false;
+
+    if (isIntersecting && !wasIntersecting.current) {
       onLoadMore();
     }
+
+    wasIntersecting.current = isIntersecting;
   }, [entry?.isIntersecting, onLoadMore]);
 
   return ref;
