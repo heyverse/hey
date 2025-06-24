@@ -1,4 +1,5 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { useCallback } from "react";
 import { useNavigate, useNavigationType } from "react-router";
 
 interface BackButtonProps {
@@ -9,7 +10,7 @@ const BackButton = ({ path }: BackButtonProps) => {
   const navigate = useNavigate();
   const navType = useNavigationType();
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     if (path) {
       navigate(path);
     } else if (navType === "POP") {
@@ -17,7 +18,7 @@ const BackButton = ({ path }: BackButtonProps) => {
     } else {
       navigate(-1);
     }
-  };
+  }, [navType, navigate, path]);
 
   return (
     <button

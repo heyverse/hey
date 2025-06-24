@@ -1,5 +1,5 @@
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import type { MouseEvent } from "react";
+import { type MouseEvent, useCallback } from "react";
 import { Button } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 
@@ -16,10 +16,10 @@ const LoginButton = ({
 }: LoginButtonProps) => {
   const { setShowAuthModal } = useAuthModalStore();
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     return setShowAuthModal(true);
-  };
+  }, []);
 
   return (
     <Button

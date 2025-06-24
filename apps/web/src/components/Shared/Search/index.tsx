@@ -9,7 +9,7 @@ import {
 } from "@hey/indexer";
 import { useClickAway, useDebounce } from "@uidotdev/usehooks";
 import type { ChangeEvent, MutableRefObject } from "react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
@@ -35,10 +35,10 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
   const [accounts, setAccounts] = useState<AccountFragment[]>([]);
   const debouncedSearchText = useDebounce<string>(searchText, 500);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setShowDropdown(false);
     setAccounts([]);
-  };
+  }, []);
 
   const dropdownRef = useClickAway(() => {
     handleReset();
@@ -46,20 +46,27 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
 
   const [searchAccounts, { loading }] = useAccountsLazyQuery();
 
-  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
     setSearchText(keyword);
-  };
+  }, []);
 
-  const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    if (pathname === "/search") {
-      navigate(`/search?q=${encodeURIComponent(searchText)}&type=${type}`);
-    } else {
-      navigate(`/search?q=${encodeURIComponent(searchText)}&type=accounts`);
-    }
-    handleReset();
-  };
+  const handleKeyDown = useCallback(
+    (evt: ChangeEvent<HTMLFormElement>) => {
+      evt.preventDefault();
+      if (pathname === "/search") {
+        navigate(`/search?q=${encodeURIComponent(searchText)}&type=${type}`);
+      } else {
+        navigate(`/search?q=${encodeURIComponent(searchText)}&type=accounts`);
+      }
+      handleReset();
+    },
+    [pathname, navigate, searchText, type, handleReset]
+  );
+
+  const handleShowDropdown = useCallback(() => {
+    setShowDropdown(true);
+  }, []);
 
   useEffect(() => {
     if (pathname !== "/search" && showDropdown && debouncedSearchText) {
@@ -93,7 +100,7 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
             />
           }
           onChange={handleSearch}
-          onClick={() => setShowDropdown(true)}
+          onClick={handleShowDropdown}
           placeholder={placeholder}
           type="text"
           value={searchText}

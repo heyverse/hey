@@ -14,7 +14,7 @@ import {
   UserGroupIcon as UserGroupSolid
 } from "@heroicons/react/24/solid";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import type { MouseEvent, ReactNode } from "react";
+import { type MouseEvent, type ReactNode, useCallback } from "react";
 import { Link, useLocation } from "react-router";
 import Pro from "@/components/Shared/Navbar/NavItems/Pro";
 import { Image, Tooltip } from "@/components/Shared/UI";
@@ -88,12 +88,19 @@ const Navbar = () => {
   const { appIcon } = usePreferencesStore();
   const { setShowAuthModal } = useAuthModalStore();
 
-  const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (pathname === "/") {
-      e.preventDefault();
-      window.scrollTo(0, 0);
-    }
-  };
+  const handleLogoClick = useCallback(
+    (e: MouseEvent<HTMLAnchorElement>) => {
+      if (pathname === "/") {
+        e.preventDefault();
+        window.scrollTo(0, 0);
+      }
+    },
+    [pathname]
+  );
+
+  const handleAuthClick = useCallback(() => {
+    setShowAuthModal(true);
+  }, []);
 
   return (
     <aside className="sticky top-5 mt-5 hidden w-10 shrink-0 flex-col items-center gap-y-5 md:flex">
@@ -113,7 +120,7 @@ const Navbar = () => {
           <SignedAccount />
         </>
       ) : (
-        <button onClick={() => setShowAuthModal(true)} type="button">
+        <button onClick={handleAuthClick} type="button">
           <Tooltip content="Login">
             <UserCircleIcon className="size-6" />
           </Tooltip>
