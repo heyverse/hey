@@ -7,7 +7,7 @@ import {
   PostType,
   usePostsQuery
 } from "@hey/indexer";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
 
@@ -29,7 +29,7 @@ const EMPTY_MESSAGES: Record<AccountFeedType, string> = {
 };
 
 const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
-  const getPostTypes = () => {
+  const postTypes = useMemo(() => {
     switch (type) {
       case AccountFeedType.Feed:
         return [PostType.Root, PostType.Repost, PostType.Quote];
@@ -45,33 +45,34 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
           PostType.Quote
         ];
     }
-  };
+  }, [type]);
 
   const getEmptyMessage = () => {
     return EMPTY_MESSAGES[type] || "";
   };
 
-  const postTypes = getPostTypes();
-
-  const request: PostsRequest = {
-    filter: {
-      postTypes,
-      ...(type === AccountFeedType.Media && {
-        metadata: {
-          mainContentFocus: [
-            MainContentFocus.Image,
-            MainContentFocus.Audio,
-            MainContentFocus.Video,
-            MainContentFocus.ShortVideo
-          ]
-        }
-      }),
-      ...(type === AccountFeedType.Collects
-        ? { collectedBy: { account: address } }
-        : { authors: [address] })
-    },
-    pageSize: PageSize.Fifty
-  };
+  const request = useMemo<PostsRequest>(
+    () => ({
+      filter: {
+        postTypes,
+        ...(type === AccountFeedType.Media && {
+          metadata: {
+            mainContentFocus: [
+              MainContentFocus.Image,
+              MainContentFocus.Audio,
+              MainContentFocus.Video,
+              MainContentFocus.ShortVideo
+            ]
+          }
+        }),
+        ...(type === AccountFeedType.Collects
+          ? { collectedBy: { account: address } }
+          : { authors: [address] })
+      },
+      pageSize: PageSize.Fifty
+    }),
+    [address, postTypes, type]
+  );
 
   const { data, error, fetchMore, loading } = usePostsQuery({
     skip: !address,
