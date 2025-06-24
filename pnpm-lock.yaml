@@ -331,6 +331,9 @@ importers:
       '@hey/types':
         specifier: workspace:*
         version: link:../types
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
       viem:
         specifier: ^2.31.4
         version: 2.31.4(bufferutil@4.0.9)(typescript@5.8.3)(utf-8-validate@5.0.10)(zod@3.25.67)
@@ -341,6 +344,9 @@ importers:
       '@types/node':
         specifier: ^24.0.3
         version: 24.0.3
+      '@types/react-dom':
+        specifier: ^19.1.6
+        version: 19.1.6(@types/react@19.1.8)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3

@@ -1,3 +1,4 @@
+import batch from "@hey/helpers/batch";
 import NewPublication from "@/components/Composer/NewPublication";
 import SuperFollow from "@/components/Shared/Account/SuperFollow";
 import SwitchAccounts from "@/components/Shared/Account/SwitchAccounts";
@@ -88,13 +89,15 @@ const GlobalModals = () => {
         <Auth />
       </Modal>
       <Modal
-        onClose={() => {
-          setShowNewPostModal(false);
-          setPostContent("");
-          setEditingPost(undefined);
-          setQuotedPost(undefined);
-          setAttachments([]);
-        }}
+        onClose={() =>
+          batch(() => {
+            setShowNewPostModal(false);
+            setPostContent("");
+            setEditingPost(undefined);
+            setQuotedPost(undefined);
+            setAttachments([]);
+          })
+        }
         show={showNewPostModal}
         size="md"
         title={editingPost ? "Edit post" : "Create post"}

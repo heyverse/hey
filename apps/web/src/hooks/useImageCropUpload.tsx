@@ -4,6 +4,7 @@ import {
   type TRANSFORMS
 } from "@hey/data/constants";
 import { ERRORS } from "@hey/data/errors";
+import batch from "@hey/helpers/batch";
 import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { ApolloClientError } from "@hey/types/errors";
@@ -54,24 +55,31 @@ const useImageCropUpload = ({
       const decentralizedUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL("image/png");
 
-      setSrc(decentralizedUrl);
-      setUploadedPicture(dataUrl);
+      batch(() => {
+        setSrc(decentralizedUrl);
+        setUploadedPicture(dataUrl);
+      });
     } catch (error) {
       onError(error);
     } finally {
-      setArea(null);
-      setCrop({ x: 0, y: 0 });
-      setZoom(1);
-      setShowModal(false);
-      setUploading(false);
+      batch(() => {
+        setArea(null);
+        setCrop({ x: 0, y: 0 });
+        setZoom(1);
+        setShowModal(false);
+        setUploading(false);
+      });
     }
   };
 
   const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
     const file = evt.target.files?.[0];
     if (file) {
-      setPictureSrc(await readFile(file));
-      setShowModal(true);
+      const picture = await readFile(file);
+      batch(() => {
+        setPictureSrc(picture);
+        setShowModal(true);
+      });
     }
   };
 
@@ -89,8 +97,10 @@ const useImageCropUpload = ({
     : "";
 
   const handleModalClose = () => {
-    setPictureSrc("");
-    setShowModal(false);
+    batch(() => {
+      setPictureSrc("");
+      setShowModal(false);
+    });
   };
 
   return {

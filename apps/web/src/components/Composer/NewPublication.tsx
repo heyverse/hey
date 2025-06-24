@@ -1,4 +1,5 @@
 import { ERRORS } from "@hey/data/errors";
+import batch from "@hey/helpers/batch";
 import getAccount from "@hey/helpers/getAccount";
 import type { PostFragment } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
@@ -105,20 +106,22 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   const hasVideo = attachments[0]?.type === "Video";
 
   const reset = () => {
-    editor?.setMarkdown("");
-    setIsSubmitting(false);
-    setPostContent("");
-    setShowLiveVideoEditor(false);
-    resetLiveVideoConfig();
-    setAttachments([]);
-    setQuotedPost(undefined);
-    setEditingPost(undefined);
-    setRules(undefined);
-    setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
-    setAudioPost(DEFAULT_AUDIO_POST);
-    setLicense(null);
-    resetCollectSettings();
-    setShowNewPostModal(false);
+    batch(() => {
+      editor?.setMarkdown("");
+      setIsSubmitting(false);
+      setPostContent("");
+      setShowLiveVideoEditor(false);
+      resetLiveVideoConfig();
+      setAttachments([]);
+      setQuotedPost(undefined);
+      setEditingPost(undefined);
+      setRules(undefined);
+      setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
+      setAudioPost(DEFAULT_AUDIO_POST);
+      setLicense(null);
+      resetCollectSettings();
+      setShowNewPostModal(false);
+    });
   };
 
   const onCompleted = () => {
@@ -179,18 +182,24 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
         const parsedData = AudioPostSchema.safeParse(audioPost);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
-          setIsSubmitting(false);
-          return setPostContentError(issue.message);
+          batch(() => {
+            setIsSubmitting(false);
+            setPostContentError(issue.message);
+          });
+          return;
         }
       }
 
       if (!postContent.length && !attachments.length) {
-        setIsSubmitting(false);
-        return setPostContentError(
-          `${
-            isComment ? "Comment" : isQuote ? "Quote" : "Post"
-          } should not be empty!`
-        );
+        batch(() => {
+          setIsSubmitting(false);
+          setPostContentError(
+            `${
+              isComment ? "Comment" : isQuote ? "Quote" : "Post"
+            } should not be empty!`
+          );
+        });
+        return;
       }
 
       setPostContentError("");
