@@ -1,6 +1,6 @@
 import type { Editor } from "prosekit/core";
-import type { FC, ReactNode } from "react";
-import { createContext, useContext, useEffect, useState } from "react";
+import type { FC, MutableRefObject, ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef } from "react";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import { setMarkdownContent } from "@/helpers/prosekit/markdownContent";
 
@@ -9,7 +9,8 @@ interface EditorHandle {
   setMarkdown: (markdown: string) => void;
 }
 
-const HandleContext = createContext<EditorHandle | null>(null);
+const HandleContext =
+  createContext<MutableRefObject<EditorHandle | null> | null>(null);
 const SetHandleContext = createContext<((handle: EditorHandle) => void) | null>(
   null
 );
@@ -19,10 +20,14 @@ interface EditorProps {
 }
 
 const Provider = ({ children }: EditorProps) => {
-  const [handle, setHandle] = useState<EditorHandle | null>(null);
+  const handleRef = useRef<EditorHandle | null>(null);
+
+  const setHandle = (handle: EditorHandle) => {
+    handleRef.current = handle;
+  };
 
   return (
-    <HandleContext.Provider value={handle}>
+    <HandleContext.Provider value={handleRef}>
       <SetHandleContext.Provider value={setHandle}>
         {children}
       </SetHandleContext.Provider>
@@ -31,7 +36,7 @@ const Provider = ({ children }: EditorProps) => {
 };
 
 export const useEditorContext = (): EditorHandle | null => {
-  return useContext(HandleContext);
+  return useContext(HandleContext)?.current ?? null;
 };
 
 export const useEditorHandle = (editor: Editor<EditorExtension>) => {
