@@ -18,7 +18,11 @@ const dependenciesToChunk = {
     "strip-markdown"
   ],
   indexer: ["@hey/indexer"],
-  media: ["plyr-react", "@livepeer/react", "browser-image-compression"],
+  media: [
+    "react-h5-audio-player",
+    "@livepeer/react",
+    "browser-image-compression"
+  ],
   misc: [
     "@lens-chain/storage-client",
     "@lens-protocol/metadata",

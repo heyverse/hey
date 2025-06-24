@@ -1,7 +1,7 @@
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
-import type { APITypes } from "plyr-react";
 import type { ChangeEvent } from "react";
 import { useRef, useState } from "react";
+import type { default as H5AudioPlayer } from "react-h5-audio-player";
 import { z } from "zod";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
@@ -26,21 +26,22 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
   const { audioPost, setAudioPost } = usePostAudioStore();
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const [playing, setPlaying] = useState(false);
-  const playerRef = useRef<APITypes>(null);
+  const playerRef = useRef<H5AudioPlayer>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handlePlayPause = () => {
-    if (!playerRef.current) {
+    const audio = playerRef.current?.audio.current;
+
+    if (!audio) {
       return;
     }
 
-    const player = playerRef.current.plyr;
-    if (player.paused && !playing) {
+    if (audio.paused && !playing) {
       setPlaying(true);
-      player.play();
+      audio.play();
     } else {
       setPlaying(false);
-      player.pause();
+      audio.pause();
     }
   };
 
@@ -71,7 +72,7 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
           <div className="mt-3 flex justify-between md:mt-7">
             <div className="flex w-full items-center space-x-2.5 truncate">
               <button onClick={handlePlayPause} type="button">
-                {playing && !playerRef.current?.plyr.paused ? (
+                {playing && !playerRef.current?.audio.current?.paused ? (
                   <PauseIcon className="size-12 text-gray-100 hover:text-white" />
                 ) : (
                   <PlayIcon className="size-12 text-gray-100 hover:text-white" />

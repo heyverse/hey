@@ -1,24 +1,15 @@
-import type { APITypes } from "plyr-react";
-import Plyr from "plyr-react";
-import "plyr-react/plyr.css";
 import type { Ref } from "react";
 import { memo } from "react";
+import type { default as H5AudioPlayer } from "react-h5-audio-player";
+import AudioPlayer from "react-h5-audio-player";
 
 interface PlayerProps {
-  playerRef: Ref<APITypes>;
+  playerRef: Ref<H5AudioPlayer>;
   src: string;
 }
 
 const Player = ({ playerRef, src }: PlayerProps) => {
-  return (
-    <Plyr
-      options={{
-        controls: ["progress", "current-time", "mute", "volume"]
-      }}
-      ref={playerRef}
-      source={{ sources: [{ src }], type: "audio" }}
-    />
-  );
+  return <AudioPlayer ref={playerRef} src={src} />;
 };
 
 export default memo(Player);
