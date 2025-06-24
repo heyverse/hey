@@ -2,7 +2,7 @@ import { TRANSFORMS } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { type Follower, useFollowersYouKnowQuery } from "@hey/indexer";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router";
 import FollowersYouKnow from "@/components/Shared/Modal/FollowersYouKnow";
 import FollowersYouKnowShimmer from "@/components/Shared/Shimmer/FollowersYouKnowShimmer";
@@ -37,7 +37,7 @@ const FollowersYouKnowOverview = ({
   const accounts =
     (data?.followersYouKnow?.items.slice(0, 4) as unknown as Follower[]) || [];
 
-  const renderAccountNames = () => {
+  const accountNames = useMemo(() => {
     const names = accounts.map(
       (account) => getAccount(account.follower as any).name
     );
@@ -50,7 +50,7 @@ const FollowersYouKnowOverview = ({
       return `${names[0]}, ${names[1]}${count === 0 ? " and " : ", "}${names[2]}${count ? ` and ${count} other${count === 1 ? "" : "s"}` : ""}`;
 
     return `${names[0]}, ${names[1]}, ${names[2]} and others`;
-  };
+  }, [accounts]);
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <button
@@ -86,7 +86,7 @@ const FollowersYouKnowOverview = ({
     return null;
   }
 
-  return <Wrapper>{renderAccountNames()}</Wrapper>;
+  return <Wrapper>{accountNames}</Wrapper>;
 };
 
 export default FollowersYouKnowOverview;
