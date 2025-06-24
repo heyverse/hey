@@ -5,7 +5,7 @@ import {
   NotificationType,
   useNotificationsQuery
 } from "@hey/indexer";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { WindowVirtualizer } from "virtua";
 import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";
 import CommentNotification from "@/components/Notification/Type/CommentNotification";
@@ -39,7 +39,7 @@ interface ListProps {
 const List = ({ feedType }: ListProps) => {
   const { includeLowScore } = usePreferencesStore();
 
-  const getNotificationType = () => {
+  const getNotificationType = useCallback(() => {
     switch (feedType) {
       case NotificationFeedType.All:
         return;
@@ -54,7 +54,7 @@ const List = ({ feedType }: ListProps) => {
       default:
         return;
     }
-  };
+  }, [feedType]);
 
   const request: NotificationRequest = {
     filter: {
@@ -135,4 +135,4 @@ const List = ({ feedType }: ListProps) => {
   );
 };
 
-export default List;
+export default memo(List);
