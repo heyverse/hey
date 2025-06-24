@@ -6,10 +6,14 @@ import {
   useAccountsQuery
 } from "@hey/indexer";
 import { useCallback } from "react";
-import { WindowVirtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import SingleAccountsShimmer from "@/components/Shared/Shimmer/SingleAccountsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {
+  Card,
+  EmptyState,
+  ErrorMessage,
+  VirtualList
+} from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 interface AccountsProps {
@@ -64,14 +68,16 @@ const Accounts = ({ query }: AccountsProps) => {
   }
 
   return (
-    <WindowVirtualizer>
-      {accounts.map((account) => (
+    <VirtualList
+      estimatedItemSize={120}
+      items={accounts}
+      loadMoreRef={hasMore ? loadMoreRef : undefined}
+      renderItem={(account) => (
         <Card className="mb-5 p-5" key={account.address}>
           <SingleAccount account={account} isBig showBio />
         </Card>
-      ))}
-      {hasMore && <span ref={loadMoreRef} />}
-    </WindowVirtualizer>
+      )}
+    />
   );
 };
 

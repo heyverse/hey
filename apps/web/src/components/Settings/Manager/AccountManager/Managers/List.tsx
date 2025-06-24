@@ -11,10 +11,14 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { WindowVirtualizer } from "virtua";
 import WalletAccount from "@/components/Shared/Account/WalletAccount";
 import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {
+  Button,
+  EmptyState,
+  ErrorMessage,
+  VirtualList
+} from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
@@ -116,8 +120,11 @@ const List = () => {
   }
 
   return (
-    <WindowVirtualizer>
-      {accountManagers.map((accountManager) => (
+    <VirtualList
+      estimatedItemSize={150}
+      items={accountManagers}
+      loadMoreRef={hasMore ? loadMoreRef : undefined}
+      renderItem={(accountManager) => (
         <div
           className="flex flex-wrap items-center justify-between p-5"
           key={accountManager.manager}
@@ -143,9 +150,8 @@ const List = () => {
             Remove
           </Button>
         </div>
-      ))}
-      {hasMore && <span ref={loadMoreRef} />}
-    </WindowVirtualizer>
+      )}
+    />
   );
 };
 

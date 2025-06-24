@@ -1,7 +1,7 @@
 import type { AccountFragment } from "@hey/indexer";
 import { motion } from "motion/react";
-import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import { VirtualList } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
@@ -15,8 +15,10 @@ const MoreRelevantPeople = ({ accounts }: MoreRelevantPeopleProps) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <Virtualizer>
-        {accounts.slice(5).map((account, index) => (
+      <VirtualList
+        estimatedItemSize={120}
+        items={accounts.slice(5)}
+        renderItem={(account, index) => (
           <motion.div
             animate="visible"
             className={cn(
@@ -35,8 +37,8 @@ const MoreRelevantPeople = ({ accounts }: MoreRelevantPeopleProps) => {
               showUserPreview={false}
             />
           </motion.div>
-        ))}
-      </Virtualizer>
+        )}
+      />
     </div>
   );
 };

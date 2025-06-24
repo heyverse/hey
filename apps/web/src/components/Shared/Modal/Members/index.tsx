@@ -7,10 +7,9 @@ import {
 } from "@hey/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
-import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
-import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { EmptyState, ErrorMessage, VirtualList } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -73,8 +72,11 @@ const Members = ({ group }: MembersProps) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <Virtualizer>
-        {groupMembers.map((member, index) => (
+      <VirtualList
+        estimatedItemSize={120}
+        items={groupMembers}
+        loadMoreRef={hasMore ? loadMoreRef : undefined}
+        renderItem={(member, index) => (
           <motion.div
             animate="visible"
             className={cn(
@@ -97,9 +99,8 @@ const Members = ({ group }: MembersProps) => {
               showUserPreview={false}
             />
           </motion.div>
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </Virtualizer>
+        )}
+      />
     </div>
   );
 };

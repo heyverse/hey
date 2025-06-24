@@ -5,10 +5,14 @@ import {
   useAccountsBlockedQuery
 } from "@hey/indexer";
 import { useCallback } from "react";
-import { WindowVirtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {
+  Button,
+  EmptyState,
+  ErrorMessage,
+  VirtualList
+} from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -59,8 +63,11 @@ const List = () => {
 
   return (
     <div className="virtual-divider-list-window space-y-4">
-      <WindowVirtualizer>
-        {accountsBlocked.map((accountBlocked) => (
+      <VirtualList
+        estimatedItemSize={120}
+        items={accountsBlocked}
+        loadMoreRef={hasMore ? loadMoreRef : undefined}
+        renderItem={(accountBlocked) => (
           <div
             className="flex items-center justify-between p-5"
             key={accountBlocked.account.address}
@@ -78,9 +85,8 @@ const List = () => {
               Unblock
             </Button>
           </div>
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
+        )}
+      />
     </div>
   );
 };

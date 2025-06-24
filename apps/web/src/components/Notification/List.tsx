@@ -6,7 +6,6 @@ import {
   useNotificationsQuery
 } from "@hey/indexer";
 import { useCallback } from "react";
-import { WindowVirtualizer } from "virtua";
 import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";
 import CommentNotification from "@/components/Notification/Type/CommentNotification";
 import FollowNotification from "@/components/Notification/Type/FollowNotification";
@@ -15,7 +14,12 @@ import PostActionExecutedNotification from "@/components/Notification/Type/PostA
 import QuoteNotification from "@/components/Notification/Type/QuoteNotification";
 import ReactionNotification from "@/components/Notification/Type/ReactionNotification";
 import RepostNotification from "@/components/Notification/Type/RepostNotification";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {
+  Card,
+  EmptyState,
+  ErrorMessage,
+  VirtualList
+} from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
@@ -107,8 +111,11 @@ const List = ({ feedType }: ListProps) => {
 
   return (
     <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {notifications.map((notification) => {
+      <VirtualList
+        estimatedItemSize={120}
+        items={notifications}
+        loadMoreRef={hasMore ? loadMoreRef : undefined}
+        renderItem={(notification) => {
           if (!("id" in notification)) {
             return null;
           }
@@ -128,9 +135,8 @@ const List = ({ feedType }: ListProps) => {
               {Component && <Component notification={notification as never} />}
             </div>
           );
-        })}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
+        }}
+      />
     </Card>
   );
 };

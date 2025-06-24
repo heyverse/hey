@@ -1,7 +1,11 @@
 import type { ReactNode } from "react";
-import { WindowVirtualizer } from "virtua";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {
+  Card,
+  EmptyState,
+  ErrorMessage,
+  VirtualList
+} from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 interface PostFeedProps<T extends { id: string }> {
@@ -42,11 +46,14 @@ const PostFeed = <T extends { id: string }>({
   }
 
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {items.map((item) => renderItem(item))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
+    <Card>
+      <VirtualList
+        className="virtual-divider-list-window"
+        estimatedItemSize={300}
+        items={items}
+        loadMoreRef={hasMore ? loadMoreRef : undefined}
+        renderItem={(item) => renderItem(item)}
+      />
     </Card>
   );
 };

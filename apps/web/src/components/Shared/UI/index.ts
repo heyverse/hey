@@ -22,4 +22,5 @@ export { default as TextArea } from "./TextArea";
 export { default as Toggle } from "./Toggle";
 export { default as Tooltip } from "./Tooltip";
 export { H2, H3, H4, H5, H6 } from "./Typography";
+export { default as VirtualList } from "./VirtualList";
 export { default as WarningMessage } from "./WarningMessage";

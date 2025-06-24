@@ -6,10 +6,9 @@ import {
 } from "@hey/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
-import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
-import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { EmptyState, ErrorMessage, VirtualList } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -75,8 +74,11 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <Virtualizer>
-        {accounts.map((action, index) => (
+      <VirtualList
+        estimatedItemSize={120}
+        items={accounts}
+        loadMoreRef={hasMore ? loadMoreRef : undefined}
+        renderItem={(action, index) => (
           <motion.div
             animate="visible"
             className={cn(
@@ -99,9 +101,8 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
               showUserPreview={false}
             />
           </motion.div>
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </Virtualizer>
+        )}
+      />
     </div>
   );
 };

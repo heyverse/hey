@@ -3,10 +3,9 @@ import type { FollowingRequest } from "@hey/indexer";
 import { PageSize, useFollowingQuery } from "@hey/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
-import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
-import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { EmptyState, ErrorMessage, VirtualList } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -75,8 +74,11 @@ const Following = ({ username, address }: FollowingProps) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <Virtualizer>
-        {followings.map((following, index) => (
+      <VirtualList
+        estimatedItemSize={120}
+        items={followings}
+        loadMoreRef={hasMore ? loadMoreRef : undefined}
+        renderItem={(following, index) => (
           <motion.div
             animate="visible"
             className={cn(
@@ -99,9 +101,8 @@ const Following = ({ username, address }: FollowingProps) => {
               showUserPreview={false}
             />
           </motion.div>
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </Virtualizer>
+        )}
+      />
     </div>
   );
 };

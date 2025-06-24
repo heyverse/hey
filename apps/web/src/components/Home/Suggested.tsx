@@ -1,10 +1,9 @@
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@hey/indexer";
 import { motion } from "motion/react";
-import { Virtualizer } from "virtua";
 import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
-import { EmptyState } from "@/components/Shared/UI";
+import { EmptyState, VirtualList } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { accountsList } from "@/variants";
@@ -28,8 +27,10 @@ const Suggested = ({ accounts }: SuggestedProps) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <Virtualizer>
-        {accounts.slice(5).map((account, index) => (
+      <VirtualList
+        estimatedItemSize={120}
+        items={accounts.slice(5)}
+        renderItem={(account, index) => (
           <motion.div
             animate="visible"
             className={cn(
@@ -53,8 +54,8 @@ const Suggested = ({ accounts }: SuggestedProps) => {
               <DismissRecommendedAccount account={account} />
             </div>
           </motion.div>
-        ))}
-      </Virtualizer>
+        )}
+      />
     </div>
   );
 };

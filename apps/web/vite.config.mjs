@@ -25,7 +25,7 @@ const dependenciesToChunk = {
     "@apollo/client",
     "zustand",
     "tailwind-merge",
-    "virtua",
+    "react-window",
     "zod"
   ],
   prosekit: ["prosekit", "prosekit/core", "prosekit/react"],

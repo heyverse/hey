@@ -9,11 +9,15 @@ import {
 } from "@hey/indexer";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { WindowVirtualizer } from "virtua";
 import { useAccount } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {
+  Button,
+  EmptyState,
+  ErrorMessage,
+  VirtualList
+} from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
@@ -128,8 +132,11 @@ const List = ({ managed = false }: ListProps) => {
   };
 
   return (
-    <WindowVirtualizer>
-      {accountsAvailable.map((accountAvailable) => (
+    <VirtualList
+      estimatedItemSize={100}
+      items={accountsAvailable}
+      loadMoreRef={hasMore ? loadMoreRef : undefined}
+      renderItem={(accountAvailable) => (
         <div
           className="flex items-center justify-between py-2"
           key={accountAvailable.account.address}
@@ -156,9 +163,8 @@ const List = ({ managed = false }: ListProps) => {
             </Button>
           )}
         </div>
-      ))}
-      {hasMore && <span ref={loadMoreRef} />}
-    </WindowVirtualizer>
+      )}
+    />
   );
 };
 

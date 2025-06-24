@@ -8,9 +8,13 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { WindowVirtualizer } from "virtua";
 import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {
+  Button,
+  EmptyState,
+  ErrorMessage,
+  VirtualList
+} from "@/components/Shared/UI";
 import formatDate from "@/helpers/datetime/formatDate";
 import errorToast from "@/helpers/errorToast";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
@@ -98,8 +102,11 @@ const List = () => {
 
   return (
     <div className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {authenticatedSessions.map((session) => (
+      <VirtualList
+        estimatedItemSize={160}
+        items={authenticatedSessions}
+        loadMoreRef={hasMore ? loadMoreRef : undefined}
+        renderItem={(session) => (
           <div
             className="flex flex-wrap items-start justify-between p-5"
             key={session.authenticationId}
@@ -144,9 +151,8 @@ const List = () => {
               Revoke
             </Button>
           </div>
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
+        )}
+      />
     </div>
   );
 };

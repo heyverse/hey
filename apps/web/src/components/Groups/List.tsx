@@ -7,10 +7,9 @@ import {
   useGroupsQuery
 } from "@hey/indexer";
 import { useCallback } from "react";
-import { WindowVirtualizer } from "virtua";
 import SingleGroup from "@/components/Shared/Group/SingleGroup";
 import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
-import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { EmptyState, ErrorMessage, VirtualList } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -78,14 +77,16 @@ const List = ({ feedType }: ListProps) => {
 
   return (
     <div className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {groups.map((group) => (
+      <VirtualList
+        estimatedItemSize={140}
+        items={groups}
+        loadMoreRef={hasMore ? loadMoreRef : undefined}
+        renderItem={(group) => (
           <div className="p-5" key={group.address}>
             <SingleGroup group={group} isBig showDescription />
           </div>
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
+        )}
+      />
     </div>
   );
 };

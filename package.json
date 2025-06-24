@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.5",
+    "@types/react-window": "^1.8.8",
     "husky": "^9.1.7"
   },
   "packageManager": "pnpm@10.4.1",
