@@ -190,7 +190,7 @@ const CollectActionBody = ({
                 <span>{isSaleEnded ? "Sale ended on:" : "Sale ends:"}</span>
                 <span className="font-bold text-gray-600">
                   {isSaleEnded ? (
-                    `${formatDate(endTimestamp, "MMM D, YYYY, hh:mm A")}`
+                    `${formatDate(endTimestamp, "MMM d, yyyy, hh:mm aa")}`
                   ) : (
                     <CountdownTimer targetDate={endTimestamp} />
                   )}

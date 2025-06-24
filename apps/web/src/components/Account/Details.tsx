@@ -183,7 +183,7 @@ const Details = ({
             />
           )}
           <MetaDetails icon={<CalendarIcon className="size-4" />}>
-            Joined {formatDate(account.createdAt, "MMM YYYY")}
+            Joined {formatDate(account.createdAt, "MMM yyyy")}
           </MetaDetails>
         </div>
       </div>

@@ -120,15 +120,15 @@ const List = () => {
                 ) : null}
                 <div>
                   <b>Registered -</b>{" "}
-                  {formatDate(session.createdAt, "MMM D, YYYY - hh:mm:ss A")}
+                  {formatDate(session.createdAt, "MMM d, yyyy - hh:mm:ss aa")}
                 </div>
                 <div>
                   <b>Last accessed -</b>{" "}
-                  {formatDate(session.updatedAt, "MMM D, YYYY - hh:mm:ss A")}
+                  {formatDate(session.updatedAt, "MMM d, yyyy - hh:mm:ss aa")}
                 </div>
                 <div>
                   <b>Expires at -</b>{" "}
-                  {formatDate(session.expiresAt, "MMM D, YYYY - hh:mm:ss A")}
+                  {formatDate(session.expiresAt, "MMM d, yyyy - hh:mm:ss aa")}
                 </div>
               </div>
             </div>

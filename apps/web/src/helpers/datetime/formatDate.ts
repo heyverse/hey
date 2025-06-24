@@ -1,7 +1,7 @@
-import dayjs from "./dayjs";
+import { format as formatDateFns } from "date-fns";
 
-const formatDate = (date: Date | string, format = "MMMM D, YYYY") => {
-  return dayjs(new Date(date)).format(format);
+const formatDate = (date: Date | string, format = "MMMM d, yyyy") => {
+  return formatDateFns(new Date(date), format);
 };
 
 export default formatDate;

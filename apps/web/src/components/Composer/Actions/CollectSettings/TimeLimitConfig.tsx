@@ -43,7 +43,7 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
           <div>
             Number of days -{" "}
             <b>
-              {formatDate(collectAction.endsAt, "MMM D, YYYY - hh:mm:ss A")}
+              {formatDate(collectAction.endsAt, "MMM d, yyyy - hh:mm:ss aa")}
             </b>
           </div>
           <RangeSlider

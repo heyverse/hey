@@ -1,19 +1,27 @@
-import dayjs from "./dayjs";
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMinutes,
+  differenceInSeconds,
+  format,
+  isSameYear
+} from "date-fns";
 
 const formatRelativeOrAbsolute = (date: Date | string) => {
-  const now = dayjs();
-  const targetDate = dayjs(new Date(date));
-  const diffInDays = now.diff(targetDate, "day");
-  const diffInHours = now.diff(targetDate, "hour");
-  const diffInMinutes = now.diff(targetDate, "minute");
-  const diffInSeconds = now.diff(targetDate, "second");
+  const now = new Date();
+  const targetDate = new Date(date);
+  const diffInDays = differenceInDays(now, targetDate);
+  const diffInHours = differenceInHours(now, targetDate);
+  const diffInMinutes = differenceInMinutes(now, targetDate);
+  const diffInSeconds = differenceInSeconds(now, targetDate);
 
   if (diffInDays >= 1) {
     // More than a day
     return diffInDays < 7
       ? `${diffInDays}d`
-      : targetDate.format(
-          now.year() === targetDate.year() ? "MMM D" : "MMM D, YYYY"
+      : format(
+          targetDate,
+          isSameYear(now, targetDate) ? "MMM d" : "MMM d, yyyy"
         );
   }
 

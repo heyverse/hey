@@ -1,10 +1,10 @@
-import dayjs from "./dayjs";
+import { differenceInCalendarDays, startOfDay } from "date-fns";
 
 const getNumberOfDaysFromDate = (date: Date) => {
-  const currentDate = dayjs().startOf("day");
-  const targetDate = dayjs(date).startOf("day");
+  const currentDate = startOfDay(new Date());
+  const targetDate = startOfDay(date);
 
-  return targetDate.diff(currentDate, "day");
+  return differenceInCalendarDays(targetDate, currentDate);
 };
 
 export default getNumberOfDaysFromDate;
