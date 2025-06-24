@@ -3,7 +3,7 @@ import getAccount from "@hey/helpers/getAccount";
 import type { PostFragment } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "sonner";
 import Attachment from "@/components/Composer/Actions/Attachment";
@@ -94,7 +94,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-  const [postContentError, setPostContentError] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const editor = useEditorContext();
   const getMetadata = usePostMetadata();
@@ -141,23 +141,17 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     onError
   });
 
-  useEffect(() => {
-    setPostContentError("");
-  }, [audioPost]);
-
-  useEffect(() => {
+  const postContentError = useMemo(() => {
     if (postContent.length > 25000) {
-      setPostContentError("Content should not exceed 25000 characters!");
-      return;
+      return "Content should not exceed 25000 characters!";
     }
 
     if (getMentions(postContent).length > 50) {
-      setPostContentError("You can only mention 50 people at a time!");
-      return;
+      return "You can only mention 50 people at a time!";
     }
 
-    setPostContentError("");
-  }, [postContent]);
+    return submitError;
+  }, [postContent, submitError]);
 
   const getTitlePrefix = () => {
     if (hasVideo) {
@@ -175,25 +169,25 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     try {
       setIsSubmitting(true);
       if (hasAudio) {
-        setPostContentError("");
+        setSubmitError("");
         const parsedData = AudioPostSchema.safeParse(audioPost);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
           setIsSubmitting(false);
-          return setPostContentError(issue.message);
+          return setSubmitError(issue.message);
         }
       }
 
       if (!postContent.length && !attachments.length) {
         setIsSubmitting(false);
-        return setPostContentError(
+        return setSubmitError(
           `${
             isComment ? "Comment" : isQuote ? "Quote" : "Post"
           } should not be empty!`
         );
       }
 
-      setPostContentError("");
+      setSubmitError("");
 
       const baseMetadata = {
         content: postContent.length > 0 ? postContent : undefined,
