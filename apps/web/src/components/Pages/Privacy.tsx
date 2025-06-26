@@ -35,7 +35,7 @@ const Privacy = () => {
                   This Privacy Policy (the “Privacy Policy”) provides a
                   comprehensive description of how Hey (“we,” “our,” or “us”)
                   collects, uses, and shares information about you in connection
-                  with the website at hey.xyz”, as well as your rights and
+                  with the website at "hey.xyz", as well as your rights and
                   choices regarding such information.
                 </p>
                 <p className="leading-7">
