@@ -4,6 +4,7 @@ import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ERRORS } from "@hey/data/errors";
 import { isRepost } from "@hey/helpers/postHelpers";
 import { type AnyPostFragment, useDeletePostMutation } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import type { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
@@ -46,7 +47,7 @@ const UndoRepost = ({
     toast.success("Undone repost");
   };
 
-  const onError = (error?: any) => {
+  const onError = (error?: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

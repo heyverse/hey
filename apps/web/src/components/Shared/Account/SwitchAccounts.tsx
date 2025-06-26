@@ -5,6 +5,7 @@ import {
   useAccountsAvailableQuery,
   useSwitchAccountMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { useAccount } from "wagmi";
 import Loader from "@/components/Shared/Loader";
@@ -23,7 +24,7 @@ const SwitchAccounts = () => {
   );
   const { address } = useAccount();
 
-  const onError = (error?: any) => {
+  const onError = (error?: ApolloClientError) => {
     setIsSubmitting(false);
     setLoggingInAccountId(null);
     errorToast(error);

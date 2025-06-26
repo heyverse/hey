@@ -28,7 +28,9 @@ const Markup = ({ children, className = "", mentions = [] }: MarkupProps) => {
   }
 
   const components = {
-    a: (props: any) => <MarkupLink mentions={mentions} title={props.title} />
+    a: (props: { title?: string }) => (
+      <MarkupLink mentions={mentions} title={props.title} />
+    )
   };
 
   return (

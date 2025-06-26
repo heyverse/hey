@@ -30,7 +30,7 @@ const Like = ({ post, showCount }: LikeProps) => {
     post.stats.reactions
   );
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = (cache: ApolloCache<unknown>) => {
     if (!post.operations) {
       return;
     }

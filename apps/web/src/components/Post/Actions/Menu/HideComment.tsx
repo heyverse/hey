@@ -22,7 +22,7 @@ const HideComment = ({ post }: HideCommentProps) => {
   const { currentAccount } = useAccountStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = (cache: ApolloCache<unknown>) => {
     cache.evict({ id: cache.identify(post) });
   };
 

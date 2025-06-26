@@ -83,7 +83,7 @@
       "suspicious": {
         "noArrayIndexKey": "off",
         "noAssignInExpressions": "off",
-        "noExplicitAny": "off"
+        "noExplicitAny": "error"
       }
     }
   }

@@ -13,6 +13,7 @@ import {
   useChallengeMutation,
   useCreateAccountWithUsernameMutation
 } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import { account as accountMetadata } from "@lens-protocol/metadata";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -56,7 +57,7 @@ const ChooseUsername = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const form = useZodForm({ mode: "onChange", schema: ValidationSchema });
 
-  const onError = (error?: any) => {
+  const onError = (error?: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };

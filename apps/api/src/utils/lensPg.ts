@@ -13,7 +13,7 @@ interface InitializeDbResult {
   pg: IMain<unknown, pg.IClient>;
 }
 
-type DatabaseParams = null | Record<string, any>;
+type DatabaseParams = null | Record<string, unknown> | unknown[];
 type DatabaseQuery = string;
 
 class Database {
@@ -42,8 +42,9 @@ class Database {
     connectionParameters: IConnectionParameters
   ): InitializeDbResult {
     const pgp = pgPromise({
-      error: (error: any) => {
-        const errorMessage = error.message || error;
+      error: (error: unknown) => {
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
         console.error(`LENS POSTGRES ERROR WITH TRACE: ${errorMessage}`);
       }
     });
@@ -57,14 +58,14 @@ class Database {
   public multi(
     query: DatabaseQuery,
     params: DatabaseParams = null
-  ): Promise<any[][]> {
+  ): Promise<unknown[][]> {
     return this._readDb.multi(query, params);
   }
 
   public query(
     query: DatabaseQuery,
     params: DatabaseParams = null
-  ): Promise<any[]> {
+  ): Promise<unknown[]> {
     return this._readDb.query(query, params);
   }
 }

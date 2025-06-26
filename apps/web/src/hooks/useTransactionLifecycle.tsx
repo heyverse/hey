@@ -1,5 +1,10 @@
 import { ERRORS } from "@hey/data/errors";
 import getTransactionData from "@hey/helpers/getTransactionData";
+import type {
+  SelfFundedTransactionRequest,
+  SponsoredTransactionRequest,
+  TransactionWillFail
+} from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
@@ -10,7 +15,7 @@ const useTransactionLifecycle = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const handleSponsoredTransaction = async (
-    transactionData: any,
+    transactionData: SponsoredTransactionRequest,
     onCompleted: (hash: string) => void
   ) => {
     await handleWrongNetwork();
@@ -24,7 +29,7 @@ const useTransactionLifecycle = () => {
   };
 
   const handleSelfFundedTransaction = async (
-    transactionData: any,
+    transactionData: SelfFundedTransactionRequest,
     onCompleted: (hash: string) => void
   ) => {
     await handleWrongNetwork();
@@ -42,7 +47,10 @@ const useTransactionLifecycle = () => {
     onCompleted,
     onError
   }: {
-    transactionData: any;
+    transactionData:
+      | SponsoredTransactionRequest
+      | SelfFundedTransactionRequest
+      | TransactionWillFail;
     onCompleted: (hash: string) => void;
     onError: (error: ApolloClientError) => void;
   }) => {

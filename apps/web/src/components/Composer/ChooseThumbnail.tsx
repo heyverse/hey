@@ -49,7 +49,7 @@ const ChooseThumbnail = () => {
       getFileFromDataURL(
         thumbnails[index].blobUrl,
         "thumbnail.jpeg",
-        async (file: any) => {
+        async (file: File | null) => {
           if (!file) {
             return toast.error("Please upload a custom thumbnail");
           }

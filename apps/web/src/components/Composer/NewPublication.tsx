@@ -1,6 +1,7 @@
 import { ERRORS } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import type { PostFragment } from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
 import { useEffect, useState } from "react";
@@ -125,7 +126,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     reset();
   };
 
-  const onError = (error?: any) => {
+  const onError = (error?: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
   };
