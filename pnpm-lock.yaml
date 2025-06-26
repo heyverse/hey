@@ -81,6 +81,9 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@hey/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@types/node':
         specifier: ^24.0.4
         version: 24.0.4

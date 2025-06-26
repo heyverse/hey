@@ -1,15 +1,10 @@
+import type { JwtPayload } from "@hey/types/jwt";
+
 const decoded = (str: string): string => atob(str);
 
-const parseJwt = (
-  token: string
-): {
-  sub: string;
-  exp: number;
-  sid: string;
-  act: { sub: string };
-} => {
+const parseJwt = (token: string): JwtPayload => {
   try {
-    return JSON.parse(decoded(token.split(".")[1]));
+    return JSON.parse(decoded(token.split(".")[1])) as JwtPayload;
   } catch {
     return {
       act: { sub: "" },

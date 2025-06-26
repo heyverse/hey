@@ -1,9 +1,10 @@
 import parseJwt from "@hey/helpers/parseJwt";
+import type { JwtPayload } from "@hey/types/jwt";
 import type { Context, Next } from "hono";
 
 const authContext = async (ctx: Context, next: Next) => {
   const token = ctx.req.raw.headers.get("X-Access-Token");
-  const payload = parseJwt(token as string);
+  const payload: JwtPayload = parseJwt(token as string);
 
   if (!payload.act.sub) {
     ctx.set("account", null);

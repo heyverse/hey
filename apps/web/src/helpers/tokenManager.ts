@@ -1,6 +1,7 @@
 import parseJwt from "@hey/helpers/parseJwt";
 import { RefreshDocument, type RefreshMutation } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
+import type { JwtPayload } from "@hey/types/jwt";
 import { signIn, signOut } from "@/store/persisted/useAuthStore";
 
 let refreshPromise: Promise<string> | null = null;
@@ -65,7 +66,7 @@ export const isTokenExpiringSoon = (accessToken: string | null): boolean => {
     return false;
   }
 
-  const tokenData = parseJwt(accessToken);
+  const tokenData: JwtPayload = parseJwt(accessToken);
   const bufferInMinutes = 5;
   return (
     !!tokenData.exp &&
