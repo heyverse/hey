@@ -25,7 +25,7 @@
     "@lens-chain/sdk": "^1.0.3",
     "@prisma/client": "^6.10.1",
     "dotenv": "^16.5.0",
-    "hono": "^4.8.2",
+    "hono": "^4.8.3",
     "hono-rate-limiter": "^0.4.2",
     "jose": "^6.0.11",
     "linkedom": "^0.18.11",
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.0.4",
     "prisma": "^6.10.1",
     "typescript": "^5.8.3"
   }
