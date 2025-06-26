@@ -25,7 +25,7 @@ const Copyright = () => {
               <H4 className="mb-5">Notification of Copyright Infringement</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  Hey. ("Hey.xyz") respects the intellectual property rights of
+                  Hey ("Hey.xyz") respects the intellectual property rights of
                   others and expects its users to do the same.
                 </p>
                 <p className="leading-7">
