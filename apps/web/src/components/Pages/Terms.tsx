@@ -74,11 +74,11 @@ const Terms = () => {
               <H4 className="mt-8 mb-5">3. Services</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  User Lens account is referred as the Account in the “Site”.
+                  User Lens accounts are referred to as the Account on the Site.
                 </p>
                 <p className="leading-7">
-                  The Site allow you to interact with the Lens, including posts,
-                  reposts, comments and other content related actions.
+                  The Site allows you to interact with the Lens, including
+                  posts, reposts, comments and other content related actions.
                 </p>
                 <p className="leading-7">
                   We reserve the right - but are not obligated to - limit the
@@ -111,7 +111,7 @@ const Terms = () => {
                 <p className="leading-7">
                   If you're not comfortable with interacting with an inherently
                   transparent blockchain, you should not engage with our Site to
-                  create and manage a content on the Lens. You are solely
+                  create and manage content on the Lens. You are solely
                   responsible for the safekeeping of the private key associated
                   with the blockchain address used to interact with the Lens.{" "}
                   <b className="leading-7">
@@ -120,8 +120,8 @@ const Terms = () => {
                   </b>
                 </p>
                 <p className="leading-7">
-                  Our Site allows you to upload a text, pictures, videos using
-                  hosted on a third-party provider Lens Storage Node. We are not
+                  Our Site lets you upload text, pictures, and videos hosted on
+                  a third-party provider, the Lens Storage Node. We are not
                   responsible for any action or omission taken by Lens Storage
                   Node as it pertains to the user interface or otherwise. The
                   use and access of any third-party products or services,
