@@ -53,4 +53,4 @@ Make sure to run all the following commands before committing:
 
 - Use conventional commit for title
 - Example: feat: allow provided config object to extend other configs
-- Make sure not to cross 50 chars
+- Make sure the title does not exceed 50 characters.
