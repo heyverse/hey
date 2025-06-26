@@ -64,8 +64,8 @@ const Privacy = () => {
                 </p>
                 <ul className="list-inside list-disc">
                   <li className="leading-7">
-                    Information you provide such as feedback, question and
-                    issues reports.
+                    Information you provide such as feedback, questions, and
+                    issue reports.
                   </li>
                 </ul>
                 <p className="leading-7">
@@ -181,7 +181,7 @@ const Privacy = () => {
               {/* 8. Children begins */}
               <H4 className="mt-8 mb-5">8. Children</H4>
               <p className="leading-7">
-                The Site is intended for general audiences and are not directed
+                The Site is intended for general audiences and is not directed
                 at children. To use the Site, you must legally be able to enter
                 into the Agreement. We do not knowingly collect personal
                 information from children.
