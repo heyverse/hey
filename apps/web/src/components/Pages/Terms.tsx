@@ -21,7 +21,7 @@ const Terms = () => {
         <div className="flex justify-center">
           <div className="relative mx-auto rounded-lg">
             <div className="!p-8 max-w-none text-gray-500 dark:text-gray-200">
-              {/* 1. Overview beings */}
+              {/* 1. Overview begins */}
               <H4 className="mb-5">1. Overview</H4>
               <div className="space-y-5">
                 <p className="leading-7">
@@ -58,7 +58,7 @@ const Terms = () => {
                 </p>
               </div>
               {/* 1. Overview ends */}
-              {/* 2. General Conditions beings */}
+              {/* 2. General Conditions begins */}
               <H4 className="mt-8 mb-5">2. General Conditions</H4>
               <p className="leading-7">
                 You may not use our Site for any illegal or unauthorised purpose

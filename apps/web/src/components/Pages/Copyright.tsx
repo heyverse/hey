@@ -21,7 +21,7 @@ const Copyright = () => {
         <div className="flex justify-center">
           <div className="relative mx-auto rounded-lg">
             <div className="!p-8 max-w-none text-gray-500 dark:text-gray-200">
-              {/* Notification of Copyright Infringement beings */}
+              {/* Notification of Copyright Infringement begins */}
               <H4 className="mb-5">Notification of Copyright Infringement</H4>
               <div className="space-y-5">
                 <p className="leading-7">
@@ -63,7 +63,7 @@ const Copyright = () => {
                 </p>
               </div>
               {/* Notification of Copyright Infringement ends */}
-              {/* DMCA Notice of Alleged Infringement ("Notice") beings */}
+              {/* DMCA Notice of Alleged Infringement ("Notice") begins */}
               <H4 className="mt-8 mb-5">
                 DMCA Notice of Alleged Infringement ("Notice")
               </H4>

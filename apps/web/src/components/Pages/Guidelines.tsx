@@ -22,7 +22,7 @@ const Guidelines = () => {
                   your Account.
                 </p>
               </div>
-              {/* Safety beings */}
+              {/* Safety begins */}
               <H4 className="mt-8 mb-5">Safety</H4>
               <div className="space-y-5">
                 <p className="leading-7">
@@ -40,7 +40,7 @@ const Guidelines = () => {
                 </ul>
               </div>
               {/* Safety ends */}
-              {/* Nudity beings */}
+              {/* Nudity begins */}
               <H4 className="mt-8 mb-5">Nudity</H4>
               <div className="space-y-5">
                 <p className="leading-7">
@@ -57,7 +57,7 @@ const Guidelines = () => {
                 </p>
               </div>
               {/* Nudity ends */}
-              {/* Spam beings */}
+              {/* Spam begins */}
               <H4 className="mt-8 mb-5">Spam</H4>
               <div className="space-y-5">
                 <p className="leading-7">
@@ -77,7 +77,7 @@ const Guidelines = () => {
                 </p>
               </div>
               {/* Spam ends */}
-              {/* Impersonation beings */}
+              {/* Impersonation begins */}
               <H4 className="mt-8 mb-5">Impersonation</H4>
               <div className="space-y-5">
                 <p className="leading-7">
@@ -107,14 +107,14 @@ const Guidelines = () => {
                 </p>
               </div>
               {/* Impersonation ends */}
-              {/* Copyright and Trademarks beings */}
+              {/* Copyright and Trademarks begins */}
               <H4 className="mt-8 mb-5">Copyright and Trademarks</H4>
               <p className="leading-7">
                 You are not allowed to violate any intellectual property rights,
                 including copyright and trademark, of others.
               </p>
               {/* Copyright and Trademarks ends */}
-              {/* Feedback beings */}
+              {/* Feedback begins */}
               <H4 className="mt-8 mb-5">Feedback</H4>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
