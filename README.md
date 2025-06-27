@@ -70,6 +70,14 @@ To compile the application:
 pnpm build
 ```
 
+### Type Check the Project
+
+Run the TypeScript type checker to validate the codebase:
+
+```bash
+pnpm typecheck
+```
+
 ### Lint and Format Code
 
 Check code quality and formatting:
