@@ -8,7 +8,6 @@ import {
   useAuthenticateMutation,
   useChallengeMutation
 } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
 import { AnimatePresence, motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
@@ -34,7 +33,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
   );
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const onError = (error?: ApolloClientError) => {
+  const onError = (error?: any) => {
     setIsSubmitting(false);
     setLoggingInAccountId(null);
     errorToast(error);

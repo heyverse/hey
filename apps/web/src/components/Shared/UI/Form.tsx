@@ -16,13 +16,13 @@ interface UseZodFormProps<T extends ZodSchema<FieldValues>>
   schema: T;
 }
 
-export const useZodForm = <T extends ZodSchema<unknown>>({
+export const useZodForm = <T extends ZodSchema<any>>({
   schema,
   ...formConfig
 }: UseZodFormProps<T>) => {
   return useForm({
     ...formConfig,
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema as any)
   });
 };
 

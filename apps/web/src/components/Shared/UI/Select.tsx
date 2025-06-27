@@ -15,7 +15,7 @@ interface SelectProps {
   className?: string;
   defaultValue?: string;
   iconClassName?: string;
-  onChange: (value: unknown) => unknown;
+  onChange: (value: any) => any;
   options?: {
     disabled?: boolean;
     helper?: string;

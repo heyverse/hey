@@ -1,6 +1,5 @@
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY } from "@hey/data/constants";
-import type { SimpleCollectActionFragment } from "@hey/indexer";
 import {
   type PostActionFragment,
   type PostFragment,
@@ -31,9 +30,7 @@ const CollectActionButton = ({
   postAction,
   post
 }: CollectActionButtonProps) => {
-  const collectAction = getCollectActionData(
-    postAction as SimpleCollectActionFragment
-  );
+  const collectAction = getCollectActionData(postAction as any);
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
@@ -45,7 +42,7 @@ const CollectActionButton = ({
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = collectAction?.collectLimit;
   const amount = collectAction?.price as number;
-  const assetAddress = collectAction?.assetAddress;
+  const assetAddress = collectAction?.assetAddress as any;
   const assetSymbol = collectAction?.assetSymbol as string;
   const isAllCollected = collectLimit ? collects >= collectLimit : false;
   const isSaleEnded = endTimestamp

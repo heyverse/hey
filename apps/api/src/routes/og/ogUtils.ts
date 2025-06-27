@@ -1,19 +1,16 @@
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Context } from "hono";
 import type { HtmlEscapedString } from "hono/utils/html";
-
-type DocumentNode = unknown;
-
 import defaultMetadata from "../../utils/defaultMetadata";
 import { getRedis, setRedis } from "../../utils/redis";
 
 export interface OgHelperOptions<T> {
   ctx: Context;
   cacheKey: string;
-  query: DocumentNode;
-  variables: Record<string, unknown>;
-  extractData: (data: unknown) => T | null;
-  buildJsonLd: (data: T) => Record<string, unknown>;
+  query: any;
+  variables: Record<string, any>;
+  extractData: (data: any) => T | null;
+  buildJsonLd: (data: T) => Record<string, any>;
   buildHtml: (
     data: T,
     escapedJsonLd: string
@@ -37,7 +34,7 @@ const generateOg = async <T>({
 
     const { data } = await apolloClient.query({
       fetchPolicy: "no-cache",
-      query: query as DocumentNode,
+      query,
       variables
     });
 

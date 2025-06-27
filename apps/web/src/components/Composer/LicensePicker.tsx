@@ -13,11 +13,7 @@ const LicensePicker = () => {
       label: getAssetLicense(type)?.label as string,
       selected: license === type,
       value: type
-    })) as Array<{
-    label: string;
-    selected: boolean;
-    value: MetadataLicenseType;
-  }>;
+    })) as any;
 
   const options = [
     {

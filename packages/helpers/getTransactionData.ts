@@ -11,7 +11,7 @@ const getTransactionData = (
   raw: Eip1559TransactionRequest | Eip712TransactionRequest,
   options: GetTransactionDataOptions = {}
 ) => {
-  const data: Record<string, unknown> = {
+  const data = {
     data: raw.data,
     gas: BigInt(raw.gasLimit),
     maxFeePerGas: BigInt(raw.maxFeePerGas),
@@ -19,7 +19,7 @@ const getTransactionData = (
     nonce: raw.nonce,
     to: raw.to,
     value: BigInt(raw.value)
-  };
+  } as any;
 
   if (options.sponsored && "customData" in raw) {
     data.paymaster = raw.customData.paymasterParams?.paymaster;

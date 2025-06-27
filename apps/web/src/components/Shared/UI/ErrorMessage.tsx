@@ -4,7 +4,7 @@ import { H6 } from "./Typography";
 
 interface ErrorMessageProps {
   className?: string;
-  error?: unknown;
+  error?: any;
   title?: string;
 }
 

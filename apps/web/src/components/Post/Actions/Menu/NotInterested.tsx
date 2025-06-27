@@ -24,7 +24,7 @@ const NotInterested = ({ post }: NotInterestedProps) => {
     post: post.id
   };
 
-  const updateCache = (cache: ApolloCache<unknown>, notInterested: boolean) => {
+  const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
     if (!post.operations) {
       return;
     }

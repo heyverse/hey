@@ -1,11 +1,7 @@
 import { TRANSFORMS } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import {
-  type AccountFragment,
-  type Follower,
-  useFollowersYouKnowQuery
-} from "@hey/indexer";
+import { type Follower, useFollowersYouKnowQuery } from "@hey/indexer";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router";
 import FollowersYouKnow from "@/components/Shared/Modal/FollowersYouKnow";
@@ -43,7 +39,7 @@ const FollowersYouKnowOverview = ({
 
   const accountNames = useMemo(() => {
     const names = accounts.map(
-      (account) => getAccount(account.follower as AccountFragment).name
+      (account) => getAccount(account.follower as any).name
     );
     const count = names.length - 3;
 

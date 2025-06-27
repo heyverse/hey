@@ -3,7 +3,6 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import generateUUID from "@hey/helpers/generateUUID";
 import getPostData from "@hey/helpers/getPostData";
 import type { PostFragment } from "@hey/indexer";
-import type { NewAttachment } from "@hey/types/misc";
 
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
@@ -25,7 +24,7 @@ const Edit = ({ post }: EditProps) => {
     setPostContent(data?.content || "");
     setEditingPost(post);
 
-    const attachments: NewAttachment[] = [];
+    const attachments = [] as any[];
     if (data?.asset) {
       attachments.push({
         id: generateUUID(),

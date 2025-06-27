@@ -7,10 +7,8 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 
 interface TokenOperationProps {
-  useMutationHook: (
-    options: unknown
-  ) => [(variables: unknown) => Promise<unknown>];
-  buildRequest: (value: string) => unknown;
+  useMutationHook: any;
+  buildRequest: (value: string) => any;
   resultKey: string;
   buttonLabel: string;
   title: string;
@@ -49,7 +47,7 @@ const TokenOperation = ({
   };
 
   const [mutate] = useMutationHook({
-    onCompleted: async (data: unknown) => {
+    onCompleted: async (data: any) => {
       const result = data?.[resultKey];
       if (result?.__typename === "InsufficientFunds") {
         return onError({ message: "Insufficient funds" });

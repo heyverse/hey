@@ -22,7 +22,7 @@ const Bookmark = ({ post }: BookmarkProps) => {
   const { pathname } = useLocation();
   const hasBookmarked = post.operations?.hasBookmarked;
 
-  const updateCache = (cache: ApolloCache<unknown>, hasBookmarked: boolean) => {
+  const updateCache = (cache: ApolloCache<any>, hasBookmarked: boolean) => {
     if (!post.operations) {
       return;
     }
