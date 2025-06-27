@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
 const GET_EMOJIS_QUERY_KEY = "getEmojis";
+const EMOJIS_STORAGE_KEY = "emojis:v1";
 const DEFAULT_MAX_EMOJI_COUNT = 5;
 
 interface UseEmojisOptions {
@@ -24,12 +25,32 @@ const useEmojis = ({
   query = "",
   minQueryLength = 0
 }: UseEmojisOptions = {}): UseEmojisResult => {
+  const cachedEmojis = useMemo(() => {
+    try {
+      const stored = localStorage.getItem(EMOJIS_STORAGE_KEY);
+      return stored ? (JSON.parse(stored) as Emoji[]) : undefined;
+    } catch {
+      return undefined;
+    }
+  }, []);
+
   const {
     data: allEmojis,
     error,
     isLoading
-  } = useQuery<Emoji[]>({
-    queryFn: async () => {
+  } = useQuery({
+    ...(cachedEmojis
+      ? { enabled: false, initialData: cachedEmojis }
+      : {
+          onSuccess: (data: Emoji[]) => {
+            try {
+              localStorage.setItem(EMOJIS_STORAGE_KEY, JSON.stringify(data));
+            } catch {
+              // ignore
+            }
+          }
+        }),
+    queryFn: async (): Promise<Emoji[]> => {
       const response = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
