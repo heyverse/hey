@@ -52,6 +52,27 @@ cp .env.example .env
 
 Repeat this process for all relevant packages and applications in the monorepo.
 
+### Environment Variables
+
+Below is a brief description of the variables defined in the example environment files.
+
+#### API (`apps/api/.env.example`)
+
+- `NEXT_PUBLIC_LENS_NETWORK` – Lens network to use (`mainnet`, `testnet`, or `staging`).
+- `DATABASE_URL` – Connection string for the main Postgres database.
+- `LENS_DATABASE_URL` – Read-only Postgres connection for Lens data.
+- `REDIS_URL` – Redis connection string for caching.
+- `PRIVATE_KEY` – Private key used to sign Lens requests.
+- `EVER_ACCESS_KEY` – Access key for 4EVERLAND storage.
+- `EVER_ACCESS_SECRET` – Secret key for 4EVERLAND storage.
+- `SHARED_SECRET` – Token for internal API authorization.
+- `OPENROUTER_API_KEY` – API key for OpenRouter AI services.
+
+#### Web (`apps/web/.env.example`)
+
+- `VITE_IS_PRODUCTION` – Boolean flag indicating production mode for Vite.
+- `NEXT_PUBLIC_LENS_NETWORK` – Lens network used by the web app.
+
 ### Start the Development Server
 
 To run the application in development mode:
