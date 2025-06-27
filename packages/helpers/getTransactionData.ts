@@ -8,7 +8,7 @@ interface GetTransactionDataOptions {
   sponsored?: boolean;
 }
 
-export interface TransactionData {
+interface TransactionData {
   data: Hex;
   gas: bigint;
   maxFeePerGas: bigint;
