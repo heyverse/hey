@@ -8,7 +8,9 @@ import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
 import type { CollectActionType } from "@hey/types/hey";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { isAddress } from "viem";
+import { z } from "zod";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button, H6, Input } from "@/components/Shared/UI";
@@ -21,6 +23,31 @@ interface SplitConfigProps {
   isRecipientsDuplicated: boolean;
   setCollectType: (data: CollectActionType) => void;
 }
+
+const RecipientSchema = z.object({
+  address: z
+    .string()
+    .refine((addr) => isAddress(addr), { message: "Invalid address" }),
+  percent: z.number().int().min(1).max(100)
+});
+
+const RecipientsSchema = z
+  .array(RecipientSchema)
+  .refine(
+    (items) => items.reduce((acc, curr) => acc + curr.percent, 0) === 100,
+    { message: "Total percent must equal 100" }
+  );
+
+const validateRecipients = (
+  items: Array<{ address: string; percent: number }>
+) => {
+  const result = RecipientsSchema.safeParse(items);
+  if (!result.success) {
+    toast.error(result.error.issues[0].message);
+    return false;
+  }
+  return true;
+};
 
 const SplitConfig = ({
   isRecipientsDuplicated,
@@ -46,12 +73,14 @@ const SplitConfig = ({
       };
     });
     if (!collectAction.payToCollect) return;
-    setCollectType({
-      payToCollect: {
-        ...collectAction.payToCollect,
-        recipients: [...splits]
-      }
-    });
+    if (validateRecipients(splits)) {
+      setCollectType({
+        payToCollect: {
+          ...collectAction.payToCollect,
+          recipients: [...splits]
+        }
+      });
+    }
   };
 
   const onChangeRecipientOrPercent = (
@@ -72,12 +101,14 @@ const SplitConfig = ({
     };
 
     if (!collectAction.payToCollect) return;
+    const updatedRecipients = getRecipients(value);
     setCollectType({
       payToCollect: {
         ...collectAction.payToCollect,
-        recipients: getRecipients(value)
+        recipients: updatedRecipients
       }
     });
+    validateRecipients(updatedRecipients);
   };
 
   const updateRecipient = (index: number, value: string) => {
@@ -88,32 +119,40 @@ const SplitConfig = ({
     const updatedRecipients = recipients.filter((_, i) => i !== index);
     if (updatedRecipients.length) {
       if (!collectAction.payToCollect) return;
-      setCollectType({
-        payToCollect: {
-          ...collectAction.payToCollect,
-          recipients: updatedRecipients
-        }
-      });
+      if (validateRecipients(updatedRecipients)) {
+        setCollectType({
+          payToCollect: {
+            ...collectAction.payToCollect,
+            recipients: updatedRecipients
+          }
+        });
+      }
     } else {
       if (!collectAction.payToCollect) return;
-      setCollectType({
-        payToCollect: {
-          ...collectAction.payToCollect,
-          recipients: [{ address: currentAddress, percent: 100 }]
-        }
-      });
+      const defaults = [{ address: currentAddress, percent: 100 }];
+      if (validateRecipients(defaults)) {
+        setCollectType({
+          payToCollect: {
+            ...collectAction.payToCollect,
+            recipients: defaults
+          }
+        });
+      }
       setIsToggleOn(false);
     }
   };
 
   const toggleSplit = () => {
     if (!collectAction.payToCollect) return;
-    setCollectType({
-      payToCollect: {
-        ...collectAction.payToCollect,
-        recipients: [{ address: currentAddress, percent: 100 }]
-      }
-    });
+    const defaultRecipients = [{ address: currentAddress, percent: 100 }];
+    if (validateRecipients(defaultRecipients)) {
+      setCollectType({
+        payToCollect: {
+          ...collectAction.payToCollect,
+          recipients: defaultRecipients
+        }
+      });
+    }
     setIsToggleOn(!isToggleOn);
   };
 
