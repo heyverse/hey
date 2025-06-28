@@ -39,6 +39,7 @@ const dependenciesToChunk = {
   ],
   ui: [
     "@headlessui/react",
+    "@radix-ui/react-dialog",
     "@radix-ui/react-hover-card",
     "@radix-ui/react-slider",
     "@radix-ui/react-tooltip",

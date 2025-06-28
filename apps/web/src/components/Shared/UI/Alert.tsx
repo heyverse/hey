@@ -1,12 +1,6 @@
-import {
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  Transition,
-  TransitionChild
-} from "@headlessui/react";
+import * as RadixDialog from "@radix-ui/react-dialog";
 import type { ReactNode } from "react";
-import { Fragment, memo } from "react";
+import { memo } from "react";
 import { Button } from "@/components/Shared/UI";
 import { H4 } from "./Typography";
 
@@ -34,32 +28,16 @@ const Alert = ({
   title
 }: AlertProps) => {
   return (
-    <Transition as={Fragment} show={show}>
-      <Dialog
-        as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={() => onClose?.()}
-      >
-        <div className="flex min-h-screen items-center justify-center p-4 text-center sm:block sm:p-0">
-          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
-          <div
-            aria-hidden="true"
-            className="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/80"
-          />
-          <TransitionChild
-            as={Fragment}
-            enter="ease-out duration-100"
-            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enterTo="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-100"
-            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-          >
-            <DialogPanel className="inline-block w-full scale-100 space-y-6 rounded-xl bg-white p-5 text-left align-bottom shadow-xl transition-all sm:max-w-sm sm:align-middle dark:bg-gray-800">
-              <DialogTitle className="space-y-2">
+    <RadixDialog.Root onOpenChange={(open) => !open && onClose()} open={show}>
+      <RadixDialog.Portal>
+        <RadixDialog.Overlay className="fixed inset-0 z-10 bg-gray-500/75 dark:bg-gray-900/80" />
+        <div className="fixed inset-0 z-10 flex min-h-screen items-center justify-center p-4 text-center sm:block sm:p-0">
+          <RadixDialog.Content asChild>
+            <div className="inline-block w-full space-y-6 rounded-xl bg-white p-5 text-left shadow-xl sm:max-w-sm dark:bg-gray-800">
+              <RadixDialog.Title className="space-y-2">
                 <H4>{title}</H4>
                 <p>{description}</p>
-              </DialogTitle>
+              </RadixDialog.Title>
               <div>{children}</div>
               <div className="space-y-3">
                 {onConfirm ? (
@@ -83,11 +61,11 @@ const Alert = ({
                   {cancelText}
                 </Button>
               </div>
-            </DialogPanel>
-          </TransitionChild>
+            </div>
+          </RadixDialog.Content>
         </div>
-      </Dialog>
-    </Transition>
+      </RadixDialog.Portal>
+    </RadixDialog.Root>
   );
 };
 
