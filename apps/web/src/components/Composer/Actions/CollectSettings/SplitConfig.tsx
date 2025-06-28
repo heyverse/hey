@@ -18,12 +18,12 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { EXPANSION_EASE } from "@/variants";
 
 interface SplitConfigProps {
-  isRecipientsDuplicated: boolean;
+  validationErrors: string[];
   setCollectType: (data: CollectActionType) => void;
 }
 
 const SplitConfig = ({
-  isRecipientsDuplicated,
+  validationErrors,
   setCollectType
 }: SplitConfigProps) => {
   const { currentAccount } = useAccountStore();
@@ -36,6 +36,12 @@ const SplitConfig = ({
       (recipients.length === 1 && recipients[0].address !== currentAddress)
   );
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.percent, 0);
+  const hasDuplicateRecipients = validationErrors.includes(
+    "Duplicate recipient address found"
+  );
+  const hasInvalidSplits = validationErrors.includes(
+    "Splits must add up to 100%"
+  );
 
   const handleSplitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
@@ -214,17 +220,12 @@ const SplitConfig = ({
               Split evenly
             </Button>
           </div>
-          {splitTotal > 100 ? (
+          {hasInvalidSplits ? (
             <H6 className="text-red-500">
-              Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
+              Splits must add up to 100%. Total: <span>{splitTotal}</span>%
             </H6>
           ) : null}
-          {splitTotal < 100 ? (
-            <H6 className="text-red-500">
-              Splits cannot be less than 100%. Total: <span>{splitTotal}</span>%
-            </H6>
-          ) : null}
-          {isRecipientsDuplicated ? (
+          {hasDuplicateRecipients ? (
             <H6 className="text-red-500">Duplicate recipient address found</H6>
           ) : null}
         </motion.div>
