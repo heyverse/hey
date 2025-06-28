@@ -11,7 +11,7 @@ import { Modal } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
+import { useProModal } from "@/store/non-persisted/modal/useProModalStore";
 import { useReportAccountModalStore } from "@/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPostModalStore";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
@@ -45,7 +45,7 @@ const GlobalModals = () => {
     setShowSuperFollowModal,
     superFollowingAccount
   } = useSuperFollowModalStore();
-  const { showProModal, setShowProModal } = useProModalStore();
+  const { showProModal, setShowProModal } = useProModal();
 
   const { screen: signupScreen } = useSignupStore();
 

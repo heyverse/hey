@@ -1,13 +1,10 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
+import { createAtomStore } from "@/store/createAtomStore";
 
-interface State {
-  showProModal: boolean;
-  setShowProModal: (showProModal: boolean) => void;
-}
+const { useStore } = createAtomStore(false);
 
-const { useStore: useProModalStore } = createTrackedStore<State>((set) => ({
-  setShowProModal: (showProModal) => set(() => ({ showProModal })),
-  showProModal: false
-}));
+const useProModal = () => {
+  const [showProModal, setShowProModal] = useStore();
+  return { setShowProModal, showProModal };
+};
 
-export { useProModalStore };
+export { useProModal };

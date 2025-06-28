@@ -1,9 +1,9 @@
 import { CheckBadgeIcon } from "@heroicons/react/24/outline";
 import { Tooltip } from "@/components/Shared/UI";
-import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
+import { useProModal } from "@/store/non-persisted/modal/useProModalStore";
 
 const Pro = () => {
-  const { setShowProModal } = useProModalStore();
+  const { setShowProModal } = useProModal();
 
   return (
     <button onClick={() => setShowProModal(true)} type="button">
