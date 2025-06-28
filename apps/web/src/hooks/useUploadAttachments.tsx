@@ -22,12 +22,13 @@ const useUploadAttachments = () => {
       setIsUploading(true);
 
       const files = Array.from(attachments);
-      const compressedFiles = await compressFiles(files);
 
-      if (!compressedFiles.every(validateFileSize)) {
+      if (!files.every(validateFileSize)) {
         setIsUploading(false);
         return [];
       }
+
+      const compressedFiles = await compressFiles(files);
 
       const previewAttachments = createPreviewAttachments(compressedFiles);
       const attachmentIds = previewAttachments.map(({ id }) => id as string);
