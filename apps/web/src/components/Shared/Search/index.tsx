@@ -8,12 +8,13 @@ import {
   useAccountsLazyQuery
 } from "@hey/indexer";
 import { useClickAway, useDebounce } from "@uidotdev/usehooks";
-import type { ChangeEvent, MutableRefObject } from "react";
+import type { MutableRefObject } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
+import { z } from "zod";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
-import { Card, Input } from "@/components/Shared/UI";
+import { Card, Form, Input, useZodForm } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import { useSearchStore } from "@/store/persisted/useSearchStore";
@@ -23,6 +24,14 @@ interface SearchProps {
   placeholder?: string;
 }
 
+const ValidationSchema = z.object({
+  query: z
+    .string()
+    .trim()
+    .min(1, { message: "Enter something to search" })
+    .max(100, { message: "Query should not exceed 100 characters" })
+});
+
 const Search = ({ placeholder = "Search…" }: SearchProps) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -31,14 +40,21 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
   const { setCachedAccount } = useAccountLinkStore();
   const { addAccount } = useSearchStore();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [searchText, setSearchText] = useState("");
   const [accounts, setAccounts] = useState<AccountFragment[]>([]);
-  const debouncedSearchText = useDebounce<string>(searchText, 500);
+
+  const form = useZodForm({
+    defaultValues: { query: "" },
+    schema: ValidationSchema
+  });
+
+  const query = form.watch("query");
+  const debouncedSearchText = useDebounce<string>(query, 500);
 
   const handleReset = useCallback(() => {
     setShowDropdown(false);
     setAccounts([]);
-  }, []);
+    form.reset();
+  }, [form]);
 
   const dropdownRef = useClickAway(() => {
     handleReset();
@@ -46,22 +62,17 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
 
   const [searchAccounts, { loading }] = useAccountsLazyQuery();
 
-  const handleSearch = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
-    const keyword = evt.target.value;
-    setSearchText(keyword);
-  }, []);
-
-  const handleKeyDown = useCallback(
-    (evt: ChangeEvent<HTMLFormElement>) => {
-      evt.preventDefault();
+  const handleSubmit = useCallback(
+    ({ query }: z.infer<typeof ValidationSchema>) => {
+      const search = query.trim();
       if (pathname === "/search") {
-        navigate(`/search?q=${encodeURIComponent(searchText)}&type=${type}`);
+        navigate(`/search?q=${encodeURIComponent(search)}&type=${type}`);
       } else {
-        navigate(`/search?q=${encodeURIComponent(searchText)}&type=accounts`);
+        navigate(`/search?q=${encodeURIComponent(search)}&type=accounts`);
       }
       handleReset();
     },
-    [pathname, navigate, searchText, type, handleReset]
+    [pathname, navigate, type, handleReset]
   );
 
   const handleShowDropdown = useCallback(() => {
@@ -86,26 +97,22 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
 
   return (
     <div className="w-full">
-      <form onSubmit={handleKeyDown}>
+      <Form form={form} onSubmit={handleSubmit}>
         <Input
           className="px-3 py-3 text-sm"
           iconLeft={<MagnifyingGlassIcon />}
           iconRight={
             <XMarkIcon
-              className={cn(
-                "cursor-pointer",
-                searchText ? "visible" : "invisible"
-              )}
+              className={cn("cursor-pointer", query ? "visible" : "invisible")}
               onClick={handleReset}
             />
           }
-          onChange={handleSearch}
           onClick={handleShowDropdown}
           placeholder={placeholder}
           type="text"
-          value={searchText}
+          {...form.register("query")}
         />
-      </form>
+      </Form>
       {pathname !== "/search" && showDropdown ? (
         <div className="fixed z-10 mt-2 w-[360px]" ref={dropdownRef}>
           <Card className="max-h-[80vh] overflow-y-auto py-2">
