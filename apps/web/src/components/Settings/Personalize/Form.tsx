@@ -55,7 +55,7 @@ const ValidationSchema = z.object({
 const PersonalizeSettingsForm = () => {
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [pfpUrl, setPfpUrl] = useState<string | undefined>(
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(
     currentAccount?.metadata?.picture
   );
   const [coverUrl, setCoverUrl] = useState<string | undefined>(
@@ -118,7 +118,7 @@ const PersonalizeSettingsForm = () => {
 
   const updateAccount = async (
     data: z.infer<typeof ValidationSchema>,
-    pfpUrl: string | undefined,
+    avatarUrl: string | undefined,
     coverUrl: string | undefined
   ) => {
     if (!currentAccount) {
@@ -161,7 +161,7 @@ const PersonalizeSettingsForm = () => {
         }
       ],
       coverPicture: coverUrl || undefined,
-      picture: pfpUrl || undefined
+      picture: avatarUrl || undefined
     };
     preparedAccountMetadata.attributes =
       preparedAccountMetadata.attributes?.filter((m) => {
@@ -177,13 +177,13 @@ const PersonalizeSettingsForm = () => {
   };
 
   const onSetAvatar = async (src: string | undefined) => {
-    setPfpUrl(src);
+    setAvatarUrl(src);
     return await updateAccount({ ...form.getValues() }, src, coverUrl);
   };
 
   const onSetCover = async (src: string | undefined) => {
     setCoverUrl(src);
-    return await updateAccount({ ...form.getValues() }, pfpUrl, src);
+    return await updateAccount({ ...form.getValues() }, avatarUrl, src);
   };
 
   return (
@@ -192,7 +192,7 @@ const PersonalizeSettingsForm = () => {
       <Form
         className="space-y-4 p-5"
         form={form}
-        onSubmit={(data) => updateAccount(data, pfpUrl, coverUrl)}
+        onSubmit={(data) => updateAccount(data, avatarUrl, coverUrl)}
       >
         <Input
           disabled
@@ -230,12 +230,12 @@ const PersonalizeSettingsForm = () => {
           placeholder="Tell us something about you!"
           {...form.register("bio")}
         />
-        <AvatarUpload setSrc={onSetAvatar} src={pfpUrl || ""} />
+        <AvatarUpload setSrc={onSetAvatar} src={avatarUrl || ""} />
         <CoverUpload setSrc={onSetCover} src={coverUrl || ""} />
         <Button
           className="ml-auto"
           disabled={
-            isSubmitting || (!form.formState.isDirty && !coverUrl && !pfpUrl)
+            isSubmitting || (!form.formState.isDirty && !coverUrl && !avatarUrl)
           }
           loading={isSubmitting}
           type="submit"

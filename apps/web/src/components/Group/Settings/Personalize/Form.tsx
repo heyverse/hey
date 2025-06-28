@@ -42,7 +42,7 @@ interface PersonalizeSettingsFormProps {
 const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [pfpUrl, setPfpUrl] = useState<string | undefined>(
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(
     group.metadata?.icon
   );
   const [coverUrl, setCoverUrl] = useState<string | undefined>(
@@ -85,7 +85,7 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
 
   const updateGroup = async (
     data: z.infer<typeof ValidationSchema>,
-    pfpUrl: string | undefined,
+    avatarUrl: string | undefined,
     coverUrl: string | undefined
   ) => {
     if (!currentAccount) {
@@ -98,7 +98,7 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
       groupMetadata({
         coverPicture: coverUrl || undefined,
         description: data.description,
-        icon: pfpUrl || undefined,
+        icon: avatarUrl || undefined,
         name: data.name
       })
     );
@@ -109,13 +109,13 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
   };
 
   const onSetAvatar = async (src: string | undefined) => {
-    setPfpUrl(src);
+    setAvatarUrl(src);
     return await updateGroup({ ...form.getValues() }, src, coverUrl);
   };
 
   const onSetCover = async (src: string | undefined) => {
     setCoverUrl(src);
-    return await updateGroup({ ...form.getValues() }, pfpUrl, src);
+    return await updateGroup({ ...form.getValues() }, avatarUrl, src);
   };
 
   return (
@@ -127,7 +127,7 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
       <Form
         className="space-y-4 p-5"
         form={form}
-        onSubmit={(data) => updateGroup(data, pfpUrl, coverUrl)}
+        onSubmit={(data) => updateGroup(data, avatarUrl, coverUrl)}
       >
         <Input
           disabled
@@ -146,12 +146,12 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
           placeholder="Tell us something about your group!"
           {...form.register("description")}
         />
-        <AvatarUpload setSrc={onSetAvatar} src={pfpUrl || ""} />
+        <AvatarUpload setSrc={onSetAvatar} src={avatarUrl || ""} />
         <CoverUpload setSrc={onSetCover} src={coverUrl || ""} />
         <Button
           className="ml-auto"
           disabled={
-            isSubmitting || (!form.formState.isDirty && !coverUrl && !pfpUrl)
+            isSubmitting || (!form.formState.isDirty && !coverUrl && !avatarUrl)
           }
           loading={isSubmitting}
           type="submit"
