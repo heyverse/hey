@@ -83,7 +83,9 @@ const TokenOperation = ({
         <div className="p-5">
           <div className="mb-5 flex items-center gap-2">
             <Input
+              inputMode="decimal"
               onChange={(e) => setInputValue(e.target.value)}
+              step="any"
               type="number"
               value={inputValue}
             />
