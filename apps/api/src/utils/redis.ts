@@ -84,5 +84,3 @@ export const delRedis = async (key: string) => {
 
   return await redisClient.del(key);
 };
-
-export default redisClient;
