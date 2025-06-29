@@ -2,11 +2,13 @@ import getAccount from "@hey/helpers/getAccount";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useNavigate } from "react-router";
 import KeyboardShortcuts from "@/helpers/shortcuts";
+import { useShortcutsModalStore } from "@/store/non-persisted/modal/useShortcutsModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const GlobalShortcuts = () => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
+  const { setShowShortcutsModal } = useShortcutsModalStore();
 
   // Go to account
   useHotkeys(KeyboardShortcuts.GoToAccount.key, () => {
@@ -41,6 +43,11 @@ const GlobalShortcuts = () => {
   // Go to settings
   useHotkeys(KeyboardShortcuts.GoToSettings.key, () => {
     navigate("/settings");
+  });
+
+  // Show shortcuts modal
+  useHotkeys(KeyboardShortcuts.ThisModal.key, () => {
+    setShowShortcutsModal(true);
   });
 
   return null;

@@ -11,6 +11,7 @@ const KeyboardShortcuts = {
   GoToSearch: { key: "g+s", name: "Go to Search" },
   GoToSettings: { key: "g+s", name: "Go to Settings" },
   ThisModal: { key: "?", name: "Shortcut help" }
-};
+} as const;
 
+export type ShortcutName = keyof typeof KeyboardShortcuts;
 export default KeyboardShortcuts;
