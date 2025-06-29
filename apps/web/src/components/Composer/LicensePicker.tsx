@@ -7,15 +7,23 @@ import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseSt
 const LicensePicker = () => {
   const { license, setLicense } = usePostLicenseStore();
 
-  const otherOptions = Object.values(MetadataLicenseType)
+  const otherOptions: {
+    label: string;
+    selected: boolean;
+    value: MetadataLicenseType;
+  }[] = Object.values(MetadataLicenseType)
     .filter((type) => getAssetLicense(type))
     .map((type) => ({
-      label: getAssetLicense(type)?.label as string,
+      label: getAssetLicense(type)?.label ?? "",
       selected: license === type,
       value: type
-    })) as any;
+    }));
 
-  const options = [
+  const options: {
+    label: string;
+    selected: boolean;
+    value: MetadataLicenseType | null;
+  }[] = [
     {
       label: "All rights reserved",
       selected: license === null,
@@ -47,7 +55,7 @@ const LicensePicker = () => {
       </div>
       <Select
         onChange={(value) => setLicense(value as MetadataLicenseType)}
-        options={options}
+        options={options as any}
       />
       <div className="linkify mt-2 text-gray-500 text-sm dark:text-gray-200">
         {getAssetLicense(license)?.helper ||
