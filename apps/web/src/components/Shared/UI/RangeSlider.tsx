@@ -1,18 +1,30 @@
 import * as SliderPrimitive from "@radix-ui/react-slider";
+import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef, memo } from "react";
 import cn from "@/helpers/cn";
 
-interface RangeSliderProps extends SliderPrimitive.SliderProps {
+const thumbVariants = cva(
+  "block bg-gray-900 focus:outline-hidden active:scale-110",
+  {
+    defaultVariants: { showValueInThumb: false },
+    variants: {
+      showValueInThumb: {
+        false: "size-5 rounded-full",
+        true: "rounded-lg px-2 py-1 font-bold text-white text-xs"
+      }
+    }
+  }
+);
+
+interface RangeSliderProps
+  extends SliderPrimitive.SliderProps,
+    VariantProps<typeof thumbVariants> {
   className?: string;
   displayValue?: string;
-  showValueInThumb?: boolean;
 }
 
 const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
-  (
-    { className = "", displayValue, showValueInThumb = false, ...rest },
-    ref
-  ) => {
+  ({ className = "", displayValue, showValueInThumb, ...rest }, ref) => {
     return (
       <SliderPrimitive.Root
         className={cn(
@@ -29,12 +41,7 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
         </SliderPrimitive.Track>
         <SliderPrimitive.Thumb
           aria-label="Slider"
-          className={cn(
-            showValueInThumb
-              ? "rounded-lg px-2 py-1 font-bold text-white text-xs"
-              : "size-5 rounded-full",
-            "block bg-gray-900 focus:outline-hidden active:scale-110"
-          )}
+          className={thumbVariants({ showValueInThumb })}
         >
           {showValueInThumb ? displayValue || rest.value : null}
         </SliderPrimitive.Thumb>
