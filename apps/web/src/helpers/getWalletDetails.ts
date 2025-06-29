@@ -1,6 +1,6 @@
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 
-export interface WalletDetails {
+interface WalletDetails {
   logo: string;
   name: string;
 }
@@ -20,7 +20,7 @@ const WALLETS = {
   }
 } as const;
 
-export type WalletId = keyof typeof WALLETS;
+type WalletId = keyof typeof WALLETS;
 
 const getWalletDetails = (id: WalletId): WalletDetails => {
   return WALLETS[id];
