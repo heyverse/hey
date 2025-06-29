@@ -1,6 +1,7 @@
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import { memo, useEffect, useMemo, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 
@@ -32,26 +33,7 @@ const LightBox = ({
     }
   }, [show, initialIndex]);
 
-  useEffect(() => {
-    if (!show) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      } else if (e.key === "ArrowRight") {
-        setCurrentIndex((prev) => Math.min(prev + 1, images.length - 1));
-        setIsLoading(true);
-      } else if (e.key === "ArrowLeft") {
-        setCurrentIndex((prev) => Math.max(prev - 1, 0));
-        setIsLoading(true);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [show, onClose, images.length]);
-
-  const goToNext = () => {
+  const handleNext = () => {
     setCurrentIndex((prev) => {
       const next = Math.min(prev + 1, images.length - 1);
       if (next !== prev) setIsLoading(true);
@@ -59,13 +41,17 @@ const LightBox = ({
     });
   };
 
-  const goToPrevious = () => {
+  const handlePrevious = () => {
     setCurrentIndex((prev) => {
       const prevIndex = Math.max(prev - 1, 0);
       if (prevIndex !== prev) setIsLoading(true);
       return prevIndex;
     });
   };
+
+  useHotkeys("escape", onClose, { enabled: show });
+  useHotkeys("arrowright", handleNext, { enabled: show });
+  useHotkeys("arrowleft", handlePrevious, { enabled: show });
 
   return (
     <Dialog className="relative z-50" onClose={onClose} open={show}>
@@ -88,7 +74,7 @@ const LightBox = ({
                   { "cursor-not-allowed opacity-50": currentIndex === 0 }
                 )}
                 disabled={currentIndex === 0}
-                onClick={goToPrevious}
+                onClick={handlePrevious}
                 type="button"
               >
                 <ArrowLeftIcon className="size-6" />
@@ -102,7 +88,7 @@ const LightBox = ({
                   }
                 )}
                 disabled={currentIndex === images.length - 1}
-                onClick={goToNext}
+                onClick={handleNext}
                 type="button"
               >
                 <ArrowRightIcon className="size-6" />
