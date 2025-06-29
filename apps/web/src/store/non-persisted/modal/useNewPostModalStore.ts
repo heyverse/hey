@@ -1,13 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
+import { createToggleStore } from "@/store/createToggleStore";
 
-interface State {
-  showNewPostModal: boolean;
-  setShowNewPostModal: (showNewPostModal: boolean) => void;
-}
-
-const { useStore: useNewPostModalStore } = createTrackedStore<State>((set) => ({
-  setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
-  showNewPostModal: false
-}));
+const { useStore: useNewPostModalStore } = createToggleStore();
 
 export { useNewPostModalStore };

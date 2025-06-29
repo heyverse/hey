@@ -24,9 +24,10 @@ import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import Auth from "./Auth";
 
 const GlobalModals = () => {
-  const { setShowSwitchAccountModal, showSwitchAccountModal } =
+  const { setShow: setShowSwitchAccountModal, show: showSwitchAccountModal } =
     useSwitchAccountModalStore();
-  const { showNewPostModal, setShowNewPostModal } = useNewPostModalStore();
+  const { show: showNewPostModal, setShow: setShowNewPostModal } =
+    useNewPostModalStore();
   const { editingPost, setEditingPost, setQuotedPost, setPostContent } =
     usePostStore();
   const { setAttachments } = usePostAttachmentStore();
@@ -47,8 +48,8 @@ const GlobalModals = () => {
     setShowSuperFollowModal,
     superFollowingAccount
   } = useSuperFollowModalStore();
-  const { showProModal, setShowProModal } = useProModalStore();
-  const { showShortcutsModal, setShowShortcutsModal } =
+  const { show: showProModal, setShow: setShowProModal } = useProModalStore();
+  const { show: showShortcutsModal, setShow: setShowShortcutsModal } =
     useShortcutsModalStore();
 
   const { screen: signupScreen } = useSignupStore();

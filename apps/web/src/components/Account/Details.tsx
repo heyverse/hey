@@ -37,7 +37,7 @@ const Details = ({
 }: DetailsProps) => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
-  const { setShowProModal } = useProModalStore();
+  const { setShow: setShowProModal } = useProModalStore();
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const { theme } = useTheme();
 

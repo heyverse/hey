@@ -16,7 +16,7 @@ interface EditProps {
 }
 
 const Edit = ({ post }: EditProps) => {
-  const { setShowNewPostModal } = useNewPostModalStore();
+  const { setShow: setShowNewPostModal } = useNewPostModalStore();
   const { setPostContent, setEditingPost } = usePostStore();
   const { setAttachments } = usePostAttachmentStore();
 

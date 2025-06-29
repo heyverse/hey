@@ -12,7 +12,7 @@ import { useProStore } from "@/store/persisted/useProStore";
 const ProBanner = () => {
   const { currentAccount } = useAccountStore();
   const { proBannerDismissed, setProBannerDismissed } = useProStore();
-  const { setShowProModal } = useProModalStore();
+  const { setShow: setShowProModal } = useProModalStore();
 
   const onError = (error: ApolloClientError) => {
     errorToast(error);

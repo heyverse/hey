@@ -8,7 +8,7 @@ interface ProFeatureNoticeProps {
 }
 
 const ProFeatureNotice = ({ feature, className }: ProFeatureNoticeProps) => {
-  const { setShowProModal } = useProModalStore();
+  const { setShow: setShowProModal } = useProModalStore();
 
   return (
     <div

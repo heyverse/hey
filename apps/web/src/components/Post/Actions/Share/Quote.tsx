@@ -14,7 +14,7 @@ interface QuoteProps {
 
 const Quote = ({ post }: QuoteProps) => {
   const { currentAccount } = useAccountStore();
-  const { setShowNewPostModal } = useNewPostModalStore();
+  const { setShow: setShowNewPostModal } = useNewPostModalStore();
   const { setQuotedPost } = usePostStore();
 
   return (

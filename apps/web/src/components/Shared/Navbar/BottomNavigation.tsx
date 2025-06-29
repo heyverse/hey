@@ -42,7 +42,8 @@ const NavigationItem = ({
 const BottomNavigation = () => {
   const { pathname } = useLocation();
   const { currentAccount } = useAccountStore();
-  const { showMobileDrawer, setShowMobileDrawer } = useMobileDrawerModalStore();
+  const { show: showMobileDrawer, setShow: setShowMobileDrawer } =
+    useMobileDrawerModalStore();
 
   const handleAccountClick = () => setShowMobileDrawer(true);
 

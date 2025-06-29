@@ -8,7 +8,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 const GlobalShortcuts = () => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
-  const { setShowShortcutsModal } = useShortcutsModalStore();
+  const { setShow: setShowShortcutsModal } = useShortcutsModalStore();
 
   // Go to account
   useHotkeys(KeyboardShortcuts.GoToAccount.key, () => {

@@ -1,16 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
+import { createToggleStore } from "@/store/createToggleStore";
 
-interface State {
-  showMobileDrawer: boolean;
-  setShowMobileDrawer: (showMobileDrawer: boolean) => void;
-}
-
-const { useStore: useMobileDrawerModalStore } = createTrackedStore<State>(
-  (set) => ({
-    setShowMobileDrawer: (showMobileDrawer) =>
-      set(() => ({ showMobileDrawer })),
-    showMobileDrawer: false
-  })
-);
+const { useStore: useMobileDrawerModalStore } = createToggleStore();
 
 export { useMobileDrawerModalStore };

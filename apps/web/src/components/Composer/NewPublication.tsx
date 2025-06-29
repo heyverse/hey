@@ -55,7 +55,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   const { currentAccount } = useAccountStore();
 
   // New post modal store
-  const { setShowNewPostModal } = useNewPostModalStore();
+  const { setShow: setShowNewPostModal } = useNewPostModalStore();
 
   // Post store
   const {

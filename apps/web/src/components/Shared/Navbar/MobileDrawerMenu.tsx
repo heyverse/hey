@@ -17,7 +17,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const MobileDrawerMenu = () => {
   const { currentAccount } = useAccountStore();
-  const { setShowMobileDrawer } = useMobileDrawerModalStore();
+  const { setShow: setShowMobileDrawer } = useMobileDrawerModalStore();
 
   const handleCloseDrawer = () => {
     setShowMobileDrawer(false);

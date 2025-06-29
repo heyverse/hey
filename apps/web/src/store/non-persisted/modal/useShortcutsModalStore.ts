@@ -1,16 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
+import { createToggleStore } from "@/store/createToggleStore";
 
-interface State {
-  showShortcutsModal: boolean;
-  setShowShortcutsModal: (showShortcutsModal: boolean) => void;
-}
-
-const { useStore: useShortcutsModalStore } = createTrackedStore<State>(
-  (set) => ({
-    setShowShortcutsModal: (showShortcutsModal) =>
-      set(() => ({ showShortcutsModal })),
-    showShortcutsModal: false
-  })
-);
+const { useStore: useShortcutsModalStore } = createToggleStore();
 
 export { useShortcutsModalStore };

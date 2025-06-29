@@ -7,7 +7,7 @@ interface SwitchAccountProps {
 }
 
 const SwitchAccount = ({ className = "" }: SwitchAccountProps) => {
-  const { setShowSwitchAccountModal } = useSwitchAccountModalStore();
+  const { setShow: setShowSwitchAccountModal } = useSwitchAccountModalStore();
 
   return (
     <button

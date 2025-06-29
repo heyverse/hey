@@ -1,16 +1,5 @@
-import { createTrackedStore } from "@/store/createTrackedStore";
+import { createToggleStore } from "@/store/createToggleStore";
 
-interface State {
-  showSwitchAccountModal: boolean;
-  setShowSwitchAccountModal: (showSwitchAccountModal: boolean) => void;
-}
-
-const { useStore: useSwitchAccountModalStore } = createTrackedStore<State>(
-  (set) => ({
-    setShowSwitchAccountModal: (showSwitchAccountModal) =>
-      set(() => ({ showSwitchAccountModal })),
-    showSwitchAccountModal: false
-  })
-);
+const { useStore: useSwitchAccountModalStore } = createToggleStore();
 
 export { useSwitchAccountModalStore };

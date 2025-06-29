@@ -3,7 +3,7 @@ import { Tooltip } from "@/components/Shared/UI";
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 
 const Pro = () => {
-  const { setShowProModal } = useProModalStore();
+  const { setShow: setShowProModal } = useProModalStore();
 
   return (
     <button onClick={() => setShowProModal(true)} type="button">
