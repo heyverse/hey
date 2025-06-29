@@ -1,11 +1,23 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import { type ElementType, type MouseEvent, memo, type ReactNode } from "react";
-import cn from "@/helpers/cn";
 
-interface CardProps {
+const cardVariants = cva(
+  "border-gray-200 dark:border-gray-700 bg-white dark:bg-black",
+  {
+    defaultVariants: { forceRounded: false },
+    variants: {
+      forceRounded: {
+        false: "rounded-none border-y md:rounded-xl md:border",
+        true: "rounded-xl border"
+      }
+    }
+  }
+);
+
+interface CardProps extends VariantProps<typeof cardVariants> {
   as?: ElementType;
   children: ReactNode;
   className?: string;
-  forceRounded?: boolean;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -18,14 +30,7 @@ const Card = ({
 }: CardProps) => {
   return (
     <Tag
-      className={cn(
-        forceRounded
-          ? "rounded-xl border"
-          : "rounded-none border-y md:rounded-xl md:border",
-        "border-gray-200 dark:border-gray-700",
-        "bg-white dark:bg-black",
-        className
-      )}
+      className={cardVariants({ className, forceRounded })}
       onClick={onClick}
     >
       {children}
