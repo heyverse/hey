@@ -1,13 +1,9 @@
 import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import { create } from "xmlbuilder2";
-import {
-  SITEMAP_BATCH_SIZE,
-  SITEMAP_CACHE_DAYS
-} from "../../../utils/constants";
-import lensPg from "../../../utils/lensPg";
-import { getRedis, hoursToSeconds, setRedis } from "../../../utils/redis";
+import { SITEMAP_BATCH_SIZE } from "../../../utils/constants";
 import generateSitemap from "../common";
+import getTotalAccountBatches from "./getTotalAccountBatches";
 
 const accountsGroupSitemap = async (ctx: Context) => {
   const params = ctx.req.param();
@@ -21,28 +17,7 @@ const accountsGroupSitemap = async (ctx: Context) => {
 
   return generateSitemap({
     buildXml: async () => {
-      const cacheKey = "sitemap:accounts:total";
-      const cachedData = await getRedis(cacheKey);
-      let totalBatches: number;
-
-      if (cachedData) {
-        totalBatches = Number(cachedData);
-      } else {
-        const usernames = (await lensPg.query(
-          `
-          SELECT CEIL(COUNT(*) / $1) AS count
-          FROM account.username_assigned;
-        `,
-          [SITEMAP_BATCH_SIZE]
-        )) as Array<{ count: number }>;
-
-        totalBatches = Number(usernames[0]?.count) || 0;
-        await setRedis(
-          cacheKey,
-          totalBatches,
-          hoursToSeconds(SITEMAP_CACHE_DAYS * 24)
-        );
-      }
+      const totalBatches = await getTotalAccountBatches();
 
       const startBatch = (group - 1) * SITEMAP_BATCH_SIZE;
       const endBatch = Math.min(startBatch + SITEMAP_BATCH_SIZE, totalBatches);
