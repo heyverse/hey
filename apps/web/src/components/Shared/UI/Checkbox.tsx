@@ -1,25 +1,36 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { forwardRef, memo, useId } from "react";
-import cn from "@/helpers/cn";
 
-interface CheckboxProps extends Omit<ComponentProps<"input">, "prefix"> {
+const checkboxVariants = cva(
+  "outline-0 focus:ring-0 mr-2 cursor-pointer rounded transition duration-200 dark:text-gray-500",
+  {
+    defaultVariants: { disabled: false },
+    variants: {
+      disabled: {
+        false: "",
+        true: "cursor-not-allowed opacity-50"
+      }
+    }
+  }
+);
+
+interface CheckboxProps
+  extends Omit<ComponentProps<"input">, "prefix" | "disabled">,
+    VariantProps<typeof checkboxVariants> {
   className?: string;
   label?: string;
 }
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ className = "", label, ...props }, ref) => {
+  ({ className = "", label, disabled, ...props }, ref) => {
     const id = useId();
 
     return (
       <div className="flex items-center">
         <input
-          className={cn(
-            "outline-0 focus:ring-0",
-            "disabled:cursor-not-allowed disabled:opacity-50",
-            "mr-2 cursor-pointer rounded transition duration-200 dark:text-gray-500",
-            className
-          )}
+          className={checkboxVariants({ className, disabled })}
+          disabled={Boolean(disabled)}
           id={id}
           ref={ref}
           type="checkbox"
