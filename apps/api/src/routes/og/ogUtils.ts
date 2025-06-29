@@ -4,7 +4,7 @@ import type { HtmlEscapedString } from "hono/utils/html";
 import defaultMetadata from "../../utils/defaultMetadata";
 import { getRedis, setRedis } from "../../utils/redis";
 
-export interface OgHelperOptions<T> {
+interface OgHelperOptions<T> {
   ctx: Context;
   cacheKey: string;
   query: any;
