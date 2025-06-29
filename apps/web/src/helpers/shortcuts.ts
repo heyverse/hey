@@ -9,7 +9,7 @@ const KeyboardShortcuts = {
   GoToHome: { key: "g+h", name: "Go to Home" },
   GoToNotifications: { key: "g+n", name: "Go to Notifications" },
   GoToSearch: { key: "g+s", name: "Go to Search" },
-  GoToSettings: { key: "g+s", name: "Go to Settings" },
+  GoToSettings: { key: "g+t", name: "Go to Settings" },
   ThisModal: { key: "?", name: "Shortcut help" }
 };
 
