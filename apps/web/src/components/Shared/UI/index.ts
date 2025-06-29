@@ -14,7 +14,6 @@ export { default as LightBox } from "./LightBox";
 export { default as Modal } from "./Modal";
 export { default as RangeSlider } from "./RangeSlider";
 export { default as Select } from "./Select";
-export { default as SettingsHelper } from "./SettingsHelper";
 export { default as Spinner } from "./Spinner";
 export { default as StackedAvatars } from "./StackedAvatars";
 export { default as Tabs } from "./Tabs";
