@@ -1,10 +1,10 @@
 import { QueueListIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
+import { format } from "date-fns";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import formatDate from "@/helpers/datetime/formatDate";
 import {
   getBlockedByMeMessage,
   getBlockedMeMessage
@@ -57,7 +57,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
                 post={targetPost}
               />
               <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
-                {formatDate(timestamp, "hh:mm aa · MMM d, yyyy")}
+                {format(new Date(timestamp), "hh:mm aa · MMM d, yyyy")}
                 {targetPost.isEdited ? " · Edited" : null}
                 {targetPost.app?.metadata?.name
                   ? ` · ${targetPost.app?.metadata?.name}`
