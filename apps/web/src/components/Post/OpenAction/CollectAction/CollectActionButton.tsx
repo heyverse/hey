@@ -1,14 +1,15 @@
 import { useApolloClient } from "@apollo/client";
 import { HEY_TREASURY } from "@hey/data/constants";
 import {
-  type PostActionFragment,
   type PostFragment,
+  type SimpleCollectActionFragment,
   useBalancesBulkQuery,
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useState } from "react";
 import { toast } from "sonner";
+import type { Address } from "viem";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Spinner } from "@/components/Shared/UI";
@@ -20,7 +21,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 interface CollectActionButtonProps {
   collects: number;
   onCollectSuccess?: () => void;
-  postAction: PostActionFragment;
+  postAction: SimpleCollectActionFragment;
   post: PostFragment;
 }
 
@@ -30,7 +31,7 @@ const CollectActionButton = ({
   postAction,
   post
 }: CollectActionButtonProps) => {
-  const collectAction = getCollectActionData(postAction as any);
+  const collectAction = getCollectActionData(postAction);
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasSimpleCollected, setHasSimpleCollected] = useState(
@@ -42,7 +43,7 @@ const CollectActionButton = ({
   const endTimestamp = collectAction?.endsAt;
   const collectLimit = collectAction?.collectLimit;
   const amount = collectAction?.price as number;
-  const assetAddress = collectAction?.assetAddress as any;
+  const assetAddress = collectAction?.assetAddress as Address | undefined;
   const assetSymbol = collectAction?.assetSymbol as string;
   const isAllCollected = collectLimit ? collects >= collectLimit : false;
   const isSaleEnded = endTimestamp
@@ -170,7 +171,10 @@ const CollectActionButton = ({
       <TopUpButton
         amountToTopUp={Math.ceil((amount - Number(tokenBalance)) * 20) / 20}
         className="mt-5 w-full"
-        token={{ contractAddress: assetAddress, symbol: assetSymbol }}
+        token={{
+          contractAddress: assetAddress as Address,
+          symbol: assetSymbol
+        }}
       />
     );
   }
