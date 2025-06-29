@@ -6,15 +6,29 @@ import {
   TransitionChild
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { cva, type VariantProps } from "class-variance-authority";
 import type { ReactNode, SyntheticEvent } from "react";
 import { Fragment, memo } from "react";
-import cn from "@/helpers/cn";
 
-interface ModalProps {
+const modalVariants = cva(
+  "inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-gray-800",
+  {
+    defaultVariants: { size: "sm" },
+    variants: {
+      size: {
+        lg: "sm:max-w-5xl",
+        md: "sm:max-w-3xl",
+        sm: "sm:max-w-lg",
+        xs: "sm:max-w-sm"
+      }
+    }
+  }
+);
+
+interface ModalProps extends VariantProps<typeof modalVariants> {
   children: ReactNode | ReactNode[];
   onClose?: () => void;
   show: boolean;
-  size?: "lg" | "md" | "sm" | "xs";
   title?: ReactNode;
 }
 
@@ -46,15 +60,7 @@ const Modal = ({ children, onClose, show, size = "sm", title }: ModalProps) => {
           leaveFrom="opacity-100 translate-y-0 sm:scale-100"
           leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         >
-          <DialogPanel
-            className={cn(
-              { "sm:max-w-5xl": size === "lg" },
-              { "sm:max-w-3xl": size === "md" },
-              { "sm:max-w-lg": size === "sm" },
-              { "sm:max-w-sm": size === "xs" },
-              "inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-gray-800"
-            )}
-          >
+          <DialogPanel className={modalVariants({ size })}>
             {title ? (
               <DialogTitle className="divider flex items-center justify-between px-5 py-3.5">
                 <b>{title}</b>
