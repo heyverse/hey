@@ -2,11 +2,13 @@ import getAccount from "@hey/helpers/getAccount";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useNavigate } from "react-router";
 import KeyboardShortcuts from "@/helpers/shortcuts";
+import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const GlobalShortcuts = () => {
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
+  const { setShowNewPostModal } = useNewPostModalStore();
 
   // Go to account
   useHotkeys(KeyboardShortcuts.GoToAccount.key, () => {
@@ -31,6 +33,11 @@ const GlobalShortcuts = () => {
   // Go to search
   useHotkeys(KeyboardShortcuts.GoToSearch.key, () => {
     navigate("/search");
+  });
+
+  // Open composer
+  useHotkeys(KeyboardShortcuts.OpenComposer.key, () => {
+    setShowNewPostModal(true);
   });
 
   // Go to bookmarks

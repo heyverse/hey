@@ -10,6 +10,7 @@ const KeyboardShortcuts = {
   GoToNotifications: { key: "g+n", name: "Go to Notifications" },
   GoToSearch: { key: "g+s", name: "Go to Search" },
   GoToSettings: { key: "g+s", name: "Go to Settings" },
+  OpenComposer: { key: "n", name: "New post" },
   ThisModal: { key: "?", name: "Shortcut help" }
 };
 
