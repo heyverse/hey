@@ -24,7 +24,7 @@ const getStats = async (ctx: Context) => {
       [address.replace("0x", "\\x")]
     )) as Array<{ address: Buffer }>;
 
-    const result = await lensPg.query(
+    const result = await lensPg.query<Array<{ type: string; count: string }>>(
       `
         SELECT 'tip' AS type, COUNT(*) AS count
         FROM post.action_executed

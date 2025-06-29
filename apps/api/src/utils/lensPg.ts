@@ -42,8 +42,9 @@ class Database {
     connectionParameters: IConnectionParameters
   ): InitializeDbResult {
     const pgp = pgPromise({
-      error: (error: any) => {
-        const errorMessage = error.message || error;
+      error: (error: unknown) => {
+        const errorMessage =
+          error instanceof Error ? error.message : String(error);
         console.error(`LENS POSTGRES ERROR WITH TRACE: ${errorMessage}`);
       }
     });
@@ -54,18 +55,18 @@ class Database {
     };
   }
 
-  public multi(
+  public multi<T = unknown>(
     query: DatabaseQuery,
     params: DatabaseParams = null
-  ): Promise<any[][]> {
-    return this._readDb.multi(query, params);
+  ): Promise<T[][]> {
+    return this._readDb.multi<T>(query, params);
   }
 
-  public query(
+  public query<T = unknown>(
     query: DatabaseQuery,
     params: DatabaseParams = null
-  ): Promise<any[]> {
-    return this._readDb.query(query, params);
+  ): Promise<T> {
+    return this._readDb.query<T>(query, params);
   }
 }
 
