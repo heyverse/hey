@@ -8,7 +8,7 @@ const allowedOrigins = [
   "https://developer.lens.xyz"
 ];
 
-export const cors = corsMiddleware({
+const cors = corsMiddleware({
   allowHeaders: ["Content-Type", "X-Access-Token"],
   allowMethods: ["GET", "POST", "OPTIONS"],
   credentials: true,
