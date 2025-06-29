@@ -1,18 +1,21 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import { memo } from "react";
 import cn from "@/helpers/cn";
 
-interface SpinnerProps {
+const spinnerVariants = cva("", {
+  defaultVariants: { size: "md" },
+  variants: { size: { md: "size-7", sm: "size-5", xs: "size-4" } }
+});
+
+interface SpinnerProps extends VariantProps<typeof spinnerVariants> {
   className?: string;
-  size?: "xs" | "sm" | "md";
 }
 
-const Spinner = ({ className, size = "md" }: SpinnerProps) => {
-  const sizeClasses = { md: "size-7", sm: "size-5", xs: "size-4" };
-
+const Spinner = ({ className, size }: SpinnerProps) => {
   return (
     <svg
       aria-hidden="true"
-      className={cn(sizeClasses[size], className)}
+      className={cn(spinnerVariants({ size }), className)}
       fill="currentColor"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
