@@ -17,6 +17,7 @@ import {
   useCollectActionQuery
 } from "@hey/indexer";
 import { useCounter } from "@uidotdev/usehooks";
+import { format } from "date-fns";
 import plur from "plur";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { Link } from "react-router";
@@ -32,7 +33,6 @@ import {
   Tooltip,
   WarningMessage
 } from "@/components/Shared/UI";
-import formatDate from "@/helpers/datetime/formatDate";
 import getTokenImage from "@/helpers/getTokenImage";
 import humanize from "@/helpers/humanize";
 import nFormatter from "@/helpers/nFormatter";
@@ -190,7 +190,7 @@ const CollectActionBody = ({
                 <span>{isSaleEnded ? "Sale ended on:" : "Sale ends:"}</span>
                 <span className="font-bold text-gray-600">
                   {isSaleEnded ? (
-                    `${formatDate(endTimestamp, "MMM d, yyyy, hh:mm aa")}`
+                    `${format(new Date(endTimestamp), "MMM d, yyyy, hh:mm aa")}`
                   ) : (
                     <CountdownTimer targetDate={endTimestamp} />
                   )}

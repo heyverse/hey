@@ -1,11 +1,9 @@
 import { ClockIcon } from "@heroicons/react/24/outline";
 import type { CollectActionType } from "@hey/types/hey";
+import { addDays, differenceInCalendarDays, format } from "date-fns";
 import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { RangeSlider } from "@/components/Shared/UI";
-import formatDate from "@/helpers/datetime/formatDate";
-import getNumberOfDaysFromDate from "@/helpers/datetime/getNumberOfDaysFromDate";
-import getTimeAddedNDay from "@/helpers/datetime/getTimeAddedNDay";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { EXPANSION_EASE } from "@/variants";
 
@@ -25,7 +23,9 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
         on={Boolean(collectAction.endsAt)}
         setOn={() =>
           setCollectType({
-            endsAt: collectAction.endsAt ? null : getTimeAddedNDay(1)
+            endsAt: collectAction.endsAt
+              ? null
+              : addDays(new Date(), 1).toISOString()
           })
         }
       />
@@ -43,20 +43,29 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
           <div>
             Number of days -{" "}
             <b>
-              {formatDate(collectAction.endsAt, "MMM d, yyyy - hh:mm:ss aa")}
+              {format(
+                new Date(collectAction.endsAt),
+                "MMM d, yyyy - hh:mm:ss aa"
+              )}
             </b>
           </div>
           <RangeSlider
             defaultValue={[
-              getNumberOfDaysFromDate(new Date(collectAction.endsAt))
+              differenceInCalendarDays(
+                new Date(collectAction.endsAt),
+                new Date()
+              )
             ]}
-            displayValue={getNumberOfDaysFromDate(
-              new Date(collectAction.endsAt)
+            displayValue={differenceInCalendarDays(
+              new Date(collectAction.endsAt),
+              new Date()
             ).toString()}
             max={100}
             min={1}
             onValueChange={(value) =>
-              setCollectType({ endsAt: getTimeAddedNDay(Number(value[0])) })
+              setCollectType({
+                endsAt: addDays(new Date(), Number(value[0])).toISOString()
+              })
             }
             showValueInThumb
           />
