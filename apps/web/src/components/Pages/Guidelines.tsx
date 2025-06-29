@@ -1,15 +1,12 @@
 import { Link } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
-import { H2, H4 } from "@/components/Shared/UI";
+import { H4 } from "@/components/Shared/UI";
+import PageHeader from "@/components/Pages/PageHeader";
 
 const Guidelines = () => {
   return (
     <PageLayout title="Community Guidelines">
-      <div className="flex h-48 w-full items-center justify-center rounded-none bg-gray-400 md:rounded-xl">
-        <div className="relative text-center">
-          <H2 className="text-white">Community Guidelines</H2>
-        </div>
-      </div>
+      <PageHeader title="Community Guidelines" />
       <div className="relative">
         <div className="flex justify-center">
           <div className="relative mx-auto rounded-lg">

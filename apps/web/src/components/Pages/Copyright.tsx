@@ -1,22 +1,14 @@
 import { Link } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
-import { H2, H4 } from "@/components/Shared/UI";
+import { H4 } from "@/components/Shared/UI";
+import PageHeader from "@/components/Pages/PageHeader";
 
 const Copyright = () => {
   const updatedAt = "October 22, 2024";
 
   return (
     <PageLayout title="Copyright Policy">
-      <div className="flex h-48 w-full items-center justify-center rounded-none bg-gray-400 md:rounded-xl">
-        <div className="relative text-center">
-          <H2 className="text-white">Copyright Policy</H2>
-          <div className="mt-4 flex justify-center">
-            <div className="rounded-md bg-gray-800 px-2 py-0.5 text-white text-xs">
-              Updated {updatedAt}
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageHeader title="Copyright Policy" updatedAt={updatedAt} />
       <div className="relative">
         <div className="flex justify-center">
           <div className="relative mx-auto rounded-lg">
