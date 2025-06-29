@@ -1,12 +1,60 @@
+import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, ReactNode } from "react";
 import { forwardRef, memo, useId } from "react";
 import cn from "@/helpers/cn";
 import { FieldError } from "./Form";
 import HelpTooltip from "./HelpTooltip";
 
-interface InputProps extends Omit<ComponentProps<"input">, "prefix"> {
+const inputWrapperVariants = cva(
+  "flex w-full items-center border border-gray-300 bg-white focus-within:border-gray-500 dark:border-gray-700 dark:bg-gray-900",
+  {
+    defaultVariants: {
+      disabled: false,
+      error: false,
+      prefix: false
+    },
+    variants: {
+      disabled: {
+        false: "",
+        true: "!bg-gray-500/20 opacity-50"
+      },
+      error: {
+        false: "",
+        true: "!border-red-500"
+      },
+      prefix: {
+        false: "rounded-xl",
+        true: "rounded-r-xl"
+      }
+    }
+  }
+);
+
+const inputFieldVariants = cva(
+  "peer w-full border-none bg-transparent outline-hidden focus:ring-0",
+  {
+    defaultVariants: { disabled: false, error: false, prefix: false },
+    variants: {
+      disabled: {
+        false: "",
+        true: "cursor-not-allowed"
+      },
+      error: {
+        false: "",
+        true: "placeholder:text-red-500"
+      },
+      prefix: {
+        false: "rounded-xl",
+        true: "rounded-r-xl"
+      }
+    }
+  }
+);
+
+interface InputProps
+  extends Omit<ComponentProps<"input">, "prefix">,
+    Omit<VariantProps<typeof inputWrapperVariants>, "disabled" | "prefix"> {
   className?: string;
-  error?: boolean;
   helper?: ReactNode;
   hideError?: boolean;
   iconLeft?: ReactNode;
@@ -55,20 +103,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             </span>
           ) : null}
           <div
-            className={cn(
-              { "!bg-gray-500/20 opacity-50": props.disabled },
-              { "!border-red-500": error },
-              prefix ? "rounded-r-xl" : "rounded-xl",
-              "flex w-full items-center border border-gray-300 bg-white focus-within:border-gray-500 dark:border-gray-700 dark:bg-gray-900"
-            )}
+            className={inputWrapperVariants({
+              disabled: props.disabled,
+              error,
+              prefix: Boolean(prefix)
+            })}
           >
             <input
-              className={cn(
-                { "placeholder:text-red-500": error },
-                prefix ? "rounded-r-xl" : "rounded-xl",
-                "peer w-full border-none bg-transparent outline-hidden focus:ring-0",
-                className
-              )}
+              className={inputFieldVariants({
+                className,
+                disabled: props.disabled,
+                error,
+                prefix: Boolean(prefix)
+              })}
               id={id}
               ref={ref}
               type={type}
