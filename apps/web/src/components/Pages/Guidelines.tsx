@@ -1,7 +1,7 @@
 import { Link } from "react-router";
+import PageHeader from "@/components/Pages/PageHeader";
 import PageLayout from "@/components/Shared/PageLayout";
 import { H4 } from "@/components/Shared/UI";
-import PageHeader from "@/components/Pages/PageHeader";
 
 const Guidelines = () => {
   return (

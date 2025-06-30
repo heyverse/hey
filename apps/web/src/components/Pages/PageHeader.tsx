@@ -11,7 +11,7 @@ const PageHeader = ({ title, updatedAt }: PageHeaderProps) => (
       <H2 className="text-white">{title}</H2>
       {updatedAt ? (
         <div className="mt-4 flex justify-center">
-          <div className="rounded-md bg-gray-800 px-2 py-0.5 text-xs text-white">
+          <div className="rounded-md bg-gray-800 px-2 py-0.5 text-white text-xs">
             Updated {updatedAt}
           </div>
         </div>
