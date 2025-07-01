@@ -42,8 +42,8 @@ import {
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import GroupFeedSelector from "./Actions/GroupFeedSelector";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
-import GroupSelector from "./GroupSelector";
 import LinkPreviews from "./LinkPreviews";
 
 interface NewPublicationProps {
@@ -255,11 +255,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
-      {!feed && !isComment ? (
-        <div className="px-5 pt-5">
-          <GroupSelector onChange={setSelectedFeed} selected={selectedFeed} />
-        </div>
-      ) : null}
       <Editor isComment={isComment} />
       {postContentError ? (
         <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
@@ -289,7 +284,17 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
             <>
               <CollectSettings />
               <RulesSettings />
-              {isComment ? null : <LivestreamSettings />}
+              {isComment ? null : (
+                <>
+                  <LivestreamSettings />
+                  {feed ? null : (
+                    <GroupFeedSelector
+                      onChange={setSelectedFeed}
+                      selected={selectedFeed}
+                    />
+                  )}
+                </>
+              )}
             </>
           )}
         </div>
