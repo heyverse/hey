@@ -43,6 +43,7 @@ import {
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
+import GroupSelector from "./GroupSelector";
 import LinkPreviews from "./LinkPreviews";
 
 interface NewPublicationProps {
@@ -95,6 +96,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [postContentError, setPostContentError] = useState("");
+  const [selectedFeed, setSelectedFeed] = useState<string>(feed || "");
 
   const editor = useEditorContext();
   const getMetadata = usePostMetadata();
@@ -118,6 +120,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     setAudioPost(DEFAULT_AUDIO_POST);
     setLicense(null);
     resetCollectSettings();
+    setSelectedFeed(feed || "");
     setShowNewPostModal(false);
   };
 
@@ -140,6 +143,10 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     onCompleted,
     onError
   });
+
+  useEffect(() => {
+    setSelectedFeed(feed || "");
+  }, [feed]);
 
   useEffect(() => {
     setPostContentError("");
@@ -215,7 +222,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
         variables: {
           request: {
             contentUri,
-            ...(feed && { feed }),
+            ...((feed || selectedFeed) && { feed: feed || selectedFeed }),
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
             ...(collectAction.enabled && {
@@ -248,6 +255,11 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
+      {!feed && !isComment ? (
+        <div className="px-5 pt-5">
+          <GroupSelector onChange={setSelectedFeed} selected={selectedFeed} />
+        </div>
+      ) : null}
       <Editor isComment={isComment} />
       {postContentError ? (
         <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
