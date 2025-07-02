@@ -1,6 +1,7 @@
 import { serve } from "@hono/node-server";
 import "dotenv/config";
 import { Status } from "@hey/data/enums";
+import logger from "@hey/helpers/logger";
 import { Hono } from "hono";
 import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
@@ -40,5 +41,5 @@ app.notFound((ctx) =>
 );
 
 serve({ fetch: app.fetch, port: 4784 }, (info) => {
-  console.info(`Server running on port ${info.port}`);
+  logger.info(`Server running on port ${info.port}`);
 });

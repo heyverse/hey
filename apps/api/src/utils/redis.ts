@@ -1,35 +1,35 @@
+import logger from "@hey/helpers/logger";
 import dotenv from "dotenv";
 import type { RedisClientType } from "redis";
 import { createClient } from "redis";
 
 dotenv.config({ override: true });
 
-const noRedisError = () =>
-  console.error("[Redis] Redis client not initialized");
+const noRedisError = () => logger.error("[Redis] Redis client not initialized");
 
 let redisClient: null | RedisClientType = null;
 
 if (process.env.REDIS_URL) {
   redisClient = createClient({ url: process.env.REDIS_URL });
 
-  redisClient.on("connect", () => console.info("[Redis] Redis connect"));
-  redisClient.on("ready", () => console.info("[Redis] Redis ready"));
+  redisClient.on("connect", () => logger.info("[Redis] Redis connect"));
+  redisClient.on("ready", () => logger.info("[Redis] Redis ready"));
   redisClient.on("reconnecting", (err) =>
-    console.error("[Redis] Redis reconnecting", err)
+    logger.error("[Redis] Redis reconnecting", err)
   );
-  redisClient.on("error", (err) => console.error("[Redis] Redis error", err));
-  redisClient.on("end", (err) => console.error("[Redis] Redis end", err));
+  redisClient.on("error", (err) => logger.error("[Redis] Redis error", err));
+  redisClient.on("end", (err) => logger.error("[Redis] Redis end", err));
 
   const connectRedis = async () => {
-    console.info("[Redis] Connecting to Redis");
+    logger.info("[Redis] Connecting to Redis");
     await redisClient?.connect();
   };
 
   connectRedis().catch((error) =>
-    console.error("[Redis] Connection error", error)
+    logger.error("[Redis] Connection error", error)
   );
 } else {
-  console.info("[Redis] REDIS_URL not set");
+  logger.info("[Redis] REDIS_URL not set");
 }
 
 const randomNumber = (min: number, max: number): number => {
