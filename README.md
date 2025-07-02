@@ -115,6 +115,6 @@ pnpm biome:fix
 
 ## License
 
-This project is licensed under the **AGPL-3.0** license. Please refer to the [LICENSE](./LICENSE) file for full terms and conditions.
+This project is released under the **GNU AGPL-3.0** license. See the [LICENSE](./LICENSE) file for details.
 
 🌸
