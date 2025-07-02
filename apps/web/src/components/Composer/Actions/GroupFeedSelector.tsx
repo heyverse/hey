@@ -1,4 +1,4 @@
-import { HomeIcon } from "@heroicons/react/24/outline";
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@hey/helpers/getAvatar";
 import {
   type GroupFragment,
@@ -65,7 +65,7 @@ const GroupFeedSelector = ({ selected, onChange }: GroupFeedSelectorProps) => {
               src={getAvatar(selectedGroup)}
             />
           ) : (
-            <HomeIcon className="size-5" />
+            <GlobeAltIcon className="size-5" />
           )}
         </button>
       </Tooltip>
@@ -74,7 +74,10 @@ const GroupFeedSelector = ({ selected, onChange }: GroupFeedSelectorProps) => {
         show={showModal}
         title="Select group"
       >
-        <div className="p-5">
+        <div className="space-y-3 p-5">
+          <p className="text-gray-500 text-sm">
+            Posts will appear on your profile feed if no group is selected.
+          </p>
           <GroupSelector onChange={handleChange} selected={selected} />
         </div>
       </Modal>
