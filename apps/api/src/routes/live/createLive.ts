@@ -2,6 +2,7 @@ import { LIVEPEER_KEY } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
 import generateUUID from "@hey/helpers/generateUUID";
 import type { Context } from "hono";
+import type { ContentfulStatusCode } from "hono/utils/http-status";
 import handleApiError from "../../utils/handleApiError";
 
 const createLive = async (ctx: Context) => {
@@ -37,14 +38,28 @@ const createLive = async (ctx: Context) => {
       method: "POST"
     });
 
-    return ctx.json({
-      data: (await response.json()) as {
-        id: string;
-        playbackId: string;
-        streamKey: string;
-      },
-      status: Status.Success
-    });
+    const data = (await response.json()) as
+      | {
+          id: string;
+          playbackId: string;
+          streamKey: string;
+        }
+      | { errors: Array<string> };
+
+    if (!response.ok) {
+      return ctx.json(
+        {
+          error:
+            "errors" in data && data.errors.length > 0
+              ? data.errors[0]
+              : "Failed to create stream",
+          status: Status.Error
+        },
+        { status: response.status as ContentfulStatusCode }
+      );
+    }
+
+    return ctx.json({ data, status: Status.Success });
   } catch {
     return handleApiError(ctx);
   }
