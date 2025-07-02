@@ -20,7 +20,7 @@
     "@graphql-codegen/typescript-operations": "^4.6.1",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
     "@hey/config": "workspace:*",
-    "@types/node": "^24.0.8",
+    "@types/node": "^24.0.10",
     "typescript": "^5.8.3"
   }
 }

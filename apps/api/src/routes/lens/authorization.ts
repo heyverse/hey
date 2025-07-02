@@ -24,8 +24,8 @@ const authorization = async (ctx: Context) => {
       signingKey: process.env.PRIVATE_KEY,
       sponsored: true
     });
-  } catch {
-    return handleApiError(ctx);
+  } catch (error) {
+    return handleApiError(ctx, error);
   }
 };
 

@@ -48,6 +48,7 @@ Make sure to run all the following commands before committing:
 - pnpm biome:check
 - pnpm typecheck
 - pnpm build
+- pnpm test
 
 ## PR Instructions
 

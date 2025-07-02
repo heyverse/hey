@@ -1,3 +1,4 @@
+import logger from "@hey/helpers/logger";
 import dotenv from "dotenv";
 import type { IDatabase, IFormatting, IHelpers, IMain } from "pg-promise";
 import pgPromise from "pg-promise";
@@ -45,7 +46,7 @@ class Database {
       error: (error: unknown) => {
         const errorMessage =
           error instanceof Error ? error.message : String(error);
-        console.error(`LENS POSTGRES ERROR WITH TRACE: ${errorMessage}`);
+        logger.error(`LENS POSTGRES ERROR WITH TRACE: ${errorMessage}`);
       }
     });
 

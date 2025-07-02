@@ -81,6 +81,14 @@ To run the application in development mode:
 pnpm dev
 ```
 
+## Code Generation
+
+Run code generation to generate Prisma client and GraphQL types across all workspaces:
+
+```bash
+pnpm codegen
+```
+
 ## Build and Test
 
 ### Build the Application
@@ -113,8 +121,17 @@ Fix linting and formatting issues automatically:
 pnpm biome:fix
 ```
 
+### Maintenance Scripts
+
+Convenient Node.js helpers reside in the `script` directory:
+
+- `node script/clean.mjs` removes all `node_modules`, `.next` directories,
+  `pnpm-lock.yaml`, and `tsconfig.tsbuildinfo` files.
+- `node script/update-dependencies.mjs` updates packages across the monorepo,
+  cleans old installs, and commits the changes in a new branch.
+
 ## License
 
-This project is licensed under the **AGPL-3.0** license. Please refer to the [LICENSE](./LICENSE) file for full terms and conditions.
+This project is released under the **GNU AGPL-3.0** license. See the [LICENSE](./LICENSE) file for details.
 
 🌸
