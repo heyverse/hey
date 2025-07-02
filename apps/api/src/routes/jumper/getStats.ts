@@ -63,8 +63,8 @@ const getStats = async (ctx: Context) => {
       status: Status.Success,
       tips: Number(result[0].count)
     });
-  } catch {
-    return handleApiError(ctx);
+  } catch (error) {
+    return handleApiError(ctx, error);
   }
 };
 

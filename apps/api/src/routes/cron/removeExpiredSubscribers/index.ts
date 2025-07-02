@@ -44,8 +44,8 @@ const removeExpiredSubscribers = async (ctx: Context) => {
     });
 
     return ctx.json({ addresses, hash, status: Status.Success });
-  } catch {
-    return handleApiError(ctx);
+  } catch (error) {
+    return handleApiError(ctx, error);
   }
 };
 

@@ -60,8 +60,8 @@ const createLive = async (ctx: Context) => {
     }
 
     return ctx.json({ data, status: Status.Success });
-  } catch {
-    return handleApiError(ctx);
+  } catch (error) {
+    return handleApiError(ctx, error);
   }
 };
 

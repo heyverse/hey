@@ -42,8 +42,8 @@ const getSTS = async (ctx: Context) => {
       },
       status: Status.Success
     });
-  } catch {
-    return handleApiError(ctx);
+  } catch (error) {
+    return handleApiError(ctx, error);
   }
 };
 
