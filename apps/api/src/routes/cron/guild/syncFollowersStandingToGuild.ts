@@ -25,8 +25,8 @@ const syncFollowersStandingToGuild = async (ctx: Context) => {
     });
 
     return ctx.json(data);
-  } catch {
-    return handleApiError(ctx);
+  } catch (error) {
+    return handleApiError(ctx, error);
   }
 };
 

@@ -31,8 +31,8 @@ const getPreferences = async (ctx: Context) => {
     await setRedis(cacheKey, data);
 
     return ctx.json({ data, status: Status.Success });
-  } catch {
-    return handleApiError(ctx);
+  } catch (error) {
+    return handleApiError(ctx, error);
   }
 };
 

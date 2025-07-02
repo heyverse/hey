@@ -26,8 +26,8 @@ const getOembed = async (ctx: Context) => {
     await setRedis(cacheKey, oembed, generateExtraLongExpiry());
 
     return ctx.json({ data: oembed, status: Status.Success });
-  } catch {
-    return handleApiError(ctx);
+  } catch (error) {
+    return handleApiError(ctx, error);
   }
 };
 
