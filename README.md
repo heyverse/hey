@@ -89,12 +89,6 @@ Run code generation to generate Prisma client and GraphQL types across all works
 pnpm codegen
 ```
 
-The `apps/api` package automatically runs code generation when `pnpm postinstall` executes. You can trigger this manually if needed:
-
-```bash
-cd apps/api && pnpm postinstall
-```
-
 ## Build and Test
 
 ### Build the Application
