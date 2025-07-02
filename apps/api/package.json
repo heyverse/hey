@@ -20,7 +20,7 @@
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hey/indexer": "workspace:*",
-    "@hono/node-server": "^1.14.4",
+    "@hono/node-server": "^1.15.0",
     "@hono/zod-validator": "^0.7.0",
     "@lens-chain/sdk": "^1.0.3",
     "@prisma/client": "^6.11.0",
