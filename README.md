@@ -2,11 +2,11 @@
 
 ## Requirements
 
-To get started with the Hey monorepo, ensure the following dependencies are installed on your system:
+To start working with the Hey monorepo, make sure the following tools are installed:
 
-- [Node.js](https://nodejs.org/en/download/) (v18 or higher) - The backbone of our project.
-- [pnpm](https://pnpm.io/installation) - Our trusty package manager.
-- [Postgres App](https://postgresapp.com/) - Our database of choice.
+- [Node.js](https://nodejs.org/en/download/) (v18 or higher) – the JavaScript runtime used by the project.
+- [pnpm](https://pnpm.io/installation) – the package manager used throughout the repository.
+- [Postgres App](https://postgresapp.com/) – the Postgres database used in development.
 
 ## Installation
 
@@ -20,7 +20,7 @@ git clone git@github.com:heyverse/hey.git
 
 ### Install NVM and pnpm
 
-If you're on macOS, both can be installed via Homebrew:
+On macOS you can install both with Homebrew:
 
 ```bash
 brew install nvm pnpm
@@ -28,7 +28,7 @@ brew install nvm pnpm
 
 ### Install Node.js
 
-Use `nvm` to install the correct Node.js version:
+Use `nvm` to install the required Node.js version:
 
 ```bash
 nvm install
@@ -36,15 +36,15 @@ nvm install
 
 ### Install Dependencies
 
-Navigate to the root of the repository and install all dependencies using pnpm:
+From the repository root, install dependencies with pnpm:
 
 ```bash
 pnpm install
 ```
 
-### Set Up Environment Variables
+### Set up Environment Variables
 
-Copy the `.env.example` file to create a new `.env` file for each package or app that requires environment configuration:
+Copy the `.env.example` file to `.env` for each package or application that requires configuration:
 
 ```bash
 cp .env.example .env
@@ -54,7 +54,7 @@ Repeat this process for all relevant packages and applications in the monorepo.
 
 ### Environment Variables
 
-Below is a brief description of the variables defined in the example environment files.
+The example environment files define the following variables.
 
 #### API (`apps/api/.env.example`)
 
@@ -83,7 +83,7 @@ pnpm dev
 
 ## Code Generation
 
-Run code generation to generate Prisma client and GraphQL types across all workspaces:
+Generate Prisma clients and GraphQL types across all workspaces:
 
 ```bash
 pnpm codegen
@@ -91,17 +91,17 @@ pnpm codegen
 
 ## Build and Test
 
-### Build the Application
+### Build the application
 
-To compile the application:
+Compile the application:
 
 ```bash
 pnpm build
 ```
 
-### Type Check the Project
+### Type-check the project
 
-Run the TypeScript type checker to validate the codebase:
+Validate the codebase with the TypeScript type checker:
 
 ```bash
 pnpm typecheck
@@ -109,13 +109,13 @@ pnpm typecheck
 
 ### Lint and Format Code
 
-Check code quality and formatting:
+Check code quality and formatting with Biome:
 
 ```bash
 pnpm biome:check
 ```
 
-Fix linting and formatting issues automatically:
+Automatically fix linting and formatting issues:
 
 ```bash
 pnpm biome:fix
@@ -123,12 +123,12 @@ pnpm biome:fix
 
 ### Maintenance Scripts
 
-Convenient Node.js helpers reside in the `script` directory:
+Convenient Node.js helpers are in the `script` directory:
 
 - `node script/clean.mjs` removes all `node_modules`, `.next` directories,
   `pnpm-lock.yaml`, and `tsconfig.tsbuildinfo` files.
 - `node script/update-dependencies.mjs` updates packages across the monorepo,
-  cleans old installs, and commits the changes in a new branch.
+  removes old installs and commits the changes in a new branch.
 
 ## License
 
