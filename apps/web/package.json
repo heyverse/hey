@@ -64,7 +64,7 @@
     "unist-util-visit-parents": "^6.0.1",
     "viem": "^2.31.6",
     "virtua": "^0.41.5",
-    "vite": "^7.0.0",
+    "vite": "^7.0.1",
     "wagmi": "^2.15.6",
     "zod": "^3.25.71",
     "zustand": "^5.0.6"
