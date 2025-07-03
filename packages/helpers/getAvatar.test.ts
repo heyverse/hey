@@ -7,7 +7,7 @@ import {
 import { describe, expect, it } from "vitest";
 import getAvatar from "./getAvatar";
 
-interface TestEntity {
+interface ProfileMock {
   metadata?: {
     picture?: string | null;
     icon?: string | null;
@@ -20,27 +20,27 @@ describe("getAvatar", () => {
   });
 
   it("returns default avatar for invalid picture", () => {
-    const entity: TestEntity = { metadata: { picture: "" } };
+    const entity: ProfileMock = { metadata: { picture: "" } };
     expect(getAvatar(entity)).toBe(DEFAULT_AVATAR);
   });
 
   it("uses icon when picture is missing", () => {
     const url = `${LENS_MEDIA_SNAPSHOT_URL}/icon.png`;
-    const entity: TestEntity = { metadata: { icon: url, picture: null } };
+    const entity: ProfileMock = { metadata: { icon: url, picture: null } };
     const expected = `${LENS_MEDIA_SNAPSHOT_URL}/${TRANSFORMS.AVATAR_SMALL}/icon.png`;
     expect(getAvatar(entity)).toBe(expected);
   });
 
   it("sanitizes ipfs CIDs", () => {
     const cid = `Qm${"a".repeat(44)}`;
-    const entity: TestEntity = { metadata: { picture: cid } };
+    const entity: ProfileMock = { metadata: { picture: cid } };
     const expected = `${IPFS_GATEWAY}/${cid}`;
     expect(getAvatar(entity)).toBe(expected);
   });
 
   it("applies imagekit transform for snapshot urls", () => {
     const url = `${LENS_MEDIA_SNAPSHOT_URL}/path/img.jpg`;
-    const entity: TestEntity = { metadata: { picture: url } };
+    const entity: ProfileMock = { metadata: { picture: url } };
     const expected = `${LENS_MEDIA_SNAPSHOT_URL}/${TRANSFORMS.AVATAR_BIG}/img.jpg`;
     expect(getAvatar(entity, TRANSFORMS.AVATAR_BIG)).toBe(expected);
   });

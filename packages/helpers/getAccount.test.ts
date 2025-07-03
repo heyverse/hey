@@ -3,6 +3,10 @@ import type { AccountFragment } from "@hey/indexer";
 import { describe, expect, it } from "vitest";
 import getAccount from "./getAccount";
 
+const aliceAddress = "0x1234567890abcdef1234567890abcdef12345678";
+const bobAddress = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd";
+const charlieAddress = "0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd";
+
 describe("getAccount", () => {
   it("returns default values when account is undefined", () => {
     const result = getAccount(undefined);
@@ -30,7 +34,7 @@ describe("getAccount", () => {
 
   it("formats lens usernames and sanitizes name", () => {
     const account = {
-      address: "0x1234567890abcdef1234567890abcdef12345678",
+      address: aliceAddress,
       metadata: { name: "Jane\u2714 Doe" },
       owner: "0x01",
       username: {
@@ -49,9 +53,8 @@ describe("getAccount", () => {
   });
 
   it("builds link using address when username is outside lens", () => {
-    const address = "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd";
     const account = {
-      address,
+      address: bobAddress,
       metadata: { name: "Alice" },
       owner: "0x01",
       username: {
@@ -62,7 +65,7 @@ describe("getAccount", () => {
 
     const result = getAccount(account);
     expect(result).toEqual({
-      link: `/account/${address}`,
+      link: `/account/${bobAddress}`,
       name: "Alice",
       username: "alice",
       usernameWithPrefix: "@alice"
@@ -70,16 +73,15 @@ describe("getAccount", () => {
   });
 
   it("uses address when username is missing", () => {
-    const address = "0xabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd";
     const account = {
-      address,
+      address: charlieAddress,
       metadata: { name: "Bob" },
       owner: "0x01"
     } as unknown as AccountFragment;
 
     const result = getAccount(account);
     expect(result).toEqual({
-      link: `/account/${address}`,
+      link: `/account/${charlieAddress}`,
       name: "Bob",
       username: "0xab…abcd",
       usernameWithPrefix: "#0xab…abcd"

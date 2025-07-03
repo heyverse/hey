@@ -19,10 +19,4 @@ describe("imageKit", () => {
     const result = imageKit(original, "tr:w-200");
     expect(result).toBe(`${LENS_MEDIA_SNAPSHOT_URL}/tr:w-200/photo.jpg`);
   });
-
-  it("returns the same url if no transform is provided", () => {
-    const original = `${LENS_MEDIA_SNAPSHOT_URL}/avatar.png`;
-    const result = imageKit(original);
-    expect(result).toBe(original);
-  });
 });

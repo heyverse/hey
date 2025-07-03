@@ -12,17 +12,17 @@ describe("getAttachmentsData", () => {
 
   it("maps attachment fragments to sanitized data", () => {
     const attachments = [
-      { __typename: "MediaImage", item: "ipfs://imgHash" },
+      { __typename: "MediaImage", item: "ipfs://photoCid" },
       {
         __typename: "MediaVideo",
-        cover: "ar://coverHash",
-        item: "ipfs://videoHash"
+        cover: "ar://coverCid",
+        item: "ipfs://clipCid"
       },
       {
         __typename: "MediaAudio",
-        artist: "Artist",
-        cover: "https://ipfs.io/ipfs/coverHash2",
-        item: "lens://audioHash"
+        artist: "DJ Alice",
+        cover: "https://ipfs.io/ipfs/coverCid2",
+        item: "lens://trackCid"
       }
     ];
 
@@ -31,18 +31,18 @@ describe("getAttachmentsData", () => {
     expect(result).toEqual([
       {
         type: "Image",
-        uri: `${IPFS_GATEWAY}/imgHash`
+        uri: `${IPFS_GATEWAY}/photoCid`
       },
       {
-        coverUri: "https://gateway.arweave.net/coverHash",
+        coverUri: "https://gateway.arweave.net/coverCid",
         type: "Video",
-        uri: `${IPFS_GATEWAY}/videoHash`
+        uri: `${IPFS_GATEWAY}/clipCid`
       },
       {
-        artist: "Artist",
-        coverUri: `${IPFS_GATEWAY}/coverHash2`,
+        artist: "DJ Alice",
+        coverUri: `${IPFS_GATEWAY}/coverCid2`,
         type: "Audio",
-        uri: `${STORAGE_NODE_URL}/audioHash`
+        uri: `${STORAGE_NODE_URL}/trackCid`
       }
     ]);
   });

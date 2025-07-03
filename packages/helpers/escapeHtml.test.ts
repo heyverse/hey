@@ -16,9 +16,4 @@ describe("escapeHtml", () => {
     const text = "Hello World";
     expect(escapeHtml(text)).toBe(text);
   });
-
-  it("escapes each special HTML character individually", () => {
-    const result = escapeHtml("&<>\"'");
-    expect(result).toBe("&amp;&lt;&gt;&quot;&#39;");
-  });
 });

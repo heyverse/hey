@@ -14,23 +14,14 @@ describe("sanitizeDStorageUrl", () => {
     expect(sanitizeDStorageUrl(hash)).toBe(`${ipfsGateway}${hash}`);
   });
 
-  it("converts https://ipfs.io links", () => {
+  it("converts common ipfs url formats", () => {
+    const formats = ["https://ipfs.io/ipfs/", "ipfs://ipfs/", "ipfs://"];
     const hash = `Qm${"b".repeat(44)}`;
-    expect(sanitizeDStorageUrl(`https://ipfs.io/ipfs/${hash}`)).toBe(
-      `${ipfsGateway}${hash}`
-    );
-  });
-
-  it("converts ipfs://ipfs/ links", () => {
-    const hash = `Qm${"c".repeat(44)}`;
-    expect(sanitizeDStorageUrl(`ipfs://ipfs/${hash}`)).toBe(
-      `${ipfsGateway}${hash}`
-    );
-  });
-
-  it("converts ipfs:// links", () => {
-    const hash = `Qm${"d".repeat(44)}`;
-    expect(sanitizeDStorageUrl(`ipfs://${hash}`)).toBe(`${ipfsGateway}${hash}`);
+    for (const prefix of formats) {
+      expect(sanitizeDStorageUrl(`${prefix}${hash}`)).toBe(
+        `${ipfsGateway}${hash}`
+      );
+    }
   });
 
   it("converts lens:// links", () => {
