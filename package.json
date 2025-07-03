@@ -13,6 +13,7 @@
     "dev": "pnpm --recursive --parallel run dev",
     "prepare": "husky install",
     "start": "pnpm --recursive --parallel run start",
+    "test": "pnpm --recursive --parallel run test",
     "typecheck": "pnpm --recursive --parallel run typecheck"
   },
   "devDependencies": {
