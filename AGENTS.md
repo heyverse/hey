@@ -1,57 +1,57 @@
 # Repository Agent Guidelines
 
-This repository follows coding and collaboration conventions summarized from `.cursorrules`.
+This project uses the coding and collaboration rules defined in `.cursorrules`.
 
 ## General Principles
 
-- Implement requests thoroughly and follow requirements precisely.
-- Think through solutions step by step before writing code.
-- Produce clean, fully functional code aligned with best practices.
+- Implement requests thoroughly and adhere strictly to the requirements.
+- Plan solutions carefully before writing any code.
+- Produce clean, functional code that follows best practices.
 - Prioritize readability over performance and avoid duplication.
-- Include all necessary imports and use clear, descriptive names.
+- Include all required imports and use clear, descriptive names.
 - Remove placeholders or incomplete sections before committing.
 
 ## Tech Stack
 
-- React and Vite with TypeScript
-- HeadlessUI, Tailwind CSS, Radix
-- Apollo GraphQL, Hono
+- React with Vite and TypeScript
+- HeadlessUI, Tailwind CSS, and Radix
+- Apollo GraphQL with Hono
 - Prisma with Postgres
-- Zustand, TanStack React Query
+- Zustand and TanStack React Query
 - Zod for validation
 - Prosekit with Remark and Rehype
 
 ## Implementation Guidelines
 
 - Use early returns and guard clauses.
-- Always export default React components at the end of each file.
-- Style elements with Tailwind classes only.
+- Export default React components at the end of each file.
+- Style elements exclusively with Tailwind classes.
 - Name event handlers with a `handle` prefix (e.g., `handleClick`).
-- Add accessibility attributes such as `tabIndex`, `aria-label`, and keyboard handlers.
+- Add accessibility attributes like `tabIndex`, `aria-label`, and keyboard handlers.
 - Prefer arrow functions and define types or interfaces for props.
 - Place files in pnpm workspaces and keep packages isolated.
 - Handle errors early with custom error types when appropriate.
-- Favor derived state and memoization instead of excessive `useEffect`.
+- Favor derived state and memoization over excessive `useEffect`.
 - Use interfaces for props and avoid enums, preferring literal types.
 - Follow camelCase naming and use verbs for boolean flags.
 - Organize exports, subcomponents, helpers, static content, and types within files.
 
 ## References
 
-- [Lens Protocol Docs](https://lens.xyz/docs/protocol)
-- [Grove Storage Docs](https://lens.xyz/docs/storage)
+- [Lens Protocol Documentation](https://lens.xyz/docs/protocol)
+- [Grove Storage Documentation](https://lens.xyz/docs/storage)
 
-## Note
+## Required Commands
 
-Make sure to run all the following commands before committing:
+Run these commands before committing:
 
-- pnpm biome:check
-- pnpm typecheck
-- pnpm build
-- pnpm test
+- `pnpm biome:check`
+- `pnpm typecheck`
+- `pnpm build`
+- `pnpm test`
 
 ## PR Instructions
 
-- Use conventional commit for title
-- Example: feat: allow provided config object to extend other configs
-- Make sure the title does not exceed 50 characters.
+- Use a conventional commit message for the title.
+- Example: `feat: allow provided config object to extend other configs`.
+- Keep the title under 50 characters.
