@@ -1,0 +1,16 @@
+mutation UnwrapTokens($request: UnwrapTokensRequest!) {
+  unwrapTokens(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+    ... on InsufficientFunds {
+      reason
+    }
+  }
+}

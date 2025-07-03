@@ -1,0 +1,13 @@
+query AccountsBlocked($request: AccountsBlockedRequest!) {
+  accountsBlocked(request: $request) {
+    items {
+      account {
+        ...Account
+      }
+      blockedAt
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

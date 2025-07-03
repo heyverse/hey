@@ -1,0 +1,16 @@
+mutation RequestGroupMembership($request: RequestGroupMembershipRequest!) {
+  requestGroupMembership(request: $request) {
+    ... on RequestGroupMembershipResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

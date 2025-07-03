@@ -1,0 +1,10 @@
+query AccountManagers($request: AccountManagersRequest!) {
+  accountManagers(request: $request) {
+    items {
+      ...AccountManager
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

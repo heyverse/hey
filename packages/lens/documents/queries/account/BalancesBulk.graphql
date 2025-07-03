@@ -1,0 +1,10 @@
+query BalancesBulk($request: BalancesBulkRequest!) {
+  balancesBulk(request: $request) {
+    ... on NativeAmount {
+      ...NativeAmount
+    }
+    ... on Erc20Amount {
+      ...Erc20Amount
+    }
+  }
+}

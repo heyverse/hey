@@ -1,0 +1,13 @@
+mutation UpdateAccountManager($request: UpdateAccountManagerRequest!) {
+  updateAccountManager(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

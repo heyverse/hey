@@ -1,0 +1,6 @@
+fragment LoggedInGroupOperations on LoggedInGroupOperations {
+  id
+  isMember
+  isBanned
+  hasRequestedMembership
+}

@@ -1,0 +1,16 @@
+mutation Withdraw($request: WithdrawRequest!) {
+  withdraw(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+    ... on InsufficientFunds {
+      reason
+    }
+  }
+}

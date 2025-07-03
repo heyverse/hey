@@ -1,0 +1,23 @@
+fragment SponsoredTransactionRequest on SponsoredTransactionRequest {
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+    customData {
+      customSignature
+      factoryDeps
+      gasPerPubdata
+      paymasterParams {
+        paymaster
+        paymasterInput
+      }
+    }
+  }
+}

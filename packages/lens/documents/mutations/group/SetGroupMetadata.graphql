@@ -1,0 +1,16 @@
+mutation SetGroupMetadata($request: SetGroupMetadataRequest!) {
+  setGroupMetadata(request: $request) {
+    ... on SetGroupMetadataResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

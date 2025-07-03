@@ -1,0 +1,12 @@
+query Following($request: FollowingRequest!) {
+  following(request: $request) {
+    items {
+      following {
+        ...Account
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

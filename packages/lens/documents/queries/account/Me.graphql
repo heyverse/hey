@@ -1,0 +1,23 @@
+query Me($proBannerId: PostId!) {
+  me {
+    loggedInAs {
+      ... on AccountManaged {
+        account {
+          ...Account
+        }
+      }
+      ... on AccountOwned {
+        account {
+          ...Account
+        }
+      }
+    }
+  }
+  proBanner: post(request: { post: $proBannerId }) {
+    ... on Post {
+      operations {
+        dismissed: isNotInterested
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+query Notifications($request: NotificationRequest!) {
+  notifications(request: $request) {
+    items {
+      ... on CommentNotification {
+        ...CommentNotification
+      }
+      ... on FollowNotification {
+        ...FollowNotification
+      }
+      ... on MentionNotification {
+        ...MentionNotification
+      }
+      ... on QuoteNotification {
+        ...QuoteNotification
+      }
+      ... on ReactionNotification {
+        ...ReactionNotification
+      }
+      ... on RepostNotification {
+        ...RepostNotification
+      }
+      ... on PostActionExecutedNotification {
+        ...PostActionExecutedNotification
+      }
+      ... on AccountActionExecutedNotification {
+        ...AccountActionExecutedNotification
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

@@ -1,0 +1,16 @@
+mutation UpdateAccountFollowRules($request: UpdateAccountFollowRulesRequest!) {
+  updateAccountFollowRules(request: $request) {
+    ... on UpdateAccountFollowRulesResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

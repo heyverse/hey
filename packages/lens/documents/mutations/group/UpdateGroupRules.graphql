@@ -1,0 +1,16 @@
+mutation UpdateGroupRules($request: UpdateGroupRulesRequest!) {
+  updateGroupRules(request: $request) {
+    ... on UpdateGroupRulesResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

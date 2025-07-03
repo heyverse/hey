@@ -1,0 +1,16 @@
+mutation CreateGroup($request: CreateGroupRequest!) {
+  createGroup(request: $request) {
+    ... on CreateGroupResponse {
+      hash
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

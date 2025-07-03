@@ -1,0 +1,11 @@
+fragment NativeAmount on NativeAmount {
+  asset {
+    contract {
+      address
+    }
+    decimals
+    name
+    symbol
+  }
+  value
+}

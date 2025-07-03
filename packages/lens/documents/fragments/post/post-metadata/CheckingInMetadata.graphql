@@ -1,0 +1,12 @@
+fragment CheckingInMetadata on CheckingInMetadata {
+  id
+  content
+  contentWarning
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...AnyMedia
+  }
+}

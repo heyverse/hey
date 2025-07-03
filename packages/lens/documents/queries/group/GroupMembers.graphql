@@ -1,0 +1,12 @@
+query GroupMembers($request: GroupMembersRequest!) {
+  groupMembers(request: $request) {
+    items {
+      account {
+        ...Account
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

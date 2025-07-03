@@ -1,0 +1,10 @@
+fragment AccountActionExecutedNotification on AccountActionExecutedNotification {
+  id
+  actions {
+    ... on TippingAccountActionExecuted {
+      executedBy {
+        ...Account
+      }
+    }
+  }
+}

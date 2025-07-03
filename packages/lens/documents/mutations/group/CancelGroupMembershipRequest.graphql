@@ -1,0 +1,18 @@
+mutation CancelGroupMembershipRequest(
+  $request: CancelGroupMembershipRequestRequest!
+) {
+  cancelGroupMembershipRequest(request: $request) {
+    ... on CancelGroupMembershipRequestResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

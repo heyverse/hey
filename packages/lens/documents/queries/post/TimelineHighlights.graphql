@@ -1,0 +1,10 @@
+query TimelineHighlights($request: TimelineHighlightsRequest!) {
+  timelineHighlights(request: $request) {
+    items {
+      ...Post
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

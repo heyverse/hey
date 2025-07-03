@@ -1,0 +1,14 @@
+fragment SelfFundedTransactionRequest on SelfFundedTransactionRequest {
+  raw {
+    chainId
+    data
+    from
+    gasLimit
+    maxFeePerGas
+    maxPriorityFeePerGas
+    nonce
+    to
+    type
+    value
+  }
+}

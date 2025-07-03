@@ -1,0 +1,11 @@
+mutation Refresh($request: RefreshRequest!) {
+  refresh(request: $request) {
+    ... on AuthenticationTokens {
+      accessToken
+      refreshToken
+    }
+    ... on ForbiddenError {
+      reason
+    }
+  }
+}

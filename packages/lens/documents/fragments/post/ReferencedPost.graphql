@@ -1,0 +1,33 @@
+fragment ReferencedPost on Post {
+  id
+  slug
+  isDeleted
+  isEdited
+  feed {
+    ...PostFeedInfo
+  }
+  app {
+    metadata {
+      name
+    }
+  }
+  author {
+    ...Account
+  }
+  metadata {
+    ...PostMetadata
+  }
+  stats {
+    ...PostStats
+  }
+  operations {
+    ...LoggedInPostOperations
+  }
+  actions {
+    __typename
+  }
+  mentions {
+    ...PostMention
+  }
+  timestamp
+}

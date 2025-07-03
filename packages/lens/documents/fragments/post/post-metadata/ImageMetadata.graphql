@@ -1,0 +1,15 @@
+fragment ImageMetadata on ImageMetadata {
+  id
+  content
+  contentWarning
+  tags
+  attributes {
+    ...MetadataAttribute
+  }
+  attachments {
+    ...AnyMedia
+  }
+  image {
+    ...MediaImage
+  }
+}

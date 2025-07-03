@@ -1,0 +1,10 @@
+query AccountRecommendations($request: AccountRecommendationsRequest!) {
+  mlAccountRecommendations(request: $request) {
+    items {
+      ...Account
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

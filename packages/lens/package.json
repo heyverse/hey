@@ -1,0 +1,25 @@
+{
+  "name": "@hey/lens",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "main": "generated.ts",
+  "scripts": {
+    "codegen": "graphql-codegen"
+  },
+  "dependencies": {
+    "urql": "^4.2.2",
+    "@hey/data": "workspace:*",
+    "graphql": "^16.11.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/fragment-matcher": "^5.1.0",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
+    "@graphql-codegen/typescript-urql": "^4.0.1",
+    "@hey/config": "workspace:*",
+    "@types/node": "^24.0.10",
+    "typescript": "^5.8.3"
+  }
+}

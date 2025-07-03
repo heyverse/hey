@@ -1,0 +1,19 @@
+mutation Follow($request: CreateFollowRequest!) {
+  follow(request: $request) {
+    ... on FollowResponse {
+      hash
+    }
+    ... on AccountFollowOperationValidationFailed {
+      reason
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

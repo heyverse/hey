@@ -1,0 +1,14 @@
+query FullAccount(
+  $accountRequest: AccountRequest!
+  $accountStatsRequest: AccountStatsRequest!
+) {
+  account(request: $accountRequest) {
+    ...Account
+  }
+  accountStats(request: $accountStatsRequest) {
+    graphFollowStats {
+      followers
+      following
+    }
+  }
+}

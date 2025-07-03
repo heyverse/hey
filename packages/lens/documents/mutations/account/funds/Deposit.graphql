@@ -1,0 +1,16 @@
+mutation Deposit($request: DepositRequest!) {
+  deposit(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+    ... on InsufficientFunds {
+      reason
+    }
+  }
+}

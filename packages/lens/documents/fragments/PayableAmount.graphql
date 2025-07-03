@@ -1,0 +1,8 @@
+fragment PayableAmount on PayableAmount {
+  ... on Erc20Amount {
+    ...Erc20Amount
+  }
+  ... on NativeAmount {
+    ...NativeAmount
+  }
+}

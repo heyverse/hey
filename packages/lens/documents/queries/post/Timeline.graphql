@@ -1,0 +1,10 @@
+query Timeline($request: TimelineRequest!) {
+  timeline(request: $request) {
+    items {
+      ...TimelineItem
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

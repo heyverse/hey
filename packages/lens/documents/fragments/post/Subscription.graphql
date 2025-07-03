@@ -1,0 +1,12 @@
+fragment Subscription on AnyPost {
+  ... on Post {
+    operations {
+      lastSubscription: lastTip {
+        tipAmount {
+          ...PayableAmount
+        }
+        date
+      }
+    }
+  }
+}

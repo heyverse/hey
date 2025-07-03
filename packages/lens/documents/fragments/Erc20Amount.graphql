@@ -1,0 +1,11 @@
+fragment Erc20Amount on Erc20Amount {
+  asset {
+    contract {
+      address
+    }
+    decimals
+    name
+    symbol
+  }
+  value
+}

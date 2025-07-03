@@ -1,0 +1,16 @@
+mutation SetAccountMetadata($request: SetAccountMetadataRequest!) {
+  setAccountMetadata(request: $request) {
+    ... on SetAccountMetadataResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}
