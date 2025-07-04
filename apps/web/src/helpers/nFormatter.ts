@@ -1,4 +1,4 @@
-import humanize from "@/helpers/humanize";
+import humanize from "./humanize";
 
 const LOOKUP = [
   { symbol: "E", value: 1e18 },
