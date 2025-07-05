@@ -20,7 +20,7 @@ interface CollectFormProps {
 }
 
 const CollectForm = ({ setShowModal }: CollectFormProps) => {
-  const { currentAccount } = useAccountStore();
+  const { currentAccount: _currentAccount } = useAccountStore();
   const { collectAction, setCollectAction, reset } = useCollectActionStore();
   const { setLicense } = usePostLicenseStore();
 
@@ -84,9 +84,7 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             <AmountConfig setCollectType={setCollectType} />
             {collectAction.payToCollect?.erc20?.value && (
               <SplitConfig
-                isRecipientsDuplicated={
-                  validationChecks.isRecipientsDuplicated
-                }
+                isRecipientsDuplicated={validationChecks.isRecipientsDuplicated}
                 setCollectType={setCollectType}
               />
             )}
