@@ -3,7 +3,6 @@ import { motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
 import { isAddress } from "viem";
 import LicensePicker from "@/components/Composer/LicensePicker";
-import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
@@ -83,35 +82,22 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             }}
           >
             <AmountConfig setCollectType={setCollectType} />
-            {currentAccount?.hasSubscribed ? (
-              <>
-                {collectAction.payToCollect?.erc20?.value && (
-                  <SplitConfig
-                    isRecipientsDuplicated={
-                      validationChecks.isRecipientsDuplicated
-                    }
-                    setCollectType={setCollectType}
-                  />
-                )}
-                <CollectLimitConfig setCollectType={setCollectType} />
-                <TimeLimitConfig setCollectType={setCollectType} />
-                <FollowersConfig setCollectType={setCollectType} />
-              </>
-            ) : (
-              <ProFeatureNotice
-                className="mt-5"
-                feature="advanced collect settings"
+            {collectAction.payToCollect?.erc20?.value && (
+              <SplitConfig
+                isRecipientsDuplicated={
+                  validationChecks.isRecipientsDuplicated
+                }
+                setCollectType={setCollectType}
               />
             )}
+            <CollectLimitConfig setCollectType={setCollectType} />
+            <TimeLimitConfig setCollectType={setCollectType} />
+            <FollowersConfig setCollectType={setCollectType} />
           </motion.div>
-          {currentAccount?.hasSubscribed && (
-            <>
-              <div className="divider" />
-              <div className="m-5">
-                <LicensePicker />
-              </div>
-            </>
-          )}
+          <div className="divider" />
+          <div className="m-5">
+            <LicensePicker />
+          </div>
           <div className="divider" />
         </>
       )}
