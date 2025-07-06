@@ -19,7 +19,7 @@ import {
 import { useCounter } from "@uidotdev/usehooks";
 import { format } from "date-fns";
 import plur from "plur";
-import { type Dispatch, type SetStateAction, useState } from "react";
+import { type Dispatch, type SetStateAction, useMemo, useState } from "react";
 import { Link } from "react-router";
 import CountdownTimer from "@/components/Shared/CountdownTimer";
 import Loader from "@/components/Shared/Loader";
@@ -56,12 +56,14 @@ const CollectActionBody = ({
     variables: { request: { post: post.id } }
   });
 
-  if (loading) {
-    return <Loader className="my-10" />;
-  }
+  // Memoize expensive calculations to prevent unnecessary re-renders
+  const enabledTokens = useMemo(() => {
+    return tokens.map((t) => t.symbol);
+  }, []);
 
-  const targetAction =
-    data?.post?.__typename === "Post"
+  // Extract data safely with optional chaining
+  const targetAction = useMemo(() => {
+    return data?.post?.__typename === "Post"
       ? data?.post.actions.find(
           (action) => action.__typename === "SimpleCollectAction"
         )
@@ -70,22 +72,50 @@ const CollectActionBody = ({
             (action) => action.__typename === "SimpleCollectAction"
           )
         : null;
+  }, [data]);
 
   const collectAction = targetAction as SimpleCollectActionFragment;
   const endTimestamp = collectAction?.endsAt;
-  const collectLimit = Number(collectAction?.collectLimit);
-  const amount = Number.parseFloat(
-    collectAction?.payToCollect?.price?.value || "0"
+  const collectLimit = useMemo(
+    () => Number(collectAction?.collectLimit || 0),
+    [collectAction]
+  );
+  const amount = useMemo(
+    () => Number.parseFloat(collectAction?.payToCollect?.price?.value || "0"),
+    [collectAction]
   );
   const currency = collectAction?.payToCollect?.price?.asset?.symbol;
   const recipients = collectAction?.payToCollect?.recipients || [];
-  const percentageCollected = (collects / collectLimit) * 100;
-  const enabledTokens = tokens.map((t) => t.symbol);
-  const isTokenEnabled = enabledTokens?.includes(currency || "");
-  const isSaleEnded = endTimestamp
-    ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
-    : false;
-  const isAllCollected = collectLimit ? collects >= collectLimit : false;
+
+  const percentageCollected = useMemo(() => {
+    return collectLimit > 0 ? (collects / collectLimit) * 100 : 0;
+  }, [collects, collectLimit]);
+
+  const isTokenEnabled = useMemo(() => {
+    return enabledTokens?.includes(currency || "");
+  }, [enabledTokens, currency]);
+
+  const isSaleEnded = useMemo(() => {
+    return endTimestamp
+      ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
+      : false;
+  }, [endTimestamp]);
+
+  const isAllCollected = useMemo(() => {
+    return collectLimit ? collects >= collectLimit : false;
+  }, [collectLimit, collects]);
+
+  const totalRevenue = useMemo(() => {
+    return amount * collects;
+  }, [amount, collects]);
+
+  const heyFee = useMemo(() => {
+    return (amount * 0.025).toFixed(2);
+  }, [amount]);
+
+  if (loading) {
+    return <Loader className="my-10" />;
+  }
 
   return (
     <>
@@ -154,7 +184,7 @@ const CollectActionBody = ({
                   <div className="flex items-start justify-between space-x-10">
                     <div>Hey</div>
                     <b>
-                      ~{(amount * 0.025).toFixed(2)} {currency} (2.5%)
+                      ~{heyFee} {currency} (2.5%)
                     </b>
                   </div>
                 </div>
@@ -220,11 +250,11 @@ const CollectActionBody = ({
               <div className="space-x-1.5">
                 <span>Revenue:</span>
                 <Tooltip
-                  content={`${humanize(amount * collects)} ${currency}`}
+                  content={`${humanize(totalRevenue)} ${currency}`}
                   placement="top"
                 >
                   <span className="font-bold text-gray-600">
-                    {nFormatter(amount * collects)} {currency}
+                    {nFormatter(totalRevenue)} {currency}
                   </span>
                 </Tooltip>
               </div>
