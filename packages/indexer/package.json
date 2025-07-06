@@ -6,8 +6,8 @@
   "main": "generated.ts",
   "scripts": {
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --pretty",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
