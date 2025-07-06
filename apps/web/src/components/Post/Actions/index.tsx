@@ -14,7 +14,6 @@ interface PostActionsProps {
 
 const PostActions = ({ showCount = false }: PostActionsProps) => {
   const { post, targetPost, canAct } = usePostContext();
-  // Type assertion to handle AnyPostFragment vs PostFragment type difference
   const targetPostTyped = targetPost as any;
 
   return (

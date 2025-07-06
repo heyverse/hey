@@ -25,7 +25,6 @@ const PostBody = ({
   showMore = false
 }: PostBodyProps) => {
   const { targetPost, post } = usePostContext();
-  // Type assertion to handle AnyPostFragment vs PostFragment type difference
   const targetPostTyped = targetPost as any;
   const { metadata } = targetPostTyped;
 

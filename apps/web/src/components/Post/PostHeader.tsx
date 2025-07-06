@@ -14,7 +14,6 @@ interface PostHeaderProps {
 const PostHeader = ({ isNew = false, quoted = false }: PostHeaderProps) => {
   const { setQuotedPost } = usePostStore();
   const { post, timelineItem, targetPost, rootPost } = usePostContext();
-  // Type assertion to handle AnyPostFragment vs PostFragment type difference
   const targetPostTyped = targetPost as any;
 
   const account = timelineItem ? rootPost.author : targetPost.author;
