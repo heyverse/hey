@@ -7,7 +7,6 @@ import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { EXPANSION_EASE } from "@/variants";
 import AmountConfig from "./AmountConfig";
 import CollectLimitConfig from "./CollectLimitConfig";
@@ -20,7 +19,6 @@ interface CollectFormProps {
 }
 
 const CollectForm = ({ setShowModal }: CollectFormProps) => {
-  const { currentAccount } = useAccountStore();
   const { collectAction, setCollectAction, reset } = useCollectActionStore();
   const { setLicense } = usePostLicenseStore();
 
@@ -84,9 +82,7 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             <AmountConfig setCollectType={setCollectType} />
             {collectAction.payToCollect?.erc20?.value && (
               <SplitConfig
-                isRecipientsDuplicated={
-                  validationChecks.isRecipientsDuplicated
-                }
+                isRecipientsDuplicated={validationChecks.isRecipientsDuplicated}
                 setCollectType={setCollectType}
               />
             )}
