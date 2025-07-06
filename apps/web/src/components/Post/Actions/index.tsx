@@ -1,27 +1,21 @@
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPostFragment } from "@hey/indexer";
 import { memo } from "react";
 import CollectAction from "@/components/Post/OpenAction/CollectAction";
 import SmallCollectButton from "@/components/Post/OpenAction/CollectAction/SmallCollectButton";
 import TipAction from "@/components/Post/OpenAction/TipAction";
+import { usePostContext } from "@/contexts/PostContext";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Comment from "./Comment";
 import Like from "./Like";
 import ShareMenu from "./Share";
 
 interface PostActionsProps {
-  post: AnyPostFragment;
   showCount?: boolean;
 }
 
-const PostActions = ({ post, showCount = false }: PostActionsProps) => {
-  const targetPost = isRepost(post) ? post.repostOf : post;
-  const hasPostAction = (targetPost.actions?.length || 0) > 0;
-  const canAct =
-    hasPostAction &&
-    targetPost.actions.some(
-      (action) => action.__typename === "SimpleCollectAction"
-    );
+const PostActions = ({ showCount = false }: PostActionsProps) => {
+  const { post, targetPost, canAct } = usePostContext();
+  // Type assertion to handle AnyPostFragment vs PostFragment type difference
+  const targetPostTyped = targetPost as any;
 
   return (
     <span
@@ -29,13 +23,13 @@ const PostActions = ({ post, showCount = false }: PostActionsProps) => {
       onClick={stopEventPropagation}
     >
       <span className="flex items-center gap-x-6">
-        <Comment post={targetPost} showCount={showCount} />
+        <Comment post={targetPostTyped} showCount={showCount} />
         <ShareMenu post={post} showCount={showCount} />
-        <Like post={targetPost} showCount={showCount} />
-        {canAct && !showCount ? <CollectAction post={targetPost} /> : null}
-        <TipAction post={targetPost} showCount={showCount} />
+        <Like post={targetPostTyped} showCount={showCount} />
+        {canAct && !showCount ? <CollectAction post={targetPostTyped} /> : null}
+        <TipAction post={targetPostTyped} showCount={showCount} />
       </span>
-      {canAct ? <SmallCollectButton post={targetPost} /> : null}
+      {canAct ? <SmallCollectButton post={targetPostTyped} /> : null}
     </span>
   );
 };

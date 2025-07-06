@@ -1,32 +1,22 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type {
-  AnyPostFragment,
-  PostGroupInfoFragment,
-  TimelineItemFragment
-} from "@hey/indexer";
+import type { PostGroupInfoFragment } from "@hey/indexer";
 import PostMenu from "@/components/Post/Actions/Menu";
+import { usePostContext } from "@/contexts/PostContext";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import PostAccount from "./PostAccount";
 
 interface PostHeaderProps {
-  timelineItem?: TimelineItemFragment;
   isNew?: boolean;
-  post: AnyPostFragment;
   quoted?: boolean;
 }
 
-const PostHeader = ({
-  timelineItem,
-  isNew = false,
-  post,
-  quoted = false
-}: PostHeaderProps) => {
+const PostHeader = ({ isNew = false, quoted = false }: PostHeaderProps) => {
   const { setQuotedPost } = usePostStore();
+  const { post, timelineItem, targetPost, rootPost } = usePostContext();
+  // Type assertion to handle AnyPostFragment vs PostFragment type difference
+  const targetPostTyped = targetPost as any;
 
-  const targetPost = isRepost(post) ? post?.repostOf : post;
-  const rootPost = timelineItem ? timelineItem?.primary : targetPost;
   const account = timelineItem ? rootPost.author : targetPost.author;
   const timestamp = timelineItem ? rootPost.timestamp : targetPost.timestamp;
 
@@ -37,12 +27,12 @@ const PostHeader = ({
     >
       <PostAccount
         account={account}
-        group={targetPost.feed?.group as PostGroupInfoFragment}
+        group={targetPostTyped.feed?.group as PostGroupInfoFragment}
         post={targetPost}
         timestamp={timestamp}
       />
       {!post.isDeleted && !quoted ? (
-        <PostMenu post={targetPost} />
+        <PostMenu post={targetPostTyped} />
       ) : (
         <div className="size-[30px]" />
       )}

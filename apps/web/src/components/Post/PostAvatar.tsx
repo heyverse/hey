@@ -1,25 +1,17 @@
 import getAvatar from "@hey/helpers/getAvatar";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import { memo } from "react";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import { Image } from "@/components/Shared/UI";
+import { usePostContext } from "@/contexts/PostContext";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface PostAvatarProps {
-  timelineItem?: TimelineItemFragment;
-  post: AnyPostFragment;
   quoted?: boolean;
 }
 
-const PostAvatar = ({
-  timelineItem,
-  post,
-  quoted = false
-}: PostAvatarProps) => {
-  const targetPost = isRepost(post) ? post?.repostOf : post;
-  const rootPost = timelineItem ? timelineItem?.primary : targetPost;
+const PostAvatar = ({ quoted = false }: PostAvatarProps) => {
+  const { timelineItem, targetPost, rootPost } = usePostContext();
   const account = timelineItem ? rootPost.author : targetPost.author;
 
   return (

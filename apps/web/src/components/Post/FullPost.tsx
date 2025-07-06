@@ -4,6 +4,7 @@ import type { AnyPostFragment } from "@hey/indexer";
 import { format } from "date-fns";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
+import { PostProvider } from "@/contexts/PostContext";
 import cn from "@/helpers/cn";
 import {
   getBlockedByMeMessage,
@@ -42,64 +43,65 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   }
 
   return (
-    <article className="p-5">
-      <PostType post={post} showType />
-      <div className="flex items-start gap-x-3">
-        <PostAvatar post={post} />
-        <div className="w-[calc(100%-55px)]">
-          <PostHeader post={targetPost} />
-          {targetPost.isDeleted ? (
-            <HiddenPost type={targetPost.__typename} />
-          ) : (
-            <>
-              <PostBody
-                contentClassName="full-page-post-markup"
-                post={targetPost}
-              />
-              <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
-                {format(new Date(timestamp), "hh:mm aa · MMM d, yyyy")}
-                {targetPost.isEdited ? " · Edited" : null}
-                {targetPost.app?.metadata?.name
-                  ? ` · ${targetPost.app?.metadata?.name}`
-                  : null}
-              </div>
-              <PostStats post={targetPost} />
-              <div className="divider" />
-              <div className="flex items-center justify-between">
-                <PostActions post={targetPost} showCount />
-                {hasHiddenComments ? (
-                  <div className="mt-2">
-                    <button
-                      aria-label="Like"
-                      className={cn(
-                        showHiddenComments
-                          ? "text-black hover:bg-gray-500/20"
-                          : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
-                        "rounded-full p-1.5 outline-offset-2"
-                      )}
-                      onClick={() => setShowHiddenComments(!showHiddenComments)}
-                      type="button"
-                    >
-                      <Tooltip
-                        content={
+    <PostProvider post={post}>
+      <article className="p-5">
+        <PostType post={post} showType />
+        <div className="flex items-start gap-x-3">
+          <PostAvatar />
+          <div className="w-[calc(100%-55px)]">
+            <PostHeader />
+            {targetPost.isDeleted ? (
+              <HiddenPost type={targetPost.__typename} />
+            ) : (
+              <>
+                <PostBody contentClassName="full-page-post-markup" />
+                <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
+                  {format(new Date(timestamp), "hh:mm aa · MMM d, yyyy")}
+                  {targetPost.isEdited ? " · Edited" : null}
+                  {targetPost.app?.metadata?.name
+                    ? ` · ${targetPost.app?.metadata?.name}`
+                    : null}
+                </div>
+                <PostStats post={targetPost} />
+                <div className="divider" />
+                <div className="flex items-center justify-between">
+                  <PostActions showCount />
+                  {hasHiddenComments ? (
+                    <div className="mt-2">
+                      <button
+                        aria-label="Like"
+                        className={cn(
                           showHiddenComments
-                            ? "Hide hidden comments"
-                            : "Show hidden comments"
+                            ? "text-black hover:bg-gray-500/20"
+                            : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
+                          "rounded-full p-1.5 outline-offset-2"
+                        )}
+                        onClick={() =>
+                          setShowHiddenComments(!showHiddenComments)
                         }
-                        placement="top"
-                        withDelay
+                        type="button"
                       >
-                        <QueueListIcon className="size-5" />
-                      </Tooltip>
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            </>
-          )}
+                        <Tooltip
+                          content={
+                            showHiddenComments
+                              ? "Hide hidden comments"
+                              : "Show hidden comments"
+                          }
+                          placement="top"
+                          withDelay
+                        >
+                          <QueueListIcon className="size-5" />
+                        </Tooltip>
+                      </button>
+                    </div>
+                  ) : null}
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </PostProvider>
   );
 };
 

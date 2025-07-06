@@ -1,7 +1,5 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPostFragment } from "@hey/indexer";
 import { getSrc } from "@livepeer/react/external";
 import { memo } from "react";
 import Quote from "@/components/Shared/Embed/Quote";
@@ -11,24 +9,25 @@ import Oembed from "@/components/Shared/Post/Oembed";
 import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
 import { H6 } from "@/components/Shared/UI";
+import { usePostContext } from "@/contexts/PostContext";
 import cn from "@/helpers/cn";
 import getURLs from "@/helpers/getURLs";
 
 interface PostBodyProps {
   contentClassName?: string;
-  post: AnyPostFragment;
   quoted?: boolean;
   showMore?: boolean;
 }
 
 const PostBody = ({
   contentClassName = "",
-  post,
   quoted = false,
   showMore = false
 }: PostBodyProps) => {
-  const targetPost = isRepost(post) ? post.repostOf : post;
-  const { metadata } = targetPost;
+  const { targetPost, post } = usePostContext();
+  // Type assertion to handle AnyPostFragment vs PostFragment type difference
+  const targetPostTyped = targetPost as any;
+  const { metadata } = targetPostTyped;
 
   const filteredContent = getPostData(metadata)?.content || "";
   const filteredAttachments = getPostData(metadata)?.attachments || [];
@@ -59,7 +58,7 @@ const PostBody = ({
     !showLive &&
     !showAttachments &&
     !quoted &&
-    !targetPost.quoteOf;
+    !targetPostTyped.quoteOf;
 
   return (
     <div className="break-words">
@@ -69,7 +68,7 @@ const PostBody = ({
           "markup linkify break-words",
           contentClassName
         )}
-        mentions={targetPost.mentions}
+        mentions={targetPostTyped.mentions}
       >
         {content}
       </Markup>
@@ -90,7 +89,9 @@ const PostBody = ({
       ) : null}
       {showOembed ? <Oembed url={urls[0]} /> : null}
       {showSharingLink ? <Oembed url={metadata.sharingLink} /> : null}
-      {targetPost.quoteOf ? <Quote post={targetPost.quoteOf} /> : null}
+      {targetPostTyped.quoteOf ? (
+        <Quote post={targetPostTyped.quoteOf} />
+      ) : null}
     </div>
   );
 };

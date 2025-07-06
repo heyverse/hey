@@ -1,6 +1,7 @@
 import type { PostFragment } from "@hey/indexer";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
+import { PostProvider } from "@/contexts/PostContext";
 import {
   getBlockedByMeMessage,
   getBlockedMeMessage
@@ -28,20 +29,22 @@ const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
   }
 
   return (
-    <PostWrapper
-      className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl"
-      post={post}
-    >
-      <div className="flex items-center gap-x-2">
-        <PostAvatar post={post} quoted />
-        <PostHeader isNew={isNew} post={post} quoted />
-      </div>
-      {post.isDeleted ? (
-        <HiddenPost type={post.__typename} />
-      ) : (
-        <PostBody post={post} quoted showMore />
-      )}
-    </PostWrapper>
+    <PostProvider post={post}>
+      <PostWrapper
+        className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl"
+        post={post}
+      >
+        <div className="flex items-center gap-x-2">
+          <PostAvatar quoted />
+          <PostHeader isNew={isNew} quoted />
+        </div>
+        {post.isDeleted ? (
+          <HiddenPost type={post.__typename} />
+        ) : (
+          <PostBody quoted showMore />
+        )}
+      </PostWrapper>
+    </PostProvider>
   );
 };
 
