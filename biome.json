@@ -15,6 +15,7 @@
       "**",
       "!**/.pnpm-store/**/*",
       "!**/.expo/**",
+      "!**/.claude/**",
       "!**/dist/**",
       "!**/artifacts/**",
       "!**/node_modules/**",
