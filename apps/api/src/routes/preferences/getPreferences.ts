@@ -1,8 +1,8 @@
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
-import prisma from "../../prisma/client";
-import handleApiError from "../../utils/handleApiError";
-import { getRedis, setRedis } from "../../utils/redis";
+import prisma from "@/prisma/client";
+import handleApiError from "@/utils/handleApiError";
+import { getRedis, setRedis } from "@/utils/redis";
 
 const getPreferences = async (ctx: Context) => {
   try {

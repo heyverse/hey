@@ -2,8 +2,8 @@ import { AssumeRoleCommand } from "@aws-sdk/client-sts";
 import { EVER_BUCKET } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
-import handleApiError from "../../utils/handleApiError";
-import stsClient from "../../utils/stsClient";
+import handleApiError from "@/utils/handleApiError";
+import stsClient from "@/utils/stsClient";
 
 const params = {
   DurationSeconds: 900,

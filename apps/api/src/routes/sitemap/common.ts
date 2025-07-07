@@ -1,7 +1,7 @@
 import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
-import { SITEMAP_CACHE_DAYS } from "../../utils/constants";
-import { getRedis, hoursToSeconds, setRedis } from "../../utils/redis";
+import { SITEMAP_CACHE_DAYS } from "@/utils/constants";
+import { getRedis, hoursToSeconds, setRedis } from "@/utils/redis";
 
 interface SitemapHelperOptions {
   ctx: Context;

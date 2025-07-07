@@ -1,8 +1,8 @@
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Context } from "hono";
 import type { HtmlEscapedString } from "hono/utils/html";
-import defaultMetadata from "../../utils/defaultMetadata";
-import { getRedis, setRedis } from "../../utils/redis";
+import defaultMetadata from "@/utils/defaultMetadata";
+import { getRedis, setRedis } from "@/utils/redis";
 
 interface OgHelperOptions<T> {
   ctx: Context;

@@ -1,8 +1,8 @@
 import { ERRORS } from "@hey/data/errors";
 import type { Context } from "hono";
 import { create } from "xmlbuilder2";
-import { SITEMAP_BATCH_SIZE } from "../../../utils/constants";
-import lensPg from "../../../utils/lensPg";
+import { SITEMAP_BATCH_SIZE } from "@/utils/constants";
+import lensPg from "@/utils/lensPg";
 import generateSitemap from "../common";
 
 const accountSitemap = async (ctx: Context) => {

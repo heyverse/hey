@@ -1,9 +1,9 @@
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
-import { CACHE_AGE_1_DAY } from "../../utils/constants";
-import handleApiError from "../../utils/handleApiError";
-import { generateExtraLongExpiry, getRedis, setRedis } from "../../utils/redis";
-import sha256 from "../../utils/sha256";
+import { CACHE_AGE_1_DAY } from "@/utils/constants";
+import handleApiError from "@/utils/handleApiError";
+import { generateExtraLongExpiry, getRedis, setRedis } from "@/utils/redis";
+import sha256 from "@/utils/sha256";
 import getMetadata from "./helpers/getMetadata";
 
 const getOembed = async (ctx: Context) => {

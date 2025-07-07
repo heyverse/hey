@@ -3,7 +3,10 @@
     "baseUrl": ".",
     "module": "CommonJS",
     "noEmit": false,
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "extends": "@hey/config/base.tsconfig.json",
   "include": ["**/*.ts", "src"]

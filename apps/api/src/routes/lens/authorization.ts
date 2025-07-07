@@ -1,6 +1,6 @@
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
-import handleApiError from "../../utils/handleApiError";
+import handleApiError from "@/utils/handleApiError";
 
 const authorization = async (ctx: Context) => {
   try {

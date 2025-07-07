@@ -1,8 +1,8 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
-import authMiddleware from "../../middlewares/authMiddleware";
-import rateLimiter from "../../middlewares/rateLimiter";
+import authMiddleware from "@/middlewares/authMiddleware";
+import rateLimiter from "@/middlewares/rateLimiter";
 import createLive from "./createLive";
 
 const app = new Hono();

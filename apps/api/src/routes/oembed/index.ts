@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
-import rateLimiter from "../../middlewares/rateLimiter";
+import rateLimiter from "@/middlewares/rateLimiter";
 import getOembed from "./getOembed";
 
 const app = new Hono();

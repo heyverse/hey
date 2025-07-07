@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import getOembed from "./getOembed";
 
 // Mock Redis utilities
-vi.mock("../../utils/redis", () => ({
+vi.mock("@/utils/redis", () => ({
   generateExtraLongExpiry: vi.fn(() => 86400),
   getRedis: vi.fn(),
   setRedis: vi.fn()

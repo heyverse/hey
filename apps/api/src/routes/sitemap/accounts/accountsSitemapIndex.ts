@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import { create } from "xmlbuilder2";
-import { SITEMAP_BATCH_SIZE } from "../../../utils/constants";
+import { SITEMAP_BATCH_SIZE } from "@/utils/constants";
 import generateSitemap from "../common";
 import getTotalAccountBatches from "./getTotalAccountBatches";
 

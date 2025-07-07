@@ -1,9 +1,6 @@
-import {
-  SITEMAP_BATCH_SIZE,
-  SITEMAP_CACHE_DAYS
-} from "../../../utils/constants";
-import lensPg from "../../../utils/lensPg";
-import { getRedis, hoursToSeconds, setRedis } from "../../../utils/redis";
+import { SITEMAP_BATCH_SIZE, SITEMAP_CACHE_DAYS } from "@/utils/constants";
+import lensPg from "@/utils/lensPg";
+import { getRedis, hoursToSeconds, setRedis } from "@/utils/redis";
 
 const getTotalAccountBatches = async (): Promise<number> => {
   const cacheKey = "sitemap:accounts:total";

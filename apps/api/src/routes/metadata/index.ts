@@ -1,6 +1,6 @@
 import { Hono } from "hono";
-import authMiddleware from "../../middlewares/authMiddleware";
-import rateLimiter from "../../middlewares/rateLimiter";
+import authMiddleware from "@/middlewares/authMiddleware";
+import rateLimiter from "@/middlewares/rateLimiter";
 import getSTS from "./getSTS";
 
 const app = new Hono();
