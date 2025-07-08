@@ -6,7 +6,7 @@ import {
   useRevokeAuthenticationMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import { memo, useCallback, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
@@ -120,24 +120,15 @@ const List = () => {
                 ) : null}
                 <div>
                   <b>Registered -</b>{" "}
-                  {format(
-                    new Date(session.createdAt),
-                    "MMM d, yyyy - hh:mm:ss aa"
-                  )}
+                  {dayjs(session.createdAt).format("MMM D, YYYY - hh:mm:ss A")}
                 </div>
                 <div>
                   <b>Last accessed -</b>{" "}
-                  {format(
-                    new Date(session.updatedAt),
-                    "MMM d, yyyy - hh:mm:ss aa"
-                  )}
+                  {dayjs(session.updatedAt).format("MMM D, YYYY - hh:mm:ss A")}
                 </div>
                 <div>
                   <b>Expires at -</b>{" "}
-                  {format(
-                    new Date(session.expiresAt),
-                    "MMM d, yyyy - hh:mm:ss aa"
-                  )}
+                  {dayjs(session.expiresAt).format("MMM D, YYYY - hh:mm:ss A")}
                 </div>
               </div>
             </div>

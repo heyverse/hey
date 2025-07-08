@@ -4,7 +4,7 @@ import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import type { ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router";
@@ -183,7 +183,7 @@ const Details = ({
             />
           )}
           <MetaDetails icon={<CalendarIcon className="size-4" />}>
-            Joined {format(new Date(account.createdAt), "MMM yyyy")}
+            Joined {dayjs(account.createdAt).format("MMM YYYY")}
           </MetaDetails>
         </div>
       </div>

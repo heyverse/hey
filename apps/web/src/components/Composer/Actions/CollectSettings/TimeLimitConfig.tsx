@@ -1,6 +1,6 @@
 import { ClockIcon } from "@heroicons/react/24/outline";
 import type { CollectActionType } from "@hey/types/hey";
-import { addDays, differenceInCalendarDays, format } from "date-fns";
+import dayjs from "dayjs";
 import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { RangeSlider } from "@/components/Shared/UI";
@@ -25,7 +25,7 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
           setCollectType({
             endsAt: collectAction.endsAt
               ? null
-              : addDays(new Date(), 1).toISOString()
+              : dayjs().add(1, "day").toISOString()
           })
         }
       />
@@ -43,28 +43,19 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
           <div>
             Number of days -{" "}
             <b>
-              {format(
-                new Date(collectAction.endsAt),
-                "MMM d, yyyy - hh:mm:ss aa"
-              )}
+              {dayjs(collectAction.endsAt).format("MMM D, YYYY - hh:mm:ss A")}
             </b>
           </div>
           <RangeSlider
-            defaultValue={[
-              differenceInCalendarDays(
-                new Date(collectAction.endsAt),
-                new Date()
-              )
-            ]}
-            displayValue={differenceInCalendarDays(
-              new Date(collectAction.endsAt),
-              new Date()
-            ).toString()}
+            defaultValue={[dayjs(collectAction.endsAt).diff(dayjs(), "day")]}
+            displayValue={dayjs(collectAction.endsAt)
+              .diff(dayjs(), "day")
+              .toString()}
             max={100}
             min={1}
             onValueChange={(value) =>
               setCollectType({
-                endsAt: addDays(new Date(), Number(value[0])).toISOString()
+                endsAt: dayjs().add(Number(value[0]), "day").toISOString()
               })
             }
             showValueInThumb

@@ -17,7 +17,7 @@ import {
   useCollectActionQuery
 } from "@hey/indexer";
 import { useCounter } from "@uidotdev/usehooks";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import plur from "plur";
 import { type Dispatch, type SetStateAction, useMemo, useState } from "react";
 import { Link } from "react-router";
@@ -220,7 +220,7 @@ const CollectActionBody = ({
                 <span>{isSaleEnded ? "Sale ended on:" : "Sale ends:"}</span>
                 <span className="font-bold text-gray-600">
                   {isSaleEnded ? (
-                    `${format(new Date(endTimestamp), "MMM d, yyyy, hh:mm aa")}`
+                    `${dayjs(endTimestamp).format("MMM D, YYYY, hh:mm A")}`
                   ) : (
                     <CountdownTimer targetDate={endTimestamp} />
                   )}
