@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Card } from "@/components/Shared/UI";
 
 interface HiddenPostProps {
@@ -12,4 +13,4 @@ const HiddenPost = ({ type = "Post" }: HiddenPostProps) => {
   );
 };
 
-export default HiddenPost;
+export default memo(HiddenPost);

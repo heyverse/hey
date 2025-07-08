@@ -1,4 +1,5 @@
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import { memo } from "react";
 import cn from "@/helpers/cn";
 
 interface SettingsProps {
@@ -19,4 +20,4 @@ const Settings = ({ className = "" }: SettingsProps) => {
   );
 };
 
-export default Settings;
+export default memo(Settings);

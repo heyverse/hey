@@ -1,4 +1,5 @@
 import { SparklesIcon } from "@heroicons/react/24/solid";
+import { memo } from "react";
 import { Badge } from "@/components/Shared/UI";
 
 const New = () => {
@@ -10,4 +11,4 @@ const New = () => {
   );
 };
 
-export default New;
+export default memo(New);

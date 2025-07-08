@@ -1,5 +1,6 @@
 import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
+import { memo } from "react";
 import FallbackAccountName from "@/components/Shared/FallbackAccountName";
 
 interface AccountsProps {
@@ -66,4 +67,4 @@ const Accounts = ({ context, accounts }: AccountsProps) => {
   return null;
 };
 
-export default Accounts;
+export default memo(Accounts);

@@ -1,6 +1,7 @@
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
+import { memo } from "react";
 import { useNavigate } from "react-router";
 import { Tooltip } from "@/components/Shared/UI";
 import humanize from "@/helpers/humanize";
@@ -47,4 +48,4 @@ const Comment = ({ post, showCount }: CommentProps) => {
   );
 };
 
-export default Comment;
+export default memo(Comment);
