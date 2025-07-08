@@ -1,3 +1,4 @@
+import { memo } from "react";
 import cn from "@/helpers/cn";
 
 interface SlugProps {
@@ -26,4 +27,4 @@ const Slug = ({
   );
 };
 
-export default Slug;
+export default memo(Slug);

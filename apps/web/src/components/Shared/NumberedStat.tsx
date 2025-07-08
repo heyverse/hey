@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { memo } from "react";
 import humanize from "@/helpers/humanize";
 import { Card, H4 } from "./UI";
 
@@ -19,4 +20,4 @@ const NumberedStat = ({ count, name, suffix }: NumberedStatsProps) => {
   );
 };
 
-export default NumberedStat;
+export default memo(NumberedStat);

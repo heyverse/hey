@@ -5,6 +5,7 @@ import type {
   PostGroupInfoFragment,
   TimelineItemFragment
 } from "@hey/indexer";
+import { memo } from "react";
 import PostMenu from "@/components/Post/Actions/Menu";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
@@ -60,4 +61,4 @@ const PostHeader = ({
   );
 };
 
-export default PostHeader;
+export default memo(PostHeader);

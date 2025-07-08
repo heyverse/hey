@@ -1,6 +1,7 @@
 import getAccount from "@hey/helpers/getAccount";
 import type { AccountFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
+import { memo } from "react";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import cn from "@/helpers/cn";
 import Slug from "./Slug";
@@ -42,4 +43,4 @@ const FallbackAccountName = ({
   );
 };
 
-export default FallbackAccountName;
+export default memo(FallbackAccountName);
