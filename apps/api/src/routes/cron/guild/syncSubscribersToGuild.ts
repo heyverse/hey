@@ -11,11 +11,8 @@ const syncSubscribersToGuild = async (ctx: Context) => {
       `
         SELECT DISTINCT ksw.owned_by
         FROM account.known_smart_wallet ksw
-        WHERE ksw.address IN (
-          SELECT member.account
-          FROM "group"."member" AS member
-          WHERE member."group" = $1
-        );
+        INNER JOIN "group"."member" AS member ON ksw.address = member.account
+        WHERE member."group" = $1;
       `,
       [`\\x${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}`]
     )) as Array<{ owned_by: Buffer }>;
