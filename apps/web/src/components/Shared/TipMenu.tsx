@@ -10,7 +10,7 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, RefObject } from "react";
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import { toast } from "sonner";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
@@ -249,4 +249,4 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   );
 };
 
-export default TipMenu;
+export default memo(TipMenu);

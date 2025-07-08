@@ -4,7 +4,7 @@ import {
   PageSize,
   useAccountRecommendationsQuery
 } from "@hey/indexer";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Suggested from "@/components/Home/Suggested";
 import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -13,7 +13,7 @@ import Skeleton from "@/components/Shared/Skeleton";
 import { Card, ErrorMessage, H5, Modal } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
-const Title = () => <H5>Who to Follow</H5>;
+const Title = memo(() => <H5>Who to Follow</H5>);
 
 const WhoToFollow = () => {
   const { currentAccount } = useAccountStore();
@@ -106,4 +106,4 @@ const WhoToFollow = () => {
   );
 };
 
-export default WhoToFollow;
+export default memo(WhoToFollow);

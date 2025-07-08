@@ -7,7 +7,7 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { format } from "date-fns";
-import { useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
 import Loader from "@/components/Shared/Loader";
@@ -160,4 +160,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default memo(List);

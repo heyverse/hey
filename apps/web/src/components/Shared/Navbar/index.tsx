@@ -14,7 +14,7 @@ import {
   UserGroupIcon as UserGroupSolid
 } from "@heroicons/react/24/solid";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { type MouseEvent, type ReactNode, useCallback } from "react";
+import { type MouseEvent, memo, type ReactNode, useCallback } from "react";
 import { Link, useLocation } from "react-router";
 import Pro from "@/components/Shared/Navbar/NavItems/Pro";
 import { Image, Tooltip } from "@/components/Shared/UI";
@@ -51,13 +51,13 @@ const navigationItems = {
   }
 };
 
-const NavItem = ({ url, icon }: { url: string; icon: ReactNode }) => (
+const NavItem = memo(({ url, icon }: { url: string; icon: ReactNode }) => (
   <Tooltip content={navigationItems[url as keyof typeof navigationItems].title}>
     <Link to={url}>{icon}</Link>
   </Tooltip>
-);
+));
 
-const NavItems = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const { pathname } = useLocation();
   const routes = [
     "/",
@@ -80,7 +80,7 @@ const NavItems = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
       ))}
     </>
   );
-};
+});
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -130,4 +130,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

@@ -1,4 +1,5 @@
 import type { PostFragment } from "@hey/indexer";
+import { memo } from "react";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
@@ -32,4 +33,4 @@ const ThreadBody = ({ post }: ThreadBodyProps) => {
   );
 };
 
-export default ThreadBody;
+export default memo(ThreadBody);
