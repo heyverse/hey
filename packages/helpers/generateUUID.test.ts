@@ -2,14 +2,14 @@ import { describe, expect, it } from "vitest";
 import generateUUID from "./generateUUID";
 
 describe("generateUUID", () => {
-  it("returns a valid UUID", () => {
+  it("returns a valid UUID for post identifiers", () => {
     const id = generateUUID();
     const uuidRegex =
       /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     expect(id).toMatch(uuidRegex);
   });
 
-  it("generates unique values", () => {
+  it("generates unique identifiers for different social media posts", () => {
     const id1 = generateUUID();
     const id2 = generateUUID();
     expect(id1).not.toBe(id2);

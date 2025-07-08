@@ -4,22 +4,22 @@ import formatAddress from "./formatAddress";
 const sampleAddress = "0x1234567890ABCDEF1234567890abcdef12345678";
 
 describe("formatAddress", () => {
-  it("formats a valid address with default slice size", () => {
+  it("formats wallet address for user profile display", () => {
     const result = formatAddress(sampleAddress);
     expect(result).toBe("0x12…5678");
   });
 
-  it("formats a valid address with custom slice size", () => {
+  it("formats ENS address with custom length for NFT creator attribution", () => {
     const result = formatAddress(sampleAddress, 6);
     expect(result).toBe("0x1234…345678");
   });
 
-  it("returns an empty string for null address", () => {
+  it("returns empty string when user has no connected wallet", () => {
     const result = formatAddress(null);
     expect(result).toBe("");
   });
 
-  it("returns lowercase string for invalid address", () => {
+  it("returns lowercase string for invalid wallet addresses in posts", () => {
     const result = formatAddress("NotAnAddress");
     expect(result).toBe("notanaddress");
   });

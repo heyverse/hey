@@ -15,24 +15,27 @@ interface TestPagination {
 }
 
 describe("cursorBasedPagination", () => {
-  it("merges existing and incoming items", () => {
+  it("merges existing and incoming social media posts in feed", () => {
     const policy = cursorBasedPagination<TestPagination>([]);
-    const existing = { items: ["a"], pageInfo };
-    const incoming = { items: ["b"], pageInfo: { ...pageInfo, next: "c" } };
+    const existing = { items: ["post1"], pageInfo };
+    const incoming = {
+      items: ["post2"],
+      pageInfo: { ...pageInfo, next: "post3" }
+    };
 
     const merged = (
       policy.merge as FieldMergeFunction<TestPagination, TestPagination>
     )(existing, incoming, {} as any);
 
-    expect(merged.items).toEqual(["a", "b"]);
+    expect(merged.items).toEqual(["post1", "post2"]);
     expect(merged.pageInfo).toEqual(incoming.pageInfo);
   });
 
-  it("returns items and page info unchanged", () => {
+  it("returns social media feed items and pagination info unchanged", () => {
     const policy = cursorBasedPagination<TestPagination>([]);
     const existing = {
-      items: ["a", "b"],
-      pageInfo: { ...pageInfo, next: "d" }
+      items: ["post1", "post2"],
+      pageInfo: { ...pageInfo, next: "post4" }
     };
 
     const read = policy.read?.(existing, {} as any);
