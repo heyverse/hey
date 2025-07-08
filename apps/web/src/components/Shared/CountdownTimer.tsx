@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type TimeLeft = {
   days: number;
@@ -12,10 +12,12 @@ interface CountdownTimerProps {
 }
 
 const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
-  const calculateTimeLeft = (): TimeLeft => {
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const targetTimeRef = useRef<number>(new Date(targetDate).getTime() - 30000);
+
+  const calculateTimeLeft = useCallback((): TimeLeft => {
     const now = new Date().getTime();
-    const target = new Date(targetDate).getTime() - 30000; // Subtract 30 seconds
-    const timeDiff = target - now;
+    const timeDiff = targetTimeRef.current - now;
 
     if (timeDiff <= 0) {
       return { days: 0, hours: 0, minutes: 0, seconds: 0 };
@@ -27,17 +29,43 @@ const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
     const seconds = Math.floor((timeDiff / 1000) % 60);
 
     return { days, hours, minutes, seconds };
-  };
+  }, []);
 
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
+    targetTimeRef.current = new Date(targetDate).getTime() - 30000;
+    setTimeLeft(calculateTimeLeft());
+  }, [targetDate, calculateTimeLeft]);
 
-    return () => clearInterval(timer);
-  }, [targetDate]);
+  useEffect(() => {
+    const updateTimer = () => {
+      const newTimeLeft = calculateTimeLeft();
+      setTimeLeft(newTimeLeft);
+
+      // Stop interval when countdown reaches zero
+      if (
+        newTimeLeft.days === 0 &&
+        newTimeLeft.hours === 0 &&
+        newTimeLeft.minutes === 0 &&
+        newTimeLeft.seconds === 0
+      ) {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      }
+    };
+
+    intervalRef.current = setInterval(updateTimer, 1000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [calculateTimeLeft]);
 
   const formatTimeValue = (value: number, label: string): string => {
     return value > 0 ? `${value}${label} ` : "";
