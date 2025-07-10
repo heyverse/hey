@@ -69,8 +69,8 @@
 
   .no-spinner::-webkit-inner-spin-button,
   .no-spinner::-webkit-outer-spin-button {
-    margin: 0;
     -webkit-appearance: none;
+    margin: 0;
   }
 
   .label {
@@ -100,13 +100,13 @@
     }
 
     & .prosekit-virtual-selection {
-      background-color: transparent;
       box-shadow: none;
+      background-color: transparent;
     }
 
     & .prosekit-placeholder::before {
-      content: attr(data-placeholder);
       @apply absolute top-[0.5px] pointer-events-none opacity-50;
+      content: attr(data-placeholder);
     }
   }
 
