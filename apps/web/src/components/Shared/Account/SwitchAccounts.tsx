@@ -11,6 +11,7 @@ import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Spinner, WarningMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
+import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signIn, signOut } from "@/store/persisted/useAuthStore";
 import SmallSingleAccount from "./SmallSingleAccount";
@@ -69,7 +70,8 @@ const SwitchAccounts = () => {
         const refreshToken = auth.data?.switchAccount.refreshToken;
         signOut();
         signIn({ accessToken, refreshToken });
-        return location.reload();
+        reloadAllTabs();
+        return;
       }
 
       return onError({ message: ERRORS.SomethingWentWrong });

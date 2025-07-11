@@ -5,6 +5,7 @@ import type { ApolloClientError } from "@hey/types/errors";
 import { useEffect } from "react";
 import { H4, Image } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { signIn } from "@/store/persisted/useAuthStore";
 import { useSignupStore } from ".";
 
@@ -28,7 +29,8 @@ const Success = () => {
         const accessToken = auth.data?.switchAccount.accessToken;
         const refreshToken = auth.data?.switchAccount.refreshToken;
         signIn({ accessToken, refreshToken });
-        return location.reload();
+        reloadAllTabs();
+        return;
       }
 
       return onError({ message: ERRORS.SomethingWentWrong });

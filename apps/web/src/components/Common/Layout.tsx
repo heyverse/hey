@@ -12,11 +12,13 @@ import GlobalShortcuts from "@/components/Shared/GlobalShortcuts";
 import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
+import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useProStore } from "@/store/persisted/useProStore";
+import ReloadTabsWatcher from "./ReloadTabsWatcher";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -35,7 +37,7 @@ const Layout = () => {
   const onError = () => {
     resetPreferences();
     signOut();
-    location.reload();
+    reloadAllTabs();
   };
 
   const { loading } = useMeQuery({
@@ -74,6 +76,7 @@ const Layout = () => {
       <GlobalShortcuts />
       <GlobalModals />
       <GlobalAlerts />
+      <ReloadTabsWatcher />
       <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8 px-0 md:px-5">
         <Navbar />
         <Outlet />
