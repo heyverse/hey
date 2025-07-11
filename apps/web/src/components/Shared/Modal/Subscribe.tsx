@@ -1,6 +1,5 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
-  DEFAULT_COLLECT_TOKEN,
   NATIVE_TOKEN_SYMBOL,
   PERMISSIONS,
   STATIC_IMAGES_URL,
@@ -33,10 +32,7 @@ const Subscribe = () => {
     pollInterval: 3000,
     skip: !currentAccount?.address,
     variables: {
-      request: {
-        address: currentAccount?.address,
-        tokens: [DEFAULT_COLLECT_TOKEN]
-      }
+      request: { address: currentAccount?.address, includeNative: true }
     }
   });
 
@@ -51,7 +47,7 @@ const Subscribe = () => {
   };
 
   const tokenBalance =
-    balance?.balancesBulk[0].__typename === "Erc20Amount"
+    balance?.balancesBulk[0].__typename === "NativeAmount"
       ? Number(balance.balancesBulk[0].value).toFixed(2)
       : 0;
 
@@ -159,10 +155,6 @@ const Subscribe = () => {
               className="w-sm"
               label={`Top-up ${SUBSCRIPTION_AMOUNT} ${NATIVE_TOKEN_SYMBOL} to your account`}
               outline
-              token={{
-                contractAddress: DEFAULT_COLLECT_TOKEN,
-                symbol: NATIVE_TOKEN_SYMBOL
-              }}
             />
           )}
           <div className="-mt-1 text-center text-gray-500 text-xs">

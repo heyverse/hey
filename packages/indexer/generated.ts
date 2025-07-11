@@ -1649,6 +1649,7 @@ export type FeedUnsatisfiedRules = {
 };
 
 export type FeedsFilter = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
   managedBy?: InputMaybe<ManagedBy>;
   searchQuery?: InputMaybe<Scalars['String']['input']>;
 };
@@ -2199,6 +2200,7 @@ export type GroupUnsatisfiedRules = {
 };
 
 export type GroupsFilter = {
+  app?: InputMaybe<Scalars['EvmAddress']['input']>;
   managedBy?: InputMaybe<ManagedBy>;
   member?: InputMaybe<Scalars['EvmAddress']['input']>;
   searchQuery?: InputMaybe<Scalars['String']['input']>;
@@ -5260,7 +5262,9 @@ export type SimplePaymentFollowRuleConfig = {
 };
 
 export type SimplePaymentGroupRuleConfig = {
-  cost: Erc20AmountInput;
+  cost?: InputMaybe<Erc20AmountInput>;
+  erc20?: InputMaybe<Erc20AmountInput>;
+  native?: InputMaybe<Scalars['BigDecimal']['input']>;
   recipient: Scalars['EvmAddress']['input'];
   referralShare?: Scalars['Float']['input'];
 };
@@ -6295,6 +6299,7 @@ export enum TransactionOperation {
   NamespaceExtraDataRemoved = 'NAMESPACE_EXTRA_DATA_REMOVED',
   NamespaceExtraDataUpdated = 'NAMESPACE_EXTRA_DATA_UPDATED',
   NamespaceFactoryDeployment = 'NAMESPACE_FACTORY_DEPLOYMENT',
+  NamespaceInfo = 'NAMESPACE_INFO',
   NamespaceMetadataUriSet = 'NAMESPACE_METADATA_URI_SET',
   PostActionConfigured = 'POST_ACTION_CONFIGURED',
   PostActionDisabled = 'POST_ACTION_DISABLED',
@@ -6662,6 +6667,8 @@ export type UsernameNamespace = {
   owner: Scalars['EvmAddress']['output'];
   rules: NamespaceRules;
   stats: UsernameNamespaceStats;
+  tokenName: Scalars['String']['output'];
+  tokenSymbol: Scalars['String']['output'];
 };
 
 export type UsernameNamespaceChoiceOneOf = {
