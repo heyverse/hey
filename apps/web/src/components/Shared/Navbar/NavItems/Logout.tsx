@@ -1,6 +1,7 @@
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
+import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
@@ -16,7 +17,7 @@ const Logout = ({ className = "", onClick }: LogoutProps) => {
     try {
       resetPreferences();
       signOut();
-      location.reload();
+      reloadAllTabs();
     } catch (error) {
       errorToast(error);
     }
