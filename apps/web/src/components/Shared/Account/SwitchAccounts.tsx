@@ -1,5 +1,6 @@
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { ERRORS } from "@hey/data/errors";
+import { Localstorage } from "@hey/data/storage";
 import {
   ManagedAccountsVisibility,
   useAccountsAvailableQuery,
@@ -69,6 +70,7 @@ const SwitchAccounts = () => {
         const refreshToken = auth.data?.switchAccount.refreshToken;
         signOut();
         signIn({ accessToken, refreshToken });
+        localStorage.setItem(Localstorage.ReloadTabs, Date.now().toString());
         return location.reload();
       }
 

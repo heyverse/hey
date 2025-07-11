@@ -17,6 +17,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useProStore } from "@/store/persisted/useProStore";
+import ReloadTabsWatcher from "./ReloadTabsWatcher";
 
 const Layout = () => {
   const { pathname } = useLocation();
@@ -74,6 +75,7 @@ const Layout = () => {
       <GlobalShortcuts />
       <GlobalModals />
       <GlobalAlerts />
+      <ReloadTabsWatcher />
       <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8 px-0 md:px-5">
         <Navbar />
         <Outlet />

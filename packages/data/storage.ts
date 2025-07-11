@@ -4,6 +4,7 @@ export const Localstorage = {
   HomeTabStore: "home-tab.store",
   PreferencesStore: "preferences.store",
   ProStore: "pro.store",
+  ReloadTabs: "reload.tabs",
   SearchStore: "search.store",
   Theme: "theme"
 };
