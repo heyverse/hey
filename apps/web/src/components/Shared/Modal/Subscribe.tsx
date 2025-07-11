@@ -1,10 +1,10 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
   DEFAULT_COLLECT_TOKEN,
+  NATIVE_TOKEN_SYMBOL,
   PERMISSIONS,
   STATIC_IMAGES_URL,
-  SUBSCRIPTION_AMOUNT,
-  WRAPPED_NATIVE_TOKEN_SYMBOL
+  SUBSCRIPTION_AMOUNT
 } from "@hey/data/constants";
 import {
   type AccountFragment,
@@ -96,11 +96,11 @@ const Subscribe = () => {
             Join Hey Pro for for{" "}
             <b className="inline-flex items-center gap-x-1">
               {SUBSCRIPTION_AMOUNT}{" "}
-              <Tooltip content={WRAPPED_NATIVE_TOKEN_SYMBOL} placement="top">
+              <Tooltip content={NATIVE_TOKEN_SYMBOL} placement="top">
                 <img
-                  alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
+                  alt={NATIVE_TOKEN_SYMBOL}
                   className="size-5"
-                  src={getTokenImage(WRAPPED_NATIVE_TOKEN_SYMBOL)}
+                  src={getTokenImage(NATIVE_TOKEN_SYMBOL)}
                 />
               </Tooltip>
               /year
@@ -157,11 +157,11 @@ const Subscribe = () => {
                 20
               }
               className="w-sm"
-              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
+              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${NATIVE_TOKEN_SYMBOL} to your account`}
               outline
               token={{
                 contractAddress: DEFAULT_COLLECT_TOKEN,
-                symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
+                symbol: NATIVE_TOKEN_SYMBOL
               }}
             />
           )}
