@@ -35,7 +35,7 @@
     "tsx": "^4.20.3",
     "viem": "^2.31.7",
     "xmlbuilder2": "^3.1.1",
-    "zod": "^4.0.5"
+    "zod": "3.25.75"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
