@@ -1,9 +1,10 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import {
-  NATIVE_TOKEN_SYMBOL,
+  DEFAULT_COLLECT_TOKEN,
   PERMISSIONS,
   STATIC_IMAGES_URL,
-  SUBSCRIPTION_AMOUNT
+  SUBSCRIPTION_AMOUNT,
+  WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
 import {
   type AccountFragment,
@@ -32,7 +33,10 @@ const Subscribe = () => {
     pollInterval: 3000,
     skip: !currentAccount?.address,
     variables: {
-      request: { address: currentAccount?.address, includeNative: true }
+      request: {
+        address: currentAccount?.address,
+        tokens: [DEFAULT_COLLECT_TOKEN]
+      }
     }
   });
 
@@ -47,7 +51,7 @@ const Subscribe = () => {
   };
 
   const tokenBalance =
-    balance?.balancesBulk[0].__typename === "NativeAmount"
+    balance?.balancesBulk[0].__typename === "Erc20Amount"
       ? Number(balance.balancesBulk[0].value).toFixed(2)
       : 0;
 
@@ -92,11 +96,11 @@ const Subscribe = () => {
             Join Hey Pro for for{" "}
             <b className="inline-flex items-center gap-x-1">
               {SUBSCRIPTION_AMOUNT}{" "}
-              <Tooltip content={NATIVE_TOKEN_SYMBOL} placement="top">
+              <Tooltip content={WRAPPED_NATIVE_TOKEN_SYMBOL} placement="top">
                 <img
-                  alt={NATIVE_TOKEN_SYMBOL}
+                  alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
                   className="size-5"
-                  src={getTokenImage(NATIVE_TOKEN_SYMBOL)}
+                  src={getTokenImage(WRAPPED_NATIVE_TOKEN_SYMBOL)}
                 />
               </Tooltip>
               /year
@@ -153,8 +157,12 @@ const Subscribe = () => {
                 20
               }
               className="w-sm"
-              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${NATIVE_TOKEN_SYMBOL} to your account`}
+              label={`Top-up ${SUBSCRIPTION_AMOUNT} ${WRAPPED_NATIVE_TOKEN_SYMBOL} to your account`}
               outline
+              token={{
+                contractAddress: DEFAULT_COLLECT_TOKEN,
+                symbol: WRAPPED_NATIVE_TOKEN_SYMBOL
+              }}
             />
           )}
           <div className="-mt-1 text-center text-gray-500 text-xs">
