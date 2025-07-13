@@ -1,5 +1,6 @@
 import { PERMISSIONS } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
+import logger from "@hey/helpers/logger";
 import type { Context } from "hono";
 import handleApiError from "@/utils/handleApiError";
 import lensPg from "@/utils/lensPg";
@@ -30,20 +31,36 @@ const removeExpiredSubscribers = async (ctx: Context) => {
       });
     }
 
+    // Run the removal operation in the background without awaiting
     const membersToRemove = addresses.map((addr) => ({
       account: addr,
       customParams: [],
       ruleProcessingParams: []
     }));
 
-    const hash = await signer.writeContract({
-      abi: ABI,
-      address: PERMISSIONS.SUBSCRIPTION,
-      args: [membersToRemove, []],
-      functionName: "removeMembers"
-    });
+    signer
+      .writeContract({
+        abi: ABI,
+        address: PERMISSIONS.SUBSCRIPTION,
+        args: [membersToRemove, []],
+        functionName: "removeMembers"
+      })
+      .then((hash) => {
+        logger.info("Expired subscribers removal completed", {
+          count: addresses.length,
+          hash
+        });
+      })
+      .catch((error) => {
+        logger.error("Expired subscribers removal failed:", error);
+      });
 
-    return ctx.json({ addresses, hash, status: Status.Success });
+    return ctx.json({
+      addresses,
+      processedAt: new Date().toISOString(),
+      status: Status.Success,
+      total: addresses.length
+    });
   } catch (error) {
     return handleApiError(ctx, error);
   }

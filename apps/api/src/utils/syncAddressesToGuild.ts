@@ -23,13 +23,6 @@ const syncAddressesToGuild = async ({
   requirementId: number;
   roleId: number;
 }) => {
-  // Return immediately with success status
-  const result = {
-    status: Status.Success,
-    total: addresses.length,
-    updatedAt: new Date().toISOString()
-  };
-
   // Run the sync operation in the background without awaiting
   requirementClient
     .update(
@@ -46,7 +39,11 @@ const syncAddressesToGuild = async ({
       logger.error("Guild sync failed:", error);
     });
 
-  return result;
+  return {
+    status: Status.Success,
+    total: addresses.length,
+    updatedAt: new Date().toISOString()
+  };
 };
 
 export default syncAddressesToGuild;
