@@ -23,6 +23,7 @@ import { Button, Form, Input, useZodForm } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useSignupStore } from ".";
 
 export const SignupMessage = () => (
@@ -54,7 +55,15 @@ const ChooseUsername = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
+  const handleTransactionLifecycle = useTransactionLifecycle();
   const form = useZodForm({ mode: "onChange", schema: ValidationSchema });
+
+  const onCompleted = (hash: string) => {
+    setIsSubmitting(false);
+    setChosenUsername(username);
+    setTransactionHash(hash);
+    setScreen("minting");
+  };
 
   const onError = (error?: any) => {
     setIsSubmitting(false);
@@ -64,7 +73,23 @@ const ChooseUsername = () => {
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
   const [loadChallenge] = useChallengeMutation({ onError });
   const [authenticate] = useAuthenticateMutation({ onError });
+
   const [createAccountWithUsername] = useCreateAccountWithUsernameMutation({
+    onCompleted: async ({ createAccountWithUsername }) => {
+      if (createAccountWithUsername.__typename === "CreateAccountResponse") {
+        return onCompleted(createAccountWithUsername.hash);
+      }
+
+      if (createAccountWithUsername.__typename === "UsernameTaken") {
+        return onError({ message: createAccountWithUsername.reason });
+      }
+
+      return await handleTransactionLifecycle({
+        onCompleted,
+        onError,
+        transactionData: createAccountWithUsername
+      });
+    },
     onError
   });
 
@@ -122,15 +147,6 @@ const ChooseUsername = () => {
         setOnboardingToken(accessToken);
         return await createAccountWithUsername({
           context: { headers: { "X-Access-Token": accessToken } },
-          onCompleted: ({ createAccountWithUsername }) => {
-            if (
-              createAccountWithUsername.__typename === "CreateAccountResponse"
-            ) {
-              setTransactionHash(createAccountWithUsername.hash);
-              setChosenUsername(username);
-              setScreen("minting");
-            }
-          },
           variables: {
             request: {
               metadataUri,
