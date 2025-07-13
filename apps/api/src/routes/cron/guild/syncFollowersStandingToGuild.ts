@@ -22,7 +22,6 @@ const syncFollowersStandingToGuild = async (ctx: Context) => {
 
     return ctx.json({
       addressCount: addresses.length,
-      message: `Guild sync job queued for ${addresses.length} followers with 1000+ standing`,
       success: true
     });
   } catch (error) {

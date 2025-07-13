@@ -25,7 +25,6 @@ const syncSubscribersToGuild = async (ctx: Context) => {
 
     return ctx.json({
       addressCount: addresses.length,
-      message: `Guild sync job queued for ${addresses.length} subscribers`,
       success: true
     });
   } catch (error) {
