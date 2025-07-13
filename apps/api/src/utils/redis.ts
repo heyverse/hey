@@ -5,7 +5,7 @@ import { createClient } from "redis";
 
 dotenv.config({ override: true });
 
-const noRedisError = () => logger.error("[Redis] Redis client not initialized");
+const logNoRedis = () => logger.info("[Redis] No Redis client, using fallback");
 
 let redisClient: null | RedisClientType = null;
 
@@ -56,7 +56,7 @@ export const setRedis = async (
   expiry = generateSmallExpiry()
 ) => {
   if (!redisClient) {
-    noRedisError();
+    logNoRedis();
     return;
   }
 
@@ -69,7 +69,7 @@ export const setRedis = async (
 
 export const getRedis = async (key: string) => {
   if (!redisClient) {
-    noRedisError();
+    logNoRedis();
     return null;
   }
 
@@ -78,7 +78,7 @@ export const getRedis = async (key: string) => {
 
 export const delRedis = async (key: string) => {
   if (!redisClient) {
-    noRedisError();
+    logNoRedis();
     return null;
   }
 
