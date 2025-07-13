@@ -1,7 +1,7 @@
 import type { Context } from "hono";
 import handleApiError from "@/utils/handleApiError";
 import lensPg from "@/utils/lensPg";
-import syncAddressesToGuild from "@/utils/syncAddressesToGuild";
+import { guildSyncQueue } from "@/utils/queue/GuildSyncQueue";
 
 // Sync followers standing of accounts with 1000+ followers
 const syncFollowersStandingToGuild = async (ctx: Context) => {
@@ -18,13 +18,12 @@ const syncFollowersStandingToGuild = async (ctx: Context) => {
       `0x${account.account.toString("hex")}`.toLowerCase()
     );
 
-    const data = await syncAddressesToGuild({
-      addresses,
-      requirementId: 471279,
-      roleId: 173474
-    });
+    await guildSyncQueue.addSyncJob(addresses, 471279, 173474);
 
-    return ctx.json(data);
+    return ctx.json({
+      addressCount: addresses.length,
+      success: true
+    });
   } catch (error) {
     return handleApiError(ctx, error);
   }
