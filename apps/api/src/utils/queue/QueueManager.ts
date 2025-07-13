@@ -78,15 +78,15 @@ export class QueueManager<T extends QueueJobData = QueueJobData> {
     }
   }
 
-  createWorker(
+  async createWorker(
     processor: QueueProcessor<T>,
     workerOptions?: Partial<WorkerOptions>
-  ): Worker {
+  ): Promise<Worker> {
     if (this.worker) {
       logger.warn(
         `[Queue:${this.queueName}] Worker already exists, closing existing worker`
       );
-      this.worker.close();
+      await this.worker.close();
     }
 
     this.worker = new Worker(
