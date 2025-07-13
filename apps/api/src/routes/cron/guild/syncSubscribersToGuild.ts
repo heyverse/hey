@@ -2,7 +2,7 @@ import { PERMISSIONS } from "@hey/data/constants";
 import type { Context } from "hono";
 import handleApiError from "@/utils/handleApiError";
 import lensPg from "@/utils/lensPg";
-import { guildSyncQueue } from "@/utils/queue/GuildSyncQueue";
+import syncAddressesToGuild from "@/utils/syncAddressesToGuild";
 
 // Sync accounts that has current subscriber status
 const syncSubscribersToGuild = async (ctx: Context) => {
@@ -21,12 +21,13 @@ const syncSubscribersToGuild = async (ctx: Context) => {
       `0x${account.owned_by.toString("hex")}`.toLowerCase()
     );
 
-    await guildSyncQueue.addSyncJob(addresses, 473346, 174659);
-
-    return ctx.json({
-      addressCount: addresses.length,
-      success: true
+    const data = await syncAddressesToGuild({
+      addresses,
+      requirementId: 473346,
+      roleId: 174659
     });
+
+    return ctx.json(data);
   } catch (error) {
     return handleApiError(ctx, error);
   }
