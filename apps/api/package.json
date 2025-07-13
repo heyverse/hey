@@ -25,6 +25,7 @@
     "@hono/zod-validator": "^0.7.0",
     "@lens-chain/sdk": "^1.0.3",
     "@prisma/client": "^6.11.1",
+    "bullmq": "^5.56.4",
     "dotenv": "^17.2.0",
     "hono": "^4.8.4",
     "hono-rate-limiter": "^0.4.2",
