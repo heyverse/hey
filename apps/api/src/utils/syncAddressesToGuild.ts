@@ -1,5 +1,6 @@
 import { createGuildClient, createSigner } from "@guildxyz/sdk";
 import { Status } from "@hey/data/enums";
+import logger from "@hey/helpers/logger";
 import signer from "./signer";
 
 const guildClient = createGuildClient("heyxyz");
@@ -22,19 +23,30 @@ const syncAddressesToGuild = async ({
   requirementId: number;
   roleId: number;
 }) => {
-  const updatedRequirement = await requirementClient.update(
-    7465,
-    roleId,
-    requirementId,
-    { data: { addresses, hideAllowlist: true }, visibility: "PUBLIC" },
-    signerFunction
-  );
-
-  return {
+  // Return immediately with success status
+  const result = {
     status: Status.Success,
     total: addresses.length,
-    updatedAt: updatedRequirement.updatedAt
+    updatedAt: new Date().toISOString()
   };
+
+  // Run the sync operation in the background without awaiting
+  requirementClient
+    .update(
+      7465,
+      roleId,
+      requirementId,
+      { data: { addresses, hideAllowlist: true }, visibility: "PUBLIC" },
+      signerFunction
+    )
+    .then(() => {
+      logger.info("Guild sync completed");
+    })
+    .catch((error) => {
+      logger.error("Guild sync failed:", error);
+    });
+
+  return result;
 };
 
 export default syncAddressesToGuild;

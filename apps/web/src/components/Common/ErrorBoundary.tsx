@@ -1,3 +1,4 @@
+import logger from "@hey/helpers/logger";
 import type { ErrorInfo, ReactNode } from "react";
 import { Component } from "react";
 import SiteError from "@/components/Shared/SiteError";
@@ -22,7 +23,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    logger.error("Uncaught error:", error, errorInfo);
   }
 
   public render() {
