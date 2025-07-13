@@ -9,7 +9,6 @@ fragment ReferencedPost on Post {
   app {
     metadata {
       name
-      logo
     }
   }
   author {
