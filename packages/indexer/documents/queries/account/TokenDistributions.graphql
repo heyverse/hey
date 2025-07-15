@@ -1,4 +1,4 @@
-query TtokenDistributions($request: TokenDistributionsRequest!) {
+query TokenDistributions($request: TokenDistributionsRequest!) {
   tokenDistributions(request: $request) {
     items {
       amount {
