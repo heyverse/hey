@@ -8,7 +8,8 @@ import {
   FingerPrintIcon,
   GlobeAltIcon,
   NoSymbolIcon,
-  PaintBrushIcon
+  PaintBrushIcon,
+  SparklesIcon
 } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@hey/indexer";
 import { Link } from "react-router";
@@ -36,6 +37,11 @@ const AccountSettings = () => {
       icon: <CurrencyDollarIcon className="size-5" />,
       title: "Monetize",
       url: "/settings/monetize"
+    },
+    {
+      icon: <SparklesIcon className="size-5" />,
+      title: "Token Distributions",
+      url: "/settings/distributions"
     },
     {
       icon: <CreditCardIcon className="size-5" />,

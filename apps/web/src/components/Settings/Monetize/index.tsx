@@ -5,7 +5,6 @@ import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import SuperFollow from "./SuperFollow";
-import TokenDistributions from "./TokenDistributions";
 
 const MonetizeSettings = () => {
   const { currentAccount } = useAccountStore();
@@ -27,10 +26,6 @@ const MonetizeSettings = () => {
           <ProFeatureNotice className="m-5" feature="super follow settings" />
         </Card>
       )}
-      <Card>
-        <CardHeader title="Token Distributions" />
-        <TokenDistributions />
-      </Card>
     </PageLayout>
   );
 };

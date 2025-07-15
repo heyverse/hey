@@ -9,7 +9,7 @@ import Loader from "@/components/Shared/Loader";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
-const TokenDistributions = () => {
+const List = () => {
   const request: TokenDistributionsRequest = {
     pageSize: PageSize.Fifty
   };
@@ -70,4 +70,4 @@ const TokenDistributions = () => {
   );
 };
 
-export default TokenDistributions;
+export default List;
