@@ -41,7 +41,7 @@ const List = () => {
       <EmptyState
         hideCard
         icon={<GiftIcon className="size-8" />}
-        message="You haven't received any token distributions yet."
+        message="You haven't received any distributions yet."
       />
     );
   }
@@ -51,7 +51,7 @@ const List = () => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load token distributions"
+        title="Failed to load distributions"
       />
     );
   }
