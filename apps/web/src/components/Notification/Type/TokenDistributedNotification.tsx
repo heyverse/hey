@@ -1,4 +1,4 @@
-import { SparklesIcon } from "@heroicons/react/24/outline";
+import { GiftIcon } from "@heroicons/react/24/outline";
 import type { TokenDistributedNotificationFragment } from "@hey/indexer";
 
 interface TokenDistributedNotificationProps {
@@ -12,7 +12,7 @@ const TokenDistributedNotification = ({
 
   return (
     <div className="flex items-center space-x-3">
-      <SparklesIcon className="size-6" />
+      <GiftIcon className="size-6" />
       <div>
         You have received {amount.value} {amount.asset.symbol}
       </div>

@@ -29,7 +29,7 @@ import PreferencesSettings from "@/components/Settings/Preferences";
 import SessionsSettings from "@/components/Settings/Sessions";
 import UsernameSettings from "@/components/Settings/Username";
 import Custom404 from "@/components/Shared/404";
-import TokenDistributionsSettings from "./components/Settings/TokenDistributions";
+import DistributionsSettings from "./components/Settings/Distributions";
 import Staff from "./components/Staff";
 
 const Routes = () => {
@@ -68,10 +68,7 @@ const Routes = () => {
               path="personalize"
             />
             <Route element={<AccountMonetizeSettings />} path="monetize" />
-            <Route
-              element={<TokenDistributionsSettings />}
-              path="distributions"
-            />
+            <Route element={<DistributionsSettings />} path="distributions" />
             <Route element={<BlockedSettings />} path="blocked" />
             <Route element={<DeveloperSettings />} path="developer" />
             <Route element={<FundsSettings />} path="funds" />

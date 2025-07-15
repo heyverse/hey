@@ -1,4 +1,4 @@
-import { SparklesIcon } from "@heroicons/react/24/outline";
+import { GiftIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
   type TokenDistributionsRequest,
@@ -40,7 +40,7 @@ const List = () => {
     return (
       <EmptyState
         hideCard
-        icon={<SparklesIcon className="size-8" />}
+        icon={<GiftIcon className="size-8" />}
         message="You haven't received any token distributions yet."
       />
     );
