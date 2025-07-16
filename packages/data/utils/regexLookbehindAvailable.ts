@@ -1,4 +1,4 @@
-const regexLookbehindAvailable: boolean = ((): boolean => {
+const regexLookbehindAvailable: boolean = (() => {
   try {
     return "ab".replace(/(?<=a)b/g, "c") === "ac";
   } catch {
