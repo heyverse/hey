@@ -16,6 +16,18 @@ describe("parseJwt", () => {
     expect(result).toEqual(payload);
   });
 
+  it("supports base64url encoded tokens", () => {
+    const payload = { act: { sub: "789" }, exp: 20, sid: "def", sub: "456" };
+    const base64Url = Buffer.from(JSON.stringify(payload)).toString(
+      "base64url"
+    );
+    const token = `header.${base64Url}.signature`;
+
+    const result = parseJwt(token);
+
+    expect(result).toEqual(payload);
+  });
+
   it("returns default payload for invalid token", () => {
     const invalidToken = "invalid.token";
 

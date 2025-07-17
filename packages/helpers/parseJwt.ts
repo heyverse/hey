@@ -1,6 +1,7 @@
 import type { JwtPayload } from "@hey/types/jwt";
 
-const decoded = (str: string): string => atob(str);
+const decoded = (str: string): string =>
+  atob(str.replace(/-/g, "+").replace(/_/g, "/"));
 
 const parseJwt = (token: string): JwtPayload => {
   try {
