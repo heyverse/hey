@@ -11,7 +11,7 @@
     "@hey/data": "workspace:*",
     "@hey/indexer": "workspace:*",
     "@hey/types": "workspace:*",
-    "viem": "^2.31.7"
+    "viem": "^2.32.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
