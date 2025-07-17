@@ -220,7 +220,7 @@ const CollectActionBody = ({
                 <span>{isSaleEnded ? "Sale ended on:" : "Sale ends:"}</span>
                 <span className="font-bold text-gray-600">
                   {isSaleEnded ? (
-                    `${dayjs(endTimestamp).format("MMM D, YYYY, hh:mm A")}`
+                    `${dayjs(endTimestamp).format("MMM D, YYYY, h:mm A")}`
                   ) : (
                     <CountdownTimer targetDate={endTimestamp} />
                   )}
