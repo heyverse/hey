@@ -4,7 +4,7 @@ import handleApiError from "@/utils/handleApiError";
 import lensPg from "@/utils/lensPg";
 import syncAddressesToGuild from "@/utils/syncAddressesToGuild";
 
-// Sync accounts that has current subscriber status
+// Sync accounts that have current subscriber status
 const syncSubscribersToGuild = async (ctx: Context) => {
   try {
     const accounts = (await lensPg.query(
