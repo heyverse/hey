@@ -1,9 +1,9 @@
 import type { Context, Next } from "hono";
 
 const secretMiddleware = async (c: Context, next: Next) => {
-  const secret = c.req.query("secret");
+  const code = c.req.query("code");
 
-  if (secret !== process.env.SHARED_SECRET) {
+  if (code !== process.env.SHARED_SECRET) {
     return c.body("Unauthorized", 401);
   }
 
