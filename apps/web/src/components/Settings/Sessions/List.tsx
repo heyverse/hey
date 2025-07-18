@@ -120,15 +120,15 @@ const List = () => {
                 ) : null}
                 <div>
                   <b>Registered -</b>{" "}
-                  {dayjs(session.createdAt).format("MMM D, YYYY - hh:mm:ss A")}
+                  {dayjs(session.createdAt).format("MMM D, YYYY - h:mm:ss A")}
                 </div>
                 <div>
                   <b>Last accessed -</b>{" "}
-                  {dayjs(session.updatedAt).format("MMM D, YYYY - hh:mm:ss A")}
+                  {dayjs(session.updatedAt).format("MMM D, YYYY - h:mm:ss A")}
                 </div>
                 <div>
                   <b>Expires at -</b>{" "}
-                  {dayjs(session.expiresAt).format("MMM D, YYYY - hh:mm:ss A")}
+                  {dayjs(session.expiresAt).format("MMM D, YYYY - h:mm:ss A")}
                 </div>
               </div>
             </div>

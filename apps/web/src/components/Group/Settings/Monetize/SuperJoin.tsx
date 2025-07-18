@@ -93,7 +93,7 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
                   required: [
                     {
                       simplePaymentRule: {
-                        cost: {
+                        erc20: {
                           currency: DEFAULT_COLLECT_TOKEN,
                           value: amount.toString()
                         },

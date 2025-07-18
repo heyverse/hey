@@ -6,6 +6,7 @@ import {
   CreditCardIcon,
   CurrencyDollarIcon,
   FingerPrintIcon,
+  GiftIcon,
   GlobeAltIcon,
   NoSymbolIcon,
   PaintBrushIcon
@@ -36,6 +37,11 @@ const AccountSettings = () => {
       icon: <CurrencyDollarIcon className="size-5" />,
       title: "Monetize",
       url: "/settings/monetize"
+    },
+    {
+      icon: <GiftIcon className="size-5" />,
+      title: "Distributions",
+      url: "/settings/distributions"
     },
     {
       icon: <CreditCardIcon className="size-5" />,

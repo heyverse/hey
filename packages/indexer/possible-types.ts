@@ -290,7 +290,8 @@ const result: PossibleTypesResultData = {
       "PostActionExecutedNotification",
       "QuoteNotification",
       "ReactionNotification",
-      "RepostNotification"
+      "RepostNotification",
+      "TokenDistributedNotification"
     ],
     PausingResult: [
       "SelfFundedTransactionRequest",
