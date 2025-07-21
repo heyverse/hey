@@ -62,7 +62,7 @@
     "tailwindcss": "^4.1.11",
     "unified": "^11.0.5",
     "unist-util-visit-parents": "^6.0.1",
-    "viem": "^2.32.1",
+    "viem": "^2.33.0",
     "virtua": "^0.41.5",
     "vite": "^7.0.5",
     "wagmi": "^2.16.0",
