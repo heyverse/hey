@@ -25,6 +25,9 @@ query Notifications($request: NotificationRequest!) {
       ... on AccountActionExecutedNotification {
         ...AccountActionExecutedNotification
       }
+      ... on TokenDistributedNotification {
+        ...TokenDistributedNotification
+      }
     }
     pageInfo {
       ...PaginatedResultInfo

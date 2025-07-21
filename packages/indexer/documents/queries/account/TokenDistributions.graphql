@@ -1,0 +1,14 @@
+query TokenDistributions($request: TokenDistributionsRequest!) {
+  tokenDistributions(request: $request) {
+    items {
+      amount {
+        ...PayableAmount
+      }
+      timestamp
+      txHash
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

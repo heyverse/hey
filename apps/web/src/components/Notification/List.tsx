@@ -20,6 +20,7 @@ import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import NotificationShimmer from "./Shimmer";
+import TokenDistributedNotification from "./Type/TokenDistributedNotification";
 
 const notificationComponentMap = {
   AccountActionExecutedNotification,
@@ -29,7 +30,8 @@ const notificationComponentMap = {
   PostActionExecutedNotification,
   QuoteNotification,
   ReactionNotification,
-  RepostNotification
+  RepostNotification,
+  TokenDistributedNotification
 } as const;
 
 interface ListProps {
@@ -51,6 +53,8 @@ const List = ({ feedType }: ListProps) => {
         return [NotificationType.Reacted];
       case NotificationFeedType.PostActions:
         return [NotificationType.ExecutedPostAction];
+      case NotificationFeedType.Distributions:
+        return [NotificationType.TokenDistributed];
       default:
         return;
     }
