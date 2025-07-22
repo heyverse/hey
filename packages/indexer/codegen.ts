@@ -29,7 +29,7 @@ const config: CodegenConfig = {
   },
   hooks: { afterAllFileWrite: ["biome format --write ."] },
   overwrite: true,
-  schema: LENS_ENDPOINT.Staging
+  schema: LENS_ENDPOINT.Mainnet
 };
 
 export default config;
