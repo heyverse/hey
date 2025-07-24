@@ -14,7 +14,7 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
     { name: "Comments", type: NotificationFeedType.Comments },
     { name: "Likes", type: NotificationFeedType.Likes },
     { name: "Actions", type: NotificationFeedType.PostActions },
-    { name: "Distributions", type: NotificationFeedType.Distributions }
+    { name: "Rewards", type: NotificationFeedType.Rewards }
   ];
 
   return (

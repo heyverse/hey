@@ -53,7 +53,7 @@ const List = ({ feedType }: ListProps) => {
         return [NotificationType.Reacted];
       case NotificationFeedType.PostActions:
         return [NotificationType.ExecutedPostAction];
-      case NotificationFeedType.Distributions:
+      case NotificationFeedType.Rewards:
         return [NotificationType.TokenDistributed];
       default:
         return;

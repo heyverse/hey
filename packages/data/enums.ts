@@ -17,7 +17,7 @@ export enum NotificationFeedType {
   Comments = "COMMENTS",
   Likes = "LIKES",
   Mentions = "MENTIONS",
-  Distributions = "DISTRIBUTIONS"
+  Rewards = "REWARDS"
 }
 
 export enum GroupsFeedType {

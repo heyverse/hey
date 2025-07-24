@@ -40,8 +40,8 @@ const AccountSettings = () => {
     },
     {
       icon: <GiftIcon className="size-5" />,
-      title: "Distributions",
-      url: "/settings/distributions"
+      title: "Rewards",
+      url: "/settings/rewards"
     },
     {
       icon: <CreditCardIcon className="size-5" />,
