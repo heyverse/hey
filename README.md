@@ -129,6 +129,8 @@ Convenient Node.js helpers are in the `script` directory:
   `pnpm-lock.yaml`, and `tsconfig.tsbuildinfo` files.
 - `node script/update-dependencies.mjs` updates packages across the monorepo,
   removes old installs and commits the changes in a new branch.
+- `node script/sort-package-json.mjs` sorts all `package.json` files in the
+  repository.
 
 ## License
 
