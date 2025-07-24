@@ -1,4 +1,5 @@
 import { CHAIN } from "@hey/data/constants";
+import logger from "@hey/helpers/logger";
 import { useConnections, useSwitchChain } from "wagmi";
 
 const useHandleWrongNetwork = () => {
@@ -10,7 +11,7 @@ const useHandleWrongNetwork = () => {
 
   const handleWrongNetwork = async () => {
     if (!isConnected()) {
-      console.warn("No active connection found.");
+      logger.warn("No active connection found.");
       return;
     }
 
@@ -18,7 +19,7 @@ const useHandleWrongNetwork = () => {
       try {
         await switchChainAsync({ chainId: CHAIN.id });
       } catch (error) {
-        console.error("Failed to switch chains:", error);
+        logger.error("Failed to switch chains:", error);
       }
     }
   };

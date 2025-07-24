@@ -1,3 +1,4 @@
+import logger from "@hey/helpers/logger";
 import type { Context, Next } from "hono";
 
 const infoLogger = async (c: Context, next: Next) => {
@@ -12,7 +13,7 @@ const infoLogger = async (c: Context, next: Next) => {
   const memoryUsedMb = ((endMem - startMem) / 1024 / 1024).toFixed(2);
   const message = `[${c.req.method} ${c.req.path}] ➜ ${timeTakenMs}ms, ${memoryUsedMb}mb`;
 
-  console.info(message);
+  logger.info(message);
 };
 
 export default infoLogger;
