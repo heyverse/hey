@@ -2,10 +2,10 @@
 
 ## Requirements
 
-To start working with the Hey monorepo, make sure the following tools are installed:
+To start working with the Hey monorepo, ensure the following tools are installed:
 
-- [Node.js](https://nodejs.org/en/download/) (v18 or higher) – the JavaScript runtime used by the project.
-- [pnpm](https://pnpm.io/installation) – the package manager used throughout the repository.
+- [Node.js](https://nodejs.org/en/download/) (v18 or higher) – the JavaScript runtime used in this project.
+- [pnpm](https://pnpm.io/installation) – the package manager used throughout this repository.
 - [Postgres App](https://postgresapp.com/) – the Postgres database used in development.
 
 ## Installation
@@ -54,7 +54,7 @@ Repeat this process for all relevant packages and applications in the monorepo.
 
 ### Environment Variables
 
-The example environment files define the following variables.
+The example environment files define the following variables:
 
 #### API (`apps/api/.env.example`)
 

@@ -1,6 +1,6 @@
 # Data
 
-Constants, endpoints and shared utilities consumed by the Hey apps.
+Constants, endpoints, and shared utilities consumed by the Hey apps.
 
 ## Commands
 
