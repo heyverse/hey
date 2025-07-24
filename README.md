@@ -107,6 +107,18 @@ Validate the codebase with the TypeScript type checker:
 pnpm typecheck
 ```
 
+### Run tests
+
+Execute unit tests across all workspaces:
+
+```bash
+pnpm test
+```
+
+Each workspace provides its own `vitest.config.ts`, so test behavior is scoped
+to that package. Vitest prints a summary for each workspace showing how many
+files and tests passed along with the execution time.
+
 ### Lint and Format Code
 
 Check code quality and formatting with Biome:
