@@ -21,7 +21,7 @@ const List = () => {
     variables: { request }
   });
 
-  const tokenDistributions = data?.tokenDistributions?.items;
+  const tokenRewards = data?.tokenDistributions?.items;
   const pageInfo = data?.tokenDistributions?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -39,12 +39,12 @@ const List = () => {
     return <Loader className="my-10" />;
   }
 
-  if (!tokenDistributions?.length) {
+  if (!tokenRewards?.length) {
     return (
       <EmptyState
         hideCard
         icon={<GiftIcon className="size-8" />}
-        message="You haven't received any distributions yet."
+        message="You haven't received any rewards yet."
       />
     );
   }
@@ -54,14 +54,14 @@ const List = () => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load distributions"
+        title="Failed to load rewards"
       />
     );
   }
 
   return (
     <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
-      {tokenDistributions.map((distribution) => (
+      {tokenRewards.map((distribution) => (
         <div
           className="flex items-center justify-between p-5"
           key={distribution.txHash}

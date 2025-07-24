@@ -5,7 +5,7 @@ import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import List from "./List";
 
-const DistributionsSettings = () => {
+const RewardsSettings = () => {
   const { currentAccount } = useAccountStore();
 
   if (!currentAccount) {
@@ -13,16 +13,13 @@ const DistributionsSettings = () => {
   }
 
   return (
-    <PageLayout title="Distributions">
+    <PageLayout title="Rewards">
       <Card>
-        <CardHeader
-          icon={<BackButton path="/settings" />}
-          title="Distributions"
-        />
+        <CardHeader icon={<BackButton path="/settings" />} title="Rewards" />
         <List />
       </Card>
     </PageLayout>
   );
 };
 
-export default DistributionsSettings;
+export default RewardsSettings;
