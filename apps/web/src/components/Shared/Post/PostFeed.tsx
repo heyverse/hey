@@ -7,7 +7,7 @@ import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 interface PostFeedProps<T extends { id: string }> {
   items: T[];
   loading?: boolean;
-  error?: unknown;
+  error?: { message?: string };
   hasMore?: boolean;
   handleEndReached: () => Promise<void>;
   emptyIcon: ReactNode;
