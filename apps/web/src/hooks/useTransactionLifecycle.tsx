@@ -58,7 +58,8 @@ const useTransactionLifecycle = () => {
         case "TransactionWillFail":
           return onError({ message: transactionData.reason });
         default:
-          throw onError({ message: ERRORS.SomethingWentWrong });
+          onError({ message: ERRORS.SomethingWentWrong });
+          return;
       }
     } catch (error) {
       return onError(error);
