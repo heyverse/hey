@@ -31,7 +31,7 @@ const pagesSitemap = async (ctx: Context) => {
     ctx.header("Content-Type", "application/xml");
     return ctx.body(sitemap.end({ prettyPrint: true }));
   } catch {
-    return ctx.body(ERRORS.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong, 500);
   }
 };
 

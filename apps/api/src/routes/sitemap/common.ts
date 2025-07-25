@@ -28,7 +28,7 @@ const generateSitemap = async ({
     ctx.header("Content-Type", "application/xml");
     return ctx.body(xml);
   } catch {
-    return ctx.body(ERRORS.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong, 500);
   }
 };
 

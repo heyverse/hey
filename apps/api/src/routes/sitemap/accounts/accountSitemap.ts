@@ -11,11 +11,11 @@ const accountSitemap = async (ctx: Context) => {
   const batch = params["batch.xml"].replace(".xml", "");
 
   if (Number.isNaN(Number(group)) || Number.isNaN(Number(batch))) {
-    return ctx.body(ERRORS.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong, 400);
   }
 
   if (Number(group) === 0 || Number(batch) === 0) {
-    return ctx.body(ERRORS.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong, 400);
   }
 
   return generateSitemap({
