@@ -10,7 +10,7 @@ const accountsGroupSitemap = async (ctx: Context) => {
   const groupParam = params["group.xml"].replace(".xml", "");
 
   if (Number.isNaN(Number(groupParam)) || Number(groupParam) === 0) {
-    return ctx.body(ERRORS.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong, 400);
   }
 
   const group = Number(groupParam);

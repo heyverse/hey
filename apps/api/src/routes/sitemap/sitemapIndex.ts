@@ -28,7 +28,7 @@ const sitemapIndex = async (ctx: Context) => {
     ctx.header("Content-Type", "application/xml");
     return ctx.body(sitemapIndex.end({ prettyPrint: true }));
   } catch {
-    return ctx.body(ERRORS.SomethingWentWrong);
+    return ctx.body(ERRORS.SomethingWentWrong, 500);
   }
 };
 
