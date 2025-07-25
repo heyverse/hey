@@ -7,7 +7,6 @@ import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
 import infoLogger from "./middlewares/infoLogger";
 import cronRouter from "./routes/cron";
-import jumperRouter from "./routes/jumper";
 import lensRouter from "./routes/lens";
 import liveRouter from "./routes/live";
 import metadataRouter from "./routes/metadata";
@@ -34,7 +33,6 @@ app.route("/oembed", oembedRouter);
 app.route("/preferences", preferencesRouter);
 app.route("/sitemap", sitemapRouter);
 app.route("/og", ogRouter);
-app.route("/jumper", jumperRouter);
 
 app.notFound((ctx) =>
   ctx.json({ error: "Not Found", status: Status.Error }, 404)
