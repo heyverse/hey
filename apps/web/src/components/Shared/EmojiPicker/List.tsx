@@ -40,10 +40,7 @@ const List = ({ setEmoji }: ListProps) => {
     return (
       <ErrorMessage
         className="m-5"
-        error={{
-          message: "Error while loading emojis",
-          name: ERRORS.SomethingWentWrong
-        }}
+        error={{ message: "Error while loading emojis" }}
         title={ERRORS.SomethingWentWrong}
       />
     );
