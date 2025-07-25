@@ -14,7 +14,7 @@ interface InitializeDbResult {
   pg: IMain<unknown, pg.IClient>;
 }
 
-type DatabaseParams = null | Record<string, any>;
+type DatabaseParams = null | Record<string, unknown>;
 type DatabaseQuery = string;
 
 class Database {
