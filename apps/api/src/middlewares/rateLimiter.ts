@@ -21,8 +21,8 @@ interface RateLimiterOptions {
 const rateLimiter = ({ requests }: RateLimiterOptions) => {
   return rateLimit({
     keyGenerator: (c) => {
-      const urlHash = sha256(c.req.url).slice(0, 25);
-      const key = `rate-limit:${urlHash}:${hashedIp(c.req.raw)}`;
+      const pathHash = sha256(c.req.path).slice(0, 25);
+      const key = `rate-limit:${pathHash}:${hashedIp(c.req.raw)}`;
       return key;
     }, // 1 minute
     limit: requests,
