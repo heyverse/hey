@@ -5,7 +5,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc --pretty"
+    "typecheck": "node --max-old-space-size=8192 node_modules/typescript/bin/tsc --pretty"
   },
   "dependencies": {
     "@hey/data": "workspace:*",

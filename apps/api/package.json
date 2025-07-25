@@ -13,7 +13,7 @@
     "prisma:migrate": "prisma migrate dev --schema ./src/prisma/schema.prisma",
     "start": "tsx watch src/index.ts",
     "test": "vitest run",
-    "typecheck": "tsc --pretty"
+    "typecheck": "node --max-old-space-size=8192 node_modules/typescript/bin/tsc --pretty"
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.848.0",

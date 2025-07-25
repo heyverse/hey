@@ -8,7 +8,7 @@
     "dev": "vite dev --port 4783",
     "start": "vite preview --port 4783",
     "test": "vitest run",
-    "typecheck": "tsc --pretty"
+    "typecheck": "node --max-old-space-size=8192 node_modules/typescript/bin/tsc --pretty"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
