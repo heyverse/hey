@@ -1,4 +1,4 @@
-import type { ApolloCache } from "@apollo/client";
+import type { ApolloCache, NormalizedCacheObject } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { CheckCircleIcon, NoSymbolIcon } from "@heroicons/react/24/outline";
 import {
@@ -22,7 +22,7 @@ const HideComment = ({ post }: HideCommentProps) => {
   const { currentAccount } = useAccountStore();
   const { showHiddenComments } = useHiddenCommentFeedStore();
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = (cache: ApolloCache<NormalizedCacheObject>) => {
     cache.evict({ id: cache.identify(post) });
   };
 

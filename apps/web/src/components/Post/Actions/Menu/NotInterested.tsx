@@ -1,4 +1,4 @@
-import type { ApolloCache } from "@apollo/client";
+import type { ApolloCache, NormalizedCacheObject } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import {
@@ -24,7 +24,10 @@ const NotInterested = ({ post }: NotInterestedProps) => {
     post: post.id
   };
 
-  const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
+  const updateCache = (
+    cache: ApolloCache<NormalizedCacheObject>,
+    notInterested: boolean
+  ) => {
     if (!post.operations) {
       return;
     }
