@@ -56,7 +56,7 @@ describe("getFileFromDataURL", () => {
     createElementSpy.mockRestore();
   });
 
-  it("returns null when image fails to load", async () => {
+  it("does nothing when image fails to load", async () => {
     class ErrorImage extends TestImage {
       set src(_url: string) {
         queueMicrotask(() => this.onerror?.());
@@ -71,6 +71,6 @@ describe("getFileFromDataURL", () => {
 
     await Promise.resolve();
 
-    expect(callback).toHaveBeenCalledWith(null);
+    expect(callback).not.toHaveBeenCalled();
   });
 });

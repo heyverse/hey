@@ -1,7 +1,7 @@
 const getFileFromDataURL = (
   dataUrl: string,
   fileName: string,
-  callback: (file: File | null) => void
+  callback: (file: File) => void
 ) => {
   const img = new Image();
   img.crossOrigin = "Anonymous";
@@ -22,7 +22,7 @@ const getFileFromDataURL = (
     });
   };
   img.onerror = () => {
-    callback(null);
+    // Ignore errors
   };
 };
 
