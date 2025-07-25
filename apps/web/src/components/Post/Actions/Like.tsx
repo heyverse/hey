@@ -1,4 +1,4 @@
-import type { ApolloCache } from "@apollo/client";
+import type { ApolloCache, NormalizedCacheObject } from "@apollo/client";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { ERRORS } from "@hey/data/errors";
@@ -30,7 +30,7 @@ const Like = ({ post, showCount }: LikeProps) => {
     post.stats.reactions
   );
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = (cache: ApolloCache<NormalizedCacheObject>) => {
     if (!post.operations) {
       return;
     }

@@ -1,4 +1,4 @@
-import type { ApolloCache } from "@apollo/client";
+import type { ApolloCache, NormalizedCacheObject } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { BookmarkIcon as BookmarkIconOutline } from "@heroicons/react/24/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/24/solid";
@@ -22,7 +22,10 @@ const Bookmark = ({ post }: BookmarkProps) => {
   const { pathname } = useLocation();
   const hasBookmarked = post.operations?.hasBookmarked;
 
-  const updateCache = (cache: ApolloCache<any>, hasBookmarked: boolean) => {
+  const updateCache = (
+    cache: ApolloCache<NormalizedCacheObject>,
+    hasBookmarked: boolean
+  ) => {
     if (!post.operations) {
       return;
     }
