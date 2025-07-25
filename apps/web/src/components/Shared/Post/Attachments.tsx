@@ -1,6 +1,7 @@
 import { TRANSFORMS } from "@hey/data/constants";
 import imageKit from "@hey/helpers/imageKit";
 import type { MetadataAsset } from "@hey/types/misc";
+import type { VideoSrc } from "@livepeer/react";
 import { getSrc } from "@livepeer/react/external";
 import { memo, useState } from "react";
 import Audio from "@/components/Shared/Audio";
@@ -104,7 +105,9 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
         <Video
           poster={asset?.cover as string}
           src={
-            getSrc(asset?.uri) || [{ src: asset?.uri, type: "video" } as any]
+            getSrc(asset?.uri) || [
+              { src: asset?.uri as string, type: "video" } as VideoSrc
+            ]
           }
         />
       )}
