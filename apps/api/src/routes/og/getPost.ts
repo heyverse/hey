@@ -3,6 +3,7 @@ import escapeHtml from "@hey/helpers/escapeHtml";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import getPostData from "@hey/helpers/getPostData";
+import normalizeDescription from "@hey/helpers/normalizeDescription";
 import { PostDocument, type PostFragment } from "@hey/indexer";
 import type { Context } from "hono";
 import { html } from "hono/html";
@@ -18,7 +19,7 @@ const getPost = async (ctx: Context) => {
       const { usernameWithPrefix } = getAccount(author);
       const filteredContent = getPostData(metadata)?.content || "";
       const title = `${post.__typename} by ${usernameWithPrefix} on Hey`;
-      const description = (filteredContent || title).slice(0, 155);
+      const description = normalizeDescription(filteredContent, title);
       const postUrl = `https://hey.xyz/posts/${post.slug}`;
 
       const escTitle = escapeHtml(title);
@@ -69,7 +70,7 @@ const getPost = async (ctx: Context) => {
       const { usernameWithPrefix } = getAccount(author);
       const filteredContent = getPostData(metadata)?.content || "";
       const title = `${post.__typename} by ${usernameWithPrefix} on Hey`;
-      const description = (filteredContent || title).slice(0, 155);
+      const description = normalizeDescription(filteredContent, title);
 
       return {
         "@context": "https://schema.org",

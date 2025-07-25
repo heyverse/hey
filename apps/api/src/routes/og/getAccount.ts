@@ -2,6 +2,7 @@ import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
 import escapeHtml from "@hey/helpers/escapeHtml";
 import { default as getAccountData } from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
+import normalizeDescription from "@hey/helpers/normalizeDescription";
 import { AccountDocument, type AccountFragment } from "@hey/indexer";
 import type { Context } from "hono";
 import { html, raw } from "hono/html";
@@ -15,7 +16,7 @@ const getAccount = async (ctx: Context) => {
     buildHtml: (account: AccountFragment, escapedJsonLd: string) => {
       const { name, link, usernameWithPrefix } = getAccountData(account);
       const title = `${name} (${usernameWithPrefix}) on Hey`;
-      const description = (account?.metadata?.bio || title).slice(0, 155);
+      const description = normalizeDescription(account?.metadata?.bio, title);
       const avatar = getAvatar(account, TRANSFORMS.AVATAR_BIG);
 
       const escTitle = escapeHtml(title);
@@ -58,7 +59,7 @@ const getAccount = async (ctx: Context) => {
     buildJsonLd: (account) => {
       const { name, usernameWithPrefix } = getAccountData(account);
       const title = `${name} (${usernameWithPrefix}) on Hey`;
-      const description = (account?.metadata?.bio || title).slice(0, 155);
+      const description = normalizeDescription(account?.metadata?.bio, title);
 
       return {
         "@context": "https://schema.org",
