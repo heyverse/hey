@@ -28,6 +28,7 @@ const AuthButtons = ({ className }: AuthButtonsProps) => {
 
 interface PageLayoutProps {
   title?: string;
+  description?: string;
   children: ReactNode;
   sidebar?: ReactNode;
   hideSearch?: boolean;
@@ -37,13 +38,14 @@ interface PageLayoutProps {
 const PageLayout = ({
   title,
   children,
+  description,
   sidebar = <Sidebar />,
   hideSearch = false,
   zeroTopMargin = false
 }: PageLayoutProps) => {
   return (
     <>
-      <MetaTags title={title} />
+      <MetaTags description={description} title={title} />
       <div
         className={cn("mt-5 mb-16 flex-1 space-y-5 md:mb-5", {
           "mt-0 md:mt-5": zeroTopMargin
