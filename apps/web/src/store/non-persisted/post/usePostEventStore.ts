@@ -2,6 +2,7 @@ import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface EventPost {
   title: string;
+  content: string;
   startsAt: string;
   endsAt: string;
   location: string;
@@ -18,6 +19,7 @@ export const DEFAULT_EVENT_POST: EventPost = {
     locality: "",
     region: ""
   },
+  content: "",
   endsAt: "",
   location: "",
   startsAt: "",

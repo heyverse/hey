@@ -1,6 +1,7 @@
 import {
   article,
   audio,
+  event,
   image,
   liveStream,
   textOnly,
@@ -8,6 +9,7 @@ import {
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import { usePostEventStore } from "@/store/non-persisted/post/usePostEventStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
@@ -20,6 +22,7 @@ interface UsePostMetadataProps {
 const usePostMetadata = () => {
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPost } = usePostAudioStore();
+  const { eventPost } = usePostEventStore();
   const { license } = usePostLicenseStore();
   const { attachments } = usePostAttachmentStore();
   const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
@@ -38,6 +41,7 @@ const usePostMetadata = () => {
       const isAudio = primaryAttachment?.type === "Audio";
       const isVideo = primaryAttachment?.type === "Video";
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
+      const isEvent = Boolean(eventPost.title);
 
       if (isLiveStream) {
         return liveStream({
@@ -104,12 +108,17 @@ const usePostMetadata = () => {
         });
       }
 
+      if (isEvent) {
+        return event(eventPost);
+      }
+
       return null;
     },
     [
       attachments,
       videoDurationInSeconds,
       audioPost,
+      eventPost,
       videoThumbnail,
       showLiveVideoEditor,
       liveVideoConfig,
