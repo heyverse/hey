@@ -29,11 +29,17 @@ export const DEFAULT_EVENT_POST: EventPost = {
 interface State {
   eventPost: EventPost;
   setEventPost: (eventPost: EventPost) => void;
+  resetEventPost: () => void;
+  setShowEventEditor: (showEventEditor: boolean) => void;
+  showEventEditor: boolean;
 }
 
 const { useStore: usePostEventStore } = createTrackedStore<State>((set) => ({
   eventPost: DEFAULT_EVENT_POST,
-  setEventPost: (eventPost) => set(() => ({ eventPost }))
+  resetEventPost: () => set(() => ({ eventPost: DEFAULT_EVENT_POST })),
+  setEventPost: (eventPost) => set(() => ({ eventPost })),
+  setShowEventEditor: (showEventEditor) => set(() => ({ showEventEditor })),
+  showEventEditor: false
 }));
 
 export { usePostEventStore };
