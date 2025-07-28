@@ -13,3 +13,18 @@ model Preference {
   includeLowScore Boolean  @default(false)
   createdAt       DateTime @default(now())
 }
+
+model RSVP {
+  accountAddress String
+  eventId        String
+  status         RSVPStatus
+  createdAt      DateTime   @default(now())
+
+  @@id([eventId, accountAddress])
+}
+
+enum RSVPStatus {
+  GOING
+  NOT_GOING
+  MAYBE
+}

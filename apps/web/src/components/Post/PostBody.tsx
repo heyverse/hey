@@ -7,6 +7,7 @@ import { memo } from "react";
 import Quote from "@/components/Shared/Embed/Quote";
 import Markup from "@/components/Shared/Markup";
 import Attachments from "@/components/Shared/Post/Attachments";
+import Event from "@/components/Shared/Post/Event";
 import Oembed from "@/components/Shared/Post/Oembed";
 import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
@@ -51,6 +52,7 @@ const PostBody = ({
   const showLive = metadata.__typename === "LivestreamMetadata";
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
+  const showEvent = metadata.__typename === "EventMetadata";
   // Show sharing link
   const showSharingLink = metadata.__typename === "LinkMetadata";
   const showOembed =
@@ -90,6 +92,7 @@ const PostBody = ({
       ) : null}
       {showOembed ? <Oembed url={urls[0]} /> : null}
       {showSharingLink ? <Oembed url={metadata.sharingLink} /> : null}
+      {showEvent ? <Event metadata={metadata} /> : null}
       {targetPost.quoteOf ? <Quote post={targetPost.quoteOf} /> : null}
     </div>
   );

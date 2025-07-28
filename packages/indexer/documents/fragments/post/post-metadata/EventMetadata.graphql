@@ -1,5 +1,6 @@
 fragment EventMetadata on EventMetadata {
   id
+  title
   content
   contentWarning
   tags
@@ -9,4 +10,15 @@ fragment EventMetadata on EventMetadata {
   attachments {
     ...AnyMedia
   }
+  address {
+    country
+    locality
+    region
+  }
+  location {
+    physical
+    virtual
+  }
+  startsAt
+  endsAt
 }
