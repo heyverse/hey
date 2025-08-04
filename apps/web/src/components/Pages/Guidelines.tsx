@@ -23,7 +23,8 @@ const Guidelines = () => {
               <H4 className="mt-8 mb-5">Safety</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  You are not allowed to display, share or promote any form of
+                  You are not allowed to display, share, or promote any of the
+                  following:
                 </p>
                 <ul className="list-inside list-disc space-y-2">
                   <li>Violence</li>
