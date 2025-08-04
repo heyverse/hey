@@ -86,7 +86,7 @@ const Guidelines = () => {
                   the names of popular persons as a parody. If you do something
                   like this, please use the "About me" section on your Account
                   to inform other users that your Account is a parody account.
-                  You must do this in a way which can be easily seen and
+                  You must do this in a way that can be easily seen and
                   understood by other users.
                 </p>
                 <H4 className="mt-8 mb-5">Suspension</H4>
