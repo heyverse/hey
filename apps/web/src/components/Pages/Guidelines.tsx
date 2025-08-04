@@ -116,7 +116,8 @@ const Guidelines = () => {
               <H4 className="mt-8 mb-5">Feedback</H4>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
-                questions, please <Link to="/support">Contact us</Link>.
+                questions, please{" "}
+                <Link to="mailto:support@hey.xyz">contact us</Link>.
               </p>
               {/* Feedback ends */}
             </div>
