@@ -56,10 +56,10 @@ const Terms = () => {
                 You may not use our Site for any illegal or unauthorised purpose
                 nor may you, in the use of the Service, violate any laws in your
                 jurisdiction (including but not limited to copyright laws). We
-                reserve the right to refuse the services to anyone for any
-                reason at any time. We may stop (permanently or temporarily)
-                providing the services or any features within the Site to you or
-                to users generally.
+                reserve the right to refuse service to anyone for any reason at
+                any time. We may stop (permanently or temporarily) providing the
+                Services or any features of the Site to you or to users
+                generally.
               </p>
               {/* 2. General Conditions ends */}
               {/* 3. Services begins */}
