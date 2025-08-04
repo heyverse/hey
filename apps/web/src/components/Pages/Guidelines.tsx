@@ -69,7 +69,7 @@ const Guidelines = () => {
                   <li>Airdrop farming</li>
                 </ul>
                 <p className="leading-7">
-                  If your account got suspended, you are not allowed to create
+                  If your account is suspended, you are not allowed to create
                   any new accounts.
                 </p>
               </div>
