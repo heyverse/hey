@@ -1,6 +1,6 @@
 # Indexer
 
-A GraphQL indexer and generated operations for the Hey apps.
+This package provides a GraphQL indexer and generated operations for the Hey apps.
 
 ## Commands
 

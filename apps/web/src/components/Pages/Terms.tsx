@@ -38,15 +38,14 @@ const Terms = () => {
                   accessing the Site, you consent to the Agreement.
                 </p>
                 <p className="leading-7">
-                  Any new features or tools which are added to Site shall also
-                  be subject to the Terms. You can review the most current
-                  version of the Terms at any time on this page. We reserve the
-                  right to update, change or replace any part of these Terms by
-                  posting updates and/or changes to our Site. It is your
-                  responsibility to check this page periodically for changes.
-                  Your continued use of or access to the Site following the
-                  posting of any changes constitutes acceptance of those
-                  changes.
+                  Any new features or tools which are added to the Site are also
+                  subject to the Terms. You can review the most current version
+                  of the Terms at any time on this page. We reserve the right to
+                  update, change or replace any part of these Terms by posting
+                  updates and/or changes to our Site. It is your responsibility
+                  to check this page periodically for changes. Your continued
+                  use of or access to the Site following the posting of any
+                  changes constitutes acceptance of those changes.
                 </p>
               </div>
               {/* 1. Overview ends */}
@@ -56,10 +55,10 @@ const Terms = () => {
                 You may not use our Site for any illegal or unauthorised purpose
                 nor may you, in the use of the Service, violate any laws in your
                 jurisdiction (including but not limited to copyright laws). We
-                reserve the right to refuse the services to anyone for any
-                reason at any time. We may stop (permanently or temporarily)
-                providing the services or any features within the Site to you or
-                to users generally.
+                reserve the right to refuse service to anyone for any reason at
+                any time. We may stop (permanently or temporarily) providing the
+                Services or any features of the Site to you or to users
+                generally.
               </p>
               {/* 2. General Conditions ends */}
               {/* 3. Services begins */}

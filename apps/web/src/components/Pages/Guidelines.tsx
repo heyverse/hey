@@ -23,7 +23,8 @@ const Guidelines = () => {
               <H4 className="mt-8 mb-5">Safety</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  You are not allowed to display, share or promote any form of
+                  You are not allowed to display, share, or promote any of the
+                  following:
                 </p>
                 <ul className="list-inside list-disc space-y-2">
                   <li>Violence</li>
@@ -50,7 +51,7 @@ const Guidelines = () => {
                 </ul>
                 <p className="leading-7">
                   Please try to keep Hey family-friendly (especially considering
-                  all Images, Videos, Audios and Links).
+                  all images, videos, audio, and links).
                 </p>
               </div>
               {/* Nudity ends */}
@@ -69,7 +70,7 @@ const Guidelines = () => {
                   <li>Airdrop farming</li>
                 </ul>
                 <p className="leading-7">
-                  If your account got suspended, you are not allowed to create
+                  If your account is suspended, you are not allowed to create
                   any new accounts.
                 </p>
               </div>
@@ -85,7 +86,7 @@ const Guidelines = () => {
                   the names of popular persons as a parody. If you do something
                   like this, please use the "About me" section on your Account
                   to inform other users that your Account is a parody account.
-                  You must do this in a way which can be easily seen and
+                  You must do this in a way that can be easily seen and
                   understood by other users.
                 </p>
                 <H4 className="mt-8 mb-5">Suspension</H4>
@@ -115,7 +116,8 @@ const Guidelines = () => {
               <H4 className="mt-8 mb-5">Feedback</H4>
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
-                questions, please <Link to="/support">Contact us</Link>.
+                questions, please{" "}
+                <Link to="mailto:support@hey.xyz">contact us</Link>.
               </p>
               {/* Feedback ends */}
             </div>

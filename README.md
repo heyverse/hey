@@ -20,7 +20,7 @@ git clone git@github.com:heyverse/hey.git
 
 ### Install NVM and pnpm
 
-On macOS you can install both with Homebrew:
+On macOS, you can install both with Homebrew:
 
 ```bash
 brew install nvm pnpm
