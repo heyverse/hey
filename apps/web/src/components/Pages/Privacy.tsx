@@ -114,8 +114,8 @@ const Privacy = () => {
                   improvements.
                 </p>
                 <p className="leading-7">
-                  We collect account id to identify the user. This makes sure to
-                  give the best experience to the user.
+                  We collect account IDs to identify users and provide the best
+                  experience.
                 </p>
                 <p className="leading-7">
                   We may change to other third-party analytics service provider.
