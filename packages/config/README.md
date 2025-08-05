@@ -1,6 +1,6 @@
 # Config
 
-Shared TypeScript configuration presets used across all Hey workspaces.
+This package provides shared TypeScript configuration presets used across all Hey workspaces.
 
 ## Commands
 
