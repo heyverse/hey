@@ -49,7 +49,7 @@ const PostBody = ({
 
   // Show live if it's there
   const showLive = metadata.__typename === "LivestreamMetadata";
-  // Show attachments if it's there
+  // Show attachments if they're there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show sharing link
   const showSharingLink = metadata.__typename === "LinkMetadata";
