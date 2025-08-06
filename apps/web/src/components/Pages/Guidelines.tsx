@@ -62,7 +62,7 @@ const Guidelines = () => {
                 </p>
                 <ul className="list-inside list-disc space-y-2">
                   <li>Manipulate other users</li>
-                  <li>Create a large amount of Accounts</li>
+                  <li>Create a large number of accounts.</li>
                   <li>
                     Share excessive amounts of content of any type ("Spam")
                   </li>
