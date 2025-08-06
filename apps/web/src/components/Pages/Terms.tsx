@@ -144,11 +144,10 @@ const Terms = () => {
               {/* 5. Modification of Services begins */}
               <H4 className="mt-8 mb-5">5. Modification of Services</H4>
               <p className="leading-7">
-                We reserve the right at any time to modify or discontinue the
-                Site (or any part or content thereof) without notice at any
-                time. We shall not be liable to you or any third-party for any
-                modification, information change, suspension or discontinuance
-                of the Site.
+                We reserve the right to modify or discontinue the Site (or any
+                part of it) without notice. We shall not be liable to you or any
+                third-party for any modification, information change, suspension
+                or discontinuance of the Site.
               </p>
               {/* 5. Modification of Services ends */}
               {/* 6. Third-Party Services & Websites begins */}
