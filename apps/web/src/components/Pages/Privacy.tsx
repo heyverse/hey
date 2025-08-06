@@ -118,9 +118,9 @@ const Privacy = () => {
                   give the best experience to the user.
                 </p>
                 <p className="leading-7">
-                  We may change to other third-party analytics service provider.
-                  The Privacy Policy of Analytics subjects to the every
-                  provider. You should review everything before using the Site.
+                  We may switch to another third-party analytics service
+                  provider. The privacy policy for analytics is determined by
+                  each provider.
                 </p>
               </div>
               {/* 5. Analytics ends */}
