@@ -15,8 +15,7 @@ const Guidelines = () => {
                 <p className="leading-7">
                   To protect all users on Hey and to prevent spam, we put some
                   rules in place. Please read them carefully and remember them
-                  whenever you are posting something on Hey or you are changing
-                  your Account.
+                  whenever you post something on Hey or change your account.
                 </p>
               </div>
               {/* Safety begins */}
