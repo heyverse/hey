@@ -280,7 +280,7 @@ const Terms = () => {
                   any time by not accessing the Site.
                 </p>
                 <p className="leading-7">
-                  If in our sole judgment you fail to comply with terms, we
+                  If in our sole judgment you fail to comply with the terms, we
                   reserve the right to terminate our Agreement with you and deny
                   you access to the Site.
                 </p>
