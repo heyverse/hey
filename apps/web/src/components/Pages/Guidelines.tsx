@@ -50,7 +50,7 @@ const Guidelines = () => {
                 </ul>
                 <p className="leading-7">
                   Please try to keep Hey family-friendly (especially considering
-                  all Images, Videos, Audios and Links).
+                  images, videos, audio, and links).
                 </p>
               </div>
               {/* Nudity ends */}
