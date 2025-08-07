@@ -65,7 +65,7 @@ const Terms = () => {
               <H4 className="mt-8 mb-5">3. Services</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  User Lens accounts are referred to as the Account on the Site.
+                  On the Site, Lens user accounts are referred to as 'accounts.'
                 </p>
                 <p className="leading-7">
                   The Site allows you to interact with the Lens, including
