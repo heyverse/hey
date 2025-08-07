@@ -114,10 +114,10 @@ const Terms = () => {
                 <p className="leading-7">
                   Our Site lets you upload text, pictures, and videos hosted on
                   a third-party provider, the Lens Storage Node. We are not
-                  responsible for any action or omission taken by Lens Storage
-                  Node as it pertains to the user interface or otherwise. The
-                  use and access of any third-party products or services,
-                  including through the Site, is at your own risk.
+                  responsible for any action or omission taken by the Lens
+                  Storage Node as it pertains to the user interface or
+                  otherwise. The use and access of any third-party products or
+                  services, including through the Site, is at your own risk.
                 </p>
                 <p className="leading-7">
                   The Lens is deployed on blockchain-based networks, and we are
