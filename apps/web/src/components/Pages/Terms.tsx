@@ -106,8 +106,9 @@ const Terms = () => {
                   responsible for the safekeeping of the private key associated
                   with the blockchain address used to interact with the Lens.{" "}
                   <b className="leading-7">
-                    The transactions on blockchain including transfer of tokens
-                    and data attached to it are permanent and cannot be undone.
+                    The transactions on the blockchain, including the transfer
+                    of tokens and the data attached to them, are permanent and
+                    cannot be undone.
                   </b>
                 </p>
                 <p className="leading-7">
