@@ -86,8 +86,8 @@ const Terms = () => {
                     your accounts.
                   </li>
                   <li className="leading-7">
-                    You bear sole responsibility for evaluating the Site and
-                    features before using them.
+                    You bear sole responsibility for evaluating the Site and its
+                    features.
                   </li>
                 </ul>
                 <p className="leading-7">
