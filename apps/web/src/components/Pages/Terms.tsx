@@ -69,7 +69,7 @@ const Terms = () => {
                 </p>
                 <p className="leading-7">
                   The Site allows you to interact with the Lens, including
-                  posts, reposts, comments and other content related actions.
+                  posts, reposts, comments and other content-related actions.
                 </p>
                 <p className="leading-7">
                   We reserve the right - but are not obligated to - limit the
