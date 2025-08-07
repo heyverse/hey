@@ -66,7 +66,6 @@ The example environment files define the following variables:
 - `EVER_ACCESS_KEY` – Access key for 4EVERLAND storage.
 - `EVER_ACCESS_SECRET` – Secret key for 4EVERLAND storage.
 - `SHARED_SECRET` – Token for internal API authorization.
-- `OPENROUTER_API_KEY` – API key for OpenRouter AI services.
 
 #### Web (`apps/web/.env.example`)
 

@@ -9,6 +9,5 @@ declare namespace NodeJS {
     EVER_ACCESS_SECRET: string;
     SHARED_SECRET: string;
     LIVEPEER_KEY: string;
-    OPENROUTER_API_KEY: string;
   }
 }
