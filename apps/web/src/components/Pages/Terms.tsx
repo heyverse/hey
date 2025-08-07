@@ -17,10 +17,8 @@ const Terms = () => {
               <H4 className="mb-5">1. Overview</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  The website "hey.xyz" (the "Site") offers information, tools
-                  and services to you to allow you to interact with the Lens
-                  Protocol - a composable and decentralised social graph
-                  protocol.
+                  The Site provides information about user-generated content and
+                  interactions on the Lens Protocol.
                 </p>
                 <p className="leading-7">
                   By visiting the Site, you agree to be bound by the following
