@@ -45,7 +45,7 @@ const NavigationItem = ({
   >
     {isActive ? solid : outline}
     {showIndicator && (
-      <span className="-right-1 absolute top-1 size-2 rounded-full bg-red-500" />
+      <span className="-right-1 -top-1 absolute size-2 rounded-full bg-red-500" />
     )}
   </Link>
 );

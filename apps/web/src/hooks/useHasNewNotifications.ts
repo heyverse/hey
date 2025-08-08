@@ -1,4 +1,7 @@
-import { useNotificationIndicatorQuery } from "@hey/indexer";
+import {
+  NotificationOrderBy,
+  useNotificationIndicatorQuery
+} from "@hey/indexer";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";
 
@@ -7,8 +10,9 @@ const useHasNewNotifications = () => {
   const { lastSeenNotificationId } = useNotificationStore();
 
   const { data } = useNotificationIndicatorQuery({
+    pollInterval: 10000,
     skip: !currentAccount,
-    variables: { request: {} }
+    variables: { request: { orderBy: NotificationOrderBy.Default } }
   });
 
   const latestNotificationWithId = data?.notifications?.items?.find(

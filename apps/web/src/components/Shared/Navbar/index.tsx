@@ -80,7 +80,7 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
             <span className="relative">
               {icon}
               {hasNewNotifications && (
-                <span className="-right-1 absolute top-0 size-2 rounded-full bg-red-500" />
+                <span className="-right-1 -top-1 absolute size-2 rounded-full bg-red-500" />
               )}
             </span>
           ) : (
