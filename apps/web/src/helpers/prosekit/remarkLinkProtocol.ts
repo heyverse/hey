@@ -1,4 +1,4 @@
-import type { Root } from "mdast";
+import type { Root } from "remark-parse/lib";
 import type { Plugin } from "unified";
 import { visitParents } from "unist-util-visit-parents";
 

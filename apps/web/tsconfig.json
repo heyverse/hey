@@ -2,7 +2,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
-    "moduleResolution": "Bundler",
     "paths": { "@/*": ["./src/*"] }
   },
   "extends": "@hey/config/react.tsconfig.json",
