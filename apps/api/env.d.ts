@@ -1,6 +1,6 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    NEXT_PUBLIC_LENS_NETWORK: string;
+    LENS_NETWORK: string;
     DATABASE_URL: string;
     LENS_DATABASE_URL: string;
     REDIS_URL: string;

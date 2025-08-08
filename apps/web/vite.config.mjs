@@ -72,6 +72,6 @@ export default defineConfig({
     tsconfigPaths(),
     react(),
     tailwindcss(),
-    EnvironmentPlugin(["VITE_IS_PRODUCTION", "NEXT_PUBLIC_LENS_NETWORK"])
+    EnvironmentPlugin(["VITE_IS_PRODUCTION", "LENS_NETWORK"])
   ]
 });

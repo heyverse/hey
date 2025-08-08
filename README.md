@@ -58,7 +58,7 @@ The example environment files define the following variables:
 
 #### API (`apps/api/.env.example`)
 
-- `NEXT_PUBLIC_LENS_NETWORK` – Lens network to use (`mainnet`, `testnet`, or `staging`).
+- `LENS_NETWORK` – Lens network to use (`mainnet`, `testnet`, or `staging`).
 - `DATABASE_URL` – Connection string for the main Postgres database.
 - `LENS_DATABASE_URL` – Read-only Postgres connection for Lens data.
 - `REDIS_URL` – Redis connection string for caching.
@@ -70,7 +70,7 @@ The example environment files define the following variables:
 #### Web (`apps/web/.env.example`)
 
 - `VITE_IS_PRODUCTION` – Boolean flag indicating production mode for Vite.
-- `NEXT_PUBLIC_LENS_NETWORK` – Lens network used by the web app.
+- `LENS_NETWORK` – Lens network used by the web app.
 
 ### Start the Development Server
 
