@@ -35,10 +35,7 @@ const accountSitemap = async (ctx: Context) => {
           ORDER BY id
           LIMIT $2;
         `,
-        {
-          1: globalBatch * SITEMAP_BATCH_SIZE,
-          2: SITEMAP_BATCH_SIZE
-        }
+        [globalBatch * SITEMAP_BATCH_SIZE, SITEMAP_BATCH_SIZE]
       )) as Array<{ local_name: string }>;
 
       for (const { local_name } of dbUsernames) {

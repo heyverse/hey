@@ -15,7 +15,7 @@ const getTotalAccountBatches = async (): Promise<number> => {
       SELECT CEIL(COUNT(*) / $1) AS count
       FROM account.username_assigned;
     `,
-    { 0: SITEMAP_BATCH_SIZE }
+    [SITEMAP_BATCH_SIZE]
   )) as Array<{ count: number }>;
 
   const totalBatches = Number(usernames[0]?.count) || 0;
