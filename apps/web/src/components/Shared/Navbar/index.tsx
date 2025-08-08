@@ -18,6 +18,7 @@ import { type MouseEvent, memo, type ReactNode, useCallback } from "react";
 import { Link, useLocation } from "react-router";
 import Pro from "@/components/Shared/Navbar/NavItems/Pro";
 import { Image, Tooltip } from "@/components/Shared/UI";
+import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
@@ -59,6 +60,7 @@ const NavItem = memo(({ url, icon }: { url: string; icon: ReactNode }) => (
 
 const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const { pathname } = useLocation();
+  const hasNewNotifications = useHasNewNotifications();
   const routes = [
     "/",
     "/explore",
@@ -67,17 +69,26 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
   return (
     <>
-      {routes.map((route) => (
-        <NavItem
-          icon={
-            pathname === route
-              ? navigationItems[route as keyof typeof navigationItems].solid
-              : navigationItems[route as keyof typeof navigationItems].outline
-          }
-          key={route}
-          url={route}
-        />
-      ))}
+      {routes.map((route) => {
+        const icon =
+          pathname === route
+            ? navigationItems[route as keyof typeof navigationItems].solid
+            : navigationItems[route as keyof typeof navigationItems].outline;
+
+        const iconWithIndicator =
+          route === "/notifications" ? (
+            <span className="relative">
+              {icon}
+              {hasNewNotifications && (
+                <span className="-right-1 -top-1 absolute size-2 rounded-full bg-red-500" />
+              )}
+            </span>
+          ) : (
+            icon
+          );
+
+        return <NavItem icon={iconWithIndicator} key={route} url={route} />;
+      })}
     </>
   );
 });

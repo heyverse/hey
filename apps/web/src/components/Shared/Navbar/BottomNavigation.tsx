@@ -13,6 +13,7 @@ import getAvatar from "@hey/helpers/getAvatar";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 import { Image } from "@/components/Shared/UI";
+import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import MobileDrawerMenu from "./MobileDrawerMenu";
@@ -24,6 +25,7 @@ interface NavigationItemProps {
   solid: ReactNode;
   isActive: boolean;
   onClick?: (e: MouseEvent) => void;
+  showIndicator?: boolean;
 }
 
 const NavigationItem = ({
@@ -32,10 +34,19 @@ const NavigationItem = ({
   outline,
   solid,
   isActive,
-  onClick
+  onClick,
+  showIndicator
 }: NavigationItemProps) => (
-  <Link aria-label={label} className="mx-auto my-3" onClick={onClick} to={path}>
+  <Link
+    aria-label={label}
+    className="relative mx-auto my-3"
+    onClick={onClick}
+    to={path}
+  >
     {isActive ? solid : outline}
+    {showIndicator && (
+      <span className="-right-1 -top-1 absolute size-2 rounded-full bg-red-500" />
+    )}
   </Link>
 );
 
@@ -44,6 +55,7 @@ const BottomNavigation = () => {
   const { currentAccount } = useAccountStore();
   const { show: showMobileDrawer, setShow: setShowMobileDrawer } =
     useMobileDrawerModalStore();
+  const hasNewNotifications = useHasNewNotifications();
 
   const handleAccountClick = () => setShowMobileDrawer(true);
 
@@ -93,6 +105,7 @@ const BottomNavigation = () => {
             onClick={(e) => handleHomClick(path, e)}
             outline={outline}
             path={path}
+            showIndicator={hasNewNotifications && path === "/notifications"}
             solid={solid}
           />
         ))}

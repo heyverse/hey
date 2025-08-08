@@ -5,7 +5,7 @@ import {
   NotificationType,
   useNotificationsQuery
 } from "@hey/indexer";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { WindowVirtualizer } from "virtua";
 import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";
 import CommentNotification from "@/components/Notification/Type/CommentNotification";
@@ -18,6 +18,7 @@ import RepostNotification from "@/components/Notification/Type/RepostNotificatio
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import { useNotificationStore } from "@/store/persisted/useNotificationStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import NotificationShimmer from "./Shimmer";
 import TokenDistributedNotification from "./Type/TokenDistributedNotification";
@@ -40,6 +41,7 @@ interface ListProps {
 
 const List = ({ feedType }: ListProps) => {
   const { includeLowScore } = usePreferencesStore();
+  const { setLastSeenNotificationId } = useNotificationStore();
 
   const getNotificationType = useCallback(() => {
     switch (feedType) {
@@ -74,6 +76,21 @@ const List = ({ feedType }: ListProps) => {
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
   const hasMore = !!pageInfo?.next;
+
+  useEffect(() => {
+    const firstNotification = notifications?.[0];
+    if (
+      !firstNotification ||
+      typeof firstNotification !== "object" ||
+      !("id" in firstNotification)
+    ) {
+      return;
+    }
+    const firstId = firstNotification.id;
+    if (firstId) {
+      setLastSeenNotificationId(firstId);
+    }
+  }, [notifications, setLastSeenNotificationId]);
 
   const handleEndReached = useCallback(async () => {
     if (hasMore) {
