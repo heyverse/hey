@@ -20,7 +20,7 @@ export const markdownFromHTML = (html: string): string => {
     .use(rehypeJoinParagraph)
     .use(rehypeRemark, { newlines: true })
     .use(remarkLinkProtocol)
-    .use(remarkStringify, {
+    .use(remarkStringify as any, {
       handlers: { break: customBreakHandler, hardBreak: customBreakHandler }
     })
     .processSync(html)
