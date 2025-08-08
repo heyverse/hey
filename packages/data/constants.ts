@@ -3,7 +3,7 @@ import { LENS_ENDPOINT } from "./lens-endpoints";
 import getEnvConfig from "./utils/getEnvConfig";
 
 // Environments
-export const IS_PRODUCTION = process.env.VITE_IS_PRODUCTION === "true";
+export const IS_PRODUCTION = process.env.IS_PRODUCTION === "true";
 
 // Lens and Hey Env Config
 export const LENS_NETWORK = process.env.LENS_NETWORK || "mainnet";

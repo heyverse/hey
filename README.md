@@ -69,7 +69,7 @@ The example environment files define the following variables:
 
 #### Web (`apps/web/.env.example`)
 
-- `VITE_IS_PRODUCTION` – Boolean flag indicating production mode for Vite.
+- `IS_PRODUCTION` – Boolean flag indicating production mode for Vite.
 - `LENS_NETWORK` – Lens network used by the web app.
 
 ### Start the Development Server
