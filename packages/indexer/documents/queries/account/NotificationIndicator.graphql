@@ -1,0 +1,33 @@
+query NotificationIndicator($request: NotificationRequest!) {
+  notifications(request: $request) {
+    items {
+      ... on CommentNotification {
+        id
+      }
+      ... on FollowNotification {
+        id
+      }
+      ... on MentionNotification {
+        id
+      }
+      ... on QuoteNotification {
+        id
+      }
+      ... on ReactionNotification {
+        id
+      }
+      ... on RepostNotification {
+        id
+      }
+      ... on PostActionExecutedNotification {
+        id
+      }
+      ... on AccountActionExecutedNotification {
+        id
+      }
+      ... on TokenDistributedNotification {
+        id
+      }
+    }
+  }
+}

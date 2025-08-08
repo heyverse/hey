@@ -78,7 +78,15 @@ const List = ({ feedType }: ListProps) => {
   const hasMore = !!pageInfo?.next;
 
   useEffect(() => {
-    const firstId = notifications?.[0]?.id;
+    const firstNotification = notifications?.[0];
+    if (
+      !firstNotification ||
+      typeof firstNotification !== "object" ||
+      !("id" in firstNotification)
+    ) {
+      return;
+    }
+    const firstId = firstNotification.id;
     if (firstId) {
       setLastSeenNotificationId(firstId);
     }
