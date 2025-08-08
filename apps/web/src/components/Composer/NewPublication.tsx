@@ -9,8 +9,6 @@ import { toast } from "sonner";
 import Attachment from "@/components/Composer/Actions/Attachment";
 import CollectSettings from "@/components/Composer/Actions/CollectSettings";
 import Gif from "@/components/Composer/Actions/Gif";
-import LivestreamSettings from "@/components/Composer/Actions/LivestreamSettings";
-import LivestreamEditor from "@/components/Composer/Actions/LivestreamSettings/LivestreamEditor";
 import RulesSettings from "@/components/Composer/Actions/RulesSettings";
 import NewAttachments from "@/components/Composer/NewAttachments";
 import QuotedPost from "@/components/Post/QuotedPost";
@@ -34,7 +32,6 @@ import {
   usePostAudioStore
 } from "@/store/non-persisted/post/usePostAudioStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
-import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import {
@@ -74,10 +71,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   // Video store
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
 
-  // Live video store
-  const { resetLiveVideoConfig, setShowLiveVideoEditor, showLiveVideoEditor } =
-    usePostLiveStore();
-
   // Attachment store
   const { addAttachments, attachments, isUploading, setAttachments } =
     usePostAttachmentStore();
@@ -110,8 +103,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     editor?.setMarkdown("");
     setIsSubmitting(false);
     setPostContent("");
-    setShowLiveVideoEditor(false);
-    resetLiveVideoConfig();
     setAttachments([]);
     setQuotedPost(undefined);
     setEditingPost(undefined);
@@ -259,7 +250,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
       {postContentError ? (
         <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
       ) : null}
-      {showLiveVideoEditor ? <LivestreamEditor /> : null}
       <LinkPreviews />
       <NewAttachments attachments={attachments} />
       {quotedPost ? (
@@ -284,16 +274,11 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
             <>
               <CollectSettings />
               <RulesSettings />
-              {isComment ? null : (
-                <>
-                  <LivestreamSettings />
-                  {!currentAccount?.isStaff && feed ? null : (
-                    <GroupFeedSelector
-                      onChange={setSelectedFeed}
-                      selected={selectedFeed}
-                    />
-                  )}
-                </>
+              {isComment ? null : !currentAccount?.isStaff && feed ? null : (
+                <GroupFeedSelector
+                  onChange={setSelectedFeed}
+                  selected={selectedFeed}
+                />
               )}
             </>
           )}

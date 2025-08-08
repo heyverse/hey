@@ -1,6 +1,6 @@
 import { HEY_API_URL } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
-import type { Live, Oembed, Preferences, STS } from "@hey/types/api";
+import type { Oembed, Preferences, STS } from "@hey/types/api";
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { isTokenExpiringSoon, refreshTokens } from "./tokenManager";
 
@@ -52,14 +52,6 @@ const fetchApi = async <T>(
 };
 
 export const hono = {
-  live: {
-    create: ({ record }: { record: boolean }): Promise<Live> => {
-      return fetchApi<Live>("/live/create", {
-        body: JSON.stringify({ record }),
-        method: "POST"
-      });
-    }
-  },
   metadata: {
     sts: (): Promise<STS> => {
       return fetchApi<STS>("/metadata/sts", { method: "GET" });

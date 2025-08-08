@@ -2,14 +2,12 @@ import {
   article,
   audio,
   image,
-  liveStream,
   textOnly,
   video
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
-import { usePostLiveStore } from "@/store/non-persisted/post/usePostLiveStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
 import { usePostAudioStore } from "../store/non-persisted/post/usePostAudioStore";
 
@@ -22,7 +20,6 @@ const usePostMetadata = () => {
   const { audioPost } = usePostAudioStore();
   const { license } = usePostLicenseStore();
   const { attachments } = usePostAttachmentStore();
-  const { liveVideoConfig, showLiveVideoEditor } = usePostLiveStore();
 
   const formatAttachments = () =>
     attachments.slice(1).map(({ mimeType, uri }) => ({
@@ -37,16 +34,6 @@ const usePostMetadata = () => {
       const isImage = primaryAttachment?.type === "Image";
       const isAudio = primaryAttachment?.type === "Audio";
       const isVideo = primaryAttachment?.type === "Video";
-      const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
-
-      if (isLiveStream) {
-        return liveStream({
-          ...baseMetadata,
-          liveUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
-          playbackUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
-          startsAt: new Date().toISOString()
-        });
-      }
 
       if (!hasAttachments) {
         return baseMetadata.content?.length > 2000
@@ -106,15 +93,7 @@ const usePostMetadata = () => {
 
       return null;
     },
-    [
-      attachments,
-      videoDurationInSeconds,
-      audioPost,
-      videoThumbnail,
-      showLiveVideoEditor,
-      liveVideoConfig,
-      license
-    ]
+    [attachments, videoDurationInSeconds, audioPost, videoThumbnail, license]
   );
 
   return getMetadata;
