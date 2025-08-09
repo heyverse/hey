@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import Logout from "@/components/Shared/Navbar/NavItems/Logout";
+import Rewards from "@/components/Shared/Navbar/NavItems/Rewards";
 import Settings from "@/components/Shared/Navbar/NavItems/Settings";
 import SwitchAccount from "@/components/Shared/Navbar/NavItems/SwitchAccount";
 import ThemeSwitch from "@/components/Shared/Navbar/NavItems/ThemeSwitch";
@@ -43,6 +44,15 @@ const SignedAccount = () => {
             }
           >
             <YourAccount />
+          </MenuItem>
+          <MenuItem
+            as={Link}
+            className={({ focus }: { focus: boolean }) =>
+              cn({ "dropdown-active": focus }, "menu-item")
+            }
+            to="/settings/rewards"
+          >
+            <Rewards />
           </MenuItem>
           <MenuItem
             as={Link}
