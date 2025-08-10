@@ -338,8 +338,8 @@ importers:
         specifier: workspace:*
         version: link:../config
       '@types/node':
-        specifier: ^24.1.0
-        version: 24.1.0
+        specifier: ^24.2.1
+        version: 24.2.1
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
