@@ -2,9 +2,6 @@ import { chains } from "@lens-chain/sdk/viem";
 import { LENS_ENDPOINT } from "./lens-endpoints";
 import getEnvConfig from "./utils/getEnvConfig";
 
-// Environments
-export const IS_PRODUCTION = process.env.IS_PRODUCTION === "true";
-
 // Lens and Hey Env Config
 export const LENS_NETWORK = process.env.LENS_NETWORK || "mainnet";
 
@@ -12,9 +9,7 @@ export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const HEY_APP = getEnvConfig().appAddress;
 export const HEY_TREASURY = "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
-export const HEY_API_URL = IS_PRODUCTION
-  ? "https://api.hey.xyz"
-  : "http://localhost:4784";
+export const HEY_API_URL = "https://api.hey.xyz";
 
 export const IS_MAINNET = LENS_API_URL === LENS_ENDPOINT.Mainnet;
 export const CHAIN = IS_MAINNET ? chains.mainnet : chains.testnet;
