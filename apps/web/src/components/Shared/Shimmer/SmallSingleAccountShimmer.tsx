@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Skeleton from "@/components/Shared/Skeleton";
 import cn from "@/helpers/cn";
 
@@ -21,4 +22,4 @@ const SmallSingleAccountShimmer = ({
   );
 };
 
-export default SmallSingleAccountShimmer;
+export default memo(SmallSingleAccountShimmer);

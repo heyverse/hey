@@ -1,3 +1,4 @@
+import { memo } from "react";
 import SingleAccountShimmer from "./SingleAccountShimmer";
 
 const AccountListShimmer = () => {
@@ -14,4 +15,4 @@ const AccountListShimmer = () => {
   );
 };
 
-export default AccountListShimmer;
+export default memo(AccountListShimmer);

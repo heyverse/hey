@@ -1,5 +1,5 @@
-import Skeleton from "@/components/Shared/Skeleton";
 import { memo } from "react";
+import Skeleton from "@/components/Shared/Skeleton";
 
 const FollowersYouKnowShimmer = () => {
   return (

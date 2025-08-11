@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Skeleton from "@/components/Shared/Skeleton";
 
 const PostShimmer = () => {
@@ -32,4 +33,4 @@ const PostShimmer = () => {
   );
 };
 
-export default PostShimmer;
+export default memo(PostShimmer);
