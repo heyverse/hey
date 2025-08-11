@@ -42,8 +42,8 @@ import {
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import GroupFeedSelector from "./Actions/GroupFeedSelector";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
+import GroupSelector from "./GroupSelector";
 import LinkPreviews from "./LinkPreviews";
 
 interface NewPublicationProps {
@@ -284,21 +284,21 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
             <>
               <CollectSettings />
               <RulesSettings />
-              {isComment ? null : (
-                <>
-                  <LivestreamSettings />
-                  {!currentAccount?.isStaff && feed ? null : (
-                    <GroupFeedSelector
-                      onChange={setSelectedFeed}
-                      selected={selectedFeed}
-                    />
-                  )}
-                </>
-              )}
+              {isComment ? null : <LivestreamSettings />}
             </>
           )}
         </div>
-        <div className="mt-2 ml-auto sm:mt-0">
+        <div className="mt-2 ml-auto flex items-center space-x-2 sm:mt-0">
+          {!editingPost &&
+            !isComment &&
+            (!currentAccount?.isStaff && feed ? null : (
+              <div className="w-40">
+                <GroupSelector
+                  onChange={setSelectedFeed}
+                  selected={selectedFeed}
+                />
+              </div>
+            ))}
           <Button
             disabled={
               isSubmitting ||

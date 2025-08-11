@@ -29,17 +29,30 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
     variables: { request }
   });
 
-  const options = useMemo(() => {
-    const groups = data?.groups?.items ?? [];
-    return groups.map((group: GroupFragment) => ({
-      icon: getAvatar(group),
-      label: group.metadata?.name ?? group.address,
-      selected: group.feed?.address === selected,
-      value: group.feed?.address ?? ""
-    }));
-  }, [data?.groups?.items, selected]);
+  const groups = useMemo(
+    () => data?.groups?.items ?? [],
+    [data?.groups?.items]
+  );
 
-  if (!options.length) {
+  const options = useMemo(
+    () => [
+      {
+        icon: getAvatar(currentAccount),
+        label: "My profile",
+        selected: !selected,
+        value: ""
+      },
+      ...groups.map((group: GroupFragment) => ({
+        icon: getAvatar(group),
+        label: group.metadata?.name ?? group.address,
+        selected: group.feed?.address === selected,
+        value: group.feed?.address ?? ""
+      }))
+    ],
+    [currentAccount, groups, selected]
+  );
+
+  if (!groups.length) {
     return null;
   }
 
