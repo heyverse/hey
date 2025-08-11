@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Card } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import PostShimmer from "./PostShimmer";
@@ -21,4 +22,4 @@ const PostsShimmer = ({ hideCard = false }: PostsShimmerProps) => {
   );
 };
 
-export default PostsShimmer;
+export default memo(PostsShimmer);

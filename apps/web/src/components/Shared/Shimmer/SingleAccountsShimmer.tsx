@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Card } from "@/components/Shared/UI";
 import SingleAccountShimmer from "./SingleAccountShimmer";
 
@@ -34,4 +35,4 @@ const SingleAccountsShimmer = ({
   );
 };
 
-export default SingleAccountsShimmer;
+export default memo(SingleAccountsShimmer);

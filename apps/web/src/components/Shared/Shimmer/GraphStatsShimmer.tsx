@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Skeleton from "@/components/Shared/Skeleton";
 
 interface GraphStatsShimmerProps {
@@ -17,4 +18,4 @@ const GraphStatsShimmer = ({ count }: GraphStatsShimmerProps) => {
   );
 };
 
-export default GraphStatsShimmer;
+export default memo(GraphStatsShimmer);
