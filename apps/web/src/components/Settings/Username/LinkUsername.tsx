@@ -4,7 +4,7 @@ import {
   useUsernamesQuery
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import LazySmallSingleAccount from "@/components/Shared/Account/LazySmallSingleAccount";
 import Loader from "@/components/Shared/Loader";
@@ -24,10 +24,10 @@ const LinkUsername = () => {
     toast.success("Linked");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setLinkingUsername(null);
     errorToast(error);
-  };
+  }, []);
 
   const { data, loading } = useUsernamesQuery({
     variables: {

@@ -4,7 +4,7 @@ import {
   useUpdateAccountManagerMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Checkbox } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
@@ -42,10 +42,10 @@ const Permission = ({ title, enabled, manager }: PermissionProps) => {
     setIsSubmitting(false);
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [updateAccountManager] = useUpdateAccountManagerMutation({
     onCompleted: async ({ updateAccountManager }) => {

@@ -1,7 +1,7 @@
 import { useApolloClient } from "@apollo/client";
 import { type AccountFragment, useFollowMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
@@ -46,10 +46,10 @@ const Follow = ({
     onFollow?.();
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [follow] = useFollowMutation({
     onCompleted: async ({ follow }) => {

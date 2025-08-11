@@ -13,7 +13,13 @@ import {
   useUpdateAccountFollowRulesMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { type RefObject, useEffect, useRef, useState } from "react";
+import {
+  type RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import BackButton from "@/components/Shared/BackButton";
 import {
   Button,
@@ -63,10 +69,10 @@ const SuperFollow = () => {
     location.reload();
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [updateAccountFollowRules] = useUpdateAccountFollowRulesMutation({
     onCompleted: async ({ updateAccountFollowRules }) => {

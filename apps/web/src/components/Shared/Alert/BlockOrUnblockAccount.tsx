@@ -3,7 +3,7 @@ import { ERRORS } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import { useBlockMutation, useUnblockMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -48,10 +48,10 @@ const BlockOrUnblockAccount = () => {
     );
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [block] = useBlockMutation({
     onCompleted: async ({ block }) => {

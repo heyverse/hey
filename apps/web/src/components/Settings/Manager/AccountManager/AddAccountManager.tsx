@@ -3,7 +3,7 @@ import { ERRORS } from "@hey/data/errors";
 import { useAddAccountManagerMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import type { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { isAddress } from "viem";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
@@ -35,10 +35,10 @@ const AddAccountManager = ({
     location.reload();
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [addAccountManager] = useAddAccountManagerMutation({
     onCompleted: async ({ addAccountManager }) => {

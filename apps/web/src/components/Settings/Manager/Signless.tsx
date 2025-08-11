@@ -1,6 +1,6 @@
 import { useEnableSignlessMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -15,10 +15,10 @@ const Signless = () => {
     toast.success("Signless enabled");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [enableSignless] = useEnableSignlessMutation({
     onCompleted: async ({ enableSignless }) => {
