@@ -1,4 +1,5 @@
 import { LinkIcon } from "@heroicons/react/24/outline";
+import { memo } from "react";
 import { Card } from "@/components/Shared/UI";
 
 interface EmptyOembedProps {
@@ -22,4 +23,4 @@ const EmptyOembed = ({ url, hideLoader = false }: EmptyOembedProps) => {
   );
 };
 
-export default EmptyOembed;
+export default memo(EmptyOembed);

@@ -1,5 +1,6 @@
 import type { AnyPostFragment } from "@hey/indexer";
 import type { ComponentProps, ReactNode } from "react";
+import { memo } from "react";
 import { Link } from "react-router";
 import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
 
@@ -25,4 +26,4 @@ const PostLink = ({ post, children, onClick, ...props }: PostLinkProps) => {
   );
 };
 
-export default PostLink;
+export default memo(PostLink);

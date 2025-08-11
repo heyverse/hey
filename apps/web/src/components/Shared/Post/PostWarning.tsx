@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Card } from "@/components/Shared/UI";
 
 interface PostWarningProps {
@@ -12,4 +13,4 @@ const PostWarning = ({ message }: PostWarningProps) => {
   );
 };
 
-export default PostWarning;
+export default memo(PostWarning);

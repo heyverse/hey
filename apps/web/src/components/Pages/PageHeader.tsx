@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { H2 } from "@/components/Shared/UI";
 
 interface PageHeaderProps {
@@ -20,4 +21,4 @@ const PageHeader = ({ title, updatedAt }: PageHeaderProps) => (
   </div>
 );
 
-export default PageHeader;
+export default memo(PageHeader);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Image } from "@/components/Shared/UI";
 
 interface StackedAvatarsProps {
@@ -26,4 +27,4 @@ const StackedAvatars = ({ avatars, limit }: StackedAvatarsProps) => {
   );
 };
 
-export default StackedAvatars;
+export default memo(StackedAvatars);

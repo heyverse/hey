@@ -1,5 +1,6 @@
 import type { AnyPostFragment } from "@hey/indexer";
 import type { ReactNode } from "react";
+import { memo } from "react";
 import { useNavigate } from "react-router";
 import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
 
@@ -28,4 +29,4 @@ const PostWrapper = ({ children, className = "", post }: PostWrapperProps) => {
   );
 };
 
-export default PostWrapper;
+export default memo(PostWrapper);

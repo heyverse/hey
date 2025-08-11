@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { memo } from "react";
 import { hono } from "@/helpers/fetcher";
 import Embed from "./Embed";
 import EmptyOembed from "./EmptyOembed";
@@ -35,4 +36,4 @@ const Oembed = ({ url }: OembedProps) => {
   return <Embed og={og} />;
 };
 
-export default Oembed;
+export default memo(Oembed);

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { memo } from "react";
 import MetaTags from "@/components/Common/MetaTags";
 import SignupButton from "@/components/Shared/Navbar/SignupButton";
 import cn from "@/helpers/cn";
@@ -69,4 +70,4 @@ const PageLayout = ({
   );
 };
 
-export default PageLayout;
+export default memo(PageLayout);

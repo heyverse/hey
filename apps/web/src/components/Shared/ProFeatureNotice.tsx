@@ -1,4 +1,5 @@
 import { SparklesIcon } from "@heroicons/react/24/outline";
+import { memo } from "react";
 import cn from "@/helpers/cn";
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 
@@ -32,4 +33,4 @@ const ProFeatureNotice = ({ feature, className }: ProFeatureNoticeProps) => {
   );
 };
 
-export default ProFeatureNotice;
+export default memo(ProFeatureNotice);

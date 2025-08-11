@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { memo } from "react";
 import { H5 } from "./Typography";
 
 interface CardHeaderProps {
@@ -28,4 +29,4 @@ const CardHeader = ({
   );
 };
 
-export default CardHeader;
+export default memo(CardHeader);

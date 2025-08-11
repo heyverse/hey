@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { memo } from "react";
 import { WindowVirtualizer } from "virtua";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -51,4 +52,4 @@ const PostFeed = <T extends { id: string }>({
   );
 };
 
-export default PostFeed;
+export default memo(PostFeed);

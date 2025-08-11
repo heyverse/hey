@@ -1,5 +1,6 @@
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import type { ReactNode } from "react";
+import { memo } from "react";
 import { Tooltip } from "@/components/Shared/UI";
 
 interface HelpTooltipProps {
@@ -20,4 +21,4 @@ const HelpTooltip = ({ children }: HelpTooltipProps) => {
   );
 };
 
-export default HelpTooltip;
+export default memo(HelpTooltip);

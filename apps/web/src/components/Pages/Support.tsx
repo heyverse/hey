@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Link } from "react-router";
 import PageLayout from "@/components/Shared/PageLayout";
 import { Card, H3 } from "@/components/Shared/UI";
@@ -32,4 +33,4 @@ const Support = () => {
   );
 };
 
-export default Support;
+export default memo(Support);

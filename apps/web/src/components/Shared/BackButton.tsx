@@ -1,5 +1,5 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { useNavigate, useNavigationType } from "react-router";
 
 interface BackButtonProps {
@@ -31,4 +31,4 @@ const BackButton = ({ path }: BackButtonProps) => {
   );
 };
 
-export default BackButton;
+export default memo(BackButton);

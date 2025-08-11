@@ -1,4 +1,5 @@
 import type { Oembed } from "@hey/types/api";
+import { memo } from "react";
 import { Link } from "react-router";
 import { Card } from "@/components/Shared/UI";
 import getFavicon from "@/helpers/getFavicon";
@@ -54,4 +55,4 @@ const Embed = ({ og }: EmbedProps) => {
   );
 };
 
-export default Embed;
+export default memo(Embed);

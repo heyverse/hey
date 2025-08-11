@@ -3,12 +3,21 @@ import { toast } from "sonner";
 
 const useCopyToClipboard = (
   text: string,
-  successMessage = "Copied to clipboard!"
+  successMessage = "Copied to clipboard!",
+  errorMessage = "Failed to copy"
 ) => {
   return useCallback(async () => {
-    await navigator.clipboard.writeText(text);
-    toast.success(successMessage);
-  }, [text, successMessage]);
+    try {
+      if (!navigator?.clipboard?.writeText) {
+        throw new Error("Clipboard API not available");
+      }
+
+      await navigator.clipboard.writeText(text);
+      toast.success(successMessage);
+    } catch {
+      toast.error(errorMessage);
+    }
+  }, [text, successMessage, errorMessage]);
 };
 
 export default useCopyToClipboard;
