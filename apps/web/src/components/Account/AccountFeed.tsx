@@ -1,6 +1,7 @@
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
 import {
+  type AnyPostFragment,
   MainContentFocus,
   PageSize,
   type PostsRequest,
@@ -83,6 +84,8 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;
 
+  const safePosts = (posts ?? []) as AnyPostFragment[];
+
   const handleEndReached = useCallback(async () => {
     if (hasMore) {
       await fetchMore({
@@ -104,7 +107,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       errorTitle="Failed to load account feed"
       handleEndReached={handleEndReached}
       hasMore={hasMore}
-      items={posts ?? []}
+      items={safePosts}
       loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />

@@ -52,4 +52,4 @@ const PostFeed = <T extends { id: string }>({
   );
 };
 
-export default memo(PostFeed);
+export default memo(PostFeed) as typeof PostFeed;
