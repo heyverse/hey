@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { THUMBNAIL_GENERATE_COUNT } from "@/components/Composer/ChooseThumbnail";
 import Skeleton from "@/components/Shared/Skeleton";
 
@@ -14,4 +14,4 @@ const ThumbnailsShimmer = () => {
   );
 };
 
-export default ThumbnailsShimmer;
+export default memo(ThumbnailsShimmer);

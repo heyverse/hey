@@ -1,4 +1,5 @@
 import SingleGroupShimmer from "./SingleGroupShimmer";
+import { memo } from "react";
 
 const GroupListShimmer = () => {
   return (
@@ -10,4 +11,4 @@ const GroupListShimmer = () => {
   );
 };
 
-export default GroupListShimmer;
+export default memo(GroupListShimmer);

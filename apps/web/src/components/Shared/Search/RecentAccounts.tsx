@@ -2,6 +2,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import getAccount from "@hey/helpers/getAccount";
 import { useAccountsBulkQuery } from "@hey/indexer";
 import { useNavigate } from "react-router";
+import { memo } from "react";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { H6 } from "@/components/Shared/UI";
@@ -84,4 +85,4 @@ const RecentAccounts = ({ onAccountClick }: RecentAccountsProps) => {
   );
 };
 
-export default RecentAccounts;
+export default memo(RecentAccounts);
