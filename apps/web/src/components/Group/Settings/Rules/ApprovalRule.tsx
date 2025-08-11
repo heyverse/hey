@@ -5,7 +5,7 @@ import {
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import errorToast from "@/helpers/errorToast";
@@ -32,10 +32,10 @@ const ApprovalRule = ({ group }: ApprovalRuleProps) => {
     toast.success("Approval rule updated");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [updateGroupRules] = useUpdateGroupRulesMutation({
     onCompleted: async ({ updateGroupRules }) => {

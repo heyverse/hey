@@ -11,7 +11,13 @@ import {
   useUpdateGroupRulesMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { type RefObject, useEffect, useRef, useState } from "react";
+import {
+  type RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from "react";
 import BackButton from "@/components/Shared/BackButton";
 import {
   Button,
@@ -56,10 +62,10 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
     location.reload();
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [updateGroupRules] = useUpdateGroupRulesMutation({
     onCompleted: async ({ updateGroupRules }) => {

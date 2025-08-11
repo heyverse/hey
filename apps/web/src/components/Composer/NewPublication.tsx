@@ -3,7 +3,7 @@ import getAccount from "@hey/helpers/getAccount";
 import type { PostFragment } from "@hey/indexer";
 import type { IGif } from "@hey/types/giphy";
 import type { NewAttachment } from "@hey/types/misc";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "sonner";
 import Attachment from "@/components/Composer/Actions/Attachment";
@@ -119,10 +119,10 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     reset();
   };
 
-  const onError = (error?: any) => {
+  const onError = useCallback((error?: unknown) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const { createPost } = useCreatePost({
     commentOn: post,

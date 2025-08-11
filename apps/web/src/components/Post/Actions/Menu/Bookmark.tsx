@@ -8,6 +8,7 @@ import {
   useUndoBookmarkPostMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
+import { useCallback } from "react";
 import { useLocation } from "react-router";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
@@ -53,9 +54,9 @@ const Bookmark = ({ post }: BookmarkProps) => {
     }
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     errorToast(error);
-  };
+  }, []);
 
   const [bookmarkPost] = useBookmarkPostMutation({
     onCompleted: () => toast.success("Post bookmarked!"),

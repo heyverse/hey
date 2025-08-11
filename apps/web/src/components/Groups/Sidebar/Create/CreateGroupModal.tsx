@@ -2,7 +2,7 @@ import { Regex } from "@hey/data/regex";
 import { useCreateGroupMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { group } from "@lens-protocol/metadata";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
 import {
@@ -45,10 +45,10 @@ const CreateGroupModal = () => {
     setScreen("minting");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [createGroup] = useCreateGroupMutation({
     onCompleted: async ({ createGroup }) => {

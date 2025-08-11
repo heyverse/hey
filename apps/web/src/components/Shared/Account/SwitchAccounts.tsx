@@ -5,7 +5,7 @@ import {
   useAccountsAvailableQuery,
   useSwitchAccountMutation
 } from "@hey/indexer";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Spinner, WarningMessage } from "@/components/Shared/UI";
@@ -24,11 +24,11 @@ const SwitchAccounts = () => {
   );
   const { address } = useAccount();
 
-  const onError = (error?: any) => {
+  const onError = useCallback((error?: unknown) => {
     setIsSubmitting(false);
     setLoggingInAccountId(null);
     errorToast(error);
-  };
+  }, []);
 
   const { data, error, loading } = useAccountsAvailableQuery({
     skip: !address,

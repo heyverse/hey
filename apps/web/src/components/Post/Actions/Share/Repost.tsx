@@ -5,7 +5,7 @@ import { ERRORS } from "@hey/data/errors";
 import { type PostFragment, useRepostMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCounter } from "@uidotdev/usehooks";
-import type { Dispatch, SetStateAction } from "react";
+import { type Dispatch, type SetStateAction, useCallback } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -60,10 +60,10 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
     toast.success("Post has been reposted!");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [repost] = useRepostMutation({
     onCompleted: async ({ repost }) => {

@@ -8,6 +8,7 @@ import {
   useUndoPostNotInterestedMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
+import { useCallback } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -38,9 +39,9 @@ const NotInterested = ({ post }: NotInterestedProps) => {
     });
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     errorToast(error);
-  };
+  }, []);
 
   const [addPostNotInterested] = useAddPostNotInterestedMutation({
     onCompleted: () => toast.success("Marked as not Interested"),

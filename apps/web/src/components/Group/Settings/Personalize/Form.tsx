@@ -3,7 +3,7 @@ import { Regex } from "@hey/data/regex";
 import { type GroupFragment, useSetGroupMetadataMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { group as groupMetadata } from "@lens-protocol/metadata";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
@@ -55,10 +55,10 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
     toast.success("Group updated");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [setGroupMetadata] = useSetGroupMetadataMutation({
     onCompleted: async ({ setGroupMetadata }) => {

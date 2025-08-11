@@ -7,6 +7,7 @@ import {
   useUnhideReplyMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
+import { useCallback } from "react";
 import { toast } from "sonner";
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import cn from "@/helpers/cn";
@@ -26,9 +27,9 @@ const HideComment = ({ post }: HideCommentProps) => {
     cache.evict({ id: cache.identify(post) });
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     errorToast(error);
-  };
+  }, []);
 
   const [hideComment] = useHideReplyMutation({
     onCompleted: () => toast.success("Comment hidden"),

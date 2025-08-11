@@ -2,7 +2,7 @@ import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { BANNER_IDS } from "@hey/data/constants";
 import { useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Toaster, type ToasterProps } from "sonner";
 import FullPageLoader from "@/components/Shared/FullPageLoader";
@@ -34,11 +34,11 @@ const Layout = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const onError = () => {
+  const onError = useCallback(() => {
     resetPreferences();
     signOut();
     reloadAllTabs();
-  };
+  }, []);
 
   const { loading } = useMeQuery({
     onCompleted: ({ me, proBanner }) => {

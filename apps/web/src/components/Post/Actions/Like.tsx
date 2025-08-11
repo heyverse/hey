@@ -11,6 +11,7 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { AnimateNumber } from "motion-plus-react";
+import { useCallback } from "react";
 import { toast } from "sonner";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -51,9 +52,9 @@ const Like = ({ post, showCount }: LikeProps) => {
     });
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     errorToast(error);
-  };
+  }, []);
 
   const [addReaction] = useAddReactionMutation({
     onError: (error) => {
