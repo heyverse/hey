@@ -5,7 +5,7 @@ import {
   useRequestGroupMembershipMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -52,10 +52,10 @@ const Join = ({
     );
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [joinGroup] = useJoinGroupMutation({
     onCompleted: async ({ joinGroup }) => {

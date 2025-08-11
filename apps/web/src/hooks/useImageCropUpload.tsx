@@ -8,7 +8,7 @@ import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent } from "react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type { Area } from "react-easy-crop";
 import { toast } from "sonner";
 import uploadCroppedImage, { readFile } from "@/helpers/accountPictureUtils";
@@ -38,9 +38,9 @@ const useImageCropUpload = ({
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     errorToast(error);
-  };
+  }, []);
 
   const handleUploadAndSave = async () => {
     try {

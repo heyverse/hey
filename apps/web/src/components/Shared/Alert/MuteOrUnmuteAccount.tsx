@@ -3,7 +3,7 @@ import { ERRORS } from "@hey/data/errors";
 import getAccount from "@hey/helpers/getAccount";
 import { useMuteMutation, useUnmuteMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -43,10 +43,10 @@ const MuteOrUnmuteAccount = () => {
     toast.success(hasMuted ? "Unmuted successfully" : "Muted successfully");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [mute] = useMuteMutation({
     onCompleted,

@@ -10,7 +10,7 @@ import {
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, RefObject } from "react";
-import { memo, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { toast } from "sonner";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
@@ -78,10 +78,10 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     toast.success(`Tipped ${amount} ${NATIVE_TOKEN_SYMBOL}`);
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const cryptoRate = Number(amount);
   const nativeBalance =

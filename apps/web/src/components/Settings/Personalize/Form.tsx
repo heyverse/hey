@@ -11,7 +11,7 @@ import {
   account as accountMetadata,
   MetadataAttributeType
 } from "@lens-protocol/metadata";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
@@ -76,10 +76,10 @@ const PersonalizeSettingsForm = () => {
     toast.success("Account updated");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const [setAccountMetadata] = useSetAccountMetadataMutation({
     onCompleted: async ({ setAccountMetadata }) => {

@@ -42,10 +42,10 @@ const List = () => {
     toast.success("Manager removed successfully");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     errorToast(error);
     setRemovingManager(null);
-  };
+  }, []);
 
   const request: AccountManagersRequest = { pageSize: PageSize.Fifty };
   const { data, error, fetchMore, loading } = useAccountManagersQuery({

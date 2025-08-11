@@ -1,7 +1,7 @@
 import getAccount from "@hey/helpers/getAccount";
 import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -18,10 +18,10 @@ const UnlinkUsername = () => {
     toast.success("Unlinked");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setUnlinking(false);
     errorToast(error);
-  };
+  }, []);
 
   const [unassignUsernameFromAccount] = useUnassignUsernameFromAccountMutation({
     onCompleted: async ({ unassignUsernameFromAccount }) => {

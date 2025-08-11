@@ -10,7 +10,7 @@ import {
 } from "@hey/indexer";
 import { AnimatePresence, motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useDisconnect, useSignMessage } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -34,11 +34,11 @@ const Login = ({ setHasAccounts }: LoginProps) => {
   );
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const onError = (error?: any) => {
+  const onError = useCallback((error?: any) => {
     setIsSubmitting(false);
     setLoggingInAccountId(null);
     errorToast(error);
-  };
+  }, []);
 
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();

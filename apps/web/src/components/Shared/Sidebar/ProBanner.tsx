@@ -2,6 +2,7 @@ import { CheckBadgeIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { BANNER_IDS } from "@hey/data/constants";
 import { useAddPostNotInterestedMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
+import { useCallback } from "react";
 import { toast } from "sonner";
 import { Button, Card, H5 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -14,9 +15,9 @@ const ProBanner = () => {
   const { proBannerDismissed, setProBannerDismissed } = useProStore();
   const { setShow: setShowProModal } = useProModalStore();
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     errorToast(error);
-  };
+  }, []);
 
   const [dismissProBanner, { loading }] = useAddPostNotInterestedMutation({
     onCompleted: () => {

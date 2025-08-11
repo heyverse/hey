@@ -7,7 +7,7 @@ import {
   useExecutePostActionMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import type { Address } from "viem";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
@@ -80,10 +80,10 @@ const CollectActionButton = ({
     toast.success("Collected successfully");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
     fetchPolicy: "no-cache",

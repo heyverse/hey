@@ -1,6 +1,7 @@
 import { useApolloClient } from "@apollo/client";
 import { useDeletePostMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
+import { useCallback } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -25,9 +26,9 @@ const DeletePost = () => {
     toast.success("Post deleted");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     errorToast(error);
-  };
+  }, []);
 
   const [deletePost, { loading }] = useDeletePostMutation({
     onCompleted: async ({ deletePost }) => {

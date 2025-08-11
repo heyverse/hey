@@ -14,7 +14,7 @@ import {
   useCreateAccountWithUsernameMutation
 } from "@hey/indexer";
 import { account as accountMetadata } from "@lens-protocol/metadata";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useSignMessage } from "wagmi";
 import { z } from "zod";
@@ -65,10 +65,10 @@ const ChooseUsername = () => {
     setScreen("minting");
   };
 
-  const onError = (error?: any) => {
+  const onError = useCallback((error?: any) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const { signMessageAsync } = useSignMessage({ mutation: { onError } });
   const [loadChallenge] = useChallengeMutation({ onError });

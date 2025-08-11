@@ -5,6 +5,7 @@ import type { ApolloClientError } from "@hey/types/errors";
 import {
   type ChangeEvent,
   type RefObject,
+  useCallback,
   useEffect,
   useRef,
   useState
@@ -61,10 +62,10 @@ const Transfer = ({ token }: TransferProps) => {
     toast.success("Transferred successfully");
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const { data: transactionReceipt } = useWaitForTransactionReceipt({
     hash: txHash as Hex,

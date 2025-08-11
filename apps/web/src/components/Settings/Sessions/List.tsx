@@ -23,11 +23,11 @@ const List = () => {
     null
   );
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setRevoking(false);
     setRevokeingSessionId(null);
     errorToast(error);
-  };
+  }, []);
 
   const onCompleted = () => {
     setRevoking(false);

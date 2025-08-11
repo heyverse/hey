@@ -12,7 +12,7 @@ import {
   useJoinGroupMutation
 } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
@@ -45,10 +45,10 @@ const Subscribe = () => {
     location.reload();
   };
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const tokenBalance =
     balance?.balancesBulk[0].__typename === "Erc20Amount"

@@ -4,7 +4,7 @@ import imageKit from "@hey/helpers/imageKit";
 import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
 import type { ApolloClientError } from "@hey/types/errors";
 import type { ChangeEvent, Ref } from "react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Image, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -25,10 +25,10 @@ const CoverImage = ({
 }: CoverImageProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onError = (error: ApolloClientError) => {
+  const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
     errorToast(error);
-  };
+  }, []);
 
   const onChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files?.length) {
