@@ -1,4 +1,5 @@
 import Skeleton from "@/components/Shared/Skeleton";
+import { memo } from "react";
 
 const FollowersYouKnowShimmer = () => {
   return (
@@ -13,4 +14,4 @@ const FollowersYouKnowShimmer = () => {
   );
 };
 
-export default FollowersYouKnowShimmer;
+export default memo(FollowersYouKnowShimmer);

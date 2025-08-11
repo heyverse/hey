@@ -1,7 +1,7 @@
+import { memo } from "react";
 import { Link } from "react-router";
 import PageHeader from "@/components/Pages/PageHeader";
 import PageLayout from "@/components/Shared/PageLayout";
-import { memo } from "react";
 import { H4 } from "@/components/Shared/UI";
 
 const Terms = () => {

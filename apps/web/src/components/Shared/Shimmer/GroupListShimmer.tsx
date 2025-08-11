@@ -1,5 +1,5 @@
-import SingleGroupShimmer from "./SingleGroupShimmer";
 import { memo } from "react";
+import SingleGroupShimmer from "./SingleGroupShimmer";
 
 const GroupListShimmer = () => {
   return (
