@@ -6,6 +6,7 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Bookmarks from "@/components/Shared/Navbar/NavItems/Bookmarks";
 import Groups from "@/components/Shared/Navbar/NavItems/Groups";
 import Logout from "@/components/Shared/Navbar/NavItems/Logout";
+import Rewards from "@/components/Shared/Navbar/NavItems/Rewards";
 import Settings from "@/components/Shared/Navbar/NavItems/Settings";
 import Support from "@/components/Shared/Navbar/NavItems/Support";
 import SwitchAccount from "@/components/Shared/Navbar/NavItems/SwitchAccount";
@@ -56,6 +57,9 @@ const MobileDrawerMenu = () => {
             >
               <YourAccount className={cn(itemClass, "px-4")} />
             </AccountLink>
+            <Link onClick={handleCloseDrawer} to="/settings/rewards">
+              <Rewards className={cn(itemClass, "px-4")} />
+            </Link>
             <Link onClick={handleCloseDrawer} to="/settings">
               <Settings className={cn(itemClass, "px-4")} />
             </Link>
