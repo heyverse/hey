@@ -43,7 +43,7 @@ const getGroup = async (ctx: Context) => {
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:title" content="${escTitle}" />
             <meta name="twitter:description" content="${escDescription}" />
-            <meta property="twitter:image" content="${avatar}" />
+            <meta name="twitter:image" content="${avatar}" />
             <meta name="twitter:site" content="@heydotxyz" />
             <link rel="canonical" href="https://hey.xyz/g/${group.address}" />
           </head>
