@@ -43,7 +43,7 @@ const getPost = async (ctx: Context) => {
             <meta name="twitter:card" content="summary" />
             <meta name="twitter:title" content="${escTitle}" />
             <meta name="twitter:description" content="${escDescription}" />
-            <meta property="twitter:image" content="${getAvatar(author, TRANSFORMS.AVATAR_BIG)}" />
+            <meta name="twitter:image" content="${getAvatar(author, TRANSFORMS.AVATAR_BIG)}" />
             <meta name="twitter:site" content="@heydotxyz" />
             <link rel="canonical" href="https://hey.xyz/posts/${post.slug}" />
           </head>
