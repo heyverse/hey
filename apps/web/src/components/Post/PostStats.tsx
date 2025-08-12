@@ -1,7 +1,7 @@
 import type { PostFragment } from "@hey/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Link } from "react-router";
 import Likes from "@/components/Shared/Modal/Likes";
 import PostExecutors from "@/components/Shared/Modal/PostExecutors";
@@ -44,6 +44,34 @@ const PostStats = ({ post }: PostStatsProps) => {
   const [showPostExecutorsModal, setShowPostExecutorsModal] =
     useState<PostExecutorsType | null>(null);
 
+  const handleOpenRepostsModal = useCallback(() => {
+    setShowRepostsModal(true);
+  }, []);
+
+  const handleOpenLikesModal = useCallback(() => {
+    setShowLikesModal(true);
+  }, []);
+
+  const handleOpenTippersModal = useCallback(() => {
+    setShowPostExecutorsModal("Tippers");
+  }, []);
+
+  const handleOpenCollectorsModal = useCallback(() => {
+    setShowPostExecutorsModal("Collectors");
+  }, []);
+
+  const handleCloseLikesModal = useCallback(() => {
+    setShowLikesModal(false);
+  }, []);
+
+  const handleCloseRepostsModal = useCallback(() => {
+    setShowRepostsModal(false);
+  }, []);
+
+  const handleClosePostExecutorsModal = useCallback(() => {
+    setShowPostExecutorsModal(null);
+  }, []);
+
   const { bookmarks, comments, reposts, quotes, reactions, collects, tips } =
     post.stats;
 
@@ -74,7 +102,7 @@ const PostStats = ({ post }: PostStatsProps) => {
         {reposts > 0 ? (
           <button
             className="outline-offset-2"
-            onClick={() => setShowRepostsModal(true)}
+            onClick={handleOpenRepostsModal}
             type="button"
           >
             <AnimatedNumber
@@ -96,7 +124,7 @@ const PostStats = ({ post }: PostStatsProps) => {
         {reactions > 0 ? (
           <button
             className="outline-offset-2"
-            onClick={() => setShowLikesModal(true)}
+            onClick={handleOpenLikesModal}
             type="button"
           >
             <AnimatedNumber
@@ -109,7 +137,7 @@ const PostStats = ({ post }: PostStatsProps) => {
         {tips > 0 ? (
           <button
             className="outline-offset-2"
-            onClick={() => setShowPostExecutorsModal("Tippers")}
+            onClick={handleOpenTippersModal}
             type="button"
           >
             <AnimatedNumber
@@ -122,7 +150,7 @@ const PostStats = ({ post }: PostStatsProps) => {
         {collects > 0 ? (
           <button
             className="outline-offset-2"
-            onClick={() => setShowPostExecutorsModal("Collectors")}
+            onClick={handleOpenCollectorsModal}
             type="button"
           >
             <AnimatedNumber
@@ -141,21 +169,21 @@ const PostStats = ({ post }: PostStatsProps) => {
         ) : null}
       </div>
       <Modal
-        onClose={() => setShowLikesModal(false)}
+        onClose={handleCloseLikesModal}
         show={showLikesModal}
         title="Likes"
       >
         <Likes postId={post.id} />
       </Modal>
       <Modal
-        onClose={() => setShowRepostsModal(false)}
+        onClose={handleCloseRepostsModal}
         show={showRepostsModal}
         title="Reposts"
       >
         <Reposts postId={post.id} />
       </Modal>
       <Modal
-        onClose={() => setShowPostExecutorsModal(null)}
+        onClose={handleClosePostExecutorsModal}
         show={showPostExecutorsModal !== null}
         title={showPostExecutorsModal === "Tippers" ? "Tippers" : "Collectors"}
       >
