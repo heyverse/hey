@@ -1,13 +1,15 @@
 import { Regex } from "@hey/data/regex";
 import type { PostMentionFragment } from "@hey/indexer";
-import { memo, useMemo } from "react";
-import ReactMarkdown from "react-markdown";
+import { lazy, memo, Suspense, useMemo } from "react";
 import remarkBreaks from "remark-breaks";
 // @ts-expect-error
 import linkifyRegex from "remark-linkify-regex";
 import stripMarkdown from "strip-markdown";
 import trimify from "@/helpers/trimify";
 import MarkupLink from "./MarkupLink";
+
+// Lazy load ReactMarkdown for better initial bundle size
+const ReactMarkdown = lazy(() => import("react-markdown"));
 
 const plugins = [
   [stripMarkdown, { keep: ["strong", "emphasis", "list", "listItem"] }],
@@ -16,13 +18,17 @@ const plugins = [
   linkifyRegex(Regex.mention)
 ];
 
-interface MarkupProps {
+interface LazyMarkupProps {
   children: string;
   className?: string;
   mentions?: PostMentionFragment[];
 }
 
-const Markup = ({ children, className = "", mentions = [] }: MarkupProps) => {
+const LazyMarkup = ({
+  children,
+  className = "",
+  mentions = []
+}: LazyMarkupProps) => {
   const trimmedContent = useMemo(() => {
     if (!children) return null;
     return trimify(children);
@@ -41,11 +47,13 @@ const Markup = ({ children, className = "", mentions = [] }: MarkupProps) => {
 
   return (
     <span className={className}>
-      <ReactMarkdown components={components} remarkPlugins={plugins}>
-        {trimmedContent}
-      </ReactMarkdown>
+      <Suspense fallback={<span>{trimmedContent}</span>}>
+        <ReactMarkdown components={components} remarkPlugins={plugins}>
+          {trimmedContent}
+        </ReactMarkdown>
+      </Suspense>
     </span>
   );
 };
 
-export default memo(Markup);
+export default memo(LazyMarkup);

@@ -10,7 +10,26 @@ import PreferencesProvider from "./PreferencesProvider";
 import Web3Provider from "./Web3Provider";
 
 export const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } }
+  defaultOptions: {
+    mutations: {
+      retry: false
+    },
+    queries: {
+      gcTime: 1000 * 60 * 10, // 10 minutes
+      refetchOnWindowFocus: false,
+      retry: (failureCount, error: any) => {
+        // Don't retry on 401/403 errors
+        if (
+          error?.response?.status === 401 ||
+          error?.response?.status === 403
+        ) {
+          return false;
+        }
+        return failureCount < 3;
+      },
+      staleTime: 1000 * 60 * 5 // 5 minutes
+    }
+  }
 });
 
 const lensApolloClient = createApolloClient(authLink);

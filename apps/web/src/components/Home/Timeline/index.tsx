@@ -11,16 +11,20 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Timeline = () => {
   const { currentAccount } = useAccountStore();
-  const request: TimelineRequest = {
-    account: currentAccount?.address,
-    filter: {
-      eventType: [
-        TimelineEventItemType.Post,
-        TimelineEventItemType.Quote,
-        TimelineEventItemType.Repost
-      ]
-    }
-  };
+
+  const request: TimelineRequest = useMemo(
+    () => ({
+      account: currentAccount?.address,
+      filter: {
+        eventType: [
+          TimelineEventItemType.Post,
+          TimelineEventItemType.Quote,
+          TimelineEventItemType.Repost
+        ]
+      }
+    }),
+    [currentAccount?.address]
+  );
 
   const { data, error, fetchMore, loading } = useTimelineQuery({
     variables: { request }
@@ -49,6 +53,17 @@ const Timeline = () => {
     [feed]
   );
 
+  const renderItem = useCallback(
+    (timelineItem: any) => (
+      <SinglePost
+        key={timelineItem.id}
+        post={timelineItem.primary}
+        timelineItem={timelineItem}
+      />
+    ),
+    []
+  );
+
   return (
     <PostFeed
       emptyIcon={<UserGroupIcon className="size-8" />}
@@ -59,13 +74,7 @@ const Timeline = () => {
       hasMore={hasMore}
       items={filteredPosts}
       loading={loading}
-      renderItem={(timelineItem) => (
-        <SinglePost
-          key={timelineItem.id}
-          post={timelineItem.primary}
-          timelineItem={timelineItem}
-        />
-      )}
+      renderItem={renderItem}
     />
   );
 };
