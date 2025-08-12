@@ -29,8 +29,7 @@ describe("getCroppedImg", () => {
   const originalGetContext = HTMLCanvasElement.prototype.getContext;
 
   beforeEach(() => {
-    // @ts-ignore
-    global.Image = TestImage;
+    global.Image = TestImage as unknown as typeof Image;
   });
 
   afterEach(() => {
