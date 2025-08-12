@@ -2,7 +2,7 @@ import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { BANNER_IDS } from "@hey/data/constants";
 import { useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
-import { memo, useCallback, useEffect } from "react";
+import { memo, Suspense, useCallback, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Toaster, type ToasterProps } from "sonner";
 import FullPageLoader from "@/components/Shared/FullPageLoader";
@@ -79,7 +79,9 @@ const Layout = () => {
       <ReloadTabsWatcher />
       <div className="mx-auto flex w-full max-w-6xl items-start gap-x-8 px-0 md:px-5">
         <Navbar />
-        <Outlet />
+        <Suspense fallback={<FullPageLoader />}>
+          <Outlet />
+        </Suspense>
         <BottomNavigation />
       </div>
     </>

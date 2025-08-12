@@ -3,19 +3,24 @@ import type React from "react";
 import { describe, expect, it, vi } from "vitest";
 import Home from "./index";
 
-vi.mock("../Composer/NewPost", () => ({ default: () => <div>NewPost</div> }));
-vi.mock("../Explore/ExploreFeed", () => ({
+vi.mock("@/components/Composer/NewPost", () => ({
+  default: () => <div>NewPost</div>
+}));
+vi.mock("@/components/Explore/ExploreFeed", () => ({
   default: () => <div>ExploreFeed</div>
 }));
-vi.mock("../Shared/PageLayout", () => ({
+vi.mock("@/components/Shared/PageLayout", () => ({
   default: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
   )
 }));
-vi.mock("../../store/persisted/useAccountStore", () => ({
+vi.mock("@/components/Shared/Loader", () => ({
+  default: () => <div>Loader</div>
+}));
+vi.mock("@/store/persisted/useAccountStore", () => ({
   useAccountStore: () => ({ currentAccount: undefined })
 }));
-vi.mock("../../store/persisted/useHomeTabStore", () => ({
+vi.mock("@/store/persisted/useHomeTabStore", () => ({
   useHomeTabStore: () => ({ feedType: "FORYOU" })
 }));
 vi.mock("./FeedType", () => ({ default: () => <div>FeedType</div> }));
@@ -25,8 +30,9 @@ vi.mock("./Highlights", () => ({ default: () => <div>Highlights</div> }));
 vi.mock("./Timeline", () => ({ default: () => <div>Timeline</div> }));
 
 describe("Home", () => {
-  it("renders correctly", () => {
-    const { container } = render(<Home />);
+  it("renders correctly", async () => {
+    const { container, findByText } = render(<Home />);
+    await findByText("ExploreFeed");
     expect(container).toMatchSnapshot();
   });
 });
