@@ -14,7 +14,7 @@ const syncSubscribersToGuild = async (ctx: Context) => {
         INNER JOIN "group"."member" AS member ON ksw.address = member.account
         WHERE member."group" = $1;
       `,
-      [`\\x${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}`]
+      [Buffer.from(PERMISSIONS.SUBSCRIPTION.slice(2), "hex")]
     )) as Array<{ owned_by: Buffer }>;
 
     const addresses = accounts.map((account) =>

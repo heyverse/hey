@@ -17,7 +17,7 @@ const removeExpiredSubscribers = async (ctx: Context) => {
         AND timestamp < NOW() - INTERVAL '365 days'
         LIMIT 1000;
       `,
-      [`\\x${PERMISSIONS.SUBSCRIPTION.replace("0x", "").toLowerCase()}`]
+      [Buffer.from(PERMISSIONS.SUBSCRIPTION.slice(2), "hex")]
     )) as Array<{ account: Buffer }>;
 
     const addresses = accounts.map((account) =>
