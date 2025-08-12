@@ -16,8 +16,7 @@ describe("getFileFromDataURL", () => {
   const originalImage = global.Image;
 
   beforeEach(() => {
-    // @ts-ignore
-    global.Image = TestImage;
+    global.Image = TestImage as unknown as typeof Image;
   });
 
   afterEach(() => {
@@ -63,8 +62,7 @@ describe("getFileFromDataURL", () => {
       }
     }
 
-    // @ts-ignore
-    global.Image = ErrorImage;
+    global.Image = ErrorImage as unknown as typeof Image;
 
     const callback = vi.fn();
     getFileFromDataURL("data:,", "bad.png", callback);
