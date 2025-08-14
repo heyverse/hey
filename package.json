@@ -14,7 +14,8 @@
     "prepare": "husky install",
     "start": "pnpm --recursive --parallel run start",
     "test": "pnpm --recursive --parallel run test",
-    "typecheck": "pnpm --recursive --parallel run typecheck"
+    "typecheck": "pnpm --recursive --parallel run typecheck",
+    "sync:public": "node ./script/sync-public.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.1.4",
