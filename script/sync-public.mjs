@@ -97,7 +97,13 @@ async function main() {
   run(`bash -lc "git archive --format=tar HEAD | tar -x -C '${tmp}'"`);
 
   // Remove private paths if present
-  const disallowed = ["apps/api", "packages/indexer"];
+  const disallowed = [
+    "apps/api",
+    "packages/indexer",
+    ".cursorrules",
+    "AGENTS.md"
+  ];
+
   for (const rel of disallowed) {
     const full = join(tmp, rel);
     if (await pathExists(full)) {
