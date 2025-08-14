@@ -14,7 +14,7 @@ const getPost = async (ctx: Context) => {
   const cacheKey = `og:post:${slug}`;
 
   return generateOg({
-    buildHtml: (post: PostFragment, _jsonLd) => {
+    buildHtml: (post: PostFragment) => {
       const { author, metadata } = post;
       const { usernameWithPrefix } = getAccount(author);
       const filteredContent = getPostData(metadata)?.content || "";
