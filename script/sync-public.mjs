@@ -104,6 +104,8 @@ async function main() {
     "apps/web/src/assets",
     "packages/indexer",
     "script",
+    ".husky",
+    ".vscode",
     ".cursorrules",
     "AGENTS.md"
   ];
