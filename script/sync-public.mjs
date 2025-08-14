@@ -115,10 +115,6 @@ async function main() {
   // Initialize a fresh git repo and push a single squashed snapshot
   run(`bash -lc "cd '${tmp}' && git init"`);
   run(`bash -lc "cd '${tmp}' && git checkout -b '${branch}'"`);
-  // Set a predictable author in case none is configured in this environment
-  run(
-    `bash -lc "cd '${tmp}' && git config user.name 'Hey Bot' && git config user.email 'github@hey.xyz'"`
-  );
   run(`bash -lc "cd '${tmp}' && git add -A"`);
   run(
     `bash -lc "cd '${tmp}' && git commit -m 'release: v.$(git rev-parse --short HEAD)'"`
