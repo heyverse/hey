@@ -1,4 +1,3 @@
-import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { Context } from "hono";
 import type { HtmlEscapedString } from "hono/utils/html";
@@ -8,7 +7,7 @@ import { getRedis, setRedis } from "@/utils/redis";
 interface OgHelperOptions<T> {
   ctx: Context;
   cacheKey: string;
-  query: TypedDocumentNode<Record<string, any>, Record<string, any>>;
+  query: any;
   variables: Record<string, any>;
   extractData: (data: any) => T | null;
   buildJsonLd: (data: T) => Record<string, any>;

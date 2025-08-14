@@ -121,7 +121,7 @@ async function main() {
   );
   run(`bash -lc "cd '${tmp}' && git add -A"`);
   run(
-    `bash -lc "cd '${tmp}' && git commit -m 'chore: release v$(date +"%Y.%U.%u.%H")'"`
+    `bash -lc "cd '${tmp}' && git commit -m 'chore: release v$(git rev-parse --short HEAD)'"`
   );
   run(`bash -lc "cd '${tmp}' && git remote add origin '${remoteUrl}'"`);
   run(`bash -lc "cd '${tmp}' && git push -f origin '${branch}'"`);
