@@ -120,7 +120,9 @@ async function main() {
     `bash -lc "cd '${tmp}' && git config user.name 'Hey Bot' && git config user.email 'github@hey.xyz'"`
   );
   run(`bash -lc "cd '${tmp}' && git add -A"`);
-  run(`bash -lc "cd '${tmp}' && git commit -m 'chore: public sync'"`);
+  run(
+    `bash -lc "cd '${tmp}' && git commit -m 'chore: release v$(date +"%Y.%U.%u.%H")'"`
+  );
   run(`bash -lc "cd '${tmp}' && git remote add origin '${remoteUrl}'"`);
   run(`bash -lc "cd '${tmp}' && git push -f origin '${branch}'"`);
 
