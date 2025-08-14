@@ -111,12 +111,10 @@ async function main() {
   run(`bash -lc "cd '${tmp}' && git checkout -b '${branch}'"`);
   // Set a predictable author in case none is configured in this environment
   run(
-    `bash -lc "cd '${tmp}' && git config user.name 'Public Sync Bot' && git config user.email 'sync@local'"`
+    `bash -lc "cd '${tmp}' && git config user.name 'Hey Bot' && git config user.email 'github@hey.xyz'"`
   );
   run(`bash -lc "cd '${tmp}' && git add -A"`);
-  run(
-    `bash -lc "cd '${tmp}' && git commit -m 'chore: public sync (squashed snapshot; exclude apps/api, packages/indexer)'"`
-  );
+  run(`bash -lc "cd '${tmp}' && git commit -m 'chore: public sync'"`);
   run(`bash -lc "cd '${tmp}' && git remote add origin '${remoteUrl}'"`);
   run(`bash -lc "cd '${tmp}' && git push -f origin '${branch}'"`);
 
