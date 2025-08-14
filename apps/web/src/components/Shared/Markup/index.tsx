@@ -3,13 +3,13 @@ import type { PostMentionFragment } from "@hey/indexer";
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
-// @ts-expect-error
 import linkifyRegex from "remark-linkify-regex";
 import stripMarkdown from "strip-markdown";
+import type { PluggableList } from "unified";
 import trimify from "@/helpers/trimify";
 import MarkupLink from "./MarkupLink";
 
-const plugins = [
+const plugins: PluggableList = [
   [stripMarkdown, { keep: ["strong", "emphasis", "list", "listItem"] }],
   remarkBreaks,
   linkifyRegex(Regex.url),
