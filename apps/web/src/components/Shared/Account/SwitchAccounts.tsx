@@ -13,7 +13,7 @@ import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { signIn, signOut } from "@/store/persisted/useAuthStore";
+import { signIn } from "@/store/persisted/useAuthStore";
 import SmallSingleAccount from "./SmallSingleAccount";
 
 const SwitchAccounts = () => {
@@ -68,7 +68,7 @@ const SwitchAccounts = () => {
       if (auth.data?.switchAccount.__typename === "AuthenticationTokens") {
         const accessToken = auth.data?.switchAccount.accessToken;
         const refreshToken = auth.data?.switchAccount.refreshToken;
-        signOut();
+        // Preserve theme and other local UI state by not signing out completely.
         signIn({ accessToken, refreshToken });
         reloadAllTabs();
         return;
