@@ -99,7 +99,11 @@ async function main() {
   // Remove private paths if present
   const disallowed = [
     "apps/api",
+    "apps/web/functions",
+    "apps/web/public",
+    "apps/web/src/assets",
     "packages/indexer",
+    "script",
     ".cursorrules",
     "AGENTS.md"
   ];
