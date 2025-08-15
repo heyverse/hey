@@ -1,13 +1,14 @@
 {
   "name": "@hey/mobile",
-  "main": "expo-router/entry",
   "version": "0.0.0",
+  "private": true,
+  "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "typecheck": "tsc --noEmit"
+    "start": "expo start",
+    "typecheck": "tsc --noEmit",
+    "web": "expo start --web"
   },
   "dependencies": {
     "@apollo/client": "^3.13.9",
@@ -19,21 +20,21 @@
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
-    "expo": "~53.0.20",
-    "expo-blur": "~14.1.5",
-    "expo-font": "~13.3.2",
-    "expo-haptics": "~14.1.4",
-    "expo-router": "~5.1.4",
-    "expo-splash-screen": "~0.30.10",
-    "expo-status-bar": "~2.2.3",
-    "expo-symbols": "~0.4.5",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
-    "react-native": "0.79.5",
-    "react-native-gesture-handler": "~2.24.0",
-    "react-native-safe-area-context": "5.4.0",
-    "react-native-screens": "~4.11.1",
-    "react-native-web": "~0.20.0",
+    "expo": "^53.0.20",
+    "expo-blur": "^14.1.5",
+    "expo-font": "^13.3.2",
+    "expo-haptics": "^14.1.4",
+    "expo-router": "^5.1.4",
+    "expo-splash-screen": "^0.30.10",
+    "expo-status-bar": "^2.2.3",
+    "expo-symbols": "^0.4.5",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-native": "^0.79.5",
+    "react-native-gesture-handler": "^2.24.0",
+    "react-native-safe-area-context": "^5.4.0",
+    "react-native-screens": "^4.11.1",
+    "react-native-web": "^0.20.0",
     "react-tracked": "^2.0.1",
     "viem": "^2.33.3",
     "zustand": "^5.0.7"
@@ -41,8 +42,7 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@hey/config": "workspace:*",
-    "@types/react": "~19.0.10",
-    "typescript": "~5.8.3"
-  },
-  "private": true
+    "@types/react": "^19.0.10",
+    "typescript": "^5.8.3"
+  }
 }
