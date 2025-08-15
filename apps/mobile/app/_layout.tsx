@@ -7,7 +7,7 @@ import App from "./App";
 
 const lensApolloClient = createApolloClient(authLink);
 
-export default function RootLayout() {
+const RootLayout = () => {
   return (
     <SafeAreaProvider>
       <ApolloProvider client={lensApolloClient}>
@@ -15,4 +15,6 @@ export default function RootLayout() {
       </ApolloProvider>
     </SafeAreaProvider>
   );
-}
+};
+
+export default RootLayout;

@@ -9,7 +9,7 @@ import { Tabs } from "expo-router";
 import { Image, Platform } from "react-native";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
-export default function TabLayout() {
+const TabLayout = () => {
   const { currentAccount } = useAccountStore();
   const avatar = getAvatar(currentAccount, TRANSFORMS.AVATAR_BIG);
 
@@ -55,4 +55,6 @@ export default function TabLayout() {
       />
     </Tabs>
   );
-}
+};
+
+export default TabLayout;

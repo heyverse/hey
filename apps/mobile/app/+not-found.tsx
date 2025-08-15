@@ -1,29 +1,18 @@
 import { Link, Stack } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
-export default function NotFoundScreen() {
+const NotFoundScreen = () => {
   return (
     <>
       <Stack.Screen options={{ title: "Oops!" }} />
-      <View style={styles.container}>
+      <View className="flex-1 items-center justify-center p-5">
         <Text>This screen does not exist.</Text>
-        <Link href="/home" style={styles.link}>
+        <Link className="mt-4 py-4" href="/home">
           <Text>Go to home screen!</Text>
         </Link>
       </View>
     </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-    padding: 20
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15
-  }
-});
+export default NotFoundScreen;
