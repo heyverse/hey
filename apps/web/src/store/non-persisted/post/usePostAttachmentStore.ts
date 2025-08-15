@@ -22,12 +22,12 @@ const { useStore: usePostAttachmentStore } = createTrackedStore<State>(
     removeAttachments: (ids) =>
       set((state) => {
         const attachments = [...state.attachments];
-        ids.map((id) => {
+        for (const id of ids) {
           const index = attachments.findIndex((a) => a.id === id);
           if (index !== -1) {
             attachments.splice(index, 1);
           }
-        });
+        }
         return { attachments };
       }),
     setAttachments: (attachments) => set(() => ({ attachments })),
@@ -35,12 +35,12 @@ const { useStore: usePostAttachmentStore } = createTrackedStore<State>(
     updateAttachments: (updateAttachments) =>
       set((state) => {
         const attachments = [...state.attachments];
-        updateAttachments.map((attachment) => {
+        for (const attachment of updateAttachments) {
           const index = attachments.findIndex((a) => a.id === attachment.id);
           if (index !== -1) {
             attachments[index] = attachment;
           }
-        });
+        }
         return { attachments };
       })
   })

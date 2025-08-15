@@ -14,13 +14,13 @@
     "includes": [
       "**",
       "!**/.pnpm-store/**/*",
-      "!**/.expo/**",
-      "!**/.claude/**",
-      "!**/dist/**",
-      "!**/artifacts/**",
-      "!**/node_modules/**",
-      "!**/.git/**",
-      "!**/cache/**",
+      "!**/.expo",
+      "!**/.claude",
+      "!**/dist",
+      "!**/artifacts",
+      "!**/node_modules",
+      "!**/.git",
+      "!**/cache",
       "!**/generated.ts",
       "!**/expo-env.d.ts",
       "!**/package.json"
@@ -49,6 +49,7 @@
         "useLiteralKeys": "off"
       },
       "correctness": {
+        "noNestedComponentDefinitions": "off",
         "noUnusedImports": {
           "fix": "safe",
           "level": "error"
@@ -57,7 +58,6 @@
         "useExhaustiveDependencies": "off"
       },
       "nursery": {
-        "noNestedComponentDefinitions": "off",
         "useSortedClasses": {
           "fix": "safe",
           "level": "error",
@@ -83,7 +83,8 @@
       "suspicious": {
         "noArrayIndexKey": "off",
         "noAssignInExpressions": "off",
-        "noExplicitAny": "off"
+        "noExplicitAny": "off",
+        "noUnknownAtRules": "off"
       }
     }
   }

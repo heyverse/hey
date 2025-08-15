@@ -99,6 +99,7 @@ async function main() {
   // Remove private paths if present
   const disallowed = [
     "apps/api",
+    "apps/mobile",
     "apps/web/functions",
     "apps/web/public",
     "apps/web/src/assets",
