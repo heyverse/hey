@@ -1,6 +1,11 @@
+import { ApolloProvider } from "@apollo/client";
+import { createApolloClient } from "@hey/indexer/apollo/client";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import authLink from "@/helpers/authLink";
+
+const lensApolloClient = createApolloClient(authLink);
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -12,12 +17,12 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <ApolloProvider client={lensApolloClient}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
-    </>
+    </ApolloProvider>
   );
 }
