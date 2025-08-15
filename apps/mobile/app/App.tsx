@@ -13,7 +13,9 @@ import LoginScreen from "./login";
 
 const App = () => {
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf")
+    SofiaProSoftBold: require("../assets/fonts/SofiaProSoftBold.ttf"),
+    SofiaProSoftMedium: require("../assets/fonts/SofiaProSoftMed.ttf"),
+    SofiaProSoftRegular: require("../assets/fonts/SofiaProSoftReg.ttf")
   });
 
   const { setCurrentAccount } = useAccountStore();

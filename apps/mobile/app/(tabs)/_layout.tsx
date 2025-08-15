@@ -1,8 +1,13 @@
 import {
-  BellIcon,
-  HomeIcon,
-  MagnifyingGlassIcon
+  BellIcon as BellIconOutline,
+  GlobeAltIcon as GlobeAltIconOutline,
+  HomeIcon as HomeIconOutline
 } from "@heroicons/react/24/outline";
+import {
+  BellIcon as BellIconSolid,
+  GlobeAltIcon as GlobeAltIconSolid,
+  HomeIcon as HomeIconSolid
+} from "@heroicons/react/24/solid";
 import { TRANSFORMS } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
 import { Tabs } from "expo-router";
@@ -11,23 +16,32 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const TabLayout = () => {
   const { currentAccount } = useAccountStore();
-  const avatar = getAvatar(currentAccount, TRANSFORMS.AVATAR_BIG);
+  const avatar = (
+    <Image
+      className="size-6 rounded-full"
+      source={{ uri: getAvatar(currentAccount, TRANSFORMS.AVATAR_BIG) }}
+    />
+  );
 
   const TABS = [
     {
-      icon: <HomeIcon className="size-6" />,
+      active: <HomeIconSolid className="size-6" />,
+      default: <HomeIconOutline className="size-6" />,
       name: "home"
     },
     {
-      icon: <MagnifyingGlassIcon className="size-6" />,
+      active: <GlobeAltIconSolid className="size-6" />,
+      default: <GlobeAltIconOutline className="size-6" />,
       name: "explore"
     },
     {
-      icon: <BellIcon className="size-6" />,
+      active: <BellIconSolid className="size-6" />,
+      default: <BellIconOutline className="size-6" />,
       name: "notifications"
     },
     {
-      icon: <Image className="size-6 rounded-full" source={{ uri: avatar }} />,
+      active: avatar,
+      default: avatar,
       name: "account",
       params: { username: currentAccount?.username?.localName }
     }
@@ -40,7 +54,10 @@ const TabLayout = () => {
           initialParams={tab.params}
           key={tab.name}
           name={tab.name}
-          options={{ tabBarIcon: () => tab.icon, tabBarLabel: () => null }}
+          options={{
+            tabBarIcon: ({ focused }) => (focused ? tab.active : tab.default),
+            tabBarLabel: () => null
+          }}
         />
       ))}
     </Tabs>
