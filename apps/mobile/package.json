@@ -21,6 +21,7 @@
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
+    "@uidotdev/usehooks": "^2.4.1",
     "expo": "^53.0.20",
     "expo-blur": "^14.1.5",
     "expo-font": "^13.3.2",

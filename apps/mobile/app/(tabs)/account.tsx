@@ -1,6 +1,9 @@
+import { AccountFeedType } from "@hey/data/enums";
+import getAccount from "@hey/helpers/getAccount";
 import { useAccountQuery } from "@hey/indexer";
 import { useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
+import AccountFeed from "@/components/Account/AccountFeed";
 
 const Account = () => {
   const { username } = useLocalSearchParams<{ username: string }>();
@@ -25,9 +28,17 @@ const Account = () => {
     );
   }
 
+  const account = data?.account;
+  const accountInfo = getAccount(account);
+
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text>@{data.account.username?.localName}</Text>
+    <View>
+      <Text>{accountInfo.usernameWithPrefix}</Text>
+      <AccountFeed
+        address={account.address}
+        type={AccountFeedType.Feed}
+        username={accountInfo.usernameWithPrefix}
+      />
     </View>
   );
 };
