@@ -6,53 +6,44 @@ import {
 import { TRANSFORMS } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
 import { Tabs } from "expo-router";
-import { Image, Platform } from "react-native";
+import { Image } from "react-native";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const TabLayout = () => {
   const { currentAccount } = useAccountStore();
   const avatar = getAvatar(currentAccount, TRANSFORMS.AVATAR_BIG);
 
+  const TABS = [
+    {
+      icon: <HomeIcon className="size-6" />,
+      name: "home"
+    },
+    {
+      icon: <MagnifyingGlassIcon className="size-6" />,
+      name: "explore"
+    },
+    {
+      icon: <BellIcon className="size-6" />,
+      name: "notifications"
+    },
+    {
+      icon: <Image className="size-6 rounded-full" source={{ uri: avatar }} />,
+      name: "account"
+    }
+  ];
+
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: Platform.select({
-          default: {},
-          ios: { position: "absolute" }
-        })
-      }}
-    >
-      <Tabs.Screen
-        name="home"
-        options={{
-          tabBarIcon: () => <HomeIcon className="size-6" />,
-          tabBarLabel: () => null
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          tabBarIcon: () => <MagnifyingGlassIcon className="size-6" />,
-          tabBarLabel: () => null
-        }}
-      />
-      <Tabs.Screen
-        name="notifications"
-        options={{
-          tabBarIcon: () => <BellIcon className="size-6" />,
-          tabBarLabel: () => null
-        }}
-      />
-      <Tabs.Screen
-        name="account"
-        options={{
-          tabBarIcon: () => (
-            <Image className="h-6 w-6 rounded-full" source={{ uri: avatar }} />
-          ),
-          tabBarLabel: () => null
-        }}
-      />
+    <Tabs screenOptions={{ headerShown: false }}>
+      {TABS.map((tab) => (
+        <Tabs.Screen
+          key={tab.name}
+          name={tab.name}
+          options={{
+            tabBarIcon: () => tab.icon,
+            tabBarLabel: () => null
+          }}
+        />
+      ))}
     </Tabs>
   );
 };
