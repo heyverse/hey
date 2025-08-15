@@ -6,6 +6,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback } from "react";
 import { Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut, useAuthStore } from "@/store/persisted/useAuthStore";
 import LoginScreen from "./login";
@@ -33,24 +34,32 @@ const App = () => {
 
   if (!loaded || !hasHydrated || (accessToken && loading)) {
     return (
-      <View className="flex-1 items-center justify-center">
-        <Text>Loading...</Text>
-      </View>
+      <SafeAreaView className="flex-1">
+        <View className="flex-1 items-center justify-center">
+          <Text>Loading...</Text>
+        </View>
+        <StatusBar style="auto" />
+      </SafeAreaView>
     );
   }
 
   if (!data?.me) {
-    return <LoginScreen />;
+    return (
+      <SafeAreaView className="flex-1">
+        <LoginScreen />
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    );
   }
 
   return (
-    <>
+    <SafeAreaView className="flex-1">
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
-    </>
+    </SafeAreaView>
   );
 };
 
