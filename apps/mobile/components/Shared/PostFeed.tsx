@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+import useLoadMore from "@/hooks/useLoadMoreOnIntersect";
 
 interface PostFeedProps<T extends { id: string }> {
   items: T[];
@@ -26,12 +26,7 @@ const PostFeed = <T extends { id: string }>({
   errorTitle,
   renderItem
 }: PostFeedProps<T>) => {
-  const {
-    onEndReached,
-    onMomentumScrollBegin,
-    onScrollBeginDrag,
-    isFetchingMore
-  } = useLoadMoreOnIntersect({
+  const { isFetchingMore, onEndReached } = useLoadMore({
     hasMore: Boolean(hasMore),
     onLoadMore: handleEndReached
   });
@@ -58,23 +53,14 @@ const PostFeed = <T extends { id: string }>({
     );
   }
 
-  const renderFooter = () =>
-    isFetchingMore ? (
-      <View className="items-center justify-center py-4">
-        <ActivityIndicator />
-      </View>
-    ) : null;
-
   return (
     <FlatList
       className="flex-1"
       data={items}
       keyExtractor={(item) => item.id}
-      ListFooterComponent={renderFooter}
+      ListFooterComponent={isFetchingMore ? <ActivityIndicator /> : null}
       onEndReached={onEndReached}
-      onEndReachedThreshold={0.5}
-      onMomentumScrollBegin={onMomentumScrollBegin}
-      onScrollBeginDrag={onScrollBeginDrag}
+      onEndReachedThreshold={0.2}
       renderItem={({ item }) => renderItem(item) as any}
     />
   );

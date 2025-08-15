@@ -1,55 +1,27 @@
 import { useCallback, useRef, useState } from "react";
 
-interface UseLoadMoreOnIntersectOptions {
+interface UseLoadMoreOptions {
   hasMore: boolean;
   onLoadMore: () => Promise<void> | void;
 }
 
-interface UseLoadMoreOnIntersectResult {
-  onEndReached: () => Promise<void> | void;
-  onMomentumScrollBegin: () => void;
-  onScrollBeginDrag: () => void;
-  isFetchingMore: boolean;
-}
-
-// React Native version: guards FlatList onEndReached to avoid eager firing
-const useLoadMoreOnIntersect = (
-  options: UseLoadMoreOnIntersectOptions
-): UseLoadMoreOnIntersectResult => {
-  const { hasMore, onLoadMore } = options;
-  const isFetchingMoreRef = useRef(false);
-  const hasStartedScrollingRef = useRef(false);
+const useLoadMore = ({ hasMore, onLoadMore }: UseLoadMoreOptions) => {
+  const isFetchingRef = useRef(false);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-  const onMomentumScrollBegin = useCallback(() => {
-    hasStartedScrollingRef.current = true;
-  }, []);
-
-  const onScrollBeginDrag = useCallback(() => {
-    hasStartedScrollingRef.current = true;
-  }, []);
-
   const onEndReached = useCallback(async () => {
-    if (!hasMore) return;
-    if (!hasStartedScrollingRef.current) return;
-    if (isFetchingMoreRef.current) return;
-
-    isFetchingMoreRef.current = true;
+    if (!hasMore || isFetchingRef.current) return;
+    isFetchingRef.current = true;
     setIsFetchingMore(true);
     try {
       await onLoadMore();
     } finally {
-      isFetchingMoreRef.current = false;
+      isFetchingRef.current = false;
       setIsFetchingMore(false);
     }
   }, [hasMore, onLoadMore]);
 
-  return {
-    isFetchingMore,
-    onEndReached,
-    onMomentumScrollBegin,
-    onScrollBeginDrag
-  };
+  return { isFetchingMore, onEndReached };
 };
 
-export default useLoadMoreOnIntersect;
+export default useLoadMore;
