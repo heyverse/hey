@@ -8,6 +8,7 @@
       "edgeToEdgeEnabled": true
     },
     "experiments": {
+      "reactCanary": true,
       "typedRoutes": true
     },
     "icon": "./assets/images/icon.png",
