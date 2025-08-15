@@ -26,7 +26,15 @@ const PostFeed = <T extends { id: string }>({
   errorTitle,
   renderItem
 }: PostFeedProps<T>) => {
-  const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
+  const {
+    onEndReached,
+    onMomentumScrollBegin,
+    onScrollBeginDrag,
+    isFetchingMore
+  } = useLoadMoreOnIntersect({
+    hasMore: Boolean(hasMore),
+    onLoadMore: handleEndReached
+  });
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -50,21 +58,23 @@ const PostFeed = <T extends { id: string }>({
     );
   }
 
+  const renderFooter = () =>
+    isFetchingMore ? (
+      <View className="items-center justify-center py-4">
+        <ActivityIndicator />
+      </View>
+    ) : null;
+
   return (
     <FlatList
+      className="flex-1"
       data={items}
       keyExtractor={(item) => item.id}
-      ListFooterComponent={
-        hasMore ? (
-          <View ref={loadMoreRef as any}>
-            <ActivityIndicator />
-          </View>
-        ) : null
-      }
-      onEndReached={() => {
-        if (hasMore) handleEndReached();
-      }}
+      ListFooterComponent={renderFooter}
+      onEndReached={onEndReached}
       onEndReachedThreshold={0.5}
+      onMomentumScrollBegin={onMomentumScrollBegin}
+      onScrollBeginDrag={onScrollBeginDrag}
       renderItem={({ item }) => renderItem(item) as any}
     />
   );

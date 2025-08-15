@@ -1,27 +1,55 @@
-import { useIntersectionObserver } from "@uidotdev/usehooks";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 
-const useLoadMoreOnIntersect = (onLoadMore: () => void) => {
-  const [ref, entry] = useIntersectionObserver({
-    root: null,
-    rootMargin: "0px",
-    threshold: 0
-  });
+interface UseLoadMoreOnIntersectOptions {
+  hasMore: boolean;
+  onLoadMore: () => Promise<void> | void;
+}
 
-  const wasIntersecting = useRef(false);
-  const memoizedOnLoadMore = useCallback(onLoadMore, [onLoadMore]);
+interface UseLoadMoreOnIntersectResult {
+  onEndReached: () => Promise<void> | void;
+  onMomentumScrollBegin: () => void;
+  onScrollBeginDrag: () => void;
+  isFetchingMore: boolean;
+}
 
-  useEffect(() => {
-    const isIntersecting = entry?.isIntersecting ?? false;
+// React Native version: guards FlatList onEndReached to avoid eager firing
+const useLoadMoreOnIntersect = (
+  options: UseLoadMoreOnIntersectOptions
+): UseLoadMoreOnIntersectResult => {
+  const { hasMore, onLoadMore } = options;
+  const isFetchingMoreRef = useRef(false);
+  const hasStartedScrollingRef = useRef(false);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-    if (isIntersecting && !wasIntersecting.current) {
-      memoizedOnLoadMore();
+  const onMomentumScrollBegin = useCallback(() => {
+    hasStartedScrollingRef.current = true;
+  }, []);
+
+  const onScrollBeginDrag = useCallback(() => {
+    hasStartedScrollingRef.current = true;
+  }, []);
+
+  const onEndReached = useCallback(async () => {
+    if (!hasMore) return;
+    if (!hasStartedScrollingRef.current) return;
+    if (isFetchingMoreRef.current) return;
+
+    isFetchingMoreRef.current = true;
+    setIsFetchingMore(true);
+    try {
+      await onLoadMore();
+    } finally {
+      isFetchingMoreRef.current = false;
+      setIsFetchingMore(false);
     }
+  }, [hasMore, onLoadMore]);
 
-    wasIntersecting.current = isIntersecting;
-  }, [entry?.isIntersecting, memoizedOnLoadMore]);
-
-  return ref;
+  return {
+    isFetchingMore,
+    onEndReached,
+    onMomentumScrollBegin,
+    onScrollBeginDrag
+  };
 };
 
 export default useLoadMoreOnIntersect;

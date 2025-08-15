@@ -32,8 +32,10 @@ const Account = () => {
   const accountInfo = getAccount(account);
 
   return (
-    <View>
-      <Text>{accountInfo.usernameWithPrefix}</Text>
+    <View className="flex-1">
+      <Text className="px-5 py-3 font-bold text-lg">
+        {accountInfo.usernameWithPrefix}
+      </Text>
       <AccountFeed
         address={account.address}
         type={AccountFeedType.Feed}
