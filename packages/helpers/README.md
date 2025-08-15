@@ -6,4 +6,3 @@ This package includes utility functions shared by the API and web apps.
 
 - `pnpm dev` – start development mode across workspaces.
 - `pnpm build` – compile the monorepo packages.
-- `pnpm test` – run vitest tests.

@@ -18,7 +18,6 @@
     "prepare": "husky install",
     "start": "pnpm --recursive --parallel run start",
     "sync": "node ./script/sync-public.mjs",
-    "test": "pnpm --recursive --parallel run test",
     "typecheck": "pnpm --recursive --parallel run typecheck"
   },
   "devDependencies": {
