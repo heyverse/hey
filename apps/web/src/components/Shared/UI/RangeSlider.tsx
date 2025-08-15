@@ -37,7 +37,7 @@ const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
         {...rest}
       >
         <SliderPrimitive.Track className="relative h-1 grow rounded-full bg-gray-200 dark:bg-gray-800">
-          <SliderPrimitive.Range className="absolute h-full rounded-full bg-gray-600" />
+          <SliderPrimitive.Range className="absolute h-full rounded-full" />
         </SliderPrimitive.Track>
         <SliderPrimitive.Thumb
           aria-label="Slider"
