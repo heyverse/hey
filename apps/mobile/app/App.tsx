@@ -9,6 +9,7 @@ import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut, useAuthStore } from "@/store/persisted/useAuthStore";
+import applyFonts from "./applyFonts";
 import LoginScreen from "./login";
 
 const App = () => {
@@ -17,6 +18,8 @@ const App = () => {
     SofiaProSoftMedium: require("../assets/fonts/SofiaProSoftMed.ttf"),
     SofiaProSoftRegular: require("../assets/fonts/SofiaProSoftReg.ttf")
   });
+
+  applyFonts();
 
   const { setCurrentAccount } = useAccountStore();
   const { accessToken, hasHydrated } = useAuthStore();
