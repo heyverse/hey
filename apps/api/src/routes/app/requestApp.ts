@@ -3,6 +3,7 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import type { Context } from "hono";
 import prisma from "@/prisma/client";
 import handleApiError from "@/utils/handleApiError";
+import { delRedis } from "@/utils/redis";
 
 const requestApp = async (ctx: Context) => {
   try {
@@ -12,6 +13,8 @@ const requestApp = async (ctx: Context) => {
     const appRequest = await prisma.appRequest.create({
       data: { accountAddress: account as string, email }
     });
+
+    await delRedis(`app-request:${account}`);
 
     return ctx.json({
       data: {
