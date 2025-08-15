@@ -6,4 +6,3 @@ This workspace contains the Vite-powered React frontend for Hey.
 
 - `pnpm dev` – run the development server.
 - `pnpm build` – create a production build.
-- `pnpm test` – execute vitest tests.

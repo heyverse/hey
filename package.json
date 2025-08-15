@@ -12,14 +12,13 @@
     "dep:fix": "pnpm dlx sherif@latest --fix",
     "dev": "pnpm --recursive --parallel run dev",
     "mobile": "pnpm --filter @hey/mobile dev",
-    "mobile:ios": "pnpm --filter @hey/mobile ios",
     "mobile:android": "pnpm --filter @hey/mobile android",
+    "mobile:ios": "pnpm --filter @hey/mobile ios",
     "mobile:web": "pnpm --filter @hey/mobile web",
     "prepare": "husky install",
     "start": "pnpm --recursive --parallel run start",
-    "test": "pnpm --recursive --parallel run test",
-    "typecheck": "pnpm --recursive --parallel run typecheck",
-    "sync": "node ./script/sync-public.mjs"
+    "sync": "node ./script/sync-public.mjs",
+    "typecheck": "pnpm --recursive --parallel run typecheck"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.0",

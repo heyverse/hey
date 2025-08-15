@@ -6,4 +6,3 @@ This workspace contains the Hono-based API server that exposes endpoints used by
 
 - `pnpm dev` – start the server in development mode.
 - `pnpm build` – compile all workspaces.
-- `pnpm test` – run vitest tests.
