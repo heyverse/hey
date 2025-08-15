@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import authLink from "@/helpers/authLink";
+import "../global.css";
 
 const lensApolloClient = createApolloClient(authLink);
 
