@@ -44,8 +44,8 @@ const App = () => {
   };
 
   return (
-    <PageLayout title="Mobile App Early Access">
-      <div className="mx-auto rounded-2xl bg-gradient-to-tr from-cyan-800 via-blue-800 to-indigo-900 p-8 shadow-lg">
+    <PageLayout title="Mobile App Early Access" zeroTopMargin>
+      <div className="mx-auto h-screen rounded-none bg-gradient-to-tr from-cyan-800 via-blue-800 to-indigo-900 p-8 shadow-lg md:h-fit md:rounded-2xl">
         <H3 className="font-bold text-2xl text-white">Join the waitlist</H3>
         <p className="mt-3 text-white/90 leading-relaxed">
           Be the first to try the Hey mobile app. Submit your email and we'll
