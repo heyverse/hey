@@ -13,7 +13,6 @@
   "dependencies": {
     "@apollo/client": "^3.13.9",
     "@expo/vector-icons": "^14.1.0",
-    "@heroicons/react": "^2.2.0",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hey/indexer": "workspace:*",
@@ -39,8 +38,10 @@
     "react-native": "^0.79.5",
     "react-native-css-interop": "^0.1.22",
     "react-native-gesture-handler": "^2.24.0",
+    "react-native-heroicons": "^4.0.0",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "^4.11.1",
+    "react-native-svg": "^15.12.1",
     "react-native-web": "^0.20.0",
     "react-tracked": "^2.0.1",
     "remark-breaks": "^4.0.0",

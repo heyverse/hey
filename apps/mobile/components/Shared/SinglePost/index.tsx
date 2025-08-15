@@ -1,5 +1,6 @@
 import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import { memo } from "react";
+import { View } from "react-native";
 import PostBody from "./PostBody";
 import PostWrapper from "./PostWrapper";
 
@@ -20,9 +21,9 @@ const SinglePost = ({
 
   return (
     <PostWrapper className="px-5 pt-4 pb-3" post={rootPost}>
-      <div className="flex items-start gap-x-3">
+      <View className="flex items-start gap-x-3">
         <PostBody post={rootPost} showMore={showMore} />
-      </div>
+      </View>
     </PostWrapper>
   );
 };

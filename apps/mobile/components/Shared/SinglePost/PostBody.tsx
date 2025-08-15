@@ -3,6 +3,7 @@ import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import clsx from "clsx";
 import { memo } from "react";
+import { View } from "react-native";
 import Markup from "../Markup";
 
 interface PostBodyProps {
@@ -34,7 +35,7 @@ const PostBody = ({
   }
 
   return (
-    <div className="break-words">
+    <View className="break-words">
       <Markup
         className={clsx(
           { "line-clamp-5": canShowMore },
@@ -45,7 +46,7 @@ const PostBody = ({
       >
         {content}
       </Markup>
-    </div>
+    </View>
   );
 };
 

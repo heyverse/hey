@@ -1,4 +1,3 @@
-import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import { AccountFeedType } from "@hey/data/enums";
 import {
   type AnyPostFragment,
@@ -9,6 +8,8 @@ import {
   usePostsQuery
 } from "@hey/indexer";
 import { useCallback, useMemo } from "react";
+import { Text, View } from "react-native";
+import { ChatBubbleBottomCenterIcon } from "react-native-heroicons/outline";
 import PostFeed from "../Shared/PostFeed";
 import SinglePost from "../Shared/SinglePost";
 
@@ -98,10 +99,10 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
     <PostFeed
       emptyIcon={<ChatBubbleBottomCenterIcon className="size-8" />}
       emptyMessage={
-        <div>
-          <b className="mr-1">{username}</b>
-          <span>{getEmptyMessage()}</span>
-        </div>
+        <View>
+          <Text className="mr-1">{username}</Text>
+          <Text>{getEmptyMessage()}</Text>
+        </View>
       }
       error={error}
       errorTitle="Failed to load account feed"

@@ -1,17 +1,17 @@
-import {
-  BellIcon as BellIconOutline,
-  GlobeAltIcon as GlobeAltIconOutline,
-  HomeIcon as HomeIconOutline
-} from "@heroicons/react/24/outline";
-import {
-  BellIcon as BellIconSolid,
-  GlobeAltIcon as GlobeAltIconSolid,
-  HomeIcon as HomeIconSolid
-} from "@heroicons/react/24/solid";
 import { TRANSFORMS } from "@hey/data/constants";
 import getAvatar from "@hey/helpers/getAvatar";
 import { Tabs } from "expo-router";
 import { Image } from "react-native";
+import {
+  BellIcon as BellIconOutline,
+  GlobeAltIcon as GlobeAltIconOutline,
+  HomeIcon as HomeIconOutline
+} from "react-native-heroicons/outline";
+import {
+  BellIcon as BellIconSolid,
+  GlobeAltIcon as GlobeAltIconSolid,
+  HomeIcon as HomeIconSolid
+} from "react-native-heroicons/solid";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const TabLayout = () => {
