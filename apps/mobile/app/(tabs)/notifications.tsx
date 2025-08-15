@@ -1,11 +1,11 @@
 import { Text, View } from "react-native";
 
-const Explore = () => {
+const Notifications = () => {
   return (
     <View className="bg-gray-600">
-      <Text>Explore</Text>
+      <Text>Notifications</Text>
     </View>
   );
 };
 
-export default Explore;
+export default Notifications;

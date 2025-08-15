@@ -1,11 +1,11 @@
 import { Text, View } from "react-native";
 
-const Explore = () => {
+const Account = () => {
   return (
     <View className="bg-gray-600">
-      <Text>Explore</Text>
+      <Text>Account</Text>
     </View>
   );
 };
 
-export default Explore;
+export default Account;

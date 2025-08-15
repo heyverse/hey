@@ -13,6 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.13.9",
     "@expo/vector-icons": "^14.1.0",
+    "@heroicons/react": "^2.2.0",
     "@hey/data": "workspace:*",
     "@hey/helpers": "workspace:*",
     "@hey/indexer": "workspace:*",
