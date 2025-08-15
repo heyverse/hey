@@ -129,6 +129,9 @@ importers:
       '@uidotdev/usehooks':
         specifier: ^2.4.1
         version: 2.4.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       expo:
         specifier: ^53.0.20
         version: 53.0.20(@babel/core@7.28.3)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.28.3)(@types/react@19.1.10)(bufferutil@4.0.9)(react@19.1.1)(utf-8-validate@5.0.10)))(bufferutil@4.0.9)(graphql@16.11.0)(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.28.3)(@types/react@19.1.10)(bufferutil@4.0.9)(react@19.1.1)(utf-8-validate@5.0.10))(react@19.1.1))(react-native@0.79.5(@babel/core@7.28.3)(@types/react@19.1.10)(bufferutil@4.0.9)(react@19.1.1)(utf-8-validate@5.0.10))(react@19.1.1)(utf-8-validate@5.0.10)
@@ -162,6 +165,9 @@ importers:
       react-dom:
         specifier: ^19.1.1
         version: 19.1.1(react@19.1.1)
+      react-markdown:
+        specifier: ^10.1.0
+        version: 10.1.0(@types/react@19.1.10)(react@19.1.1)
       react-native:
         specifier: ^0.79.5
         version: 0.79.5(@babel/core@7.28.3)(@types/react@19.1.10)(bufferutil@4.0.9)(react@19.1.1)(utf-8-validate@5.0.10)
@@ -183,9 +189,21 @@ importers:
       react-tracked:
         specifier: ^2.0.1
         version: 2.0.1(react@19.1.1)(scheduler@0.26.0)
+      remark-breaks:
+        specifier: ^4.0.0
+        version: 4.0.0
+      remark-linkify-regex:
+        specifier: ^1.2.1
+        version: 1.2.1
+      strip-markdown:
+        specifier: ^6.0.0
+        version: 6.0.0
       tailwindcss:
         specifier: 3.4.17
         version: 3.4.17
+      unified:
+        specifier: ^11.0.5
+        version: 11.0.5
       viem:
         specifier: ^2.33.3
         version: 2.33.3(bufferutil@4.0.9)(typescript@5.9.2)(utf-8-validate@5.0.10)(zod@3.25.75)

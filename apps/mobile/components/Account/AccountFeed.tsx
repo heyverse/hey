@@ -9,8 +9,8 @@ import {
   usePostsQuery
 } from "@hey/indexer";
 import { useCallback, useMemo } from "react";
-import { Text } from "react-native";
 import PostFeed from "../Shared/PostFeed";
+import SinglePost from "../Shared/SinglePost";
 
 interface AccountFeedProps {
   username: string;
@@ -109,7 +109,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       hasMore={hasMore}
       items={safePosts}
       loading={loading}
-      renderItem={(post) => <Text key={post.id}>{post.id}</Text>}
+      renderItem={(post) => <SinglePost post={post} />}
     />
   );
 };

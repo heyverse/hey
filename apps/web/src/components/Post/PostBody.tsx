@@ -1,5 +1,6 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
 import getPostData from "@hey/helpers/getPostData";
+import getURLs from "@hey/helpers/getURLs";
 import { isRepost } from "@hey/helpers/postHelpers";
 import type { AnyPostFragment } from "@hey/indexer";
 import { getSrc } from "@livepeer/react/external";
@@ -12,7 +13,6 @@ import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
 import { H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import getURLs from "@/helpers/getURLs";
 
 interface PostBodyProps {
   contentClassName?: string;

@@ -1,6 +1,7 @@
 import { BANNER_IDS } from "@hey/data/constants";
 import { ERRORS } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
+import trimify from "@hey/helpers/trimify";
 import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import type {
@@ -28,7 +29,6 @@ import {
 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
-import trimify from "@/helpers/trimify";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
