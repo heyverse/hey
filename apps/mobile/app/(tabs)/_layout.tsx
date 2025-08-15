@@ -38,10 +38,7 @@ const TabLayout = () => {
         <Tabs.Screen
           key={tab.name}
           name={tab.name}
-          options={{
-            tabBarIcon: () => tab.icon,
-            tabBarLabel: () => null
-          }}
+          options={{ tabBarIcon: () => tab.icon, tabBarLabel: () => null }}
         />
       ))}
     </Tabs>
