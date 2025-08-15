@@ -6,4 +6,3 @@ This package contains constants, endpoints, and shared utilities consumed by the
 
 - `pnpm dev` – start development mode across workspaces.
 - `pnpm build` – compile the monorepo packages.
-- `pnpm test` – run the repository test suites.
