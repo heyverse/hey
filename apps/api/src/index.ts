@@ -6,6 +6,7 @@ import { Hono } from "hono";
 import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
 import infoLogger from "./middlewares/infoLogger";
+import appRouter from "./routes/app";
 import cronRouter from "./routes/cron";
 import lensRouter from "./routes/lens";
 import metadataRouter from "./routes/metadata";
@@ -24,6 +25,7 @@ app.use(infoLogger);
 
 // Routes
 app.get("/ping", ping);
+app.route("/app", appRouter);
 app.route("/lens", lensRouter);
 app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);

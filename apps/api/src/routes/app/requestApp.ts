@@ -1,4 +1,5 @@
 import { Status } from "@hey/data/enums";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import type { Context } from "hono";
 import prisma from "@/prisma/client";
 import handleApiError from "@/utils/handleApiError";
@@ -8,20 +9,28 @@ const requestApp = async (ctx: Context) => {
     const { email } = await ctx.req.json();
     const account = ctx.get("account");
 
-    const appRequest = await prisma.appRequest.upsert({
-      create: { accountAddress: account as string, email },
-      update: { email },
-      where: { accountAddress: account as string }
+    const appRequest = await prisma.appRequest.create({
+      data: { accountAddress: account as string, email }
     });
 
     return ctx.json({
       data: {
+        email: appRequest?.email,
         requested: Boolean(appRequest?.email),
         requestedAt: appRequest?.createdAt
       },
       status: Status.Success
     });
   } catch (error) {
+    if (error instanceof PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        return ctx.json({
+          error: "Email already requested",
+          status: Status.Error
+        });
+      }
+    }
+
     return handleApiError(ctx, error);
   }
 };

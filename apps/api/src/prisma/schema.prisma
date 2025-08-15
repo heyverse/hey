@@ -16,6 +16,6 @@ model Preference {
 
 model AppRequest {
   accountAddress String   @id
-  email          String
+  email          String   @unique
   createdAt      DateTime @default(now())
 }
