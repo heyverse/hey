@@ -1,6 +1,6 @@
 import { HEY_API_URL } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
-import type { Oembed, Preferences, STS } from "@hey/types/api";
+import type { AppStatus, Oembed, Preferences, STS } from "@hey/types/api";
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { isTokenExpiringSoon, refreshTokens } from "./tokenManager";
 
@@ -52,6 +52,17 @@ const fetchApi = async <T>(
 };
 
 export const hono = {
+  app: {
+    getStatus: (): Promise<AppStatus> => {
+      return fetchApi<AppStatus>("/app/get", { method: "GET" });
+    },
+    request: (email: string): Promise<AppStatus> => {
+      return fetchApi<AppStatus>("/app/request", {
+        body: JSON.stringify({ email }),
+        method: "POST"
+      });
+    }
+  },
   metadata: {
     sts: (): Promise<STS> => {
       return fetchApi<STS>("/metadata/sts", { method: "GET" });

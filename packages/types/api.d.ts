@@ -14,3 +14,9 @@ export type STS = {
   secretAccessKey: string;
   sessionToken: string;
 };
+
+export type AppStatus = {
+  email: string;
+  requested: boolean;
+  requestedAt: string;
+};
