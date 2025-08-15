@@ -13,3 +13,9 @@ model Preference {
   includeLowScore Boolean  @default(false)
   createdAt       DateTime @default(now())
 }
+
+model AppRequest {
+  accountAddress String   @id
+  email          String
+  createdAt      DateTime @default(now())
+}
