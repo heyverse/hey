@@ -1,6 +1,7 @@
+import { FlashList } from "@shopify/flash-list";
 import type { ReactNode } from "react";
 import { memo } from "react";
-import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import useLoadMore from "@/hooks/useLoadMoreOnIntersect";
 
 interface PostFeedProps<T extends { id: string }> {
@@ -26,13 +27,13 @@ const PostFeed = <T extends { id: string }>({
   errorTitle,
   renderItem
 }: PostFeedProps<T>) => {
-  const { isFetchingMore, onEndReached } = useLoadMore({
+  const { onEndReached } = useLoadMore({
     hasMore: Boolean(hasMore),
     onLoadMore: handleEndReached
   });
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <ActivityIndicator />;
   }
 
   if (error) {
@@ -54,11 +55,9 @@ const PostFeed = <T extends { id: string }>({
   }
 
   return (
-    <FlatList
-      className="flex-1"
+    <FlashList
       data={items}
       keyExtractor={(item) => item.id}
-      ListFooterComponent={isFetchingMore ? <ActivityIndicator /> : null}
       onEndReached={onEndReached}
       onEndReachedThreshold={0.2}
       renderItem={({ item }) => renderItem(item) as any}

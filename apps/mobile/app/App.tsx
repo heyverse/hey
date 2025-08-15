@@ -5,7 +5,7 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback } from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut, useAuthStore } from "@/store/persisted/useAuthStore";
@@ -41,7 +41,7 @@ const App = () => {
     return (
       <SafeAreaView className="flex-1">
         <View className="flex-1 items-center justify-center">
-          <Text>Loading...</Text>
+          <ActivityIndicator />
         </View>
         <StatusBar style="auto" />
       </SafeAreaView>
