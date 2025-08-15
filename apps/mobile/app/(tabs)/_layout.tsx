@@ -28,7 +28,8 @@ const TabLayout = () => {
     },
     {
       icon: <Image className="size-6 rounded-full" source={{ uri: avatar }} />,
-      name: "account"
+      name: "account",
+      params: { username: currentAccount?.username?.localName }
     }
   ];
 
@@ -36,6 +37,7 @@ const TabLayout = () => {
     <Tabs screenOptions={{ headerShown: false }}>
       {TABS.map((tab) => (
         <Tabs.Screen
+          initialParams={tab.params}
           key={tab.name}
           name={tab.name}
           options={{ tabBarIcon: () => tab.icon, tabBarLabel: () => null }}

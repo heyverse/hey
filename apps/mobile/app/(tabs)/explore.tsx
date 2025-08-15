@@ -2,7 +2,7 @@ import { Text, View } from "react-native";
 
 const Explore = () => {
   return (
-    <View className="bg-gray-600">
+    <View className="flex-1 items-center justify-center bg-gray-600">
       <Text>Explore</Text>
     </View>
   );
