@@ -1,9 +1,9 @@
 import "../global.css";
 import { ApolloProvider } from "@apollo/client";
 import { createApolloClient } from "@hey/indexer/apollo/client";
+import { Slot } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import authLink from "@/helpers/authLink";
-import App from "./App";
 
 const lensApolloClient = createApolloClient(authLink);
 
@@ -11,7 +11,7 @@ const RootLayout = () => {
   return (
     <SafeAreaProvider>
       <ApolloProvider client={lensApolloClient}>
-        <App />
+        <Slot />
       </ApolloProvider>
     </SafeAreaProvider>
   );
