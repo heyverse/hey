@@ -11,7 +11,7 @@ const Mention = ({ mentions, title }: MarkupLinkProps) => {
   const fullUsernames = mentions?.map((mention) => mention.replace.from);
 
   if (!fullUsernames?.includes(username)) {
-    return title;
+    return <Text>{title}</Text>;
   }
 
   const canShowUserPreview = (username: string) => {

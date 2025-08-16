@@ -20,7 +20,11 @@ const Markup = ({ children, className = "", mentions = [] }: MarkupProps) => {
       <Markdown
         rules={{
           link: (node) => (
-            <MarkupLink mentions={mentions} title={node.attributes.href} />
+            <MarkupLink
+              key={node.attributes.href}
+              mentions={mentions}
+              title={node.attributes.href}
+            />
           )
         }}
         style={{
