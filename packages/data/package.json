@@ -1,0 +1,17 @@
+{
+  "name": "@hey/data",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "@lens-chain/sdk": "^1.0.3"
+  },
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "@types/node": "^24.2.1",
+    "typescript": "^5.9.2"
+  }
+}

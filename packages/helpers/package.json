@@ -1,0 +1,20 @@
+{
+  "name": "@hey/helpers",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "@hey/data": "workspace:*",
+    "@hey/indexer": "workspace:*",
+    "@hey/types": "workspace:*",
+    "viem": "^2.33.3"
+  },
+  "devDependencies": {
+    "@hey/config": "workspace:*",
+    "@types/node": "^24.2.1",
+    "typescript": "^5.9.2"
+  }
+}

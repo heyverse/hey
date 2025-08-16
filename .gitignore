@@ -1,0 +1,44 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# expo
+.expo/
+expo-env.d.ts
+credentials.json
+ios/
+android/
+*.ipa
+*.apk
+
+# misc
+.DS_Store
+*.pem
+.eslintcache
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+# typescript
+*.tsbuildinfo
+
+# JetBrains IDE
+.idea
+
+# Node build artifacts
+dist
+node-compile-cache/

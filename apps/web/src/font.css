@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("./assets/fonts/SofiaProSoftReg.woff2") format("woff2");
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("./assets/fonts/SofiaProSoftMed.woff2") format("woff2");
+  font-weight: 600; /* Medium */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("./assets/fonts/SofiaProSoftBold.woff2") format("woff2");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap;
+}

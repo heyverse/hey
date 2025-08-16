@@ -1,0 +1,91 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedAttributes": "on",
+        "useSortedKeys": "on",
+        "useSortedProperties": "on"
+      }
+    }
+  },
+  "files": {
+    "includes": [
+      "**",
+      "!**/.pnpm-store/**/*",
+      "!**/.expo",
+      "!**/.claude",
+      "!**/dist",
+      "!**/artifacts",
+      "!**/node_modules",
+      "!**/.git",
+      "!**/cache",
+      "!**/generated.ts",
+      "!**/expo-env.d.ts",
+      "!**/package.json"
+    ]
+  },
+  "formatter": {
+    "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "noStaticElementInteractions": "off",
+        "useKeyWithClickEvents": "off",
+        "useMediaCaption": "off"
+      },
+      "complexity": {
+        "noForEach": "warn",
+        "noUselessFragments": "error",
+        "useDateNow": "off",
+        "useLiteralKeys": "off"
+      },
+      "correctness": {
+        "noNestedComponentDefinitions": "off",
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "error"
+        },
+        "noUnusedVariables": "error",
+        "useExhaustiveDependencies": "off"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "fix": "safe",
+          "level": "error",
+          "options": {}
+        }
+      },
+      "recommended": true,
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
+      },
+      "style": {
+        "noInferrableTypes": "error",
+        "noNegationElse": "error",
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useNumberNamespace": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noAssignInExpressions": "off",
+        "noExplicitAny": "off",
+        "noUnknownAtRules": "off"
+      }
+    }
+  }
+}

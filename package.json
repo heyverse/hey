@@ -1,0 +1,31 @@
+{
+  "name": "hey",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "biome:check": "biome check .",
+    "biome:fix": "biome check --write .",
+    "build": "pnpm --recursive --parallel run build",
+    "codegen": "pnpm --recursive --parallel run codegen",
+    "dep:check": "pnpm dlx sherif@latest",
+    "dep:fix": "pnpm dlx sherif@latest --fix",
+    "dev": "pnpm --recursive --parallel run dev",
+    "mobile": "pnpm --filter @hey/mobile dev",
+    "mobile:android": "pnpm --filter @hey/mobile android",
+    "mobile:ios": "pnpm --filter @hey/mobile ios",
+    "mobile:web": "pnpm --filter @hey/mobile web",
+    "prepare": "husky install",
+    "start": "pnpm --recursive --parallel run start",
+    "sync": "node ./script/sync-public.mjs",
+    "typecheck": "pnpm --recursive --parallel run typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.0",
+    "husky": "^9.1.7"
+  },
+  "packageManager": "pnpm@10.4.1",
+  "engines": {
+    "node": ">=18.x <=22.x"
+  }
+}

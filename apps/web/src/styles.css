@@ -1,0 +1,163 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/aspect-ratio";
+@plugin "@tailwindcss/forms";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sofia-pro: "Sofia Pro", sans-serif;
+  --animate-shimmer: shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  /* Brand Colors */
+  --color-brand-50: #fff0f2;
+  --color-brand-300: #ffa1ad;
+  --color-brand-500: #fb3a5d;
+  --color-brand-600: #e91546;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@layer base {
+  :root {
+    @apply font-sofia-pro text-black dark:text-white;
+  }
+
+  html {
+    @apply overflow-y-scroll;
+  }
+
+  body {
+    @apply bg-gray-50;
+    @apply dark:bg-black;
+  }
+
+  .shimmer {
+    @apply animate-shimmer;
+    @apply bg-gray-300;
+    @apply dark:bg-gray-600;
+  }
+
+  .menu-item {
+    @apply m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200;
+  }
+
+  .linkify a {
+    @apply text-brand-500;
+    @apply hover:text-brand-600 dark:hover:text-brand-500;
+  }
+
+  ::-webkit-file-upload-button {
+    @apply mr-2 cursor-pointer rounded-l-xl border-0 px-3 py-2;
+    @apply bg-gray-200 dark:bg-gray-900;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-spinner::-webkit-inner-spin-button,
+  .no-spinner::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+
+  .label {
+    @apply mb-1 font-medium text-gray-800 dark:text-gray-200;
+  }
+
+  .dropdown-active {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+
+  .focusable-dropdown-item[data-focused] {
+    @apply bg-gray-200 dark:bg-gray-700;
+  }
+
+  .divider {
+    @apply border-b border-gray-200 dark:border-gray-700;
+  }
+
+  .ProseMirror {
+    p {
+      word-break: break-word;
+    }
+
+    & a,
+    span[data-mention="account"] {
+      @apply text-brand-500;
+    }
+
+    & .prosekit-virtual-selection {
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    & .prosekit-placeholder::before {
+      content: attr(data-placeholder);
+      @apply absolute top-[0.5px] pointer-events-none opacity-50;
+    }
+  }
+
+  /** CSS overrides for plyr audio **/
+  .plyr__progress__buffer {
+    @apply !bg-white;
+  }
+
+  .plyr--audio .plyr__controls {
+    @apply !bg-transparent !text-white;
+  }
+
+  .plyr--audio .plyr__control {
+    @apply hover:!bg-transparent;
+  }
+
+  .plyr--audio.plyr--full-ui input[type="range"] {
+    @apply !text-white;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Markup styles */
+  .markup > p,
+  ul {
+    word-break: break-word;
+    @apply leading-[26px] list-disc list-inside;
+    @apply [&:not(:last-child)]:mb-3;
+  }
+
+  .markup > hr {
+    @apply border-gray-200 dark:border-gray-700;
+    @apply mb-3;
+  }
+
+  .full-page-post-markup > p,
+  ul {
+    @apply text-[15px] sm:text-[17px];
+    @apply !leading-7 sm:leading-[26px];
+    @apply [&:not(:last-child)]:mb-3 sm:[&:not(:last-child)]:mb-4;
+  }
+
+  .virtual-divider-list-window {
+    @apply [&>div]:divide-y;
+    @apply [&>div]:divide-gray-200 dark:[&>div]:divide-gray-700;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
