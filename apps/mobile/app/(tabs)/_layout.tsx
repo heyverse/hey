@@ -27,7 +27,7 @@ const TabLayout = () => {
     {
       active: <HomeIconSolid className="size-6" />,
       default: <HomeIconOutline className="size-6" />,
-      name: "home"
+      name: "index"
     },
     {
       active: <GlobeAltIconSolid className="size-6" />,
@@ -43,7 +43,7 @@ const TabLayout = () => {
       active: avatar,
       default: avatar,
       name: "account",
-      params: { username: currentAccount?.username?.localName }
+      params: { username: "yoginth" }
     }
   ];
 
