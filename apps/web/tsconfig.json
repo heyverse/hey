@@ -5,5 +5,5 @@
     "paths": { "@/*": ["./src/*"] }
   },
   "extends": "@hey/config/react.tsconfig.json",
-  "include": ["**/*.ts", "**/*.tsx", "vite.config.mjs", "../../packages/helpers/getURLs.ts", "../../packages/helpers/trimify.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "vite.config.mjs"]
 }
