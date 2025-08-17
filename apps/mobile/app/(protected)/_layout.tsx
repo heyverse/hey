@@ -121,6 +121,25 @@ const TabLayout = () => {
             }}
           />
         ))}
+        {/* Hide non-tab pages from tab bar */}
+        <Tabs.Screen
+          name="pages/settings"
+          options={{
+            href: null
+          }}
+        />
+        <Tabs.Screen
+          name="pages/post"
+          options={{
+            href: null
+          }}
+        />
+        <Tabs.Screen
+          name="pages/search"
+          options={{
+            href: null
+          }}
+        />
       </Tabs>
     </SafeAreaView>
   );

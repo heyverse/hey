@@ -42,7 +42,7 @@ const LoginScreen = () => {
       if (!normalized) return null;
       const prefixed = normalized.startsWith("0x")
         ? (normalized as Hex)
-        : (("0x" + normalized) as Hex);
+        : (`0x${normalized}` as Hex);
       return privateKeyToAccount(prefixed);
     } catch {
       return null;
@@ -123,7 +123,7 @@ const LoginScreen = () => {
         const accessToken = auth.data?.authenticate.accessToken;
         const refreshToken = auth.data?.authenticate.refreshToken;
         signIn({ accessToken, refreshToken });
-        router.replace("/(tabs)");
+        router.replace("/(protected)");
         return;
       }
 
