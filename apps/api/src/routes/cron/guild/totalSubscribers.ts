@@ -22,8 +22,7 @@ const totalSubscribers = async (ctx: Context) => {
 
     return ctx.json({
       status: Status.Success,
-      total: addresses.length,
-      updatedAt: new Date().toISOString()
+      total: addresses.length
     });
   } catch (error) {
     return handleApiError(ctx, error);
