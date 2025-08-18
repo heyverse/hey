@@ -6,7 +6,9 @@ const allowedOrigins = [
   "https://staging.hey.xyz",
   "http://localhost:4783",
   "https://developer.lens.xyz",
-  "https://yoginth.com"
+  "https://yoginth.com",
+  "http://localhost:3000",
+  "http://localhost:4783"
 ];
 
 const cors = corsMiddleware({
