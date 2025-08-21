@@ -7,7 +7,7 @@ import removeExpiredSubscribers from "./removeExpiredSubscribers";
 const app = new Hono();
 
 app.get("/syncSubscribersToGuild", secretMiddleware, syncSubscribersToGuild);
-app.get("/totalSubscribers", secretMiddleware, totalSubscribers);
+app.get("/totalSubscribers", totalSubscribers);
 app.get(
   "/removeExpiredSubscribers",
   secretMiddleware,
