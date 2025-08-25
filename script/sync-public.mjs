@@ -114,12 +114,16 @@ async function main() {
     "AGENTS.md"
   ];
 
-  for (const rel of disallowed) {
-    const full = join(tmp, rel);
-    if (await pathExists(full)) {
-      await rm(full, { force: true, recursive: true });
-      console.log(`Excluded: ${rel}`);
+  try {
+    for (const rel of disallowed) {
+      const full = join(tmp, rel);
+      if (await pathExists(full)) {
+        await rm(full, { force: true, recursive: true });
+        console.log(`Excluded: ${rel}`);
+      }
     }
+  } catch (error) {
+    console.warn("Failed to remove disallowed paths", error);
   }
 
   // Initialize a fresh git repo and push a single squashed snapshot
