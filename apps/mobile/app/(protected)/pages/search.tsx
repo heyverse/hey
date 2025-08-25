@@ -13,6 +13,13 @@ import {
   UserIcon
 } from "react-native-heroicons/outline";
 
+interface PersonResult {
+  id: string;
+  name: string;
+  username: string;
+  followers: string;
+}
+
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("all");
@@ -33,7 +40,7 @@ const Search = () => {
         name: "Alex Wilson",
         username: "@alexwilson"
       }
-    ],
+    ] satisfies PersonResult[],
     posts: [
       {
         author: "John Doe",
@@ -63,7 +70,7 @@ const Search = () => {
     { id: "hashtags", title: "Hashtags" }
   ];
 
-  const renderPerson = ({ item }: { item: any }) => (
+  const renderPerson = ({ item }: { item: PersonResult }) => (
     <TouchableOpacity className="flex-row items-center border-gray-100 border-b p-4">
       <View className="mr-3 h-12 w-12 items-center justify-center rounded-full bg-gray-300">
         <UserIcon className="size-6 text-gray-600" />
