@@ -9,7 +9,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.13.9",
+    "@apollo/client": "^3.14.0",
     "@hey/data": "workspace:*",
     "graphql": "^16.11.0"
   },
