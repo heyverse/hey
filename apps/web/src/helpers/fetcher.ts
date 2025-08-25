@@ -29,14 +29,24 @@ const fetchApi = async <T>(
     } catch {}
   }
 
-  const response = await fetch(`${config.baseUrl}${endpoint}`, {
-    ...options,
-    credentials: "include",
-    headers: {
-      ...{ "X-Access-Token": token || "" },
-      ...config.headers
-    }
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 50000);
+
+  let response: Response;
+
+  try {
+    response = await fetch(`${config.baseUrl}${endpoint}`, {
+      ...options,
+      credentials: "include",
+      headers: {
+        ...{ "X-Access-Token": token || "" },
+        ...config.headers
+      },
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   if (!response.ok) {
     throw new Error(`HTTP error! Status: ${response.status}`);
