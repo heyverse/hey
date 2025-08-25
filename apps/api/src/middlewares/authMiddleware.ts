@@ -1,4 +1,5 @@
 import { LENS_API_URL } from "@hey/data/constants";
+import logger from "@hey/helpers/logger";
 import type { Context, Next } from "hono";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
@@ -8,17 +9,21 @@ const JWKS = createRemoteJWKSet(new URL(jwksUri), {
   cacheMaxAge: 60 * 60 * 12
 });
 
+const unauthorized = (c: Context) => c.body("Unauthorized", 401);
+
 const authMiddleware = async (c: Context, next: Next) => {
   const token = c.get("token");
 
   if (!token) {
-    return c.body("Unauthorized", 401);
+    logger.warn("missing token");
+    return unauthorized(c);
   }
 
   try {
     await jwtVerify(token, JWKS);
   } catch {
-    return c.body("Unauthorized", 401);
+    logger.warn("invalid token");
+    return unauthorized(c);
   }
 
   return next();
