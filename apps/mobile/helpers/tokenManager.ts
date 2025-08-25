@@ -9,7 +9,7 @@ const MAX_RETRIES = 5;
 
 const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
   try {
-    for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       const { data } = await apolloClient.mutate<RefreshMutation>({
         mutation: RefreshDocument,
         variables: { request: { refreshToken } }
@@ -42,8 +42,10 @@ const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
         throw new Error("Refresh token is invalid or expired");
       }
 
-      if (attempt === MAX_RETRIES) {
-        throw new Error("Unknown error during token refresh");
+      if (attempt < MAX_RETRIES - 1) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, 2 ** attempt * 1000)
+        );
       }
     }
 
