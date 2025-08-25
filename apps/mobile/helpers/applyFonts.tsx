@@ -1,8 +1,12 @@
-import { Text } from "react-native";
+import type React from "react";
+import { Text, type TextProps } from "react-native";
 
 const applyFonts = () => {
-  (Text as any).defaultProps = (Text as any).defaultProps || {};
-  (Text as any).defaultProps.style = { fontFamily: "SofiaProSoftRegular" };
+  const typedText = Text as unknown as React.ComponentType<TextProps> & {
+    defaultProps?: TextProps;
+  };
+  typedText.defaultProps = typedText.defaultProps ?? {};
+  typedText.defaultProps.style = { fontFamily: "SofiaProSoftRegular" };
 };
 
 export default applyFonts;
