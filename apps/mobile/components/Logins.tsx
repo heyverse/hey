@@ -16,9 +16,55 @@ import {
   TextInput,
   View
 } from "react-native";
-import type { Hex } from "viem";
+import type { Account, Hex } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { signIn } from "@/store/persisted/useAuthStore";
+
+type LoadChallenge = ReturnType<typeof useChallengeMutation>[0];
+type Authenticate = ReturnType<typeof useAuthenticateMutation>[0];
+
+interface AuthenticateParams {
+  request: ChallengeRequest;
+  derivedAccount: Account;
+  loadChallenge: LoadChallenge;
+  authenticate: Authenticate;
+}
+
+const authenticateAccount = async ({
+  request,
+  derivedAccount,
+  loadChallenge,
+  authenticate
+}: AuthenticateParams) => {
+  const challenge = await loadChallenge({ variables: { request } });
+  const challengeText = challenge?.data?.challenge?.text;
+  const challengeId = challenge?.data?.challenge?.id;
+
+  if (!challengeText || !challengeId) {
+    return null;
+  }
+
+  const signature = await derivedAccount.signMessage?.({
+    message: challengeText
+  });
+
+  if (!signature) {
+    return null;
+  }
+
+  const auth = await authenticate({
+    variables: { request: { id: challengeId, signature } }
+  });
+
+  if (auth.data?.authenticate.__typename !== "AuthenticationTokens") {
+    return null;
+  }
+
+  return {
+    accessToken: auth.data.authenticate.accessToken,
+    refreshToken: auth.data.authenticate.refreshToken
+  };
+};
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -29,12 +75,19 @@ const LoginScreen = () => {
   );
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const onError = useCallback((error?: any) => {
+  const resetLoginState = useCallback(() => {
     setIsSubmitting(false);
     setLoggingInAccountId(null);
-    const message = (error as any)?.message || ERRORS.SomethingWentWrong;
-    setErrorMessage(message);
   }, []);
+
+  const onError = useCallback(
+    (error?: any) => {
+      resetLoginState();
+      const message = (error as any)?.message || ERRORS.SomethingWentWrong;
+      setErrorMessage(message);
+    },
+    [resetLoginState]
+  );
 
   const derivedAccount = useMemo(() => {
     try {
@@ -98,38 +151,28 @@ const LoginScreen = () => {
       ? { accountManager: { manager: ownerAddress, ...meta } }
       : { accountOwner: { owner: ownerAddress, ...meta } };
 
+    setLoggingInAccountId(accountAddress);
+    setIsSubmitting(true);
+
     try {
-      setLoggingInAccountId(accountAddress);
-      setIsSubmitting(true);
+      const tokens = await authenticateAccount({
+        authenticate,
+        derivedAccount,
+        loadChallenge,
+        request
+      });
 
-      const challenge = await loadChallenge({ variables: { request } });
-      const challengeText = challenge?.data?.challenge?.text;
-      const challengeId = challenge?.data?.challenge?.id;
-
-      if (!challengeText || !challengeId) {
+      if (!tokens) {
         onError({ message: ERRORS.SomethingWentWrong });
         return;
       }
 
-      const signature = await derivedAccount.signMessage({
-        message: challengeText
-      });
-
-      const auth = await authenticate({
-        variables: { request: { id: challengeId, signature } }
-      });
-
-      if (auth.data?.authenticate.__typename === "AuthenticationTokens") {
-        const accessToken = auth.data?.authenticate.accessToken;
-        const refreshToken = auth.data?.authenticate.refreshToken;
-        signIn({ accessToken, refreshToken });
-        router.replace("/(protected)");
-        return;
-      }
-
-      onError({ message: ERRORS.SomethingWentWrong });
+      signIn(tokens);
+      router.replace("/(protected)");
     } catch (e) {
       onError(e);
+    } finally {
+      resetLoginState();
     }
   };
 
