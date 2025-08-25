@@ -3,6 +3,7 @@ import type { NewAttachment } from "@hey/types/misc";
 import { toast } from "sonner";
 import compressImage from "./compressImage";
 
+const BYTES_IN_MB = 1_000_000;
 const IMAGE_UPLOAD_LIMIT = 50000000;
 const VIDEO_UPLOAD_LIMIT = 2000000000;
 const AUDIO_UPLOAD_LIMIT = 600000000;
@@ -14,21 +15,21 @@ export const validateFileSize = (file: File): boolean => {
 
   if (isImage && file.size > IMAGE_UPLOAD_LIMIT) {
     toast.error(
-      `Image size should be less than ${IMAGE_UPLOAD_LIMIT / 1000000}MB`
+      `Image size should be less than ${IMAGE_UPLOAD_LIMIT / BYTES_IN_MB}MB`
     );
     return false;
   }
 
   if (isVideo && file.size > VIDEO_UPLOAD_LIMIT) {
     toast.error(
-      `Video size should be less than ${VIDEO_UPLOAD_LIMIT / 1000000}MB`
+      `Video size should be less than ${VIDEO_UPLOAD_LIMIT / BYTES_IN_MB}MB`
     );
     return false;
   }
 
   if (isAudio && file.size > AUDIO_UPLOAD_LIMIT) {
     toast.error(
-      `Audio size should be less than ${AUDIO_UPLOAD_LIMIT / 1000000}MB`
+      `Audio size should be less than ${AUDIO_UPLOAD_LIMIT / BYTES_IN_MB}MB`
     );
     return false;
   }
