@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import {
   BellIcon,
@@ -6,16 +7,24 @@ import {
   UserPlusIcon
 } from "react-native-heroicons/outline";
 
+interface NotificationItem {
+  id: string;
+  user: string;
+  content: string;
+  icon: ReactElement;
+  read: boolean;
+  timestamp: string;
+}
+
 const Notifications = () => {
   // Mock notification data
-  const notifications = [
+  const notifications: NotificationItem[] = [
     {
       content: "liked your post",
       icon: <HeartIcon className="size-5 text-red-500" />,
       id: "1",
       read: false,
       timestamp: "2m ago",
-      type: "like",
       user: "john_doe"
     },
     {
@@ -24,7 +33,6 @@ const Notifications = () => {
       id: "2",
       read: false,
       timestamp: "15m ago",
-      type: "comment",
       user: "jane_smith"
     },
     {
@@ -33,7 +41,6 @@ const Notifications = () => {
       id: "3",
       read: true,
       timestamp: "1h ago",
-      type: "follow",
       user: "alex_wilson"
     },
     {
@@ -42,7 +49,6 @@ const Notifications = () => {
       id: "4",
       read: true,
       timestamp: "2h ago",
-      type: "mention",
       user: "sarah_jones"
     },
     {
@@ -51,12 +57,11 @@ const Notifications = () => {
       id: "5",
       read: true,
       timestamp: "3h ago",
-      type: "like",
       user: "mike_brown"
     }
   ];
 
-  const renderNotification = ({ item }: { item: any }) => (
+  const renderNotification = ({ item }: { item: NotificationItem }) => (
     <TouchableOpacity
       className={`border-gray-100 border-b p-4 ${
         item.read ? "bg-white" : "bg-blue-50"
@@ -91,7 +96,7 @@ const Notifications = () => {
         </TouchableOpacity>
       </View>
 
-      <FlatList
+      <FlatList<NotificationItem>
         data={notifications}
         keyExtractor={(item) => item.id}
         renderItem={renderNotification}
