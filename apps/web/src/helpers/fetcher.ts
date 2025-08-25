@@ -30,7 +30,7 @@ const fetchApi = async <T>(
   }
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000);
+  const timeoutId = setTimeout(() => controller.abort(), 50000);
 
   let response: Response;
 
