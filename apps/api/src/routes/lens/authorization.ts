@@ -1,5 +1,5 @@
-import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
+import ApiError from "@/utils/apiError";
 import handleApiError from "@/utils/handleApiError";
 
 const authorization = async (ctx: Context) => {
@@ -7,16 +7,13 @@ const authorization = async (ctx: Context) => {
     const authHeader = ctx.req.raw.headers.get("authorization");
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return ctx.json({ error: "Unauthorized", status: Status.Error }, 401);
+      throw new ApiError(401, "Unauthorized");
     }
 
     const token = authHeader.split(" ")[1];
 
     if (token !== process.env.SHARED_SECRET) {
-      return ctx.json(
-        { error: "Invalid shared secret", status: Status.Error },
-        401
-      );
+      throw new ApiError(401, "Invalid shared secret");
     }
 
     return ctx.json({
