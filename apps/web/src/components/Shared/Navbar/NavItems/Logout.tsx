@@ -3,7 +3,6 @@ import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { signOut } from "@/store/persisted/useAuthStore";
-import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
 interface LogoutProps {
   className?: string;
@@ -11,11 +10,8 @@ interface LogoutProps {
 }
 
 const Logout = ({ className = "", onClick }: LogoutProps) => {
-  const { resetPreferences } = usePreferencesStore();
-
   const handleLogout = async () => {
     try {
-      resetPreferences();
       signOut();
       reloadAllTabs();
     } catch (error) {

@@ -10,7 +10,6 @@ import generateOg from "./ogUtils";
 
 const getAccount = async (ctx: Context) => {
   const { username } = ctx.req.param();
-  const cacheKey = `og:account:${username}`;
 
   return generateOg({
     buildHtml: (account: AccountFragment, escapedJsonLd: string) => {
@@ -73,7 +72,6 @@ const getAccount = async (ctx: Context) => {
         url: `https://hey.xyz/u/${username}`
       };
     },
-    cacheKey,
     ctx,
     extractData: (data) => data.account,
     query: AccountDocument,

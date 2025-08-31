@@ -6,7 +6,6 @@ import { HelmetProvider } from "react-helmet-async";
 import ErrorBoundary from "@/components/Common/ErrorBoundary";
 import authLink from "@/helpers/authLink";
 import { ThemeProvider } from "@/hooks/useTheme";
-import PreferencesProvider from "./PreferencesProvider";
 import Web3Provider from "./Web3Provider";
 
 export const queryClient = new QueryClient({
@@ -25,11 +24,9 @@ const Providers = ({ children }: ProvidersProps) => {
       <QueryClientProvider client={queryClient}>
         <Web3Provider>
           <ApolloProvider client={lensApolloClient}>
-            <PreferencesProvider>
-              <HelmetProvider>
-                <ThemeProvider>{children}</ThemeProvider>
-              </HelmetProvider>
-            </PreferencesProvider>
+            <HelmetProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </HelmetProvider>
           </ApolloProvider>
         </Web3Provider>
       </QueryClientProvider>

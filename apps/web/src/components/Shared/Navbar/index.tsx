@@ -21,7 +21,6 @@ import { Image, Tooltip } from "@/components/Shared/UI";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import SignedAccount from "./SignedAccount";
 
 const navigationItems = {
@@ -96,7 +95,6 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
 const Navbar = () => {
   const { pathname } = useLocation();
   const { currentAccount } = useAccountStore();
-  const { appIcon } = usePreferencesStore();
   const { setShowAuthModal } = useAuthModalStore();
 
   const handleLogoClick = useCallback(
@@ -120,7 +118,7 @@ const Navbar = () => {
           alt="Logo"
           className="size-8"
           height={32}
-          src={`${STATIC_IMAGES_URL}/app-icon/${appIcon}.png`}
+          src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
           width={32}
         />
       </Link>

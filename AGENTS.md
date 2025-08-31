@@ -16,7 +16,6 @@ This project uses the coding and collaboration rules defined in `.cursorrules`.
 - React with Vite and TypeScript
 - HeadlessUI, Tailwind CSS, and Radix
 - Apollo GraphQL with Hono
-- Prisma with Postgres
 - Zustand and TanStack React Query
 - Zod for validation
 - Prosekit with Remark and Rehype

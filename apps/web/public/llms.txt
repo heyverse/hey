@@ -7,6 +7,3 @@ Hey is a decentralized, permissionless social media platform built on top of the
 - User account: https://hey.xyz/u/{username}
 - Post: https://hey.xyz/posts/{postSlug}
 - Group: https://hey.xyz/g/{groupAddress}
-
-Sitemap: https://hey.xyz/sitemap.xml
-Accounts Sitemap: https://hey.xyz/sitemap/accounts.xml

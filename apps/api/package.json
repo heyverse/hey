@@ -5,12 +5,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build": "echo 'Not required'",
-    "codegen": "prisma generate --schema ./src/prisma/schema.prisma",
     "dev": "tsx watch src/index.ts",
-    "postinstall": "pnpm codegen",
-    "prisma:clean": "prisma migrate reset --schema ./src/prisma/schema.prisma",
-    "prisma:format": "prisma format --schema ./src/prisma/schema.prisma",
-    "prisma:migrate": "prisma migrate dev --schema ./src/prisma/schema.prisma",
     "start": "tsx watch src/index.ts",
     "typecheck": "tsc --pretty"
   },
@@ -23,24 +18,20 @@
     "@hono/node-server": "^1.19.0",
     "@hono/zod-validator": "^0.7.2",
     "@lens-chain/sdk": "^1.0.3",
-    "@prisma/client": "^6.14.0",
     "dotenv": "^17.2.1",
     "hono": "^4.9.4",
     "hono-rate-limiter": "^0.4.2",
     "jose": "^6.0.13",
     "linkedom": "^0.18.12",
     "pg-promise": "^11.15.0",
-    "redis": "^5.8.2",
     "tsx": "^4.20.5",
     "viem": "^2.35.1",
-    "xmlbuilder2": "^3.1.1",
     "zod": "3.25.75"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/node": "^24.3.0",
-    "prisma": "^6.14.0",
     "typescript": "^5.9.2"
   }
 }

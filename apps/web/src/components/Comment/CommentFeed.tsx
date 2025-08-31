@@ -66,9 +66,7 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
       hasMore={hasMore}
       items={filteredComments}
       loading={loading}
-      renderItem={(comment) => (
-        <SinglePost key={comment.id} post={comment} showType={false} />
-      )}
+      renderItem={(comment) => <SinglePost key={comment.id} post={comment} />}
     />
   );
 };

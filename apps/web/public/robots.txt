@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://hey.xyz/sitemap.xml
