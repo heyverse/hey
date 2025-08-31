@@ -29,7 +29,6 @@ The user may ask about any of these technologies:
 - Apollo GraphQL
 - Radix
 - Hono
-- Prisma with Postgres
 - Zod
 - Zustand
 - Prosekit

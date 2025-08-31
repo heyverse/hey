@@ -32,19 +32,6 @@ export const onRequest = async (context: Context) => {
     });
   };
 
-  if (path === "/sitemap.xml" || path === "" || path.startsWith("/sitemap/")) {
-    let targetUrl: string;
-
-    if (!path || path === "/sitemap.xml") {
-      targetUrl = "https://api.hey.xyz/sitemap/all.xml";
-    } else {
-      const actualPath = path.replace("/sitemap/", "/");
-      targetUrl = `https://api.hey.xyz/sitemap${actualPath}`;
-    }
-
-    return createNoCacheResponse(targetUrl);
-  }
-
   if (
     isBot &&
     (path.startsWith("/u/") ||

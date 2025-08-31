@@ -1,5 +1,5 @@
 {
   "exclude": [],
-  "include": ["/u/*", "/g/*", "/posts/*", "/sitemap.xml", "/sitemap/*"],
+  "include": ["/u/*", "/g/*", "/posts/*"],
   "version": 1
 }
