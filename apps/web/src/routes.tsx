@@ -28,7 +28,6 @@ import { default as AccountPersonalizeSettings } from "@/components/Settings/Per
 import SessionsSettings from "@/components/Settings/Sessions";
 import UsernameSettings from "@/components/Settings/Username";
 import Custom404 from "@/components/Shared/404";
-import App from "./components/Pages/App";
 import RewardsSettings from "./components/Settings/Rewards";
 import Staff from "./components/Staff";
 
@@ -79,7 +78,6 @@ const Routes = () => {
           <Route path="staff">
             <Route element={<Staff />} index />
           </Route>
-          <Route element={<App />} path="app" />
           <Route element={<Support />} path="support" />
           <Route element={<Terms />} path="terms" />
           <Route element={<Privacy />} path="privacy" />
