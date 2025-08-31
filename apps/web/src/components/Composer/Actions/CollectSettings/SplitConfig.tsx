@@ -64,7 +64,7 @@ const SplitConfig = ({
         if (i === index) {
           return {
             ...recipient,
-            [type]: type === "address" ? value : Number.parseInt(value)
+            [type]: type === "address" ? value : Number.parseInt(value, 10)
           };
         }
         return recipient;

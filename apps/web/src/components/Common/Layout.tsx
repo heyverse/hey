@@ -16,7 +16,6 @@ import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
-import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import { useProStore } from "@/store/persisted/useProStore";
 import ReloadTabsWatcher from "./ReloadTabsWatcher";
 
@@ -25,7 +24,6 @@ const Layout = () => {
   const { theme } = useTheme();
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const { setProBannerDismissed } = useProStore();
-  const { resetPreferences } = usePreferencesStore();
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
 
@@ -35,7 +33,6 @@ const Layout = () => {
   }, [pathname]);
 
   const onError = useCallback(() => {
-    resetPreferences();
     signOut();
     reloadAllTabs();
   }, []);

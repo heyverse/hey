@@ -1,6 +1,6 @@
 import { HEY_API_URL } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
-import type { AppStatus, Oembed, Preferences, STS } from "@hey/types/api";
+import type { AppStatus, Oembed, STS } from "@hey/types/api";
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { isTokenExpiringSoon, refreshTokens } from "./tokenManager";
 
@@ -81,17 +81,6 @@ export const hono = {
   oembed: {
     get: (url: string): Promise<Oembed> => {
       return fetchApi<Oembed>(`/oembed/get?url=${url}`, { method: "GET" });
-    }
-  },
-  preferences: {
-    get: (): Promise<Preferences> => {
-      return fetchApi<Preferences>("/preferences/get", { method: "GET" });
-    },
-    update: (preferences: Partial<Preferences>): Promise<Preferences> => {
-      return fetchApi<Preferences>("/preferences/update", {
-        body: JSON.stringify(preferences),
-        method: "POST"
-      });
     }
   }
 };

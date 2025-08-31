@@ -9,14 +9,12 @@ import Markup from "../Markup";
 interface PostBodyProps {
   contentClassName?: string;
   post: AnyPostFragment;
-  quoted?: boolean;
   showMore?: boolean;
 }
 
 const PostBody = ({
   contentClassName = "",
   post,
-  quoted = false,
   showMore = false
 }: PostBodyProps) => {
   const targetPost = isRepost(post) ? post.repostOf : post;

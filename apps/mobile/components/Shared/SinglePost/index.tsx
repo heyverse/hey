@@ -8,14 +8,12 @@ interface SinglePostProps {
   timelineItem?: TimelineItemFragment;
   post: AnyPostFragment;
   showMore?: boolean;
-  showType?: boolean;
 }
 
 const SinglePost = ({
   timelineItem,
   post,
-  showMore = true,
-  showType = true
+  showMore = true
 }: SinglePostProps) => {
   const rootPost = timelineItem ? timelineItem?.primary : post;
 

@@ -83,7 +83,7 @@ const usePostMetadata = () => {
           }),
           video: {
             cover: videoThumbnail.url,
-            duration: Number.parseInt(videoDurationInSeconds),
+            duration: Number.parseInt(videoDurationInSeconds, 10),
             item: primaryAttachment.uri,
             type: primaryAttachment.mimeType,
             ...(license && { license })

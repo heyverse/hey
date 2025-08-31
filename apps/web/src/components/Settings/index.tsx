@@ -1,5 +1,4 @@
 import {
-  AdjustmentsVerticalIcon,
   ArrowRightIcon,
   AtSymbolIcon,
   CodeBracketIcon,
@@ -52,11 +51,6 @@ const AccountSettings = () => {
       icon: <AtSymbolIcon className="size-5" />,
       title: "Username",
       url: "/settings/username"
-    },
-    {
-      icon: <AdjustmentsVerticalIcon className="size-5" />,
-      title: "Preferences",
-      url: "/settings/preferences"
     },
     {
       icon: <FingerPrintIcon className="size-5" />,
