@@ -2,11 +2,9 @@ import apolloClient from "@hey/indexer/apollo/client";
 import type { Context } from "hono";
 import type { HtmlEscapedString } from "hono/utils/html";
 import defaultMetadata from "@/utils/defaultMetadata";
-import { getRedis, setRedis } from "@/utils/redis";
 
 interface OgHelperOptions<T> {
   ctx: Context;
-  cacheKey: string;
   query: any;
   variables: Record<string, any>;
   extractData: (data: any) => T | null;
@@ -19,7 +17,6 @@ interface OgHelperOptions<T> {
 
 const generateOg = async <T>({
   ctx,
-  cacheKey,
   query,
   variables,
   extractData,
@@ -27,11 +24,6 @@ const generateOg = async <T>({
   buildHtml
 }: OgHelperOptions<T>) => {
   try {
-    const cached = await getRedis(cacheKey);
-    if (cached) {
-      return ctx.html(cached, 200);
-    }
-
     const { data } = await apolloClient.query({
       fetchPolicy: "no-cache",
       query,
@@ -51,8 +43,6 @@ const generateOg = async <T>({
 
     const ogHtml = await buildHtml(parsed, escapedJsonLd);
     const cleanHtml = ogHtml.toString().replace(/\n\s+/g, "").trim();
-
-    await setRedis(cacheKey, cleanHtml);
 
     return ctx.html(cleanHtml, 200);
   } catch {

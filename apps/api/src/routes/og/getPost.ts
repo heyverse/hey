@@ -11,7 +11,6 @@ import generateOg from "./ogUtils";
 
 const getPost = async (ctx: Context) => {
   const { slug } = ctx.req.param();
-  const cacheKey = `og:post:${slug}`;
 
   return generateOg({
     buildHtml: (post: PostFragment) => {
@@ -84,7 +83,6 @@ const getPost = async (ctx: Context) => {
         url: `https://hey.xyz/posts/${post.slug}`
       };
     },
-    cacheKey,
     ctx,
     extractData: (data) => data.post as PostFragment | null,
     query: PostDocument,

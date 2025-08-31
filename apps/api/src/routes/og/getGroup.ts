@@ -9,7 +9,6 @@ import generateOg from "./ogUtils";
 
 const getGroup = async (ctx: Context) => {
   const { address } = ctx.req.param();
-  const cacheKey = `og:group:${address}`;
 
   return generateOg({
     buildHtml: (group: GroupFragment, escapedJsonLd) => {
@@ -76,7 +75,6 @@ const getGroup = async (ctx: Context) => {
         url: `https://hey.xyz/g/${address}`
       };
     },
-    cacheKey,
     ctx,
     extractData: (data) => data.group as GroupFragment | null,
     query: GroupDocument,
