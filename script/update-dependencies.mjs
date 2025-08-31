@@ -31,9 +31,7 @@ const branchName = format(
 const commitMessage = "chore: update dependencies across all packages";
 
 exec(`git checkout -b ${branchName}`);
-exec(
-  "pnpm update --interactive --recursive --latest --filter '!./apps/mobile'"
-);
+exec("pnpm update --interactive --recursive --latest");
 
 if (!hasChanges()) {
   console.log("No changes in dependencies. Exiting.");
