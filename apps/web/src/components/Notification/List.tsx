@@ -62,7 +62,7 @@ const List = ({ feedType }: ListProps) => {
 
   const request: NotificationRequest = {
     filter: {
-      includeLowScore: true,
+      includeLowScore: false,
       notificationTypes: getNotificationType()
     }
   };
