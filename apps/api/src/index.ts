@@ -28,7 +28,7 @@ app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);
 app.route("/oembed", oembedRouter);
 app.route("/og", ogRouter);
-app.post("/pageview", pageview);
+app.post("/pageview", rateLimiter({ requests: 500 }), pageview);
 
 app.notFound((ctx) =>
   ctx.json({ error: "Not Found", status: Status.Error }, 404)

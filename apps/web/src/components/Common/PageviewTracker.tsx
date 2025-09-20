@@ -8,6 +8,10 @@ const PageviewTracker = (_props: PageviewTrackerProps) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
     const body = JSON.stringify({ path: pathname });
     const endpoint = `${HEY_API_URL}/pageview`;
 
