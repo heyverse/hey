@@ -68,6 +68,15 @@ const pageview = async (ctx: Context) => {
       }
     );
 
+    if (res.status === 429) {
+      console.warn("Discord webhook rate limited", {
+        limit: res.headers.get("x-ratelimit-limit"),
+        remaining: res.headers.get("x-ratelimit-remaining"),
+        reset: res.headers.get("x-ratelimit-reset"),
+        retryAfter: res.headers.get("retry-after")
+      });
+    }
+
     console.log("Sent pageview webhook", res.status);
   } catch (err) {
     console.error("Failed to send pageview webhook", err);
