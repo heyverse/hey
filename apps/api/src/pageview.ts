@@ -33,7 +33,7 @@ const pageview = async (ctx: Context) => {
     });
   }
 
-  const payload = { ...ipData, host, ts };
+  const payload = { ...ipData, account: ctx.get("account"), host, ts };
 
   try {
     const trunc = (v: string, max = 1024) =>
@@ -48,7 +48,7 @@ const pageview = async (ctx: Context) => {
       if (value) fields.push({ inline, name, value: trunc(value) });
     };
 
-    add("Path", body.path, true);
+    add("Account", payload.account, true);
     add("Location", location, true);
 
     const embed = {
