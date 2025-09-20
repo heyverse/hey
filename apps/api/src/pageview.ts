@@ -29,6 +29,10 @@ const pageview = async (ctx: Context) => {
     return ctx.json({ ok: true, skipped: true });
   }
 
+  if (body.path !== "/") {
+    return ctx.json({ ok: true, skipped: true });
+  }
+
   const payload = {
     ...ipData,
     host,
