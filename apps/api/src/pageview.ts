@@ -9,7 +9,6 @@ const getIpData = (ctx: Context) => {
   return {
     city: h("cf-ipcity"),
     countryCode: h("cf-ipcountry"),
-    ip: h("cf-connecting-ip"),
     region: h("cf-region")
   };
 };
@@ -52,10 +51,9 @@ const pageview = async (ctx: Context) => {
 
     add("Path", payload.path);
     add("Location", location, true);
-    add("IP", payload.ip, true);
 
     const embed = {
-      color: 0x5865f2,
+      color: 0xfb3a5d,
       fields,
       thumbnail: { url: "https://static.hey.xyz/images/app-icon/0.png" },
       timestamp: payload.ts,
