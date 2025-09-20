@@ -54,7 +54,7 @@ const pageview = async (ctx: Context) => {
     const embed = {
       color: 0xfb3a5d,
       fields,
-      thumbnail: { url: "https://static.hey.xyz/images/app-icon/0.png" },
+      thumbnail: { url: "https://github.com/heyverse.png" },
       timestamp: payload.ts,
       title: payload.path || "Pageview"
     };
