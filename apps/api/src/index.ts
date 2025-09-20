@@ -6,6 +6,7 @@ import { Hono } from "hono";
 import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
 import infoLogger from "./middlewares/infoLogger";
+import pageview from "./pageview";
 import cronRouter from "./routes/cron";
 import lensRouter from "./routes/lens";
 import metadataRouter from "./routes/metadata";
@@ -27,6 +28,7 @@ app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);
 app.route("/oembed", oembedRouter);
 app.route("/og", ogRouter);
+app.post("/pageview", pageview);
 
 app.notFound((ctx) =>
   ctx.json({ error: "Not Found", status: Status.Error }, 404)
