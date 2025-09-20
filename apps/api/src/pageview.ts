@@ -1,9 +1,7 @@
 import type { Context } from "hono";
 
 interface PageviewBody {
-  url?: string;
-  title?: string;
-  lang?: string;
+  path?: string;
 }
 
 const getIpData = (ctx: Context) => {
@@ -35,10 +33,8 @@ const pageview = async (ctx: Context) => {
   const payload = {
     ...ipData,
     host,
-    lang: body.lang || ctx.req.header("accept-language") || "",
-    title: body.title || "",
-    ts,
-    url: body.url || ""
+    path: body.path || "",
+    ts
   };
 
   try {
@@ -54,8 +50,7 @@ const pageview = async (ctx: Context) => {
       if (value) fields.push({ inline, name, value: trunc(value) });
     };
 
-    add("Title", payload.title);
-    add("URL", payload.url);
+    add("Path", payload.path);
     add("Location", location, true);
     add("IP", payload.ip, true);
 
