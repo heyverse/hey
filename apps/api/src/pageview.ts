@@ -27,19 +27,20 @@ const pageview = async (ctx: Context) => {
   const ts = new Date().toISOString();
 
   if (host.includes("localhost")) {
-    return ctx.json({ data: { ok: true, skipped: true }, status: Status.Success });
+    return ctx.json({
+      data: { ok: true, skipped: true },
+      status: Status.Success
+    });
   }
 
   if (body.path !== "/") {
-    return ctx.json({ data: { ok: true, skipped: true }, status: Status.Success });
+    return ctx.json({
+      data: { ok: true, skipped: true },
+      status: Status.Success
+    });
   }
 
-  const payload = {
-    ...ipData,
-    host,
-    path: body.path || "",
-    ts
-  };
+  const payload = { ...ipData, host, ts };
 
   try {
     const trunc = (v: string, max = 1024) =>
@@ -61,7 +62,7 @@ const pageview = async (ctx: Context) => {
       fields,
       thumbnail: { url: "https://github.com/heyverse.png" },
       timestamp: payload.ts,
-      title: payload.path || "Pageview"
+      title: "Pageview"
     };
 
     const res = await fetch(
