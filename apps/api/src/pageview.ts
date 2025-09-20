@@ -49,7 +49,6 @@ const pageview = async (ctx: Context) => {
       if (value) fields.push({ inline, name, value: trunc(value) });
     };
 
-    add("Path", payload.path);
     add("Location", location, true);
 
     const embed = {
@@ -57,7 +56,7 @@ const pageview = async (ctx: Context) => {
       fields,
       thumbnail: { url: "https://static.hey.xyz/images/app-icon/0.png" },
       timestamp: payload.ts,
-      title: "Pageview"
+      title: payload.path || "Pageview"
     };
 
     const res = await fetch(
