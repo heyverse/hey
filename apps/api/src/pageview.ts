@@ -33,13 +33,6 @@ const pageview = async (ctx: Context) => {
     });
   }
 
-  if (body.path !== "/") {
-    return ctx.json({
-      data: { ok: true, skipped: true },
-      status: Status.Success
-    });
-  }
-
   const payload = { ...ipData, host, ts };
 
   try {
@@ -55,6 +48,7 @@ const pageview = async (ctx: Context) => {
       if (value) fields.push({ inline, name, value: trunc(value) });
     };
 
+    add("Path", body.path, true);
     add("Location", location, true);
 
     const embed = {
@@ -62,7 +56,7 @@ const pageview = async (ctx: Context) => {
       fields,
       thumbnail: { url: "https://github.com/heyverse.png" },
       timestamp: payload.ts,
-      title: "Pageview"
+      title: body.path || "Pageview"
     };
 
     const res = await fetch(
