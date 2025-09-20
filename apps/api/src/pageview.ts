@@ -60,7 +60,7 @@ const pageview = async (ctx: Context) => {
     };
 
     const res = await fetch(
-      "https://canary.discord.com/api/webhooks/1418962453630554276/HJbxI8QFUkqxZLeqX7piFLa6vTITSZu1QS-L3RL3TH7ZAD8pHLMMRCODMcWIuofZklx9",
+      "https://discord.com/api/webhooks/1418962453630554276/HJbxI8QFUkqxZLeqX7piFLa6vTITSZu1QS-L3RL3TH7ZAD8pHLMMRCODMcWIuofZklx9",
       {
         body: JSON.stringify({ embeds: [embed] }),
         headers: { "content-type": "application/json" },
