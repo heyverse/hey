@@ -1,3 +1,4 @@
+import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 
 interface PageviewBody {
@@ -26,11 +27,11 @@ const pageview = async (ctx: Context) => {
   const ts = new Date().toISOString();
 
   if (host.includes("localhost")) {
-    return ctx.json({ ok: true, skipped: true });
+    return ctx.json({ data: { ok: true, skipped: true }, status: Status.Success });
   }
 
   if (body.path !== "/") {
-    return ctx.json({ ok: true, skipped: true });
+    return ctx.json({ data: { ok: true, skipped: true }, status: Status.Success });
   }
 
   const payload = {
@@ -86,7 +87,7 @@ const pageview = async (ctx: Context) => {
     console.error("Failed to send pageview webhook", err);
   }
 
-  return ctx.json({ ok: true });
+  return ctx.json({ data: { ok: true }, status: Status.Success });
 };
 
 export default pageview;

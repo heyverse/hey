@@ -71,5 +71,12 @@ export const hono = {
     get: (url: string): Promise<Oembed> => {
       return fetchApi<Oembed>(`/oembed/get?url=${url}`, { method: "GET" });
     }
+  },
+  pageview: {
+    create: async (path: string) =>
+      fetchApi<{ ok: boolean; skipped?: boolean }>("/pageview", {
+        body: JSON.stringify({ path }),
+        method: "POST"
+      })
   }
 };
