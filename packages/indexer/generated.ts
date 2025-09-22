@@ -5261,13 +5261,15 @@ export type SimpleCollectValidationPassed = {
 };
 
 export type SimplePaymentFeedRuleConfig = {
-  cost: Erc20AmountInput;
+  erc20?: InputMaybe<Erc20AmountInput>;
+  native?: InputMaybe<Scalars['BigDecimal']['input']>;
   recipient: Scalars['EvmAddress']['input'];
   referralShare?: Scalars['Float']['input'];
 };
 
 export type SimplePaymentFollowRuleConfig = {
-  cost: Erc20AmountInput;
+  erc20?: InputMaybe<Erc20AmountInput>;
+  native?: InputMaybe<Scalars['BigDecimal']['input']>;
   recipient: Scalars['EvmAddress']['input'];
   referralShare?: Scalars['Float']['input'];
 };
