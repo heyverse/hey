@@ -42,14 +42,16 @@ const useCreatePost = ({
         return;
       }
 
+      const type = isComment ? "Comment" : "Post";
+
       try {
         void hono.posts.create({
           slug: data.post.slug,
-          type: data.post.__typename
+          type
         });
       } catch {}
 
-      toast.success(`${isComment ? "Comment" : "Post"} created successfully!`, {
+      toast.success(`${type} created successfully!`, {
         action: {
           label: "View",
           onClick: () => navigate(`/posts/${data.post?.slug}`)
