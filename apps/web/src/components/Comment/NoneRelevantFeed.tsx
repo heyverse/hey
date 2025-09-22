@@ -93,7 +93,7 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
           hasMore={hasMore}
           items={filteredComments}
           renderItem={(comment) => (
-            <SinglePost key={comment.id} post={comment} />
+            <SinglePost key={comment.id} post={comment} showType={false} />
           )}
         />
       ) : null}
