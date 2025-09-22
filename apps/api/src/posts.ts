@@ -1,6 +1,5 @@
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
-import getIpData from "./utils/getIpData";
 
 interface PostsBody {
   slug?: string;
@@ -15,9 +14,7 @@ const posts = async (ctx: Context) => {
     body = {};
   }
 
-  const ipData = getIpData(ctx);
   const host = ctx.req.header("host") ?? "";
-  const ts = new Date().toISOString();
 
   if (host.includes("localhost")) {
     return ctx.json({
@@ -26,43 +23,15 @@ const posts = async (ctx: Context) => {
     });
   }
 
-  const payload = { ...ipData, account: ctx.get("account"), host, ts };
-
   try {
-    const trunc = (v: string, max = 1024) =>
-      v.length > max ? `${v.slice(0, max - 1)}…` : v;
-
-    const location = [payload.city, payload.region, payload.countryCode]
-      .filter(Boolean)
-      .join(", ");
-
-    const fields: { inline?: boolean; name: string; value: string }[] = [];
-    const add = (name: string, value?: string, inline?: boolean) => {
-      if (value) fields.push({ inline, name, value: trunc(value) });
-    };
-
     const postUrl = body.slug
       ? `https://hey.xyz/posts/${body.slug}`
       : undefined;
 
-    add("Account", payload.account, true);
-    add("Location", location, true);
-    add("Type", body.type, true);
-    add("URL", postUrl);
-
-    const embed = {
-      color: 0xfb3a5d,
-      fields,
-      thumbnail: { url: "https://github.com/heyverse.png" },
-      timestamp: payload.ts,
-      title: "New Post",
-      url: postUrl
-    };
-
     const res = await fetch(
       "https://discord.com/api/webhooks/1419640499504943216/1nNNx7tezx59_gof-EAVWTFIAu3pT2oGZLKxO1dtpOcxM0P5JBEuU-4zvzo_ZF80TZhS",
       {
-        body: JSON.stringify({ content: postUrl, embeds: [embed] }),
+        body: JSON.stringify({ content: `New ${body.type} on Hey ${postUrl}` }),
         headers: { "content-type": "application/json" },
         method: "POST"
       }

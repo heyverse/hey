@@ -42,7 +42,6 @@ const useCreatePost = ({
         return;
       }
 
-      // Fire-and-forget webhook only for new posts (not comments)
       if (!isComment) {
         try {
           void hono.posts.create({
