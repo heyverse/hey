@@ -8,11 +8,7 @@ interface OgHelperOptions<T> {
   query: any;
   variables: Record<string, any>;
   extractData: (data: any) => T | null;
-  buildJsonLd: (data: T) => Record<string, any>;
-  buildHtml: (
-    data: T,
-    escapedJsonLd: string
-  ) => HtmlEscapedString | Promise<HtmlEscapedString>;
+  buildHtml: (data: T) => HtmlEscapedString | Promise<HtmlEscapedString>;
 }
 
 const generateOg = async <T>({
@@ -20,7 +16,6 @@ const generateOg = async <T>({
   query,
   variables,
   extractData,
-  buildJsonLd,
   buildHtml
 }: OgHelperOptions<T>) => {
   try {
@@ -35,13 +30,7 @@ const generateOg = async <T>({
       return ctx.html(defaultMetadata, 404);
     }
 
-    const jsonLd = buildJsonLd(parsed);
-    const escapedJsonLd = JSON.stringify(jsonLd)
-      .replace(/</g, "\\u003c")
-      .replace(/>/g, "\\u003e")
-      .replace(/&/g, "\\u0026");
-
-    const ogHtml = await buildHtml(parsed, escapedJsonLd);
+    const ogHtml = await buildHtml(parsed);
     const cleanHtml = ogHtml.toString().replace(/\n\s+/g, "").trim();
 
     return ctx.html(cleanHtml, 200);

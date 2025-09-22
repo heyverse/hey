@@ -27,7 +27,6 @@ const getPost = async (ctx: Context) => {
       const escTitle = escapeHtml(title);
       const escDescription = escapeHtml(description);
 
-      // Derive attachments to render (images only; ignore videos). Max 4 images.
       const asset = postData?.asset;
       const attachments = postData?.attachments || [];
 
@@ -86,42 +85,6 @@ const getPost = async (ctx: Context) => {
           </body>
         </html>
       `;
-    },
-    buildJsonLd: (post: PostFragment) => {
-      const targetPost =
-        (post as any).__typename === "Repost" ? (post as any).repostOf : post;
-      const { author, metadata } = targetPost as any;
-      const { usernameWithPrefix } = getAccount(author);
-      const postData = getPostData(metadata);
-      const filteredContent = postData?.content || "";
-      const title = `${(targetPost as any).__typename} by ${usernameWithPrefix} on Hey`;
-      const description = normalizeDescription(filteredContent, title);
-
-      const asset = postData?.asset;
-      const attachments = postData?.attachments || [];
-      const images = (() => {
-        const list: string[] = [];
-        if (asset?.type === "Image" && asset.uri) list.push(asset.uri);
-        for (const att of attachments) {
-          if (att.type === "Image" && att.uri) list.push(att.uri);
-        }
-        const uniq = Array.from(new Set(list));
-        return uniq.length
-          ? uniq.slice(0, 4)
-          : [getAvatar(author, TRANSFORMS.AVATAR_BIG)];
-      })();
-
-      return {
-        "@context": "https://schema.org",
-        "@id": `https://hey.xyz/posts/${(post as any).slug}`,
-        "@type": "Article",
-        author: usernameWithPrefix,
-        description,
-        headline: title,
-        image: images,
-        publisher: { "@type": "Organization", name: "Hey.xyz" },
-        url: `https://hey.xyz/posts/${(post as any).slug}`
-      } as Record<string, any>;
     },
     ctx,
     extractData: (data) => data.post as PostFragment | null,

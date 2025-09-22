@@ -4,14 +4,14 @@ import getAvatar from "@hey/helpers/getAvatar";
 import normalizeDescription from "@hey/helpers/normalizeDescription";
 import { GroupDocument, type GroupFragment } from "@hey/indexer";
 import type { Context } from "hono";
-import { html, raw } from "hono/html";
+import { html } from "hono/html";
 import generateOg from "./ogUtils";
 
 const getGroup = async (ctx: Context) => {
   const { address } = ctx.req.param();
 
   return generateOg({
-    buildHtml: (group: GroupFragment, escapedJsonLd) => {
+    buildHtml: (group: GroupFragment) => {
       const name = group.metadata?.name || "Group";
       const title = `${name} on Hey`;
       const description = normalizeDescription(
@@ -47,33 +47,12 @@ const getGroup = async (ctx: Context) => {
             <link rel="canonical" href="https://hey.xyz/g/${group.address}" />
           </head>
           <body>
-            <script type="application/ld+json">${raw(escapedJsonLd)}</script>
             <img src="${avatar}" alt="${escTitle}" height="100" width="100" />
             <h1>${escName}</h1>
             <h2>${escDescription}</h2>
           </body>
         </html>
       `;
-    },
-    buildJsonLd: (group: GroupFragment) => {
-      const name = group.metadata?.name || "Group";
-      const title = `${name} on Hey`;
-      const description = normalizeDescription(
-        group?.metadata?.description,
-        title
-      );
-
-      return {
-        "@context": "https://schema.org",
-        "@id": `https://hey.xyz/g/${address}`,
-        "@type": "Organization",
-        alternateName: address,
-        description,
-        image: getAvatar(group, TRANSFORMS.AVATAR_BIG),
-        memberOf: { "@type": "Organization", name: "Hey.xyz" },
-        name,
-        url: `https://hey.xyz/g/${address}`
-      };
     },
     ctx,
     extractData: (data) => data.group as GroupFragment | null,

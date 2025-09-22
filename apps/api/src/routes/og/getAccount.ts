@@ -5,14 +5,14 @@ import getAvatar from "@hey/helpers/getAvatar";
 import normalizeDescription from "@hey/helpers/normalizeDescription";
 import { AccountDocument, type AccountFragment } from "@hey/indexer";
 import type { Context } from "hono";
-import { html, raw } from "hono/html";
+import { html } from "hono/html";
 import generateOg from "./ogUtils";
 
 const getAccount = async (ctx: Context) => {
   const { username } = ctx.req.param();
 
   return generateOg({
-    buildHtml: (account: AccountFragment, escapedJsonLd: string) => {
+    buildHtml: (account: AccountFragment) => {
       const { name, link, usernameWithPrefix } = getAccountData(account);
       const title = `${name} (${usernameWithPrefix}) on Hey`;
       const description = normalizeDescription(account?.metadata?.bio, title);
@@ -46,7 +46,6 @@ const getAccount = async (ctx: Context) => {
             <link rel="canonical" href="https://hey.xyz${link}" />
           </head>
           <body>
-            <script type="application/ld+json">${raw(escapedJsonLd)}</script>
             <img src="${avatar}" alt="${escName}" height="100" width="100" />
             <h1>${escName || username}</h1>
             <h2>${escUsernameWithPrefix}</h2>
@@ -54,23 +53,6 @@ const getAccount = async (ctx: Context) => {
           </body>
         </html>
       `;
-    },
-    buildJsonLd: (account) => {
-      const { name, usernameWithPrefix } = getAccountData(account);
-      const title = `${name} (${usernameWithPrefix}) on Hey`;
-      const description = normalizeDescription(account?.metadata?.bio, title);
-
-      return {
-        "@context": "https://schema.org",
-        "@id": `https://hey.xyz/u/${username}`,
-        "@type": "Person",
-        alternateName: username,
-        description,
-        image: getAvatar(account, TRANSFORMS.AVATAR_BIG),
-        memberOf: { "@type": "Organization", name: "Hey.xyz" },
-        name,
-        url: `https://hey.xyz/u/${username}`
-      };
     },
     ctx,
     extractData: (data) => data.account,
