@@ -35,12 +35,6 @@ const getGroup = async (ctx: Context) => {
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="content-language" content="en-US" />
             <meta name="theme-color" content="${BRAND_COLOR}" />
-            <link
-              rel="alternate"
-              type="application/json+oembed"
-              href="/og/g/${group.address}/oembed"
-              title="${escTitle}"
-            />
             <title>${escTitle}</title>
             <meta name="description" content="${escDescription}" />
             <meta property="og:title" content="${escTitle}" />

@@ -4,7 +4,6 @@ import { Hono } from "hono";
 import { z } from "zod";
 import getAccount from "./getAccount";
 import getGroup from "./getGroup";
-import getOEmbed from "./getOEmbed";
 import getPost from "./getPost";
 
 const app = new Hono();
@@ -22,12 +21,6 @@ app.get(
 );
 
 app.get(
-  "/posts/:slug/oembed",
-  zValidator("param", z.object({ slug: z.string() })),
-  getOEmbed
-);
-
-app.get(
   "/g/:address",
   zValidator(
     "param",
@@ -35,22 +28,5 @@ app.get(
   ),
   getGroup
 );
-
-app.get(
-  "/g/:address/oembed",
-  zValidator(
-    "param",
-    z.object({ address: z.string().regex(Regex.evmAddress) })
-  ),
-  getOEmbed
-);
-
-app.get(
-  "/u/:username/oembed",
-  zValidator("param", z.object({ username: z.string() })),
-  getOEmbed
-);
-
-app.get("/oembed", getOEmbed);
 
 export default app;
