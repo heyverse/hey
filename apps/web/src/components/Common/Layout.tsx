@@ -58,7 +58,7 @@ const Layout = () => {
 
   return (
     <>
-      <PageviewTracker />
+      {accessToken ? <PageviewTracker /> : null}
       <Toaster
         icons={{
           error: <XCircleIcon className="size-5" />,
