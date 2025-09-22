@@ -1,11 +1,13 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { BRAND_COLOR, STATIC_IMAGES_URL } from "@hey/data/constants";
 import { html } from "hono/html";
 
 const defaultMetadata = html`
   <html>
     <head>
       <link rel="canonical" href="https://hey.xyz" />
+      <link rel="icon" href="https://hey.xyz/favicon.ico" />
       <meta name="application-name" content="Hey" />
+      <meta name="theme-color" content="${BRAND_COLOR}" />
       <meta name="description" content="A decentralized, and permissionless social media app built with Lens" />
       <meta property="og:title" content="Hey" />
       <meta property="og:type" content="website" />

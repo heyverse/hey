@@ -1,4 +1,8 @@
-import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
+import {
+  BRAND_COLOR,
+  STATIC_IMAGES_URL,
+  TRANSFORMS
+} from "@hey/data/constants";
 import escapeHtml from "@hey/helpers/escapeHtml";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -52,6 +56,7 @@ const getPost = async (ctx: Context) => {
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="content-language" content="en-US" />
+            <meta name="theme-color" content="${BRAND_COLOR}" />
             <title>${escTitle}</title>
             <meta name="description" content="${escDescription}" />
             <meta property="og:title" content="${escTitle}" />
@@ -66,6 +71,7 @@ const getPost = async (ctx: Context) => {
             <meta name="twitter:description" content="${escDescription}" />
             <meta name="twitter:image" content="${ogImageCandidates[0]}" />
             <meta name="twitter:site" content="@heydotxyz" />
+            <link rel="icon" href="https://hey.xyz/favicon.ico" />
             <link rel="canonical" href="https://hey.xyz/posts/${(post as any).slug}" />
           </head>
           <body>
