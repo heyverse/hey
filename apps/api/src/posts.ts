@@ -28,14 +28,11 @@ const posts = async (ctx: Context) => {
       ? `https://hey.xyz/posts/${body.slug}`
       : undefined;
 
-    const res = await fetch(
-      "https://discord.com/api/webhooks/1419640499504943216/1nNNx7tezx59_gof-EAVWTFIAu3pT2oGZLKxO1dtpOcxM0P5JBEuU-4zvzo_ZF80TZhS",
-      {
-        body: JSON.stringify({ content: `New ${body.type} on Hey ${postUrl}` }),
-        headers: { "content-type": "application/json" },
-        method: "POST"
-      }
-    );
+    const res = await fetch(process.env.EVENTS_DISCORD_WEBHOOK_URL, {
+      body: JSON.stringify({ content: `New ${body.type} on Hey ${postUrl}` }),
+      headers: { "content-type": "application/json" },
+      method: "POST"
+    });
 
     if (res.status === 429) {
       console.warn("Discord webhook rate limited", {

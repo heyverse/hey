@@ -51,14 +51,11 @@ const pageview = async (ctx: Context) => {
       title: body.path || "Pageview"
     };
 
-    const res = await fetch(
-      "https://discord.com/api/webhooks/1418962453630554276/HJbxI8QFUkqxZLeqX7piFLa6vTITSZu1QS-L3RL3TH7ZAD8pHLMMRCODMcWIuofZklx9",
-      {
-        body: JSON.stringify({ embeds: [embed] }),
-        headers: { "content-type": "application/json" },
-        method: "POST"
-      }
-    );
+    const res = await fetch(process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL, {
+      body: JSON.stringify({ embeds: [embed] }),
+      headers: { "content-type": "application/json" },
+      method: "POST"
+    });
 
     if (res.status === 429) {
       console.warn("Discord webhook rate limited", {
