@@ -9,6 +9,7 @@ import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { hono } from "@/helpers/fetcher";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 import useWaitForTransactionToComplete from "./useWaitForTransactionToComplete";
 
@@ -39,6 +40,18 @@ const useCreatePost = ({
 
       if (!data?.post) {
         return;
+      }
+
+      // Fire-and-forget webhook only for new posts (not comments)
+      if (!isComment) {
+        try {
+          void hono.posts.create({
+            content: undefined,
+            slug: data.post.slug,
+            title: undefined,
+            type: data.post.__typename
+          });
+        } catch {}
       }
 
       toast.success(`${isComment ? "Comment" : "Post"} created successfully!`, {

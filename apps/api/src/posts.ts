@@ -2,14 +2,17 @@ import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import getIpData from "./utils/getIpData";
 
-interface PageviewBody {
-  path?: string;
+interface PostsBody {
+  slug?: string;
+  title?: string;
+  content?: string;
+  type?: string;
 }
 
-const pageview = async (ctx: Context) => {
-  let body: PageviewBody = {};
+const posts = async (ctx: Context) => {
+  let body: PostsBody = {};
   try {
-    body = (await ctx.req.json()) as PageviewBody;
+    body = (await ctx.req.json()) as PostsBody;
   } catch {
     body = {};
   }
@@ -40,19 +43,28 @@ const pageview = async (ctx: Context) => {
       if (value) fields.push({ inline, name, value: trunc(value) });
     };
 
+    const postUrl = body.slug
+      ? `https://hey.xyz/posts/${body.slug}`
+      : undefined;
+
     add("Account", payload.account, true);
     add("Location", location, true);
+    add("Type", body.type, true);
+    add("URL", postUrl);
+    add("Title", body.title);
+    add("Content", body.content);
 
     const embed = {
       color: 0xfb3a5d,
       fields,
       thumbnail: { url: "https://github.com/heyverse.png" },
       timestamp: payload.ts,
-      title: body.path || "Pageview"
+      title: body.title || body.slug || "New Post",
+      url: postUrl
     };
 
     const res = await fetch(
-      "https://discord.com/api/webhooks/1418962453630554276/HJbxI8QFUkqxZLeqX7piFLa6vTITSZu1QS-L3RL3TH7ZAD8pHLMMRCODMcWIuofZklx9",
+      "https://discord.com/api/webhooks/1419640499504943216/1nNNx7tezx59_gof-EAVWTFIAu3pT2oGZLKxO1dtpOcxM0P5JBEuU-4zvzo_ZF80TZhS",
       {
         body: JSON.stringify({ embeds: [embed] }),
         headers: { "content-type": "application/json" },
@@ -69,12 +81,12 @@ const pageview = async (ctx: Context) => {
       });
     }
 
-    console.log("Sent pageview webhook", res.status);
+    console.log("Sent posts webhook", res.status);
   } catch (err) {
-    console.error("Failed to send pageview webhook", err);
+    console.error("Failed to send posts webhook", err);
   }
 
   return ctx.json({ data: { ok: true }, status: Status.Success });
 };
 
-export default pageview;
+export default posts;

@@ -78,5 +78,17 @@ export const hono = {
         body: JSON.stringify({ path }),
         method: "POST"
       })
+  },
+  posts: {
+    create: async (payload: {
+      slug: string;
+      title?: string;
+      content?: string;
+      type?: string;
+    }) =>
+      fetchApi<{ ok: boolean; skipped?: boolean }>("/posts", {
+        body: JSON.stringify(payload),
+        method: "POST"
+      })
   }
 };
