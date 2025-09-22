@@ -14,15 +14,71 @@ const getPost = async (ctx: Context) => {
 
   return generateOg({
     buildHtml: (post: PostFragment) => {
-      const { author, metadata } = post;
+      const targetPost =
+        (post as any).__typename === "Repost" ? (post as any).repostOf : post;
+      const { author, metadata } = targetPost as any;
       const { usernameWithPrefix } = getAccount(author);
-      const filteredContent = getPostData(metadata)?.content || "";
-      const title = `${post.__typename} by ${usernameWithPrefix} on Hey`;
+      const postData = getPostData(metadata);
+      const filteredContent = postData?.content || "";
+      const title = `${(targetPost as any).__typename} by ${usernameWithPrefix} on Hey`;
       const description = normalizeDescription(filteredContent, title);
-      const postUrl = `https://hey.xyz/posts/${post.slug}`;
+      const postUrl = `https://hey.xyz/posts/${(post as any).slug}`;
 
       const escTitle = escapeHtml(title);
       const escDescription = escapeHtml(description);
+
+      // Derive attachments to render (max 4 images or 1 video)
+      const asset = postData?.asset;
+      const attachments = postData?.attachments || [];
+
+      // Prefer a video asset; otherwise if any video attachment exists, use the first one
+      const videoToRender =
+        asset?.type === "Video"
+          ? { poster: asset.cover, uri: asset.uri }
+          : (() => {
+              const vid = attachments.find((a) => a.type === "Video");
+              if (!vid) return null;
+              return { poster: (vid as any).coverUri, uri: vid.uri };
+            })();
+
+      // Collect image URIs: include primary image asset first, then image attachments; de-dupe and clamp to 4
+      const imageUris = (() => {
+        if (videoToRender) return [] as string[];
+        const list: string[] = [];
+        if (asset?.type === "Image" && asset.uri) list.push(asset.uri);
+        for (const att of attachments) {
+          if (att.type === "Image" && att.uri) list.push(att.uri);
+        }
+        return Array.from(new Set(list)).slice(0, 4);
+      })();
+
+      // OG/Twitter meta for Discord: prefer video poster, else first images, else avatar
+      const ogImageCandidates = (() => {
+        if (videoToRender?.poster) return [videoToRender.poster];
+        if (imageUris.length) return imageUris;
+        return [getAvatar(author, TRANSFORMS.AVATAR_BIG)];
+      })();
+      const ogType = videoToRender ? "video.other" : "article";
+      const twitterCard = videoToRender
+        ? "player"
+        : imageUris.length
+          ? "summary_large_image"
+          : "summary";
+      const guessMime = (url?: string | null) => {
+        if (!url) return "video/mp4";
+        const u = url.toLowerCase();
+        if (u.endsWith(".mp4")) return "video/mp4";
+        if (u.endsWith(".webm")) return "video/webm";
+        if (u.endsWith(".m3u8")) return "application/x-mpegURL";
+        return "video/mp4";
+      };
+
+      const ogVideoMeta = videoToRender
+        ? html`
+            <meta property="og:video" content="${videoToRender.uri}" />
+            <meta property="og:video:type" content="${guessMime(videoToRender.uri)}" />
+          `
+        : html``;
 
       return html`
         <html>
@@ -34,17 +90,18 @@ const getPost = async (ctx: Context) => {
             <meta name="description" content="${escDescription}" />
             <meta property="og:title" content="${escTitle}" />
             <meta property="og:description" content="${escDescription}" />
-            <meta property="og:type" content="article" />
+            <meta property="og:type" content="${ogType}" />
             <meta property="og:site_name" content="Hey" />
-            <meta property="og:url" content="https://hey.xyz/posts/${post.slug}" />
+            <meta property="og:url" content="https://hey.xyz/posts/${(post as any).slug}" />
             <meta property="og:logo" content="${STATIC_IMAGES_URL}/app-icon/0.png" />
-            <meta property="og:image" content="${getAvatar(author, TRANSFORMS.AVATAR_BIG)}" />
-            <meta name="twitter:card" content="summary" />
+            ${ogImageCandidates.map((img) => html`<meta property="og:image" content="${img}" />`)}
+            ${ogVideoMeta}
+            <meta name="twitter:card" content="${twitterCard}" />
             <meta name="twitter:title" content="${escTitle}" />
             <meta name="twitter:description" content="${escDescription}" />
-            <meta name="twitter:image" content="${getAvatar(author, TRANSFORMS.AVATAR_BIG)}" />
+            <meta name="twitter:image" content="${ogImageCandidates[0]}" />
             <meta name="twitter:site" content="@heydotxyz" />
-            <link rel="canonical" href="https://hey.xyz/posts/${post.slug}" />
+            <link rel="canonical" href="https://hey.xyz/posts/${(post as any).slug}" />
           </head>
           <body>
             <h1>${escTitle}</h1>
@@ -52,12 +109,12 @@ const getPost = async (ctx: Context) => {
             <div>
               <b>Stats</b>
               <ul>
-                <li><a href="${postUrl}">Collects: ${post.stats.collects}</a></li>
-                <li><a href="${postUrl}">Tips: ${post.stats.tips}</a></li>
-                <li><a href="${postUrl}">Comments: ${post.stats.comments}</a></li>
-                <li><a href="${postUrl}">Likes: ${post.stats.reactions}</a></li>
-                <li><a href="${postUrl}">Reposts: ${post.stats.reposts}</a></li>
-                <li><a href="${postUrl}/quotes">Quotes: ${post.stats.quotes}</a></li>
+                <li><a href="${postUrl}">Collects: ${targetPost.stats.collects}</a></li>
+                <li><a href="${postUrl}">Tips: ${targetPost.stats.tips}</a></li>
+                <li><a href="${postUrl}">Comments: ${targetPost.stats.comments}</a></li>
+                <li><a href="${postUrl}">Likes: ${targetPost.stats.reactions}</a></li>
+                <li><a href="${postUrl}">Reposts: ${targetPost.stats.reposts}</a></li>
+                <li><a href="${postUrl}/quotes">Quotes: ${targetPost.stats.quotes}</a></li>
               </ul>
             </div>
           </body>
@@ -65,23 +122,58 @@ const getPost = async (ctx: Context) => {
       `;
     },
     buildJsonLd: (post: PostFragment) => {
-      const { author, metadata } = post;
+      const targetPost =
+        (post as any).__typename === "Repost" ? (post as any).repostOf : post;
+      const { author, metadata } = targetPost as any;
       const { usernameWithPrefix } = getAccount(author);
-      const filteredContent = getPostData(metadata)?.content || "";
-      const title = `${post.__typename} by ${usernameWithPrefix} on Hey`;
+      const postData = getPostData(metadata);
+      const filteredContent = postData?.content || "";
+      const title = `${(targetPost as any).__typename} by ${usernameWithPrefix} on Hey`;
       const description = normalizeDescription(filteredContent, title);
+
+      const asset = postData?.asset;
+      const attachments = postData?.attachments || [];
+      const video =
+        asset?.type === "Video"
+          ? { poster: asset.cover, uri: asset.uri }
+          : (() => {
+              const vid = attachments.find((a) => a.type === "Video");
+              if (!vid) return null as null | { poster?: string; uri: string };
+              return { poster: (vid as any).coverUri, uri: vid.uri };
+            })();
+      const images = (() => {
+        if (video?.poster) return [video.poster];
+        const list: string[] = [];
+        if (asset?.type === "Image" && asset.uri) list.push(asset.uri);
+        for (const att of attachments) {
+          if (att.type === "Image" && att.uri) list.push(att.uri);
+        }
+        const uniq = Array.from(new Set(list));
+        return uniq.length
+          ? uniq.slice(0, 4)
+          : [getAvatar(author, TRANSFORMS.AVATAR_BIG)];
+      })();
 
       return {
         "@context": "https://schema.org",
-        "@id": `https://hey.xyz/posts/${post.slug}`,
+        "@id": `https://hey.xyz/posts/${(post as any).slug}`,
         "@type": "Article",
         author: usernameWithPrefix,
         description,
         headline: title,
-        image: getAvatar(author, TRANSFORMS.AVATAR_BIG),
+        image: images,
+        ...(video
+          ? {
+              video: {
+                "@type": "VideoObject",
+                contentUrl: video.uri,
+                ...(video.poster ? { thumbnailUrl: video.poster } : {})
+              }
+            }
+          : {}),
         publisher: { "@type": "Organization", name: "Hey.xyz" },
-        url: `https://hey.xyz/posts/${post.slug}`
-      };
+        url: `https://hey.xyz/posts/${(post as any).slug}`
+      } as Record<string, any>;
     },
     ctx,
     extractData: (data) => data.post as PostFragment | null,
