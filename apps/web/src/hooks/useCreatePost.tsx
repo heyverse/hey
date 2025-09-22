@@ -42,14 +42,12 @@ const useCreatePost = ({
         return;
       }
 
-      if (!isComment) {
-        try {
-          void hono.posts.create({
-            slug: data.post.slug,
-            type: data.post.__typename
-          });
-        } catch {}
-      }
+      try {
+        void hono.posts.create({
+          slug: data.post.slug,
+          type: data.post.__typename
+        });
+      } catch {}
 
       toast.success(`${isComment ? "Comment" : "Post"} created successfully!`, {
         action: {
