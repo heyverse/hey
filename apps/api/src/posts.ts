@@ -4,8 +4,6 @@ import getIpData from "./utils/getIpData";
 
 interface PostsBody {
   slug?: string;
-  title?: string;
-  content?: string;
   type?: string;
 }
 
@@ -51,22 +49,20 @@ const posts = async (ctx: Context) => {
     add("Location", location, true);
     add("Type", body.type, true);
     add("URL", postUrl);
-    add("Title", body.title);
-    add("Content", body.content);
 
     const embed = {
       color: 0xfb3a5d,
       fields,
       thumbnail: { url: "https://github.com/heyverse.png" },
       timestamp: payload.ts,
-      title: body.title || body.slug || "New Post",
+      title: "New Post",
       url: postUrl
     };
 
     const res = await fetch(
       "https://discord.com/api/webhooks/1419640499504943216/1nNNx7tezx59_gof-EAVWTFIAu3pT2oGZLKxO1dtpOcxM0P5JBEuU-4zvzo_ZF80TZhS",
       {
-        body: JSON.stringify({ embeds: [embed] }),
+        body: JSON.stringify({ content: postUrl, embeds: [embed] }),
         headers: { "content-type": "application/json" },
         method: "POST"
       }

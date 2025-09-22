@@ -46,9 +46,7 @@ const useCreatePost = ({
       if (!isComment) {
         try {
           void hono.posts.create({
-            content: undefined,
             slug: data.post.slug,
-            title: undefined,
             type: data.post.__typename
           });
         } catch {}
