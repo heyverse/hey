@@ -6,7 +6,6 @@ import { Hono } from "hono";
 import authContext from "./context/authContext";
 import authMiddleware from "./middlewares/authMiddleware";
 import cors from "./middlewares/cors";
-import infoLogger from "./middlewares/infoLogger";
 import rateLimiter from "./middlewares/rateLimiter";
 import pageview from "./pageview";
 import posts from "./posts";
@@ -23,7 +22,6 @@ const app = new Hono();
 // Context
 app.use(cors);
 app.use(authContext);
-app.use(infoLogger);
 
 // Routes
 app.get("/ping", ping);
