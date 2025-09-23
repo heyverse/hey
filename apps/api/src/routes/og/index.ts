@@ -1,7 +1,7 @@
 import { Regex } from "@hey/data/regex";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
-import { z } from "zod";
+import { z } from "zod/v3";
 import getAccount from "./getAccount";
 import getGroup from "./getGroup";
 import getPost from "./getPost";
