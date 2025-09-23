@@ -1,6 +1,8 @@
 import { Status } from "@hey/data/enums";
+import logger from "@hey/helpers/logger";
 import type { Context } from "hono";
 import getIpData from "./utils/getIpData";
+import { DISCORD_QUEUE_KEY, getRedis } from "./utils/redis";
 
 interface PageviewBody {
   path?: string;
@@ -51,24 +53,17 @@ const pageview = async (ctx: Context) => {
       title: body.path || "Pageview"
     };
 
-    const res = await fetch(process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL, {
-      body: JSON.stringify({ embeds: [embed] }),
-      headers: { "content-type": "application/json" },
-      method: "POST"
-    });
-
-    if (res.status === 429) {
-      console.warn("Discord webhook rate limited", {
-        limit: res.headers.get("x-ratelimit-limit"),
-        remaining: res.headers.get("x-ratelimit-remaining"),
-        reset: res.headers.get("x-ratelimit-reset"),
-        retryAfter: res.headers.get("retry-after")
-      });
-    }
-
-    console.log("Sent pageview webhook", res.status);
+    const redis = getRedis();
+    const item = {
+      createdAt: Date.now(),
+      kind: "pageview" as const,
+      payload: { embeds: [embed] },
+      retries: 0
+    };
+    await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
+    logger.info("Enqueued pageview webhook to Redis");
   } catch (err) {
-    console.error("Failed to send pageview webhook", err);
+    logger.error("Failed to enqueue pageview webhook", err as Error);
   }
 
   return ctx.json({ data: { ok: true }, status: Status.Success });

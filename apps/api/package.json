@@ -21,6 +21,7 @@
     "dotenv": "^17.2.2",
     "hono": "^4.9.8",
     "hono-rate-limiter": "^0.4.2",
+    "ioredis": "^5.7.0",
     "jose": "^6.1.0",
     "linkedom": "^0.18.12",
     "pg-promise": "^12.1.3",

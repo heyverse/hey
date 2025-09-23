@@ -1,5 +1,7 @@
 import { Status } from "@hey/data/enums";
+import logger from "@hey/helpers/logger";
 import type { Context } from "hono";
+import { DISCORD_QUEUE_KEY, getRedis } from "./utils/redis";
 
 interface PostsBody {
   slug?: string;
@@ -24,28 +26,18 @@ const posts = async (ctx: Context) => {
   }
 
   try {
-    const postUrl = body.slug
-      ? `https://hey.xyz/posts/${body.slug}`
-      : undefined;
+    const redis = getRedis();
+    const item = {
+      createdAt: Date.now(),
+      kind: "post" as const,
+      payload: { slug: body.slug, type: body.type },
+      retries: 0
+    };
 
-    const res = await fetch(process.env.EVENTS_DISCORD_WEBHOOK_URL, {
-      body: JSON.stringify({ content: `New ${body.type} on Hey ${postUrl}` }),
-      headers: { "content-type": "application/json" },
-      method: "POST"
-    });
-
-    if (res.status === 429) {
-      console.warn("Discord webhook rate limited", {
-        limit: res.headers.get("x-ratelimit-limit"),
-        remaining: res.headers.get("x-ratelimit-remaining"),
-        reset: res.headers.get("x-ratelimit-reset"),
-        retryAfter: res.headers.get("retry-after")
-      });
-    }
-
-    console.log("Sent posts webhook", res.status);
+    await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
+    logger.info("Enqueued post webhook to Redis");
   } catch (err) {
-    console.error("Failed to send posts webhook", err);
+    logger.error("Failed to enqueue post webhook", err as Error);
   }
 
   return ctx.json({ data: { ok: true }, status: Status.Success });

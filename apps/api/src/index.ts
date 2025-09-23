@@ -16,6 +16,7 @@ import metadataRouter from "./routes/metadata";
 import oembedRouter from "./routes/oembed";
 import ogRouter from "./routes/og";
 import ping from "./routes/ping";
+import startDiscordWebhookWorker from "./workers/discordWebhook";
 
 const app = new Hono();
 
@@ -41,3 +42,15 @@ app.notFound((ctx) =>
 serve({ fetch: app.fetch, port: 4784 }, (info) => {
   logger.info(`Server running on port ${info.port}`);
 });
+
+// Start Discord webhook worker if Redis + webhook envs are configured
+if (
+  process.env.REDIS_URL &&
+  (process.env.EVENTS_DISCORD_WEBHOOK_URL ||
+    process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL)
+) {
+  // Fire and forget
+  void startDiscordWebhookWorker();
+} else {
+  logger.warn("Discord worker not started: missing Redis or webhook envs");
+}
