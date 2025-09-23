@@ -45,10 +45,7 @@ const useCreatePost = ({
       const type = isComment ? "Comment" : "Post";
 
       try {
-        void hono.posts.create({
-          slug: data.post.slug,
-          type
-        });
+        void hono.posts.create({ slug: data.post.slug, type });
       } catch {}
 
       toast.success(`${type} created successfully!`, {
