@@ -1,8 +1,8 @@
 import { Status } from "@hey/data/enums";
 import logger from "@hey/helpers/logger";
 import type { Context } from "hono";
+import enqueueDiscordWebhook from "./utils/discordQueue";
 import getIpData from "./utils/getIpData";
-import { DISCORD_QUEUE_KEY, getRedis } from "./utils/redis";
 
 interface PageviewBody {
   path?: string;
@@ -53,15 +53,13 @@ const pageview = async (ctx: Context) => {
       title: body.path || "Pageview"
     };
 
-    const redis = getRedis();
     const item = {
       createdAt: Date.now(),
       kind: "pageview" as const,
       payload: { embeds: [embed] },
       retries: 0
     };
-    await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
-    logger.info("Enqueued pageview webhook to Redis");
+    await enqueueDiscordWebhook(item);
   } catch (err) {
     logger.error("Failed to enqueue pageview webhook", err as Error);
   }

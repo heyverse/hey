@@ -1,27 +1,14 @@
 import logger from "@hey/helpers/logger";
 import type IORedis from "ioredis";
+import type {
+  DiscordQueueItem,
+  PageviewQueueItem,
+  PostQueueItem
+} from "../utils/discordQueue";
 import { DISCORD_QUEUE_KEY, getRedis } from "../utils/redis";
-import { sendPageviewWebhook } from "./dispatch/sendPageviewWebhook";
-import { sendPostWebhook } from "./dispatch/sendPostWebhook";
 
-interface DiscordQueueItemBase {
-  createdAt: number;
-  retries?: number;
-}
-
-interface PostItem extends DiscordQueueItemBase {
-  kind: "post";
-  payload: { slug?: string; type?: string };
-}
-
-interface PageviewItem extends DiscordQueueItemBase {
-  kind: "pageview";
-  payload: { embeds: any[] };
-}
-
-type DiscordQueueItem = PostItem | PageviewItem;
-
-const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
+const sleep = (ms: number): Promise<void> =>
+  new Promise((res) => setTimeout(res, ms));
 
 const parseItem = (raw: unknown): DiscordQueueItem | null => {
   if (!raw) return null;
@@ -38,6 +25,50 @@ const parseItem = (raw: unknown): DiscordQueueItem | null => {
   }
 };
 
+const postContent = (payload: PostQueueItem["payload"]) => {
+  const postUrl = payload.slug ? `https://hey.xyz/posts/${payload.slug}` : "";
+  const type = payload.type ?? "post";
+  return { content: `New ${type} on Hey ${postUrl}`.trim() };
+};
+
+const dispatch = async (item: DiscordQueueItem) => {
+  let webhookUrl: string | undefined;
+  let body: unknown;
+
+  if (item.kind === "post") {
+    webhookUrl = process.env.EVENTS_DISCORD_WEBHOOK_URL;
+    body = postContent(item.payload);
+  } else if (item.kind === "pageview") {
+    webhookUrl = process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL;
+    body = { embeds: (item as PageviewQueueItem).payload.embeds };
+  }
+
+  if (!webhookUrl) {
+    logger.warn(`Skipping ${item.kind} webhook: missing webhook URL env`);
+    return;
+  }
+
+  const res = await fetch(webhookUrl, {
+    body: JSON.stringify(body),
+    headers: { "content-type": "application/json" },
+    method: "POST"
+  });
+
+  if (res.status === 429) {
+    const retryAfter = Number.parseFloat(res.headers.get("retry-after") ?? "1");
+    const delay = Number.isFinite(retryAfter)
+      ? Math.ceil(retryAfter * 1000)
+      : 1000;
+    await sleep(delay);
+    throw new Error(`429 rate limited, retry after ${retryAfter}s`);
+  }
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`Discord webhook failed (${res.status}): ${text}`);
+  }
+};
+
 export const startDiscordWebhookWorker = async () => {
   let redis: IORedis;
   try {
@@ -49,47 +80,31 @@ export const startDiscordWebhookWorker = async () => {
 
   logger.info(`Discord worker started. Queue: ${DISCORD_QUEUE_KEY}`);
 
-  // Simple polling loop
+  // Blocking pop loop using BRPOP with small timeout
   // eslint-disable-next-line no-constant-condition
   while (true) {
     try {
-      const raw = await redis.lpop(DISCORD_QUEUE_KEY);
-      if (!raw) {
-        await sleep(750);
-        continue;
-      }
+      const res = (await redis.brpop(DISCORD_QUEUE_KEY, 5)) as
+        | [string, string]
+        | null;
+      if (!res) continue;
 
+      const [, raw] = res;
       const item = parseItem(raw);
-      if (!item) {
-        continue;
-      }
+      if (!item) continue;
 
       try {
-        if (item.kind === "post") {
-          await sendPostWebhook(item.payload);
-        } else if (item.kind === "pageview") {
-          await sendPageviewWebhook(item.payload);
-        }
+        await dispatch(item);
         logger.info(`Dispatched Discord webhook: ${item.kind}`);
-      } catch (err) {
-        const e = err as Error;
+      } catch (_err) {
         const retries = (item.retries ?? 0) + 1;
-
-        // Backoff with jitter
-        const base = Math.min(30_000, 1_000 * retries);
-        const jitter = Math.floor(Math.random() * 500);
-
-        if (retries <= 5) {
+        if (retries <= 3) {
           item.retries = retries;
-          await sleep(base + jitter);
-          // Requeue to the front to preserve order for rate-limit retries
-          await redis.lpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
-          logger.warn(
-            `Requeued Discord webhook (${item.kind}), attempt ${retries}: ${e.message}`
-          );
+          await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
+          logger.warn(`Requeued ${item.kind} webhook (attempt ${retries})`);
         } else {
           logger.error(
-            `Dropped Discord webhook after retries (${item.kind}): ${e.message}`
+            `Dropped ${item.kind} webhook after ${retries} attempts`
           );
         }
       }

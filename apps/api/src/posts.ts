@@ -1,7 +1,7 @@
 import { Status } from "@hey/data/enums";
 import logger from "@hey/helpers/logger";
 import type { Context } from "hono";
-import { DISCORD_QUEUE_KEY, getRedis } from "./utils/redis";
+import enqueueDiscordWebhook from "./utils/discordQueue";
 
 interface PostsBody {
   slug?: string;
@@ -26,7 +26,6 @@ const posts = async (ctx: Context) => {
   }
 
   try {
-    const redis = getRedis();
     const item = {
       createdAt: Date.now(),
       kind: "post" as const,
@@ -34,8 +33,7 @@ const posts = async (ctx: Context) => {
       retries: 0
     };
 
-    await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
-    logger.info("Enqueued post webhook to Redis");
+    await enqueueDiscordWebhook(item);
   } catch (err) {
     logger.error("Failed to enqueue post webhook", err as Error);
   }
