@@ -8,16 +8,12 @@ const handleApiError = (ctx: Context, error?: unknown): Response => {
   logger.error(error);
 
   if (error instanceof ApiError) {
-    return ctx.json(
-      { error: error.message, status: Status.Error },
-      error.statusCode
-    );
+    ctx.status(error.statusCode);
+    return ctx.json({ error: error.message, status: Status.Error });
   }
 
-  return ctx.json(
-    { error: ERRORS.SomethingWentWrong, status: Status.Error },
-    500
-  );
+  ctx.status(500);
+  return ctx.json({ error: ERRORS.SomethingWentWrong, status: Status.Error });
 };
 
 export default handleApiError;
