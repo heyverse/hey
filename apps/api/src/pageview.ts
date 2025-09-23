@@ -61,7 +61,7 @@ const pageview = async (ctx: Context) => {
       payload: { embeds: [embed] },
       retries: 0
     };
-    await enqueueDiscordWebhook(item);
+    void enqueueDiscordWebhook(item);
   } catch (err) {
     log.error("Failed to enqueue pageview webhook", err as Error);
   }

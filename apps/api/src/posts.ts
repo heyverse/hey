@@ -35,7 +35,7 @@ const posts = async (ctx: Context) => {
       retries: 0
     };
 
-    await enqueueDiscordWebhook(item);
+    void enqueueDiscordWebhook(item);
   } catch (err) {
     log.error("Failed to enqueue post webhook", err as Error);
   }
