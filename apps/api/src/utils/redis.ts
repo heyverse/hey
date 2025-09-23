@@ -15,5 +15,3 @@ export const getRedis = (): IORedis => {
   redisClient = new IORedis(url);
   return redisClient;
 };
-
-export default getRedis;

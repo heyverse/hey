@@ -1,8 +1,10 @@
 import { Status } from "@hey/data/enums";
-import logger from "@hey/helpers/logger";
+import { withPrefix } from "@hey/helpers/logger";
 import type { Context } from "hono";
 import enqueueDiscordWebhook from "./utils/discordQueue";
 import getIpData from "./utils/getIpData";
+
+const log = withPrefix("[API]");
 
 interface PageviewBody {
   path?: string;
@@ -61,7 +63,7 @@ const pageview = async (ctx: Context) => {
     };
     await enqueueDiscordWebhook(item);
   } catch (err) {
-    logger.error("Failed to enqueue pageview webhook", err as Error);
+    log.error("Failed to enqueue pageview webhook", err as Error);
   }
 
   return ctx.json({ data: { ok: true }, status: Status.Success });

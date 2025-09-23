@@ -1,4 +1,4 @@
-import logger from "@hey/helpers/logger";
+import { withPrefix } from "@hey/helpers/logger";
 import type IORedis from "ioredis";
 import type {
   DiscordQueueItem,
@@ -6,6 +6,8 @@ import type {
   PostQueueItem
 } from "../utils/discordQueue";
 import { DISCORD_QUEUE_KEY, getRedis } from "../utils/redis";
+
+const log = withPrefix("[Worker]");
 
 const sleep = (ms: number): Promise<void> =>
   new Promise((res) => setTimeout(res, ms));
@@ -20,7 +22,7 @@ const parseItem = (raw: unknown): DiscordQueueItem | null => {
     if (!item || !("kind" in item)) return null;
     return item;
   } catch (e) {
-    logger.error("Failed to parse queue item", e as Error);
+    log.error("Failed to parse queue item", e as Error);
     return null;
   }
 };
@@ -44,7 +46,7 @@ const dispatch = async (item: DiscordQueueItem) => {
   }
 
   if (!webhookUrl) {
-    logger.warn(`Skipping ${item.kind} webhook: missing webhook URL env`);
+    log.warn(`Skipping ${item.kind} webhook: missing webhook URL env`);
     return;
   }
 
@@ -74,11 +76,11 @@ export const startDiscordWebhookWorker = async () => {
   try {
     redis = getRedis();
   } catch (_e) {
-    logger.warn("Discord worker disabled: Redis not configured");
+    log.warn("Discord worker disabled: Redis not configured");
     return;
   }
 
-  logger.info(`Discord worker started. Queue: ${DISCORD_QUEUE_KEY}`);
+  log.info(`Discord worker started. Queue: ${DISCORD_QUEUE_KEY}`);
 
   // Blocking pop loop using BRPOP with small timeout
   // eslint-disable-next-line no-constant-condition
@@ -95,21 +97,19 @@ export const startDiscordWebhookWorker = async () => {
 
       try {
         await dispatch(item);
-        logger.info(`Dispatched Discord webhook: ${item.kind}`);
+        log.info(`Dispatched Discord webhook: ${item.kind}`);
       } catch (_err) {
         const retries = (item.retries ?? 0) + 1;
         if (retries <= 3) {
           item.retries = retries;
           await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
-          logger.warn(`Requeued ${item.kind} webhook (attempt ${retries})`);
+          log.warn(`Requeued ${item.kind} webhook (attempt ${retries})`);
         } else {
-          logger.error(
-            `Dropped ${item.kind} webhook after ${retries} attempts`
-          );
+          log.error(`Dropped ${item.kind} webhook after ${retries} attempts`);
         }
       }
     } catch (loopErr) {
-      logger.error("Discord worker loop error", loopErr as Error);
+      log.error("Discord worker loop error", loopErr as Error);
       await sleep(1000);
     }
   }

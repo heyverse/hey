@@ -1,4 +1,4 @@
-import logger from "@hey/helpers/logger";
+import { withPrefix } from "@hey/helpers/logger";
 import dotenv from "dotenv";
 import type { IDatabase, IFormatting, IHelpers, IMain } from "pg-promise";
 import pgPromise from "pg-promise";
@@ -44,9 +44,10 @@ class Database {
   ): InitializeDbResult {
     const pgp = pgPromise({
       error: (error: unknown) => {
+        const log = withPrefix("[API]");
         const errorMessage =
           error instanceof Error ? error.message : String(error);
-        logger.error(`LENS POSTGRES ERROR WITH TRACE: ${errorMessage}`);
+        log.error(`LENS POSTGRES ERROR WITH TRACE: ${errorMessage}`);
       }
     });
 

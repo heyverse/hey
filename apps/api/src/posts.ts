@@ -1,7 +1,9 @@
 import { Status } from "@hey/data/enums";
-import logger from "@hey/helpers/logger";
+import { withPrefix } from "@hey/helpers/logger";
 import type { Context } from "hono";
 import enqueueDiscordWebhook from "./utils/discordQueue";
+
+const log = withPrefix("[API]");
 
 interface PostsBody {
   slug?: string;
@@ -35,7 +37,7 @@ const posts = async (ctx: Context) => {
 
     await enqueueDiscordWebhook(item);
   } catch (err) {
-    logger.error("Failed to enqueue post webhook", err as Error);
+    log.error("Failed to enqueue post webhook", err as Error);
   }
 
   return ctx.json({ data: { ok: true }, status: Status.Success });

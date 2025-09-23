@@ -1,7 +1,7 @@
 import { serve } from "@hono/node-server";
 import "dotenv/config";
 import { Status } from "@hey/data/enums";
-import logger from "@hey/helpers/logger";
+import { withPrefix } from "@hey/helpers/logger";
 import { Hono } from "hono";
 import authContext from "./context/authContext";
 import authMiddleware from "./middlewares/authMiddleware";
@@ -17,13 +17,13 @@ import ogRouter from "./routes/og";
 import ping from "./routes/ping";
 import startDiscordWebhookWorker from "./workers/discordWebhook";
 
+const log = withPrefix("[API]");
+
 const app = new Hono();
 
-// Context
 app.use(cors);
 app.use(authContext);
 
-// Routes
 app.get("/ping", ping);
 app.route("/lens", lensRouter);
 app.route("/cron", cronRouter);
@@ -38,17 +38,15 @@ app.notFound((ctx) =>
 );
 
 serve({ fetch: app.fetch, port: 4784 }, (info) => {
-  logger.info(`Server running on port ${info.port}`);
+  log.info(`Server running on port ${info.port}`);
 });
 
-// Start Discord webhook worker if Redis + webhook envs are configured
 if (
   process.env.REDIS_URL &&
   (process.env.EVENTS_DISCORD_WEBHOOK_URL ||
     process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL)
 ) {
-  // Fire and forget
   void startDiscordWebhookWorker();
 } else {
-  logger.warn("Discord worker not started: missing Redis or webhook envs");
+  log.warn("Discord worker not started: missing Redis or webhook envs");
 }

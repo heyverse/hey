@@ -1,6 +1,6 @@
 import { PERMISSIONS } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
-import logger from "@hey/helpers/logger";
+import { withPrefix } from "@hey/helpers/logger";
 import type { Context } from "hono";
 import handleApiError from "@/utils/handleApiError";
 import lensPg from "@/utils/lensPg";
@@ -31,7 +31,7 @@ const removeExpiredSubscribers = async (ctx: Context) => {
       });
     }
 
-    // Run the removal operation in the background without awaiting
+    const log = withPrefix("[API]");
     const membersToRemove = addresses.map((addr) => ({
       account: addr,
       customParams: [],
@@ -46,13 +46,13 @@ const removeExpiredSubscribers = async (ctx: Context) => {
         functionName: "removeMembers"
       })
       .then((hash) => {
-        logger.info("Expired subscribers removal completed", {
+        log.info("Expired subscribers removal completed", {
           count: addresses.length,
           hash
         });
       })
       .catch((error) => {
-        logger.error("Expired subscribers removal failed:", error);
+        log.error("Expired subscribers removal failed:", error);
       });
 
     return ctx.json({

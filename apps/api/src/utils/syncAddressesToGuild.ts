@@ -1,6 +1,6 @@
 import { createGuildClient, createSigner } from "@guildxyz/sdk";
 import { Status } from "@hey/data/enums";
-import logger from "@hey/helpers/logger";
+import { withPrefix } from "@hey/helpers/logger";
 import signer from "./signer";
 
 const guildClient = createGuildClient("heyxyz");
@@ -23,7 +23,7 @@ const syncAddressesToGuild = async ({
   requirementId: number;
   roleId: number;
 }) => {
-  // Run the sync operation in the background without awaiting
+  const log = withPrefix("[API]");
   requirementClient
     .update(
       7465,
@@ -33,10 +33,10 @@ const syncAddressesToGuild = async ({
       signerFunction
     )
     .then(() => {
-      logger.info("Guild sync completed");
+      log.info("Guild sync completed");
     })
     .catch((error) => {
-      logger.error("Guild sync failed:", error);
+      log.error("Guild sync failed:", error);
     });
 
   return {

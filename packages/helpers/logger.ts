@@ -16,6 +16,15 @@ const debug = (...args: unknown[]): void => {
   }
 };
 
+export const withPrefix = (prefix: string) => {
+  return {
+    debug: (...args: unknown[]) => debug(prefix, ...args),
+    error: (...args: unknown[]) => error(prefix, ...args),
+    info: (...args: unknown[]) => info(prefix, ...args),
+    warn: (...args: unknown[]) => warn(prefix, ...args)
+  };
+};
+
 export default {
   debug,
   error,
