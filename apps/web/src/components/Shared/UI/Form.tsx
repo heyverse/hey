@@ -1,4 +1,4 @@
-import { zodResolver as baseZodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { ComponentProps } from "react";
 import type {
   FieldValues,
@@ -16,16 +16,13 @@ interface UseZodFormProps<T extends ZodSchema<FieldValues>>
   schema: T;
 }
 
-const zodResolver = <T extends ZodType<any>>(schema: T) =>
-  baseZodResolver(schema as unknown as Parameters<typeof baseZodResolver>[0]);
-
 export const useZodForm = <T extends ZodType<any>>({
   schema,
   ...formConfig
 }: UseZodFormProps<T>) => {
   return useForm<TypeOf<T>>({
     ...formConfig,
-    resolver: zodResolver<T>(schema)
+    resolver: (zodResolver as any)(schema) as any
   });
 };
 
@@ -54,7 +51,7 @@ export const FieldError = ({ name }: FieldErrorProps) => {
 interface FormProps<T extends FieldValues = Record<string, unknown>>
   extends Omit<ComponentProps<"form">, "onSubmit"> {
   className?: string;
-  form: UseFormReturn<T>;
+  form: UseFormReturn<T, any, any>;
   onSubmit: SubmitHandler<T>;
 }
 
