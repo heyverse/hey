@@ -66,6 +66,23 @@ const dispatch = async (item: DiscordQueueItem) => {
 
   if (res.status === 429) {
     const retryAfter = Number.parseFloat(res.headers.get("retry-after") ?? "1");
+    const rateHeaders = {
+      bucket: res.headers.get("x-ratelimit-bucket"),
+      global: res.headers.get("x-ratelimit-global"),
+      limit: res.headers.get("x-ratelimit-limit"),
+      remaining: res.headers.get("x-ratelimit-remaining"),
+      reset: res.headers.get("x-ratelimit-reset"),
+      resetAfter: res.headers.get("x-ratelimit-reset-after")
+    } as const;
+
+    log.warn(
+      `Discord rate limited for ${item.kind}. Retry after ${retryAfter}s (remaining=${
+        rateHeaders.remaining ?? "?"
+      }, limit=${rateHeaders.limit ?? "?"}, bucket=${
+        rateHeaders.bucket ?? "?"
+      }, global=${rateHeaders.global ?? "false"})`
+    );
+
     const delay = Number.isFinite(retryAfter)
       ? Math.ceil(retryAfter * 1000)
       : 1000;
