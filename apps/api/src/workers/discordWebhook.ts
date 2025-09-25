@@ -33,6 +33,11 @@ const postContent = (payload: PostQueueItem["payload"]) => {
   return { content: `New ${type} on Hey ${postUrl}`.trim() };
 };
 
+const likeContent = (payload: { slug?: string }) => {
+  const postUrl = payload.slug ? `https://hey.xyz/posts/${payload.slug}` : "";
+  return { content: `New like on Hey ${postUrl}`.trim() };
+};
+
 const dispatch = async (item: DiscordQueueItem) => {
   let webhookUrl: string | undefined;
   let body: unknown;
@@ -43,6 +48,9 @@ const dispatch = async (item: DiscordQueueItem) => {
   } else if (item.kind === "pageview") {
     webhookUrl = process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL;
     body = { embeds: (item as PageviewQueueItem).payload.embeds };
+  } else if (item.kind === "like") {
+    webhookUrl = process.env.LIKES_DISCORD_WEBHOOK_URL;
+    body = likeContent((item as any).payload);
   }
 
   if (!webhookUrl) {

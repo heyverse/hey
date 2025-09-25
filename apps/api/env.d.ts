@@ -8,5 +8,6 @@ declare namespace NodeJS {
     SHARED_SECRET: string;
     PAGEVIEWS_DISCORD_WEBHOOK_URL: string;
     EVENTS_DISCORD_WEBHOOK_URL: string;
+    LIKES_DISCORD_WEBHOOK_URL: string;
   }
 }

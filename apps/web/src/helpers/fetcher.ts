@@ -62,6 +62,13 @@ const fetchApi = async <T>(
 };
 
 export const hono = {
+  likes: {
+    create: async (payload: { slug: string }) =>
+      fetchApi<{ ok: boolean; skipped?: boolean }>("/likes", {
+        body: JSON.stringify(payload),
+        method: "POST"
+      })
+  },
   metadata: {
     sts: (): Promise<STS> => {
       return fetchApi<STS>("/metadata/sts", { method: "GET" });

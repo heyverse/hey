@@ -16,7 +16,15 @@ export interface PageviewQueueItem extends DiscordQueueItemBase {
   payload: { embeds: any[] };
 }
 
-export type DiscordQueueItem = PostQueueItem | PageviewQueueItem;
+export interface LikeQueueItem extends DiscordQueueItemBase {
+  kind: "like";
+  payload: { slug?: string };
+}
+
+export type DiscordQueueItem =
+  | PostQueueItem
+  | PageviewQueueItem
+  | LikeQueueItem;
 
 export const enqueueDiscordWebhook = async (
   item: DiscordQueueItem
