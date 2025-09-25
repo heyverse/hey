@@ -70,9 +70,7 @@ const dispatch = async (item: DiscordQueueItem) => {
       bucket: res.headers.get("x-ratelimit-bucket"),
       global: res.headers.get("x-ratelimit-global"),
       limit: res.headers.get("x-ratelimit-limit"),
-      remaining: res.headers.get("x-ratelimit-remaining"),
-      reset: res.headers.get("x-ratelimit-reset"),
-      resetAfter: res.headers.get("x-ratelimit-reset-after")
+      remaining: res.headers.get("x-ratelimit-remaining")
     } as const;
 
     log.warn(
