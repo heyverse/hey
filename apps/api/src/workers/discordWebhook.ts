@@ -12,6 +12,12 @@ const log = withPrefix("[Worker]");
 const sleep = (ms: number): Promise<void> =>
   new Promise((res) => setTimeout(res, ms));
 
+declare global {
+  // In-memory per-process cooldown map keyed by webhook URL
+  // eslint-disable-next-line no-var
+  var __heyDiscordCooldowns: Map<string, number> | undefined;
+}
+
 const parseItem = (raw: unknown): DiscordQueueItem | null => {
   if (!raw) return null;
   try {
@@ -38,20 +44,34 @@ const likeContent = (payload: { slug?: string }) => {
   return { content: `New like on Hey ${postUrl}`.trim() };
 };
 
-const dispatch = async (item: DiscordQueueItem) => {
-  let webhookUrl: string | undefined;
-  let body: unknown;
+type WebhookDetails = { webhookUrl?: string; body: unknown };
 
+const resolveWebhook = (item: DiscordQueueItem): WebhookDetails => {
   if (item.kind === "post") {
-    webhookUrl = process.env.EVENTS_DISCORD_WEBHOOK_URL;
-    body = postContent(item.payload);
-  } else if (item.kind === "pageview") {
-    webhookUrl = process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL;
-    body = { embeds: (item as PageviewQueueItem).payload.embeds };
-  } else if (item.kind === "like") {
-    webhookUrl = process.env.LIKES_DISCORD_WEBHOOK_URL;
-    body = likeContent((item as any).payload);
+    return {
+      body: postContent(item.payload),
+      webhookUrl: process.env.EVENTS_DISCORD_WEBHOOK_URL
+    };
   }
+  if (item.kind === "pageview") {
+    return {
+      body: { embeds: (item as PageviewQueueItem).payload.embeds },
+      webhookUrl: process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL
+    };
+  }
+  if (item.kind === "like") {
+    return {
+      body: likeContent((item as any).payload),
+      webhookUrl: process.env.LIKES_DISCORD_WEBHOOK_URL
+    };
+  }
+  return { body: {}, webhookUrl: undefined };
+};
+
+const RATE_LIMIT_ERROR = "DiscordRateLimitError" as const;
+
+const dispatch = async (item: DiscordQueueItem) => {
+  const { webhookUrl, body } = resolveWebhook(item);
 
   if (!webhookUrl) {
     log.warn(`Skipping ${item.kind} webhook: missing webhook URL env`);
@@ -65,7 +85,30 @@ const dispatch = async (item: DiscordQueueItem) => {
   });
 
   if (res.status === 429) {
-    const retryAfter = Number.parseFloat(res.headers.get("retry-after") ?? "1");
+    // Prefer reset-after, then Retry-After, then JSON retry_after. All are seconds.
+    const resetAfter = Number.parseFloat(
+      res.headers.get("x-ratelimit-reset-after") ?? "NaN"
+    );
+    const retryAfterHeader = Number.parseFloat(
+      res.headers.get("retry-after") ?? "NaN"
+    );
+    let retryAfter = Number.isFinite(resetAfter)
+      ? resetAfter
+      : Number.isFinite(retryAfterHeader)
+        ? retryAfterHeader
+        : Number.NaN;
+    if (!Number.isFinite(retryAfter)) {
+      const payload = (await res.json().catch(() => null)) as {
+        retry_after?: number | string;
+      } | null;
+      const bodyRetry = payload?.retry_after;
+      retryAfter =
+        typeof bodyRetry === "number"
+          ? bodyRetry
+          : Number.parseFloat(String(bodyRetry ?? "NaN"));
+    }
+    if (!Number.isFinite(retryAfter)) retryAfter = 1; // sensible fallback
+
     const rateHeaders = {
       bucket: res.headers.get("x-ratelimit-bucket"),
       global: res.headers.get("x-ratelimit-global"),
@@ -73,19 +116,19 @@ const dispatch = async (item: DiscordQueueItem) => {
       remaining: res.headers.get("x-ratelimit-remaining")
     } as const;
 
-    log.warn(
-      `Discord rate limited for ${item.kind}. Retry after ${retryAfter}s (remaining=${
-        rateHeaders.remaining ?? "?"
-      }, limit=${rateHeaders.limit ?? "?"}, bucket=${
-        rateHeaders.bucket ?? "?"
-      }, global=${rateHeaders.global ?? "false"})`
-    );
-
-    const delay = Number.isFinite(retryAfter)
-      ? Math.ceil(retryAfter * 1000)
-      : 1000;
-    await sleep(delay);
-    throw new Error(`429 rate limited, retry after ${retryAfter}s`);
+    const err: Error & {
+      name: string;
+      retryAfterSec: number;
+      webhookUrl: string;
+      bucket?: string | null;
+    } = new Error(
+      `429 rate limited for ${item.kind}, retry after ${retryAfter}s`
+    ) as any;
+    err.name = RATE_LIMIT_ERROR;
+    err.retryAfterSec = retryAfter;
+    err.webhookUrl = webhookUrl;
+    err.bucket = rateHeaders.bucket;
+    throw err;
   }
 
   if (!res.ok) {
@@ -118,10 +161,55 @@ export const startDiscordWebhookWorker = async () => {
       const item = parseItem(raw);
       if (!item) continue;
 
+      // Respect per-URL cooldowns so one URL doesn't block others
+      const { webhookUrl } = resolveWebhook(item);
+      if (!webhookUrl) {
+        log.warn(`Skipping ${item.kind} webhook: missing webhook URL env`);
+        continue;
+      }
+
+      const now = Date.now();
+      // in-memory cooldowns keyed by URL
+      // note: intentionally module-level to persist across loop iterations
+      if (!globalThis.__heyDiscordCooldowns) {
+        (globalThis as any).__heyDiscordCooldowns = new Map<string, number>();
+      }
+      const cooldowns: Map<string, number> = (globalThis as any)
+        .__heyDiscordCooldowns;
+      const until = cooldowns.get(webhookUrl);
+      if (typeof until === "number" && until > now) {
+        const waitSec = Math.ceil((until - now) / 1000);
+        await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
+        log.warn(
+          `Cooldown active for ${item.kind} (${waitSec}s remaining), requeued`
+        );
+        // small yield to avoid hot loop; do not block long
+        await sleep(Math.min(250, until - now));
+        continue;
+      }
+
       try {
         await dispatch(item);
         log.info(`Dispatched Discord webhook: ${item.kind}`);
-      } catch (_err) {
+      } catch (err) {
+        const e = err as Error & {
+          name?: string;
+          retryAfterSec?: number;
+          webhookUrl?: string;
+        };
+        if (e?.name === RATE_LIMIT_ERROR && e.retryAfterSec && e.webhookUrl) {
+          const untilTs = Date.now() + Math.ceil(e.retryAfterSec * 1000);
+          cooldowns.set(e.webhookUrl, untilTs);
+          await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
+          log.warn(
+            `Rate limited for ${item.kind}. Retry after ${Math.ceil(
+              e.retryAfterSec
+            )}s`
+          );
+          // continue without counting as a failure
+          continue;
+        }
+
         const retries = (item.retries ?? 0) + 1;
         if (retries <= 3) {
           item.retries = retries;
