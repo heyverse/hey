@@ -96,11 +96,13 @@ export const startDiscordWebhookWorker = async () => {
       try {
         await dispatch(item);
         log.info(`Dispatched Discord webhook: ${item.kind}`);
+        await sleep(1000);
       } catch (err) {
         if (isRateLimitError(err)) {
+          const minRetryAfterSec = Math.max(10, err.retryAfterSec);
           const untilTs = setCooldown(
             err.webhookUrl,
-            err.retryAfterSec,
+            minRetryAfterSec,
             err.isGlobal
           );
           const ms = Math.max(0, untilTs - Date.now());
