@@ -66,7 +66,7 @@ const startQueueWorker = async (queueKey: string, label: string) => {
       const delayedKey = `${queueKey}:delayed`;
       await promoteDue(redis, delayedKey, 100);
 
-      const res = (await redis.brpop(queueKey, 5)) as [string, string] | null;
+      const res = (await redis.brpop(queueKey, 1)) as [string, string] | null;
       if (!res) continue;
 
       const [, raw] = res;
