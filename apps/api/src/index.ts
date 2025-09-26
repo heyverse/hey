@@ -3,6 +3,7 @@ import "dotenv/config";
 import { Status } from "@hey/data/enums";
 import { withPrefix } from "@hey/helpers/logger";
 import { Hono } from "hono";
+import collects from "./collects";
 import authContext from "./context/authContext";
 import likes from "./likes";
 import authMiddleware from "./middlewares/authMiddleware";
@@ -32,6 +33,7 @@ app.route("/oembed", oembedRouter);
 app.route("/og", ogRouter);
 app.post("/posts", rateLimiter({ requests: 10 }), authMiddleware, posts);
 app.post("/likes", rateLimiter({ requests: 20 }), authMiddleware, likes);
+app.post("/collects", rateLimiter({ requests: 20 }), authMiddleware, collects);
 
 app.notFound((ctx) =>
   ctx.json({ error: "Not Found", status: Status.Error }, 404)
@@ -44,7 +46,8 @@ serve({ fetch: app.fetch, port: 4784 }, (info) => {
 if (
   process.env.REDIS_URL &&
   (process.env.EVENTS_DISCORD_WEBHOOK_URL ||
-    process.env.LIKES_DISCORD_WEBHOOK_URL)
+    process.env.LIKES_DISCORD_WEBHOOK_URL ||
+    process.env.COLLECTS_DISCORD_WEBHOOK_URL)
 ) {
   void startDiscordWebhookWorker();
 } else {

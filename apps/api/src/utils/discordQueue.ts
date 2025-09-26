@@ -16,7 +16,12 @@ export interface LikeQueueItem extends DiscordQueueItemBase {
   payload: { slug?: string };
 }
 
-export type DiscordQueueItem = PostQueueItem | LikeQueueItem;
+export interface CollectQueueItem extends DiscordQueueItemBase {
+  kind: "collect";
+  payload: { slug?: string };
+}
+
+export type DiscordQueueItem = PostQueueItem | LikeQueueItem | CollectQueueItem;
 
 export const enqueueDiscordWebhook = async (
   item: DiscordQueueItem
