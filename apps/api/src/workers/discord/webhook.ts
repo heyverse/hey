@@ -1,6 +1,7 @@
 import type {
   CollectQueueItem,
   DiscordQueueItem,
+  LikeQueueItem,
   PostQueueItem
 } from "../../utils/discordQueue";
 
@@ -12,7 +13,7 @@ const postContent = (payload: PostQueueItem["payload"]) => {
   return { content: `New ${type} on Hey ${postUrl}`.trim() };
 };
 
-const likeContent = (payload: { slug?: string }) => {
+const likeContent = (payload: LikeQueueItem["payload"]) => {
   const postUrl = payload.slug ? `https://hey.xyz/posts/${payload.slug}` : "";
   return { content: `New like on Hey ${postUrl}`.trim() };
 };
