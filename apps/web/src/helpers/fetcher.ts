@@ -62,6 +62,13 @@ const fetchApi = async <T>(
 };
 
 export const hono = {
+  collects: {
+    create: async (payload: { slug: string }) =>
+      fetchApi<{ ok: boolean; skipped?: boolean }>("/collects", {
+        body: JSON.stringify(payload),
+        method: "POST"
+      })
+  },
   likes: {
     create: async (payload: { slug: string }) =>
       fetchApi<{ ok: boolean; skipped?: boolean }>("/likes", {
