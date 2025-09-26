@@ -2,9 +2,7 @@ import type IORedis from "ioredis";
 
 export const DELAYED_QUEUE_KEY = "hey:discord:webhooks:delayed" as const;
 
-// Per-process, per-webhook (URL) next-available timestamp (ms)
 declare global {
-  // eslint-disable-next-line no-var
   var __heyWebhookNextAt: Map<string, number> | undefined;
 }
 
