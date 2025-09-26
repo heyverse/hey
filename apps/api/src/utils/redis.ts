@@ -2,7 +2,9 @@ import IORedis from "ioredis";
 
 let redisClient: IORedis | null = null;
 
-export const DISCORD_QUEUE_KEY = "hey:discord:webhooks";
+export const DISCORD_QUEUE_POSTS = "hey:discord:webhooks:posts";
+export const DISCORD_QUEUE_LIKES = "hey:discord:webhooks:likes";
+export const DISCORD_QUEUE_COLLECTS = "hey:discord:webhooks:collects";
 
 export const getRedis = (): IORedis => {
   if (redisClient) return redisClient;

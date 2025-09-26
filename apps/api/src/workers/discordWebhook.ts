@@ -1,16 +1,18 @@
 import { withPrefix } from "@hey/helpers/logger";
 import type IORedis from "ioredis";
 import type { DiscordQueueItem } from "../utils/discordQueue";
-import { DISCORD_QUEUE_KEY, getRedis } from "../utils/redis";
 import {
-  buildRateLimitError,
-  DELAYED_QUEUE_KEY,
-  getActiveDelayMs,
-  isRateLimitError,
+  DISCORD_QUEUE_COLLECTS,
+  DISCORD_QUEUE_LIKES,
+  DISCORD_QUEUE_POSTS,
+  getRedis
+} from "../utils/redis";
+import {
+  getWaitMs,
   promoteDue,
   schedule,
-  setCooldown,
-  updateCooldownFromHeaders
+  setNextIn,
+  updateFromHeaders
 } from "./discord/rateLimit";
 import { resolveWebhook } from "./discord/webhook";
 
@@ -37,41 +39,34 @@ const dispatch = async (item: DiscordQueueItem) => {
   const { webhookUrl, body } = resolveWebhook(item);
   if (!webhookUrl) {
     log.warn(`Skipping ${item.kind} webhook: missing webhook URL env`);
-    return;
+    return { status: 0, webhookUrl: undefined as string | undefined };
   }
   const res = await fetch(webhookUrl, {
     body: JSON.stringify(body),
     headers: { "content-type": "application/json" },
     method: "POST"
   });
-  if (res.status === 429)
-    throw await buildRateLimitError(res, webhookUrl, item.kind);
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`Discord webhook failed (${res.status}): ${text}`);
-  }
-  updateCooldownFromHeaders(webhookUrl, res);
+  return { res, status: res.status, webhookUrl } as const;
 };
 
-export const startDiscordWebhookWorker = async () => {
+const startQueueWorker = async (queueKey: string, label: string) => {
   let redis: IORedis;
   try {
     redis = getRedis();
   } catch {
-    log.warn("Discord worker disabled: Redis not configured");
+    log.warn(`Discord worker (${label}) disabled: Redis not configured`);
     return;
   }
 
-  log.info(`Discord worker started. Queue: ${DISCORD_QUEUE_KEY}`);
+  log.info(`Discord worker started (${label}). Queue: ${queueKey}`);
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
     try {
-      await promoteDue(redis, DELAYED_QUEUE_KEY, 100);
+      const delayedKey = `${queueKey}:delayed`;
+      await promoteDue(redis, delayedKey, 100);
 
-      const res = (await redis.brpop(DISCORD_QUEUE_KEY, 5)) as
-        | [string, string]
-        | null;
+      const res = (await redis.brpop(queueKey, 5)) as [string, string] | null;
       if (!res) continue;
 
       const [, raw] = res;
@@ -84,39 +79,72 @@ export const startDiscordWebhookWorker = async () => {
         continue;
       }
 
-      const delayMs = getActiveDelayMs(webhookUrl);
-      if (delayMs > 0) {
-        await schedule(redis, DELAYED_QUEUE_KEY, item, delayMs);
+      // If this webhook has a pending cooldown, re-schedule it individually
+      const waitMs = getWaitMs(webhookUrl);
+      if (waitMs > 0) {
+        await schedule(redis, delayedKey, item, waitMs);
         log.warn(
-          `Cooldown active for ${item.kind}. Scheduled after ${Math.ceil(delayMs / 1000)}s`
+          `Cooldown for ${item.kind}. Scheduled after ${Math.ceil(waitMs / 1000)}s`
         );
         continue;
       }
+      // Reserve 1 req/s slot pre-dispatch to avoid concurrent sends for same URL
+      setNextIn(webhookUrl, 1000);
 
       try {
-        await dispatch(item);
-        log.info(`Dispatched Discord webhook: ${item.kind}`);
-        await sleep(1000);
-      } catch (err) {
-        if (isRateLimitError(err)) {
-          const minRetryAfterSec = Math.max(10, err.retryAfterSec);
-          const untilTs = setCooldown(
-            err.webhookUrl,
-            minRetryAfterSec,
-            err.isGlobal
+        const result = await dispatch(item);
+        const { webhookUrl: url, status, res } = result;
+
+        if (!url) continue;
+
+        if (status === 429) {
+          // Parse retry-after headers/body; fallback to 10s min
+          const resetAfter = Number.parseFloat(
+            res?.headers.get("x-ratelimit-reset-after") ?? "NaN"
           );
-          const ms = Math.max(0, untilTs - Date.now());
-          await schedule(redis, DELAYED_QUEUE_KEY, item, ms);
-          const label = err.isGlobal
-            ? "Global rate limit"
-            : `Rate limited for ${item.kind}`;
-          log.warn(`${label}. Scheduled after ${Math.ceil(ms / 1000)}s`);
+          const retryAfterHeader = Number.parseFloat(
+            res?.headers.get("retry-after") ?? "NaN"
+          );
+          let retryAfterSec = Number.isFinite(resetAfter)
+            ? resetAfter
+            : Number.isFinite(retryAfterHeader)
+              ? retryAfterHeader
+              : Number.NaN;
+          if (!Number.isFinite(retryAfterSec)) {
+            const payload = (await res?.json().catch(() => null)) as {
+              retry_after?: number | string;
+            } | null;
+            const bodyRetry = payload?.retry_after;
+            retryAfterSec =
+              typeof bodyRetry === "number"
+                ? bodyRetry
+                : Number.parseFloat(String(bodyRetry ?? "NaN"));
+          }
+          if (!Number.isFinite(retryAfterSec)) retryAfterSec = 10;
+          retryAfterSec = Math.max(10, retryAfterSec);
+
+          const until = setNextIn(url, retryAfterSec * 1000);
+          const ms = Math.max(0, until - Date.now());
+          await schedule(redis, delayedKey, item, ms);
+          log.warn(
+            `Rate limited for ${item.kind}. Scheduled after ${Math.ceil(ms / 1000)}s`
+          );
           continue;
         }
+
+        if (!res?.ok) {
+          const text = await res?.text().catch(() => "");
+          throw new Error(`Discord webhook failed (${status}): ${text}`);
+        }
+
+        // Success: update from headers if provided
+        updateFromHeaders(url, res);
+        log.info(`Dispatched Discord webhook: ${item.kind}`);
+      } catch (_err) {
         const retries = (item.retries ?? 0) + 1;
         if (retries <= 3) {
           item.retries = retries;
-          await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
+          await redis.rpush(queueKey, JSON.stringify(item));
           log.warn(`Requeued ${item.kind} webhook (attempt ${retries})`);
         } else {
           log.error(`Dropped ${item.kind} webhook after ${retries} attempts`);
@@ -129,4 +157,9 @@ export const startDiscordWebhookWorker = async () => {
   }
 };
 
-export default startDiscordWebhookWorker;
+export const startDiscordWebhookWorkerPosts = async () =>
+  startQueueWorker(DISCORD_QUEUE_POSTS, "posts");
+export const startDiscordWebhookWorkerLikes = async () =>
+  startQueueWorker(DISCORD_QUEUE_LIKES, "likes");
+export const startDiscordWebhookWorkerCollects = async () =>
+  startQueueWorker(DISCORD_QUEUE_COLLECTS, "collects");

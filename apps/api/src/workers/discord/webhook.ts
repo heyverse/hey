@@ -33,9 +33,7 @@ export const resolveWebhook = (item: DiscordQueueItem): WebhookDetails => {
   if (item.kind === "collect") {
     return {
       body: collectContent((item as CollectQueueItem).payload),
-      webhookUrl:
-        process.env.COLLECTS_DISCORD_WEBHOOK_URL ||
-        process.env.EVENTS_DISCORD_WEBHOOK_URL
+      webhookUrl: process.env.COLLECTS_DISCORD_WEBHOOK_URL
     };
   }
   if (item.kind === "like") {

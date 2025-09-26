@@ -15,7 +15,11 @@ import metadataRouter from "./routes/metadata";
 import oembedRouter from "./routes/oembed";
 import ogRouter from "./routes/og";
 import ping from "./routes/ping";
-import startDiscordWebhookWorker from "./workers/discordWebhook";
+import {
+  startDiscordWebhookWorkerCollects,
+  startDiscordWebhookWorkerLikes,
+  startDiscordWebhookWorkerPosts
+} from "./workers/discordWebhook";
 
 const log = withPrefix("[API]");
 
@@ -41,13 +45,18 @@ serve({ fetch: app.fetch, port: 4784 }, (info) => {
   log.info(`Server running on port ${info.port}`);
 });
 
-if (
-  process.env.REDIS_URL &&
-  (process.env.EVENTS_DISCORD_WEBHOOK_URL ||
-    process.env.LIKES_DISCORD_WEBHOOK_URL ||
-    process.env.COLLECTS_DISCORD_WEBHOOK_URL)
-) {
-  void startDiscordWebhookWorker();
+if (process.env.REDIS_URL) {
+  const hasEvents = !!process.env.EVENTS_DISCORD_WEBHOOK_URL;
+  const hasLikes = !!process.env.LIKES_DISCORD_WEBHOOK_URL;
+  const hasCollects = !!process.env.COLLECTS_DISCORD_WEBHOOK_URL;
+
+  if (hasEvents) void startDiscordWebhookWorkerPosts();
+  if (hasLikes) void startDiscordWebhookWorkerLikes();
+  if (hasCollects) void startDiscordWebhookWorkerCollects();
+
+  if (!hasEvents && !hasLikes && !hasCollects) {
+    log.warn("Discord workers not started: missing webhook envs");
+  }
 } else {
-  log.warn("Discord worker not started: missing Redis or webhook envs");
+  log.warn("Discord workers not started: missing Redis env");
 }

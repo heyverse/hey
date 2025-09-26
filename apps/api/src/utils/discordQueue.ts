@@ -1,5 +1,10 @@
 import { withPrefix } from "@hey/helpers/logger";
-import { DISCORD_QUEUE_KEY, getRedis } from "./redis";
+import {
+  DISCORD_QUEUE_COLLECTS,
+  DISCORD_QUEUE_LIKES,
+  DISCORD_QUEUE_POSTS,
+  getRedis
+} from "./redis";
 
 export interface DiscordQueueItemBase {
   createdAt: number;
@@ -29,7 +34,13 @@ export const enqueueDiscordWebhook = async (
   const log = withPrefix("[API]");
   try {
     const redis = getRedis();
-    await redis.rpush(DISCORD_QUEUE_KEY, JSON.stringify(item));
+    const key =
+      item.kind === "post"
+        ? DISCORD_QUEUE_POSTS
+        : item.kind === "like"
+          ? DISCORD_QUEUE_LIKES
+          : DISCORD_QUEUE_COLLECTS;
+    await redis.rpush(key, JSON.stringify(item));
     log.info(`Enqueued discord webhook: ${item.kind}`);
   } catch (err) {
     log.error("Failed to enqueue discord webhook", err as Error);
