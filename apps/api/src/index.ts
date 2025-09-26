@@ -8,7 +8,6 @@ import likes from "./likes";
 import authMiddleware from "./middlewares/authMiddleware";
 import cors from "./middlewares/cors";
 import rateLimiter from "./middlewares/rateLimiter";
-import pageview from "./pageview";
 import posts from "./posts";
 import cronRouter from "./routes/cron";
 import lensRouter from "./routes/lens";
@@ -31,7 +30,6 @@ app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);
 app.route("/oembed", oembedRouter);
 app.route("/og", ogRouter);
-app.post("/pageview", rateLimiter({ requests: 10 }), authMiddleware, pageview);
 app.post("/posts", rateLimiter({ requests: 10 }), authMiddleware, posts);
 app.post("/likes", rateLimiter({ requests: 20 }), authMiddleware, likes);
 
@@ -46,7 +44,6 @@ serve({ fetch: app.fetch, port: 4784 }, (info) => {
 if (
   process.env.REDIS_URL &&
   (process.env.EVENTS_DISCORD_WEBHOOK_URL ||
-    process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL ||
     process.env.LIKES_DISCORD_WEBHOOK_URL)
 ) {
   void startDiscordWebhookWorker();

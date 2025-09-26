@@ -17,7 +17,6 @@ import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import { useProStore } from "@/store/persisted/useProStore";
-import PageviewTracker from "./PageviewTracker";
 import ReloadTabsWatcher from "./ReloadTabsWatcher";
 
 const Layout = () => {
@@ -58,7 +57,6 @@ const Layout = () => {
 
   return (
     <>
-      {accessToken ? <PageviewTracker /> : null}
       <Toaster
         icons={{
           error: <XCircleIcon className="size-5" />,

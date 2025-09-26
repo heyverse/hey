@@ -1,8 +1,4 @@
-import type {
-  DiscordQueueItem,
-  PageviewQueueItem,
-  PostQueueItem
-} from "../../utils/discordQueue";
+import type { DiscordQueueItem, PostQueueItem } from "../../utils/discordQueue";
 
 export type WebhookDetails = { webhookUrl?: string; body: unknown };
 
@@ -22,12 +18,6 @@ export const resolveWebhook = (item: DiscordQueueItem): WebhookDetails => {
     return {
       body: postContent(item.payload),
       webhookUrl: process.env.EVENTS_DISCORD_WEBHOOK_URL
-    };
-  }
-  if (item.kind === "pageview") {
-    return {
-      body: { embeds: (item as PageviewQueueItem).payload.embeds },
-      webhookUrl: process.env.PAGEVIEWS_DISCORD_WEBHOOK_URL
     };
   }
   if (item.kind === "like") {

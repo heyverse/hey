@@ -6,7 +6,6 @@ declare namespace NodeJS {
     EVER_ACCESS_KEY: string;
     EVER_ACCESS_SECRET: string;
     SHARED_SECRET: string;
-    PAGEVIEWS_DISCORD_WEBHOOK_URL: string;
     EVENTS_DISCORD_WEBHOOK_URL: string;
     LIKES_DISCORD_WEBHOOK_URL: string;
   }
