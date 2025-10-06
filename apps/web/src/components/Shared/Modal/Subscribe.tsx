@@ -93,7 +93,7 @@ const Subscribe = () => {
           </div>
         ) : (
           <>
-            Join Hey Pro for for{" "}
+            Join Hey Pro for{" "}
             <b className="inline-flex items-center gap-x-1">
               {SUBSCRIPTION_AMOUNT}{" "}
               <Tooltip content={WRAPPED_NATIVE_TOKEN_SYMBOL} placement="top">
