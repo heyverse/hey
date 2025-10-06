@@ -18,26 +18,15 @@ import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import { Button, Image, Spinner, Tooltip } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getTokenImage from "@/helpers/getTokenImage";
-import reloadAllTabs from "@/helpers/reloadAllTabs";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { signOut } from "@/store/persisted/useAuthStore";
 
 const Subscribe = () => {
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
-
-  const handleLogout = async () => {
-    try {
-      signOut();
-      reloadAllTabs();
-    } catch (error) {
-      errorToast(error);
-    }
-  };
 
   const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
     fetchPolicy: "no-cache",
@@ -176,17 +165,8 @@ const Subscribe = () => {
               }}
             />
           )}
-          <div className="flex flex-col items-center gap-y-3">
-            <div className="-mt-1 text-center text-gray-500 text-xs">
-              One-time payment. Manual renewal required next year.
-            </div>
-            <button
-              className="text-red-600 text-sm underline"
-              onClick={handleLogout}
-              type="button"
-            >
-              Logout now
-            </button>
+          <div className="-mt-1 text-center text-gray-500 text-xs">
+            One-time payment. Manual renewal required next year.
           </div>
         </>
       )}
