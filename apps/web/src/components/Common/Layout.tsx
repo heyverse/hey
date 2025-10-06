@@ -1,4 +1,5 @@
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { BANNER_IDS } from "@hey/data/constants";
 import { useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { memo, useCallback, useEffect } from "react";
@@ -15,12 +16,14 @@ import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
+import { useProStore } from "@/store/persisted/useProStore";
 import ReloadTabsWatcher from "./ReloadTabsWatcher";
 
 const Layout = () => {
   const { pathname } = useLocation();
   const { theme } = useTheme();
   const { currentAccount, setCurrentAccount } = useAccountStore();
+  const { setProBannerDismissed } = useProStore();
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
 
@@ -35,11 +38,15 @@ const Layout = () => {
   }, []);
 
   const { loading } = useMeQuery({
-    onCompleted: ({ me }) => {
+    onCompleted: ({ me, proBanner }) => {
       setCurrentAccount(me.loggedInAs.account);
+      if (proBanner?.__typename === "Post") {
+        setProBannerDismissed(proBanner.operations?.dismissed ?? false);
+      }
     },
     onError,
-    skip: !accessToken
+    skip: !accessToken,
+    variables: { proBannerId: BANNER_IDS.PRO }
   });
 
   const accountLoading = !currentAccount && loading;

@@ -21,7 +21,6 @@ import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoin
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Auth from "./Auth";
 
 const GlobalModals = () => {
@@ -49,7 +48,6 @@ const GlobalModals = () => {
     setShowSuperFollowModal,
     superFollowingAccount
   } = useSuperFollowModalStore();
-  const { currentAccount } = useAccountStore();
   const { show: showProModal, setShow: setShowProModal } = useProModalStore();
   const { show: showShortcutsModal, setShow: setShowShortcutsModal } =
     useShortcutsModalStore();
@@ -130,14 +128,8 @@ const GlobalModals = () => {
         <SuperFollow />
       </Modal>
       <Modal
-        onClose={
-          currentAccount && !currentAccount.hasSubscribed
-            ? undefined
-            : () => setShowProModal(false)
-        }
-        show={
-          currentAccount && !currentAccount.hasSubscribed ? true : showProModal
-        }
+        onClose={() => setShowProModal(false)}
+        show={showProModal}
         size="md"
       >
         <Subscribe />
