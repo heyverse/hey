@@ -1,4 +1,4 @@
-query Me($proBannerId: PostId!) {
+query Me {
   me {
     loggedInAs {
       ... on AccountManaged {
@@ -10,13 +10,6 @@ query Me($proBannerId: PostId!) {
         account {
           ...Account
         }
-      }
-    }
-  }
-  proBanner: post(request: { post: $proBannerId }) {
-    ... on Post {
-      operations {
-        dismissed: isNotInterested
       }
     }
   }
