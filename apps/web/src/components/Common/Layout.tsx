@@ -30,11 +30,8 @@ const Layout = () => {
 
   // Disable scroll restoration on route change
   useEffect(() => {
+    void logEvent(`Pageview on ${pathname}`);
     window.scrollTo(0, 0);
-  }, [pathname]);
-
-  useEffect(() => {
-    void logEvent(`Pageview: ${pathname}`);
   }, [pathname]);
 
   const onError = useCallback(() => {
