@@ -1,6 +1,5 @@
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
-import { zeroAddress } from "viem";
 import getIpData from "@/utils/getIpData";
 import handleApiError from "@/utils/handleApiError";
 
@@ -8,7 +7,6 @@ const events = async (ctx: Context) => {
   try {
     const body = await ctx.req.json();
     const event = body.event?.trim();
-    const address = ctx.get("account") ?? zeroAddress;
     const ipData = getIpData(ctx);
     const country = ipData.countryCode;
     const region = ipData.region;
@@ -19,7 +17,7 @@ const events = async (ctx: Context) => {
     }
 
     await fetch("https://yoginth.com/api/hey/events", {
-      body: JSON.stringify({ address, country, event, region }),
+      body: JSON.stringify({ country, event, region }),
       headers: {
         accept: "application/json",
         "content-type": "application/json"
