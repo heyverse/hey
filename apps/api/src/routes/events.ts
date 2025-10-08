@@ -7,7 +7,7 @@ const events = async (ctx: Context) => {
   try {
     const body = await ctx.req.json();
     const event = body.event?.trim();
-    const address = body.address?.trim() || zeroAddress;
+    const address = ctx.get("account") ?? zeroAddress;
 
     if (!event) {
       ctx.status(400);
