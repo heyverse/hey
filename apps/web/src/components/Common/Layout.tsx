@@ -28,7 +28,6 @@ const Layout = () => {
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
 
-  // Disable scroll restoration on route change
   useEffect(() => {
     void logEvent(`Pageview on ${pathname}`);
     window.scrollTo(0, 0);
