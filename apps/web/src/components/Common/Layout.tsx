@@ -29,7 +29,7 @@ const Layout = () => {
   const { accessToken } = hydrateAuthTokens();
 
   useEffect(() => {
-    void logEvent(`Pageview on ${pathname}`);
+    void logEvent(`Pageview ${pathname}`);
     window.scrollTo(0, 0);
   }, [pathname]);
 
