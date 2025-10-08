@@ -5,6 +5,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -16,6 +17,7 @@ const UnlinkUsername = () => {
   const onCompleted = () => {
     setUnlinking(false);
     toast.success("Unlinked");
+    void logEvent("Unlink Username");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

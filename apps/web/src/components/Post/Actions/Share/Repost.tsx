@@ -36,7 +36,7 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
       return;
     }
 
-    void hono.posts.create({ slug: post.slug, type: "Repost" }).catch(() => {});
+    void hono.posts.create({ slug: post.slug, type: "Repost" });
 
     cache.modify({
       fields: {
