@@ -1,6 +1,7 @@
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
 import { zeroAddress } from "viem";
+import getIpData from "@/utils/getIpData";
 import handleApiError from "@/utils/handleApiError";
 
 const events = async (ctx: Context) => {
@@ -8,6 +9,7 @@ const events = async (ctx: Context) => {
     const body = await ctx.req.json();
     const event = body.event?.trim();
     const address = ctx.get("account") ?? zeroAddress;
+    const ipData = getIpData(ctx);
 
     if (!event) {
       ctx.status(400);
@@ -15,7 +17,7 @@ const events = async (ctx: Context) => {
     }
 
     await fetch("https://yoginth.com/api/hey/events", {
-      body: JSON.stringify({ address, event }),
+      body: JSON.stringify({ address, event, ipData }),
       headers: {
         accept: "application/json",
         "content-type": "application/json"
