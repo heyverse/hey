@@ -4,6 +4,7 @@ import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback, useState } from "react";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -41,6 +42,7 @@ const Unfollow = ({
   const onCompleted = () => {
     updateCache();
     setIsSubmitting(false);
+    void logEvent("Unfollow");
   };
 
   const onError = useCallback((error: ApolloClientError) => {
