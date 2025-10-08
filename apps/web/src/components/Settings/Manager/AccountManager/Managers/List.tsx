@@ -16,6 +16,7 @@ import WalletAccount from "@/components/Shared/Account/WalletAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -40,6 +41,7 @@ const List = () => {
     setRemovingManager(null);
     updateCache();
     toast.success("Manager removed successfully");
+    void logEvent("Remove Account Manager");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

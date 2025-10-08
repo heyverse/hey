@@ -15,6 +15,7 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 interface ListProps {
@@ -114,11 +115,13 @@ const List = ({ managed = false }: ListProps) => {
       if (managed) {
         await hideManagedAccount({ variables: { request: { account } } });
         toast.success("Account is now un-managed");
+        void logEvent("Unmanage Account");
         return setTimeout(() => refetch(), 500);
       }
 
       await unhideManagedAccount({ variables: { request: { account } } });
       toast.success("Account is now managed");
+      void logEvent("Manage Account");
       return setTimeout(() => refetch(), 500);
     } catch (error) {
       errorToast(error);

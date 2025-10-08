@@ -4,6 +4,7 @@ import { ERRORS } from "@hey/data/errors";
 import type { PostFragment } from "@hey/indexer";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
+import logEvent from "@/helpers/logEvent";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -32,6 +33,7 @@ const Quote = ({ post }: QuoteProps) => {
         }
         setQuotedPost(post);
         setShowNewPostModal(true);
+        void logEvent("Quote");
       }}
     >
       <div className="flex items-center space-x-2">

@@ -12,6 +12,7 @@ import { useCallback } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface NotInterestedProps {
@@ -44,14 +45,20 @@ const NotInterested = ({ post }: NotInterestedProps) => {
   }, []);
 
   const [addPostNotInterested] = useAddPostNotInterestedMutation({
-    onCompleted: () => toast.success("Marked as not Interested"),
+    onCompleted: () => {
+      toast.success("Marked as not Interested");
+      void logEvent("Not Interested");
+    },
     onError,
     update: (cache) => updateCache(cache, true),
     variables: { request }
   });
 
   const [undoPostNotInterested] = useUndoPostNotInterestedMutation({
-    onCompleted: () => toast.success("Undo Not interested"),
+    onCompleted: () => {
+      toast.success("Undo Not interested");
+      void logEvent("Undo Not Interested");
+    },
     onError,
     update: (cache) => updateCache(cache, false),
     variables: { request }

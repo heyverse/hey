@@ -13,6 +13,7 @@ import { useLocation } from "react-router";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface BookmarkProps {
@@ -59,14 +60,20 @@ const Bookmark = ({ post }: BookmarkProps) => {
   }, []);
 
   const [bookmarkPost] = useBookmarkPostMutation({
-    onCompleted: () => toast.success("Post bookmarked!"),
+    onCompleted: () => {
+      toast.success("Post bookmarked!");
+      void logEvent("Bookmark");
+    },
     onError,
     update: (cache) => updateCache(cache, true),
     variables: { request: { post: post.id } }
   });
 
   const [undoBookmarkPost] = useUndoBookmarkPostMutation({
-    onCompleted: () => toast.success("Removed post bookmark!"),
+    onCompleted: () => {
+      toast.success("Removed post bookmark!");
+      void logEvent("Remove Bookmark");
+    },
     onError,
     update: (cache) => updateCache(cache, false),
     variables: { request: { post: post.id } }

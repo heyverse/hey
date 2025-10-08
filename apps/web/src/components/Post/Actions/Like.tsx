@@ -17,6 +17,7 @@ import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import { hono } from "@/helpers/fetcher";
+import logEvent from "@/helpers/logEvent";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface LikeProps {
@@ -84,11 +85,13 @@ const Like = ({ post, showCount }: LikeProps) => {
 
     if (hasReacted) {
       decrement();
-      return await undoReaction({
+      const res = await undoReaction({
         variables: {
           request: { post: post.id, reaction: PostReactionType.Upvote }
         }
       });
+      void logEvent("Unlike");
+      return res;
     }
 
     increment();
@@ -98,9 +101,8 @@ const Like = ({ post, showCount }: LikeProps) => {
       }
     });
 
-    try {
-      void hono.likes.create({ slug: post.slug });
-    } catch {}
+    void hono.likes.create({ slug: post.slug });
+    void logEvent("Like");
 
     return res;
   };

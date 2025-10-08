@@ -29,6 +29,7 @@ import {
 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
+import logEvent from "@/helpers/logEvent";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
@@ -74,6 +75,7 @@ const PersonalizeSettingsForm = () => {
     setCurrentAccount(accountData?.data?.me.loggedInAs.account);
     setIsSubmitting(false);
     toast.success("Account updated");
+    void logEvent("Update Account Settings");
   };
 
   const onError = useCallback((error: ApolloClientError) => {
