@@ -111,22 +111,27 @@ const List = ({ managed = false }: ListProps) => {
   const handleToggleManagement = async (account: string) => {
     setUpdatingAccount(account);
 
+    let eventName: string | null = null;
+
     try {
       if (managed) {
         await hideManagedAccount({ variables: { request: { account } } });
         toast.success("Account is now un-managed");
-        void logEvent("Unmanage Account");
-        return setTimeout(() => refetch(), 500);
+        eventName = "Unmanage Account";
+      } else {
+        await unhideManagedAccount({ variables: { request: { account } } });
+        toast.success("Account is now managed");
+        eventName = "Manage Account";
       }
-
-      await unhideManagedAccount({ variables: { request: { account } } });
-      toast.success("Account is now managed");
-      void logEvent("Manage Account");
-      return setTimeout(() => refetch(), 500);
+      setTimeout(() => refetch(), 500);
     } catch (error) {
       errorToast(error);
     } finally {
       setUpdatingAccount(null);
+    }
+
+    if (eventName) {
+      void logEvent(eventName);
     }
   };
 
