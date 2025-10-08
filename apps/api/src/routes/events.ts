@@ -1,5 +1,6 @@
 import { Status } from "@hey/data/enums";
 import type { Context } from "hono";
+import { zeroAddress } from "viem";
 import getIpData from "@/utils/getIpData";
 import handleApiError from "@/utils/handleApiError";
 
@@ -10,7 +11,7 @@ const events = async (ctx: Context) => {
     const ipData = getIpData(ctx);
     const country = ipData.countryCode;
     const region = ipData.region;
-    const owner = ctx.get("owner");
+    const owner = ctx.get("owner") ?? zeroAddress;
 
     if (!event) {
       ctx.status(400);
