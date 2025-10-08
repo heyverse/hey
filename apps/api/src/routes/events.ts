@@ -9,7 +9,7 @@ const events = async (ctx: Context) => {
     const body = await ctx.req.json();
     const event = body.event?.trim();
     const address = ctx.get("account") ?? zeroAddress;
-    const ipData = getIpData(ctx);
+    const country = getIpData(ctx).countryCode;
 
     if (!event) {
       ctx.status(400);
@@ -17,7 +17,7 @@ const events = async (ctx: Context) => {
     }
 
     await fetch("https://yoginth.com/api/hey/events", {
-      body: JSON.stringify({ address, event, ipData }),
+      body: JSON.stringify({ address, country, event }),
       headers: {
         accept: "application/json",
         "content-type": "application/json"
