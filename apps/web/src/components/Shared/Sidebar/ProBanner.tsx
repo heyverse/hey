@@ -6,6 +6,7 @@ import { useCallback } from "react";
 import { toast } from "sonner";
 import { Button, Card, H5 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useProStore } from "@/store/persisted/useProStore";
@@ -23,6 +24,7 @@ const ProBanner = () => {
     onCompleted: () => {
       toast.success("Dismissed");
       setProBannerDismissed(true);
+      void logEvent("Dismiss Pro Banner");
     },
     onError,
     variables: { request: { post: BANNER_IDS.PRO } }

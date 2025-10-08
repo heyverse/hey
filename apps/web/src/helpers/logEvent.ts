@@ -1,8 +1,8 @@
 import { hono } from "@/helpers/fetcher";
 
-const logEvent = async (eventName: string) => {
+const logEvent = async (event: string) => {
   try {
-    await hono.events.create({ event: eventName });
+    await hono.events.create({ event });
   } catch {}
 };
 

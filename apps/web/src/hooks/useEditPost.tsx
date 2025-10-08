@@ -3,6 +3,7 @@ import { useEditPostMutation, usePostLazyQuery } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback } from "react";
 import { toast } from "sonner";
+import logEvent from "@/helpers/logEvent";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 import useWaitForTransactionToComplete from "./useWaitForTransactionToComplete";
@@ -32,6 +33,7 @@ const useEditPost = ({ onCompleted, onError }: EditPostProps) => {
 
       setEditingPost(undefined);
       toast.success("Post edited successfully!", { id: toastId });
+      void logEvent("Edit Post");
       cache.modify({
         fields: { post: () => data.post },
         id: cache.identify(data.post)
