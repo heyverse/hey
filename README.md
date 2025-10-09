@@ -1,5 +1,5 @@
 # Hey Monorepo
-
+owner Giorgi Meskhidze 
 ## Requirements
 
 To start working with the Hey monorepo, ensure the following tools are installed:
