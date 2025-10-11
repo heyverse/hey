@@ -11,6 +11,7 @@ import GlobalShortcuts from "@/components/Shared/GlobalShortcuts";
 import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
+import logEvent from "@/helpers/logEvent";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -24,8 +25,8 @@ const Layout = () => {
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
 
-  // Disable scroll restoration on route change
   useEffect(() => {
+    void logEvent(`Pageview ${pathname}`);
     window.scrollTo(0, 0);
   }, [pathname]);
 

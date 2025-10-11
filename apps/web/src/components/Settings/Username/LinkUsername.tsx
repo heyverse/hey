@@ -11,6 +11,7 @@ import Loader from "@/components/Shared/Loader";
 import Slug from "@/components/Shared/Slug";
 import { Button, EmptyState, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -22,6 +23,7 @@ const LinkUsername = () => {
   const onCompleted = () => {
     setLinkingUsername(null);
     toast.success("Linked");
+    void logEvent("Link Username");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

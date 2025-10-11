@@ -19,6 +19,7 @@ import {
   useZodForm
 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -53,6 +54,7 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
   const onCompleted = () => {
     setIsSubmitting(false);
     toast.success("Group updated");
+    void logEvent("Update Group Settings");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 const Signless = () => {
@@ -13,6 +14,7 @@ const Signless = () => {
   const onCompleted = () => {
     setIsSubmitting(false);
     toast.success("Signless enabled");
+    void logEvent("Enable Signless");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { toast } from "sonner";
+import logEvent from "@/helpers/logEvent";
 
 const useCopyToClipboard = (
   text: string,
@@ -14,6 +15,7 @@ const useCopyToClipboard = (
 
       await navigator.clipboard.writeText(text);
       toast.success(successMessage);
+      void logEvent("Copy to Clipboard");
     } catch {
       toast.error(errorMessage);
     }

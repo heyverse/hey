@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import { useMuteAlertStore } from "@/store/non-persisted/alert/useMuteAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -36,11 +37,13 @@ const MuteOrUnmuteAccount = () => {
   };
 
   const onCompleted = () => {
+    const eventName = hasMuted ? "Unmute Account" : "Mute Account";
     updateCache();
     setIsSubmitting(false);
     setHasMuted(!hasMuted);
     setShowMuteOrUnmuteAlert(false);
     toast.success(hasMuted ? "Unmuted successfully" : "Muted successfully");
+    void logEvent(eventName);
   };
 
   const onError = useCallback((error: ApolloClientError) => {

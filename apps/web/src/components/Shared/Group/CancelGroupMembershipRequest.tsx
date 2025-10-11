@@ -8,6 +8,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface CancelGroupMembershipRequestProps {
@@ -38,6 +39,7 @@ const CancelGroupMembershipRequest = ({
     updateCache();
     setIsSubmitting(false);
     toast.success("Request cancelled");
+    void logEvent("Cancel Group Request");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

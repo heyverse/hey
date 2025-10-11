@@ -18,6 +18,7 @@ import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -76,6 +77,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     closePopover();
     updateCache();
     toast.success(`Tipped ${amount} ${NATIVE_TOKEN_SYMBOL}`);
+    void logEvent("Tip");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

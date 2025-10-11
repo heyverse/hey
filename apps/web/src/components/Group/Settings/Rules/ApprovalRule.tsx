@@ -9,6 +9,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface ApprovalRuleProps {
@@ -30,6 +31,7 @@ const ApprovalRule = ({ group }: ApprovalRuleProps) => {
     setIsSubmitting(false);
     setIsApprovalRuleEnabled(!isApprovalRuleEnabled);
     toast.success("Approval rule updated");
+    void logEvent("Update Group Approval Rule");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

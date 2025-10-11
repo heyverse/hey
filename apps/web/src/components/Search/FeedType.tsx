@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router";
 import { Tabs } from "@/components/Shared/UI";
+import logEvent from "@/helpers/logEvent";
 
 export enum SearchTabFocus {
   Accounts = "ACCOUNTS",
@@ -25,6 +26,10 @@ const FeedType = ({ feedType }: FeedTypeProps) => {
 
     searchParams.set("type", type);
     setSearchParams(searchParams);
+    const tab = tabs.find((tabItem) => tabItem.type === type);
+    if (tab) {
+      void logEvent(`Search Tab: ${tab.name}`);
+    }
   };
 
   return (

@@ -2,6 +2,7 @@ import { useState } from "react";
 import Managed from "@/components/Settings/Manager/AccountManager/Management/Managed";
 import Unmanaged from "@/components/Settings/Manager/AccountManager/Management/Unmanaged";
 import { Button, Modal, Tabs } from "@/components/Shared/UI";
+import logEvent from "@/helpers/logEvent";
 import AddAccountManager from "./AddAccountManager";
 import Managers from "./Managers";
 
@@ -27,7 +28,14 @@ const AccountManager = () => {
         <Tabs
           active={type}
           layoutId="account_manager_tab"
-          setActive={(type) => setType(type as Type)}
+          setActive={(tabType) => {
+            const nextType = tabType as Type;
+            setType(nextType);
+            const tab = tabs.find((tabItem) => tabItem.type === nextType);
+            if (tab) {
+              void logEvent(`Account Manager Tab: ${tab.name}`);
+            }
+          }}
           tabs={tabs}
         />
         {type === Type.MANAGERS && (

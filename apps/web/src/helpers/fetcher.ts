@@ -69,6 +69,13 @@ export const hono = {
         method: "POST"
       })
   },
+  events: {
+    create: async (payload: { event: string }) =>
+      fetchApi<{ ok: boolean; skipped?: boolean }>("/events", {
+        body: JSON.stringify(payload),
+        method: "POST"
+      })
+  },
   likes: {
     create: async (payload: { slug: string }) =>
       fetchApi<{ ok: boolean; skipped?: boolean }>("/likes", {

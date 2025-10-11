@@ -9,6 +9,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface JoinProps {
@@ -44,12 +45,16 @@ const Join = ({
   };
 
   const onCompleted = () => {
+    const eventName = group.membershipApprovalEnabled
+      ? "Request Group Membership"
+      : "Join Group";
     updateCache();
     setIsSubmitting(false);
     onSuccess?.();
     toast.success(
       group.membershipApprovalEnabled ? "Request sent" : "Joined group"
     );
+    void logEvent(eventName);
   };
 
   const onError = useCallback((error: ApolloClientError) => {

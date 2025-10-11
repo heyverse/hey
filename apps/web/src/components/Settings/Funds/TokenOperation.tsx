@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, Input, Modal } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 
@@ -39,6 +40,7 @@ const TokenOperation = ({
     setIsSubmitting(false);
     refetch();
     toast.success(successMessage);
+    void logEvent(title);
   };
 
   const onError = useCallback((error: ApolloClientError) => {

@@ -14,7 +14,6 @@ export const HEY_API_URL = process.env.HEY_API_URL || "https://api.hey.xyz";
 export const IS_MAINNET = LENS_API_URL === LENS_ENDPOINT.Mainnet;
 export const CHAIN = IS_MAINNET ? chains.mainnet : chains.testnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
-export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 // Subscription
 export const SUBSCRIPTION_AMOUNT = 20;

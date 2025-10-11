@@ -7,11 +7,13 @@ const authContext = async (ctx: Context, next: Next) => {
   const payload: JwtPayload = parseJwt(token as string);
 
   if (!payload.act.sub) {
+    ctx.set("owner", null);
     ctx.set("account", null);
     ctx.set("token", null);
     return next();
   }
 
+  ctx.set("owner", payload.sub);
   ctx.set("account", payload.act.sub);
   ctx.set("token", token);
   return next();

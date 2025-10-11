@@ -1,5 +1,5 @@
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
-import { NATIVE_TOKEN_SYMBOL, NULL_ADDRESS } from "@hey/data/constants";
+import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
 import { useBalancesBulkQuery, useDepositMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import {
@@ -11,11 +11,12 @@ import {
   useState
 } from "react";
 import { toast } from "sonner";
-import type { Hex } from "viem";
+import { type Hex, zeroAddress } from "viem";
 import { useAccount, useWaitForTransactionReceipt } from "wagmi";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import {
@@ -60,6 +61,7 @@ const Transfer = ({ token }: TransferProps) => {
     setTxHash(null);
     setShowFundModal({ showFundModal: false });
     toast.success("Transferred successfully");
+    void logEvent("Transfer Funds");
   };
 
   const onError = useCallback((error: ApolloClientError) => {
@@ -204,7 +206,7 @@ const Transfer = ({ token }: TransferProps) => {
               const params = new URLSearchParams({
                 inputChain: "lens",
                 isExactOut: "false",
-                outToken: token?.contractAddress ?? NULL_ADDRESS,
+                outToken: token?.contractAddress ?? zeroAddress,
                 utm_medium: "sites",
                 utm_source: "hey.xyz"
               });
