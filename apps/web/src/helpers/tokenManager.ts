@@ -3,6 +3,7 @@ import { RefreshDocument, type RefreshMutation } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { JwtPayload } from "@hey/types/jwt";
 import { signIn, signOut } from "@/store/persisted/useAuthStore";
+import logEvent from "./logEvent";
 
 let refreshPromise: Promise<string> | null = null;
 const MAX_RETRIES = 5;
@@ -28,6 +29,10 @@ const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
         if (!newAccessToken || !newRefreshToken) {
           throw new Error("Missing tokens in refresh response");
         }
+
+        try {
+          void logEvent("GraphQL query: Refresh");
+        } catch {}
 
         signIn({
           accessToken: newAccessToken,
