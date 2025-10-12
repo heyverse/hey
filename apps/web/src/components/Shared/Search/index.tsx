@@ -16,7 +16,6 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Card, Form, Input, useZodForm } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import logEvent from "@/helpers/logEvent";
 import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import { useSearchStore } from "@/store/persisted/useSearchStore";
 import RecentAccounts from "./RecentAccounts";
@@ -71,7 +70,6 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
       } else {
         navigate(`/search?q=${encodeURIComponent(search)}&type=accounts`);
       }
-      void logEvent("Search");
       handleReset();
     },
     [pathname, navigate, type, handleReset]

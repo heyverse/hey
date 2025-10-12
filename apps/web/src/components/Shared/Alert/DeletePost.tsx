@@ -5,7 +5,6 @@ import { useCallback } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useDeletePostAlertStore } from "@/store/non-persisted/alert/useDeletePostAlertStore";
 
@@ -25,7 +24,6 @@ const DeletePost = () => {
     setShowPostDeleteAlert(false);
     updateCache();
     toast.success("Post deleted");
-    void logEvent("Delete Post");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

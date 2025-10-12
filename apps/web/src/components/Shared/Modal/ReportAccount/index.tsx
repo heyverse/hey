@@ -19,7 +19,6 @@ import {
 } from "@/components/Shared/UI";
 import convertToTitleCase from "@/helpers/convertToTitleCase";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 const ValidationSchema = z.object({
@@ -55,8 +54,6 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
         }
       }
     });
-
-    void logEvent("Report Account");
 
     return response;
   };

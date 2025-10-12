@@ -2,7 +2,6 @@ import { MainContentFocus } from "@hey/indexer";
 import type { Dispatch, SetStateAction } from "react";
 import { memo } from "react";
 import { Tabs } from "@/components/Shared/UI";
-import logEvent from "@/helpers/logEvent";
 
 interface ContentFeedTypeProps {
   focus?: MainContentFocus;
@@ -30,11 +29,6 @@ const ContentFeedType = ({
       layoutId={layoutId}
       setActive={(type) => {
         setFocus(type as MainContentFocus);
-        const tab = tabs.find((tabItem) => tabItem.type === type);
-        if (tab) {
-          const context = layoutId.replace(/_/g, " ");
-          void logEvent(`${context} Tab: ${tab.name}`);
-        }
       }}
       tabs={tabs}
     />

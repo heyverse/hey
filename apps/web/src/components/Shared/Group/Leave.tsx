@@ -5,7 +5,6 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 
 interface LeaveProps {
@@ -33,7 +32,6 @@ const Leave = ({ group, small }: LeaveProps) => {
     updateCache();
     setIsSubmitting(false);
     toast.success("Left group");
-    void logEvent("Leave Group");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

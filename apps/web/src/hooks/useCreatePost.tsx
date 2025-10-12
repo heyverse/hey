@@ -10,7 +10,6 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { hono } from "@/helpers/fetcher";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 import useWaitForTransactionToComplete from "./useWaitForTransactionToComplete";
 
@@ -46,7 +45,6 @@ const useCreatePost = ({
       const type = isComment ? "Comment" : "Post";
 
       void hono.posts.create({ slug: data.post.slug, type });
-      void logEvent(type);
 
       toast.success(`${type} created successfully!`, {
         action: {
