@@ -1,7 +1,6 @@
 import { GroupsFeedType } from "@hey/data/enums";
 import type { Dispatch, SetStateAction } from "react";
 import { Tabs } from "@/components/Shared/UI";
-import logEvent from "@/helpers/logEvent";
 
 interface FeedTypeProps {
   feedType: GroupsFeedType;
@@ -22,10 +21,6 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
       setActive={(type) => {
         const nextType = type as GroupsFeedType;
         setFeedType(nextType);
-        const tab = tabs.find((tabItem) => tabItem.type === nextType);
-        if (tab) {
-          void logEvent(`Groups Tab: ${tab.name}`);
-        }
       }}
       tabs={tabs}
     />

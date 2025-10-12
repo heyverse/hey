@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import { hono } from "@/helpers/fetcher";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -62,7 +61,6 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
     increment();
     updateCache();
     toast.success("Post has been reposted!");
-    void logEvent("Repost");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

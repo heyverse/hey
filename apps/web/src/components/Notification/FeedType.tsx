@@ -1,7 +1,6 @@
 import { NotificationFeedType } from "@hey/data/enums";
 import type { Dispatch, SetStateAction } from "react";
 import { Tabs } from "@/components/Shared/UI";
-import logEvent from "@/helpers/logEvent";
 
 interface FeedTypeProps {
   feedType: NotificationFeedType;
@@ -26,10 +25,6 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
       setActive={(type) => {
         const nextType = type as NotificationFeedType;
         setFeedType(nextType);
-        const tab = tabs.find((tabItem) => tabItem.type === nextType);
-        if (tab) {
-          void logEvent(`Notifications Tab: ${tab.name}`);
-        }
       }}
       tabs={tabs}
     />

@@ -12,7 +12,6 @@ import { toast } from "sonner";
 import { useHiddenCommentFeedStore } from "@/components/Post";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -35,7 +34,6 @@ const HideComment = ({ post }: HideCommentProps) => {
   const [hideComment] = useHideReplyMutation({
     onCompleted: () => {
       toast.success("Comment hidden");
-      void logEvent("Hide Comment");
     },
     onError,
     update: updateCache,
@@ -45,7 +43,6 @@ const HideComment = ({ post }: HideCommentProps) => {
   const [unhideComment] = useUnhideReplyMutation({
     onCompleted: () => {
       toast.success("Comment unhidden");
-      void logEvent("Unhide Comment");
     },
     onError,
     update: updateCache,

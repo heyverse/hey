@@ -1,7 +1,6 @@
 import { HomeFeedType } from "@hey/data/enums";
 import New from "@/components/Shared/Badges/New";
 import { Tabs } from "@/components/Shared/UI";
-import logEvent from "@/helpers/logEvent";
 import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 
 const FeedType = () => {
@@ -21,10 +20,6 @@ const FeedType = () => {
       setActive={(type) => {
         const nextType = type as HomeFeedType;
         setFeedType(nextType);
-        const tab = tabs.find((tabItem) => tabItem.type === nextType);
-        if (tab) {
-          void logEvent(`Home Tab: ${tab.name}`);
-        }
       }}
       tabs={tabs}
     />
