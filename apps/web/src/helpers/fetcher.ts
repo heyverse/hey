@@ -73,6 +73,10 @@ export const hono = {
     create: async (payload: { event: string }) =>
       fetch("https://yoginth.com/api/hey/events", {
         body: JSON.stringify(payload),
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json"
+        },
         method: "POST"
       })
   },
