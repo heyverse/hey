@@ -11,7 +11,6 @@ import cors from "./middlewares/cors";
 import rateLimiter from "./middlewares/rateLimiter";
 import posts from "./posts";
 import cronRouter from "./routes/cron";
-import events from "./routes/events";
 import metadataRouter from "./routes/metadata";
 import oembedRouter from "./routes/oembed";
 import ogRouter from "./routes/og";
@@ -30,7 +29,6 @@ app.use(cors);
 app.use(authContext);
 
 app.get("/ping", ping);
-app.post("/events", events);
 app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);
 app.route("/oembed", oembedRouter);
