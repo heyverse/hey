@@ -3,6 +3,7 @@ import { RefreshDocument, type RefreshMutation } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import type { JwtPayload } from "@hey/types/jwt";
 import { signIn, signOut } from "@/store/persisted/useAuthStore";
+import logEvent from "./logEvent";
 
 let refreshPromise: Promise<string> | null = null;
 const MAX_RETRIES = 5;
@@ -10,6 +11,9 @@ const MAX_RETRIES = 5;
 const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
   try {
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+      try {
+        void logEvent(`Token refresh attempt ${attempt + 1}/${MAX_RETRIES}`);
+      } catch {}
       const { data } = await apolloClient.mutate<RefreshMutation>({
         mutation: RefreshDocument,
         variables: { request: { refreshToken } }
@@ -29,6 +33,10 @@ const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
           throw new Error("Missing tokens in refresh response");
         }
 
+        try {
+          void logEvent("Token refresh success");
+        } catch {}
+
         signIn({
           accessToken: newAccessToken,
           refreshToken: newRefreshToken
@@ -38,6 +46,9 @@ const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
       }
 
       if (refreshResult.__typename === "ForbiddenError") {
+        try {
+          void logEvent("Token refresh forbidden");
+        } catch {}
         signOut();
         throw new Error("Refresh token is invalid or expired");
       }
@@ -49,6 +60,9 @@ const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
       }
     }
 
+    try {
+      void logEvent("Token refresh failed after retries");
+    } catch {}
     throw new Error("Unknown error during token refresh");
   } finally {
     refreshPromise = null;
