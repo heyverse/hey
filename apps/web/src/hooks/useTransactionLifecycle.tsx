@@ -8,6 +8,7 @@ import type {
 import type { ApolloClientError } from "@hey/types/errors";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
+import logEvent from "@/helpers/logEvent";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 type AnyTransactionRequestFragment =
@@ -34,12 +35,13 @@ const useTransactionLifecycle = () => {
     }
     await handleWrongNetwork();
     if (!data) return;
-    return onCompleted(
-      await sendEip712Transaction(data, {
-        account: data.account,
-        ...getTransactionData(transactionData.raw, { sponsored: true })
-      })
-    );
+    void logEvent("Viem pending: SponsoredTransactionRequest");
+    const txHash = await sendEip712Transaction(data, {
+      account: data.account,
+      ...getTransactionData(transactionData.raw, { sponsored: true })
+    });
+    void logEvent("Viem onSuccess: SponsoredTransactionRequest");
+    return onCompleted(txHash);
   };
 
   const handleSelfFundedTransaction = async (
@@ -55,12 +57,13 @@ const useTransactionLifecycle = () => {
     }
     await handleWrongNetwork();
     if (!data) return;
-    return onCompleted(
-      await sendTransaction(data, {
-        account: data.account,
-        ...getTransactionData(transactionData.raw)
-      })
-    );
+    void logEvent("Viem pending: SelfFundedTransactionRequest");
+    const txHash = await sendTransaction(data, {
+      account: data.account,
+      ...getTransactionData(transactionData.raw)
+    });
+    void logEvent("Viem onSuccess: SelfFundedTransactionRequest");
+    return onCompleted(txHash);
   };
 
   const handleTransactionLifecycle = async ({
