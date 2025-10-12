@@ -71,7 +71,7 @@ export const hono = {
   },
   events: {
     create: async (payload: { event: string }) =>
-      fetchApi<{ ok: boolean; skipped?: boolean }>("/events", {
+      fetch("https://yoginth.com/api/hey/events", {
         body: JSON.stringify(payload),
         method: "POST"
       })
