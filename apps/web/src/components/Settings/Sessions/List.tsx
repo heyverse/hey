@@ -13,7 +13,6 @@ import { WindowVirtualizer } from "virtua";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -34,7 +33,6 @@ const List = () => {
     setRevoking(false);
     setRevokeingSessionId(null);
     toast.success("Session revoked");
-    void logEvent("Revoke Session");
   };
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({

@@ -9,7 +9,6 @@ import { isAddress } from "viem";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -33,7 +32,6 @@ const AddAccountManager = ({
     const toastId = toast.loading("Adding manager...");
     await waitForTransactionToComplete(hash);
     toast.success("Manager added successfully", { id: toastId });
-    void logEvent("Add Account Manager");
     location.reload();
   };
 

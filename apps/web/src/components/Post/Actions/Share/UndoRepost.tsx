@@ -8,7 +8,6 @@ import { type Dispatch, type SetStateAction, useCallback } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -45,7 +44,6 @@ const UndoRepost = ({
     setIsSubmitting(false);
     updateCache();
     toast.success("Undone repost");
-    void logEvent("Undo Repost");
   };
 
   const onError = useCallback((error?: unknown) => {

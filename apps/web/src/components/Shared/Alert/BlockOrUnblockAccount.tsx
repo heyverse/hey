@@ -7,7 +7,6 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -40,7 +39,6 @@ const BlockOrUnblockAccount = () => {
   };
 
   const onCompleted = () => {
-    const eventName = hasBlocked ? "Unblock Account" : "Block Account";
     updateCache();
     setIsSubmitting(false);
     setHasBlocked(!hasBlocked);
@@ -48,7 +46,6 @@ const BlockOrUnblockAccount = () => {
     toast.success(
       hasBlocked ? "Unblocked successfully" : "Blocked successfully"
     );
-    void logEvent(eventName);
   };
 
   const onError = useCallback((error: ApolloClientError) => {

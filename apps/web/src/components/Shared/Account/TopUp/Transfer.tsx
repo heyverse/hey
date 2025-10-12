@@ -16,7 +16,6 @@ import { useAccount, useWaitForTransactionReceipt } from "wagmi";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import {
@@ -61,7 +60,6 @@ const Transfer = ({ token }: TransferProps) => {
     setTxHash(null);
     setShowFundModal({ showFundModal: false });
     toast.success("Transferred successfully");
-    void logEvent("Transfer Funds");
   };
 
   const onError = useCallback((error: ApolloClientError) => {

@@ -16,7 +16,6 @@ import { Button, Spinner } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import { hono } from "@/helpers/fetcher";
 import getCollectActionData from "@/helpers/getCollectActionData";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -82,7 +81,6 @@ const CollectActionButton = ({
     toast.success("Collected successfully");
 
     void hono.collects.create({ slug: post.slug });
-    void logEvent("Collect");
   };
 
   const onError = useCallback((error: ApolloClientError) => {
