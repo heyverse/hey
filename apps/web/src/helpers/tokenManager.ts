@@ -31,7 +31,7 @@ const executeTokenRefresh = async (refreshToken: string): Promise<string> => {
         }
 
         try {
-          void logEvent("GraphQL query: Refresh");
+          void logEvent("GraphQL mutation: Refresh");
         } catch {}
 
         signIn({
