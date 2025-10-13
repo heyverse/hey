@@ -2,7 +2,6 @@ import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
 import { memo } from "react";
 import ActionType from "@/components/Home/Timeline/EventType";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
-import usePostView from "@/hooks/usePostView";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
@@ -24,7 +23,6 @@ const SinglePost = ({
   showType = true
 }: SinglePostProps) => {
   const rootPost = timelineItem ? timelineItem?.primary : post;
-  usePostView({ slug: rootPost.slug });
 
   return (
     <PostWrapper className="cursor-pointer px-5 pt-4 pb-3" post={rootPost}>
