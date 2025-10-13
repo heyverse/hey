@@ -5,4 +5,7 @@ fragment Permissions on Account {
   isStaff: isMemberOf(
     request: { group: "0xA7f2835e54998c6d7d4A0126eC0ebE91b5E43c69" }
   )
+  isBeta: isMemberOf(
+    request: { group: "0x287b09fAa3AfC548F1b28DEa36C30c1edc574C06" }
+  )
 }

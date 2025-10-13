@@ -1,5 +1,5 @@
 import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { BeakerIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
@@ -122,6 +122,11 @@ const Details = ({
               Get Verified
             </button>
           ) : null}
+          {account.isBeta && (
+            <Tooltip content="Beta" placement="right">
+              <BeakerIcon className="size-5 text-green-500" />
+            </Tooltip>
+          )}
         </div>
         <div className="flex items-center space-x-3">
           <Slug

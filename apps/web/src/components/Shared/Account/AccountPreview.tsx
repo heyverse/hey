@@ -1,4 +1,4 @@
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { BeakerIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { type AccountStats, useFullAccountLazyQuery } from "@hey/indexer";
@@ -90,6 +90,7 @@ const AccountPreview = ({
           {account.hasSubscribed && (
             <CheckBadgeIcon className="size-4 text-brand-500" />
           )}
+          {account.isBeta && <BeakerIcon className="size-4 text-green-500" />}
         </div>
         <span>
           <Slug

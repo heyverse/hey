@@ -1,5 +1,5 @@
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { BANNER_IDS } from "@hey/data/constants";
+import { MeVariables } from "@hey/data/constants";
 import { useMeQuery } from "@hey/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { memo, useCallback, useEffect } from "react";
@@ -45,7 +45,7 @@ const Layout = () => {
     },
     onError,
     skip: !accessToken,
-    variables: { proBannerId: BANNER_IDS.PRO }
+    variables: MeVariables
   });
 
   const accountLoading = !currentAccount && loading;
