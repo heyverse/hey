@@ -9,6 +9,7 @@ import {
   getBlockedByMeMessage,
   getBlockedMeMessage
 } from "@/helpers/getBlockedMessage";
+import usePostView from "@/hooks/usePostView";
 import { useHiddenCommentFeedStore } from ".";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";
@@ -29,6 +30,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const { timestamp } = targetPost;
+  usePostView({ slug: targetPost.slug });
 
   const isBlockedByMe = post.author.operations?.isBlockedByMe;
   const hasBlockedMe = post.author.operations?.hasBlockedMe;

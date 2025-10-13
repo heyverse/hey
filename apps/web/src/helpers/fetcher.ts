@@ -73,6 +73,17 @@ export const hono = {
         method: "POST"
       })
   },
+  impressions: {
+    create: async (payload: { post: string; address?: string }) =>
+      fetch("https://yoginth.com/api/hey/impressions", {
+        body: JSON.stringify(payload),
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json"
+        },
+        method: "POST"
+      })
+  },
   metadata: {
     sts: (): Promise<STS> => {
       return fetchApi<STS>("/metadata/sts", { method: "GET" });
