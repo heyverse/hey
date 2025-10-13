@@ -27,7 +27,7 @@ const ProBanner = () => {
       void logEvent("Dismiss Pro Banner");
     },
     onError,
-    variables: { request: { post: BANNER_IDS.PRO } }
+    variables: { request: { post: BANNER_IDS.BETA } }
   });
 
   if (currentAccount?.hasSubscribed || proBannerDismissed) {

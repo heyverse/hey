@@ -1,7 +1,7 @@
 import {
-  BANNER_IDS,
   DEFAULT_COLLECT_TOKEN,
   IS_MAINNET,
+  MeVariables,
   STATIC_IMAGES_URL,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@hey/data/constants";
@@ -46,7 +46,7 @@ const SuperFollow = () => {
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
   const [getCurrentAccountDetails] = useMeLazyQuery({
     fetchPolicy: "no-cache",
-    variables: { proBannerId: BANNER_IDS.PRO }
+    variables: MeVariables
   });
 
   const account = currentAccount as AccountFragment;

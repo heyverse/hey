@@ -1,0 +1,110 @@
+import { BeakerIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { BANNER_IDS, PERMISSIONS } from "@hey/data/constants";
+import {
+  useAddPostNotInterestedMutation,
+  useJoinGroupMutation
+} from "@hey/indexer";
+import type { ApolloClientError } from "@hey/types/errors";
+import { useCallback, useState } from "react";
+import { toast } from "sonner";
+import { Button, Card, H5 } from "@/components/Shared/UI";
+import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
+import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useBetaStore } from "@/store/persisted/useBetaStore";
+
+const BetaBanner = () => {
+  const { currentAccount } = useAccountStore();
+  const { betaBannerDismissed, setBetaBannerDismissed } = useBetaStore();
+  const handleTransactionLifecycle = useTransactionLifecycle();
+  const waitForTransactionToComplete = useWaitForTransactionToComplete();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onCompleted = async (hash: string) => {
+    await waitForTransactionToComplete(hash);
+    location.reload();
+  };
+
+  const onError = useCallback((error: ApolloClientError) => {
+    errorToast(error);
+  }, []);
+
+  const [dismissBetaBanner, { loading }] = useAddPostNotInterestedMutation({
+    onCompleted: () => {
+      toast.success("Dismissed");
+      setBetaBannerDismissed(true);
+      void logEvent("Dismiss Beta Banner");
+    },
+    onError,
+    variables: { request: { post: BANNER_IDS.BETA } }
+  });
+
+  const [joinGroup] = useJoinGroupMutation({
+    onCompleted: async ({ joinGroup }) => {
+      if (joinGroup.__typename === "JoinGroupResponse") {
+        return onCompleted(joinGroup.hash);
+      }
+
+      return await handleTransactionLifecycle({
+        onCompleted,
+        onError,
+        transactionData: joinGroup
+      });
+    },
+    onError
+  });
+
+  if (!currentAccount?.hasSubscribed) {
+    return null;
+  }
+
+  if (currentAccount?.isBeta || betaBannerDismissed) {
+    return null;
+  }
+
+  const handleDismissBetaBanner = async () => {
+    return await dismissBetaBanner();
+  };
+
+  const handleJoinBeta = async () => {
+    setIsSubmitting(true);
+
+    return await joinGroup({
+      variables: { request: { group: PERMISSIONS.BETA } }
+    });
+  };
+
+  return (
+    <Card className="relative space-y-2">
+      <button
+        className="absolute top-3 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
+        disabled={loading}
+        onClick={handleDismissBetaBanner}
+        type="button"
+      >
+        <XCircleIcon className="size-5" />
+      </button>
+      <div className="m-5">
+        <div className="flex items-center gap-2">
+          <BeakerIcon className="size-5 text-green-500" />
+          <H5>Join Hey Beta</H5>
+        </div>
+        <div className="mb-5 text-sm">
+          Get your badge and access exclusive features.
+        </div>
+        <Button
+          className="w-full"
+          loading={isSubmitting}
+          onClick={handleJoinBeta}
+          outline
+        >
+          Get Beta Access
+        </Button>
+      </div>
+    </Card>
+  );
+};
+
+export default BetaBanner;

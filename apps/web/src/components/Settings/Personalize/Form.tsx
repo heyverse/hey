@@ -1,4 +1,4 @@
-import { BANNER_IDS } from "@hey/data/constants";
+import { MeVariables } from "@hey/data/constants";
 import { ERRORS } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
 import trimify from "@hey/helpers/trimify";
@@ -65,7 +65,7 @@ const PersonalizeSettingsForm = () => {
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
   const [getCurrentAccountDetails] = useMeLazyQuery({
     fetchPolicy: "no-cache",
-    variables: { proBannerId: BANNER_IDS.PRO }
+    variables: MeVariables
   });
 
   const onCompleted = async (hash: string) => {
