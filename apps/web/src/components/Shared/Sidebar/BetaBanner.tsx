@@ -13,11 +13,11 @@ import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { useProStore } from "@/store/persisted/useProStore";
+import { useBetaStore } from "@/store/persisted/useBetaStore";
 
 const BetaBanner = () => {
   const { currentAccount } = useAccountStore();
-  const { proBannerDismissed, setProBannerDismissed } = useProStore();
+  const { betaBannerDismissed, setBetaBannerDismissed } = useBetaStore();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,14 +31,14 @@ const BetaBanner = () => {
     errorToast(error);
   }, []);
 
-  const [dismissProBanner, { loading }] = useAddPostNotInterestedMutation({
+  const [dismissBetaBanner, { loading }] = useAddPostNotInterestedMutation({
     onCompleted: () => {
       toast.success("Dismissed");
-      setProBannerDismissed(true);
-      void logEvent("Dismiss Pro Banner");
+      setBetaBannerDismissed(true);
+      void logEvent("Dismiss Beta Banner");
     },
     onError,
-    variables: { request: { post: BANNER_IDS.PRO } }
+    variables: { request: { post: BANNER_IDS.BETA } }
   });
 
   const [joinGroup] = useJoinGroupMutation({
@@ -56,12 +56,12 @@ const BetaBanner = () => {
     return null;
   }
 
-  if (currentAccount?.isBeta || proBannerDismissed) {
+  if (currentAccount?.isBeta || betaBannerDismissed) {
     return null;
   }
 
-  const handleDismissProBanner = async () => {
-    return await dismissProBanner();
+  const handleDismissBetaBanner = async () => {
+    return await dismissBetaBanner();
   };
 
   const handleJoinBeta = async () => {
@@ -77,7 +77,7 @@ const BetaBanner = () => {
       <button
         className="absolute top-3 right-3 cursor-pointer text-gray-400 hover:text-gray-600"
         disabled={loading}
-        onClick={handleDismissProBanner}
+        onClick={handleDismissBetaBanner}
         type="button"
       >
         <XCircleIcon className="size-5" />

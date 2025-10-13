@@ -16,6 +16,7 @@ import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
+import { useBetaStore } from "@/store/persisted/useBetaStore";
 import { useProStore } from "@/store/persisted/useProStore";
 import ReloadTabsWatcher from "./ReloadTabsWatcher";
 
@@ -24,6 +25,7 @@ const Layout = () => {
   const { theme } = useTheme();
   const { currentAccount, setCurrentAccount } = useAccountStore();
   const { setProBannerDismissed } = useProStore();
+  const { setBetaBannerDismissed } = useBetaStore();
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
 
@@ -37,10 +39,13 @@ const Layout = () => {
   }, []);
 
   const { loading } = useMeQuery({
-    onCompleted: ({ me, proBanner }) => {
+    onCompleted: ({ me, proBanner, betaBanner }) => {
       setCurrentAccount(me.loggedInAs.account);
       if (proBanner?.__typename === "Post") {
         setProBannerDismissed(proBanner.operations?.dismissed ?? false);
+      }
+      if (betaBanner?.__typename === "Post") {
+        setBetaBannerDismissed(betaBanner.operations?.dismissed ?? false);
       }
     },
     onError,

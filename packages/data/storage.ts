@@ -1,6 +1,7 @@
 export const Localstorage = {
   AccountStore: "account.store",
   AuthStore: "auth.store",
+  BetaStore: "beta.store",
   HomeTabStore: "home-tab.store",
   NotificationStore: "notification.store",
   PreferencesStore: "preferences.store",
