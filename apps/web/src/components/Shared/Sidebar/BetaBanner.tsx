@@ -43,6 +43,10 @@ const BetaBanner = () => {
 
   const [joinGroup] = useJoinGroupMutation({
     onCompleted: async ({ joinGroup }) => {
+      if (joinGroup.__typename === "JoinGroupResponse") {
+        return onCompleted(joinGroup.hash);
+      }
+
       return await handleTransactionLifecycle({
         onCompleted,
         onError,
