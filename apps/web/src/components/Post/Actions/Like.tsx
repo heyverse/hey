@@ -16,7 +16,6 @@ import { toast } from "sonner";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
-import { hono } from "@/helpers/fetcher";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface LikeProps {
@@ -92,15 +91,12 @@ const Like = ({ post, showCount }: LikeProps) => {
     }
 
     increment();
-    const res = await addReaction({
+
+    return await addReaction({
       variables: {
         request: { post: post.id, reaction: PostReactionType.Upvote }
       }
     });
-
-    void hono.likes.create({ slug: post.slug });
-
-    return res;
   };
 
   const iconClassName = showCount

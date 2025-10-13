@@ -53,9 +53,6 @@ importers:
       hono-rate-limiter:
         specifier: ^0.4.2
         version: 0.4.2(hono@4.9.9)
-      ioredis:
-        specifier: ^5.8.0
-        version: 5.8.0
       jose:
         specifier: ^6.1.0
         version: 6.1.0
@@ -8234,7 +8231,8 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.5.2
 
-  '@ioredis/commands@1.4.0': {}
+  '@ioredis/commands@1.4.0':
+    optional: true
 
   '@isaacs/fs-minipass@4.0.1':
     dependencies:
@@ -11188,7 +11186,8 @@ snapshots:
 
   clsx@2.1.1: {}
 
-  cluster-key-slot@1.1.2: {}
+  cluster-key-slot@1.1.2:
+    optional: true
 
   color-convert@2.0.1:
     dependencies:
@@ -11321,7 +11320,8 @@ snapshots:
 
   defu@6.1.4: {}
 
-  denque@2.1.0: {}
+  denque@2.1.0:
+    optional: true
 
   dependency-graph@0.11.0: {}
 
@@ -11985,6 +11985,7 @@ snapshots:
       standard-as-callback: 2.1.0
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   iron-webcrypto@1.2.1: {}
 
@@ -12225,9 +12226,11 @@ snapshots:
     dependencies:
       p-locate: 4.1.0
 
-  lodash.defaults@4.2.0: {}
+  lodash.defaults@4.2.0:
+    optional: true
 
-  lodash.isarguments@3.1.0: {}
+  lodash.isarguments@3.1.0:
+    optional: true
 
   lodash.sortby@4.7.0: {}
 
@@ -13254,11 +13257,13 @@ snapshots:
 
   real-require@0.1.0: {}
 
-  redis-errors@1.2.0: {}
+  redis-errors@1.2.0:
+    optional: true
 
   redis-parser@3.0.0:
     dependencies:
       redis-errors: 1.2.0
+    optional: true
 
   regex-recursion@6.0.2:
     dependencies:
@@ -13536,7 +13541,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  standard-as-callback@2.1.0: {}
+  standard-as-callback@2.1.0:
+    optional: true
 
   stream-browserify@3.0.0:
     dependencies:

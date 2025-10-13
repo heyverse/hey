@@ -3,23 +3,13 @@ import "dotenv/config";
 import { Status } from "@hey/data/enums";
 import { withPrefix } from "@hey/helpers/logger";
 import { Hono } from "hono";
-import collects from "./collects";
 import authContext from "./context/authContext";
-import likes from "./likes";
-import authMiddleware from "./middlewares/authMiddleware";
 import cors from "./middlewares/cors";
-import rateLimiter from "./middlewares/rateLimiter";
-import posts from "./posts";
 import cronRouter from "./routes/cron";
 import metadataRouter from "./routes/metadata";
 import oembedRouter from "./routes/oembed";
 import ogRouter from "./routes/og";
 import ping from "./routes/ping";
-import {
-  startDiscordWebhookWorkerCollects,
-  startDiscordWebhookWorkerLikes,
-  startDiscordWebhookWorkerPosts
-} from "./workers/discordWebhook";
 
 const log = withPrefix("[API]");
 
@@ -33,9 +23,6 @@ app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);
 app.route("/oembed", oembedRouter);
 app.route("/og", ogRouter);
-app.post("/posts", rateLimiter({ requests: 10 }), authMiddleware, posts);
-app.post("/likes", rateLimiter({ requests: 20 }), authMiddleware, likes);
-app.post("/collects", rateLimiter({ requests: 20 }), authMiddleware, collects);
 
 app.notFound((ctx) =>
   ctx.json({ error: "Not Found", status: Status.Error }, 404)
@@ -44,19 +31,3 @@ app.notFound((ctx) =>
 serve({ fetch: app.fetch, port: 4784 }, (info) => {
   log.info(`Server running on port ${info.port}`);
 });
-
-if (process.env.REDIS_URL) {
-  const hasEvents = !!process.env.EVENTS_DISCORD_WEBHOOK_URL;
-  const hasLikes = !!process.env.LIKES_DISCORD_WEBHOOK_URL;
-  const hasCollects = !!process.env.COLLECTS_DISCORD_WEBHOOK_URL;
-
-  if (hasEvents) void startDiscordWebhookWorkerPosts();
-  if (hasLikes) void startDiscordWebhookWorkerLikes();
-  if (hasCollects) void startDiscordWebhookWorkerCollects();
-
-  if (!hasEvents && !hasLikes && !hasCollects) {
-    log.warn("Discord workers not started: missing webhook envs");
-  }
-} else {
-  log.warn("Discord workers not started: missing Redis env");
-}

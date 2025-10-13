@@ -62,13 +62,6 @@ const fetchApi = async <T>(
 };
 
 export const hono = {
-  collects: {
-    create: async (payload: { slug: string }) =>
-      fetchApi<{ ok: boolean; skipped?: boolean }>("/collects", {
-        body: JSON.stringify(payload),
-        method: "POST"
-      })
-  },
   events: {
     create: async (payload: { event: string }) =>
       fetch("https://yoginth.com/api/hey/events", {
@@ -77,13 +70,6 @@ export const hono = {
           accept: "application/json",
           "content-type": "application/json"
         },
-        method: "POST"
-      })
-  },
-  likes: {
-    create: async (payload: { slug: string }) =>
-      fetchApi<{ ok: boolean; skipped?: boolean }>("/likes", {
-        body: JSON.stringify(payload),
         method: "POST"
       })
   },
@@ -96,12 +82,5 @@ export const hono = {
     get: (url: string): Promise<Oembed> => {
       return fetchApi<Oembed>(`/oembed/get?url=${url}`, { method: "GET" });
     }
-  },
-  posts: {
-    create: async (payload: { slug: string; type?: string }) =>
-      fetchApi<{ ok: boolean; skipped?: boolean }>("/posts", {
-        body: JSON.stringify(payload),
-        method: "POST"
-      })
   }
 };

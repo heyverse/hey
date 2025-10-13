@@ -9,7 +9,6 @@ import { type Dispatch, type SetStateAction, useCallback } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
-import { hono } from "@/helpers/fetcher";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -34,8 +33,6 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
     if (!post.operations) {
       return;
     }
-
-    void hono.posts.create({ slug: post.slug, type: "Repost" });
 
     cache.modify({
       fields: {
