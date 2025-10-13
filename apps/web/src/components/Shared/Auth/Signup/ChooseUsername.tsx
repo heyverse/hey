@@ -21,6 +21,7 @@ import { z } from "zod";
 import AuthMessage from "@/components/Shared/Auth/AuthMessage";
 import { Button, Form, Input, useZodForm } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
@@ -70,7 +71,12 @@ const ChooseUsername = () => {
     errorToast(error);
   }, []);
 
-  const { signMessageAsync } = useSignMessage({ mutation: { onError } });
+  const { signMessageAsync } = useSignMessage({
+    mutation: {
+      onError,
+      onSuccess: () => void logEvent("Viem: Signup Sign Message")
+    }
+  });
   const [loadChallenge] = useChallengeMutation({ onError });
   const [authenticate] = useAuthenticateMutation({ onError });
 

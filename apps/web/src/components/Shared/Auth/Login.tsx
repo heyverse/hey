@@ -17,6 +17,7 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import logEvent from "@/helpers/logEvent";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { signIn } from "@/store/persisted/useAuthStore";
 import { EXPANSION_EASE } from "@/variants";
@@ -42,7 +43,12 @@ const Login = ({ setHasAccounts }: LoginProps) => {
 
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
-  const { signMessageAsync } = useSignMessage({ mutation: { onError } });
+  const { signMessageAsync } = useSignMessage({
+    mutation: {
+      onError,
+      onSuccess: () => void logEvent("Viem: Login Sign Message")
+    }
+  });
   const [loadChallenge, { error: errorChallenge }] = useChallengeMutation({
     onError
   });
