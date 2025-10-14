@@ -10,7 +10,7 @@ const useHasNewNotifications = () => {
   const { lastSeenNotificationId } = useNotificationStore();
 
   const { data } = useNotificationIndicatorQuery({
-    pollInterval: 5000,
+    pollInterval: 3000,
     skip: !currentAccount,
     variables: { request: { orderBy: NotificationOrderBy.Default } }
   });
