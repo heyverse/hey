@@ -12,6 +12,7 @@ import GlobalShortcuts from "@/components/Shared/GlobalShortcuts";
 import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
+import logEvent from "@/helpers/logEvent";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -31,6 +32,7 @@ const Layout = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    logEvent(`User Event: Page View - ${pathname}`);
   }, [pathname]);
 
   const onError = useCallback(() => {
