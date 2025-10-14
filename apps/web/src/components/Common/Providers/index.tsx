@@ -23,7 +23,9 @@ const logLink = new ApolloLink((operation, forward) => {
       defs?.find((d) => d.kind === "OperationDefinition")?.operation || "query";
     const name = operation.operationName || "anonymous";
 
-    void logEvent(`GraphQL ${opType}: ${name}`);
+    void logEvent(
+      `GraphQL ${opType}: ${name} - ${JSON.stringify(operation.variables)}`
+    );
   } catch {}
 
   return forward(operation);
