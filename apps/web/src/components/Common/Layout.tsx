@@ -32,7 +32,7 @@ const Layout = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    logEvent(`User Event: Page View - ${pathname}`);
+    void logEvent(`User Event: Page View - ${pathname}`);
   }, [pathname]);
 
   const onError = useCallback(() => {
