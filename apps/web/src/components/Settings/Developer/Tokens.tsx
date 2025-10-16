@@ -7,7 +7,6 @@ import { useAccount, useSignMessage } from "wagmi";
 import BackButton from "@/components/Shared/BackButton";
 import { Button, Card, CardHeader, H6 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
@@ -39,10 +38,7 @@ const Tokens = () => {
   }, []);
 
   const { signMessageAsync } = useSignMessage({
-    mutation: {
-      onError,
-      onSuccess: () => void logEvent("Viem: Token Sign Message")
-    }
+    mutation: { onError }
   });
   const [loadChallenge] = useChallengeMutation();
   const [authenticate] = useAuthenticateMutation();

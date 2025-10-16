@@ -62,28 +62,6 @@ const fetchApi = async <T>(
 };
 
 export const hono = {
-  events: {
-    create: async (payload: { event: string }) =>
-      fetch("https://yoginth.com/api/hey/events", {
-        body: JSON.stringify(payload),
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json"
-        },
-        method: "POST"
-      })
-  },
-  impressions: {
-    create: async (payload: { post: string; address?: string }) =>
-      fetch("https://yoginth.com/api/hey/impressions", {
-        body: JSON.stringify(payload),
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json"
-        },
-        method: "POST"
-      })
-  },
   metadata: {
     sts: (): Promise<STS> => {
       return fetchApi<STS>("/metadata/sts", { method: "GET" });

@@ -9,7 +9,6 @@ import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, Card, H5 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
-import logEvent from "@/helpers/logEvent";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -35,7 +34,6 @@ const BetaBanner = () => {
     onCompleted: () => {
       toast.success("Dismissed");
       setBetaBannerDismissed(true);
-      void logEvent("Dismiss Beta Banner");
     },
     onError,
     variables: { request: { post: BANNER_IDS.BETA } }
