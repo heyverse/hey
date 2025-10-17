@@ -16,8 +16,10 @@ import {
 } from "@heroicons/react/24/solid";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
 import {
+  GroupsDocument,
   NotificationIndicatorDocument,
   NotificationsDocument,
+  PostBookmarksDocument,
   PostsExploreDocument,
   PostsForYouDocument,
   TimelineDocument,
@@ -51,6 +53,7 @@ const navigationItems = {
   },
   "/bookmarks": {
     outline: <BookmarkOutline className="size-6" />,
+    refreshDocs: [PostBookmarksDocument],
     solid: <BookmarkSolid className="size-6" />,
     title: "Bookmarks"
   },
@@ -62,6 +65,7 @@ const navigationItems = {
   },
   "/groups": {
     outline: <UserGroupOutline className="size-6" />,
+    refreshDocs: [GroupsDocument],
     solid: <UserGroupSolid className="size-6" />,
     title: "Groups"
   },
