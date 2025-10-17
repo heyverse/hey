@@ -7,8 +7,7 @@ const allowedOrigins = [
   "http://localhost:4783",
   "https://developer.lens.xyz",
   "https://yoginth.com",
-  "http://localhost:3000",
-  "http://localhost:4783"
+  "http://localhost:3000"
 ];
 
 const cors = corsMiddleware({
