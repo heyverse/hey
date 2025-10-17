@@ -7,7 +7,7 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { Button, Card, H5 } from "@/components/Shared/UI";
+import { Badge, Button, Card, H5 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
@@ -88,6 +88,7 @@ const BetaBanner = () => {
         <div className="flex items-center gap-2">
           <BeakerIcon className="size-5 text-green-500" />
           <H5>Join Hey Beta</H5>
+          <Badge>Pro</Badge>
         </div>
         <div className="mb-5 text-sm">
           Get your badge and access exclusive features.
