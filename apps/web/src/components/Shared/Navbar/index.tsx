@@ -1,3 +1,4 @@
+import { useApolloClient } from "@apollo/client";
 import {
   BellIcon as BellOutline,
   BookmarkIcon as BookmarkOutline,
@@ -14,10 +15,24 @@ import {
   UserGroupIcon as UserGroupSolid
 } from "@heroicons/react/24/solid";
 import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { type MouseEvent, memo, type ReactNode, useCallback } from "react";
+import {
+  NotificationIndicatorDocument,
+  NotificationsDocument,
+  PostsExploreDocument,
+  PostsForYouDocument,
+  TimelineDocument,
+  TimelineHighlightsDocument
+} from "@hey/indexer";
+import {
+  type MouseEvent,
+  memo,
+  type ReactNode,
+  useCallback,
+  useState
+} from "react";
 import { Link, useLocation } from "react-router";
 import Pro from "@/components/Shared/Navbar/NavItems/Pro";
-import { Image, Tooltip } from "@/components/Shared/UI";
+import { Image, Spinner, Tooltip } from "@/components/Shared/UI";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -26,6 +41,11 @@ import SignedAccount from "./SignedAccount";
 const navigationItems = {
   "/": {
     outline: <HomeOutline className="size-6" />,
+    refreshDocs: [
+      TimelineDocument,
+      TimelineHighlightsDocument,
+      PostsForYouDocument
+    ],
     solid: <HomeSolid className="size-6" />,
     title: "Home"
   },
@@ -36,6 +56,7 @@ const navigationItems = {
   },
   "/explore": {
     outline: <GlobeOutline className="size-6" />,
+    refreshDocs: [PostsExploreDocument],
     solid: <GlobeSolid className="size-6" />,
     title: "Explore"
   },
@@ -46,20 +67,31 @@ const navigationItems = {
   },
   "/notifications": {
     outline: <BellOutline className="size-6" />,
+    refreshDocs: [NotificationsDocument, NotificationIndicatorDocument],
     solid: <BellSolid className="size-6" />,
     title: "Notifications"
   }
 };
 
-const NavItem = memo(({ url, icon }: { url: string; icon: ReactNode }) => (
+interface NavItemProps {
+  url: string;
+  icon: ReactNode;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+}
+
+const NavItem = memo(({ icon, onClick, url }: NavItemProps) => (
   <Tooltip content={navigationItems[url as keyof typeof navigationItems].title}>
-    <Link to={url}>{icon}</Link>
+    <Link onClick={onClick} to={url}>
+      {icon}
+    </Link>
   </Tooltip>
 ));
 
 const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const { pathname } = useLocation();
   const hasNewNotifications = useHasNewNotifications();
+  const client = useApolloClient();
+  const [refreshingRoute, setRefreshingRoute] = useState<string | null>(null);
   const routes = [
     "/",
     "/explore",
@@ -69,10 +101,14 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
     <>
       {routes.map((route) => {
-        const icon =
+        let icon =
           pathname === route
             ? navigationItems[route as keyof typeof navigationItems].solid
             : navigationItems[route as keyof typeof navigationItems].outline;
+
+        if (refreshingRoute === route) {
+          icon = <Spinner className="my-0.5" size="sm" />;
+        }
 
         const iconWithIndicator =
           route === "/notifications" ? (
@@ -86,7 +122,30 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
             icon
           );
 
-        return <NavItem icon={iconWithIndicator} key={route} url={route} />;
+        const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
+          const item = navigationItems[route as keyof typeof navigationItems];
+          const isSameRoute = pathname === route;
+          if (!isSameRoute || !("refreshDocs" in item) || !item.refreshDocs) {
+            return;
+          }
+          e.preventDefault();
+          window.scrollTo(0, 0);
+          setRefreshingRoute(route);
+          try {
+            await client.refetchQueries({ include: item.refreshDocs });
+          } finally {
+            setRefreshingRoute(null);
+          }
+        };
+
+        return (
+          <NavItem
+            icon={iconWithIndicator}
+            key={route}
+            onClick={handleClick}
+            url={route}
+          />
+        );
       })}
     </>
   );
