@@ -17,6 +17,7 @@ interface PostActionsProps {
 const PostActions = ({ post, showCount = false }: PostActionsProps) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
   const hasPostAction = (targetPost.actions?.length || 0) > 0;
+  const tipEnabled = targetPost.author?.hasSubscribed;
   const canAct =
     hasPostAction &&
     targetPost.actions.some(
@@ -33,7 +34,7 @@ const PostActions = ({ post, showCount = false }: PostActionsProps) => {
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
         {canAct && !showCount ? <CollectAction post={targetPost} /> : null}
-        <TipAction post={targetPost} showCount={showCount} />
+        {tipEnabled && <TipAction post={targetPost} showCount={showCount} />}
       </span>
       {canAct ? <SmallCollectButton post={targetPost} /> : null}
     </span>
