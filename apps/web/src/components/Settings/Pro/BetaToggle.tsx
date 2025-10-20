@@ -8,7 +8,7 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
-const DefaultToNameSetting = () => {
+const BetaToggle = () => {
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -57,12 +57,12 @@ const DefaultToNameSetting = () => {
     return null;
   }
 
-  const togglePreferName = async () => {
+  const toggleBeta = async () => {
     setIsSubmitting(true);
 
-    const variables = { request: { group: PERMISSIONS.PREFER_NAME_IN_FEED } };
+    const variables = { request: { group: PERMISSIONS.BETA } };
 
-    if (currentAccount?.preferNameInFeed) {
+    if (currentAccount?.isBeta) {
       return await leaveGroup({ variables });
     }
 
@@ -71,13 +71,13 @@ const DefaultToNameSetting = () => {
 
   return (
     <ToggleWithHelper
-      description="Show profile name instead of username across the feeds"
+      description="Get early access to new features"
       disabled={isSubmitting}
-      heading="Prefer profile name"
-      on={currentAccount?.preferNameInFeed}
-      setOn={togglePreferName}
+      heading="Beta"
+      on={currentAccount?.isBeta}
+      setOn={toggleBeta}
     />
   );
 };
 
-export default DefaultToNameSetting;
+export default BetaToggle;

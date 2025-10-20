@@ -4,7 +4,8 @@ import PageLayout from "@/components/Shared/PageLayout";
 import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import DefaultToNameSetting from "./DefaultToNameSetting";
+import BetaToggle from "./BetaToggle";
+import DefaultToNameToggle from "./DefaultToNameToggle";
 
 const ProSettings = () => {
   const { currentAccount } = useAccountStore();
@@ -18,8 +19,9 @@ const ProSettings = () => {
       <Card>
         <CardHeader icon={<BackButton path="/settings" />} title="Pro" />
         {currentAccount.hasSubscribed ? (
-          <div className="space-y-4 p-5">
-            <DefaultToNameSetting />
+          <div className="space-y-5 p-5">
+            <DefaultToNameToggle />
+            <BetaToggle />
           </div>
         ) : (
           <ProFeatureNotice className="m-5" feature="pro settings" />
