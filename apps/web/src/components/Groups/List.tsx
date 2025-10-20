@@ -7,6 +7,7 @@ import {
   useGroupsQuery
 } from "@hey/indexer";
 import { useCallback } from "react";
+import { WindowVirtualizer } from "virtua";
 import SingleGroup from "@/components/Shared/Group/SingleGroup";
 import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -76,13 +77,15 @@ const List = ({ feedType }: ListProps) => {
   }
 
   return (
-    <div className="divider-list">
-      {groups.map((group) => (
-        <div className="p-5" key={group.address}>
-          <SingleGroup group={group} isBig showDescription />
-        </div>
-      ))}
-      {hasMore && <span ref={loadMoreRef} />}
+    <div className="virtual-divider-list-window">
+      <WindowVirtualizer>
+        {groups.map((group) => (
+          <div className="p-5" key={group.address}>
+            <SingleGroup group={group} isBig showDescription />
+          </div>
+        ))}
+        {hasMore && <span ref={loadMoreRef} />}
+      </WindowVirtualizer>
     </div>
   );
 };
