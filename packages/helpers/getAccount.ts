@@ -47,7 +47,7 @@ const getAccount = (account?: AccountFragment): AccountInfo => {
   const usernameValue = username?.value;
   const localName = username?.localName;
 
-  const usernamePrefix = username ? "@" : "#";
+  const usernamePrefix = username ? "" : "#";
   const usernameValueOrAddress =
     (usernameValue?.includes(LENS_NAMESPACE) ? localName : usernameValue) ||
     formatAddress(address);

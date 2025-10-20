@@ -18,7 +18,7 @@ const WALLETS = {
     logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`,
     name: "Wallet Connect"
   }
-} as const;
+};
 
 type WalletId = keyof typeof WALLETS;
 

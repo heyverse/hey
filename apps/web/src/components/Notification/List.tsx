@@ -32,7 +32,7 @@ const notificationComponentMap = {
   ReactionNotification,
   RepostNotification,
   TokenDistributedNotification
-} as const;
+};
 
 interface ListProps {
   feedType: string;

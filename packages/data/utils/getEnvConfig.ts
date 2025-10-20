@@ -18,7 +18,7 @@ const config = {
     defaultCollectToken: TESTNET_CONTRACTS.defaultToken,
     lensApiEndpoint: LENS_ENDPOINT.Testnet
   }
-} as const;
+};
 
 type Config = (typeof config)[keyof typeof config];
 
