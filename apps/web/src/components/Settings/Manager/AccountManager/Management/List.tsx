@@ -9,7 +9,6 @@ import {
 } from "@hey/indexer";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { WindowVirtualizer } from "virtua";
 import { useAccount } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
@@ -127,7 +126,7 @@ const List = ({ managed = false }: ListProps) => {
   };
 
   return (
-    <WindowVirtualizer>
+    <div>
       {accountsAvailable.map((accountAvailable) => (
         <div
           className="flex items-center justify-between py-2"
@@ -157,7 +156,7 @@ const List = ({ managed = false }: ListProps) => {
         </div>
       ))}
       {hasMore && <span ref={loadMoreRef} />}
-    </WindowVirtualizer>
+    </div>
   );
 };
 

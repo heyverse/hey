@@ -6,7 +6,6 @@ import {
   useNotificationsQuery
 } from "@hey/indexer";
 import { memo, useCallback, useEffect } from "react";
-import { WindowVirtualizer } from "virtua";
 import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";
 import CommentNotification from "@/components/Notification/Type/CommentNotification";
 import FollowNotification from "@/components/Notification/Type/FollowNotification";
@@ -125,31 +124,29 @@ const List = ({ feedType }: ListProps) => {
   }
 
   return (
-    <Card className="virtual-divider-list-window">
-      <WindowVirtualizer>
-        {notifications.map((notification) => {
-          if (!("id" in notification)) {
-            return null;
-          }
+    <Card className="divider-list">
+      {notifications.map((notification) => {
+        if (!("id" in notification)) {
+          return null;
+        }
 
-          const Component =
-            notificationComponentMap[
-              notification.__typename as keyof typeof notificationComponentMap
-            ];
+        const Component =
+          notificationComponentMap[
+            notification.__typename as keyof typeof notificationComponentMap
+          ];
 
-          return (
-            <div
-              className={cn({
-                "p-5": notification.__typename !== "FollowNotification"
-              })}
-              key={notification.id}
-            >
-              {Component && <Component notification={notification as never} />}
-            </div>
-          );
-        })}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
+        return (
+          <div
+            className={cn({
+              "p-5": notification.__typename !== "FollowNotification"
+            })}
+            key={notification.id}
+          >
+            {Component && <Component notification={notification as never} />}
+          </div>
+        );
+      })}
+      {hasMore && <span ref={loadMoreRef} />}
     </Card>
   );
 };
