@@ -8,7 +8,7 @@ fragment Permissions on Account {
   isBeta: isMemberOf(
     request: { group: "0x287b09fAa3AfC548F1b28DEa36C30c1edc574C06" }
   )
-  preferNameByDefault: isMemberOf(
+  preferNameInFeed: isMemberOf(
     request: { group: "0xA942e6BE7A6EA8822316284619B94e7838fA69ac" }
   )
 }
