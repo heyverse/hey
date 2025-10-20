@@ -21,10 +21,10 @@ const getPost = async (ctx: Context) => {
       const targetPost =
         (post as any).__typename === "Repost" ? (post as any).repostOf : post;
       const { author, metadata } = targetPost as any;
-      const { usernameWithPrefix } = getAccount(author);
+      const { username } = getAccount(author);
       const postData = getPostData(metadata);
       const filteredContent = postData?.content || "";
-      const title = `${(targetPost as any).__typename} by ${usernameWithPrefix} on Hey`;
+      const title = `${(targetPost as any).__typename} by ${username} on Hey`;
       const description = normalizeDescription(filteredContent, title);
       const postUrl = `https://hey.xyz/posts/${(post as any).slug}`;
 

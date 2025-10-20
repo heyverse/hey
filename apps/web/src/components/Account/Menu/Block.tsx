@@ -33,8 +33,7 @@ const Block = ({ account }: BlockProps) => {
     <MenuItem as="div" className={menuItemClassName} onClick={handleClick}>
       <NoSymbolIcon className="size-4" />
       <div>
-        {isBlockedByMe ? "Unblock" : "Block"}{" "}
-        {getAccount(account).usernameWithPrefix}
+        {isBlockedByMe ? "Unblock" : "Block"} {getAccount(account).username}
       </div>
     </MenuItem>
   );

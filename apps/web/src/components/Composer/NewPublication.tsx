@@ -197,7 +197,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
         content: postContent.length > 0 ? postContent : undefined,
         title: hasAudio
           ? audioPost.title
-          : `${getTitlePrefix()} by ${getAccount(currentAccount).usernameWithPrefix}`
+          : `${getTitlePrefix()} by ${getAccount(currentAccount).username}`
       };
 
       const metadata = getMetadata({ baseMetadata });

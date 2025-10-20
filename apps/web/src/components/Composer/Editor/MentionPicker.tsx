@@ -26,7 +26,7 @@ const MentionItem = ({ onSelect, account }: MentionItemProps) => {
         onSelect={onSelect}
       >
         <Image
-          alt={account.displayUsername}
+          alt={account.username}
           className="size-7 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
           height="28"
           src={account.picture}
@@ -39,7 +39,9 @@ const MentionItem = ({ onSelect, account }: MentionItemProps) => {
               <CheckBadgeIcon className="size-4 text-brand-500" />
             )}
           </div>
-          <span className="text-xs">{account.displayUsername}</span>
+          <span className="text-gray-500 text-xs dark:text-gray-200">
+            {account.username}
+          </span>
         </div>
       </AutocompleteItem>
     </div>

@@ -9,7 +9,7 @@ interface DeletedDetailsProps {
 }
 
 const DeletedDetails = ({ account }: DeletedDetailsProps) => {
-  const { name, usernameWithPrefix } = getAccount(account);
+  const { name, username } = getAccount(account);
 
   return (
     <div className="space-y-5 px-5 md:px-0">
@@ -25,7 +25,7 @@ const DeletedDetails = ({ account }: DeletedDetailsProps) => {
       <div className="space-y-1 py-2">
         <H3 className="truncate">{name}</H3>
         <div>
-          <Slug className="text-sm sm:text-base" slug={usernameWithPrefix} />
+          <Slug className="text-sm sm:text-base" slug={username} />
         </div>
       </div>
     </div>

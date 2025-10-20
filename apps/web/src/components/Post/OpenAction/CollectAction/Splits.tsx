@@ -59,7 +59,7 @@ const Splits = ({ recipients }: SplitsProps) => {
                   />
                   {account ? (
                     <AccountLink account={account}>
-                      <Slug slug={getAccount(account).usernameWithPrefix} />
+                      <Slug slug={getAccount(account).username} />
                     </AccountLink>
                   ) : (
                     <Link

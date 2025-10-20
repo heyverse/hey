@@ -52,10 +52,7 @@ const SmallSingleAccount = ({
         ) : null}
       </div>
       {!hideSlug && (
-        <Slug
-          className="text-sm"
-          slug={getAccount(account).usernameWithPrefix}
-        />
+        <Slug className="text-sm" slug={getAccount(account).username} />
       )}
       {timestamp && (
         <span className="text-gray-500 dark:text-gray-200">

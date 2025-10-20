@@ -103,7 +103,7 @@ const ViewAccount = () => {
 
   return (
     <PageLayout
-      title={`${accountInfo.name} (${accountInfo.usernameWithPrefix}) • Hey`}
+      title={`${accountInfo.name} (${accountInfo.username}) • Hey`}
       zeroTopMargin
     >
       <Cover
@@ -126,7 +126,7 @@ const ViewAccount = () => {
             <AccountFeed
               address={account.address}
               type={feedType}
-              username={accountInfo.usernameWithPrefix}
+              username={accountInfo.username}
             />
           )}
         </>

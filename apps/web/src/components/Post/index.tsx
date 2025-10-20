@@ -110,7 +110,7 @@ const ViewPost = () => {
         </div>
       }
       title={`${targetPost.__typename} by ${
-        getAccount(targetPost.author).usernameWithPrefix
+        getAccount(targetPost.author).username
       } • Hey`}
       zeroTopMargin
     >

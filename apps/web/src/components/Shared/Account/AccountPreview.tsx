@@ -93,10 +93,7 @@ const AccountPreview = ({
           {account.isBeta && <BeakerIcon className="size-4 text-green-500" />}
         </div>
         <span>
-          <Slug
-            className="text-sm"
-            slug={getAccount(account).usernameWithPrefix}
-          />
+          <Slug className="text-sm" slug={getAccount(account).username} />
           {account.operations?.isFollowingMe && (
             <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you

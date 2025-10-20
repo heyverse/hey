@@ -7,7 +7,6 @@ const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 export type MentionAccount = {
   address: string;
-  displayUsername: string;
   username: string;
   name: string;
   picture: string;
@@ -44,7 +43,6 @@ const useMentionQuery = (query: string): MentionAccount[] => {
         .map(
           (account): MentionAccount => ({
             address: account.address,
-            displayUsername: getAccount(account).usernameWithPrefix,
             name: getAccount(account).name,
             picture: getAvatar(account),
             subscribed: account.hasSubscribed,

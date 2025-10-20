@@ -21,16 +21,14 @@ const FallbackAccountName = ({
     return null;
   }
 
-  const { name, usernameWithPrefix } = getAccount(account);
-  const accountName = account?.metadata?.name || (
-    <Slug slug={usernameWithPrefix} />
-  );
+  const { name, username } = getAccount(account);
+  const accountName = account?.metadata?.name || <Slug slug={username} />;
 
   return (
     <>
       <AccountLink
         account={account}
-        aria-label={`Account of ${name || usernameWithPrefix}`}
+        aria-label={`Account of ${name || username}`}
         className={cn(
           "max-w-sm truncate outline-hidden hover:underline focus:underline",
           className

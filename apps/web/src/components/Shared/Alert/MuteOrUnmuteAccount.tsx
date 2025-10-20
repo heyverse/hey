@@ -87,7 +87,7 @@ const MuteOrUnmuteAccount = () => {
       confirmText={hasMuted ? "Unmute" : "Mute"}
       description={`Are you sure you want to ${
         hasMuted ? "unmute" : "mute"
-      } ${getAccount(mutingOrUnmutingAccount).usernameWithPrefix}?`}
+      } ${getAccount(mutingOrUnmutingAccount).username}?`}
       isPerformingAction={isSubmitting}
       onClose={() => setShowMuteOrUnmuteAlert(false)}
       onConfirm={muteOrUnmute}

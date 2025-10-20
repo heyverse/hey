@@ -34,8 +34,7 @@ const Mute = ({ account }: MuteProps) => {
         <SpeakerXMarkIcon className="size-4" />
       )}
       <div>
-        {isMutedByMe ? "Unmute" : "Mute"}{" "}
-        {getAccount(account).usernameWithPrefix}
+        {isMutedByMe ? "Unmute" : "Mute"} {getAccount(account).username}
       </div>
     </MenuItem>
   );

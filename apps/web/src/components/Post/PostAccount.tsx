@@ -39,7 +39,7 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
             <span className="flex items-center gap-x-1 font-semibold">
               {account.preferNameInFeed
                 ? getAccount(account).name
-                : getAccount(account).usernameWithPrefix}
+                : getAccount(account).username}
               {account.hasSubscribed && (
                 <CheckBadgeIcon className="size-4 text-brand-500" />
               )}

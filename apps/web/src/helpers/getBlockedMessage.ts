@@ -5,9 +5,9 @@ const formatMessage = (
   account: AccountFragment,
   formatter: (username: string) => string
 ): string => {
-  const { usernameWithPrefix } = getAccount(account);
+  const { username } = getAccount(account);
 
-  return formatter(usernameWithPrefix);
+  return formatter(username);
 };
 
 export const getBlockedByMeMessage = (account: AccountFragment): string =>

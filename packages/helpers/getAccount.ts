@@ -8,7 +8,6 @@ interface AccountInfo {
   name: string;
   link: string;
   username: string;
-  usernameWithPrefix: string;
 }
 
 const sanitizeDisplayName = (name?: null | string): null | string => {
@@ -22,15 +21,13 @@ const sanitizeDisplayName = (name?: null | string): null | string => {
 const UNKNOWN_ACCOUNT: AccountInfo = {
   link: "",
   name: "...",
-  username: "...",
-  usernameWithPrefix: "..."
+  username: "..."
 };
 
 const DELETED_ACCOUNT: AccountInfo = {
   link: "",
   name: "Deleted Account",
-  username: "deleted",
-  usernameWithPrefix: "@deleted"
+  username: "deleted"
 };
 
 const getAccount = (account?: AccountFragment): AccountInfo => {
@@ -60,8 +57,7 @@ const getAccount = (account?: AccountFragment): AccountInfo => {
   return {
     link,
     name: sanitizeDisplayName(account.metadata?.name) || usernameValueOrAddress,
-    username: usernameValueOrAddress,
-    usernameWithPrefix: `${usernamePrefix}${usernameValueOrAddress}`
+    username: `${usernamePrefix}${usernameValueOrAddress}`
   };
 };
 

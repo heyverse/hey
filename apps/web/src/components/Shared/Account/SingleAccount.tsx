@@ -60,7 +60,7 @@ const SingleAccount = ({
           <CheckBadgeIcon className="size-4 text-brand-500" />
         )}
       </div>
-      <Slug className="text-sm" slug={getAccount(account).usernameWithPrefix} />
+      <Slug className="text-sm" slug={getAccount(account).username} />
     </div>
   );
 

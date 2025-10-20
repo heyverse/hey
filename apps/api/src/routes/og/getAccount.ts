@@ -17,15 +17,15 @@ const getAccount = async (ctx: Context) => {
 
   return generateOg({
     buildHtml: (account: AccountFragment) => {
-      const { name, link, usernameWithPrefix } = getAccountData(account);
-      const title = `${name} (${usernameWithPrefix}) on Hey`;
+      const { name, link } = getAccountData(account);
+      const title = `${name} (${username}) on Hey`;
       const description = normalizeDescription(account?.metadata?.bio, title);
       const avatar = getAvatar(account, TRANSFORMS.AVATAR_BIG);
 
       const escTitle = escapeHtml(title);
       const escDescription = escapeHtml(description);
       const escName = escapeHtml(name);
-      const escUsernameWithPrefix = escapeHtml(usernameWithPrefix);
+      const escUsername = escapeHtml(username);
 
       return html`
         <html>
@@ -54,7 +54,7 @@ const getAccount = async (ctx: Context) => {
           <body>
             <img src="${avatar}" alt="${escName}" height="100" width="100" />
             <h1>${escName || username}</h1>
-            <h2>${escUsernameWithPrefix}</h2>
+            <h2>${escUsername}</h2>
             <h3>${escDescription}</h3>
           </body>
         </html>

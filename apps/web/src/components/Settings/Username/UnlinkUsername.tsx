@@ -70,7 +70,7 @@ const UnlinkUsername = () => {
         onClick={handleUnlink}
         outline
       >
-        Un-link {getAccount(currentAccount).usernameWithPrefix}
+        Un-link {getAccount(currentAccount).username}
       </Button>
     </div>
   );

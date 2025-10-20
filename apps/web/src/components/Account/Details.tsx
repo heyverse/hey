@@ -131,7 +131,7 @@ const Details = ({
         <div className="flex items-center space-x-3">
           <Slug
             className="text-sm sm:text-base"
-            slug={getAccount(account).usernameWithPrefix}
+            slug={getAccount(account).username}
           />
           {account.operations?.isFollowingMe ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
