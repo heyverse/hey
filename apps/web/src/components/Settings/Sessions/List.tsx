@@ -9,6 +9,7 @@ import type { ApolloClientError } from "@hey/types/errors";
 import dayjs from "dayjs";
 import { memo, useCallback, useState } from "react";
 import { toast } from "sonner";
+import { WindowVirtualizer } from "virtua";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -96,54 +97,56 @@ const List = () => {
   }
 
   return (
-    <div className="divider-list">
-      {authenticatedSessions.map((session) => (
-        <div
-          className="flex flex-wrap items-start justify-between p-5"
-          key={session.authenticationId}
-        >
-          <div>
-            <div className="mb-3 flex items-center space-x-2">
-              <ComputerDesktopIcon className="size-8" />
-              <div>
-                {session.browser ? <span>{session.browser}</span> : null}
-                {session.os ? <span> - {session.os}</span> : null}
-              </div>
-            </div>
-            <div className="space-y-1 text-gray-500 text-sm dark:text-gray-200">
-              {session.origin ? (
-                <div>
-                  <b>Origin -</b> {session.origin}
-                </div>
-              ) : null}
-              <div>
-                <b>Registered -</b>{" "}
-                {dayjs(session.createdAt).format("MMM D, YYYY - h:mm:ss A")}
-              </div>
-              <div>
-                <b>Last accessed -</b>{" "}
-                {dayjs(session.updatedAt).format("MMM D, YYYY - h:mm:ss A")}
-              </div>
-              <div>
-                <b>Expires at -</b>{" "}
-                {dayjs(session.expiresAt).format("MMM D, YYYY - h:mm:ss A")}
-              </div>
-            </div>
-          </div>
-          <Button
-            disabled={
-              revoking && revokeingSessionId === session.authenticationId
-            }
-            loading={
-              revoking && revokeingSessionId === session.authenticationId
-            }
-            onClick={() => handleRevoke(session.authenticationId)}
+    <div className="virtual-divider-list-window">
+      <WindowVirtualizer>
+        {authenticatedSessions.map((session) => (
+          <div
+            className="flex flex-wrap items-start justify-between p-5"
+            key={session.authenticationId}
           >
-            Revoke
-          </Button>
-        </div>
-      ))}
-      {hasMore && <span ref={loadMoreRef} />}
+            <div>
+              <div className="mb-3 flex items-center space-x-2">
+                <ComputerDesktopIcon className="size-8" />
+                <div>
+                  {session.browser ? <span>{session.browser}</span> : null}
+                  {session.os ? <span> - {session.os}</span> : null}
+                </div>
+              </div>
+              <div className="space-y-1 text-gray-500 text-sm dark:text-gray-200">
+                {session.origin ? (
+                  <div>
+                    <b>Origin -</b> {session.origin}
+                  </div>
+                ) : null}
+                <div>
+                  <b>Registered -</b>{" "}
+                  {dayjs(session.createdAt).format("MMM D, YYYY - h:mm:ss A")}
+                </div>
+                <div>
+                  <b>Last accessed -</b>{" "}
+                  {dayjs(session.updatedAt).format("MMM D, YYYY - h:mm:ss A")}
+                </div>
+                <div>
+                  <b>Expires at -</b>{" "}
+                  {dayjs(session.expiresAt).format("MMM D, YYYY - h:mm:ss A")}
+                </div>
+              </div>
+            </div>
+            <Button
+              disabled={
+                revoking && revokeingSessionId === session.authenticationId
+              }
+              loading={
+                revoking && revokeingSessionId === session.authenticationId
+              }
+              onClick={() => handleRevoke(session.authenticationId)}
+            >
+              Revoke
+            </Button>
+          </div>
+        ))}
+        {hasMore && <span ref={loadMoreRef} />}
+      </WindowVirtualizer>
     </div>
   );
 };

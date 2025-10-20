@@ -11,6 +11,7 @@ import {
 import type { ApolloClientError } from "@hey/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
+import { WindowVirtualizer } from "virtua";
 import WalletAccount from "@/components/Shared/Account/WalletAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -115,7 +116,7 @@ const List = () => {
   }
 
   return (
-    <div>
+    <WindowVirtualizer>
       {accountManagers.map((accountManager) => (
         <div
           className="flex flex-wrap items-center justify-between p-5"
@@ -144,7 +145,7 @@ const List = () => {
         </div>
       ))}
       {hasMore && <span ref={loadMoreRef} />}
-    </div>
+    </WindowVirtualizer>
   );
 };
 

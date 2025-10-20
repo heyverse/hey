@@ -6,6 +6,7 @@ import {
   useAccountsQuery
 } from "@hey/indexer";
 import { useCallback } from "react";
+import { WindowVirtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import SingleAccountsShimmer from "@/components/Shared/Shimmer/SingleAccountsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -63,14 +64,14 @@ const Accounts = ({ query }: AccountsProps) => {
   }
 
   return (
-    <div>
+    <WindowVirtualizer>
       {accounts.map((account) => (
         <Card className="mb-5 p-5" key={account.address}>
           <SingleAccount account={account} isBig showBio />
         </Card>
       ))}
       {hasMore && <span ref={loadMoreRef} />}
-    </div>
+    </WindowVirtualizer>
   );
 };
 
