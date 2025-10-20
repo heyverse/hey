@@ -71,9 +71,9 @@ const DefaultToNameSetting = () => {
 
   return (
     <ToggleWithHelper
-      description="Show display names instead of usernames across the feeds in Hey"
+      description="Show profile name instead of username across the feeds"
       disabled={isSubmitting}
-      heading="Prefer display names"
+      heading="Prefer profile name"
       on={currentAccount?.preferNameInFeed}
       setOn={togglePreferName}
     />
