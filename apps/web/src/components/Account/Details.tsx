@@ -101,7 +101,9 @@ const Details = ({
           ) : isBlockedByMe || hasBlockedMe ? null : (
             <FollowUnfollowButton account={account} />
           )}
-          {!isBlockedByMe && !hasBlockedMe && <TipButton account={account} />}
+          {!isBlockedByMe && !hasBlockedMe && account.hasSubscribed && (
+            <TipButton account={account} />
+          )}
           <AccountMenu account={account} />
         </div>
       </div>
