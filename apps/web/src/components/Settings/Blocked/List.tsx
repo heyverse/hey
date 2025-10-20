@@ -5,7 +5,6 @@ import {
   useAccountsBlockedQuery
 } from "@hey/indexer";
 import { useCallback } from "react";
-import { WindowVirtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -58,29 +57,27 @@ const List = () => {
   }
 
   return (
-    <div className="virtual-divider-list-window space-y-4">
-      <WindowVirtualizer>
-        {accountsBlocked.map((accountBlocked) => (
-          <div
-            className="flex items-center justify-between p-5"
-            key={accountBlocked.account.address}
+    <div className="divider-list space-y-4">
+      {accountsBlocked.map((accountBlocked) => (
+        <div
+          className="flex items-center justify-between p-5"
+          key={accountBlocked.account.address}
+        >
+          <SingleAccount
+            account={accountBlocked.account}
+            hideFollowButton
+            hideUnfollowButton
+          />
+          <Button
+            onClick={() =>
+              setShowBlockOrUnblockAlert(true, accountBlocked.account)
+            }
           >
-            <SingleAccount
-              account={accountBlocked.account}
-              hideFollowButton
-              hideUnfollowButton
-            />
-            <Button
-              onClick={() =>
-                setShowBlockOrUnblockAlert(true, accountBlocked.account)
-              }
-            >
-              Unblock
-            </Button>
-          </div>
-        ))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
+            Unblock
+          </Button>
+        </div>
+      ))}
+      {hasMore && <span ref={loadMoreRef} />}
     </div>
   );
 };

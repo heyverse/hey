@@ -7,7 +7,6 @@ import {
   usePostReferencesQuery
 } from "@hey/indexer";
 import { useCallback } from "react";
-import { WindowVirtualizer } from "virtua";
 import BackButton from "@/components/Shared/BackButton";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import {
@@ -61,13 +60,11 @@ const Quotes = ({ post }: QuotesProps) => {
       ) : error ? (
         <ErrorMessage error={error} title="Failed to load comment feed" />
       ) : quotes.length ? (
-        <div className="virtual-divider-list-window">
-          <WindowVirtualizer>
-            {quotes.map((quote) => (
-              <SinglePost key={quote.id} post={quote} showType={false} />
-            ))}
-            {hasMore && <span ref={loadMoreRef} />}
-          </WindowVirtualizer>
+        <div className="divider-list">
+          {quotes.map((quote) => (
+            <SinglePost key={quote.id} post={quote} showType={false} />
+          ))}
+          {hasMore && <span ref={loadMoreRef} />}
         </div>
       ) : (
         <EmptyState
