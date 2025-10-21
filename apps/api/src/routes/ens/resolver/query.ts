@@ -8,12 +8,6 @@ export async function getRecord(name: string, query: ResolverQuery) {
   let res: string;
   const account = await getLensAccount(name.replace(".hey.xyz", ""));
 
-  const texts = {
-    avatar: account.avatar,
-    bio: account.bio,
-    name: account.name
-  };
-
   switch (functionName) {
     case "addr": {
       res = account.address ?? zeroAddress;
@@ -21,7 +15,7 @@ export async function getRecord(name: string, query: ResolverQuery) {
     }
     case "text": {
       const key = args[1];
-      res = texts[key as keyof typeof texts] ?? "";
+      res = account.texts[key as keyof typeof account.texts] ?? "";
       break;
     }
     default: {

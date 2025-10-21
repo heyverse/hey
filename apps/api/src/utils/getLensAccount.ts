@@ -4,14 +4,27 @@ import { AccountDocument, type AccountFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import { type Hex, zeroAddress } from "viem";
 
-const getLensAccount = async (
-  handle: string
-): Promise<{
+interface LensAccount {
   address: Hex;
-  name: string;
-  avatar: string;
-  bio: string;
-}> => {
+  texts: {
+    avatar: string;
+    description: string;
+    name: string;
+    url: string;
+  };
+}
+
+const defaultAccount: LensAccount = {
+  address: zeroAddress,
+  texts: {
+    avatar: "",
+    description: "",
+    name: "",
+    url: ""
+  }
+};
+
+const getLensAccount = async (handle: string): Promise<LensAccount> => {
   try {
     const { data } = await apolloClient.query<{
       account: AccountFragment;
@@ -22,16 +35,18 @@ const getLensAccount = async (
     });
 
     const address = data.account.owner;
-    if (!address)
-      return { address: zeroAddress, avatar: "", bio: "", name: "" };
+    if (!address) return defaultAccount;
     return {
       address: address.toLowerCase() as Hex,
-      avatar: getAvatar(data.account),
-      bio: data.account.metadata?.bio ?? "",
-      name: getAccount(data.account).name
+      texts: {
+        avatar: getAvatar(data.account),
+        description: data.account.metadata?.bio ?? "",
+        name: getAccount(data.account).name,
+        url: `https://hey.xyz${getAccount(data.account).link}`
+      }
     };
   } catch {
-    return { address: zeroAddress, avatar: "", bio: "", name: "" };
+    return defaultAccount;
   }
 };
 
