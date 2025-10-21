@@ -50,6 +50,7 @@ const CCIP = async (ctx: Context) => {
 
   const [dnsName, inner] = decoded.args;
   const fqdn = decodeDnsName(dnsName).toLowerCase();
+  console.log(fqdn);
   if (!fqdn.endsWith(".hey.xyz"))
     return ctx.json({ error: "Unsupported domain" }, 400);
   const label = fqdn.split(".hey.xyz")[0];
