@@ -7,7 +7,6 @@ import SuperJoin from "@/components/Shared/Group/SuperJoin";
 import ReportAccount from "@/components/Shared/Modal/ReportAccount";
 import ReportPost from "@/components/Shared/Modal/ReportPost";
 import Subscribe from "@/components/Shared/Modal/Subscribe";
-import ShortcutsModal from "@/components/Shared/ShortcutsModal";
 import { Modal } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
@@ -15,7 +14,6 @@ import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModa
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useReportAccountModalStore } from "@/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPostModalStore";
-import { useShortcutsModalStore } from "@/store/non-persisted/modal/useShortcutsModalStore";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
@@ -49,9 +47,6 @@ const GlobalModals = () => {
     superFollowingAccount
   } = useSuperFollowModalStore();
   const { show: showProModal, setShow: setShowProModal } = useProModalStore();
-  const { show: showShortcutsModal, setShow: setShowShortcutsModal } =
-    useShortcutsModalStore();
-
   const { screen: signupScreen } = useSignupStore();
 
   const authModalTitle =
@@ -133,13 +128,6 @@ const GlobalModals = () => {
         size="md"
       >
         <Subscribe />
-      </Modal>
-      <Modal
-        onClose={() => setShowShortcutsModal(false)}
-        show={showShortcutsModal}
-        title="Keyboard Shortcuts"
-      >
-        <ShortcutsModal />
       </Modal>
     </>
   );

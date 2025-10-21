@@ -8,7 +8,6 @@ import { Toaster, type ToasterProps } from "sonner";
 import FullPageLoader from "@/components/Shared/FullPageLoader";
 import GlobalAlerts from "@/components/Shared/GlobalAlerts";
 import GlobalModals from "@/components/Shared/GlobalModals";
-import GlobalShortcuts from "@/components/Shared/GlobalShortcuts";
 import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
@@ -74,7 +73,6 @@ const Layout = () => {
           style: { boxShadow: "none", fontSize: "16px" }
         }}
       />
-      <GlobalShortcuts />
       <GlobalModals />
       <GlobalAlerts />
       <ReloadTabsWatcher />
