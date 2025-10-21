@@ -6,7 +6,7 @@ export async function getRecord(name: string, query: ResolverQuery) {
   const { functionName, args } = query;
 
   let res: string;
-  const account = await getLensAccount(name);
+  const account = await getLensAccount(name.replace(".hey.xyz", ""));
 
   const texts = {
     avatar: account.avatar,
