@@ -26,7 +26,7 @@ app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);
 app.route("/oembed", oembedRouter);
 app.route("/og", ogRouter);
-app.route("/lens", ensRouter);
+app.route("/ens", ensRouter);
 
 app.notFound((ctx) =>
   ctx.json({ error: "Not Found", status: Status.Error }, 404)
