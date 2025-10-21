@@ -47,7 +47,7 @@ const getLensAccount = async (handle: string): Promise<LensAccount> => {
       variables: { request: { username: { localName: handle } } }
     });
 
-    if (!data.account.hasSubscribed) {
+    if (!data.account.isBeta) {
       return defaultAccount;
     }
 
