@@ -12,7 +12,7 @@ const getLensAddress = async (handle: string): Promise<Hex> => {
       variables: { request: { username: { localName: handle } } }
     });
 
-    const address = data.acount.address;
+    const address = data.acount.owner;
     if (!address) return "0x0000000000000000000000000000000000000000";
     return address.toLowerCase() as Hex;
   } catch {
