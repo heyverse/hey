@@ -20,8 +20,8 @@ const ProSettings = () => {
         <CardHeader icon={<BackButton path="/settings" />} title="Pro" />
         {currentAccount.hasSubscribed ? (
           <div className="space-y-5 p-5">
-            <DefaultToNameToggle />
             <BetaToggle />
+            <DefaultToNameToggle />
           </div>
         ) : (
           <ProFeatureNotice className="m-5" feature="pro settings" />
