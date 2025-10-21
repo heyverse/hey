@@ -1,16 +1,27 @@
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
+import type { Maybe, MetadataAttributeFragment } from "@hey/indexer";
 import { AccountDocument, type AccountFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import { type Hex, zeroAddress } from "viem";
+
+const getAccountAttribute = (
+  key: string,
+  attributes: Maybe<MetadataAttributeFragment[]> = []
+): string => {
+  const attribute = attributes?.find((attr) => attr.key === key);
+  return attribute?.value || "";
+};
 
 interface LensAccount {
   address: Hex;
   texts: {
     avatar: string;
     description: string;
-    name: string;
+    name?: string;
     url: string;
+    location?: string;
+    "com.twitter"?: string;
   };
 }
 
@@ -18,7 +29,9 @@ const defaultAccount: LensAccount = {
   address: zeroAddress,
   texts: {
     avatar: "",
+    "com.twitter": "",
     description: "",
+    location: "",
     name: "",
     url: ""
   }
@@ -44,7 +57,15 @@ const getLensAccount = async (handle: string): Promise<LensAccount> => {
       address: address.toLowerCase() as Hex,
       texts: {
         avatar: getAvatar(data.account),
+        "com.twitter": getAccountAttribute(
+          "x",
+          data.account?.metadata?.attributes
+        ),
         description: data.account.metadata?.bio ?? "",
+        location: getAccountAttribute(
+          "location",
+          data.account?.metadata?.attributes
+        ),
         name: getAccount(data.account).name,
         url: `https://hey.xyz${getAccount(data.account).link}`
       }
