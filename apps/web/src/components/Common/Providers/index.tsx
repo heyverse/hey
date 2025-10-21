@@ -8,7 +8,7 @@ import authLink from "@/helpers/authLink";
 import { ThemeProvider } from "@/hooks/useTheme";
 import Web3Provider from "./Web3Provider";
 
-export const queryClient = new QueryClient({
+const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
 

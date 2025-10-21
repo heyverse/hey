@@ -23,15 +23,7 @@ const ManagerSettings = () => {
           icon={<BackButton path="/settings" />}
           title="Manager settings"
         />
-        {disabled ? (
-          <WrongWallet />
-        ) : (
-          <>
-            {/* <Signless />
-            <div className="divider" /> */}
-            <AccountManager />
-          </>
-        )}
+        {disabled ? <WrongWallet /> : <AccountManager />}
       </Card>
     </PageLayout>
   );

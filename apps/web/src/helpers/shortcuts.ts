@@ -13,5 +13,4 @@ const KeyboardShortcuts = {
   ThisModal: { key: "?", name: "Shortcut help" }
 };
 
-export type ShortcutName = keyof typeof KeyboardShortcuts;
 export default KeyboardShortcuts;

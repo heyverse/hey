@@ -6,7 +6,7 @@ export { default as CardHeader } from "./CardHeader";
 export { default as Checkbox } from "./Checkbox";
 export { default as EmptyState } from "./EmptyState";
 export { default as ErrorMessage } from "./ErrorMessage";
-export { FieldError, Form, useZodForm } from "./Form";
+export { Form, useZodForm } from "./Form";
 export { default as HelpTooltip } from "./HelpTooltip";
 export { default as Image } from "./Image";
 export { default as Input } from "./Input";

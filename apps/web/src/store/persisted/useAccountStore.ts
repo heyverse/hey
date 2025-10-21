@@ -5,13 +5,11 @@ import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 interface State {
   currentAccount?: AccountFragment;
   setCurrentAccount: (currentAccount?: AccountFragment) => void;
-  hydrateAccount: () => AccountFragment | undefined;
 }
 
-const { useStore: useAccountStore, store } = createPersistedTrackedStore<State>(
-  (set, get) => ({
+const { useStore: useAccountStore } = createPersistedTrackedStore<State>(
+  (set, _get) => ({
     currentAccount: undefined,
-    hydrateAccount: () => get().currentAccount,
     setCurrentAccount: (currentAccount?: AccountFragment) =>
       set(() => ({ currentAccount }))
   }),
@@ -19,4 +17,3 @@ const { useStore: useAccountStore, store } = createPersistedTrackedStore<State>(
 );
 
 export { useAccountStore };
-export const hydrateAccount = () => store.getState().hydrateAccount();
