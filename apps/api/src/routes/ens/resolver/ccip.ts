@@ -1,6 +1,6 @@
 import type { Context } from "hono";
 import { decodeFunctionData, encodeAbiParameters, type Hex } from "viem";
-import getLensAddress from "@/utils/lensAddress";
+import getLensAccount from "@/utils/getLensAccount";
 
 const resolverAbi = [
   {
@@ -56,19 +56,56 @@ const CCIP = async (ctx: Context) => {
   if (!label || label.includes("."))
     return ctx.json({ error: "Invalid label" }, 400);
 
-  const address = await getLensAddress(label);
+  const account = await getLensAccount(label);
 
   const selector = (inner as string).slice(0, 10).toLowerCase();
   let result: Hex | null = null;
 
   if (selector === "0x3b3b57de") {
-    const ret = encodeAbiParameters([{ type: "address" }], [address]);
+    const ret = encodeAbiParameters([{ type: "address" }], [account.address]);
     result = ret as Hex;
   } else if (selector === "0xf1cb7e06") {
-    const addressBytes = address.toLowerCase() as Hex;
+    const addressBytes = account.address.toLowerCase() as Hex;
     const raw = `0x${addressBytes.slice(2)}` as Hex;
     const ret = encodeAbiParameters([{ type: "bytes" }], [raw]);
     result = ret as Hex;
+  } else if (selector === "0x59d1d43c") {
+    const textAbi = [
+      {
+        inputs: [
+          { name: "node", type: "bytes32" },
+          { name: "key", type: "string" }
+        ],
+        name: "text",
+        outputs: [{ type: "string" }],
+        stateMutability: "view",
+        type: "function"
+      }
+    ] as const;
+
+    try {
+      const decodedText = decodeFunctionData({
+        abi: textAbi,
+        data: inner as Hex
+      }) as any;
+      const key = (decodedText.args?.[1] as string)?.toLowerCase();
+
+      let value = "";
+      if (key === "name") {
+        value = account.name ?? label;
+      } else if (key === "avatar") {
+        value = account.avatar ?? "";
+      } else if (key === "bio" || key === "description") {
+        value = account.bio ?? "";
+      } else {
+        value = "";
+      }
+
+      const ret = encodeAbiParameters([{ type: "string" }], [value]);
+      result = ret as Hex;
+    } catch {
+      return ctx.json({ error: "Malformed text calldata" }, 400);
+    }
   } else {
     return ctx.json({ error: "Unsupported function" }, 400);
   }
