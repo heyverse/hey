@@ -63,12 +63,12 @@ const CCIP = async (ctx: Context) => {
 
   if (selector === "0x3b3b57de") {
     const ret = encodeAbiParameters([{ type: "address" }], [account.address]);
-    result = ret as Hex;
+    result = ret;
   } else if (selector === "0xf1cb7e06") {
-    const addressBytes = account.address.toLowerCase() as Hex;
+    const addressBytes = account.address.toLowerCase();
     const raw = `0x${addressBytes.slice(2)}` as Hex;
     const ret = encodeAbiParameters([{ type: "bytes" }], [raw]);
-    result = ret as Hex;
+    result = ret;
   } else if (selector === "0x59d1d43c") {
     const textAbi = [
       {
@@ -86,7 +86,7 @@ const CCIP = async (ctx: Context) => {
     try {
       const decodedText = decodeFunctionData({
         abi: textAbi,
-        data: inner as Hex
+        data: inner
       }) as any;
       const key = (decodedText.args?.[1] as string)?.toLowerCase();
 
@@ -102,7 +102,7 @@ const CCIP = async (ctx: Context) => {
       }
 
       const ret = encodeAbiParameters([{ type: "string" }], [value]);
-      result = ret as Hex;
+      result = ret;
     } catch {
       return ctx.json({ error: "Malformed text calldata" }, 400);
     }
