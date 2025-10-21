@@ -50,25 +50,21 @@ const CCIP = async (ctx: Context) => {
 
   const [dnsName, inner] = decoded.args;
   const fqdn = decodeDnsName(dnsName).toLowerCase();
-  console.log(fqdn);
   if (!fqdn.endsWith(".hey.xyz"))
     return ctx.json({ error: "Unsupported domain" }, 400);
   const label = fqdn.split(".hey.xyz")[0];
   if (!label || label.includes("."))
     return ctx.json({ error: "Invalid label" }, 400);
 
-  const handle = `${label}.lens`;
-  const address = await getLensAddress(handle);
+  const address = await getLensAddress(label);
 
   const selector = (inner as string).slice(0, 10).toLowerCase();
   let result: Hex | null = null;
 
   if (selector === "0x3b3b57de") {
-    // addr(bytes32) returns (address)
     const ret = encodeAbiParameters([{ type: "address" }], [address]);
     result = ret as Hex;
   } else if (selector === "0xf1cb7e06") {
-    // addr(bytes32,uint256) returns (bytes)
     const addressBytes = address.toLowerCase() as Hex;
     const raw = `0x${addressBytes.slice(2)}` as Hex;
     const ret = encodeAbiParameters([{ type: "bytes" }], [raw]);
@@ -77,7 +73,6 @@ const CCIP = async (ctx: Context) => {
     return ctx.json({ error: "Unsupported function" }, 400);
   }
 
-  // For now, return unsigned payload compatible with common gateways
   return ctx.json({ data: result, signature: "0x" });
 };
 
