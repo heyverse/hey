@@ -2,7 +2,7 @@ import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import { AccountDocument, type AccountFragment } from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
-import type { Hex } from "viem";
+import { type Hex, zeroAddress } from "viem";
 
 const getLensAccount = async (
   handle: string
@@ -23,12 +23,7 @@ const getLensAccount = async (
 
     const address = data.account.owner;
     if (!address)
-      return {
-        address: "0x0000000000000000000000000000000000000000",
-        avatar: "",
-        bio: "",
-        name: ""
-      };
+      return { address: zeroAddress, avatar: "", bio: "", name: "" };
     return {
       address: address.toLowerCase() as Hex,
       avatar: getAvatar(data.account),
@@ -36,12 +31,7 @@ const getLensAccount = async (
       name: getAccount(data.account).name
     };
   } catch {
-    return {
-      address: "0x0000000000000000000000000000000000000000",
-      avatar: "",
-      bio: "",
-      name: ""
-    };
+    return { address: zeroAddress, avatar: "", bio: "", name: "" };
   }
 };
 
