@@ -34,6 +34,10 @@ const getLensAccount = async (handle: string): Promise<LensAccount> => {
       variables: { request: { username: { localName: handle } } }
     });
 
+    if (!data.account.hasSubscribed) {
+      return defaultAccount;
+    }
+
     const address = data.account.owner;
     if (!address) return defaultAccount;
     return {
