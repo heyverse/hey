@@ -8,6 +8,7 @@
     "dev": "tsx watch src/index.ts",
     "start": "tsx watch src/index.ts",
     "typecheck": "tsc --pretty",
+    "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:reset": "prisma migrate reset --force",
