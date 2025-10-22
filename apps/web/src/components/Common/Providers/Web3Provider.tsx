@@ -5,6 +5,8 @@ import {
 } from "@hey/data/constants";
 import { familyAccountsConnector } from "family";
 import type { ReactNode } from "react";
+import { http } from "viem";
+import { base } from "viem/chains";
 import { createConfig, WagmiProvider } from "wagmi";
 import { injected, walletConnect } from "wagmi/connectors";
 import getRpc from "@/helpers/getRpc";
@@ -16,10 +18,11 @@ const connectors = [
 ];
 
 const config = createConfig({
-  chains: [CHAIN],
+  chains: [CHAIN, base],
   connectors,
   transports: {
-    [CHAIN.id]: getRpc({ mainnet: IS_MAINNET })
+    [CHAIN.id]: getRpc({ mainnet: IS_MAINNET }),
+    [base.id]: http()
   }
 });
 
