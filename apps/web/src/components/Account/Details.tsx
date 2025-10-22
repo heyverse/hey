@@ -19,6 +19,7 @@ import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import CreatorCoin from "./CreatorCoin";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import AccountMenu from "./Menu";
@@ -189,6 +190,7 @@ const Details = ({
               width={16}
             />
           )}
+          {account.isBeta && <CreatorCoin account={account} />}
           <MetaDetails icon={<CalendarIcon className="size-4" />}>
             Joined {dayjs(account.createdAt).format("MMM YYYY")}
           </MetaDetails>
