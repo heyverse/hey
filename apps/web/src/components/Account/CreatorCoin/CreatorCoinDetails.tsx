@@ -5,11 +5,11 @@ import { useMemo, useState } from "react";
 import type { Address } from "viem";
 import { base } from "viem/chains";
 import Loader from "@/components/Shared/Loader";
-import { Button, Image } from "@/components/Shared/UI";
+import { Button, Image, Modal } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import humanize from "@/helpers/humanize";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
-import TradeModal from "./TradeModal";
+import Trade from "./Trade";
 
 interface CreatorCoinDetailsProps {
   address: Address;
@@ -114,11 +114,13 @@ const CreatorCoinDetails = ({ address }: CreatorCoinDetailsProps) => {
           Trade
         </Button>
       </div>
-      <TradeModal
-        coin={coin}
+      <Modal
         onClose={() => setShowTrade(false)}
         show={showTrade}
-      />
+        title={`Trade $${coin.name}`}
+      >
+        <Trade coin={coin} onClose={() => setShowTrade(false)} />
+      </Modal>
     </div>
   );
 };
