@@ -1,7 +1,7 @@
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { type GetCoinResponse, getCoin } from "@zoralabs/coins-sdk";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { Address } from "viem";
 import { base } from "viem/chains";
 import Loader from "@/components/Shared/Loader";
@@ -9,6 +9,7 @@ import { Button, Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import humanize from "@/helpers/humanize";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
+import TradeModal from "./TradeModal";
 
 interface CreatorCoinDetailsProps {
   address: Address;
@@ -25,6 +26,7 @@ const CreatorCoinDetails = ({ address }: CreatorCoinDetailsProps) => {
     refetchInterval: 5000
   });
 
+  const [showTrade, setShowTrade] = useState(false);
   const marketCap = useMemo(() => Number(coin?.marketCap ?? 0), [coin]);
   const delta24h = useMemo(() => Number(coin?.marketCapDelta24h ?? 0), [coin]);
   const changePct = useMemo(() => {
@@ -108,19 +110,15 @@ const CreatorCoinDetails = ({ address }: CreatorCoinDetailsProps) => {
         </Button>
       </div>
       <div className="mt-6">
-        <Button
-          className="w-full"
-          onClick={() =>
-            window.open(
-              `https://swap.zora.co/#/swap?outputCurrency=${coin.address}`,
-              "_blank"
-            )
-          }
-          size="lg"
-        >
+        <Button className="w-full" onClick={() => setShowTrade(true)} size="lg">
           Trade
         </Button>
       </div>
+      <TradeModal
+        coin={coin}
+        onClose={() => setShowTrade(false)}
+        show={showTrade}
+      />
     </div>
   );
 };
