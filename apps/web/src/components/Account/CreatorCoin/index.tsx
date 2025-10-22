@@ -1,8 +1,9 @@
 import type { AccountFragment } from "@hey/indexer";
+import { useQuery } from "@tanstack/react-query";
 import { type GetCoinResponse, getCoin } from "@zoralabs/coins-sdk";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import type { Address } from "viem";
 import { base } from "viem/chains";
-import getAccountAttribute from "@/helpers/getAccountAttribute";
 import { Image, Modal } from "../../Shared/UI";
 import MetaDetails from "../MetaDetails";
 import CreatorCoinDetails from "./CreatorCoinDetails";
@@ -13,21 +14,23 @@ interface CreatorCoinProps {
 
 const CreatorCoin = ({ account }: CreatorCoinProps) => {
   const [showModal, setShowModal] = useState(false);
-  const [coin, setCoin] = useState<GetCoinResponse["zora20Token"] | null>(null);
-  const creatorCoinAddress = getAccountAttribute(
-    "creatorCoinAddress",
-    account?.metadata?.attributes
-  );
+  // const creatorCoinAddress = getAccountAttribute(
+  //   "creatorCoinAddress",
+  //   account?.metadata?.attributes
+  // );
+  const creatorCoinAddress = "0x9b13358e3a023507e7046c18f508a958cda75f54";
 
-  useEffect(() => {
-    (async () => {
+  const { data: coin } = useQuery<GetCoinResponse["zora20Token"] | null>({
+    enabled: !!creatorCoinAddress,
+    queryFn: async () => {
       const coin = await getCoin({
-        address: "0xe57f945a081553235be58f146cf7a3cbbedf9bdb",
+        address: creatorCoinAddress,
         chain: base.id
       });
-      setCoin(coin.data?.zora20Token ?? null);
-    })();
-  }, [creatorCoinAddress]);
+      return coin.data?.zora20Token ?? null;
+    },
+    queryKey: ["coin", creatorCoinAddress]
+  });
 
   if (!coin) {
     return null;
@@ -59,7 +62,7 @@ const CreatorCoin = ({ account }: CreatorCoinProps) => {
         show={showModal}
         title="Creator Coin"
       >
-        <CreatorCoinDetails coin={coin} />
+        <CreatorCoinDetails address={coin.address as Address} />
       </Modal>
     </>
   );

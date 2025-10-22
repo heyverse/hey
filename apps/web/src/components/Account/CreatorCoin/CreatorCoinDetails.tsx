@@ -1,16 +1,30 @@
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
-import type { GetCoinResponse } from "@zoralabs/coins-sdk";
+import { useQuery } from "@tanstack/react-query";
+import { type GetCoinResponse, getCoin } from "@zoralabs/coins-sdk";
 import { useMemo, useState } from "react";
+import type { Address } from "viem";
+import { base } from "viem/chains";
+import Loader from "@/components/Shared/Loader";
 import { Button, Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import humanize from "@/helpers/humanize";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 
 interface CreatorCoinDetailsProps {
-  coin: NonNullable<GetCoinResponse["zora20Token"]>;
+  address: Address;
 }
 
-const CreatorCoinDetails = ({ coin }: CreatorCoinDetailsProps) => {
+const CreatorCoinDetails = ({ address }: CreatorCoinDetailsProps) => {
+  const { data: coin } = useQuery<GetCoinResponse["zora20Token"] | null>({
+    enabled: !!address,
+    queryFn: async () => {
+      const coin = await getCoin({ address, chain: base.id });
+      return coin.data?.zora20Token ?? null;
+    },
+    queryKey: ["coin", address],
+    refetchInterval: 5000
+  });
+
   const marketCap = useMemo(() => Number(coin?.marketCap ?? 0), [coin]);
   const delta24h = useMemo(() => Number(coin?.marketCapDelta24h ?? 0), [coin]);
   const changePct = useMemo(() => {
@@ -23,7 +37,11 @@ const CreatorCoinDetails = ({ coin }: CreatorCoinDetailsProps) => {
   const volume24h = Number(coin?.volume24h ?? 0);
 
   const [range, setRange] = useState<"1H" | "1D" | "W" | "M" | "All">("M");
-  const copyAddress = useCopyToClipboard(coin.address, "Address copied");
+  const copyAddress = useCopyToClipboard(coin?.address ?? "", "Address copied");
+
+  if (!coin) {
+    return <Loader className="my-10" />;
+  }
 
   return (
     <div className="p-5">
