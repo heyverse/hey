@@ -1,7 +1,7 @@
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { type GetCoinResponse, getCoin } from "@zoralabs/coins-sdk";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { Address } from "viem";
 import { base } from "viem/chains";
 import Loader from "@/components/Shared/Loader";
@@ -36,7 +36,6 @@ const CreatorCoinDetails = ({ address }: CreatorCoinDetailsProps) => {
   const holders = coin?.uniqueHolders ?? 0;
   const volume24h = Number(coin?.volume24h ?? 0);
 
-  const [range, setRange] = useState<"1H" | "1D" | "W" | "M" | "All">("M");
   const copyAddress = useCopyToClipboard(coin?.address ?? "", "Address copied");
 
   if (!coin) {
@@ -50,7 +49,7 @@ const CreatorCoinDetails = ({ address }: CreatorCoinDetailsProps) => {
           <div className="mb-1 text-gray-700 dark:text-gray-300">
             ${coin.symbol}
           </div>
-          <div className="font-extrabold text-4xl leading-none tracking-tight md:text-5xl">
+          <div className="font-extrabold text-3xl leading-none tracking-tight md:text-4xl">
             ${humanize(Math.round(marketCap))}
           </div>
           <div
@@ -75,26 +74,6 @@ const CreatorCoinDetails = ({ address }: CreatorCoinDetailsProps) => {
           />
         </div>
       </div>
-
-      <div className="mt-6">Graph WIP</div>
-
-      <div className="mt-2 flex items-center justify-center gap-2 text-sm">
-        {["1H", "1D", "W", "M", "All"].map((r) => (
-          <button
-            className={cn(
-              "rounded-full px-2.5 py-1 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700",
-              range === r &&
-                "bg-gray-900 text-white dark:bg-white dark:text-gray-900"
-            )}
-            key={r}
-            onClick={() => setRange(r as any)}
-            type="button"
-          >
-            {r}
-          </button>
-        ))}
-      </div>
-
       <div className="mt-6 grid grid-cols-2 gap-6">
         <div className="text-center">
           <div className="mb-1 text-gray-500 text-sm dark:text-gray-400">
