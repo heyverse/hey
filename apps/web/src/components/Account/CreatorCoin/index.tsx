@@ -22,7 +22,7 @@ const CreatorCoin = ({ account }: CreatorCoinProps) => {
   useEffect(() => {
     (async () => {
       const coin = await getCoin({
-        address: "0x58b14cc0ebb0ce5387557adbe6477e001d3dcde0",
+        address: "0xe57f945a081553235be58f146cf7a3cbbedf9bdb",
         chain: base.id
       });
       setCoin(coin.data?.zora20Token ?? null);
