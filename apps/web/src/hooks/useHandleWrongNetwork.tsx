@@ -2,12 +2,13 @@ import { CHAIN } from "@hey/data/constants";
 import logger from "@hey/helpers/logger";
 import { useConnections, useSwitchChain } from "wagmi";
 
-const useHandleWrongNetwork = () => {
+const useHandleWrongNetwork = (props?: { chainId?: number }) => {
+  const { chainId = CHAIN.id } = props ?? {};
   const activeConnection = useConnections();
   const { switchChainAsync } = useSwitchChain();
 
   const isConnected = () => activeConnection[0] !== undefined;
-  const isWrongNetwork = () => activeConnection[0]?.chainId !== CHAIN.id;
+  const isWrongNetwork = () => activeConnection[0]?.chainId !== chainId;
 
   const handleWrongNetwork = async () => {
     if (!isConnected()) {

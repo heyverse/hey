@@ -18,7 +18,7 @@ const CreatorCoin = ({ account }: CreatorCoinProps) => {
   //   "creatorCoinAddress",
   //   account?.metadata?.attributes
   // );
-  const creatorCoinAddress = "0x9b13358e3a023507e7046c18f508a958cda75f54";
+  const creatorCoinAddress = "0x58b14cc0ebb0ce5387557adbe6477e001d3dcde0";
 
   const { data: coin } = useQuery<GetCoinResponse["zora20Token"] | null>({
     enabled: !!creatorCoinAddress,
