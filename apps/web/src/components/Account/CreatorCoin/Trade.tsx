@@ -35,7 +35,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
     () => createPublicClient({ chain: base, transport: http() }),
     []
   );
-  const handleWrongNetwork = useHandleWrongNetwork({ chainId: base.id });
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const [mode, setMode] = useState<Mode>("buy");
   const [amount, setAmount] = useState("");
@@ -107,7 +107,8 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
   };
 
   const handleSubmit = async () => {
-    if (!publicClient || !address) {
+    console.log(publicClient);
+    if (!address) {
       return toast.error("Connect a wallet to trade");
     }
 
@@ -116,7 +117,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
 
     try {
       setLoading(true);
-      await handleWrongNetwork();
+      await handleWrongNetwork({ chainId: base.id });
 
       if (!walletClient) {
         setLoading(false);
@@ -142,6 +143,9 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
 
   useEffect(() => {
     let cancelled = false;
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
     const run = async () => {
       const sender = (address as Address) || undefined;
       if (!sender || !amount) {
@@ -176,9 +180,19 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
         if (!cancelled) setEstimatedOut("");
       }
     };
-    run();
+
+    timeoutId = setTimeout(() => {
+      void run();
+    }, 300);
+
+    intervalId = setInterval(() => {
+      void run();
+    }, 8000);
+
     return () => {
       cancelled = true;
+      if (intervalId) clearInterval(intervalId);
+      if (timeoutId) clearTimeout(timeoutId);
     };
   }, [address, amount, coin.address, mode]);
 

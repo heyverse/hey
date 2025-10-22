@@ -1,12 +1,15 @@
+import { ZORA_API_KEY } from "@hey/data/constants";
 import type { AccountFragment } from "@hey/indexer";
 import { useQuery } from "@tanstack/react-query";
-import { type GetCoinResponse, getCoin } from "@zoralabs/coins-sdk";
+import { type GetCoinResponse, getCoin, setApiKey } from "@zoralabs/coins-sdk";
 import { useState } from "react";
 import type { Address } from "viem";
 import { base } from "viem/chains";
 import { Image, Modal } from "../../Shared/UI";
 import MetaDetails from "../MetaDetails";
 import CreatorCoinDetails from "./CreatorCoinDetails";
+
+setApiKey(ZORA_API_KEY);
 
 interface CreatorCoinProps {
   account: AccountFragment;

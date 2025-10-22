@@ -41,6 +41,8 @@ export const EVER_BUCKET = "heyverse";
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
 export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd"; // Read only safe key
+export const ZORA_API_KEY =
+  "zora_api_2b019182fe376a45b4495c89bbb18393d6d529ef9e9d0c799321116a8bfb8f47";
 
 export const LENS_NAMESPACE = "lens/";
 export const NATIVE_TOKEN_SYMBOL = IS_MAINNET ? "GHO" : "GRASS";
