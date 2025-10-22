@@ -30,7 +30,7 @@ type Mode = "buy" | "sell";
 
 const Trade = ({ coin, onClose }: TradeModalProps) => {
   const { address } = useAccount();
-  const { data: walletClient } = useWalletClient();
+  const { data: walletClient } = useWalletClient({ chainId: base.id });
   const publicClient = useMemo(
     () => createPublicClient({ chain: base, transport: http() }),
     []
@@ -107,16 +107,22 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
   };
 
   const handleSubmit = async () => {
-    console.log(walletClient);
-    if (!walletClient || !publicClient || !address) {
+    if (!publicClient || !address) {
       return toast.error("Connect a wallet to trade");
     }
 
     const params = makeParams();
     if (!params) return;
+
     try {
       setLoading(true);
       await handleWrongNetwork();
+
+      if (!walletClient) {
+        setLoading(false);
+        return toast.error("Connect a wallet to trade");
+      }
+
       const receipt = await tradeCoin({
         account: walletClient.account,
         publicClient,
@@ -142,6 +148,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
         setEstimatedOut("");
         return;
       }
+
       const params: TradeParameters =
         mode === "buy"
           ? {
@@ -158,6 +165,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
               sender,
               slippage: 0.01
             };
+
       try {
         const q = await createTradeCall(params);
         if (!cancelled) {
@@ -193,7 +201,6 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
           { name: "Sell", type: "sell" }
         ]}
       />
-
       <div className="relative mb-2">
         <Input
           inputMode="decimal"
@@ -231,7 +238,6 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
         </div>
         <div>{balanceLabel}</div>
       </div>
-
       <div className="mb-3 grid grid-cols-4 gap-2">
         {[25, 50, 75].map((p) => (
           <Button key={p} onClick={() => setPercentAmount(p)} outline>
@@ -242,7 +248,6 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
           Max
         </Button>
       </div>
-
       <Button
         className="mt-4 w-full"
         disabled={!amount || !address}
