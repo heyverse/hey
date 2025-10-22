@@ -107,7 +107,6 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
   };
 
   const handleSubmit = async () => {
-    console.log(publicClient);
     if (!address) {
       return toast.error("Connect a wallet to trade");
     }
@@ -124,7 +123,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
         return toast.error("Connect a wallet to trade");
       }
 
-      const receipt = await tradeCoin({
+      await tradeCoin({
         account: walletClient.account,
         publicClient,
         tradeParameters: params,
@@ -132,7 +131,6 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
       });
       toast.success("Trade submitted");
       onClose();
-      console.log("trade receipt", receipt);
     } catch (e: any) {
       console.error(e);
       toast.error(e?.message ?? "Trade failed");
