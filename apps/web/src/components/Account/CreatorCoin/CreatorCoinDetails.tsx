@@ -76,13 +76,13 @@ const CreatorCoinDetails = ({ address }: CreatorCoinDetailsProps) => {
       </div>
       <div className="mt-6 grid grid-cols-2 gap-6">
         <div className="text-center">
-          <div className="mb-1 text-gray-500 text-sm dark:text-gray-400">
+          <div className="text-gray-500 text-sm dark:text-gray-400">
             Holders
           </div>
           <div className="font-semibold text-2xl">{humanize(holders)}</div>
         </div>
         <div className="text-center">
-          <div className="mb-1 text-gray-500 text-sm dark:text-gray-400">
+          <div className="text-gray-500 text-sm dark:text-gray-400">
             24h volume
           </div>
           <div className="font-semibold text-2xl">
