@@ -17,7 +17,7 @@ import {
   parseUnits
 } from "viem";
 import { base } from "viem/chains";
-import { useAccount, useConnect, useWalletClient } from "wagmi";
+import { useAccount, useWalletClient } from "wagmi";
 import { Button, Image, Input, Tabs, Tooltip } from "@/components/Shared/UI";
 
 interface TradeModalProps {
@@ -30,12 +30,6 @@ type Mode = "buy" | "sell";
 const Trade = ({ coin, onClose }: TradeModalProps) => {
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient();
-  const {
-    connect,
-    connectors,
-    status: connectStatus,
-    error: connectError
-  } = useConnect();
   const publicClient = useMemo(
     () => createPublicClient({ chain: base, transport: http() }),
     []
@@ -149,10 +143,10 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
       setLoading(true);
       await ensureBaseNetwork();
       const receipt = await tradeCoin({
-        account: walletClient.account!,
+        account: walletClient.account,
         publicClient,
         tradeParameters: params,
-        walletClient: walletClient as any
+        walletClient
       });
       toast.success("Trade submitted");
       onClose();
@@ -268,7 +262,6 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
             <div>{balanceLabel}</div>
           </div>
 
-          {/* Percent selector */}
           <div className="mb-3 grid grid-cols-4 gap-2">
             {[25, 50, 75].map((p) => (
               <Button key={p} onClick={() => setPercentAmount(p)} outline>
@@ -290,28 +283,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
             {mode === "buy" ? "Buy" : "Sell"}
           </Button>
         </>
-      ) : (
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-gray-600 text-sm dark:text-gray-300">
-            Connect a wallet to trade
-          </div>
-          <div className="flex w-full flex-wrap items-center justify-center gap-2">
-            {connectors.map((c) => (
-              <Button key={c.id} onClick={() => connect({ connector: c })}>
-                {c.name}
-              </Button>
-            ))}
-          </div>
-          {connectStatus === "pending" && (
-            <div className="text-gray-500 text-xs">Connecting…</div>
-          )}
-          {connectError && (
-            <div className="text-red-500 text-xs">
-              {String((connectError as any)?.message || connectError)}
-            </div>
-          )}
-        </div>
-      )}
+      ) : null}
     </div>
   );
 };
