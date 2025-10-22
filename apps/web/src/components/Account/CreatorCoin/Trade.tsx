@@ -19,6 +19,7 @@ import {
 import { base } from "viem/chains";
 import { useAccount, useWalletClient } from "wagmi";
 import { Button, Image, Input, Tabs, Tooltip } from "@/components/Shared/UI";
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 
 interface TradeModalProps {
   coin: NonNullable<GetCoinResponse["zora20Token"]>;
@@ -34,9 +35,10 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
     () => createPublicClient({ chain: base, transport: http() }),
     []
   );
+  const handleWrongNetwork = useHandleWrongNetwork({ chainId: base.id });
 
   const [mode, setMode] = useState<Mode>("buy");
-  const [amount, setAmount] = useState(""); // input in human units
+  const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [ethBalance, setEthBalance] = useState<bigint>(0n);
   const [tokenBalance, setTokenBalance] = useState<bigint>(0n);
@@ -94,6 +96,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
         slippage: 0.01
       };
     }
+
     return {
       amountIn: parseUnits(amount, tokenDecimals),
       buy: { type: "eth" },
@@ -103,45 +106,17 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
     };
   };
 
-  const ensureBaseNetwork = async () => {
-    try {
-      const eth: any = (window as any).ethereum;
-      if (!eth?.request) return;
-      await eth.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x2105" }]
-      });
-    } catch (error: any) {
-      // Chain not added
-      if (error?.code === 4902) {
-        const eth: any = (window as any).ethereum;
-        try {
-          await eth.request({
-            method: "wallet_addEthereumChain",
-            params: [
-              {
-                blockExplorerUrls: ["https://basescan.org"],
-                chainId: "0x2105",
-                chainName: "Base",
-                nativeCurrency: { decimals: 18, name: "Ether", symbol: "ETH" },
-                rpcUrls: ["https://mainnet.base.org"]
-              }
-            ]
-          });
-        } catch {}
-      }
-    }
-  };
-
   const handleSubmit = async () => {
-    if (!walletClient) {
+    console.log(walletClient);
+    if (!walletClient || !publicClient || !address) {
       return toast.error("Connect a wallet to trade");
     }
+
     const params = makeParams();
     if (!params) return;
     try {
       setLoading(true);
-      await ensureBaseNetwork();
+      await handleWrongNetwork();
       const receipt = await tradeCoin({
         account: walletClient.account,
         publicClient,
@@ -159,7 +134,6 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
     }
   };
 
-  // Update estimate when inputs change
   useEffect(() => {
     let cancelled = false;
     const run = async () => {
@@ -209,81 +183,75 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
 
   return (
     <div className="p-5">
-      {address ? (
-        <>
-          {/* Buy/Sell tabs */}
-          <Tabs
-            active={mode}
-            className="mb-4"
-            layoutId="trade-mode"
-            setActive={(t) => setMode(t as Mode)}
-            tabs={[
-              { name: "Buy", type: "buy" },
-              { name: "Sell", type: "sell" }
-            ]}
-          />
+      <Tabs
+        active={mode}
+        className="mb-4"
+        layoutId="trade-mode"
+        setActive={(t) => setMode(t as Mode)}
+        tabs={[
+          { name: "Buy", type: "buy" },
+          { name: "Sell", type: "sell" }
+        ]}
+      />
 
-          <div className="relative mb-2">
-            <Input
-              className="w-full rounded-md border border-gray-300 bg-transparent py-2 pr-3 text-base outline-none focus:border-gray-400 dark:border-gray-700 dark:focus:border-gray-600"
-              inputMode="decimal"
-              label="Amount"
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder={mode === "buy" ? "0.01" : "0"}
-              prefix={
-                mode === "buy" ? (
-                  "ETH"
-                ) : (
-                  <Tooltip content={`$${symbol}`}>
-                    <Image
-                      alt={coin.name}
-                      className="size-5 rounded-full"
-                      height={20}
-                      src={coin.mediaContent?.previewImage?.small}
-                      width={20}
-                    />
-                  </Tooltip>
-                )
-              }
-              value={amount}
-            />
-          </div>
-          <div className="mb-3 flex items-center justify-between text-gray-500 text-xs dark:text-gray-400">
-            <div>
-              Estimated amount:{" "}
-              {estimatedOut
-                ? mode === "buy"
-                  ? `${Number(
-                      formatUnits(BigInt(estimatedOut), tokenDecimals)
-                    ).toFixed(6)} ${symbol}`
-                  : `${Number(formatEther(BigInt(estimatedOut))).toFixed(6)} ETH`
-                : "-"}
-            </div>
-            <div>{balanceLabel}</div>
-          </div>
+      <div className="relative mb-2">
+        <Input
+          inputMode="decimal"
+          label="Amount"
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder={mode === "buy" ? "0.01" : "0"}
+          prefix={
+            mode === "buy" ? (
+              "ETH"
+            ) : (
+              <Tooltip content={`$${symbol}`}>
+                <Image
+                  alt={coin.name}
+                  className="size-5 rounded-full"
+                  height={20}
+                  src={coin.mediaContent?.previewImage?.small}
+                  width={20}
+                />
+              </Tooltip>
+            )
+          }
+          value={amount}
+        />
+      </div>
+      <div className="mb-3 flex items-center justify-between text-gray-500 text-xs dark:text-gray-400">
+        <div>
+          Estimated amount:{" "}
+          {estimatedOut
+            ? mode === "buy"
+              ? `${Number(
+                  formatUnits(BigInt(estimatedOut), tokenDecimals)
+                ).toFixed(6)}`
+              : `${Number(formatEther(BigInt(estimatedOut))).toFixed(6)} ETH`
+            : "-"}
+        </div>
+        <div>{balanceLabel}</div>
+      </div>
 
-          <div className="mb-3 grid grid-cols-4 gap-2">
-            {[25, 50, 75].map((p) => (
-              <Button key={p} onClick={() => setPercentAmount(p)} outline>
-                {p}%
-              </Button>
-            ))}
-            <Button onClick={() => setPercentAmount(100)} outline>
-              Max
-            </Button>
-          </div>
-
-          <Button
-            className="mt-4 w-full"
-            disabled={!amount || !address}
-            loading={loading}
-            onClick={handleSubmit}
-            size="lg"
-          >
-            {mode === "buy" ? "Buy" : "Sell"}
+      <div className="mb-3 grid grid-cols-4 gap-2">
+        {[25, 50, 75].map((p) => (
+          <Button key={p} onClick={() => setPercentAmount(p)} outline>
+            {p}%
           </Button>
-        </>
-      ) : null}
+        ))}
+        <Button onClick={() => setPercentAmount(100)} outline>
+          Max
+        </Button>
+      </div>
+
+      <Button
+        className="mt-4 w-full"
+        disabled={!amount || !address}
+        loading={loading}
+        onClick={handleSubmit}
+        size="lg"
+      >
+        {mode === "buy" ? "Buy" : "Sell"}
+      </Button>
     </div>
   );
 };
