@@ -22,7 +22,7 @@ const config = createConfig({
   connectors,
   transports: {
     [CHAIN.id]: getRpc({ mainnet: IS_MAINNET }),
-    [base.id]: http()
+    [base.id]: http("https://base.llamarpc.com", { batch: { batchSize: 30 } })
   }
 });
 

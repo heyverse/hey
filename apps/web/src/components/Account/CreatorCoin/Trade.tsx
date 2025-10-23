@@ -32,7 +32,13 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
   const { address } = useAccount();
   const { data: walletClient } = useWalletClient({ chainId: base.id });
   const publicClient = useMemo(
-    () => createPublicClient({ chain: base, transport: http() }),
+    () =>
+      createPublicClient({
+        chain: base,
+        transport: http("https://base.llamarpc.com", {
+          batch: { batchSize: 30 }
+        })
+      }),
     []
   );
   const handleWrongNetwork = useHandleWrongNetwork();
