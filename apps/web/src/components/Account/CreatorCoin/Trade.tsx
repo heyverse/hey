@@ -96,7 +96,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
         buy: { address: coin.address as Address, type: "erc20" },
         sell: { type: "eth" },
         sender,
-        slippage: 0.01
+        slippage: 0.1
       };
     }
 
@@ -105,7 +105,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
       buy: { type: "eth" },
       sell: { address: coin.address as Address, type: "erc20" },
       sender,
-      slippage: 0.01
+      slippage: 0.1
     };
   };
 
@@ -161,14 +161,14 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
               buy: { address: coin.address as Address, type: "erc20" },
               sell: { type: "eth" },
               sender,
-              slippage: 0.01
+              slippage: 0.1
             }
           : {
               amountIn: parseUnits(amount, tokenDecimals),
               buy: { type: "eth" },
               sell: { address: coin.address as Address, type: "erc20" },
               sender,
-              slippage: 0.01
+              slippage: 0.1
             };
 
       try {
