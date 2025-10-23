@@ -7,12 +7,7 @@
     "build": "echo 'Not required'",
     "dev": "tsx watch src/index.ts",
     "start": "tsx watch src/index.ts",
-    "typecheck": "tsc --pretty",
-    "postinstall": "prisma generate",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:reset": "prisma migrate reset --force",
-    "prisma:format": "prisma format"
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.896.0",
@@ -22,7 +17,6 @@
     "@hey/indexer": "workspace:*",
     "@hono/node-server": "^1.19.5",
     "@hono/zod-validator": "^0.7.3",
-    "@prisma/client": "^6.17.1",
     "@lens-chain/sdk": "^1.0.3",
     "dotenv": "^17.2.2",
     "hono": "^4.9.9",
@@ -38,7 +32,6 @@
     "@hey/config": "workspace:*",
     "@hey/types": "workspace:*",
     "@types/node": "^24.5.2",
-    "prisma": "^6.17.1",
     "typescript": "^5.9.2"
   }
 }
