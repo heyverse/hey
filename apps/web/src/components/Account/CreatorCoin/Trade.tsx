@@ -250,7 +250,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
             ? mode === "buy"
               ? `${Number(
                   formatUnits(BigInt(estimatedOut), tokenDecimals)
-                ).toFixed(6)}`
+                ).toFixed(0)}`
               : `${Number(formatEther(BigInt(estimatedOut))).toFixed(6)} ETH`
             : "-"}
         </div>
