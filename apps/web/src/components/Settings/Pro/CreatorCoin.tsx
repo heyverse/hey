@@ -167,7 +167,9 @@ const CreatorCoin = () => {
       <div className="flex justify-end">
         <Button
           className="ml-auto"
-          disabled={isSubmitting || !form.formState.isDirty}
+          disabled={
+            isSubmitting || !form.formState.isDirty || !isValidAddress || !coin
+          }
           loading={isSubmitting}
           type="submit"
         >
