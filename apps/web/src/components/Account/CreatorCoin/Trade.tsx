@@ -137,8 +137,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
       });
       toast.success("Trade submitted");
       onClose();
-    } catch (e) {
-      console.error(e);
+    } catch {
       toast.error("Trade failed");
     } finally {
       setLoading(false);
