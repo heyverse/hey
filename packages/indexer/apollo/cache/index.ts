@@ -12,6 +12,7 @@ const cache = new InMemoryCache({
         timeline: createCursorFieldPolicy(["request", ["account"]]),
         timelineHighlights: createCursorFieldPolicy(["request", ["account"]]),
         following: createCursorFieldPolicy(["request", ["account"]]),
+        groupMembers: createCursorFieldPolicy(["request", ["group"]]),
         followers: createCursorFieldPolicy(["request", ["account"]]),
         posts: createCursorFieldPolicy(["request", ["filter", "pageSize"]]),
         postReferences: createCursorFieldPolicy([
