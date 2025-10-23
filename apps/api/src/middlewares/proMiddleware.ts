@@ -31,8 +31,7 @@ const proMiddleware = async (c: Context, next: Next) => {
     }
 
     return next();
-  } catch (error) {
-    console.log(error);
+  } catch {
     return c.body("Unauthorized", 401);
   }
 };

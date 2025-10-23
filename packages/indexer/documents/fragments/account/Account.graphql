@@ -19,5 +19,4 @@ fragment Account on Account {
     ...Username
   }
   ...Permissions
-  createdAt
 }

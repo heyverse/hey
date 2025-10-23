@@ -100,6 +100,8 @@ const Transfer = ({ token }: TransferProps) => {
         ? Number(balance.balancesBulk[0].value).toFixed(2)
         : 0;
 
+  const numericTokenBalance = Number(tokenBalance) || 0;
+
   const onOtherAmount = (event: ChangeEvent<HTMLInputElement>) => {
     const value = Number(event.target.value);
     setAmount(value);
@@ -165,6 +167,13 @@ const Transfer = ({ token }: TransferProps) => {
             outline={amount !== 5}
           >
             5
+          </Button>
+          <Button
+            className="w-full"
+            onClick={() => handleSetAmount(numericTokenBalance)}
+            outline={amount !== numericTokenBalance}
+          >
+            Max
           </Button>
           <Button
             className="w-full"

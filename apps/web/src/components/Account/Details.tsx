@@ -1,10 +1,9 @@
-import { CalendarIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 import { BeakerIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { AccountFragment } from "@hey/indexer";
-import dayjs from "dayjs";
 import type { ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router";
@@ -19,6 +18,7 @@ import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import CreatorCoin from "./CreatorCoin";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import AccountMenu from "./Menu";
@@ -189,9 +189,7 @@ const Details = ({
               width={16}
             />
           )}
-          <MetaDetails icon={<CalendarIcon className="size-4" />}>
-            Joined {dayjs(account.createdAt).format("MMM YYYY")}
-          </MetaDetails>
+          {account.isBeta && <CreatorCoin account={account} />}
         </div>
       </div>
     </div>
