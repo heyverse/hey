@@ -9,7 +9,14 @@ import { useCallback, useEffect, useState } from "react";
 import { base } from "viem/chains";
 import { z } from "zod";
 import MetaDetails from "@/components/Account/MetaDetails";
-import { Button, Form, Image, Input, useZodForm } from "@/components/Shared/UI";
+import {
+  Button,
+  Form,
+  Image,
+  Input,
+  Spinner,
+  useZodForm
+} from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
 import prepareAccountMetadata from "@/helpers/prepareAccountMetadata";
@@ -125,7 +132,9 @@ const CreatorCoin = () => {
       {isValidAddress && (
         <>
           {isFetchingCoin && (
-            <div className="text-gray-500 text-sm">Fetching coin…</div>
+            <MetaDetails icon={<Spinner className="size-4" />}>
+              Fetching...
+            </MetaDetails>
           )}
           {!isFetchingCoin && coin && (
             <MetaDetails
