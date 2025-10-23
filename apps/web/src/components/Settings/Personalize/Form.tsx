@@ -1,17 +1,9 @@
 import { MeVariables } from "@hey/data/constants";
 import { ERRORS } from "@hey/data/errors";
 import { Regex } from "@hey/data/regex";
-import trimify from "@hey/helpers/trimify";
 import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
-import type {
-  AccountOptions,
-  MetadataAttribute
-} from "@lens-protocol/metadata";
-import {
-  account as accountMetadata,
-  MetadataAttributeType
-} from "@lens-protocol/metadata";
+import { account as accountMetadata } from "@lens-protocol/metadata";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -29,6 +21,7 @@ import {
 } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
+import prepareAccountMetadata from "@/helpers/prepareAccountMetadata";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
@@ -126,47 +119,17 @@ const PersonalizeSettingsForm = () => {
     }
 
     setIsSubmitting(true);
-    const otherAttributes =
-      currentAccount.metadata?.attributes
-        ?.filter(
-          (attr) =>
-            !["app", "location", "timestamp", "website", "x"].includes(attr.key)
-        )
-        .map(({ key, type, value }) => ({
-          key,
-          type: MetadataAttributeType[type] as any,
-          value
-        })) || [];
-
-    const preparedAccountMetadata: AccountOptions = {
-      ...(data.name && { name: data.name }),
-      ...(data.bio && { bio: data.bio }),
-      attributes: [
-        ...(otherAttributes as MetadataAttribute[]),
-        {
-          key: "location",
-          type: MetadataAttributeType.STRING,
-          value: data.location
-        },
-        {
-          key: "website",
-          type: MetadataAttributeType.STRING,
-          value: data.website
-        },
-        { key: "x", type: MetadataAttributeType.STRING, value: data.x },
-        {
-          key: "timestamp",
-          type: MetadataAttributeType.STRING,
-          value: new Date().toISOString()
-        }
-      ],
-      coverPicture: coverUrl || undefined,
-      picture: avatarUrl || undefined
-    };
-    preparedAccountMetadata.attributes =
-      preparedAccountMetadata.attributes?.filter((m) => {
-        return m.key !== "" && Boolean(trimify(m.value));
-      });
+    const preparedAccountMetadata = prepareAccountMetadata(currentAccount, {
+      attributes: {
+        location: data.location,
+        website: data.website,
+        x: data.x
+      },
+      bio: data.bio,
+      coverPicture: coverUrl,
+      name: data.name,
+      picture: avatarUrl
+    });
     const metadataUri = await uploadMetadata(
       accountMetadata(preparedAccountMetadata)
     );

@@ -5,6 +5,7 @@ import { type GetCoinResponse, getCoin, setApiKey } from "@zoralabs/coins-sdk";
 import { useState } from "react";
 import type { Address } from "viem";
 import { base } from "viem/chains";
+import getAccountAttribute from "@/helpers/getAccountAttribute";
 import { Image, Modal } from "../../Shared/UI";
 import MetaDetails from "../MetaDetails";
 import CreatorCoinDetails from "./CreatorCoinDetails";
@@ -17,11 +18,10 @@ interface CreatorCoinProps {
 
 const CreatorCoin = ({ account }: CreatorCoinProps) => {
   const [showModal, setShowModal] = useState(false);
-  // const creatorCoinAddress = getAccountAttribute(
-  //   "creatorCoinAddress",
-  //   account?.metadata?.attributes
-  // );
-  const creatorCoinAddress = "0x58b14cc0ebb0ce5387557adbe6477e001d3dcde0";
+  const creatorCoinAddress = getAccountAttribute(
+    "creatorCoinAddress",
+    account?.metadata?.attributes
+  );
 
   const { data: coin } = useQuery<GetCoinResponse["zora20Token"] | null>({
     enabled: !!creatorCoinAddress,

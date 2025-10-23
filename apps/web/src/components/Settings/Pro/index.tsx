@@ -5,6 +5,7 @@ import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import BetaToggle from "./BetaToggle";
+import CreatorCoin from "./CreatorCoin";
 import DefaultToNameToggle from "./DefaultToNameToggle";
 
 const ProSettings = () => {
@@ -22,6 +23,8 @@ const ProSettings = () => {
           <div className="space-y-5 p-5">
             <BetaToggle />
             <DefaultToNameToggle />
+            <div className="divider" />
+            <CreatorCoin />
           </div>
         ) : (
           <ProFeatureNotice className="m-5" feature="pro settings" />
