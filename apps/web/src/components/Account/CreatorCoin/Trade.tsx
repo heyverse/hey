@@ -44,7 +44,6 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
   const [tokenBalance, setTokenBalance] = useState<bigint>(0n);
   const [estimatedOut, setEstimatedOut] = useState<string>("");
 
-  // balances
   useEffect(() => {
     (async () => {
       if (!address) return;
@@ -60,19 +59,17 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
         ]);
         setEthBalance(eth);
         setTokenBalance(token as bigint);
-      } catch {
-        // ignore
-      }
+      } catch {}
     })();
   }, [address, coin.address, publicClient]);
 
-  const tokenDecimals = 18; // ZORA20 tokens have 18 decimals
+  const tokenDecimals = 18;
 
   const setPercentAmount = (pct: number) => {
     const decimals = 6;
     if (mode === "buy") {
       const available = Number(formatEther(ethBalance));
-      const gasReserve = 0.0002; // leave a tiny bit for gas on Base
+      const gasReserve = 0.0002;
       const baseAmt = (available * pct) / 100;
       const amt = pct === 100 ? Math.max(baseAmt - gasReserve, 0) : baseAmt;
       setAmount(amt.toFixed(decimals));

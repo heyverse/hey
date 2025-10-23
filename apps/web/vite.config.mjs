@@ -72,8 +72,6 @@ export default defineConfig({
     tsconfigPaths(),
     react(),
     tailwindcss(),
-    // Expose env vars to client-side code (process.env.*)
-    // Provide a safe default for HEY_API_URL to avoid build-time errors.
     EnvironmentPlugin({
       HEY_API_URL: "https://api.hey.xyz",
       LENS_NETWORK: undefined
