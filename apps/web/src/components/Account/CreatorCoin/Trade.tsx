@@ -132,6 +132,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
         account: client.account,
         publicClient,
         tradeParameters: params,
+        validateTransaction: false,
         walletClient: client
       });
       toast.success("Trade submitted");
