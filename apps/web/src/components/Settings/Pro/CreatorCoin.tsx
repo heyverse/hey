@@ -1,11 +1,12 @@
-import { ZORA_API_KEY } from "@hey/data/constants";
+import { MeVariables, ZORA_API_KEY } from "@hey/data/constants";
 import { Regex } from "@hey/data/regex";
-import { useSetAccountMetadataMutation } from "@hey/indexer";
+import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { account as accountMetadata } from "@lens-protocol/metadata";
 import { useQuery } from "@tanstack/react-query";
 import { type GetCoinResponse, getCoin, setApiKey } from "@zoralabs/coins-sdk";
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { base } from "viem/chains";
 import { z } from "zod";
 import MetaDetails from "@/components/Account/MetaDetails";
@@ -35,14 +36,21 @@ const ValidationSchema = z.object({
 });
 
 const CreatorCoin = () => {
-  const { currentAccount } = useAccountStore();
+  const { currentAccount, setCurrentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const waitForTransactionToComplete = useWaitForTransactionToComplete();
+  const [getCurrentAccountDetails] = useMeLazyQuery({
+    fetchPolicy: "no-cache",
+    variables: MeVariables
+  });
 
   const onCompleted = async (hash: string) => {
     await waitForTransactionToComplete(hash);
-    location.reload();
+    const accountData = await getCurrentAccountDetails();
+    setCurrentAccount(accountData?.data?.me.loggedInAs.account);
+    setIsSubmitting(false);
+    toast.success("Creator coin address updated");
   };
 
   const onError = useCallback((error: ApolloClientError) => {
