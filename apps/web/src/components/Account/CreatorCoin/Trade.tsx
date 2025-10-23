@@ -17,7 +17,8 @@ import {
   parseUnits
 } from "viem";
 import { base } from "viem/chains";
-import { useAccount, useWalletClient } from "wagmi";
+import { useAccount, useConfig, useWalletClient } from "wagmi";
+import { getWalletClient } from "wagmi/actions";
 import { Button, Image, Input, Tabs, Tooltip } from "@/components/Shared/UI";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 
@@ -30,6 +31,7 @@ type Mode = "buy" | "sell";
 
 const Trade = ({ coin, onClose }: TradeModalProps) => {
   const { address } = useAccount();
+  const config = useConfig();
   const { data: walletClient } = useWalletClient({ chainId: base.id });
   const publicClient = useMemo(
     () =>
@@ -120,17 +122,18 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
     try {
       setLoading(true);
       await handleWrongNetwork({ chainId: base.id });
-
-      if (!walletClient) {
+      const client =
+        (await getWalletClient(config, { chainId: base.id })) || walletClient;
+      if (!client) {
         setLoading(false);
-        return toast.error("Connect a wallet to trade");
+        return toast.error("Please switch to Base network");
       }
 
       await tradeCoin({
-        account: walletClient.account,
+        account: client.account,
         publicClient,
         tradeParameters: params,
-        walletClient
+        walletClient: client
       });
       toast.success("Trade submitted");
       onClose();
