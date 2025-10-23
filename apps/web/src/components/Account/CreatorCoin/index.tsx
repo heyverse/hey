@@ -42,7 +42,7 @@ const CreatorCoin = ({ account }: CreatorCoinProps) => {
   return (
     <>
       <button
-        className="rounded-full bg-gray-200 px-2 py-0.5 dark:bg-gray-700"
+        className="rounded-full bg-gray-200 px-2 dark:bg-gray-700"
         onClick={() => setShowModal(true)}
         type="button"
       >
