@@ -88,16 +88,14 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
     }
   };
 
-  const makeParams = (): TradeParameters | null => {
-    if (!address) return null;
-    const sender = address as Address;
+  const makeParams = (address: Address): TradeParameters | null => {
     if (!amount || Number(amount) <= 0) return null;
     if (mode === "buy") {
       return {
         amountIn: parseEther(amount),
         buy: { address: coin.address as Address, type: "erc20" },
         sell: { type: "eth" },
-        sender,
+        sender: address,
         slippage: 0.1
       };
     }
@@ -106,7 +104,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
       amountIn: parseUnits(amount, tokenDecimals),
       buy: { type: "eth" },
       sell: { address: coin.address as Address, type: "erc20" },
-      sender,
+      sender: address,
       slippage: 0.1
     };
   };
@@ -116,7 +114,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
       return toast.error("Connect a wallet to trade");
     }
 
-    const params = makeParams();
+    const params = makeParams(address);
     if (!params) return;
 
     try {
