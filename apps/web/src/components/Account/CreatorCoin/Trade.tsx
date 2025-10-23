@@ -90,6 +90,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
 
   const makeParams = (address: Address): TradeParameters | null => {
     if (!amount || Number(amount) <= 0) return null;
+
     if (mode === "buy") {
       return {
         amountIn: parseEther(amount),
