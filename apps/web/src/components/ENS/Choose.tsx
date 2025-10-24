@@ -32,6 +32,7 @@ import {
   useZodForm
 } from "../Shared/UI";
 import { useENSCreateStore } from ".";
+import Usernames from "./Usernames";
 
 const ValidationSchema = z.object({
   username: z
@@ -235,6 +236,7 @@ const Choose = () => {
           </Card>
         ) : null}
       </Form>
+      <Usernames />
     </Card>
   );
 };
