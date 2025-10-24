@@ -113,6 +113,7 @@ const Choose = () => {
       return await createUsername({
         variables: {
           request: {
+            autoAssign: true,
             username: {
               localName: username.toLowerCase(),
               namespace: HEY_ENS_NAMESPACE
