@@ -72,10 +72,6 @@ const getLensAccount = async (handle: string): Promise<LensAccount> => {
       variables: { request: { address: usernameData.username.ownedBy } }
     });
 
-    if (!data.account.isBeta) {
-      return defaultAccount;
-    }
-
     const address = data.account.owner;
     if (!address) return defaultAccount;
     return {
