@@ -1,15 +1,22 @@
 import { HEY_ENS_NAMESPACE } from "@hey/data/constants";
 import { useUsernamesQuery } from "@hey/indexer";
 import { Card, Image } from "@/components/Shared/UI";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const Usernames = () => {
-  const { data } = useUsernamesQuery({
-    variables: { request: { filter: { namespace: HEY_ENS_NAMESPACE } } }
+  const { currentAccount } = useAccountStore();
+
+  const { data, loading } = useUsernamesQuery({
+    variables: {
+      request: {
+        filter: { namespace: HEY_ENS_NAMESPACE, owner: currentAccount?.address }
+      }
+    }
   });
 
   const usernames = data?.usernames?.items;
 
-  if (usernames?.length === 0) {
+  if (loading || usernames?.length === 0) {
     return null;
   }
 
