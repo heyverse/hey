@@ -3,4 +3,5 @@ fragment Username on Username {
   localName
   linkedTo
   value
+  ownedBy
 }

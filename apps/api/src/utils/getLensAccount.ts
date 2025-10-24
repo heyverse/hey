@@ -1,8 +1,16 @@
 import { HEY_ENS_NAMESPACE } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
-import type { Maybe, MetadataAttributeFragment } from "@hey/indexer";
-import { AccountDocument, type AccountFragment } from "@hey/indexer";
+import type {
+  Maybe,
+  MetadataAttributeFragment,
+  UsernameFragment
+} from "@hey/indexer";
+import {
+  AccountDocument,
+  type AccountFragment,
+  UsernameDocument
+} from "@hey/indexer";
 import apolloClient from "@hey/indexer/apollo/client";
 import { type Hex, zeroAddress } from "viem";
 
@@ -40,16 +48,28 @@ const defaultAccount: LensAccount = {
 
 const getLensAccount = async (handle: string): Promise<LensAccount> => {
   try {
-    const { data } = await apolloClient.query<{
-      account: AccountFragment;
+    const { data: usernameData } = await apolloClient.query<{
+      username: UsernameFragment;
     }>({
       fetchPolicy: "no-cache",
-      query: AccountDocument,
+      query: UsernameDocument,
       variables: {
         request: {
           username: { localName: handle, namespace: HEY_ENS_NAMESPACE }
         }
       }
+    });
+
+    if (!usernameData.username) {
+      return defaultAccount;
+    }
+
+    const { data } = await apolloClient.query<{
+      account: AccountFragment;
+    }>({
+      fetchPolicy: "no-cache",
+      query: AccountDocument,
+      variables: { request: { address: usernameData.username.ownedBy } }
     });
 
     if (!data.account.isBeta) {
