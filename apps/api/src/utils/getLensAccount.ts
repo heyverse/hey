@@ -24,6 +24,7 @@ const getAccountAttribute = (
 
 interface LensAccount {
   address: Hex;
+  username: string;
   texts: {
     avatar: string;
     description: string;
@@ -43,7 +44,8 @@ const defaultAccount: LensAccount = {
     location: "",
     name: "",
     url: ""
-  }
+  },
+  username: ""
 };
 
 const getLensAccount = async (handle: string): Promise<LensAccount> => {
@@ -89,7 +91,8 @@ const getLensAccount = async (handle: string): Promise<LensAccount> => {
         ),
         name: getAccount(data.account).name,
         url: `https://hey.xyz${getAccount(data.account).link}`
-      }
+      },
+      username: getAccount(data.account).username
     };
   } catch {
     return defaultAccount;
