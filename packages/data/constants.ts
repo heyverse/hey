@@ -72,7 +72,7 @@ export const PERMISSIONS = {
   SUBSCRIPTION: "0x4BE5b4519814A57E6f9AaFC6afBB37eAEeE35aA3"
 } as const;
 
-export const HEY_ENS_NAMESPACE = "0x6821262a0e15ed3b4bfd54c1b4fe558c093a103b";
+export const HEY_ENS_NAMESPACE = "0x242861e7FA8704043035CD09F3d8798B1B1a1552";
 
 export const MeVariables = {
   betaBannerId: BANNER_IDS.BETA,

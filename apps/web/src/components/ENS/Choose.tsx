@@ -7,7 +7,6 @@ import {
   NATIVE_TOKEN_SYMBOL,
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
-import { Regex } from "@hey/data/regex";
 import { useCreateUsernameMutation, useUsernameQuery } from "@hey/indexer";
 import { useCallback, useState } from "react";
 import z from "zod";
@@ -31,15 +30,12 @@ import { useENSCreateStore } from ".";
 const ValidationSchema = z.object({
   username: z
     .string()
-    .min(3, { message: "Username must be at least 3 characters long" })
-    .max(50, { message: "Username must be at most 26 characters long" })
-    .regex(Regex.username, {
-      message:
-        "Username must start with a letter/number, only _ allowed in between"
-    })
+    .min(1, { message: "ENS name must be at least 1 character long" })
+    .max(50, { message: "ENS name must be at most 50 characters long" })
+    .regex(/^[A-Za-z]+$/, { message: "ENS name can contain only alphabets" })
 });
 
-const Mint = () => {
+const Choose = () => {
   const { currentAccount } = useAccountStore();
   const { setChosenUsername, setTransactionHash, setScreen } =
     useENSCreateStore();
@@ -81,16 +77,17 @@ const Mint = () => {
   });
 
   const username = form.watch("username");
-  const canCheck = Boolean(username && username.length > 2);
+  const canCheck = Boolean(username && username.length > 0);
   const isInvalid = !form.formState.isValid;
-  const price =
-    username && username.length > 2
-      ? username.length === 3
-        ? 50
-        : username.length === 4
-          ? 20
-          : 5
-      : 0;
+  const lengthPriceMap: Record<number, number> = {
+    1: 1000,
+    2: 500,
+    3: 50,
+    4: 20
+  };
+
+  const len = username?.length || 0;
+  const price = len > 4 ? 5 : (lengthPriceMap[len] ?? 0);
 
   useUsernameQuery({
     fetchPolicy: "no-cache",
@@ -207,4 +204,4 @@ const Mint = () => {
   );
 };
 
-export default Mint;
+export default Choose;

@@ -3,7 +3,9 @@ import { create } from "zustand";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import Mint from "./Mint";
+import Choose from "./Choose";
+import Minting from "./Minting";
+import Success from "./Success";
 
 interface ENSCreateState {
   chosenUsername: string;
@@ -27,6 +29,7 @@ export const useENSCreateStore = createTrackedSelector(store);
 
 const ENS = () => {
   const { currentAccount } = useAccountStore();
+  const { screen } = useENSCreateStore();
 
   if (!currentAccount) {
     return <NotLoggedIn />;
@@ -34,7 +37,9 @@ const ENS = () => {
 
   return (
     <PageLayout title="Bookmarks">
-      <Mint />
+      {screen === "choose" && <Choose />}
+      {screen === "minting" && <Minting />}
+      {screen === "success" && <Success />}
     </PageLayout>
   );
 };
