@@ -11,6 +11,7 @@ import { Card, Image } from "@/components/Shared/UI";
 import getMentions from "@/helpers/getMentions";
 import nFormatter from "@/helpers/nFormatter";
 import truncateByWords from "@/helpers/truncateByWords";
+import ENSBadge from "./ENSBadge";
 import FollowUnfollowButton from "./FollowUnfollowButton";
 
 interface AccountPreviewProps {
@@ -91,6 +92,7 @@ const AccountPreview = ({
             <CheckBadgeIcon className="size-4 text-brand-500" />
           )}
           {account.isBeta && <BeakerIcon className="size-4 text-green-500" />}
+          <ENSBadge account={account} className="size-4" />
         </div>
         <span>
           <Slug className="text-sm" slug={getAccount(account).username} />

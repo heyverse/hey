@@ -1,0 +1,5 @@
+query Username($request: UsernameRequest!) {
+  username(request: $request) {
+    ...Username
+  }
+}

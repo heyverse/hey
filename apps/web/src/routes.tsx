@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 import ViewAccount from "@/components/Account";
 import Bookmarks from "@/components/Bookmarks";
 import Layout from "@/components/Common/Layout";
+import ENS from "@/components/ENS";
 import Explore from "@/components/Explore";
 import ViewGroup from "@/components/Group";
 import GroupSettings from "@/components/Group/Settings";
@@ -42,6 +43,7 @@ const Routes = () => {
           <Route element={<Search />} path="search" />
           <Route element={<Groups />} path="groups" />
           <Route element={<Bookmarks />} path="bookmarks" />
+          <Route element={<ENS />} path="ens" />
           <Route element={<Notification />} path="notifications" />
           <Route element={<ViewAccount />} path="account/:address" />
           <Route element={<ViewAccount />} path="u/:username" />

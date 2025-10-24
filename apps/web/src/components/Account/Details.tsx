@@ -18,6 +18,7 @@ import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import ENSBadge from "../Shared/Account/ENSBadge";
 import CreatorCoin from "./CreatorCoin";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
@@ -129,6 +130,7 @@ const Details = ({
               <BeakerIcon className="size-5 text-green-500" />
             </Tooltip>
           )}
+          <ENSBadge account={account} className="size-5" linkToDashboard />
         </div>
         <div className="flex items-center space-x-3">
           <Slug

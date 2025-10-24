@@ -59,6 +59,12 @@ const SingleAccount = ({
         {(isVerified || account.hasSubscribed) && (
           <CheckBadgeIcon className="size-4 text-brand-500" />
         )}
+        {account.heyEns?.localName && (
+          <Image
+            className="size-4"
+            src="https://ens.domains/assets/brand/mark/ens-mark-Blue.svg"
+          />
+        )}
       </div>
       <Slug className="text-sm" slug={getAccount(account).username} />
     </div>

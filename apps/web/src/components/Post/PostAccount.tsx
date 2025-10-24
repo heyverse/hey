@@ -43,6 +43,12 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
               {account.hasSubscribed && (
                 <CheckBadgeIcon className="size-4 text-brand-500" />
               )}
+              {account.heyEns?.localName && (
+                <Image
+                  className="size-4"
+                  src="https://ens.domains/assets/brand/mark/ens-mark-Blue.svg"
+                />
+              )}
             </span>
           </AccountPreview>
         </AccountLink>
