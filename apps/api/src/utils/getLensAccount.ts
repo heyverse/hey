@@ -1,3 +1,4 @@
+import { HEY_ENS_NAMESPACE } from "@hey/data/constants";
 import getAccount from "@hey/helpers/getAccount";
 import getAvatar from "@hey/helpers/getAvatar";
 import type { Maybe, MetadataAttributeFragment } from "@hey/indexer";
@@ -44,7 +45,11 @@ const getLensAccount = async (handle: string): Promise<LensAccount> => {
     }>({
       fetchPolicy: "no-cache",
       query: AccountDocument,
-      variables: { request: { username: { localName: handle } } }
+      variables: {
+        request: {
+          username: { localName: handle, namespace: HEY_ENS_NAMESPACE }
+        }
+      }
     });
 
     if (!data.account.isBeta) {
