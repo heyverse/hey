@@ -7,7 +7,11 @@ import {
   NATIVE_TOKEN_SYMBOL,
   STATIC_IMAGES_URL
 } from "@hey/data/constants";
-import { useCreateUsernameMutation, useUsernameQuery } from "@hey/indexer";
+import {
+  useBalancesBulkQuery,
+  useCreateUsernameMutation,
+  useUsernameQuery
+} from "@hey/indexer";
 import { useCallback, useState } from "react";
 import z from "zod";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
@@ -16,12 +20,14 @@ import getTokenImage from "@/helpers/getTokenImage";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import TopUpButton from "../Shared/Account/TopUp/Button";
 import {
   Button,
   Card,
   Form,
   Image,
   Input,
+  Spinner,
   Tooltip,
   useZodForm
 } from "../Shared/UI";
@@ -44,6 +50,18 @@ const Choose = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const form = useZodForm({ mode: "onChange", schema: ValidationSchema });
+
+  const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 3000,
+    skip: !currentAccount?.address,
+    variables: {
+      request: {
+        address: currentAccount?.address,
+        includeNative: true
+      }
+    }
+  });
 
   const onCompleted = (hash: string) => {
     setIsSubmitting(false);
@@ -89,6 +107,13 @@ const Choose = () => {
   const len = username?.length || 0;
   const price = len > 4 ? 5 : (lengthPriceMap[len] ?? 0);
 
+  const tokenBalance =
+    balance?.balancesBulk[0].__typename === "NativeAmount"
+      ? Number(balance.balancesBulk[0].value).toFixed(2)
+      : 0;
+
+  const canMint = Number(tokenBalance) >= price;
+
   useUsernameQuery({
     fetchPolicy: "no-cache",
     onCompleted: (data) => setIsAvailable(!data.username),
@@ -106,29 +131,21 @@ const Choose = () => {
   const handleCreate = async ({
     username
   }: z.infer<typeof ValidationSchema>) => {
-    try {
-      setIsSubmitting(true);
-      await handleWrongNetwork();
+    setIsSubmitting(true);
+    await handleWrongNetwork();
 
-      return await createUsername({
-        variables: {
-          request: {
-            autoAssign: true,
-            username: {
-              localName: username.toLowerCase(),
-              namespace: HEY_ENS_NAMESPACE
-            }
+    return await createUsername({
+      variables: {
+        request: {
+          autoAssign: true,
+          username: {
+            localName: username.toLowerCase(),
+            namespace: HEY_ENS_NAMESPACE
           }
         }
-      });
-    } catch {
-      onError();
-    } finally {
-      setIsSubmitting(false);
-    }
+      }
+    });
   };
-
-  const disabled = !canCheck || !isAvailable || isSubmitting || isInvalid;
 
   if (!currentAccount) {
     return <NotLoggedIn />;
@@ -184,14 +201,31 @@ const Choose = () => {
                   / once
                 </span>
               </div>
-              <Button
-                className="w-full"
-                disabled={disabled}
-                loading={isSubmitting}
-                type="submit"
-              >
-                Register Name
-              </Button>
+              {balanceLoading ? (
+                <Button
+                  className="w-full"
+                  disabled
+                  icon={<Spinner className="my-1" size="xs" />}
+                />
+              ) : canMint ? (
+                <Button
+                  className="w-full"
+                  disabled={isSubmitting}
+                  loading={isSubmitting}
+                  type="submit"
+                >
+                  Subscribe for ${price}/year
+                </Button>
+              ) : (
+                <TopUpButton
+                  amountToTopUp={
+                    Math.ceil((price - Number(tokenBalance)) * 20) / 20
+                  }
+                  className="w-full"
+                  label={`Top-up ${price} ${NATIVE_TOKEN_SYMBOL} to your account`}
+                  outline
+                />
+              )}
             </Card>
           ) : null
         ) : canCheck && isInvalid ? (

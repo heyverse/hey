@@ -32,6 +32,7 @@ const TopUpButton = ({
       }
       outline={outline}
       size={size}
+      type="button"
     >
       {label}
     </Button>
