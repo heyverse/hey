@@ -30,6 +30,7 @@ export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const BLOCK_EXPLORER_URL = IS_MAINNET
   ? "https://lenscan.io"
   : "https://testnet.lenscan.io";
+export const BASE_RPC_URL = "https://base.llamarpc.com";
 
 // Storage
 export const STORAGE_NODE_URL = "https://api.grove.storage";

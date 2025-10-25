@@ -1,4 +1,5 @@
 import {
+  BASE_RPC_URL,
   CHAIN,
   IS_MAINNET,
   WALLETCONNECT_PROJECT_ID
@@ -22,7 +23,7 @@ const config = createConfig({
   connectors,
   transports: {
     [CHAIN.id]: getRpc({ mainnet: IS_MAINNET }),
-    [base.id]: http("https://base.llamarpc.com", { batch: { batchSize: 30 } })
+    [base.id]: http(BASE_RPC_URL, { batch: { batchSize: 30 } })
   }
 });
 

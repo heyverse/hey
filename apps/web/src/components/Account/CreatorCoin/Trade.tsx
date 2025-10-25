@@ -1,3 +1,4 @@
+import { BASE_RPC_URL } from "@hey/data/constants";
 import type { GetCoinResponse } from "@zoralabs/coins-sdk";
 import {
   createTradeCall,
@@ -37,9 +38,7 @@ const Trade = ({ coin, onClose }: TradeModalProps) => {
     () =>
       createPublicClient({
         chain: base,
-        transport: http("https://base.llamarpc.com", {
-          batch: { batchSize: 30 }
-        })
+        transport: http(BASE_RPC_URL, { batch: { batchSize: 30 } })
       }),
     []
   );
