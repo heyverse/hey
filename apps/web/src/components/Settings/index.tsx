@@ -39,6 +39,11 @@ const AccountSettings = () => {
       url: "/settings/monetize"
     },
     {
+      icon: <CurrencyDollarIcon className="size-5" />,
+      title: "Creator Coin",
+      url: "/settings/creatorcoin"
+    },
+    {
       icon: <SparklesIcon className="size-5" />,
       title: "Pro",
       url: "/settings/pro"

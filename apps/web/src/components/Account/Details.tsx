@@ -191,7 +191,7 @@ const Details = ({
               width={16}
             />
           )}
-          {account.isBeta && <CreatorCoin account={account} />}
+          <CreatorCoin account={account} />
         </div>
       </div>
     </div>
