@@ -11,7 +11,7 @@ import {
   useState
 } from "react";
 import { toast } from "sonner";
-import { type Hex, zeroAddress } from "viem";
+import type { Hex } from "viem";
 import { useAccount, useWaitForTransactionReceipt } from "wagmi";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
@@ -209,19 +209,9 @@ const Transfer = ({ token }: TransferProps) => {
         ) : Number(tokenBalance) < amount ? (
           <Button
             className="w-full"
-            onClick={() => {
-              const params = new URLSearchParams({
-                inputChain: "lens",
-                isExactOut: "false",
-                outToken: token?.contractAddress ?? zeroAddress,
-                utm_medium: "sites",
-                utm_source: "hey.xyz"
-              });
-
-              window.open(`https://oku.trade/?${params.toString()}`, "_blank");
-            }}
+            onClick={() => window.open("https://lens.xyz/bridge", "_blank")}
           >
-            <span>Buy on Oku.trade</span>
+            <span>Bridge to Lens</span>
             <ArrowUpRightIcon className="size-4" />
           </Button>
         ) : (
