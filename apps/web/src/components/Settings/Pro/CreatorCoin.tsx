@@ -102,7 +102,7 @@ const CreatorCoin = () => {
     enabled: isValidAddress,
     queryFn: async () => {
       const res = await getCoin({
-        address: creatorCoinAddress as string,
+        address: creatorCoinAddress,
         chain: base.id
       });
       return res.data?.zora20Token ?? null;
@@ -113,10 +113,7 @@ const CreatorCoin = () => {
   const { data: creatorCoinFromZora } = useQuery<string | null>({
     enabled: !!currentAccount?.owner && !creatorCoinAddress,
     queryFn: async () => {
-      const res = await getProfileCoins({
-        identifier: currentAccount?.owner as string
-      });
-
+      const res = await getProfileCoins({ identifier: currentAccount?.owner });
       return res.data?.profile?.creatorCoin?.address ?? null;
     },
     queryKey: ["profileCoins", currentAccount?.owner]
