@@ -1,4 +1,4 @@
-import CreatorCoinForm from "@/components/Settings/Pro/CreatorCoin";
+import CreatorCoinForm from "@/components/Settings/CreatorCoin/CreatorCoin";
 import BackButton from "@/components/Shared/BackButton";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";

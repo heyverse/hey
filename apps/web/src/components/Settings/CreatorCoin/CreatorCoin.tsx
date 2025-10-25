@@ -161,7 +161,7 @@ const CreatorCoin = () => {
         type="text"
         {...form.register("creatorCoinAddress")}
       />
-      {!savedCreatorCoinAddress && creatorCoinFromZora ? (
+      {savedCreatorCoinAddress ? null : creatorCoinFromZora ? (
         <Card className="p-5">
           <div className="space-y-1">
             <div>You have a creator coin available to set</div>
