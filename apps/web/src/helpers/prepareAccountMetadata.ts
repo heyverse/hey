@@ -44,6 +44,12 @@ const prepareAccountMetadata = (
       value
     })) ?? [];
 
+  const keysToDelete = new Set(
+    Object.entries(attrs)
+      .filter(([, v]) => v === undefined)
+      .map(([key]) => key)
+  );
+
   const newAttrs: MetadataAttribute[] = Object.entries(attrs)
     .filter(([, v]) => v !== undefined)
     .map(([key, value]) => ({
@@ -56,8 +62,12 @@ const prepareAccountMetadata = (
   const finalBio = bio || current.metadata?.bio || undefined;
 
   const mergedByKey = new Map<string, MetadataAttribute>(
-    [...prevAttrs, ...newAttrs].map((a) => [a.key, a])
+    prevAttrs.filter((a) => !keysToDelete.has(a.key)).map((a) => [a.key, a])
   );
+
+  for (const a of newAttrs) {
+    mergedByKey.set(a.key, a);
+  }
   const mergedAttrs = Array.from(mergedByKey.values());
 
   const prepared: AccountOptions = {

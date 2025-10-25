@@ -4,7 +4,12 @@ import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
 import type { ApolloClientError } from "@hey/types/errors";
 import { account as accountMetadata } from "@lens-protocol/metadata";
 import { useQuery } from "@tanstack/react-query";
-import { type GetCoinResponse, getCoin, setApiKey } from "@zoralabs/coins-sdk";
+import {
+  type GetCoinResponse,
+  getCoin,
+  getProfileCoins,
+  setApiKey
+} from "@zoralabs/coins-sdk";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { base } from "viem/chains";
@@ -12,6 +17,7 @@ import { z } from "zod";
 import MetaDetails from "@/components/Account/MetaDetails";
 import {
   Button,
+  Card,
   Form,
   Image,
   Input,
@@ -73,12 +79,14 @@ const CreatorCoin = () => {
     onError
   });
 
+  const savedCreatorCoinAddress = getAccountAttribute(
+    "creatorCoinAddress",
+    currentAccount?.metadata?.attributes
+  );
+
   const form = useZodForm({
     defaultValues: {
-      creatorCoinAddress: getAccountAttribute(
-        "creatorCoinAddress",
-        currentAccount?.metadata?.attributes
-      )
+      creatorCoinAddress: savedCreatorCoinAddress
     },
     schema: ValidationSchema
   });
@@ -112,6 +120,18 @@ const CreatorCoin = () => {
     queryKey: ["coin", creatorCoinAddress]
   });
 
+  const { data: creatorCoinFromZora } = useQuery<string | null>({
+    enabled: !!currentAccount?.owner && !creatorCoinAddress,
+    queryFn: async () => {
+      const res = await getProfileCoins({
+        identifier: currentAccount?.owner as string
+      });
+
+      return res.data?.profile?.creatorCoin?.address ?? null;
+    },
+    queryKey: ["profileCoins", currentAccount?.owner]
+  });
+
   const onSubmit = async (data: z.infer<typeof ValidationSchema>) => {
     if (!currentAccount) return;
 
@@ -129,6 +149,30 @@ const CreatorCoin = () => {
     });
   };
 
+  const handleRemove = async () => {
+    if (!currentAccount) return;
+
+    setIsSubmitting(true);
+    const preparedAccountMetadata = prepareAccountMetadata(currentAccount, {
+      attributes: { creatorCoinAddress: undefined }
+    });
+
+    const metadataUri = await uploadMetadata(
+      accountMetadata(preparedAccountMetadata)
+    );
+
+    return await setAccountMetadata({
+      onCompleted: async () => {
+        form.setValue("creatorCoinAddress", "", {
+          shouldDirty: true,
+          shouldTouch: true,
+          shouldValidate: true
+        });
+      },
+      variables: { request: { metadataUri } }
+    });
+  };
+
   return (
     <Form className="space-y-3" form={form} onSubmit={onSubmit}>
       <Input
@@ -137,6 +181,26 @@ const CreatorCoin = () => {
         type="text"
         {...form.register("creatorCoinAddress")}
       />
+      {!savedCreatorCoinAddress && creatorCoinFromZora ? (
+        <Card className="p-5">
+          <div className="space-y-1">
+            <div>You have a creator coin available to set</div>
+            <button
+              className="text-gray-500 text-sm underline"
+              onClick={() => {
+                form.setValue("creatorCoinAddress", creatorCoinFromZora, {
+                  shouldDirty: true,
+                  shouldTouch: true,
+                  shouldValidate: true
+                });
+              }}
+              type="button"
+            >
+              {creatorCoinFromZora}
+            </button>
+          </div>
+        </Card>
+      ) : null}
       {isValidAddress && (
         <>
           {isFetchingCoin && (
@@ -164,9 +228,23 @@ const CreatorCoin = () => {
           )}
         </>
       )}
-      <div className="flex justify-end">
+      <div className="flex space-x-2">
+        {savedCreatorCoinAddress ? (
+          <Button
+            className="w-full"
+            disabled={
+              isSubmitting || (!creatorCoinAddress && !savedCreatorCoinAddress)
+            }
+            loading={isSubmitting}
+            onClick={handleRemove}
+            outline
+            type="button"
+          >
+            Remove
+          </Button>
+        ) : null}
         <Button
-          className="ml-auto"
+          className="w-full"
           disabled={
             isSubmitting || !form.formState.isDirty || !isValidAddress || !coin
           }
