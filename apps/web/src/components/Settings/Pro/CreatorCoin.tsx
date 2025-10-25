@@ -85,9 +85,7 @@ const CreatorCoin = () => {
   );
 
   const form = useZodForm({
-    defaultValues: {
-      creatorCoinAddress: savedCreatorCoinAddress
-    },
+    defaultValues: { creatorCoinAddress: savedCreatorCoinAddress },
     schema: ValidationSchema
   });
 
@@ -95,16 +93,8 @@ const CreatorCoin = () => {
   const isValidAddress = Regex.evmAddress.test(creatorCoinAddress || "");
 
   useEffect(() => {
-    if (!creatorCoinAddress) return;
-    const match = creatorCoinAddress.match(/0x[\da-fA-F]{40}/);
-    if (match?.[0] && match[0] !== creatorCoinAddress) {
-      form.setValue("creatorCoinAddress", match[0], {
-        shouldDirty: true,
-        shouldTouch: true,
-        shouldValidate: true
-      });
-    }
-  }, [creatorCoinAddress, form]);
+    form.setValue("creatorCoinAddress", savedCreatorCoinAddress);
+  }, [savedCreatorCoinAddress, form]);
 
   const { data: coin, isFetching: isFetchingCoin } = useQuery<
     GetCoinResponse["zora20Token"] | null
@@ -162,13 +152,6 @@ const CreatorCoin = () => {
     );
 
     return await setAccountMetadata({
-      onCompleted: async () => {
-        form.setValue("creatorCoinAddress", "", {
-          shouldDirty: true,
-          shouldTouch: true,
-          shouldValidate: true
-        });
-      },
       variables: { request: { metadataUri } }
     });
   };
