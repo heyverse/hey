@@ -8,7 +8,7 @@ export const LENS_NETWORK = process.env.LENS_NETWORK || "mainnet";
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const HEY_APP = getEnvConfig().appAddress;
-export const HEY_TREASURY = "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
+export const HEY_TREASURY = "0x6969695d6C04ccBe83A9Fea12F54f82e2276e231";
 export const HEY_API_URL = process.env.HEY_API_URL || "https://api.hey.xyz";
 
 export const IS_MAINNET = LENS_API_URL === LENS_ENDPOINT.Mainnet;
