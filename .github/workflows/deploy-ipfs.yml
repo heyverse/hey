@@ -1,0 +1,43 @@
+name: Deploy web to IPFS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.17.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web app
+        run: pnpm -F @hey/web build
+
+      - name: Upload dist to IPFS (public node)
+        id: ipfs
+        uses: aquiladev/ipfs-action@master
+        with:
+          path: apps/web/dist
+          service: ipfs
+
+      - name: Output IPFS deployment info
+        run: |
+          echo "IPFS CID: ${{ steps.ipfs.outputs.cid }}"
