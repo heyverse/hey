@@ -7,7 +7,6 @@ import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
 import ensRouter from "./routes/ens";
 import metadataRouter from "./routes/metadata";
-import ogRouter from "./routes/og";
 import ping from "./routes/ping";
 
 const log = withPrefix("[API]");
@@ -19,7 +18,6 @@ app.use(authContext);
 
 app.get("/ping", ping);
 app.route("/metadata", metadataRouter);
-app.route("/og", ogRouter);
 app.route("/ens", ensRouter);
 
 app.notFound((ctx) =>
