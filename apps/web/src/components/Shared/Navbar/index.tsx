@@ -33,7 +33,6 @@ import {
   useState
 } from "react";
 import { Link, useLocation } from "react-router";
-import Pro from "@/components/Shared/Navbar/NavItems/Pro";
 import { Image, Spinner, Tooltip } from "@/components/Shared/UI";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
@@ -188,7 +187,7 @@ const Navbar = () => {
       <NavItems isLoggedIn={!!currentAccount} />
       {currentAccount ? (
         <>
-          <Pro />
+          {/* <Pro /> */}
           <SignedAccount />
         </>
       ) : (
