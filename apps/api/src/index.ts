@@ -5,7 +5,6 @@ import { withPrefix } from "@hey/helpers/logger";
 import { Hono } from "hono";
 import authContext from "./context/authContext";
 import cors from "./middlewares/cors";
-import cronRouter from "./routes/cron";
 import ensRouter from "./routes/ens";
 import metadataRouter from "./routes/metadata";
 import ogRouter from "./routes/og";
@@ -19,7 +18,6 @@ app.use(cors);
 app.use(authContext);
 
 app.get("/ping", ping);
-app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);
 app.route("/og", ogRouter);
 app.route("/ens", ensRouter);
