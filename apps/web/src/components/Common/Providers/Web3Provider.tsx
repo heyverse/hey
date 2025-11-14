@@ -1,7 +1,6 @@
 import {
   BASE_RPC_URL,
   CHAIN,
-  IS_MAINNET,
   WALLETCONNECT_PROJECT_ID
 } from "@hey/data/constants";
 import { familyAccountsConnector } from "family";
@@ -22,7 +21,7 @@ const config = createConfig({
   chains: [CHAIN, base],
   connectors,
   transports: {
-    [CHAIN.id]: getRpc({ mainnet: IS_MAINNET }),
+    [CHAIN.id]: getRpc(),
     [base.id]: http(BASE_RPC_URL, { batch: { batchSize: 30 } })
   }
 });

@@ -1,9 +1,8 @@
-import { IS_MAINNET } from "./constants";
-import { MAINNET_CONTRACTS, TESTNET_CONTRACTS } from "./contracts";
+import { CONTRACTS } from "./contracts";
 
-const mainnetTokens = [
+export const tokens = [
   {
-    contractAddress: MAINNET_CONTRACTS.defaultToken,
+    contractAddress: CONTRACTS.defaultToken,
     decimals: 18,
     name: "Wrapped GHO",
     symbol: "WGHO"
@@ -15,14 +14,3 @@ const mainnetTokens = [
     symbol: "BONSAI"
   }
 ];
-
-const testnetTokens = [
-  {
-    contractAddress: TESTNET_CONTRACTS.defaultToken,
-    decimals: 18,
-    name: "Wrapped Grass",
-    symbol: "WGRASS"
-  }
-];
-
-export const tokens = IS_MAINNET ? mainnetTokens : testnetTokens;

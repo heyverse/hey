@@ -1,8 +1,7 @@
 import { chains } from "@lens-chain/sdk/viem";
-import { LENS_ENDPOINT } from "./lens-endpoints";
 import getEnvConfig from "./utils/getEnvConfig";
 
-// Lens and Hey Env Config
+// Lens and Hey Env Config (mainnet only)
 export const LENS_NETWORK = "mainnet";
 
 export const LENS_API_URL = getEnvConfig().lensApiEndpoint;
@@ -11,8 +10,8 @@ export const HEY_APP = getEnvConfig().appAddress;
 export const HEY_TREASURY = "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
 export const HEY_API_URL = "https://api.hey.xyz";
 
-export const IS_MAINNET = LENS_API_URL === LENS_ENDPOINT.Mainnet;
-export const CHAIN = IS_MAINNET ? chains.mainnet : chains.testnet;
+export const IS_MAINNET = true;
+export const CHAIN = chains.mainnet;
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 
 // Subscription
@@ -27,9 +26,7 @@ export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const LENS_MEDIA_SNAPSHOT_URL = "https://ik.imagekit.io/lens";
 export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
-export const BLOCK_EXPLORER_URL = IS_MAINNET
-  ? "https://lenscan.io"
-  : "https://testnet.lenscan.io";
+export const BLOCK_EXPLORER_URL = "https://lenscan.io";
 export const BASE_RPC_URL = "https://base.llamarpc.com";
 
 // Storage
@@ -46,8 +43,8 @@ export const ZORA_API_KEY =
   "zora_api_2b019182fe376a45b4495c89bbb18393d6d529ef9e9d0c799321116a8bfb8f47";
 
 export const LENS_NAMESPACE = "lens/";
-export const NATIVE_TOKEN_SYMBOL = IS_MAINNET ? "GHO" : "GRASS";
-export const WRAPPED_NATIVE_TOKEN_SYMBOL = IS_MAINNET ? "WGHO" : "WGRASS";
+export const NATIVE_TOKEN_SYMBOL = "GHO";
+export const WRAPPED_NATIVE_TOKEN_SYMBOL = "WGHO";
 
 export const MAX_IMAGE_UPLOAD = 8;
 

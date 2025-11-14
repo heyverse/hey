@@ -1,6 +1,5 @@
 import {
   DEFAULT_COLLECT_TOKEN,
-  IS_MAINNET,
   MeVariables,
   STATIC_IMAGES_URL,
   WRAPPED_NATIVE_TOKEN_SYMBOL
@@ -140,9 +139,7 @@ const SuperFollow = () => {
               <Image
                 alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
                 className="size-5 rounded-full"
-                src={`${STATIC_IMAGES_URL}/tokens/${
-                  IS_MAINNET ? "gho.svg" : "grass.svg"
-                }`}
+                src={`${STATIC_IMAGES_URL}/tokens/gho.svg`}
               />
             </Tooltip>
           }

@@ -1,7 +1,6 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import EnvironmentPlugin from "vite-plugin-environment";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 const dependenciesToChunk = {
@@ -68,13 +67,5 @@ export default defineConfig({
     sourcemap: true,
     target: "esnext"
   },
-  plugins: [
-    tsconfigPaths(),
-    react(),
-    tailwindcss(),
-    EnvironmentPlugin({
-      HEY_API_URL: "https://api.hey.xyz",
-      LENS_NETWORK: undefined
-    })
-  ]
+  plugins: [tsconfigPaths(), react(), tailwindcss()]
 });

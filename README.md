@@ -58,16 +58,10 @@ The example environment files define the following variables:
 
 #### API (`apps/api/.env.example`)
 
-- `LENS_NETWORK` – Lens network to use (`mainnet`, `testnet`, or `staging`).
-- `LENS_DATABASE_URL` – Read-only Postgres connection for Lens data.
 - `PRIVATE_KEY` – Private key used to sign Lens requests.
 - `EVER_ACCESS_KEY` – Access key for 4EVERLAND storage.
 - `EVER_ACCESS_SECRET` – Secret key for 4EVERLAND storage.
 - `SHARED_SECRET` – Token for internal API authorization.
-
-#### Web (`apps/web/.env.example`)
-
-- `LENS_NETWORK` – Lens network used by the web app.
 
 ### Start the Development Server
 

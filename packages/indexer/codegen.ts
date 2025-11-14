@@ -1,5 +1,4 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
-import { LENS_ENDPOINT } from "@hey/data/lens-endpoints";
 
 const config: CodegenConfig = {
   config: {
@@ -29,7 +28,7 @@ const config: CodegenConfig = {
   },
   hooks: { afterAllFileWrite: ["biome format --write ."] },
   overwrite: true,
-  schema: LENS_ENDPOINT.Mainnet
+  schema: "https://api.lens.xyz/graphql"
 };
 
 export default config;
