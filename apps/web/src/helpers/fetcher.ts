@@ -1,6 +1,6 @@
 import { HEY_API_URL } from "@hey/data/constants";
 import { Status } from "@hey/data/enums";
-import type { Oembed, STS } from "@hey/types/api";
+import type { STS } from "@hey/types/api";
 import { hydrateAuthTokens } from "@/store/persisted/useAuthStore";
 import { isTokenExpiringSoon, refreshTokens } from "./tokenManager";
 
@@ -65,11 +65,6 @@ export const hono = {
   metadata: {
     sts: (): Promise<STS> => {
       return fetchApi<STS>("/metadata/sts", { method: "GET" });
-    }
-  },
-  oembed: {
-    get: (url: string): Promise<Oembed> => {
-      return fetchApi<Oembed>(`/oembed/get?url=${url}`, { method: "GET" });
     }
   }
 };

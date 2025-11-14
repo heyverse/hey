@@ -22,7 +22,6 @@
     "hono": "^4.10.2",
     "hono-rate-limiter": "^0.4.2",
     "jose": "^6.1.0",
-    "linkedom": "^0.18.12",
     "pg-promise": "^12.2.0",
     "tsx": "^4.20.6",
     "viem": "^2.38.3",

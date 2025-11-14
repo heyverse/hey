@@ -8,7 +8,6 @@ import cors from "./middlewares/cors";
 import cronRouter from "./routes/cron";
 import ensRouter from "./routes/ens";
 import metadataRouter from "./routes/metadata";
-import oembedRouter from "./routes/oembed";
 import ogRouter from "./routes/og";
 import ping from "./routes/ping";
 
@@ -22,7 +21,6 @@ app.use(authContext);
 app.get("/ping", ping);
 app.route("/cron", cronRouter);
 app.route("/metadata", metadataRouter);
-app.route("/oembed", oembedRouter);
 app.route("/og", ogRouter);
 app.route("/ens", ensRouter);
 
